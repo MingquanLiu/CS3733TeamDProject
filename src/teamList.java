@@ -1,11 +1,12 @@
 public class teamList {
     public static void main(String[] args) {
-	System.println.out("Daniel Wivagg");       
-	System.println.out("Kenneth_Quartuccio");
-        System.println.out("Treksh_Marwaha");
-        System.println.out("Yufei_Gao");
-        System.println.out("Ben Newmark");
-        System.println.out("Michael Abadjiev");
-	System.println.out("Mingquan Liu");
+	System.out.println("Daniel Wivagg");
+	System.out.println("Kenneth_Quartuccio");
+        System.out.println("Treksh_Marwaha");
+        System.out.println("Yufei_Gao");
+        System.out.println("Ben Newmark");
+        System.out.println("Michael Abadjiev");
+	System.out.println("Mingquan Liu");
+	System.out.println("Shreeja Bhattacharjee");
     }
 }
