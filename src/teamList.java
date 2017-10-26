@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
-
 public class teamList {
+    public static void main(String[] args) {
+    }
 }
