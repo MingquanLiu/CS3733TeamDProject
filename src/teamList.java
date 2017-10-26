@@ -3,5 +3,6 @@ public class teamList {
 	System.println.out("Daniel Wivagg");       
 	System.println.out("Kenneth_Quartuccio");
         System.println.out("Treksh_Marwaha");
+        System.println.out("Yufei_Gao");
     }
 }
