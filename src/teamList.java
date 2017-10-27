@@ -8,5 +8,6 @@ public class teamList {
         System.out.println("Michael Abadjiev");
 	System.out.println("Mingquan Liu");
 	System.out.println("Shreeja Bhattacharjee");
+	System.out.println("Maggie Goodwin");
     }
 }
