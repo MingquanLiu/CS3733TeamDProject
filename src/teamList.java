@@ -6,8 +6,9 @@ public class teamList {
         System.out.println("Yufei_Gao");
         System.out.println("Ben Newmark");
         System.out.println("Michael Abadjiev");
-	System.out.println("Mingquan Liu");
-	System.out.println("Shreeja Bhattacharjee");
 	System.out.println("Maggie Goodwin");
+	    System.out.println("Mingquan Liu");
+	    System.out.println("Shreeja Bhattacharjee");
+        System.println.out("Haiau Duong");
     }
 }
