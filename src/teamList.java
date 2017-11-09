@@ -9,7 +9,7 @@ public class teamList {
 	    System.out.println("Maggie Goodwin");
 	    System.out.println("Mingquan Liu");
 	    System.out.println("Shreeja Bhattacharjee");
-        System.println.out("Haiau Duong");
+        System.out.println("Haiau Duong");
         System.out.println("David Swenarton");
     }
 }
