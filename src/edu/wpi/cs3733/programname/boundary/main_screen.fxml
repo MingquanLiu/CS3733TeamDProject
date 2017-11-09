@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.MainUI">
+   <children>
+      <ImageView fitHeight="561.0" fitWidth="940.0" layoutX="-7.0" layoutY="-5.0">
+         <image>
+            <Image url="@../../../../../../../../Desktop/mike/WPI/CS 3733/UI mockups/secondRight.PNG" />
+         </image>
+      </ImageView>
+      <TitledPane animated="false" layoutX="721.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="721.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane layoutX="19.6" layoutY="377.0" prefHeight="147.0" prefWidth="181.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                     <children>
+                        <Button layoutX="121.0" layoutY="108.0" mnemonicParsing="false" text="Sign in" />
+                        <PasswordField layoutX="50.0" layoutY="74.0" prefHeight="25.0" prefWidth="110.0" />
+                        <TextField layoutX="50.0" layoutY="35.0" prefHeight="25.0" prefWidth="110.0" />
+                        <Label layoutX="14.0" layoutY="39.0" text="User" />
+                        <Label layoutX="14.0" layoutY="78.0" text="Pass" />
+                        <Label layoutX="45.0" layoutY="6.0" text="Admin Logon" />
+                        <Button layoutX="56.0" layoutY="107.0" mnemonicParsing="false" text="Cancel" />
+                     </children>
+                  </AnchorPane>
+                  <Button layoutX="16.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Locate Restrooms" />
+                  <Button layoutX="16.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Locate Vending Machines" />
+                  <Button layoutX="16.0" layoutY="84.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Locate Service Desks" />
+                  <AnchorPane layoutX="14.0" layoutY="115.0" prefHeight="163.0" prefWidth="172.0">
+                     <children>
+                        <Button layoutX="2.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Transportation Request" />
+                        <Button layoutX="2.0" layoutY="72.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Interpreter request" />
+                        <Button layoutX="2.0" layoutY="37.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="168.0" text="Maintenance request" />
+                        <Button layoutX="2.0" layoutY="107.0" minHeight="25.0" mnemonicParsing="false" prefWidth="168.0" text="Map Update" />
+                        <Button layoutX="39.0" layoutY="142.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="View Requests" />
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+        </content>
+      </TitledPane>
+      <TextField layoutX="298.0" layoutY="37.0" prefHeight="25.0" prefWidth="293.0" promptText="ending location">
+         <effect>
+            <DropShadow />
+         </effect></TextField>
+      <TextField layoutX="9.0" layoutY="37.0" prefHeight="25.0" prefWidth="273.0" promptText="starting location">
+         <effect>
+            <DropShadow />
+         </effect></TextField>
+      <Button layoutX="662.0" layoutY="38.0" mnemonicParsing="false" prefWidth="50.0" text="Clear">
+         <effect>
+            <DropShadow />
+         </effect></Button>
+      <DialogPane layoutX="176.0" layoutY="118.0" prefHeight="340.0" prefWidth="449.0" visible="false">
+         <content>
+            <AnchorPane prefHeight="80.0" prefWidth="449.0">
+               <children>
+                  <ListView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="387.0" layoutY="260.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Close Request" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Button layoutX="226.0" layoutY="260.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Close Window" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="120.0" />
+               </children>
+            </AnchorPane>
+         </content>
+         <header>
+            <Label text="Open Service Requests">
+               <padding>
+                  <Insets left="10.0" top="5.0" />
+               </padding>
+            </Label>
+         </header>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="63.17" radius="31.415" spread="0.3" width="64.49" />
+         </effect>
+      </DialogPane>
+      <Button layoutX="616.0" layoutY="38.0" mnemonicParsing="false" text="Go">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Label layoutX="13.0" layoutY="13.0" prefWidth="273.0" text="Location Direction Search">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
