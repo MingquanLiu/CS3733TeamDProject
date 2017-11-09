@@ -18,7 +18,7 @@
    <children>
       <ImageView fitHeight="561.0" fitWidth="940.0" layoutX="-7.0" layoutY="-5.0">
          <image>
-            <Image url="@../../../../../../../../Desktop/mike/WPI/CS 3733/UI mockups/secondRight.PNG" />
+            <Image url="@Resources/secondRight.PNG" />
          </image>
       </ImageView>
       <TitledPane animated="false" layoutX="721.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="721.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
