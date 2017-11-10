@@ -13,8 +13,7 @@ public class ServiceRequestController {
      */
     public createServiceRequest(Employee sender, RequestType type){
         // get the local time and date
-        LocalDateTime date = new LocalDateTime();
-        date = LocalDateTime.now();
+        LocalDateTime date = LocalDateTime.now();
         ServiceRequest newRequest = new ServiceRequest(sender, date, type);
     }
 
