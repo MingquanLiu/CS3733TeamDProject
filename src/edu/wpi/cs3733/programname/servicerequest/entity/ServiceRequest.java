@@ -5,7 +5,6 @@ public class ServiceRequest {
     private LocalDateTime date;
     private Enumeration<RequestType> type;
 
-
     /**
      * constructor for class ServiceRequest
      * @param sender the employee who sent the service request
@@ -17,7 +16,5 @@ public class ServiceRequest {
         this.date = date;
         this.type = type;
     }
-
-
 
 }
