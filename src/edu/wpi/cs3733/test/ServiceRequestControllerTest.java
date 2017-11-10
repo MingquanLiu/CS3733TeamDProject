@@ -6,9 +6,11 @@ import static junit.framework.TestCase.assertEquals;
 
 public class ServiceRequestControllerTest {
 
+    /*
     @Test
     public void createServiceRequestTest1(){
-        assertEquals(1,1);
+        assertTrue(1,1);
     }
+    */
 
 }
