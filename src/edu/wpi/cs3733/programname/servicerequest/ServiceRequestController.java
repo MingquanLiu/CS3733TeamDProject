@@ -12,9 +12,9 @@ public class ServiceRequestController {
      * @param type the type of the service request
      */
     public createServiceRequest(Employee sender, RequestType type){
-        // get the local time and date
-        LocalDateTime date = LocalDateTime.now();
-        ServiceRequest newRequest = new ServiceRequest(sender, date, type);
+        // get the local time
+        LocalDateTime time = LocalDateTime.now();
+        ServiceRequest newRequest = new ServiceRequest(sender, time, type);
     }
 
 }
