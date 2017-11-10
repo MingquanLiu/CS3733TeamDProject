@@ -16,7 +16,7 @@ public class AStar {
     }
 
 
-    // Takes in a starting node and a destination node and calculates a path from start to finish
+    // calculates a path from start to finish
     public LinkedList<StarNode> pathFind() {}
 
 
