@@ -9,7 +9,9 @@ public class DBModConTest {
 
 
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
+    Coordinate replacedBathroomCoord = new Coordinate(5124, 625);
     NodeData aBathroom = new NodeData ("DREST00102", aBathroomCoord, "REST","Restroom B elevator Floor 2", "Restroom B");
+    NodeData newBathroom = new NodeData ("DREST00102", replacedBathroomCoord, "REST","Restroom B elevator Floor 2", "Restroom B");
     DatabaseModficationController theDBModControl = new DatabaseModificationController ();
 
     @Test
@@ -24,6 +26,6 @@ public class DBModConTest {
 
     @Test
     public String editNode1(){
-        assertEquals("")
+        assertEquals("update Node set xcoord = 4125, ycoord = 625, nodeType = REST, longName = Restroom B elevator Floor 2, shortName = Restroom Bwhere nodeID = DREST00102", theDBModControl.editNode(newBathroom));
     }
 }
