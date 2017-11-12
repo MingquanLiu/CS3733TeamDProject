@@ -115,8 +115,20 @@ public class DatabaseModificationController {
         return str;
     }
 
-    public String deleteEdge(Edge edge){
-
+    public String deleteEdge(Edge data){
+        String id = data.getId();
+        try {
+            Statement stmt = connection.createStatement();
+            String str ="delete from Edges where edgeID = " + id;
+            stmt.executeUpdate(str);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Delete Edge Failed!");
+            e.printStackTrace();
+            return "Delete Edge Failed!";
+        }
+        return str;
     }
 
 }
