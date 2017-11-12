@@ -33,4 +33,15 @@ public class NodeData {
         return this.location.getY();
     }
 
+    public String getType(){
+        return this.type;
+    }
+
+    public String getLongName() {
+        return this.longName;
+    }
+
+    public String getShortName() {
+        return this.shortName;
+    }
 }
