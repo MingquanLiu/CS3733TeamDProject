@@ -59,7 +59,21 @@ public class DatabaseModificationController {
         return stmt;
     }
 
-    public String editNode(NodeData node){
+    public String editNode(NodeData data){
+//        String id = data.getId();
+//        try {
+//            Statement stmt1 = connection.createStatement();
+//            // expected "insert into Node values (id, x, y, type, longName, shortName)"
+//            String str = "insert into Node values(" + id + ", " + x + ", " + y + ", " + type + ", "+ longName + ", "+ shortName + ")";
+//            stmt1.executeUpdate(str);
+//            stmt1.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println("Edit Node Failed!");
+//            e.printStackTrace();
+//            return;
+//        }
+//        return stmt;
 
     }
 
