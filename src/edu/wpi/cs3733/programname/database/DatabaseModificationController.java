@@ -54,20 +54,22 @@ public class DatabaseModificationController {
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-        Connection connection = connectToDB();
+        //Connection connection = connectToDB();
         String str;
-        try {
-            Statement stmt = connection.createStatement();
-            // expected "insert into Nodes values (id, x, y, type, longName, shortName)"
-            str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
-            stmt.executeUpdate(str);
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
-            e.printStackTrace();
-            return "Insert Node Failed!";
-        }
+        // just for testing
+        str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
+//        try {
+//            Statement stmt = connection.createStatement();
+//            // expected "insert into Nodes values (id, x, y, type, longName, shortName)"
+//            str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
+//            stmt.executeUpdate(str);
+//            stmt.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println("Insert Node Failed!");
+//            e.printStackTrace();
+//            return "Insert Node Failed!";
+//        }
         return str;
     }
 
@@ -78,22 +80,25 @@ public class DatabaseModificationController {
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-        Connection connection = connectToDB();
+        //Connection connection = connectToDB();
         String str;
-        try {
-            Statement stmt = connection.createStatement();
-            // expected "update Nodes set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
-            str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
-                    ", nodeType = " + type + ", longName = " + longName + ", shortName = "
-                    + shortName + "where nodeID = " + id;
-            stmt.executeUpdate(str);
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("Edit Node Failed!");
-            e.printStackTrace();
-            return "Edit Node Failed!";
-        }
+        str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
+                ", nodeType = " + type + ", longName = " + longName + ", shortName = "
+                + shortName + "where nodeID = " + id;
+//        try {
+//            Statement stmt = connection.createStatement();
+//            // expected "update Nodes set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
+//            str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
+//                    ", nodeType = " + type + ", longName = " + longName + ", shortName = "
+//                    + shortName + "where nodeID = " + id;
+//            stmt.executeUpdate(str);
+//            stmt.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println("Edit Node Failed!");
+//            e.printStackTrace();
+//            return "Edit Node Failed!";
+//        }
         return str;
     }
 
