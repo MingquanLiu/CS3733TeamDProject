@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.java.database;
+package edu.wpi.cs3733.programname.database;
 
 public class DatabaseQueryController {
 }
