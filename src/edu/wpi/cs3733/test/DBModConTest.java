@@ -1,12 +1,14 @@
 package edu.wpi.cs3733.test;
 
+
+import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
+import edu.wpi.cs3733.programname.database.DatabaseModificationController;
+
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.database.DatabaseModificationController;
 public class DBModConTest {
 
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
@@ -16,17 +18,17 @@ public class DBModConTest {
     DatabaseModificationController theDBModControl = new DatabaseModificationController();
 
     @Test
-    public String addNode1(){
+    public void checkAddNode1(){
         assertEquals("insert into Node values (DREST00102, 4125, 625, REST, Restroom B elevator Floor 2, Restroom B)", theDBModControl.addNode(aBathroom));
     }
 
     @Test
-    public String addNode2(){
+    public void checkAddNode2(){
         assertEquals("Error", theDBModControl.addNode(aBathroom));
     }
 
     @Test
-    public String editNode1(){
+    public void checkEditNode1(){
         assertEquals("update Node set xcoord = 4125, ycoord = 625, nodeType = REST, longName = Restroom B elevator Floor 2, shortName = Restroom Bwhere nodeID = DREST00102", theDBModControl.editNode(newBathroom));
     }
 }
