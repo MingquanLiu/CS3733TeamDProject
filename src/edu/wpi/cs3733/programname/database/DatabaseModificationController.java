@@ -1,10 +1,17 @@
-package edu.wpi.cs3733.programname.java.database;
+package edu.wpi.cs3733.programname.database;
+
+import edu.wpi.cs3733.programname.commondata.NodeData;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseModificationController {
 
     public DatabaseModificationController(){}
 
-/*
+
     // need to change
     String USERID = "";
     // need to change
@@ -21,7 +28,7 @@ public class DatabaseModificationController {
         e.printStackTrace();
         return;
     }
-        System.out.println("JDBC Driver Registered!");
+        System.("JDBC Driver Registered!");
     Connection connection = null;
 
         try {
@@ -34,7 +41,7 @@ public class DatabaseModificationController {
         return;
     }
         System.out.println("JDBC Driver Connected!");
-*/
+
 
     // All of the methods' return types are String, just for now
     public String addNode(NodeData data){

@@ -1,18 +1,19 @@
 package edu.wpi.cs3733.test;
 
-import com.sun.corba.se.impl.orbutil.graph.NodeData;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import edu.wpi.cs3733.programname.commondata.Coordinate;
+import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.DatabaseModificationController;
 public class DBModConTest {
-
 
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
     Coordinate replacedBathroomCoord = new Coordinate(5124, 625);
     NodeData aBathroom = new NodeData ("DREST00102", aBathroomCoord, "REST","Restroom B elevator Floor 2", "Restroom B");
     NodeData newBathroom = new NodeData ("DREST00102", replacedBathroomCoord, "REST","Restroom B elevator Floor 2", "Restroom B");
-    DatabaseModficationController theDBModControl = new DatabaseModificationController ();
+    DatabaseModificationController theDBModControl = new DatabaseModificationController();
 
     @Test
     public String addNode1(){
