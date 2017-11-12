@@ -56,7 +56,7 @@ public class DatabaseModificationController {
             e.printStackTrace();
             return;
         }
-    }
+        return stmt;
     }
 
     public String editNode(NodeData node){
