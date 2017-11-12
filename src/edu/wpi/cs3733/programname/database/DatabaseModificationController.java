@@ -54,26 +54,28 @@ public class DatabaseModificationController {
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
-            return;
+            return "Error";
         }
         return stmt;
     }
 
     public String editNode(NodeData data){
-//        String id = data.getId();
-//        try {
-//            Statement stmt1 = connection.createStatement();
-//            // expected "insert into Node values (id, x, y, type, longName, shortName)"
-//            String str = "insert into Node values(" + id + ", " + x + ", " + y + ", " + type + ", "+ longName + ", "+ shortName + ")";
-//            stmt1.executeUpdate(str);
-//            stmt1.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Edit Node Failed!");
-//            e.printStackTrace();
-//            return;
-//        }
-//        return stmt;
+        String id = data.getId();
+        try {
+            Statement stmt = connection.createStatement();
+            String str1 = "DELETE FROM Node WHERE nodeId=" + id + "";
+            // expected "insert into Node values (id, x, y, type, longName, shortName)"
+            String str2 = "insert into Node values(" + id + ", " + x + ", " + y + ", " + type + ", "+ longName + ", "+ shortName + ")";
+            stmt.executeUpdate(str1);
+            stmt.executeUpdate(str2);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Edit Node Failed!");
+            e.printStackTrace();
+            return;
+        }
+        return stmt;
 
     }
 
