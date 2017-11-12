@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.java.boundary;
+package edu.wpi.cs3733.programname.boundary.java;
 
 public class MainUI {
 }
