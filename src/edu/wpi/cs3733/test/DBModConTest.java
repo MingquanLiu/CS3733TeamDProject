@@ -18,17 +18,13 @@ public class DBModConTest {
     DatabaseModificationController theDBModControl = new DatabaseModificationController();
 
     @Test
-    public void checkAddNode1(){
-        assertEquals("insert into Node values (DREST00102, 4125, 625, REST, Restroom B elevator Floor 2, Restroom B)", theDBModControl.addNode(aBathroom));
+    public void checkAddNode(){
+        assertEquals("insert into Nodes values(DREST00102, 4125, 625, REST, Restroom B elevator Floor 2, Restroom B)", theDBModControl.addNode(aBathroom));
     }
 
-    @Test
-    public void checkAddNode2(){
-        assertEquals("Error", theDBModControl.addNode(aBathroom));
-    }
 
     @Test
-    public void checkEditNode1(){
-        assertEquals("update Node set xcoord = 4125, ycoord = 625, nodeType = REST, longName = Restroom B elevator Floor 2, shortName = Restroom Bwhere nodeID = DREST00102", theDBModControl.editNode(newBathroom));
+    public void checkEditNode(){
+        assertEquals("update Nodes set xcoord = 5124, ycoord = 625, nodeType = REST, longName = Restroom B elevator Floor 2, shortName = Restroom Bwhere nodeID = DREST00102", theDBModControl.editNode(newBathroom));
     }
 }
