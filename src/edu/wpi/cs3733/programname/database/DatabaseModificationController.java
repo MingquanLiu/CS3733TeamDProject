@@ -46,8 +46,8 @@ public class DatabaseModificationController {
         String shortName = data.getShortName();
         try {
             Statement stmt = connection.createStatement();
-            // expected "insert into Node values (id, x, y, type, longName, shortName)"
-            String str = "insert into Node values(" + id + ", " + x + ", " + y + ", " + type + ", "+ longName + ", "+ shortName + ")";
+            // expected "insert into Nodes values (id, x, y, type, longName, shortName)"
+            String str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", "+ longName + ", "+ shortName + ")";
             stmt.executeUpdate(str);
             stmt.close();
             connection.close();
@@ -68,8 +68,8 @@ public class DatabaseModificationController {
         String shortName = data.getShortName();
         try {
             Statement stmt = connection.createStatement();
-            // expected "update Node set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
-            String str ="update Node set xcoord = " + x + ", ycoord = " + y +
+            // expected "update Nodes set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
+            String str ="update Nodes set xcoord = " + x + ", ycoord = " + y +
                     ", nodeType = " + type + ", longName = " + longName + ", shortName = "
                     + shortName + "where nodeID = " + id;
             stmt.executeUpdate(str);
@@ -87,7 +87,7 @@ public class DatabaseModificationController {
         String id = data.getId();
         try {
             Statement stmt = connection.createStatement();
-            String str ="delete from Node where nodeID = " + id;
+            String str ="delete from Nodes where nodeID = " + id;
             stmt.executeUpdate(str);
             stmt.close();
             connection.close();
@@ -100,20 +100,19 @@ public class DatabaseModificationController {
     }
 
     public String addEdge(String node1Id, String node2Id){
+        String id = node1Id + "_" + node2Id;
         try {
             Statement stmt = connection.createStatement();
-            String str = "insert into Edges";
+            String str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
             stmt.executeUpdate(str);
             stmt.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println("Delete Node Failed!");
+            System.out.println("Add Edge Failed!");
             e.printStackTrace();
-            return "Delete Node Failed!";
+            return "Add edge Failed!";
         }
         return str;
-
-
     }
 
     public String deleteEdge(Edge edge){
