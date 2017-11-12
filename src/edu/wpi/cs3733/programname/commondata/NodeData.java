@@ -2,7 +2,7 @@ package edu.wpi.cs3733.programname.commondata;
 
 public class NodeData {
 
-
+    
     // returns the X coordinate of the node
     public int getX() {}
 
