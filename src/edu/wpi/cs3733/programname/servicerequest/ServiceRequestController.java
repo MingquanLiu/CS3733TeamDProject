@@ -11,7 +11,7 @@ public class ServiceRequestController {
      * @param sender the employee who sends the service request
      * @param type the type of the service request
      */
-    public createServiceRequest(Employee sender, RequestType type){
+    public void createServiceRequest(Employee sender, RequestType type){
         // get the local time
         LocalDateTime time = LocalDateTime.now();
         ServiceRequest newRequest = new ServiceRequest(sender, time, type);
