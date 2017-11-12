@@ -54,29 +54,34 @@ public class DatabaseModificationController {
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
-            return "Error";
+            return "Insert Node Failed!";
         }
         return stmt;
     }
 
     public String editNode(NodeData data){
         String id = data.getId();
+        int x = data.getX();
+        int y = data.getY();
+        String type = data.getType();
+        String longName = data.getLongName();
+        String shortName = data.getShortName();
+
         try {
             Statement stmt = connection.createStatement();
-            String str1 = "DELETE FROM Node WHERE nodeId=" + id + "";
-            // expected "insert into Node values (id, x, y, type, longName, shortName)"
-            String str2 = "insert into Node values(" + id + ", " + x + ", " + y + ", " + type + ", "+ longName + ", "+ shortName + ")";
-            stmt.executeUpdate(str1);
-            stmt.executeUpdate(str2);
+            // expected "update Node set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
+            String str ="update Node set xcoord = " + x + ", ycoord = " + y +
+                    ", nodeType = " + type + ", longName = " + longName + ", shortName = "
+                    + shortName + "where nodeID = " + id;
+            stmt.executeUpdate(str);
             stmt.close();
             connection.close();
         } catch (SQLException e) {
             System.out.println("Edit Node Failed!");
             e.printStackTrace();
-            return;
+            return "Edit Node Failed!";
         }
         return stmt;
-
     }
 
     public String deleteNode(NodeData node){
