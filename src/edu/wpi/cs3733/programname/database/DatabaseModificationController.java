@@ -85,6 +85,21 @@ public class DatabaseModificationController {
     }
 
     public String deleteNode(NodeData node){
+        String id = data.getId();
+
+        try {
+            Statement stmt = connection.createStatement();
+            // expected "update Node set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
+            String str ="delete from Node where nodeID = " + id;
+            stmt.executeUpdate(str);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Delete Node Failed!");
+            e.printStackTrace();
+            return "Delete Node Failed!";
+        }
+        return stmt;
 
     }
 
