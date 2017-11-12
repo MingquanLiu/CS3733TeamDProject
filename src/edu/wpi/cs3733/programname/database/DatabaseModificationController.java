@@ -56,7 +56,7 @@ public class DatabaseModificationController {
             e.printStackTrace();
             return "Insert Node Failed!";
         }
-        return stmt;
+        return str;
     }
 
     public String editNode(NodeData data){
@@ -66,7 +66,6 @@ public class DatabaseModificationController {
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-
         try {
             Statement stmt = connection.createStatement();
             // expected "update Node set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
@@ -81,15 +80,13 @@ public class DatabaseModificationController {
             e.printStackTrace();
             return "Edit Node Failed!";
         }
-        return stmt;
+        return str;
     }
 
     public String deleteNode(NodeData node){
         String id = data.getId();
-
         try {
             Statement stmt = connection.createStatement();
-            // expected "update Node set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
             String str ="delete from Node where nodeID = " + id;
             stmt.executeUpdate(str);
             stmt.close();
@@ -99,11 +96,23 @@ public class DatabaseModificationController {
             e.printStackTrace();
             return "Delete Node Failed!";
         }
-        return stmt;
-
+        return str;
     }
 
     public String addEdge(String node1Id, String node2Id){
+        try {
+            Statement stmt = connection.createStatement();
+            String str = "insert into Edges";
+            stmt.executeUpdate(str);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Delete Node Failed!");
+            e.printStackTrace();
+            return "Delete Node Failed!";
+        }
+        return str;
+
 
     }
 
