@@ -9,11 +9,12 @@ import java.util.List;
 
 public class PathfindingController {
 
-    public List<Edge> initializePathfind(){
+    public List<Edge> initializePathfind(String startNode, String endNode){
         ManageController manager = new ManageController();
-        List<Edge> allEdges = manager.getAllEdgeData();
+        // List<Edge> allEdges = manager.getAllEdgeData();
                 //something about getEdges()
-        return AStar.getPath(PathStrategyIF.getEdges());
+        AStar newAstar = new AStar(manager, startNode, endNode);
+        return AStar.getFinalPath();
     }
 
     // getPath needs to take in the starting node and ending node!!! its currently broken.
