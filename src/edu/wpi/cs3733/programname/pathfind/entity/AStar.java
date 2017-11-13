@@ -5,45 +5,52 @@ import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import sun.awt.image.ImageWatched;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class AStar {
     List<NodeData> allNodes;
     List<Edge> allEdges;
-    List<StarNode> allStarNodes;
+    HashMap<String, StarNode> allStarNodes;
+    List<NodeData> finalList;
 
     ManageController controller;
+
     //constructor
-    public AStar(ManageController controller){
+    public AStar(ManageController controller, String startID, String goalID){
         this.controller = controller;
+        this.init();
+        this.finalList = this.pathFind(startID, goalID);
     }
 
-    public void init() {
+    private void init() {
         allNodes = controller.getAllNodeData();
         allEdges = controller.getAllEdgeData();
         for(NodeData node: allNodes) {
-            allStarNodes.add(new StarNode(node));
-//            LinkedList<StarNode> tempNeighbors = new LinkedList<StarNode>();
-//            for(Edge edge: allEdges) {
-//                if(edge.getFirstNodeId() == node.getId()) {
-//                    tempNeighbors.add()
-//                }
-//            }
+            allStarNodes.put(node.getId(), new StarNode(node));
         }
+
         for(Edge edge: allEdges) {
-            NodeData node1 = controller.getNodeData(edge.getFirstNodeId());
-            
+            StarNode node1 = allStarNodes.get(edge.getFirstNodeId());
+            StarNode node2 = allStarNodes.get(edge.getSecondNodeId());
+
+            node1.addNeighbor(node2);
+            node2.addNeighbor(node1);
         }
+
     }
 
     // calculates a path from start to finish
-    public LinkedList<StarNode> pathFind(StarNode start, StarNode goal) {
+    private List<NodeData> pathFind(String startID, String goalID) {
+        StarNode start = allStarNodes.get(startID);
+        StarNode goal = allStarNodes.get(goalID);
+
         //list of all the nodes that are adjacent to nodes already explored
         LinkedList<StarNode> frontier = new LinkedList<StarNode>();
 
         //list of all the nodes in the path from start to finish
-        LinkedList<StarNode> finalPath = new LinkedList<StarNode>();
+        LinkedList<NodeData> finalPath = new LinkedList<NodeData>();
 
         frontier.add(start);
 
@@ -76,7 +83,7 @@ public class AStar {
     }
 
     // returns the cost of moving from the starting node to the provided node
-    public int actionCost(StarNode node) {
+    private int actionCost(StarNode node) {
         StarNode previous = node.getPreviousNode();
         int xDist = previous.getX() - node.getX();
         int yDist = previous.getY() - node.getY();
@@ -87,10 +94,14 @@ public class AStar {
 
 
     // returns the pixel distance from the provided node to the destination node
-    public int distanceToGo(StarNode node, StarNode goal) {
+    private int distanceToGo(StarNode node, StarNode goal) {
         int xDist = goal.getX() - node.getX();
         int yDist = goal.getY() - node.getY();
         double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
         return (int)distToGo;
+    }
+
+    public List<NodeData> getFinalList() {
+        return finalList;
     }
 }
