@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.java.commondata;
+package edu.wpi.cs3733.programname.commondata;
 
 public class Constants {
 }

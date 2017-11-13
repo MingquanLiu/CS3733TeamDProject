@@ -11,7 +11,7 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
 
     public StarNode(LinkedList<StarNode> neighbors, NodeData node) {
         this.neighbors = neighbors;
-        
+
     }
 
     public LinkedList<StarNode> getNeighbors() {
