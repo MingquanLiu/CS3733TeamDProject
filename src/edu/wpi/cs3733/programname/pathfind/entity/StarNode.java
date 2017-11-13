@@ -1,11 +1,54 @@
+/**
+ * Star node class is a wrapper for NodeData with the extra fields
+ * neighbors: list of connected nodes to this node
+ * previous node: the node that this node was accessed through in pathfinding
+ * f, g: cost to travel to this node and action cost, respectively
+ */
+
 package edu.wpi.cs3733.programname.pathfind.entity;
 
-public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
-    int f, g, h;
+import edu.wpi.cs3733.programname.commondata.NodeData;
 
-    public StarNode(int f, int g, int h) {
+import java.util.LinkedList;
+
+public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
+    protected int f, g;
+    protected StarNode previousNode;
+    protected LinkedList<StarNode> neighbors;
+
+    public StarNode(NodeData node) {
+        super(node.getId(), node.getLocation(), node.getType(), node.getLongName(), node.getShortName());
+    }
+
+    public LinkedList<StarNode> getNeighbors() {
+        return neighbors;
+    }
+
+    public void addNeighbor(StarNode neighbor) {
+        neighbors.add(neighbor);
+    }
+
+    public StarNode getPreviousNode() {
+        return previousNode;
+    }
+
+    public void setPreviousNode(StarNode previousNode) {
+        this.previousNode = previousNode;
+    }
+
+    public int getF() {
+        return this.f;
+    }
+
+    public void setF(int f) {
         this.f = f;
+    }
+
+    public int getG() {
+        return this.g;
+    }
+
+    public void setG(int g) {
         this.g = g;
-        this.h = h;
     }
 }
