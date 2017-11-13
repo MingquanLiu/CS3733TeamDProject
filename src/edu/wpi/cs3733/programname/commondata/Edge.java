@@ -4,10 +4,12 @@ public class Edge {
 
     private String firstNodeId;
     private String secondNodeId;
+    private String edgeId;
 
-    public Edge(String first, String second) {
+    public Edge(String first, String second, String edgeId) {
         this.firstNodeId = first;
         this.secondNodeId = second;
+        this.edgeId = edgeId;
     }
 
     public String getFirstNodeId() {
@@ -24,5 +26,13 @@ public class Edge {
 
     public void setSecondNodeId(String secondNodeId) {
         this.secondNodeId = secondNodeId;
+    }
+
+    public String getEdgeId() {
+        return edgeId;
+    }
+
+    public void setEdgeId(String edgeId) {
+        this.edgeId = edgeId;
     }
 }
