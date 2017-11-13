@@ -47,7 +47,8 @@ public class DatabaseModificationController {
         return connection;
     }
 
-    // All of the methods' return types are String, just for now
+    // All of the methods' return types are String and they cannot actually connect to the database
+    // But we are able to test if the sql code the function generated is what we want
     public String addNode(NodeData data) {
         String id = data.getId();
         int x = data.getX();
