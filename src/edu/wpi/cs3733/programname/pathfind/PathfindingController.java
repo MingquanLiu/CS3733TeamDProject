@@ -11,13 +11,11 @@ public class PathfindingController {
 
     public List<Edge> initializePathfind(){
         ManageController manager = new ManageController();
-        List<Edge> allEdges = manager.getAllEdgeData()
+        List<Edge> allEdges = manager.getAllEdgeData();
                 //something about getEdges()
+        return AStar.getPath(PathStrategyIF.getEdges());
         return null; //return the getedges
     }
 
-    private List<Edge> initializeAstar(List<Edge> edges){
-        AStar.getPath(PathStrategyIF.getEdges());
-        return null;
-    }
+
 }
