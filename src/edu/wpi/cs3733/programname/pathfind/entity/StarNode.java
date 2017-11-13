@@ -1,3 +1,10 @@
+/**
+ * Star node class is a wrapper for NodeData with the extra fields
+ * neighbors: list of connected nodes to this node
+ * previous node: the node that this node was accessed through in pathfinding
+ * f, g: cost to travel to this node and action cost, respectively
+ */
+
 package edu.wpi.cs3733.programname.pathfind.entity;
 
 import edu.wpi.cs3733.programname.commondata.NodeData;

@@ -1,9 +1,13 @@
+/**
+ * AStar class: create an AStar object each time you want to find a new path
+ * Then call AStar.getFinalList() to get the list of nodes along the path
+ *
+ */
 package edu.wpi.cs3733.programname.pathfind.entity;
 
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import sun.awt.image.ImageWatched;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,6 +16,8 @@ import java.util.List;
 public class AStar {
     List<NodeData> allNodes;
     List<Edge> allEdges;
+
+    // We need a HashMap so we can access StarNodes via the corresponding nodeID
     HashMap<String, StarNode> allStarNodes;
     List<NodeData> finalList;
 
@@ -24,10 +30,12 @@ public class AStar {
         this.finalList = this.pathFind(startID, goalID);
     }
 
+    // Call to update the whole list of StarNodes
     private void init() {
         allNodes = controller.getAllNodeData();
         allEdges = controller.getAllEdgeData();
         for(NodeData node: allNodes) {
+            // Creates the StarNodes
             allStarNodes.put(node.getId(), new StarNode(node));
         }
 
@@ -58,8 +66,9 @@ public class AStar {
 
         while(!frontier.isEmpty()) {
             StarNode current = frontier.getFirst();
-            frontier.removeFirst();
+            frontier.removeFirst(); // pop the priority queue
             if(current.getX() == goal.getX() && current.getY() == goal.getY()) {
+                // If we are at the goal, we need to backtrack through the shortest path
                 System.out.println("At target!");
                 while(!(current.getX() == start.getX() && current.getY() == start.getY())) {
                     finalPath.add(current.getPreviousNode());
@@ -68,10 +77,16 @@ public class AStar {
                 return finalPath;
             }
             else {
+                // we need to get all the neighbor nodes, identify their costs, and put them into the queue
                 LinkedList<StarNode> neighbors = current.getNeighbors();
+                // we also need to remove the previous node from the list of neighbors because we do not want
+                // to backtrack
+                // TODO: someone please verify this
+                neighbors.remove(current.getPreviousNode());
                 for (StarNode newnode : neighbors) {
                     newnode.setPreviousNode(current);
                     newnode.setF(actionCost(newnode) + distanceToGo(newnode, goal));
+                    // this is where the node is put in the right place in the queue
                     for (int i = 0; i < frontier.size(); i++) {
                         if (newnode.f < frontier.get(i).f)
                             frontier.add(i - 1, newnode); // This is where stuff maybe blows up
