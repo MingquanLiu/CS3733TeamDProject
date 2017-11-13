@@ -7,15 +7,18 @@ import java.util.LinkedList;
 public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
     protected int f, g;
     protected StarNode previousNode;
-    LinkedList<StarNode> neighbors;
+    protected LinkedList<StarNode> neighbors;
 
-    public StarNode(LinkedList<StarNode> neighbors, NodeData node) {
-        this.neighbors = neighbors;
-
+    public StarNode(NodeData node) {
+        super(node.getId(), node.getLocation(), node.getType(), node.getLongName(), node.getShortName());
     }
 
     public LinkedList<StarNode> getNeighbors() {
         return neighbors;
+    }
+
+    public void addNeighbor(StarNode neighbor) {
+        neighbors.add(neighbor);
     }
 
     public StarNode getPreviousNode() {
@@ -27,7 +30,7 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
     }
 
     public int getF() {
-        return f;
+        return this.f;
     }
 
     public void setF(int f) {
@@ -35,7 +38,7 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
     }
 
     public int getG() {
-        return g;
+        return this.g;
     }
 
     public void setG(int g) {

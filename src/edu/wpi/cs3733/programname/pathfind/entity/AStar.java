@@ -1,16 +1,40 @@
 package edu.wpi.cs3733.programname.pathfind.entity;
 
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.NodeData;
+import sun.awt.image.ImageWatched;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class AStar {
-    LinkedList<>
+    List<NodeData> allNodes;
+    List<Edge> allEdges;
+    List<StarNode> allStarNodes;
+
+    ManageController controller;
     //constructor
-    public AStar(ManageController controller){ }
+    public AStar(ManageController controller){
+        this.controller = controller;
+    }
 
     public void init() {
-
+        allNodes = controller.getAllNodeData();
+        allEdges = controller.getAllEdgeData();
+        for(NodeData node: allNodes) {
+            allStarNodes.add(new StarNode(node));
+//            LinkedList<StarNode> tempNeighbors = new LinkedList<StarNode>();
+//            for(Edge edge: allEdges) {
+//                if(edge.getFirstNodeId() == node.getId()) {
+//                    tempNeighbors.add()
+//                }
+//            }
+        }
+        for(Edge edge: allEdges) {
+            NodeData node1 = controller.getNodeData(edge.getFirstNodeId());
+            
+        }
     }
 
     // calculates a path from start to finish
