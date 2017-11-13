@@ -20,7 +20,7 @@ public class DatabaseModificationController {
         // need to change
         String PASSWORD = "";
 
-        System.out.println("-------JDBC COnnection Testing ---------");
+        System.out.println("-------JDBC Connection Testing ---------");
         try {
             // need to change
             Class.forName("oracle.jdbc.driver.OracleDriver");

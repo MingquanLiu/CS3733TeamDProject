@@ -1,7 +1,9 @@
+package edu.wpi.cs3733.test;
+
 import org.junit.Assert;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
-package edu.wpi.cs3733.test;
+
 
 
 public class ExampleTest {
@@ -45,5 +47,7 @@ public class ExampleTest {
     public void testDistanceToGoIntermediate() {
         Assert.assertEquals(Astarexample.DistanceToGo(intermediatenodenode), 0, 0); //TODO add correct value
     }
+
+
 
 }
