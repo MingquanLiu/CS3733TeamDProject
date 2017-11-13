@@ -5,6 +5,11 @@ public class Edge {
     private String firstNodeId;
     private String secondNodeId;
 
+    public Edge(String first, String second) {
+        this.firstNodeId = first;
+        this.secondNodeId = second;
+    }
+
     public String getFirstNodeId() {
         return firstNodeId;
     }
