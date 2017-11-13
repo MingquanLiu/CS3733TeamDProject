@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.DBConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,40 +15,40 @@ public class DatabaseModificationController {
 
     // All of the methods' return types are String and they cannot actually connect to the database
     // But we are able to test if the sql code the function generated is what we want
-    public Connection connectToDB(){
-        // need to change
-        String USERID = "";
-        // need to change
-        String PASSWORD = "";
-
-        System.out.println("-------JDBC Connection Testing ---------");
-        try {
-            // need to change
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-
-        } catch (ClassNotFoundException e) {
-            // need to change
-            System.out.println("Where is your Oracle JDBC Driver?");
-            e.printStackTrace();
-            return null;
-        }
-        System.out.println("JDBC Driver Registered!");
-        Connection connection = null;
-
-        try {
-            // need to change
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.wpi.edu:1521:orcl", USERID, PASSWORD);
-
-        } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
-            return null;
-        }
-        System.out.println("JDBC Driver Connected!");
-
-
-        return connection;
-    }
+//    public Connection connectToDB(){
+//        // need to change
+//        String USERID = "";
+//        // need to change
+//        String PASSWORD = "";
+//
+//        System.out.println("-------JDBC Connection Testing ---------");
+//        try {
+//            // need to change
+//            Class.forName("oracle.jdbc.driver.OracleDriver");
+//
+//        } catch (ClassNotFoundException e) {
+//            // need to change
+//            System.out.println("Where is your Oracle JDBC Driver?");
+//            e.printStackTrace();
+//            return null;
+//        }
+//        System.out.println("JDBC Driver Registered!");
+//        Connection connection = null;
+//
+//        try {
+//            // need to change
+//            connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.wpi.edu:1521:orcl", USERID, PASSWORD);
+//
+//        } catch (SQLException e) {
+//            System.out.println("Connection Failed! Check output console");
+//            e.printStackTrace();
+//            return null;
+//        }
+//        System.out.println("JDBC Driver Connected!");
+//
+//
+//        return connection;
+//    }
 
 
     public String addNode(NodeData data) {
@@ -57,22 +58,23 @@ public class DatabaseModificationController {
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-        //Connection connection = connectToDB();
+        DBConnection conn = new DBConnection();
+        Connection connection = conn.getConnection();
         String str;
         // just for testing
-        str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
-//        try {
-//            Statement stmt = connection.createStatement();
-//            // expected "insert into Nodes values (id, x, y, type, longName, shortName)"
-//            str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
-//            stmt.executeUpdate(str);
-//            stmt.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Insert Node Failed!");
-//            e.printStackTrace();
-//            return "Insert Node Failed!";
-//        }
+        //str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
+        try {
+            Statement stmt = connection.createStatement();
+            // expected "insert into Nodes values (id, x, y, type, longName, shortName)"
+            str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
+            stmt.executeUpdate(str);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Insert Node Failed!");
+            e.printStackTrace();
+            return "Insert Node Failed!";
+        }
         return str;
     }
 
@@ -83,86 +85,90 @@ public class DatabaseModificationController {
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-        //Connection connection = connectToDB();
+        DBConnection conn = new DBConnection();
+        Connection connection = conn.getConnection();
         String str;
         // just for testing
-        str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
-                ", nodeType = " + type + ", longName = " + longName + ", shortName = "
-                + shortName + "where nodeID = " + id;
-//        try {
-//            Statement stmt = connection.createStatement();
-//            // expected "update Nodes set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
-//            str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
-//                    ", nodeType = " + type + ", longName = " + longName + ", shortName = "
-//                    + shortName + "where nodeID = " + id;
-//            stmt.executeUpdate(str);
-//            stmt.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Edit Node Failed!");
-//            e.printStackTrace();
-//            return "Edit Node Failed!";
-//        }
+//        str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
+//                ", nodeType = " + type + ", longName = " + longName + ", shortName = "
+//                + shortName + "where nodeID = " + id;
+        try {
+            Statement stmt = connection.createStatement();
+            // expected "update Nodes set xcoord = x, ycoord = y, nodeType = type, longName = longName, shortName = shortName where nodeID = id
+            str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
+                    ", nodeType = " + type + ", longName = " + longName + ", shortName = "
+                    + shortName + "where nodeID = " + id;
+            stmt.executeUpdate(str);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Edit Node Failed!");
+            e.printStackTrace();
+            return "Edit Node Failed!";
+        }
         return str;
     }
 
     public String deleteNode(NodeData data){
         String id = data.getId();
-        //Connection connection = connectToDB();
+        DBConnection conn = new DBConnection();
+        Connection connection = conn.getConnection();
         String str;
         // just for testing
-        str ="delete from Nodes where nodeID = " + id;
-//        try {
-//            Statement stmt = connection.createStatement();
-//            str ="delete from Nodes where nodeID = " + id;
-//            stmt.executeUpdate(str);
-//            stmt.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Delete Node Failed!");
-//            e.printStackTrace();
-//            return "Delete Node Failed!";
-//        }
+        //str ="delete from Nodes where nodeID = " + id;
+        try {
+            Statement stmt = connection.createStatement();
+            str ="delete from Nodes where nodeID = " + id;
+            stmt.executeUpdate(str);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Delete Node Failed!");
+            e.printStackTrace();
+            return "Delete Node Failed!";
+        }
         return str;
     }
 
     public String addEdge(String node1Id, String node2Id){
         String id = node1Id + "_" + node2Id;
-        //Connection connection = connectToDB();
+        DBConnection conn = new DBConnection();
+        Connection connection = conn.getConnection();
         String str;
         // just for testing
-        str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
-//        try {
-//            Statement stmt = connection.createStatement();
-//            str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
-//            stmt.executeUpdate(str);
-//            stmt.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Add Edge Failed!");
-//            e.printStackTrace();
-//            return "Add edge Failed!";
-//        }
+        //str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
+        try {
+            Statement stmt = connection.createStatement();
+            str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
+            stmt.executeUpdate(str);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Add Edge Failed!");
+            e.printStackTrace();
+            return "Add edge Failed!";
+        }
         return str;
     }
 
     public String deleteEdge(Edge data) {
         String id = data.getEdgeId();
-        //Connection connection = connectToDB();
+        DBConnection conn = new DBConnection();
+        Connection connection = conn.getConnection();
         String str;
         // just for testing
-        str = "delete from Edges where edgeID = " + id;
-//        try {
-//            Statement stmt = connection.createStatement();
-//            str = "delete from Edges where edgeID = " + id;
-//            stmt.executeUpdate(str);
-//            stmt.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Delete Edge Failed!");
-//            e.printStackTrace();
-//            return "Delete Edge Failed!";
-//        }
+        //str = "delete from Edges where edgeID = " + id;
+        try {
+            Statement stmt = connection.createStatement();
+            str = "delete from Edges where edgeID = " + id;
+            stmt.executeUpdate(str);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Delete Edge Failed!");
+            e.printStackTrace();
+            return "Delete Edge Failed!";
+        }
         return str;
     }
 
