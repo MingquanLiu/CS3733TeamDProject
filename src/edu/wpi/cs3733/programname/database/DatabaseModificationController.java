@@ -1,4 +1,5 @@
 package edu.wpi.cs3733.programname.database;
+import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.sql.Connection;
@@ -82,6 +83,7 @@ public class DatabaseModificationController {
         String shortName = data.getShortName();
         //Connection connection = connectToDB();
         String str;
+        // just for testing
         str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
                 ", nodeType = " + type + ", longName = " + longName + ", shortName = "
                 + shortName + "where nodeID = " + id;
@@ -104,46 +106,53 @@ public class DatabaseModificationController {
 
     public String deleteNode(NodeData data){
         String id = data.getId();
-        Connection connection = connectToDB();
+        //Connection connection = connectToDB();
         String str;
-        try {
-            Statement stmt = connection.createStatement();
-            str ="delete from Nodes where nodeID = " + id;
-            stmt.executeUpdate(str);
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("Delete Node Failed!");
-            e.printStackTrace();
-            return "Delete Node Failed!";
-        }
+        // just for testing
+        str ="delete from Nodes where nodeID = " + id;
+//        try {
+//            Statement stmt = connection.createStatement();
+//            str ="delete from Nodes where nodeID = " + id;
+//            stmt.executeUpdate(str);
+//            stmt.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println("Delete Node Failed!");
+//            e.printStackTrace();
+//            return "Delete Node Failed!";
+//        }
         return str;
     }
 
     public String addEdge(String node1Id, String node2Id){
         String id = node1Id + "_" + node2Id;
-        Connection connection = connectToDB();
+        //Connection connection = connectToDB();
         String str;
-        try {
-            Statement stmt = connection.createStatement();
-            str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
-            stmt.executeUpdate(str);
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("Add Edge Failed!");
-            e.printStackTrace();
-            return "Add edge Failed!";
-        }
+        // just for testing
+        str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
+//        try {
+//            Statement stmt = connection.createStatement();
+//            str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
+//            stmt.executeUpdate(str);
+//            stmt.close();
+//            connection.close();
+//        } catch (SQLException e) {
+//            System.out.println("Add Edge Failed!");
+//            e.printStackTrace();
+//            return "Add edge Failed!";
+//        }
         return str;
     }
 
-//    public String deleteEdge(Edge data){
-//        String id = data.getId();
-//        Connection connection = connectToDB();
+    public String deleteEdge(Edge data) {
+        String id = data.getEdgeId();
+        //Connection connection = connectToDB();
+        String str;
+        // just for testing
+        str = "delete from Edges where edgeID = " + id;
 //        try {
 //            Statement stmt = connection.createStatement();
-//            String str ="delete from Edges where edgeID = " + id;
+//            str = "delete from Edges where edgeID = " + id;
 //            stmt.executeUpdate(str);
 //            stmt.close();
 //            connection.close();
@@ -152,7 +161,7 @@ public class DatabaseModificationController {
 //            e.printStackTrace();
 //            return "Delete Edge Failed!";
 //        }
-//        return str;
-//    }
+        return str;
+    }
 
 }
