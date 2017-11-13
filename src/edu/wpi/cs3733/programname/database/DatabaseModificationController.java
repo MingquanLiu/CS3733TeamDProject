@@ -1,11 +1,11 @@
 package edu.wpi.cs3733.programname.database;
-
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 
 public class DatabaseModificationController {
 

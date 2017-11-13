@@ -33,15 +33,36 @@ public class NodeData {
         return this.location.getY();
     }
 
-    public String getType(){
-        return this.type;
+    public Coordinate getLocation() {
+        return location;
+    }
+
+    public void setLocation(Coordinate location) {
+        this.location = location;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getLongName() {
-        return this.longName;
+        return longName;
+    }
+
+    public void setLongName(String longName) {
+        this.longName = longName;
     }
 
     public String getShortName() {
-        return this.shortName;
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 }
+
