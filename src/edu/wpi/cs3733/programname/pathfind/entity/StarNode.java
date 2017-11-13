@@ -1,15 +1,21 @@
 package edu.wpi.cs3733.programname.pathfind.entity;
 
+import edu.wpi.cs3733.programname.commondata.NodeData;
+
 import java.util.LinkedList;
 
 public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
     protected int f, g;
     protected StarNode previousNode;
+    LinkedList<StarNode> neighbors;
 
-    public StarNode() { }
+    public StarNode(LinkedList<StarNode> neighbors, NodeData node) {
+        this.neighbors = neighbors;
+        
+    }
 
     public LinkedList<StarNode> getNeighbors() {
-        return null;
+        return neighbors;
     }
 
     public StarNode getPreviousNode() {

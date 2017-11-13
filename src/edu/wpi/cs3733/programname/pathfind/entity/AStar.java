@@ -1,11 +1,17 @@
 package edu.wpi.cs3733.programname.pathfind.entity;
 
+import edu.wpi.cs3733.programname.ManageController;
+
 import java.util.LinkedList;
 
 public class AStar {
-
+    LinkedList<>
     //constructor
-    public AStar(){}
+    public AStar(ManageController controller){ }
+
+    public void init() {
+
+    }
 
     // calculates a path from start to finish
     public LinkedList<StarNode> pathFind(StarNode start, StarNode goal) {
