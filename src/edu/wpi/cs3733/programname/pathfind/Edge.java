@@ -13,6 +13,14 @@ public class Edge {
         return secondNodeId;
     }
 
+    public void setFirstNodeId(String firstNodeId) {
+        this.firstNodeId = firstNodeId;
+    }
+
+    public void setSecondNodeId(String secondNodeId) {
+        this.secondNodeId = secondNodeId;
+    }
+
     public Edge(String firstNode, String secondNode){ //add pathstrat, call "restricted", when implemented!
         this.firstNodeId = firstNode;
         this.secondNodeId = secondNode;
