@@ -14,7 +14,6 @@ public class PathfindingController {
         List<Edge> allEdges = manager.getAllEdgeData();
                 //something about getEdges()
         return AStar.getPath(PathStrategyIF.getEdges());
-        return null; //return the getedges
     }
 
 
