@@ -16,5 +16,8 @@ public class PathfindingController {
         return AStar.getPath(PathStrategyIF.getEdges());
     }
 
+    // getPath needs to take in the starting node and ending node!!! its currently broken.
+    // How do we take in the starting and ending node
+
 
 }

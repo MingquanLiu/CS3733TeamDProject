@@ -6,6 +6,7 @@ import edu.wpi.cs3733.programname.pathfind.PathStrategyIF;
 import java.util.List;
 
 public class StandardPath implements PathStrategyIF{
+    @Override
     public List<Edge> getEdges() {
         return null;
     }
