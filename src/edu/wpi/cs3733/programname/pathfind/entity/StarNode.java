@@ -11,13 +11,21 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.LinkedList;
 
-public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
+public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData implements Comparable<StarNode> {
     protected int f, g;
     protected StarNode previousNode;
-    protected LinkedList<StarNode> neighbors;
+    protected LinkedList<StarNode> neighbors = new LinkedList<StarNode>();
 
     public StarNode(NodeData node) {
         super(node.getId(), node.getLocation(), node.getType(), node.getLongName(), node.getShortName());
+    }
+
+    @Override
+    public int compareTo(StarNode newNode) {
+        int newNodeF = newNode.getF();
+        if(this.f > newNodeF) return 1;
+        else if(this.f == newNodeF) return 0;
+        else return -1;
     }
 
     public LinkedList<StarNode> getNeighbors() {
