@@ -26,14 +26,22 @@ public class AStar {
     //constructor
     public AStar(ManageController controller, String startID, String goalID){
         this.controller = controller;
+        allNodes = controller.getAllNodeData();
+        allEdges = controller.getAllEdgeData();
+        this.init();
+        this.finalList = this.pathFind(startID, goalID);
+    }
+
+    //alternate constructor for testing
+    public AStar(LinkedList<NodeData> nodes, LinkedList<Edge> edges, String startID, String goalID) {
+        this.allEdges = edges;
+        this.allNodes = nodes;
         this.init();
         this.finalList = this.pathFind(startID, goalID);
     }
 
     // Call to update the whole list of StarNodes
     private void init() {
-        allNodes = controller.getAllNodeData();
-        allEdges = controller.getAllEdgeData();
         for(NodeData node: allNodes) {
             // Creates the StarNodes
             allStarNodes.put(node.getId(), new StarNode(node));
@@ -94,7 +102,7 @@ public class AStar {
                 }
             }
         }
-        return null; // Possibly throw an exception in the future
+        return null; // We will throw an exception in the future
     }
 
     // returns the cost of moving from the starting node to the provided node
