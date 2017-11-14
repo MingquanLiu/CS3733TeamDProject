@@ -28,7 +28,7 @@ public class dbTables {
                 System.out.println("\nNodes Table Dropped");
 
 
-                String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(21), xcoord INTEGER, ycoord INTEGER, floor INTEGER, building VARCHAR(20), nodeType VARCHAR(4), longName VARCHAR(50), shortName VARCHAR(30), teamAssigned VARCHAR(6))";
+                String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(21), xcoord INTEGER, ycoord INTEGER, floor VARCHAR(3) , building VARCHAR(20), nodeType VARCHAR(4), longName VARCHAR(50), shortName VARCHAR(30), teamAssigned VARCHAR(6))";
                 // Creates new nodes table
                 st.execute(newTable);
                 System.out.println("Nodes Table Created\n");
