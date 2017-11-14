@@ -9,6 +9,7 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class AStar {
     List<Edge> allEdges;
 
     // We need a HashMap so we can access StarNodes via the corresponding nodeID
-    HashMap<String, StarNode> allStarNodes;
+    HashMap<String, StarNode> allStarNodes = new HashMap<String, StarNode>();
     List<NodeData> finalList;
 
     ManageController controller;
@@ -26,14 +27,23 @@ public class AStar {
     //constructor
     public AStar(ManageController controller, String startID, String goalID){
         this.controller = controller;
+        allNodes = controller.getAllNodeData();
+        allEdges = controller.getAllEdgeData();
+        this.init();
+        this.finalList = this.pathFind(startID, goalID);
+    }
+
+    //alternate constructor for testing
+    public AStar(LinkedList<NodeData> nodes, LinkedList<Edge> edges, String startID, String goalID) {
+        this.allEdges = edges;
+        this.allNodes = nodes;
         this.init();
         this.finalList = this.pathFind(startID, goalID);
     }
 
     // Call to update the whole list of StarNodes
     private void init() {
-        allNodes = controller.getAllNodeData();
-        allEdges = controller.getAllEdgeData();
+        System.out.println("Initializing A*");
         for(NodeData node: allNodes) {
             // Creates the StarNodes
             allStarNodes.put(node.getId(), new StarNode(node));
@@ -51,6 +61,7 @@ public class AStar {
 
     // calculates a path from start to finish
     private List<NodeData> pathFind(String startID, String goalID) {
+        // TODO: Throw a "No such node" exception
         StarNode start = allStarNodes.get(startID);
         StarNode goal = allStarNodes.get(goalID);
 
@@ -70,6 +81,7 @@ public class AStar {
             if(current.getX() == goal.getX() && current.getY() == goal.getY()) {
                 // If we are at the goal, we need to backtrack through the shortest path
                 System.out.println("At target!");
+                finalPath.add(current); // we have to add the goal to the path before we start backtracking
                 while(!(current.getX() == start.getX() && current.getY() == start.getY())) {
                     finalPath.add(current.getPreviousNode());
                     current = current.getPreviousNode();
@@ -79,22 +91,23 @@ public class AStar {
             else {
                 // we need to get all the neighbor nodes, identify their costs, and put them into the queue
                 LinkedList<StarNode> neighbors = current.getNeighbors();
-                // we also need to remove the previous node from the list of neighbors because we do not want
-                // to backtrack
-                // TODO: someone please verify this
+                // we also need to remove the previous node from the list of neighbors because we do not want to backtrack
                 neighbors.remove(current.getPreviousNode());
                 for (StarNode newnode : neighbors) {
                     newnode.setPreviousNode(current);
                     newnode.setF(actionCost(newnode) + distanceToGo(newnode, goal));
                     // this is where the node is put in the right place in the queue
-                    for (int i = 0; i < frontier.size(); i++) {
-                        if (newnode.f < frontier.get(i).f)
-                            frontier.add(i - 1, newnode); // This is where stuff maybe blows up
-                    }
+                    frontier.add(newnode);
+                    Collections.sort(frontier);
+// The manual sorting on lines 103-106 has been temporarily disabled in favor of sorting the list based on compareTo method in StarNode
+//                    for (int i = 0; i < frontier.size(); i++) {
+//                        if (newnode.f < frontier.get(i).f)
+//                            frontier.add(i - 1, newnode); // This is where stuff maybe blows up
+//                    }
                 }
             }
         }
-        return null; // Possibly throw an exception in the future
+        return null; // TODO: throw a "Path not found" exception
     }
 
     // returns the cost of moving from the starting node to the provided node
