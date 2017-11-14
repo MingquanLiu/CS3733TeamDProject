@@ -6,6 +6,13 @@ public class Edge {
     private String secondNodeId;
     private String edgeId;
 
+    /**
+     *
+     * @param first
+     * @param second
+     * @param edgeId
+     */
+
     public Edge(String first, String second, String edgeId) {
         this.firstNodeId = first;
         this.secondNodeId = second;

@@ -10,6 +10,12 @@ import java.util.List;
 
 public class PathfindingController {
 
+    /**
+     *
+     * @param startNode
+     * @param endNode
+     * @return
+     */
     public List<NodeData> initializePathfind(String startNode, String endNode){
         ManageController manager = new ManageController();
         // List<Edge> allEdges = manager.getAllEdgeData();
