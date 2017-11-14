@@ -7,11 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class csvReadWrite {
-
+public class CsvReadWrite {
+    public CsvReadWrite(){
+    }
 
     // NODES MapDnodes.csv
-    public static void csvNodes(Connection conn) {
+    public void csvNodes(Connection conn) {
         String fileName = "MapDnodes.csv";
         File file = new File(fileName);
         int i;
@@ -118,17 +119,8 @@ public class csvReadWrite {
 
         }
     } // end csvNodes
-
-
-
-
-
-
-
-
-
     // EDGES MapDedges.csv
-    public static void csvEdges(Connection conn) {
+    public void csvEdges(Connection conn) {
         String fileName = "MapDedges.csv";
         File file = new File(fileName);
         int i;

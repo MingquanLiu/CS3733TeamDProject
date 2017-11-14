@@ -3,9 +3,12 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class dbTables {
+public class DBTables {
+    public DBTables(){
 
-    public static void createNodesTables(Connection conn) {
+    }
+
+    public void createNodesTables(Connection conn) {
 
         try {
             Statement st = conn.createStatement();
@@ -42,7 +45,7 @@ public class dbTables {
 
 
 
-    public static void createEdgesTables(Connection conn) {
+    public void createEdgesTables(Connection conn) {
 
         try {
             Statement st = conn.createStatement();

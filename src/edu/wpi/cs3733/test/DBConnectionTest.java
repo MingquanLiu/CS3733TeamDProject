@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.test;
 
 import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.database.dbTables;
+import edu.wpi.cs3733.programname.database.DBTables;
 ;
-import edu.wpi.cs3733.programname.database.csvReadWrite;
+import edu.wpi.cs3733.programname.database.CsvReadWrite;
 import edu.wpi.cs3733.programname.database.printTables;
 import org.junit.Test;
 
@@ -16,11 +16,12 @@ public class DBConnectionTest {
         DBConnection TestDB = new DBConnection();   // Creates new instance of connection
         TestDB.setDBConnection();                   // Sets up the connection
         Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
-
+        DBTables mDbTable = new DBTables();
+        CsvReadWrite mCsvReadWrite = new CsvReadWrite();
 
         // MapDnodes.csv
-        dbTables.createNodesTables(conn);           // Makes nodes table
-        csvReadWrite.csvNodes(conn);                // Reads and Writes out MapDnodes.csv file
+        mDbTable.createNodesTables(conn);           // Makes nodes table
+        mCsvReadWrite.csvNodes(conn);                // Reads and Writes out MapDnodes.csv file
         printTables.printNodesTable(conn);          // Pulls data in nodes table from the database and print it
     }
 }
