@@ -14,7 +14,7 @@ public class DBConnection {
     Statement stat;
 
     public DBConnection(){
-
+        setDBConnection();
     }
 
 
@@ -30,6 +30,7 @@ public class DBConnection {
                 conn.setAutoCommit(false);
 
             } // end if
+            stat = conn.createStatement();
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -44,5 +45,21 @@ public class DBConnection {
     // getConnection method gets the established connection
     public Connection getConnection() {
         return conn;
+    }
+    public void executeUpdate(String str) throws SQLException {
+        stat.executeUpdate(str);
+    }
+
+    public ResultSet executeQuery(String str) throws SQLException {
+        ResultSet mSet = stat.executeQuery(str);
+        return mSet;
+    }
+
+    public void execute(String str) throws SQLException {
+        stat.execute(str);
+    }
+
+    public void commit() throws SQLException {
+        conn.commit();
     }
 }
