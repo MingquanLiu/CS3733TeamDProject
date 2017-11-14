@@ -11,7 +11,11 @@ public class DBConnection {
     private static final String JDBC_URL="jdbc:derby:TestDB;create=true";
 
     Connection conn;
+    Statement stat;
 
+    public DBConnection(){
+
+    }
 
     // setDBConnection method establishes connection to the database
     public void setDBConnection() {
