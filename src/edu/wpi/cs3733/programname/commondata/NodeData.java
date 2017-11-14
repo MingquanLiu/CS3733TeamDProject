@@ -4,9 +4,11 @@ public class NodeData {
 
     private String id;
     private Coordinate location;
+    private String floor;
     private String type;
     private String longName;
     private String shortName;
+
 
     public NodeData(String id, Coordinate location,
                     String type, String longName, String shortName) {
@@ -63,6 +65,14 @@ public class NodeData {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 }
 

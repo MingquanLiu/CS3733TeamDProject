@@ -1,79 +1,56 @@
 package edu.wpi.cs3733.programname.database;
+import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
 public class DatabaseModificationController {
 
-    public DatabaseModificationController(){}
+    ManageController manager;
+
+    public DatabaseModificationController(ManageController manager){
+        this.manager = manager;
+    }
 
     // All of the methods' return types are String and they cannot actually connect to the database
     // But we are able to test if the sql code the function generated is what we want
-    public Connection connectToDB(){
-        // need to change
-        String USERID = "";
-        // need to change
-        String PASSWORD = "";
 
-        System.out.println("-------JDBC Connection Testing ---------");
-        try {
-            // need to change
-            Class.forName("oracle.jdbc.driver.OracleDriver");
+    public void addNode(NodeData data) {
+        Connection dbConnection;
+        DBConnection db = new DBConnection();
+        db.setDBConnection();
+        dbConnection = db.getConnection();
 
-        } catch (ClassNotFoundException e) {
-            // need to change
-            System.out.println("Where is your Oracle JDBC Driver?");
-            e.printStackTrace();
-            return null;
-        }
-        System.out.println("JDBC Driver Registered!");
-        Connection connection = null;
-
-        try {
-            // need to change
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@oracle.wpi.edu:1521:orcl", USERID, PASSWORD);
-
-        } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
-            return null;
-        }
-        System.out.println("JDBC Driver Connected!");
-
-
-        return connection;
-    }
-
-
-    public String addNode(NodeData data) {
         String id = data.getId();
         int x = data.getX();
         int y = data.getY();
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-        //Connection connection = connectToDB();
-        String str;
-        // just for testing
-        str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
-//        try {
-//            Statement stmt = connection.createStatement();
-//            // expected "insert into Nodes values (id, x, y, type, longName, shortName)"
-//            str = "insert into Nodes values(" + id + ", " + x + ", " + y + ", " + type + ", " + longName + ", " + shortName + ")";
-//            stmt.executeUpdate(str);
-//            stmt.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            System.out.println("Insert Node Failed!");
-//            e.printStackTrace();
-//            return "Insert Node Failed!";
-//        }
-        return str;
+        String floor = data.getFloor();
+
+        try {
+            PreparedStatement pst = dbConnection.prepareStatement(
+                    "INSERT INTO Nodes(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned)" +
+                    "VALUES (?,?,?,?,?,?,?,?,?)");
+            pst.setString(1, id);
+            pst.setInt(2, x);
+            pst.setInt(3, y);
+            pst.setString(4, floor);
+            pst.setString(5, "15 Francis");
+            pst.setString(6, type);
+            pst.setString(7, longName);
+            pst.setString(8, shortName);
+            pst.setString(9, "Team D");
+            System.out.println(pst.toString());
+            pst.executeUpdate();
+            dbConnection.close();
+        } catch (SQLException e) {
+            System.out.println("Insert Node Failed!");
+            e.printStackTrace();
+        }
     }
 
     public String editNode(NodeData data) {
@@ -83,7 +60,6 @@ public class DatabaseModificationController {
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-        //Connection connection = connectToDB();
         String str;
         // just for testing
         str = "update Nodes set xcoord = " + x + ", ycoord = " + y +

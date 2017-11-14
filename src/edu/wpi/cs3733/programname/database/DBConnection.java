@@ -10,8 +10,7 @@ public class DBConnection {
     // DB URL
     private static final String JDBC_URL="jdbc:derby:TestDB;create=true";
 
-    Connection conn;
-
+    private Connection conn;
 
     // setDBConnection method establishes connection to the database
     public void setDBConnection() {
@@ -21,17 +20,15 @@ public class DBConnection {
 
             // Check Connection
             if (conn != null) {
-                System.out.print("Connected to DB \n");
+                System.out.print("Connected to DB\n");
                 conn.setAutoCommit(false);
 
             } // end if
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-
         } catch (SQLException e) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, e);
-
         }
     } // end setDBConnection
 
@@ -39,6 +36,5 @@ public class DBConnection {
     // getConnection method gets the established connection
     public Connection getConnection() {
         return conn;
-
     }
 }
