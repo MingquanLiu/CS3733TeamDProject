@@ -32,11 +32,11 @@ public class AstarTest {
     Edge edge6 = new Edge("5", "7", "E6");
     Edge edge7 = new Edge("7", "8", "E7");
     Edge edge8 = new Edge("8", "9", "E8");
-    Edge surprise = new Edge("6","8","ES");
+//    Edge surprise = new Edge("6","8","ES");
     // TODO: add new edges to try to throw the program off, see if we are finding most efficient path, etc.
 
     LinkedList<NodeData> allNodes = new LinkedList<>(Arrays.asList(node1, node2, node3, node4, node5, node6, node7, node8, node9));
-    LinkedList<Edge> allEdges = new LinkedList<>(Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, surprise));
+    LinkedList<Edge> allEdges = new LinkedList<>(Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8));
 
     StarNode star1 = new StarNode(node1);
     StarNode star2 = new StarNode(node2);
