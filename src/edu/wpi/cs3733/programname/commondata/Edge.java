@@ -7,12 +7,11 @@ public class Edge {
     private String edgeId;
 
     /**
-     *
-     * @param first
-     * @param second
-     * @param edgeId
+     * Represents the connection between two Nodes
+     * @param first - the starting point of a given Edge
+     * @param second - the ending point of a given Edge
+     * @param edgeId - the unique identifier for a given Edge
      */
-
     public Edge(String first, String second, String edgeId) {
         this.firstNodeId = first;
         this.secondNodeId = second;

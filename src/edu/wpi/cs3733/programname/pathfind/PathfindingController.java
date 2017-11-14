@@ -9,12 +9,11 @@ import edu.wpi.cs3733.programname.pathfind.PathStrategies.StandardPath;
 import java.util.List;
 
 public class PathfindingController {
-
     /**
-     *
-     * @param startNode
-     * @param endNode
-     * @return
+     * Takes in the starting and ending locations, and calls AStar to find the path between them
+     * @param startNode - the starting location for the path
+     * @param endNode - the end node, aka the destination, for the path
+     * @return - result is the list of edges efficiently connecting startNode to endNode
      */
     public List<NodeData> initializePathfind(String startNode, String endNode){
         ManageController manager = new ManageController();
