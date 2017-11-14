@@ -17,12 +17,12 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.MainUI">
    <children>
-      <ImageView fitHeight="550.0" fitWidth="930.0" layoutX="55.0" layoutY="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="550.0" fitWidth="930.0" layoutY="-3.0" onMouseClicked="#displayNodeInfo" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-3.0">
          <image>
             <Image url="@Resources/secondRight.PNG" />
          </image>
       </ImageView>
-      <TitledPane fx:id="menu" animated="false" expanded="false" layoutX="721.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="721.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
+      <TitledPane fx:id="menu" animated="false" layoutX="721.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="721.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="200.0">
                <children>
@@ -40,12 +40,12 @@
                   <Button fx:id="restrooms" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Restrooms" />
                   <Button fx:id="vending" layoutX="16.0" layoutY="49.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Vending Machines" />
                   <Button fx:id="serviceDesk" layoutX="16.0" layoutY="84.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Service Desks" />
-                  <AnchorPane fx:id="admin" layoutX="14.0" layoutY="115.0" prefHeight="163.0" prefWidth="172.0" visible="false">
+                  <AnchorPane fx:id="admin" layoutX="14.0" layoutY="115.0" prefHeight="163.0" prefWidth="172.0">
                      <children>
                         <Button fx:id="transportation" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Transportation Request" />
                         <Button fx:id="interpreter" layoutX="2.0" layoutY="72.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Interpreter request" />
                         <Button fx:id="maintenance" layoutX="2.0" layoutY="37.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Maintenance request" />
-                        <Button fx:id="mapUpdate" layoutX="2.0" layoutY="107.0" minHeight="25.0" mnemonicParsing="false" onAction="#buttonHandler" prefWidth="168.0" text="Map Update" visible="false" />
+                        <Button fx:id="mapUpdate" layoutX="2.0" layoutY="107.0" minHeight="25.0" mnemonicParsing="false" onAction="#buttonHandler" prefWidth="168.0" text="Map Update" />
                         <Button fx:id="viewRequests" layoutX="39.0" layoutY="142.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="95.0" text="View Requests" />
                      </children>
                   </AnchorPane>
@@ -119,16 +119,16 @@
             <DropShadow height="70.0" radius="34.5" spread="0.2" width="70.0" />
          </effect>
       </DialogPane>
-      <DialogPane layoutX="365.0" layoutY="165.0" prefHeight="214.0" prefWidth="208.0" visible="false">
+      <DialogPane fx:id="nodeAdditionPane" layoutX="365.0" layoutY="165.0" prefHeight="214.0" prefWidth="208.0" visible="false">
          <content>
             <AnchorPane maxHeight="160.0" prefHeight="158.0" prefWidth="208.0">
                <children>
-                  <Button layoutX="10.0" layoutY="187.0" mnemonicParsing="false" text="Select location" AnchorPane.bottomAnchor="0.0" />
-                  <Button layoutX="134.0" layoutY="178.0" mnemonicParsing="false" text="Submit" AnchorPane.bottomAnchor="0.0" />
-                  <TextField layoutX="10.0" layoutY="169.0" prefHeight="25.0" prefWidth="162.0" promptText="Node Type" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
-                  <TextField layoutX="20.0" layoutY="33.0" prefHeight="25.0" prefWidth="162.0" promptText="Short name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
-                  <TextField layoutX="20.0" layoutY="18.0" prefHeight="25.0" promptText="Name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                  <TextField layoutX="30.0" layoutY="95.0" promptText="Coordinates" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="85.0" />
+                  <Button fx:id="nodeAddSelectLocation" layoutX="10.0" layoutY="187.0" mnemonicParsing="false" onAction="#buttonHandler" text="Select location" AnchorPane.bottomAnchor="0.0" />
+                  <Button fx:id="nodeAddSubmit" layoutX="134.0" layoutY="178.0" mnemonicParsing="false" onAction="#buttonHandler" text="Submit" AnchorPane.bottomAnchor="0.0" />
+                  <TextField fx:id="nodeAddType" layoutX="10.0" layoutY="169.0" prefHeight="25.0" prefWidth="162.0" promptText="Node Type" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
+                  <TextField fx:id="nodeAddShortName" layoutX="20.0" layoutY="33.0" prefHeight="25.0" prefWidth="162.0" promptText="Short name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
+                  <TextField fx:id="nodeAddName" layoutX="20.0" layoutY="18.0" prefHeight="25.0" promptText="Name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <TextField fx:id="nodeAddCoordinates" layoutX="30.0" layoutY="95.0" promptText="Coordinates" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="85.0" />
                </children>
             </AnchorPane>
          </content>
@@ -138,12 +138,35 @@
                   <Insets left="10.0" top="10.0" />
                </padding>
                <graphic>
-                  <Button mnemonicParsing="false" text="X" textFill="RED" />
+                  <Button fx:id="NodeAddCancel" mnemonicParsing="false" onAction="#buttonHandler" text="X" textFill="RED" />
                </graphic>
             </Label>
          </header>
          <effect>
             <DropShadow />
+         </effect>
+      </DialogPane>
+      <DialogPane fx:id="nodeInfoPane" layoutX="429.0" layoutY="215.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="100.0" visible="false">
+         <content>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                  <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+                  <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="closeNodeInfo" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" onAction="#buttonHandler" text="Close" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Label fx:id="nodeInfoLocation" layoutX="14.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+               </children>
+            </AnchorPane>
+         </content>
+         <header>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Node Info">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+            </Label>
+         </header>
+         <effect>
+            <DropShadow height="30.0" radius="14.5" width="30.0" />
          </effect>
       </DialogPane>
    </children>

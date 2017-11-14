@@ -7,6 +7,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -91,6 +92,39 @@ public class MainUI {
     private Label requestConfirmLabel;
     @FXML
     private DialogPane requestConfirmPane;
+
+    //node information pane
+    @FXML
+    private DialogPane nodeInfoPane;
+    @FXML
+    private Label nodeInfoLongName;
+    @FXML
+    private Label nodeInfoShortName;
+    @FXML
+    private Label nodeInfoType;
+    @FXML
+    private Label nodeInfoLocation;
+    @FXML
+    private Button closeNodeInfo;
+
+    //node addition pane
+    @FXML
+    private DialogPane nodeAdditionPane;
+    @FXML
+    private TextField nodeAddName;
+    @FXML
+    private TextField nodeAddShortName;
+    @FXML
+    private TextField nodeAddType;
+    @FXML
+    private TextField NodeCoordinates;
+    @FXML
+    private Button nodeAddSelectLocation;
+    @FXML
+    private Button nodeAddSubmit;
+    @FXML
+    private Button nodeAddCancel;
+
 
     private boolean success;
 
@@ -213,6 +247,9 @@ public class MainUI {
                 serviceRequester.setVisible(false);
             }
         }
+        else if(e.getSource() == mapUpdate){
+            nodeAdditionPane.setVisible(true);
+        }
         else if(e.getSource() == selectLocations){
             System.out.println("selecting locations");
             serviceRequester.setVisible(false);
@@ -239,8 +276,21 @@ public class MainUI {
         }
     }
 
-    public void displayNodeInfo(NodeData n){
-
+    public void displayNodeInfo(MouseEvent e){
+        int x = (int)e.getX();
+        int y = (int)e.getY();
+        Coordinate loc = new Coordinate(x, y);
+        //String id = nodeIDs.get(loc);
+        //NodeData n = manager.getNodeData(id);
+        nodeInfoPane.setLayoutX(x + 3);
+        nodeInfoPane.setLayoutY(y + 3);
+        nodeInfoPane.setVisible(true);
+        /*
+        nodeInfoLocation.setText(x + ", " + y);
+        nodeInfoType.setText("" + n.getType());
+        nodeInfoLongName.setText("" + n.getLongName);
+        nodeInfoShortName.setText("" + n.getShortName);
+        */
     }
     /*
     public void showNode(NodeData n){
