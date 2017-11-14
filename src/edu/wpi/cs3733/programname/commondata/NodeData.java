@@ -10,10 +10,11 @@ public class NodeData {
     private String shortName;
 
 
-    public NodeData(String id, Coordinate location,
+    public NodeData(String id, Coordinate location, String floor,
                     String type, String longName, String shortName) {
         this.id = id;
         this.location = location;
+        this.floor = floor;
         this.type = type;
         this.longName = longName;
         this.shortName = shortName;
@@ -73,6 +74,28 @@ public class NodeData {
 
     public void setFloor(String floor) {
         this.floor = floor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NodeData nodeData = (NodeData) o;
+
+        if (!id.equals(nodeData.id)) return false;
+        if (!location.equals(nodeData.location)) return false;
+        if (!floor.equals(nodeData.floor)) return false;
+        return shortName.equals(nodeData.shortName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + location.hashCode();
+        result = 31 * result + floor.hashCode();
+        result = 31 * result + shortName.hashCode();
+        return result;
     }
 }
 

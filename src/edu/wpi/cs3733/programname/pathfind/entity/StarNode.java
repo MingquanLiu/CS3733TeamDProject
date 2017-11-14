@@ -17,7 +17,8 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData {
     protected LinkedList<StarNode> neighbors;
 
     public StarNode(NodeData node) {
-        super(node.getId(), node.getLocation(), node.getType(), node.getLongName(), node.getShortName());
+        super(node.getId(), node.getLocation(), node.getFloor(),
+                node.getType(), node.getLongName(), node.getShortName());
     }
 
     public LinkedList<StarNode> getNeighbors() {
