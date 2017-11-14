@@ -17,6 +17,7 @@ public class DBConnection {
 
     }
 
+
     // setDBConnection method establishes connection to the database
     public void setDBConnection() {
         try {
@@ -43,6 +44,5 @@ public class DBConnection {
     // getConnection method gets the established connection
     public Connection getConnection() {
         return conn;
-
     }
 }
