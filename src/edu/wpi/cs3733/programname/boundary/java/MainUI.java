@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static javafx.scene.paint.Color.*;
+import static javax.print.attribute.standard.Chromaticity.COLOR;
 
 public class MainUI {
     //locatiosn search
@@ -343,6 +344,7 @@ public class MainUI {
     }
     public void showNode(NodeData n){
         Circle c = new Circle(n.getX(), n.getY(), 5, Color.RED);
+        c.setFill(Color.RED);
         mainPane.getChildren().addAll(c);
     }
 

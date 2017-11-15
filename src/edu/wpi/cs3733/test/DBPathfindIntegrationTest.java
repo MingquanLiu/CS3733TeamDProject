@@ -45,11 +45,18 @@ public class DBPathfindIntegrationTest {
                 "HALL", "Hallway 1 Floor 2", "Hallway D0102");
         NodeData hallwayTwo = new NodeData("DHALL00202", new Coordinate(4750,1080), "2",
                 "HALL", "Hallway 2 Floor 2", "Hallway D0202");
-        List<NodeData> expected = new ArrayList<NodeData>();
+
+
+        List<NodeData> expected = new ArrayList<>();
         expected.add(hallwayTwo);
         expected.add(hallwayOne);
+        List<NodeData> result = manager.startPathfind(hallwayOne.getId(), hallwayTwo.getId());
 
-        assertEquals(expected, manager.startPathfind(hallwayOne.getId(), hallwayTwo.getId()));
+        int i = 0;
+        for (NodeData data: result) {
+            assertEquals(expected.get(i).getLocation(), data.getLocation());
+            i++;
+        }
     }
 
 

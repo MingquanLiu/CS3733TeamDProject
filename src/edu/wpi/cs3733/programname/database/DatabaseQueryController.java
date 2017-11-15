@@ -80,6 +80,10 @@ public class DatabaseQueryController {
         return queryResult;
     }
 
+    public List<NodeData> queryNodeByType(String findNodeType) {
+        return null;
+    }
+
     public List<NodeData> getAllNodeData() {
         NodeData queryResult = null;
         List<NodeData> allNodes = new ArrayList<NodeData>();

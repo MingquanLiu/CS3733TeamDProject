@@ -23,7 +23,6 @@ public class ManageController {
     public ManageController() {
         this.dbConnection = new DBConnection();
         dbConnection.setDBConnection();
-
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
@@ -33,7 +32,9 @@ public class ManageController {
     public List<NodeData> startPathfind(String startId, String goalId) {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<Edge> allEdges = dbQueryController.getAllEdgeData();
-        return this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId);
+        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId);
+        System.out.println(finalPath.get(0).getId() + " to " + finalPath.get(finalPath.size() -1));
+        return finalPath;
     }
 
     public NodeData getNodeData(String nodeId) {
@@ -53,7 +54,7 @@ public class ManageController {
     }
 
     public List<NodeData> queryNodeByType(String nodeType) {
-        return null;
+        return this.dbQueryController.queryNodeByType(nodeType);
     }
 
     public void addNode(NodeData data) {

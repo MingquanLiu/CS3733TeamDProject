@@ -84,8 +84,6 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData imp
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(g);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (previousNode != null ? previousNode.hashCode() : 0);
-        result = 31 * result + (neighbors != null ? neighbors.hashCode() : 0);
         return result;
     }
 }
