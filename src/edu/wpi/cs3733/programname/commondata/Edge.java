@@ -41,4 +41,24 @@ public class Edge {
     public void setEdgeId(String edgeId) {
         this.edgeId = edgeId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Edge edge = (Edge) o;
+
+        if (firstNodeId != null ? !firstNodeId.equals(edge.firstNodeId) : edge.firstNodeId != null) return false;
+        if (secondNodeId != null ? !secondNodeId.equals(edge.secondNodeId) : edge.secondNodeId != null) return false;
+        return edgeId != null ? edgeId.equals(edge.edgeId) : edge.edgeId == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstNodeId != null ? firstNodeId.hashCode() : 0;
+        result = 31 * result + (secondNodeId != null ? secondNodeId.hashCode() : 0);
+        result = 31 * result + (edgeId != null ? edgeId.hashCode() : 0);
+        return result;
+    }
 }

@@ -14,14 +14,14 @@ import static org.junit.Assert.assertEquals;
 
 public class AstarAdvancedTest {
 
-    NodeData node1 = new NodeData("1", new Coordinate(3, 3), "Basic", "Lobby One", "L1");
-    NodeData node2 = new NodeData("2", new Coordinate(3, 4), "Basic", "Hallway One", "H1");
-    NodeData node3 = new NodeData("3", new Coordinate(3, 5), "Basic", "Hallway Two", "H2");
-    NodeData node4 = new NodeData("4", new Coordinate(2, 4), "Basic", "Hallway Three", "H3");
-    NodeData node5 = new NodeData("5", new Coordinate(4, 4), "Basic", "Connector One", "C1");
-    NodeData node6 = new NodeData("6", new Coordinate(3, 6), "Basic", "Hallway Two", "H2");
-    NodeData node7 = new NodeData("7", new Coordinate(2, 5), "Basic", "Hallway Three", "H3");
-    NodeData node8 = new NodeData("8", new Coordinate(4, 5), "Basic", "Connector One", "C1");
+    NodeData node1 = new NodeData("1", new Coordinate(3, 3), "2", "Basic", "Lobby One", "L1");
+    NodeData node2 = new NodeData("2", new Coordinate(3, 4), "2","Basic", "Hallway One", "H1");
+    NodeData node3 = new NodeData("3", new Coordinate(3, 5), "2","Basic", "Hallway Two", "H2");
+    NodeData node4 = new NodeData("4", new Coordinate(2, 4), "2","Basic", "Hallway Three", "H3");
+    NodeData node5 = new NodeData("5", new Coordinate(4, 4), "2","Basic", "Connector One", "C1");
+    NodeData node6 = new NodeData("6", new Coordinate(3, 6), "2","Basic", "Hallway Two", "H2");
+    NodeData node7 = new NodeData("7", new Coordinate(2, 5), "2","Basic", "Hallway Three", "H3");
+    NodeData node8 = new NodeData("8", new Coordinate(4, 5), "2","Basic", "Connector One", "C1");
 
     Edge edge1 = new Edge("1", "2", "E1");
     Edge edge2 = new Edge("1", "4", "E2");

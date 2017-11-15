@@ -1,3 +1,5 @@
+package edu.wpi.cs3733.test;
+
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
@@ -14,15 +16,15 @@ import static org.junit.Assert.assertEquals;
 
 public class AstarTest {
 
-    NodeData node1 = new NodeData("1", new Coordinate(2, 2), "Basic", "Lobby One", "L1");
-    NodeData node2 = new NodeData("2", new Coordinate(2, 4), "Basic", "Hallway One", "H1");
-    NodeData node3 = new NodeData("3", new Coordinate(4, 4), "Basic", "Hallway Two", "H2");
-    NodeData node4 = new NodeData("4", new Coordinate(6, 4), "Basic", "Hallway Three", "H3");
-    NodeData node5 = new NodeData("5", new Coordinate(4, 6), "Basic", "Connector One", "C1");
-    NodeData node6 = new NodeData("6", new Coordinate(6, 6), "Basic", "Room One", "R1");
-    NodeData node7 = new NodeData("7", new Coordinate(4, 8), "Basic", "Connector Two", "C2");
-    NodeData node8 = new NodeData("8", new Coordinate(6, 8), "Basic", "Hallway Four", "H4");
-    NodeData node9 = new NodeData("9", new Coordinate(8, 8), "Basic", "Room Two", "R2");
+    NodeData node1 = new NodeData("1", new Coordinate(2, 2),"2","Basic", "Lobby One", "L1");
+    NodeData node2 = new NodeData("2", new Coordinate(2, 4),"2","Basic", "Hallway One", "H1");
+    NodeData node3 = new NodeData("3", new Coordinate(4, 4),"2","Basic", "Hallway Two", "H2");
+    NodeData node4 = new NodeData("4", new Coordinate(6, 4),"2", "Basic", "Hallway Three", "H3");
+    NodeData node5 = new NodeData("5", new Coordinate(4, 6),"2","Basic", "Connector One", "C1");
+    NodeData node6 = new NodeData("6", new Coordinate(6, 6),"2", "Basic", "Room One", "R1");
+    NodeData node7 = new NodeData("7", new Coordinate(4, 8),"2", "Basic", "Connector Two", "C2");
+    NodeData node8 = new NodeData("8", new Coordinate(6, 8),"2", "Basic", "Hallway Four", "H4");
+    NodeData node9 = new NodeData("9", new Coordinate(8, 8),"2","Basic", "Room Two", "R2");
 
     Edge edge1 = new Edge("1", "2", "E1");
     Edge edge2 = new Edge("2", "3", "E2");
@@ -115,7 +117,7 @@ public class AstarTest {
     // Failure case: the path does not exist (There are no edges leading to that node)
     // TODO: Catch a different exception in the future
     public void NonexistantPath() {
-        allNodes.add(new NodeData("10", new Coordinate(15, 15), "Disconnected", "Outside", "O"));
+        allNodes.add(new NodeData("10", new Coordinate(15, 15),"2", "Disconnected", "Outside", "O"));
         AStar Path = new AStar(allNodes, allEdges, "1", "10");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
         List<NodeData> astarReturn = Path.getFinalList();

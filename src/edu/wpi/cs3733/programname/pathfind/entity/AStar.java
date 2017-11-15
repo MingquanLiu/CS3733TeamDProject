@@ -21,9 +21,7 @@ public class AStar {
     // We need a HashMap so we can access StarNodes via the corresponding nodeID
     HashMap<String, StarNode> allStarNodes = new HashMap<String, StarNode>();
     List<NodeData> finalList;
-
     ManageController controller;
-
     //constructor
     public AStar(ManageController controller, String startID, String goalID){
         this.controller = controller;
@@ -34,10 +32,11 @@ public class AStar {
     }
 
     //alternate constructor for testing
-    public AStar(LinkedList<NodeData> nodes, LinkedList<Edge> edges, String startID, String goalID) {
+    public AStar(List<NodeData> nodes, List<Edge> edges, String startID, String goalID) {
         this.allEdges = edges;
         this.allNodes = nodes;
         this.init();
+        this.pathFind(startID, goalID);
         this.finalList = this.pathFind(startID, goalID);
     }
 

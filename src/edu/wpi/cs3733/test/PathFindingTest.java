@@ -21,15 +21,15 @@ import static org.junit.Assert.assertEquals;
 public class PathFindingTest {
 
 
-    NodeData node1 = new NodeData("1", new Coordinate(2, 2), "Basic", "Lobby One", "L1");
-    NodeData node2 = new NodeData("2", new Coordinate(2, 4), "Basic", "Hallway One", "H1");
-    NodeData node3 = new NodeData("3", new Coordinate(4, 4), "Basic", "Hallway Two", "H2");
-    NodeData node4 = new NodeData("4", new Coordinate(6, 4), "Basic", "Hallway Three", "H3");
-    NodeData node5 = new NodeData("5", new Coordinate(4, 6), "Basic", "Connector One", "C1");
-    NodeData node6 = new NodeData("6", new Coordinate(6, 6), "Basic", "Room One", "R1");
-    NodeData node7 = new NodeData("7", new Coordinate(4, 8), "Basic", "Connector Two", "C2");
-    NodeData node8 = new NodeData("8", new Coordinate(6, 8), "Basic", "Hallway Four", "H4");
-    NodeData node9 = new NodeData("9", new Coordinate(8, 8), "Basic", "Room Two", "R2");
+    NodeData node1 = new NodeData("1", new Coordinate(2, 2),"2", "Basic", "Lobby One", "L1");
+    NodeData node2 = new NodeData("2", new Coordinate(2, 4), "2","Basic", "Hallway One", "H1");
+    NodeData node3 = new NodeData("3", new Coordinate(4, 4), "2","Basic", "Hallway Two", "H2");
+    NodeData node4 = new NodeData("4", new Coordinate(6, 4), "2","Basic", "Hallway Three", "H3");
+    NodeData node5 = new NodeData("5", new Coordinate(4, 6), "2","Basic", "Connector One", "C1");
+    NodeData node6 = new NodeData("6", new Coordinate(6, 6), "2","Basic", "Room One", "R1");
+    NodeData node7 = new NodeData("7", new Coordinate(4, 8), "2","Basic", "Connector Two", "C2");
+    NodeData node8 = new NodeData("8", new Coordinate(6, 8), "2","Basic", "Hallway Four", "H4");
+    NodeData node9 = new NodeData("9", new Coordinate(8, 8), "2","Basic", "Room Two", "R2");
 
     Edge edge1 = new Edge("1", "2", "E1");
     Edge edge2 = new Edge("2", "3", "E2");
