@@ -21,7 +21,7 @@ public class DBTables {
                 String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(21), xcoord INTEGER, ycoord INTEGER, floor VARCHAR(3), building VARCHAR(20), nodeType VARCHAR(4), longName VARCHAR(50), shortName VARCHAR(30), teamAssigned VARCHAR(6)," +
                                     "CONSTRAINT Nodes PRIMARY KEY (nodeID)," +
                                     "CONSTRAINT Nodes_xcoordVal check (xcoord >= 0 AND xcoord <= 9000)," +
-                                    "CONSTRAINT Nodes_ycoordVal check (ycoord >= 0 AND ycoord <= 9000));";
+                                    "CONSTRAINT Nodes_ycoordVal check (ycoord >= 0 AND ycoord <= 9000))";
                 // Creates new nodes table
                 conn.execute(newTable);
                 System.out.println("\nNodes Table Created\n");
