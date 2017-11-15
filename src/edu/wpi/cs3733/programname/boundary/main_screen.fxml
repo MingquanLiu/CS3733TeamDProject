@@ -17,12 +17,12 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1021.0" prefWidth="1501.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.MainUI">
    <children>
-      <ImageView fitHeight="1021.0" fitWidth="1501.0" layoutY="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="1021.0" fitWidth="1501.0" layoutY="48.0" onMouseClicked="#displayNodeInfo" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@Resources/realPic.png" />
          </image>
       </ImageView>
-      <TitledPane fx:id="menu" animated="false" expanded="false" layoutX="721.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="721.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
+      <TitledPane fx:id="menu" animated="false" expanded="false" layoutX="721.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="200.0">
                <children>
