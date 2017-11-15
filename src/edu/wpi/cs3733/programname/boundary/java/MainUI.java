@@ -134,10 +134,13 @@ public class MainUI {
     private boolean loggedOut = true;               //used to change the sign in/sign out button text
     private ManageController manager = new ManageController();               //global manage controller to call methods
     private boolean locationsSelected;              //used when submitting requests to ensure selection of locations
+    private boolean mapBuilderOpened = false;
     //private Employee adminUser;                   //will be used in the future for logging in
     private String requestType;                     //used for submitting requests to keep method count down
     private String selectingLocation = "";          //string that determines if the user is currently selecting a location
     private boolean selectCoor = false;
+
+    private HashMap<Coordinate, String> nodeIDs;
 
     public void buttonHandler(ActionEvent e){
 
@@ -248,16 +251,19 @@ public class MainUI {
         }
 
         else if(e.getSource() == mapUpdate){
+            mapBuilderOpened = true;
             nodeAdditionPane.setVisible(true);
         }
         else if(e.getSource() == closeNodeInfo){
             nodeInfoPane.setVisible(false);
         }
         else if(e.getSource() == nodeAddCancel){
+            mapBuilderOpened = false;
             nodeAdditionPane.setVisible(false);
         }
         else if(e.getSource() == nodeAddSubmit){
             NodeData n = new NodeData(nodeAddID.getText(), nodeAddCoordinates, "2", nodeAddType.getText(), nodeAddName.getText(), nodeAddShortName.getText());
+            mapBuilderOpened = false;
             manager.addNode(n);
         }
         else if(e.getSource() == nodeAddSelectLocation){
@@ -327,6 +333,11 @@ public class MainUI {
 
 //            showNode(n);
 
+//            String id = nodeIDs.get(loc);
+//            NodeData n = manager.getNodeData(id);
+//
+//            showNode(n);
+//
 //            nodeInfoPane.setLayoutX(nodeX + 3);
 //            nodeInfoPane.setLayoutY(nodeY + 3);
 //            nodeInfoPane.setVisible(true);
@@ -335,7 +346,6 @@ public class MainUI {
 //            nodeInfoType.setText("" + n.getType());
 //            nodeInfoLongName.setText("" + n.getLongName());
 //            nodeInfoShortName.setText("" + n.getShortName());
-
         }
         else if(selectingLocation.equals("nodeAdd")){
             selectingLocation = "";
@@ -365,7 +375,7 @@ public class MainUI {
             Line l = new Line();        //how do I get the start/end coords of an edge
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
-            l.setStrokeWidth(20.0);
+            l.setStrokeWidth(5.0);
             l.setStartX(prev.getX());
             l.setStartY(prev.getY());
             l.setEndX(n.getX());
@@ -380,6 +390,14 @@ public class MainUI {
     public void displayServiceRequestStatus() {
         serviceInfo.setVisible(true);
         //requestsList.getItems().addAll(manager.getRequests());
+    }
+
+    public double converterX(int x) {
+        return (x-3480)*0.38;
+    }
+
+    public double converterY(int y) {
+        return (y + 1700)*0.15;
     }
 
 }
