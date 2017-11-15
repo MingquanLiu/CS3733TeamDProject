@@ -7,6 +7,7 @@ import edu.wpi.cs3733.programname.database.DatabaseModificationController;
 import edu.wpi.cs3733.programname.database.DatabaseQueryController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ManageController {

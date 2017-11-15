@@ -12,7 +12,7 @@ public class DatabaseModificationController {
     DBConnection conn;
 
     /**
-     *
+     * constructor for DatabaseModificationController class
      * @param conn the connection to the database
      */
     public DatabaseModificationController(DBConnection conn){
@@ -34,7 +34,6 @@ public class DatabaseModificationController {
         try {
             // expected "insert into Nodes values (id, x, y, type, 2, 15 Francis, longName, shortName, Team D)"
             str = "insert into Nodes values('" + id + "', " + x + ", " + y + ", '2', '15 Francis', '" + type + "', '" + longName + "', '" + shortName + "', 'Team D')";
-            System.out.println(str);
             conn.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
@@ -58,10 +57,8 @@ public class DatabaseModificationController {
             // expected "update Nodes set xcoord = x, ycoord = y, floor = '2', building = 15 Francis, nodeType = type, longName = longName, shortName = shortName, teamAssigned = Team D where nodeID = id
             str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
                     ", floor = '2', building = '15 Francis', nodeType = '" + type + "', longName = '" + longName + "', shortName = '"
-                    + shortName + "', teamAssigned = 'Team D' where nodeID = '" + id + "'";
-            System.out.println(str);
+                    + shortName + "', teamAssigned = 'Team D' where nodeId = '" + id + "'";
             conn.executeUpdate(str);
-
         } catch (SQLException e) {
             System.out.println("Edit Node Failed!");
             e.printStackTrace();
@@ -79,7 +76,6 @@ public class DatabaseModificationController {
         //str ="delete from Nodes where nodeID = " + id;
         try {
             str ="delete from Nodes where nodeID = '" + id + "'";
-            System.out.println(str);
             conn.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Delete Node Failed!");
@@ -97,9 +93,7 @@ public class DatabaseModificationController {
         String str;
         try {
             str = "insert into Edges values('" + id + "', '" + node1Id + "', '" + node2Id +"')";
-            System.out.println(str);
             conn.executeUpdate(str);
-
         } catch (SQLException e) {
             System.out.println("Add Edge Failed!");
             e.printStackTrace();
@@ -117,10 +111,9 @@ public class DatabaseModificationController {
         String str;
         try {
             str = "update Edges set startNode = '" + start + "', endNode = '" + end + "' where edgeId = '" + id + "'";
-            System.out.println(str);
             conn.executeUpdate(str);
         } catch (SQLException e) {
-            System.out.println("Add Edge Failed!");
+            System.out.println("Edit Edge Failed!");
             e.printStackTrace();
         }
     }
@@ -134,9 +127,7 @@ public class DatabaseModificationController {
         String str;
         try {
             str = "delete from Edges where edgeID = '" + id +"'";
-            System.out.println(str);
             conn.executeUpdate(str);
-
         } catch (SQLException e) {
             System.out.println("Delete Edge Failed!");
             e.printStackTrace();

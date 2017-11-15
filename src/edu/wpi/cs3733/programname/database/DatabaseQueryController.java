@@ -17,7 +17,7 @@ public class DatabaseQueryController {
         this.manager = manager;
     }
 
-    public NodeData queryNodeById(String nodeId) {
+    public NodeData queryNodeById(String nodeId){
         NodeData queryResult = null;
 
         Connection dbConnection;
@@ -55,7 +55,7 @@ public class DatabaseQueryController {
 
             dbConnection.close();
         } catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
+            System.out.println("Node Query Failed!");
             e.printStackTrace();
         }
         return queryResult;
