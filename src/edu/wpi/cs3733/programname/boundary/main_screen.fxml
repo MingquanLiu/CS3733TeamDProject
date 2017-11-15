@@ -40,13 +40,14 @@
                   <Button fx:id="restrooms" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Restrooms" />
                   <Button fx:id="vending" layoutX="16.0" layoutY="49.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Vending Machines" />
                   <Button fx:id="serviceDesk" layoutX="16.0" layoutY="84.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Service Desks" />
-                  <AnchorPane fx:id="admin" layoutX="14.0" layoutY="115.0" prefHeight="163.0" prefWidth="172.0" visible="false">
+                  <AnchorPane fx:id="admin" layoutX="14.0" layoutY="115.0" prefHeight="222.0" prefWidth="172.0">
                      <children>
                         <Button fx:id="transportation" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Transportation Request" />
                         <Button fx:id="interpreter" layoutX="2.0" layoutY="72.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Interpreter request" />
                         <Button fx:id="maintenance" layoutX="2.0" layoutY="37.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Maintenance request" />
                         <Button fx:id="mapUpdate" layoutX="2.0" layoutY="107.0" minHeight="25.0" mnemonicParsing="false" onAction="#buttonHandler" prefWidth="168.0" text="Map Update" />
-                        <Button fx:id="viewRequests" layoutX="39.0" layoutY="142.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="95.0" text="View Requests" />
+                        <Button fx:id="viewRequests" layoutX="40.0" layoutY="183.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="95.0" text="View Requests" />
+                        <Button fx:id="addEdge" layoutX="3.0" layoutY="144.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Add Edge" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>

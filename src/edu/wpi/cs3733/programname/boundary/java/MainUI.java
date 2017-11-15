@@ -132,7 +132,11 @@ public class MainUI {
     @FXML
     private Button nodeAddCancel;
 
+    //adding edges
+    @FXML
+    private Button addEdge;
 
+    private boolean addingEdge = false;
     private boolean loggedOut = true;               //used to change the sign in/sign out button text
     private ManageController manager = new ManageController();               //global manage controller to call methods
     private boolean locationsSelected;              //used when submitting requests to ensure selection of locations
@@ -141,6 +145,9 @@ public class MainUI {
     private String requestType;                     //used for submitting requests to keep method count down
     private String selectingLocation = "";          //string that determines if the user is currently selecting a location
     private boolean selectCoor = false;
+    private int clickCount = 0;
+    private String addEdgeN1 = "";
+    private String addEdgeN2 = "";
 
     private List<Shape> drawings = new ArrayList<>();
 
@@ -219,6 +226,17 @@ public class MainUI {
             admin.setVisible(false);
             mapUpdate.setVisible(true);
             cancelLogin.setVisible(true);
+        }
+        else if(e.getSource() == addEdge && !addingEdge){
+            addEdge.setText("cancel");
+            selectingLocation = "addEdge";
+            addingEdge = true;
+        }
+        //  log off, check the logged on boolean and change the sign in button
+        else if(e.getSource() == addEdge && addingEdge){
+            addEdge.setText("Add Edge");
+            selectingLocation = "";
+            addingEdge = false;
         }
         //  clear the username/pass text
         else if(e.getSource() == cancelLogin){
@@ -374,6 +392,54 @@ public class MainUI {
             requestDescription.setText(requestDescription.getText() + "\n at " + loc.getX() + ", " + loc.getY());
             serviceRequester.setVisible(true);
         }
+        else if(selectingLocation.equals("addEdge")){
+
+            if (addEdgeN1 ==""||addEdgeN2==""){
+                List<NodeData> nodes = manager.getAllNodeData();
+                for(NodeData node:nodes){
+                    nodeX = node.getX();
+                    nodeY = node.getY();
+//                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
+                    temp = Math.sqrt(Math.pow(movedX-nodeX,2)+Math.pow(movedY-nodeY,2));
+                    if (temp<d){
+                        d = temp;
+                        realX = nodeX;
+                        realY = nodeY;
+                        foundNodeId = node.getId();
+                    }
+                }
+                Circle c = new Circle(convertX(realX), convertY(realY), 5, RED);
+                mainPane.getChildren().addAll((c));
+                drawings.add(c);
+                loc.setX(convertX(realX));
+                loc.setY(convertY(realY));
+                if(addEdgeN1==""){
+                    addEdgeN1 = foundNodeId;
+                }else if(addEdgeN2 == ""){
+                    addEdgeN2 = foundNodeId;
+                }
+                if (addEdgeN1 !=""&&addEdgeN2!=""){
+                    NodeData n1 = manager.getNodeData(addEdgeN1);
+                    NodeData n2 = manager.getNodeData(addEdgeN2);
+                    clearMain();
+                    Line l = new Line(convertX(n1.getX()), convertY(n1.getY()), convertX(n2.getX()), convertY(n2.getY()));
+                    l.setStrokeWidth(8);
+                    l.setStroke(BLUE);
+                    Circle c1 = new Circle(convertX(n1.getX()), convertY(n1.getY()), 5, RED);
+                    Circle c2 = new Circle(convertX(n2.getX()), convertY(n2.getY()), 5, RED);
+                    mainPane.getChildren().addAll(l, c1, c2);
+                    drawings.add(l);
+                    drawings.add(c1);
+                    drawings.add(c2);
+                    manager.addEdge(addEdgeN1,addEdgeN2);
+                    addEdgeN1 = "";
+                    addEdgeN2 = "";
+                    selectingLocation = "";
+                    addEdge.setText("Add Edge");
+                }
+            }
+
+        }
     }
     public void showNode(NodeData n){
         Circle c = new Circle(convertX(n.getX()), convertY(n.getY()), 5, Color.RED);
@@ -383,6 +449,7 @@ public class MainUI {
     }
 
     private void displayPath(List<NodeData> path){
+        clearMain();
         System.out.println("Inside displayPath");
         ArrayList<Line> lines = new ArrayList<Line>();
         NodeData prev = path.get(0);
@@ -399,6 +466,7 @@ public class MainUI {
             prev = n;
         }
         mainPane.getChildren().addAll(lines);
+        drawings.addAll(lines);
     }
 
 
@@ -427,6 +495,7 @@ public class MainUI {
                 System.out.println("success remove");
                 mainPane.getChildren().remove(shape);
             }
+            drawings = new ArrayList<>();
         }
     }
 
