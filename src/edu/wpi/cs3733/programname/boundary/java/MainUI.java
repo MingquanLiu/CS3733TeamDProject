@@ -6,6 +6,7 @@ import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -140,7 +141,7 @@ public class MainUI {
     private String selectingLocation = "";          //string that determines if the user is currently selecting a location
     private boolean selectCoor = false;
 
-    int initX = 3315;
+    int initX = 1501;
     int initY = 1021;
 
     private HashMap<Coordinate, String> nodeIDs;
@@ -306,6 +307,7 @@ public class MainUI {
         int nodeY = 0;
         int realX = x;
         int realY = y;
+        String foundNodeId = "";
         double d = 1000;
         double temp;
         Coordinate loc = new Coordinate(x,y);
@@ -317,14 +319,14 @@ public class MainUI {
                 temp = Math.sqrt(Math.pow(x-nodeX,2)+Math.pow(y-nodeY,2));
                 if (temp<d){
                     d = temp;
-                    realX = convertX(nodeX);
-                    realY = convertY(nodeY);
+                    realX = nodeX;
+                    realY = nodeY;
+                    foundNodeId = node.getId();
                 }
             }
             loc.setX(realX);
             loc.setY(realY);
-            String id = nodeIDs.get(loc);
-            NodeData n = manager.getNodeData(id);
+            NodeData n = manager.getNodeData(foundNodeId);
             showNode(n);
             nodeInfoPane.setLayoutX(realX + 3);
             nodeInfoPane.setLayoutY(realY + 3);
@@ -393,6 +395,16 @@ public class MainUI {
     }
     public int makeY(int y){
         return y + 280;
+    }
+
+    public String getNodeIdWithCoor(List<NodeData> mList, Coordinate coordinate){
+        for(NodeData mNodeData : mList){
+            Coordinate mCoord = mNodeData.getLocation();
+            if(mCoord.getX() == coordinate.getX()&&mCoord.getY() == coordinate.getY()){
+                return mNodeData.getId();
+            }
+        }
+        return "Not Found";
     }
 
 }
