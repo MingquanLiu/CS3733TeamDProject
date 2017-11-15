@@ -15,6 +15,7 @@ import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static javafx.scene.paint.Color.*;
 
@@ -111,13 +112,16 @@ public class MainUI {
     @FXML
     private DialogPane nodeAdditionPane;
     @FXML
+    private TextField nodeAddID;
+    @FXML
     private TextField nodeAddName;
     @FXML
     private TextField nodeAddShortName;
     @FXML
     private TextField nodeAddType;
     @FXML
-    private TextField nodeAddCoordinates;
+    private TextField nodeAddCoords;
+    private Coordinate nodeAddCoordinates;
     @FXML
     private Button nodeAddSelectLocation;
     @FXML
@@ -126,16 +130,13 @@ public class MainUI {
     private Button nodeAddCancel;
 
 
-    private boolean success;
-
-    private boolean loggedOut = true;
-    private ManageController manager;
-    private HashMap<Coordinate, String> nodeIDs;
-    private boolean locationsSelected;
-    //private Employee adminUser;
-    private String requestType;
-    private String selectingLocation = "";
-    private Coordinate selectedLocation;
+    private boolean loggedOut = true;               //used to change the sign in/sign out button text
+    private ManageController manager;               //global manage controller to call methods
+    private HashMap<Coordinate, String> nodeIDs;    //not actually used, not sure why its here it was in the class diagram
+    private boolean locationsSelected;              //used when submitting requests to ensure selection of locations
+    //private Employee adminUser;                   //will be used in the future for logging in
+    private String requestType;                     //used for submitting requests to keep method count down
+    private String selectingLocation = "";          //string that determines if the user is currently selecting a location
 
     public void buttonHandler(ActionEvent e){
 
@@ -155,33 +156,29 @@ public class MainUI {
         //basic requests button handling
         else if(e.getSource() == restrooms){
             System.out.println("locating restrooms");
-            /*
-            ArrayList<NodeData> nodes = manager.queryNodeByType("REST");
+            List<NodeData> nodes = manager.queryNodeByType("REST");
             for(NodeData n:nodes){
                 showNode(n);
             }
-            */
         }
         else if(e.getSource() == vending){
             System.out.println("locating vending machines");
-            /*
-            ArrayList<NodeData> nodes = manager.queryNodeByType("VEND");
+            List<NodeData> nodes = manager.queryNodeByType("VEND");
             for(NodeData n:nodes){
                 showNode(n);
             }
-            */
+
         }
         else if(e.getSource() == serviceDesk) {
             System.out.println("locating service desks");
-            /*
-            ArrayList<NodeData> nodes = manager.queryNodeByType("SERVE");
+            List<NodeData> nodes = manager.queryNodeByType("SERVE");
             for (NodeData n : nodes) {
                 showNode(n);
             }
-            */
         }
 
         //admin button handling
+        //  log in, check the logged on boolean and change the sign in button
         else if(e.getSource() == login && loggedOut){
             System.out.println("logging in");
 
@@ -197,6 +194,7 @@ public class MainUI {
             //}
 
         }
+        //  log off, check the logged on boolean and change the sign in button
         else if(e.getSource() == login && !loggedOut){
             System.out.println("logging out");
             /*
@@ -209,10 +207,12 @@ public class MainUI {
             mapUpdate.setVisible(true);
             cancelLogin.setVisible(true);
         }
+        //  clear the username/pass text
         else if(e.getSource() == cancelLogin){
             user.setText("");
             pass.setText("");
         }
+        //admin requests
         else if(e.getSource() == transportation) {
             System.out.println("proccessing transportation request");
             menu.setExpanded(false);
@@ -237,18 +237,15 @@ public class MainUI {
             requestType = "maintenance";
         }
         else if(e.getSource() == submitRequest){
-            if(!locationsSelected){
-                System.out.println("no locations selected");
-            }
-            else if(locationsSelected && (requestType.equals("transport") || requestType.equals("maintenance") || requestType.equals("interpreter"))) {
-                System.out.println("submitting " + requestType + " request");
-                //manager.sendServiceRequest(adminUser, requestType);
-                locationsSelected = false;
-                requestType = "";
-                menu.setExpanded(true);
-                serviceRequester.setVisible(false);
-            }
+            System.out.println("submitting " + requestType + " request");
+            //manager.sendServiceRequest(adminUser, requestType);
+            locationsSelected = false;
+            requestType = "";
+            menu.setExpanded(true);
+            serviceRequester.setVisible(false);
+            requestDescription.setText("");
         }
+
         else if(e.getSource() == mapUpdate){
             nodeAdditionPane.setVisible(true);
         }
@@ -259,7 +256,8 @@ public class MainUI {
             nodeAdditionPane.setVisible(false);
         }
         else if(e.getSource() == nodeAddSubmit){
-
+            NodeData n = new NodeData(nodeAddID.getText(), nodeAddCoordinates, "2", nodeAddType.getText(), nodeAddName.getText(), nodeAddShortName.getText());
+            manager.addNode(n);
         }
         else if(e.getSource() == nodeAddSelectLocation){
             System.out.println("selecting locations");
@@ -287,31 +285,58 @@ public class MainUI {
         }
     }
 
+    //mouseclick handling
     public void displayNodeInfo(MouseEvent e){
         int x = (int) e.getX();
         int y = (int) e.getY();
-        Coordinate loc = new Coordinate(x, y);
+        int nodeX = 0;
+        int nodeY = 0;
+        int realX = x;
+        int realY = y;
+        double d = 1000;
+        double temp;
+        Coordinate loc = new Coordinate(x,y);
+
         if(selectingLocation.equals("")) {
-            //String id = nodeIDs.get(loc);
-            //NodeData n = manager.getNodeData(id);
-            //showNode(n);
-            nodeInfoPane.setLayoutX(x + 3);
-            nodeInfoPane.setLayoutY(y + 3);
+            List<NodeData> nodes = manager.getAllNodeData();
+            for(NodeData node:nodes){
+                nodeX = node.getX();
+                nodeY = node.getY();
+                temp = Math.sqrt(Math.pow(x-nodeX,2)+Math.pow(y-nodeY,2));
+                if (temp<d){
+                    d = temp;
+                    realX = nodeX;
+                    realY = nodeY;
+                }
+            }
+            loc.setX(realX);
+            loc.setY(realY);
+
+            String id = nodeIDs.get(loc);
+            NodeData n = manager.getNodeData(id);
+
+            showNode(n);
+
+            nodeInfoPane.setLayoutX(nodeX + 3);
+            nodeInfoPane.setLayoutY(nodeY + 3);
             nodeInfoPane.setVisible(true);
             nodeInfoLocation.setText(x + ", " + y);
-        /* need nodes for these things
-        nodeInfoType.setText("" + n.getType());
-        nodeInfoLongName.setText("" + n.getLongName);
-        nodeInfoShortName.setText("" + n.getShortName);
-        */
+
+            nodeInfoType.setText("" + n.getType());
+            nodeInfoLongName.setText("" + n.getLongName());
+            nodeInfoShortName.setText("" + n.getShortName());
+
         }
         else if(selectingLocation.equals("nodeAdd")){
             selectingLocation = "";
-            nodeAddCoordinates.setText(loc.getX() + ", " + loc.getY());
+            locationsSelected = true;
+            nodeAddCoordinates = loc;
+            nodeAddCoords.setText(loc.getX() + ", " + loc.getY());
             nodeAdditionPane.setVisible(true);
         }
         else if(selectingLocation.equals("maintenance")){
             selectingLocation = "";
+            locationsSelected = true;
             requestDescription.setText(requestDescription.getText() + "\n at " + loc.getX() + ", " + loc.getY());
             serviceRequester.setVisible(true);
         }
@@ -320,27 +345,28 @@ public class MainUI {
         Circle c = new Circle(n.getX(), n.getY(), 5, Color.RED);
         mainPane.getChildren().addAll(c);
     }
-    /*
+
     private void displayPath(ArrayList<NodeData> path){
         ArrayList<Line> lines = new ArrayList<Line>();
-        Node prev = path.get(0);
+        NodeData prev = path.get(0);
         for(int i = 1; i < path.size(); i++){
             Line l = new Line();        //how do I get the start/end coords of an edge
+            NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStartX(prev.getX());
             l.setStartY(prev.getY());
-            l.setEndX(n.getX()):
+            l.setEndX(n.getX());
             l.setEndY(n.getY());
             lines.add(l);
             prev = n;
         }
         mainPane.getChildren().addAll(lines);
     }
-    */
+
 
     public void displayServiceRequestStatus() {
         serviceInfo.setVisible(true);
-        //requestsList.getItems().addAll(requests.keySet());
+        //requestsList.getItems().addAll(manager.getRequests());
     }
 
 }

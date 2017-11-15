@@ -22,7 +22,7 @@
             <Image url="@Resources/secondRight.PNG" />
          </image>
       </ImageView>
-      <TitledPane fx:id="menu" animated="false" layoutX="721.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="721.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
+      <TitledPane fx:id="menu" animated="false" expanded="false" layoutX="721.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="721.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="200.0">
                <children>
@@ -40,7 +40,7 @@
                   <Button fx:id="restrooms" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Restrooms" />
                   <Button fx:id="vending" layoutX="16.0" layoutY="49.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Vending Machines" />
                   <Button fx:id="serviceDesk" layoutX="16.0" layoutY="84.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Service Desks" />
-                  <AnchorPane fx:id="admin" layoutX="14.0" layoutY="115.0" prefHeight="163.0" prefWidth="172.0">
+                  <AnchorPane fx:id="admin" layoutX="14.0" layoutY="115.0" prefHeight="163.0" prefWidth="172.0" visible="false">
                      <children>
                         <Button fx:id="transportation" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Transportation Request" />
                         <Button fx:id="interpreter" layoutX="2.0" layoutY="72.0" mnemonicParsing="false" onAction="#buttonHandler" prefHeight="25.0" prefWidth="168.0" text="Interpreter request" />
@@ -97,7 +97,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="290.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0">
+      <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="290.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" visible="false">
          <content>
             <AnchorPane prefHeight="178.0" prefWidth="350.0">
                <children>
@@ -119,16 +119,17 @@
             <DropShadow height="70.0" radius="34.5" spread="0.2" width="70.0" />
          </effect>
       </DialogPane>
-      <DialogPane fx:id="nodeAdditionPane" layoutX="365.0" layoutY="165.0" prefHeight="214.0" prefWidth="208.0" visible="false">
+      <DialogPane fx:id="nodeAdditionPane" layoutX="365.0" layoutY="165.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="208.0" visible="false">
          <content>
-            <AnchorPane maxHeight="160.0" prefHeight="158.0" prefWidth="208.0">
+            <AnchorPane maxHeight="160.0" prefHeight="138.0" prefWidth="208.0">
                <children>
-                  <Button fx:id="nodeAddSelectLocation" layoutX="10.0" layoutY="187.0" mnemonicParsing="false" onAction="#buttonHandler" text="Select location" AnchorPane.bottomAnchor="0.0" />
+                  <Button fx:id="nodeAddSelectLocation" layoutX="94.0" layoutY="127.0" mnemonicParsing="false" onAction="#buttonHandler" text="Select location" AnchorPane.bottomAnchor="30.0" />
                   <Button fx:id="nodeAddSubmit" layoutX="134.0" layoutY="178.0" mnemonicParsing="false" onAction="#buttonHandler" text="Submit" AnchorPane.bottomAnchor="0.0" />
-                  <TextField fx:id="nodeAddType" layoutX="10.0" layoutY="169.0" prefHeight="25.0" prefWidth="162.0" promptText="Node Type" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
-                  <TextField fx:id="nodeAddShortName" layoutX="20.0" layoutY="33.0" prefHeight="25.0" prefWidth="162.0" promptText="Short name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
-                  <TextField fx:id="nodeAddName" layoutX="20.0" layoutY="18.0" prefHeight="25.0" promptText="Name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                  <TextField fx:id="nodeAddCoordinates" layoutX="30.0" layoutY="95.0" promptText="Coordinates" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="85.0" />
+                  <TextField fx:id="nodeAddType" layoutX="10.0" layoutY="169.0" prefHeight="25.0" prefWidth="162.0" promptText="Node Type" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="85.0" />
+                  <TextField fx:id="nodeAddShortName" layoutX="20.0" layoutY="33.0" prefHeight="25.0" prefWidth="162.0" promptText="Short name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
+                  <TextField fx:id="nodeAddName" layoutX="20.0" layoutY="18.0" prefHeight="25.0" promptText="Name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0" />
+                  <TextField fx:id="nodeAddCoords" layoutX="30.0" layoutY="95.0" promptText="Coordinates" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0" />
+                  <TextField fx:id="nodeAddID" layoutX="20.0" layoutY="14.0" prefHeight="25.0" promptText="ID" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                </children>
             </AnchorPane>
          </content>
@@ -138,7 +139,7 @@
                   <Insets left="10.0" top="10.0" />
                </padding>
                <graphic>
-                  <Button fx:id="nodeAddCancel" mnemonicParsing="false" onAction="#buttonHandler" text="X" textFill="RED" />
+                  <Button fx:id="nodeAddCancel" cancelButton="true" mnemonicParsing="false" onAction="#buttonHandler" text="X" textFill="RED" />
                </graphic>
             </Label>
          </header>
