@@ -17,7 +17,7 @@ public class dbTables {
                 // Creates new nodes table
                 conn.execute(newTable);
                 System.out.println("\nNodes Table Created\n");
-                conn.commit();
+
             } else {
 
                 String dropTable = ("DROP TABLE Nodes");
@@ -30,7 +30,7 @@ public class dbTables {
                 // Creates new nodes table
                 conn.execute(newTable);
                 System.out.println("Nodes Table Created\n");
-                conn.commit();
+
             }
         } catch (SQLException e) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, e);
@@ -52,7 +52,7 @@ public class dbTables {
                 // Creates new nodes table
                 conn.execute(newTable);
                 System.out.println("\nEdges Table Created");
-                conn.commit();
+
 
             } else {
 
@@ -66,7 +66,7 @@ public class dbTables {
                 // Creates new edges table
                 conn.execute(newTable);
                 System.out.println("Edges Table Created\n");
-                conn.commit();
+
 
             }
 

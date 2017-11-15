@@ -79,7 +79,7 @@ public class csvReadWrite {
                 pst.executeUpdate();
             } // end for
 
-            conn.commit();
+
 
             // Write out the csv file
             String outFileName = "MapDnodes(WriteOut).csv";
@@ -174,7 +174,7 @@ public class csvReadWrite {
                 pst.executeUpdate();
             } // end for
 
-            conn.commit();
+
 
             // Write File
             String outFileName = "MapDedges(WriteOut).csv";

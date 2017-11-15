@@ -9,20 +9,29 @@ import java.sql.Statement;
 
 
 public class DatabaseModificationController {
+    DBConnection conn;
 
-    public DatabaseModificationController(){}
+    /**
+     *
+     * @param conn the connection to the database
+     */
+    public DatabaseModificationController(DBConnection conn){
+        this.conn = conn;
+    }
 
-    public String addNode(NodeData data) {
+    /**
+     * updates database with the node that is passed in added
+     * @param data the information/field values of the node you want to add
+     */
+    public void addNode(NodeData data) {
         String id = data.getId();
         int x = data.getX();
         int y = data.getY();
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-
         String str;
         try {
-            DBConnection conn = new DBConnection();
             // expected "insert into Nodes values (id, x, y, type, 2, 15 Francis, longName, shortName, Team D)"
             str = "insert into Nodes values('" + id + "', " + x + ", " + y + ", '2', '15 Francis', '" + type + "', '" + longName + "', '" + shortName + "', 'Team D')";
             System.out.println(str);
@@ -30,88 +39,94 @@ public class DatabaseModificationController {
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
-            return "Insert Node Failed!";
         }
-
-        return str;
     }
 
-    public String editNode(NodeData data) {
+    /**
+     * looks up the node with the id of the given values in 'data' and updates all of the values to those of 'data'
+     * @param data the information/field values of the node you want to edit
+     */
+    public void editNode(NodeData data) {
         String id = data.getId();
         int x = data.getX();
         int y = data.getY();
         String type = data.getType();
         String longName = data.getLongName();
         String shortName = data.getShortName();
-        DBConnection conn = new DBConnection();
         String str;
-        // just for testing
-//        str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
-//                ", nodeType = " + type + ", longName = " + longName + ", shortName = "
-//                + shortName + "where nodeID = " + id;
         try {
             // expected "update Nodes set xcoord = x, ycoord = y, floor = '2', building = 15 Francis, nodeType = type, longName = longName, shortName = shortName, teamAssigned = Team D where nodeID = id
-            str = "update Nodes set xcoord = '" + x + "', ycoord = '" + y +
-                    "', floor = '2', building = '15 Francis', nodeType = '" + type + "', longName = '" + longName + "', shortName = '"
-                    + shortName + "', teamAssigned = 'Team D' where nodeID = " + id;
+            str = "update Nodes set xcoord = " + x + ", ycoord = " + y +
+                    ", floor = '2', building = '15 Francis', nodeType = '" + type + "', longName = '" + longName + "', shortName = '"
+                    + shortName + "', teamAssigned = 'Team D' where nodeID = '" + id + "'";
+            System.out.println(str);
             conn.executeUpdate(str);
+
         } catch (SQLException e) {
             System.out.println("Edit Node Failed!");
             e.printStackTrace();
-            return "Edit Node Failed!";
         }
-        return str;
     }
 
-    public String deleteNode(NodeData data){
+    /**
+     * the given node is deleted from the database
+     * @param data the information/field values of the node you want to edit
+     */
+    public void deleteNode(NodeData data){
         String id = data.getId();
-        DBConnection conn = new DBConnection();
         String str;
         // just for testing
         //str ="delete from Nodes where nodeID = " + id;
         try {
-            str ="delete from Nodes where nodeID = " + id;
+            str ="delete from Nodes where nodeID = '" + id + "'";
+            System.out.println(str);
             conn.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Delete Node Failed!");
             e.printStackTrace();
-            return "Delete Node Failed!";
         }
-        return str;
     }
 
-    public String addEdge(String node1Id, String node2Id){
+    public void addEdge(String node1Id, String node2Id){
         String id = node1Id + "_" + node2Id;
-        DBConnection conn = new DBConnection();
         String str;
-        // just for testing
-        //str = "insert into Edges values(" + id + "," + node1Id + "," + node2Id ;
         try {
-            str = "insert into Edges values('" + id + "', '" + node1Id + "', '" + node2Id +"'";
+            str = "insert into Edges values('" + id + "', '" + node1Id + "', '" + node2Id +"')";
+            System.out.println(str);
+            conn.executeUpdate(str);
+
+        } catch (SQLException e) {
+            System.out.println("Add Edge Failed!");
+            e.printStackTrace();
+        }
+    }
+
+    public void editEdge(Edge edge){
+        String id = edge.getEdgeId();
+        String start = edge.getFirstNodeId();
+        String end = edge.getSecondNodeId();
+        String str;
+        try {
+            str = "update Edges set startNode = '" + start + "', endNode = '" + end + "' where edgeId = '" + id + "'";
+            System.out.println(str);
             conn.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Add Edge Failed!");
             e.printStackTrace();
-            return "Add edge Failed!";
         }
-        return str;
     }
 
-    public String deleteEdge(Edge data) {
+    public void deleteEdge(Edge data) {
         String id = data.getEdgeId();
-        DBConnection conn = new DBConnection();
         String str;
-        // just for testing
-        //str = "delete from Edges where edgeID = " + id;
         try {
             str = "delete from Edges where edgeID = '" + id +"'";
+            System.out.println(str);
             conn.executeUpdate(str);
+
         } catch (SQLException e) {
             System.out.println("Delete Edge Failed!");
             e.printStackTrace();
-            return "Delete Edge Failed!";
         }
-        return str;
     }
-
 }

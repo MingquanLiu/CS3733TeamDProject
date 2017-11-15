@@ -18,7 +18,7 @@ public class ManageController {
     public ManageController() {
         this.pathfindingController = new PathfindingController(this);
         this.dbQueryController = new DatabaseQueryController();
-        this.dbModController = new DatabaseModificationController();
+//        this.dbModController = new DatabaseModificationController();
     }
 
     public List<NodeData> startPathfind(String startId, String goalId) {
