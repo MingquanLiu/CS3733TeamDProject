@@ -151,6 +151,10 @@ public class MainUI {
 
     private HashMap<Coordinate, String> nodeIDs;
 
+    /**
+     * reads different button clicks and executes appropriate steps
+     * @param e the instance of a button being clicked
+     */
     public void buttonHandler(ActionEvent e){
         clearMain();
         //pathfinding button handling
@@ -312,6 +316,11 @@ public class MainUI {
 
 
     //mouseclick handling
+
+    /**
+     * reads different mouse click and executes appropraite steps
+     * @param e the instance of a mouse click
+     */
     public void displayNodeInfo(MouseEvent e){
         clearMain();
         int x = (int) e.getX();
@@ -375,6 +384,11 @@ public class MainUI {
             serviceRequester.setVisible(true);
         }
     }
+
+    /**
+     * shows the basic information of a node that was clicked
+     * @param n a node that was clicked
+     */
     public void showNode(NodeData n){
         Circle c = new Circle(convertX(n.getX()), convertY(n.getY()), 5, Color.RED);
         c.setFill(Color.RED);
@@ -382,6 +396,10 @@ public class MainUI {
         mainPane.getChildren().addAll(c);
     }
 
+    /**
+     * displays a highlighted path on the map
+     * @param path a list of nodes that make up a path
+     */
     private void displayPath(List<NodeData> path){
         System.out.println("Inside displayPath");
         ArrayList<Line> lines = new ArrayList<Line>();
@@ -402,22 +420,47 @@ public class MainUI {
     }
 
 
+    /**
+     * displays the status of a service request
+     * not fully finished, will complete in future iteration
+     */
     public void displayServiceRequestStatus() {
         serviceInfo.setVisible(true);
         //requestsList.getItems().addAll(manager.getRequests());
     }
 
+    /**
+     * converts actual coordinates and scales it to map on UI
+     * @param x the x coordinate
+     * @return the new x coordinate (that works for the UI)
+     */
     public int convertX(int x) {
         return x - 3315;
     }
 
+    /**
+     * oonverts the actual coordinates and scales it to map on UI
+     * @param y the y coordinate
+     * @return the new y coordinate (that works for the UI)
+     */
     public int convertY(int y) {
         return y - 280;
     }
 
+    /**
+     * converts the map UI coordinate to the actual coordinate
+     * @param x the x coordinate
+     * @return the new x coordinate (that works for the initial map)
+     */
     public int makeX(int x){
         return x + 3315;
     }
+
+    /**
+     * converts the map UI coordinate to the actual coordinate
+     * @param y the y coordinate
+     * @return the new y coordinate (that works for the initial map)
+     */
     public int makeY(int y){
         return y + 280;
     }
@@ -430,6 +473,12 @@ public class MainUI {
         }
     }
 
+    /**
+     * given the coordinates of a Node, the corresponding node ID is returned
+     * @param mList
+     * @param coordinate
+     * @return corresponding ID given node  coordinate
+     */
     public String getNodeIdWithCoor(List<NodeData> mList, Coordinate coordinate){
         for(NodeData mNodeData : mList){
             Coordinate mCoord = mNodeData.getLocation();
