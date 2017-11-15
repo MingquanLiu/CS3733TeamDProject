@@ -131,7 +131,7 @@ public class MainUI {
 
 
     private boolean loggedOut = true;               //used to change the sign in/sign out button text
-    private ManageController manager;               //global manage controller to call methods
+    private ManageController manager = new ManageController();               //global manage controller to call methods
     private HashMap<Coordinate, String> nodeIDs;    //not actually used, not sure why its here it was in the class diagram
     private boolean locationsSelected;              //used when submitting requests to ensure selection of locations
     //private Employee adminUser;                   //will be used in the future for logging in
@@ -143,8 +143,8 @@ public class MainUI {
         //pathfinding button handling
         if(e.getSource() == go){
             System.out.println("drawing path");
-            //ArrayList<Node> p = manager.startPathfind(startLocation.getText(), endLocation.getText());
-            //displayPath(p);
+            List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText());
+            displayPath(p);
         }
         else if(e.getSource() == clear){
             System.out.println("clearing search");
@@ -346,13 +346,14 @@ public class MainUI {
         mainPane.getChildren().addAll(c);
     }
 
-    private void displayPath(ArrayList<NodeData> path){
+    private void displayPath(List<NodeData> path){
         ArrayList<Line> lines = new ArrayList<Line>();
         NodeData prev = path.get(0);
         for(int i = 1; i < path.size(); i++){
             Line l = new Line();        //how do I get the start/end coords of an edge
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
+            l.setStrokeWidth(20.0);
             l.setStartX(prev.getX());
             l.setStartY(prev.getY());
             l.setEndX(n.getX());
