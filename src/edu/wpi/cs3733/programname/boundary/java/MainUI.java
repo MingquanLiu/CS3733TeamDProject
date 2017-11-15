@@ -316,36 +316,31 @@ public class MainUI {
         if(selectingLocation.equals("")) {
             List<NodeData> nodes = manager.getAllNodeData();
             for(NodeData node:nodes){
-                nodeX = node.getX();
-                nodeY = node.getY();
+                nodeX = makeX(node.getX());
+                nodeY = makeY(node.getY());
                 temp = Math.sqrt(Math.pow(x-nodeX,2)+Math.pow(y-nodeY,2));
                 if (temp<d){
                     d = temp;
-                    realX = nodeX;
-                    realY = nodeY;
+                    realX = convertX(nodeX);
+                    realY = convertY(nodeY);
                 }
             }
             loc.setX(realX);
             loc.setY(realY);
 
-//            String id = nodeIDs.get(loc);
-//            NodeData n = manager.getNodeData(id);
+            String id = nodeIDs.get(loc);
+            NodeData n = manager.getNodeData(id);
 
-//            showNode(n);
+            showNode(n);
 
-//            String id = nodeIDs.get(loc);
-//            NodeData n = manager.getNodeData(id);
-//
-//            showNode(n);
-//
-//            nodeInfoPane.setLayoutX(nodeX + 3);
-//            nodeInfoPane.setLayoutY(nodeY + 3);
-//            nodeInfoPane.setVisible(true);
-//            nodeInfoLocation.setText(x + ", " + y);
-//
-//            nodeInfoType.setText("" + n.getType());
-//            nodeInfoLongName.setText("" + n.getLongName());
-//            nodeInfoShortName.setText("" + n.getShortName());
+            nodeInfoPane.setLayoutX(realX + 3);
+            nodeInfoPane.setLayoutY(realY + 3);
+            nodeInfoPane.setVisible(true);
+            nodeInfoLocation.setText(realX + ", " + realY);
+
+            nodeInfoType.setText("" + n.getType());
+            nodeInfoLongName.setText("" + n.getLongName());
+            nodeInfoShortName.setText("" + n.getShortName());
         }
         else if(selectingLocation.equals("nodeAdd")){
             selectingLocation = "";
@@ -392,12 +387,19 @@ public class MainUI {
         //requestsList.getItems().addAll(manager.getRequests());
     }
 
-    public double converterX(int x) {
-        return (x-3480)*0.38;
+    public int convertX(int x) {
+        return x - 3315;
     }
 
-    public double converterY(int y) {
-        return (y + 1700)*0.15;
+    public int convertY(int y) {
+        return y - 280;
+    }
+
+    public int makeX(int x){
+        return x + 3315;
+    }
+    public int makeY(int y){
+        return y + 280;
     }
 
 }
