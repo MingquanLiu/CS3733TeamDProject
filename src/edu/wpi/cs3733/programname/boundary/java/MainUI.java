@@ -133,7 +133,6 @@ public class MainUI {
 
     private boolean loggedOut = true;               //used to change the sign in/sign out button text
     private ManageController manager = new ManageController();               //global manage controller to call methods
-    private HashMap<Coordinate, String> nodeIDs;    //not actually used, not sure why its here it was in the class diagram
     private boolean locationsSelected;              //used when submitting requests to ensure selection of locations
     //private Employee adminUser;                   //will be used in the future for logging in
     private String requestType;                     //used for submitting requests to keep method count down

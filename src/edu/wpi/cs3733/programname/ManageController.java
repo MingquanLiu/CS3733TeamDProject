@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 
+import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
@@ -10,15 +11,16 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ManageController {
 
-    DBConnection dbConnection;
-    PathfindingController pathfindingController;
-    DatabaseQueryController dbQueryController;
-    DatabaseModificationController dbModController;
-    List<NodeData> nodes;
+    private HashMap<Coordinate, String> nodeIDs;
+    private DBConnection dbConnection;
+    private PathfindingController pathfindingController;
+    private DatabaseQueryController dbQueryController;
+    private DatabaseModificationController dbModController;
 
     public ManageController() {
         this.dbConnection = new DBConnection();
@@ -26,7 +28,7 @@ public class ManageController {
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
-        nodes = getAllNodeData();
+        List<NodeData> allNodes = dbQueryController.getAllNodeData
     }
 
     public List<NodeData> startPathfind(String startId, String goalId) {
@@ -46,11 +48,11 @@ public class ManageController {
     }
 
     public List<NodeData> getAllNodeData() {
-        return null;
+        return this.dbQueryController.getAllNodeData();
     }
 
     public List<Edge> getAllEdgeData() {
-        return null;
+        return this.dbQueryController.getAllEdgeData();
     }
 
     public List<NodeData> queryNodeByType(String nodeType) {
