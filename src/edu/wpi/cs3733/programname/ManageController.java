@@ -8,6 +8,8 @@ import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.DatabaseModificationController;
 import edu.wpi.cs3733.programname.database.DatabaseQueryController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
+import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
+import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -16,19 +18,20 @@ import java.util.List;
 
 public class ManageController {
 
-    private HashMap<Coordinate, String> nodeIDs;
     private DBConnection dbConnection;
     private PathfindingController pathfindingController;
     private DatabaseQueryController dbQueryController;
     private DatabaseModificationController dbModController;
+    private ServiceRequestController serviceController;
 
     public ManageController() {
         this.dbConnection = new DBConnection();
         dbConnection.setDBConnection();
+
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
-        List<NodeData> allNodes = dbQueryController.getAllNodeData
+        this.serviceController = new ServiceRequestController();
     }
 
     public List<NodeData> startPathfind(String startId, String goalId) {
@@ -60,19 +63,20 @@ public class ManageController {
     }
 
     public void addNode(NodeData data) {
-
+        this.dbModController.addNode(data);
     }
 
     public void deleteNode(NodeData data) {
-
+        this.dbModController.deleteNode(data);
     }
 
     public void editNode(NodeData data) {
-
+        this.dbModController.editNode(data);
     }
 
-    public void sendServiceRequest() {
-
+    public void sendServiceRequest(String type) {
+        Employee emp = new Employee("me", 1, false);
+        this.serviceController.createServiceRequest(emp, type);
     }
 }
 
