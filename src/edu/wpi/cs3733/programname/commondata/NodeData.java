@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.programname.commondata;
 
 public class NodeData {
-
     private String id;
     private Coordinate location;
     private String type;
