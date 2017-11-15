@@ -2,3 +2,4 @@
 *.iml
 TestDB
 /out/*
+*.log
