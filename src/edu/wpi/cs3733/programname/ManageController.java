@@ -8,20 +8,26 @@ import edu.wpi.cs3733.programname.database.DatabaseModificationController;
 import edu.wpi.cs3733.programname.database.DatabaseQueryController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManageController {
 
+    DBConnection dbConnection;
     PathfindingController pathfindingController;
     DatabaseQueryController dbQueryController;
     DatabaseModificationController dbModController;
+    List<NodeData> nodes;
 
     public ManageController() {
+        this.dbConnection = new DBConnection();
+        dbConnection.setDBConnection();
+
         this.pathfindingController = new PathfindingController();
-
-        this.dbQueryController = new DatabaseQueryController(this);
-        //this.dbModController = new DatabaseModificationController();
-
+        this.dbQueryController = new DatabaseQueryController(this.dbConnection);
+        this.dbModController = new DatabaseModificationController(this.dbConnection);
+        nodes = getAllNodeData();
     }
 
     public List<NodeData> startPathfind(String startId, String goalId) {
