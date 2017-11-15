@@ -80,9 +80,6 @@ public class DatabaseQueryController {
         return queryResult;
     }
 
-    public List<NodeData> queryNodeByType(String findNodeType) {
-        return null;
-    }
 
     public List<NodeData> getAllNodeData() {
         NodeData queryResult = null;
@@ -146,6 +143,44 @@ public class DatabaseQueryController {
             e.printStackTrace();
         }
         return allEdges;
+    }
+
+    public List<NodeData> queryNodeByType(String findNodeType) {
+
+        NodeData queryResult = null;
+        List<NodeData> allNodeTypes = new ArrayList<NodeData>();
+
+        try {
+            String sql = "SELECT * FROM Nodes WHERE nodeType = " + "'" + findNodeType + "'";
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+
+            String id = "";
+            int x = 0;
+            int y = 0;
+            String floor = "";
+            String nodeType = "";
+            String longName = "";
+            String shortName = "";
+
+            while(result.next()) {
+                id = result.getString("nodeID");
+                x = result.getInt("xcoord");
+                y = result.getInt("ycoord");
+                floor = result.getString("floor");
+                nodeType = result.getString("nodeType");
+                longName = result.getString("longName");
+                shortName = result.getString("shortName");
+                Coordinate location = new Coordinate(x,y);
+                queryResult = new NodeData(id, location, floor, nodeType, longName, shortName);
+                allNodeTypes.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Insert Node Failed!");
+            e.printStackTrace();
+        }
+        return allNodeTypes;
+
     }
 
 
