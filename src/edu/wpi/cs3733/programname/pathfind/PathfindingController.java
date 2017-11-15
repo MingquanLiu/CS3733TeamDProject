@@ -15,9 +15,12 @@ import java.util.List;
 public class PathfindingController {
     /**
      * Takes in the starting and ending locations, and calls AStar to find the path between them
-     * @param startNode - the starting location for the path
-     * @param endNode - the end node, aka the destination, for the path
-     * @return - result is the list of edges efficiently connecting startNode to endNode
+     * currently also takes linkedlists for nodedata and edges
+     * @param allNodes - the list of all nodes
+     * @param allEdges - the list of all edges
+     * @param startNode - the ID of the starting location for the path
+     * @param endNode - the ID of the end node, aka the destination, for the path
+     * @return - result is the list of nodes efficiently connecting startNode to endNode
      */
     public List<NodeData> initializePathfind(LinkedList<NodeData> allNodes,LinkedList<Edge> allEdges,String startNode, String endNode){
         ManageController manager = new ManageController();

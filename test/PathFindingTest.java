@@ -53,86 +53,12 @@ public class PathFindingTest {
     // If we can get from node 1 to node 4, we are on the right track
     public void StraightPath(){
         PathfindingController controller = new PathfindingController();
+
         List<NodeData> givenList = controller.initializePathfind(allNodes,allEdges,"1","4");
-        for (int i=3;i>=0;i--) {
-            Assert.assertEquals(givenList.get(i).getId(), Integer.toString(i));
-          //  Assert.assertEquals(givenList.get() Integer.toString(i+1));
+
+        for (int i=4; i>0; i--) {
+            Assert.assertEquals(givenList.get(4-i).getId(), Integer.toString(i));
+            System.out.println("Asserted that Node " + givenList.get(4-i).getId() + " is in the list.");
         }
     }
-    /*
-    @Test
-    // We are using nodes 1-4 in a row again, but starting in the middle and trying to get to the far end
-    public void IntermedPath(){
-        AStar Path = new AStar(allNodes, allEdges,"3", "1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test
-    // Let's start at the far end of the tree and try to get to the first node
-    public void LongPath(){
-        AStar Path = new AStar(allNodes, allEdges,"8", "1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star5, star7, star8));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test
-    // Trying to travel around the C part of the hallway
-    public void CPath(){
-        AStar Path = new AStar(allNodes, allEdges,"6", "4");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star5, star6));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test
-    // Can we do a super simple path?
-    public void OneStepPath(){
-        AStar Path = new AStar(allNodes, allEdges,"9", "8");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star9));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test
-    // Failure case: when we go from one node to itself
-    public void ZeroStepPath(){
-        AStar Path = new AStar(allNodes, allEdges,"1", "1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test(expected = java.lang.NullPointerException.class)
-    // Failure case: the path does not exist (There are no edges leading to that node)
-    // TODO: Catch a different exception in the future
-    public void NonexistantPath() {
-        allNodes.add(new NodeData("10", new Coordinate(15, 15), "Disconnected", "Outside", "O"));
-        AStar Path = new AStar(allNodes, allEdges, "1", "10");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test(expected = java.lang.NullPointerException.class)
-    // Failure case: the path does not exist (The node does not exist)
-    // TODO: Catch a different exception in the future
-    public void NonexistantNode() {
-        AStar Path = new AStar(allNodes, allEdges,"1", "10");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    */
-
 }
