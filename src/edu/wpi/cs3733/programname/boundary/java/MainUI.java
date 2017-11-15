@@ -137,6 +137,7 @@ public class MainUI {
     //private Employee adminUser;                   //will be used in the future for logging in
     private String requestType;                     //used for submitting requests to keep method count down
     private String selectingLocation = "";          //string that determines if the user is currently selecting a location
+    private boolean selectCoor = false;
 
     public void buttonHandler(ActionEvent e){
 
@@ -171,7 +172,7 @@ public class MainUI {
         }
         else if(e.getSource() == serviceDesk) {
             System.out.println("locating service desks");
-            List<NodeData> nodes = manager.queryNodeByType("SERVE");
+            List<NodeData> nodes = manager.queryNodeByType("SERV");
             for (NodeData n : nodes) {
                 showNode(n);
             }
@@ -261,6 +262,7 @@ public class MainUI {
         }
         else if(e.getSource() == nodeAddSelectLocation){
             System.out.println("selecting locations");
+            selectCoor = true;
             nodeAdditionPane.setVisible(false);
             selectingLocation = "nodeAdd";
         }
@@ -285,10 +287,12 @@ public class MainUI {
         }
     }
 
+
     //mouseclick handling
     public void displayNodeInfo(MouseEvent e){
         int x = (int) e.getX();
         int y = (int) e.getY();
+        System.out.println("This mouse clicked at X: "+x+" Y:"+y);
         int nodeX = 0;
         int nodeY = 0;
         int realX = x;
@@ -296,6 +300,12 @@ public class MainUI {
         double d = 1000;
         double temp;
         Coordinate loc = new Coordinate(x,y);
+        if(selectCoor){
+            nodeAddCoords.setText(x+","+y);
+            selectCoor =false;
+        }else{
+
+        }
 
         if(selectingLocation.equals("")) {
             List<NodeData> nodes = manager.getAllNodeData();
@@ -312,19 +322,19 @@ public class MainUI {
             loc.setX(realX);
             loc.setY(realY);
 
-            String id = nodeIDs.get(loc);
-            NodeData n = manager.getNodeData(id);
+//            String id = nodeIDs.get(loc);
+//            NodeData n = manager.getNodeData(id);
 
-            showNode(n);
+//            showNode(n);
 
-            nodeInfoPane.setLayoutX(nodeX + 3);
-            nodeInfoPane.setLayoutY(nodeY + 3);
-            nodeInfoPane.setVisible(true);
-            nodeInfoLocation.setText(x + ", " + y);
-
-            nodeInfoType.setText("" + n.getType());
-            nodeInfoLongName.setText("" + n.getLongName());
-            nodeInfoShortName.setText("" + n.getShortName());
+//            nodeInfoPane.setLayoutX(nodeX + 3);
+//            nodeInfoPane.setLayoutY(nodeY + 3);
+//            nodeInfoPane.setVisible(true);
+//            nodeInfoLocation.setText(x + ", " + y);
+//
+//            nodeInfoType.setText("" + n.getType());
+//            nodeInfoLongName.setText("" + n.getLongName());
+//            nodeInfoShortName.setText("" + n.getShortName());
 
         }
         else if(selectingLocation.equals("nodeAdd")){
@@ -333,6 +343,7 @@ public class MainUI {
             nodeAddCoordinates = loc;
             nodeAddCoords.setText(loc.getX() + ", " + loc.getY());
             nodeAdditionPane.setVisible(true);
+
         }
         else if(selectingLocation.equals("maintenance")){
             selectingLocation = "";

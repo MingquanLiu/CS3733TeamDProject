@@ -28,7 +28,7 @@ public class ManageController {
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
-        List<NodeData> allNodes = dbQueryController.getAllNodeData
+        List<NodeData> allNodes = dbQueryController.getAllNodeData();
     }
 
     public List<NodeData> startPathfind(String startId, String goalId) {
