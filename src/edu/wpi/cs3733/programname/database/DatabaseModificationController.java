@@ -70,7 +70,7 @@ public class DatabaseModificationController {
 
     /**
      * the given node is deleted from the database
-     * @param data the information/field values of the node you want to edit
+     * @param data the information/field values of the node you want to remove
      */
     public void deleteNode(NodeData data){
         String id = data.getId();
@@ -87,6 +87,11 @@ public class DatabaseModificationController {
         }
     }
 
+    /**
+     * adds a new edge to the database using 2 already existing nodes (search for the nodes in database using given IDs)
+     * @param node1Id the id of the first node to be part of the edge
+     * @param node2Id the id of the second node to be part of the edge
+     */
     public void addEdge(String node1Id, String node2Id){
         String id = node1Id + "_" + node2Id;
         String str;
@@ -101,6 +106,10 @@ public class DatabaseModificationController {
         }
     }
 
+    /**
+     * looks up the edge with the id of the given values in 'edge' parameter and updates all of the values of mathcing edge to those of 'edge'
+     * @param edge the information/field values of the edge you want to edit
+     */
     public void editEdge(Edge edge){
         String id = edge.getEdgeId();
         String start = edge.getFirstNodeId();
@@ -116,6 +125,10 @@ public class DatabaseModificationController {
         }
     }
 
+    /**
+     * the given edge is deleted from the database (the nodes that make up the edge still exist)
+     * @param data the edge that we want to delete
+     */
     public void deleteEdge(Edge data) {
         String id = data.getEdgeId();
         String str;
