@@ -22,7 +22,13 @@ public class AStar {
     HashMap<String, StarNode> allStarNodes = new HashMap<>();
     List<NodeData> finalList;
 
-    //alternate constructor for testing
+    /**
+     * constructor for AStar
+     * @param nodes list of nodes
+     * @param edges list of edges
+     * @param startID starting location
+     * @param goalID destination location
+     */
     public AStar(List<NodeData> nodes, List<Edge> edges, String startID, String goalID) {
         this.allEdges = edges;
         this.allNodes = nodes;
@@ -31,6 +37,10 @@ public class AStar {
     }
 
     // Call to update the whole list of StarNodes
+
+    /**
+     * initializes A*
+     */
     private void init() {
         System.out.println("Initializing A*");
         for(NodeData node: allNodes) {
@@ -48,7 +58,12 @@ public class AStar {
 
     }
 
-    // calculates a path from start to finish
+    /**
+     * calculates path from start to finish
+     * @param startID starting location
+     * @param goalID end location
+     * @return list of nodes that make up the path
+     */
     private List<NodeData> pathFind(String startID, String goalID) {
         // TODO: Throw a "No such node" exception
         StarNode start = allStarNodes.get(startID);
@@ -108,7 +123,11 @@ public class AStar {
         return null; // TODO: throw a "Path not found" exception
     }
 
-    // returns the cost of moving from the starting node to the provided node
+    /**
+     * calculates the cost of moving from starting node to given node (the bigger the cost, the worse)
+     * @param node starnode is a node along possible path
+     * @return the "cost" of getting to the given starNode
+     */
     private double actionCost(StarNode node) {
         StarNode previous = node.getPreviousNode();
         double xDist = previous.getX() - node.getX();
@@ -120,6 +139,13 @@ public class AStar {
 
 
     // returns the pixel distance from the provided node to the destination node
+
+    /**
+     * calculates the distance from the one star node to another (the bigger the distance, the worse)
+     * @param node a starting node on the possible path
+     * @param goal a ending node on the possible path
+     * @return the distance between the two nodes
+     */
     private double distanceToGo(StarNode node, StarNode goal) {
         double xDist = goal.getX() - node.getX();
         double yDist = goal.getY() - node.getY();
