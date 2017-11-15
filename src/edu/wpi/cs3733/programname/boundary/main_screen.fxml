@@ -97,12 +97,12 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="290.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" visible="false">
+      <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="290.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0">
          <content>
             <AnchorPane prefHeight="178.0" prefWidth="350.0">
                <children>
                   <TextArea fx:id="requestDescription" layoutX="23.0" prefHeight="125.0" prefWidth="305.0" />
-                  <Button fx:id="selectLocations" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" onAction="#buttonHandler" text="Select Location(s)" />
+                  <Button fx:id="selectMaintenanceLocation" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" onAction="#buttonHandler" text="Select Location(s)" />
                   <Button fx:id="cancelRequestAttempt" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" onAction="#buttonHandler" text="Cancel" />
                   <Button fx:id="submitRequest" layoutX="211.0" layoutY="125.0" mnemonicParsing="false" onAction="#buttonHandler" text="Submit" />
                </children>
@@ -138,7 +138,7 @@
                   <Insets left="10.0" top="10.0" />
                </padding>
                <graphic>
-                  <Button fx:id="NodeAddCancel" mnemonicParsing="false" onAction="#buttonHandler" text="X" textFill="RED" />
+                  <Button fx:id="nodeAddCancel" mnemonicParsing="false" onAction="#buttonHandler" text="X" textFill="RED" />
                </graphic>
             </Label>
          </header>

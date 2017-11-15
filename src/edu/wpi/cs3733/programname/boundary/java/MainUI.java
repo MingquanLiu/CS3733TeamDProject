@@ -81,7 +81,7 @@ public class MainUI {
     @FXML
     private TextArea requestDescription;
     @FXML
-    private Button selectLocations;
+    private Button selectMaintenanceLocation;
     @FXML
     private Button cancelRequestAttempt;
     @FXML
@@ -117,7 +117,7 @@ public class MainUI {
     @FXML
     private TextField nodeAddType;
     @FXML
-    private TextField NodeCoordinates;
+    private TextField nodeAddCoordinates;
     @FXML
     private Button nodeAddSelectLocation;
     @FXML
@@ -134,6 +134,8 @@ public class MainUI {
     private boolean locationsSelected;
     //private Employee adminUser;
     private String requestType;
+    private String selectingLocation = "";
+    private Coordinate selectedLocation;
 
     public void buttonHandler(ActionEvent e){
 
@@ -250,12 +252,23 @@ public class MainUI {
         else if(e.getSource() == mapUpdate){
             nodeAdditionPane.setVisible(true);
         }
-        else if(e.getSource() == selectLocations){
+        else if(e.getSource() == closeNodeInfo){
+            nodeInfoPane.setVisible(false);
+        }
+        else if(e.getSource() == nodeAddCancel){
+            nodeAdditionPane.setVisible(false);
+        }
+        else if(e.getSource() == nodeAddSubmit){
+
+        }
+        else if(e.getSource() == nodeAddSelectLocation){
             System.out.println("selecting locations");
+            nodeAdditionPane.setVisible(false);
+            selectingLocation = "nodeAdd";
+        }
+        else if(e.getSource() == selectMaintenanceLocation){
             serviceRequester.setVisible(false);
-            //awaitLocationSelect();
-            serviceRequester.setVisible(true);
-            locationsSelected = true;
+            selectingLocation = "maintenance";
         }
         else if(e.getSource() == cancelRequestAttempt){
             System.out.println("canceling request attempt");
@@ -263,8 +276,6 @@ public class MainUI {
             requestDescription.setText("");
             serviceRequester.setVisible(false);
         }
-
-
         //maintenance request modification handling
         else if(e.getSource() == viewRequests){
             System.out.println("showing requests");
@@ -277,32 +288,44 @@ public class MainUI {
     }
 
     public void displayNodeInfo(MouseEvent e){
-        int x = (int)e.getX();
-        int y = (int)e.getY();
+        int x = (int) e.getX();
+        int y = (int) e.getY();
         Coordinate loc = new Coordinate(x, y);
-        //String id = nodeIDs.get(loc);
-        //NodeData n = manager.getNodeData(id);
-        nodeInfoPane.setLayoutX(x + 3);
-        nodeInfoPane.setLayoutY(y + 3);
-        nodeInfoPane.setVisible(true);
-        /*
-        nodeInfoLocation.setText(x + ", " + y);
+        if(selectingLocation.equals("")) {
+            //String id = nodeIDs.get(loc);
+            //NodeData n = manager.getNodeData(id);
+            //showNode(n);
+            nodeInfoPane.setLayoutX(x + 3);
+            nodeInfoPane.setLayoutY(y + 3);
+            nodeInfoPane.setVisible(true);
+            nodeInfoLocation.setText(x + ", " + y);
+        /* need nodes for these things
         nodeInfoType.setText("" + n.getType());
         nodeInfoLongName.setText("" + n.getLongName);
         nodeInfoShortName.setText("" + n.getShortName);
         */
+        }
+        else if(selectingLocation.equals("nodeAdd")){
+            selectingLocation = "";
+            nodeAddCoordinates.setText(loc.getX() + ", " + loc.getY());
+            nodeAdditionPane.setVisible(true);
+        }
+        else if(selectingLocation.equals("maintenance")){
+            selectingLocation = "";
+            requestDescription.setText(requestDescription.getText() + "\n at " + loc.getX() + ", " + loc.getY());
+            serviceRequester.setVisible(true);
+        }
     }
-    /*
     public void showNode(NodeData n){
-        Circle c = new Circle(n.coordinate.getX(), n.coordinate.getY(), 10, Color.RED);
+        Circle c = new Circle(n.getX(), n.getY(), 5, Color.RED);
         mainPane.getChildren().addAll(c);
     }
-
-    private void displayPath(ArrayList<Node> path){
+    /*
+    private void displayPath(ArrayList<NodeData> path){
         ArrayList<Line> lines = new ArrayList<Line>();
         Node prev = path.get(0);
         for(int i = 1; i < path.size(); i++){
-            Line l = new Line();        //how do I get the star/end coords of an edge
+            Line l = new Line();        //how do I get the start/end coords of an edge
             l.setStroke(Color.BLUE);
             l.setStartX(prev.getX());
             l.setStartY(prev.getY());
@@ -314,9 +337,6 @@ public class MainUI {
         mainPane.getChildren().addAll(lines);
     }
     */
-    public void refreshDisplayMap(){
-
-    }
 
     public void displayServiceRequestStatus() {
         serviceInfo.setVisible(true);
