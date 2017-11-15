@@ -195,7 +195,7 @@ public class MainUI {
         }
         else if(e.getSource() == serviceDesk) {
             System.out.println("locating service desks");
-            List<NodeData> nodes = manager.queryNodeByType("SERV");
+            List<NodeData> nodes = manager.queryNodeByType("INFO");
             for (NodeData n : nodes) {
                 showNode(n);
             }

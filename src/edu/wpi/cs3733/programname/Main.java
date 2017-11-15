@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 import edu.wpi.cs3733.programname.boundary.java.MainUI;
+import edu.wpi.cs3733.programname.database.DBTables;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ public class Main extends Application{
         primaryStage.setTitle("The best application");
         primaryStage.setScene(new Scene(root, 1501, 1021));
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

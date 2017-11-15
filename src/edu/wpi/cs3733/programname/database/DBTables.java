@@ -50,7 +50,7 @@ public class DBTables {
 
 
 
-    public void createEdgesTables(DBConnection conn) {
+    public static void createEdgesTables(DBConnection conn) {
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "Nodes" table is there
