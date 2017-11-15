@@ -12,10 +12,19 @@ import edu.wpi.cs3733.programname.commondata.*;
 
 public class CsvReader {
 
+    /**
+     * empty constructor for CsvReader
+     */
     public CsvReader() {
     }
 
     // NODES MapDnodes.csv
+
+    /**
+     *
+     * @param conn
+     * @return
+     */
     public ArrayList<NodeData> readNodes(Connection conn) {
         ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
         String fileName = "MapDnodes.csv";
