@@ -22,11 +22,11 @@
             <Image url="@Resources/realPic.png" />
          </image>
       </ImageView>
-      <TitledPane fx:id="menu" animated="false" expanded="false" layoutX="721.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TitledPane fx:id="menu" animated="false" layoutX="721.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="Additional Services" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="200.0">
                <children>
-                  <AnchorPane layoutX="19.6" layoutY="377.0" prefHeight="147.0" prefWidth="181.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
+                  <AnchorPane layoutX="19.6" layoutY="377.0" prefHeight="147.0" prefWidth="181.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                      <children>
                         <Button fx:id="login" layoutX="121.0" layoutY="108.0" mnemonicParsing="false" onAction="#buttonHandler" text="Sign in" />
                         <PasswordField fx:id="pass" layoutX="50.0" layoutY="74.0" onAction="#buttonHandler" prefHeight="25.0" prefWidth="110.0" />
@@ -147,7 +147,7 @@
             <DropShadow />
          </effect>
       </DialogPane>
-      <DialogPane fx:id="nodeInfoPane" layoutX="429.0" layoutY="215.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="100.0" visible="false">
+      <DialogPane fx:id="nodeInfoPane" layoutX="429.0" layoutY="215.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" visible="false">
          <content>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="100.0">
                <children>

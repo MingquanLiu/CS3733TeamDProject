@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,13 +142,15 @@ public class MainUI {
     private String selectingLocation = "";          //string that determines if the user is currently selecting a location
     private boolean selectCoor = false;
 
+    private List<Shape> drawings = new ArrayList<>();
+
     int initX = 1501;
     int initY = 1021;
 
     private HashMap<Coordinate, String> nodeIDs;
 
     public void buttonHandler(ActionEvent e){
-
+        clearMain();
         //pathfinding button handling
         if(e.getSource() == go){
             System.out.println("drawing path");
@@ -260,6 +263,7 @@ public class MainUI {
         }
         else if(e.getSource() == closeNodeInfo){
             nodeInfoPane.setVisible(false);
+            clearMain();
         }
         else if(e.getSource() == nodeAddCancel){
             mapBuilderOpened = false;
@@ -300,8 +304,11 @@ public class MainUI {
 
     //mouseclick handling
     public void displayNodeInfo(MouseEvent e){
+        clearMain();
         int x = (int) e.getX();
+        int movedX = makeX(x);
         int y = (int) e.getY();
+        int movedY = makeY(y);
         System.out.println("This mouse clicked at X: "+x+" Y:"+y);
         int nodeX = 0;
         int nodeY = 0;
@@ -312,11 +319,13 @@ public class MainUI {
         double temp;
         Coordinate loc = new Coordinate(x,y);
         if(selectingLocation.equals("")) {
+//            System.out.println("mouse x,y: " + x + ", " + y + "  moved x,y: " + movedX +", " +movedY);
             List<NodeData> nodes = manager.getAllNodeData();
             for(NodeData node:nodes){
-                nodeX = makeX(node.getX());
-                nodeY = makeY(node.getY());
-                temp = Math.sqrt(Math.pow(x-nodeX,2)+Math.pow(y-nodeY,2));
+                nodeX = node.getX();
+                nodeY = node.getY();
+//                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
+                temp = Math.sqrt(Math.pow(movedX-nodeX,2)+Math.pow(movedY-nodeY,2));
                 if (temp<d){
                     d = temp;
                     realX = nodeX;
@@ -324,12 +333,12 @@ public class MainUI {
                     foundNodeId = node.getId();
                 }
             }
-            loc.setX(realX);
-            loc.setY(realY);
+            loc.setX(convertX(realX));
+            loc.setY(convertY(realY));
             NodeData n = manager.getNodeData(foundNodeId);
             showNode(n);
-            nodeInfoPane.setLayoutX(realX + 3);
-            nodeInfoPane.setLayoutY(realY + 3);
+            nodeInfoPane.setLayoutX(convertX(realX) + 3);
+            nodeInfoPane.setLayoutY(convertY(realY) + 3);
             nodeInfoPane.setVisible(true);
             nodeInfoLocation.setText(realX + ", " + realY);
 
@@ -353,8 +362,9 @@ public class MainUI {
         }
     }
     public void showNode(NodeData n){
-        Circle c = new Circle(n.getX(), n.getY(), 5, Color.RED);
+        Circle c = new Circle(convertX(n.getX()), convertY(n.getY()), 5, Color.RED);
         c.setFill(Color.RED);
+        drawings.add(c);
         mainPane.getChildren().addAll(c);
     }
 
@@ -395,6 +405,15 @@ public class MainUI {
     }
     public int makeY(int y){
         return y + 280;
+    }
+    public void clearMain(){
+        if(drawings.size() > 0){
+            for(Shape shape:drawings){
+                System.out.println("success remove");
+                mainPane.getChildren().remove(shape);
+            }
+
+        }
     }
 
     public String getNodeIdWithCoor(List<NodeData> mList, Coordinate coordinate){
