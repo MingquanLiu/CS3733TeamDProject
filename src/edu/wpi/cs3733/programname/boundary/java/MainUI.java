@@ -146,6 +146,8 @@ public class MainUI {
 
     int initX = 1501;
     int initY = 1021;
+    int prevSelectX = 0;
+    int prevSelectY = 0;
 
     private HashMap<Coordinate, String> nodeIDs;
 
@@ -259,6 +261,11 @@ public class MainUI {
 
         else if(e.getSource() == mapUpdate){
             mapBuilderOpened = true;
+            nodeAddCoords.setText("");
+            nodeAddID.setText("");
+            nodeAddName.setText("");
+            nodeAddShortName.setText("");
+            nodeAddType.setText("");
             nodeAdditionPane.setVisible(true);
         }
         else if(e.getSource() == closeNodeInfo){
@@ -270,8 +277,10 @@ public class MainUI {
             nodeAdditionPane.setVisible(false);
         }
         else if(e.getSource() == nodeAddSubmit){
+            nodeAddCoordinates = new Coordinate(prevSelectX,prevSelectY);
             NodeData n = new NodeData(nodeAddID.getText(), nodeAddCoordinates, "2", nodeAddType.getText(), nodeAddName.getText(), nodeAddShortName.getText());
             mapBuilderOpened = false;
+            nodeAdditionPane.setVisible(false);
             manager.addNode(n);
         }
         else if(e.getSource() == nodeAddSelectLocation){
@@ -350,7 +359,12 @@ public class MainUI {
             selectingLocation = "";
             locationsSelected = true;
             nodeAddCoordinates = loc;
-            nodeAddCoords.setText(loc.getX() + ", " + loc.getY());
+            prevSelectX = makeX(loc.getX());
+            prevSelectY = makeY(loc.getY());
+            nodeAddCoords.setText(prevSelectX + ", " + prevSelectY);
+            Circle c = new Circle(prevSelectX, prevSelectY, 5, RED);
+            mainPane.getChildren().addAll(c);
+            drawings.add(c);
             nodeAdditionPane.setVisible(true);
 
         }
@@ -369,6 +383,7 @@ public class MainUI {
     }
 
     private void displayPath(List<NodeData> path){
+        System.out.println("Inside displayPath");
         ArrayList<Line> lines = new ArrayList<Line>();
         NodeData prev = path.get(0);
         for(int i = 1; i < path.size(); i++){
@@ -376,10 +391,10 @@ public class MainUI {
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0);
-            l.setStartX(prev.getX());
-            l.setStartY(prev.getY());
-            l.setEndX(n.getX());
-            l.setEndY(n.getY());
+            l.setStartX(convertX(prev.getX()));
+            l.setStartY(convertY(prev.getY()));
+            l.setEndX(convertX(n.getX()));
+            l.setEndY(convertY(n.getY()));
             lines.add(l);
             prev = n;
         }
@@ -412,7 +427,6 @@ public class MainUI {
                 System.out.println("success remove");
                 mainPane.getChildren().remove(shape);
             }
-
         }
     }
 
