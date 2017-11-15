@@ -140,6 +140,9 @@ public class MainUI {
     private String selectingLocation = "";          //string that determines if the user is currently selecting a location
     private boolean selectCoor = false;
 
+    int initX = 3315;
+    int initY = 1021;
+
     private HashMap<Coordinate, String> nodeIDs;
 
     public void buttonHandler(ActionEvent e){
@@ -309,8 +312,6 @@ public class MainUI {
         if(selectCoor){
             nodeAddCoords.setText(x+","+y);
             selectCoor =false;
-        }else{
-
         }
 
         if(selectingLocation.equals("")) {
@@ -327,16 +328,10 @@ public class MainUI {
             }
             loc.setX(realX);
             loc.setY(realY);
+            String id = nodeIDs.get(loc);
+            NodeData n = manager.getNodeData(id);
 
-//            String id = nodeIDs.get(loc);
-//            NodeData n = manager.getNodeData(id);
-
-//            showNode(n);
-
-//            String id = nodeIDs.get(loc);
-//            NodeData n = manager.getNodeData(id);
-//
-//            showNode(n);
+            showNode(n);
 //
 //            nodeInfoPane.setLayoutX(nodeX + 3);
 //            nodeInfoPane.setLayoutY(nodeY + 3);
