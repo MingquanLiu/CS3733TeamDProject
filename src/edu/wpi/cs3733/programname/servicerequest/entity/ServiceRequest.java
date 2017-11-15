@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.programname.servicerequest.entity;
 
+import java.time.LocalDateTime;
+
 public class ServiceRequest {
     private Employee sender;
     private LocalDateTime time;
