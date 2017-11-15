@@ -7,17 +7,21 @@ public class TestDB {
         //Embedded Apache Derby
         DBConnection conn = new DBConnection();   // Creates new instance of connection
 
+        DBTables mDbTable = new DBTables();
+        CsvReader mCsvReader = new CsvReader();
+        CsvWriter mCsvWriter = new CsvWriter();
 
         // MapDnodes.csv
-        dbTables.createNodesTables(conn);           // Makes nodes table
-        csvReadWrite.csvNodes(conn.getConnection());                // Reads and Writes out MapDnodes.csv file
+        mDbTable.createNodesTables(conn);           // Makes nodes table
+        mCsvReader.insertNodes(conn.getConnection(), mCsvReader.readNodes(conn.getConnection()));        // Reads and Writes out MapDnodes.csv file
+        mCsvWriter.writeNodes(conn.getConnection(), mCsvReader.readNodes(conn.getConnection()));
         printTables.printNodesTable(conn.getConnection());          // Pulls data in nodes table from the database and print it
 
 
         // MapDedges.csv
-        dbTables.createEdgesTables(conn);           // Makes edges table
-        csvReadWrite.csvEdges(conn.getConnection());                // Reads and Writes MapDedges.csv file
+        mDbTable.createEdgesTables(conn);           // Makes edges table
+        mCsvReader.insertEdges(conn.getConnection(), mCsvReader.readEdges(conn.getConnection()));                // Reads and Writes MapDedges.csv file
+        mCsvWriter.writeEdges(conn.getConnection(), mCsvReader.readEdges(conn.getConnection()));
         printTables.printEdgesTable(conn.getConnection());          // Pulls data in nodes table from the database and print it
-
     }
 }

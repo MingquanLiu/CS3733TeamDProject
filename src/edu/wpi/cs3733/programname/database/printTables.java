@@ -7,9 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class printTables {
-
-
+public class printTables{
 
     public static void printNodesTable(Connection conn) {
         try {
@@ -51,17 +49,8 @@ public class printTables {
             System.out.println("\nInserted Into Nodes Table Successfully! Rows Effected: " + count + "\n\n");
         }
         catch (SQLException e) {
-            Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, e);
         }
-
     }
-
-
-
-
-
-
-
 
     public static void printEdgesTable(Connection conn) {
         try {
@@ -93,13 +82,6 @@ public class printTables {
 
         }
         catch (SQLException e) {
-            Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, e);
         }
-
     }
-
-
-
-
-
 }

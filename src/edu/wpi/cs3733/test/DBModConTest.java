@@ -15,11 +15,10 @@ import java.sql.Connection;
 import static org.junit.Assert.assertEquals;
 
 public class DBModConTest {
-
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
     Coordinate replacedBathroomCoord = new Coordinate(5124, 625);
-    NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "REST","Restroom B elevator Floor 2", "Restroom B");
-    NodeData newBathroom = new NodeData ("DREST00102", replacedBathroomCoord, "REST","Restroom B elevator Floor 2", "Restroom B");
+    NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","REST","Restroom B elevator Floor 2", "Restroom B");
+    NodeData newBathroom = new NodeData ("DREST00102", replacedBathroomCoord,"2", "REST","Restroom B elevator Floor 2", "Restroom B");
     Edge edge1 = new Edge("TREST00102", "DREST00102", "TREST00102_DREST00102");
     DBConnection conn = new DBConnection();   // Creates new instance of connection
     DatabaseModificationController theDBModControl = new DatabaseModificationController(conn);
@@ -27,7 +26,7 @@ public class DBModConTest {
     @Before
     public void setupDbTables() {
         // MapDnodes.csv
-        dbTables.createNodesTables(conn);           // Makes nodes table
+        DBTables.createNodesTables(conn);           // Makes nodes table
     }
 
 
@@ -51,4 +50,5 @@ public class DBModConTest {
         theDBModControl.deleteEdge(edge1);
         assertEquals(0,0);
     }
+
 }

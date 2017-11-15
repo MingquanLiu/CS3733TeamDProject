@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Tue Nov 14 20:01:22 EST 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-015f-bd31-ddcc-00000de4a7f0 
-on database directory /Users/yufeigao/Documents/GitHub/CS3733TeamDProject/TestDB with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
-Loaded from file:/Users/yufeigao/Documents/CS3733/db-derby-10.14.1.0-bin/lib/derby.jar
+Tue Nov 14 21:00:06 EST 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-015f-bd67-a003-00000df2c1f0 
+on database directory C:\Users\mikel\Desktop\Courses\CS\CS_3733\Project\CS3733TeamDProject\TestDB with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/C:/Users/mikel/Desktop/Courses/CS/CS_3733/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_151-b12
-user.dir=/Users/yufeigao/Documents/GitHub/CS3733TeamDProject
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.12.6
+java.runtime.version=1.8.0_131-b11
+user.dir=C:\Users\mikel\Desktop\Courses\CS\CS_3733\Project\CS3733TeamDProject
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
