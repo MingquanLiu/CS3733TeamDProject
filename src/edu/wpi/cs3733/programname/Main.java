@@ -14,7 +14,7 @@ public class Main extends Application{
         loader.setLocation(getClass().getResource("boundary/main_screen.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("The best application");
-        primaryStage.setScene(new Scene(root, 940, 561));
+        primaryStage.setScene(new Scene(root, 1501, 1021));
         primaryStage.show();
     }
 
