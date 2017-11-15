@@ -21,7 +21,6 @@ public class DBConnection {
             // Check Connection
             if (conn != null) {
                 System.out.print("Connected to DB\n");
-                conn.setAutoCommit(false);
 
             } // end if
 

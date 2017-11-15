@@ -17,11 +17,10 @@ public class DBTables {
             // check if "Nodes" table is there
             ResultSet tables = dbm.getTables(null, null, "NODES", null);
             if (!tables.next()) {
-                String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(21), xcoord INTEGER, ycoord INTEGER, floor INTEGER, building VARCHAR(20), nodeType VARCHAR(4), longName VARCHAR(50), shortName VARCHAR(30), teamAssigned VARCHAR(6))";
+                String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(21), xcoord INTEGER, ycoord INTEGER, floor (3), building VARCHAR(20), nodeType VARCHAR(4), longName VARCHAR(50), shortName VARCHAR(30), teamAssigned VARCHAR(6))";
                 // Creates new nodes table
                 st.execute(newTable);
                 System.out.println("\nNodes Table Created\n");
-                conn.commit();
 
             } else {
 
@@ -35,7 +34,6 @@ public class DBTables {
                 // Creates new nodes table
                 st.execute(newTable);
                 System.out.println("Nodes Table Created\n");
-                conn.commit();
             }
         } catch (SQLException e) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, e);
@@ -59,7 +57,6 @@ public class DBTables {
                 // Creates new nodes table
                 st.execute(newTable);
                 System.out.println("\nEdges Table Created");
-                conn.commit();
 
             } else {
 
@@ -73,7 +70,6 @@ public class DBTables {
                 // Creates new edges table
                 st.execute(newTable);
                 System.out.println("Edges Table Created\n");
-                conn.commit();
 
             }
 

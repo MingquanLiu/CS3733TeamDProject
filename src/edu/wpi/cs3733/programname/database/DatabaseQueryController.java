@@ -24,7 +24,7 @@ public class DatabaseQueryController {
 
         try {
             String sql = "SELECT * FROM Nodes " +
-                    "WHERE nodeID = " + nodeId;
+                    "WHERE nodeID = " + "'" + nodeId + "'";
             Statement stmt = dbConnection.createStatement();
             ResultSet result = stmt.executeQuery(sql);
 
@@ -40,7 +40,7 @@ public class DatabaseQueryController {
                 id = result.getString("nodeId");
                 x = result.getInt("xcoord");
                 y = result.getInt("ycoord");
-                floor = result.getInt("floor") + "";
+                floor = result.getString("floor");
                 nodeType = result.getString("nodeType");
                 longName = result.getString("longName");
                 shortName = result.getString("shortName");
@@ -50,7 +50,7 @@ public class DatabaseQueryController {
             queryResult = new NodeData(nodeId, location, floor, nodeType,
                     longName, shortName);
 
-            dbConnection.close();
+
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();

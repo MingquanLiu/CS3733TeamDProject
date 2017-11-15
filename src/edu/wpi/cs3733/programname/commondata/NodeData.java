@@ -20,9 +20,17 @@ public class NodeData {
         this.shortName = shortName;
     }
 
-    public String getId() {
-        return this.id;
+    public NodeData(String id, int x, int y, String floor,
+                    String type, String longName, String shortName) {
+        this.id = id;
+        this.location = new Coordinate(x,y);
+        this.floor = floor;
+        this.type = type;
+        this.longName = longName;
+        this.shortName = shortName;
     }
+
+    public String getId() { return this.id; }
 
     public void setId(String newId) {
         this.id = newId;

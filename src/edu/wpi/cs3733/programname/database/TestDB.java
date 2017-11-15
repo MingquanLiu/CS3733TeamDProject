@@ -10,16 +10,20 @@ public class TestDB {
         Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
 
         DBTables mDbTable = new DBTables();
-        CsvReadWrite mCsvReadWrite = new CsvReadWrite();
+        CsvReader mCsvReader = new CsvReader();
+        CsvWriter mCsvWriter = new CsvWriter();
+
         // MapDnodes.csv
         mDbTable.createNodesTables(conn);           // Makes nodes table
-        mCsvReadWrite.csvNodes(conn);                // Reads and Writes out MapDnodes.csv file
+        mCsvReader.insertNodes(conn, mCsvReader.readNodes(conn));        // Reads and Writes out MapDnodes.csv file
+        mCsvWriter.writeNodes(conn, mCsvReader.readNodes(conn));
         printTables.printNodesTable(conn);          // Pulls data in nodes table from the database and print it
 
 
         // MapDedges.csv
         mDbTable.createEdgesTables(conn);           // Makes edges table
-        mCsvReadWrite.csvEdges(conn);                // Reads and Writes MapDedges.csv file
+        mCsvReader.insertEdges(conn, mCsvReader.readEdges(conn));                // Reads and Writes MapDedges.csv file
+        mCsvWriter.writeEdges(conn, mCsvReader.readEdges(conn));
         printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
 
     }
