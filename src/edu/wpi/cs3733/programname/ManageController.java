@@ -18,7 +18,7 @@ public class ManageController {
     public ManageController() {
         this.pathfindingController = new PathfindingController(this);
 
-        this.dbQueryController = new DatabaseQueryController();
+        this.dbQueryController = new DatabaseQueryController(this);
 //        this.dbModController = new DatabaseModificationController();
 
     }
@@ -28,7 +28,11 @@ public class ManageController {
     }
 
     public NodeData getNodeData(String nodeId) {
-        return this.dbQueryController.queryDatabase(nodeId);
+        return this.dbQueryController.queryNodeById(nodeId);
+    }
+
+    public Edge getEdgeData(String edgeId) {
+        return this.dbQueryController.queryEdgeById(edgeId);
     }
 
     public List<NodeData> getAllNodeData() {

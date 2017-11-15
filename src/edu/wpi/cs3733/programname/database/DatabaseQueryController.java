@@ -17,7 +17,7 @@ public class DatabaseQueryController {
         this.manager = manager;
     }
 
-    public NodeData queryDatabase(String nodeId) {
+    public NodeData queryNodeById(String nodeId) {
         NodeData queryResult = null;
 
         Connection dbConnection;
@@ -27,7 +27,7 @@ public class DatabaseQueryController {
 
         try {
             String sql = "SELECT * FROM Nodes " +
-                    "WHERE nodeID = '" + nodeId + "'";
+                    "WHERE nodeID = " + "'" + nodeId + "'";
             Statement stmt = dbConnection.createStatement();
             ResultSet result = stmt.executeQuery(sql);
 
@@ -50,7 +50,7 @@ public class DatabaseQueryController {
             }
 
             Coordinate location = new Coordinate(x,y);
-            queryResult = new NodeData(nodeId, location, floor, nodeType,
+            queryResult = new NodeData(id, location, floor, nodeType,
                     longName, shortName);
 
             dbConnection.close();
@@ -73,22 +73,21 @@ public class DatabaseQueryController {
         String startNodeId = "";
         String endNodeId = "";
         try {
-            String sql = "SELECT * FROM Edges " +
-                    "WHERE edgeID = '" + edgeId + "'";
+            String sql = "SELECT * FROM Edges WHERE edgeID = " + "'" + edgeId + "'";
             Statement stmt = dbConnection.createStatement();
             ResultSet result = stmt.executeQuery(sql);
 
             while(result.next()) {
                 id = result.getString("edgeID");
-                startNodeId = result.getString("startNodeId");
-                endNodeId = result.getString("endNodeId");
+                startNodeId = result.getString("startNode");
+                endNodeId = result.getString("endNode");
             }
         }
         catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
         }
-        queryResult = new Edge(id, startNodeId, endNodeId);
+        queryResult = new Edge(startNodeId, endNodeId, id);
         return queryResult;
     }
 
@@ -115,7 +114,7 @@ public class DatabaseQueryController {
             String shortName = "";
 
             while(result.next()) {
-                id = result.getString("nodeId");
+                id = result.getString("nodeID");
                 x = result.getInt("xcoord");
                 y = result.getInt("ycoord");
                 floor = result.getString("floor");
@@ -154,8 +153,8 @@ public class DatabaseQueryController {
 
             while(result.next()) {
                 id = result.getString("edgeID");
-                startNodeId = result.getString("startNodeId");
-                endNodeId = result.getString("endNodeId");
+                startNodeId = result.getString("startNode");
+                endNodeId = result.getString("endNode");
                 queryResult = new Edge(startNodeId, endNodeId, id);
                 allEdges.add(queryResult);
             }

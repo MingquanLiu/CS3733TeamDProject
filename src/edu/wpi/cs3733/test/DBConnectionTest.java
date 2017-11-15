@@ -63,5 +63,10 @@ public class DBConnectionTest {
         mCsvReader.insertEdges(conn,mCsvReader.readEdges(conn));
         mCsvWriter.writeEdges(conn, mCsvReader.readEdges(conn));
         printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
+
+//        ManageController manager = new ManageController();
+//
+//        Edge expected = new Edge("DHALL00702", "DHALL00802", "DHALL00702_DHALL00802");
+//        assertEquals(expected, manager.getEdgeData("DHALL00702_DHALL00802"));
     }
 }
