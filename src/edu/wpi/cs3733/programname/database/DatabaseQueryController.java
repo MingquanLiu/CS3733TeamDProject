@@ -12,23 +12,19 @@ import java.util.List;
 public class DatabaseQueryController {
 
     ManageController manager;
+    DBConnection dbConnection;
 
-    public DatabaseQueryController(ManageController manager) {
-        this.manager = manager;
+    public DatabaseQueryController(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
     }
 
     public NodeData queryNodeById(String nodeId) {
         NodeData queryResult = null;
 
-        Connection dbConnection;
-        DBConnection db = new DBConnection();
-        db.setDBConnection();
-        dbConnection = db.getConnection();
-
         try {
             String sql = "SELECT * FROM Nodes " +
                     "WHERE nodeID = " + "'" + nodeId + "'";
-            Statement stmt = dbConnection.createStatement();
+            Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
 
             String id = "";
@@ -52,8 +48,6 @@ public class DatabaseQueryController {
             Coordinate location = new Coordinate(x,y);
             queryResult = new NodeData(id, location, floor, nodeType,
                     longName, shortName);
-
-            dbConnection.close();
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
@@ -64,17 +58,12 @@ public class DatabaseQueryController {
     public Edge queryEdgeById(String edgeId) {
         Edge queryResult = null;
 
-        Connection dbConnection;
-        DBConnection db = new DBConnection();
-        db.setDBConnection();
-        dbConnection = db.getConnection();
-
         String id = "";
         String startNodeId = "";
         String endNodeId = "";
         try {
             String sql = "SELECT * FROM Edges WHERE edgeID = " + "'" + edgeId + "'";
-            Statement stmt = dbConnection.createStatement();
+            Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
 
             while(result.next()) {
@@ -91,18 +80,14 @@ public class DatabaseQueryController {
         return queryResult;
     }
 
+
     public List<NodeData> getAllNodeData() {
         NodeData queryResult = null;
         List<NodeData> allNodes = new ArrayList<NodeData>();
 
-        Connection dbConnection;
-        DBConnection db = new DBConnection();
-        db.setDBConnection();
-        dbConnection = db.getConnection();
-
         try {
             String sql = "SELECT * FROM Nodes";
-            Statement stmt = dbConnection.createStatement();
+            Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
 
             String id = "";
@@ -126,7 +111,6 @@ public class DatabaseQueryController {
                         longName, shortName);
                 allNodes.add(queryResult);
             }
-            dbConnection.close();
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
@@ -138,17 +122,12 @@ public class DatabaseQueryController {
         Edge queryResult = null;
         List<Edge> allEdges = new ArrayList<Edge>();
 
-        Connection dbConnection;
-        DBConnection db = new DBConnection();
-        db.setDBConnection();
-        dbConnection = db.getConnection();
-
         String id = "";
         String startNodeId = "";
         String endNodeId = "";
         try {
             String sql = "SELECT * FROM Edges";
-            Statement stmt = dbConnection.createStatement();
+            Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
 
             while(result.next()) {
@@ -164,6 +143,44 @@ public class DatabaseQueryController {
             e.printStackTrace();
         }
         return allEdges;
+    }
+
+    public List<NodeData> queryNodeByType(String findNodeType) {
+
+        NodeData queryResult = null;
+        List<NodeData> allNodeTypes = new ArrayList<NodeData>();
+
+        try {
+            String sql = "SELECT * FROM Nodes WHERE nodeType = " + "'" + findNodeType + "'";
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+
+            String id = "";
+            int x = 0;
+            int y = 0;
+            String floor = "";
+            String nodeType = "";
+            String longName = "";
+            String shortName = "";
+
+            while(result.next()) {
+                id = result.getString("nodeID");
+                x = result.getInt("xcoord");
+                y = result.getInt("ycoord");
+                floor = result.getString("floor");
+                nodeType = result.getString("nodeType");
+                longName = result.getString("longName");
+                shortName = result.getString("shortName");
+                Coordinate location = new Coordinate(x,y);
+                queryResult = new NodeData(id, location, floor, nodeType, longName, shortName);
+                allNodeTypes.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Insert Node Failed!");
+            e.printStackTrace();
+        }
+        return allNodeTypes;
+
     }
 
 
