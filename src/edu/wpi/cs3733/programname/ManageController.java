@@ -78,5 +78,8 @@ public class ManageController {
         Employee emp = new Employee("me", 1, false);
         this.serviceController.createServiceRequest(emp, type);
     }
+    public void addEdge(String nodeId1, String nodeId2){
+        this.dbModController.addEdge(nodeId1,nodeId2);
+    }
 }
 
