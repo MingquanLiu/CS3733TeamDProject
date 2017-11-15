@@ -12,7 +12,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import java.util.LinkedList;
 
 public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData implements Comparable<StarNode> {
-    protected int f, g;
+    protected double f, g; // f is total cost, g is action cost to this node
     protected StarNode previousNode;
     protected LinkedList<StarNode> neighbors = new LinkedList<StarNode>();
 
@@ -22,7 +22,7 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData imp
 
     @Override
     public int compareTo(StarNode newNode) {
-        int newNodeF = newNode.getF();
+        double newNodeF = newNode.getF();
         if(this.f > newNodeF) return 1;
         else if(this.f == newNodeF) return 0;
         else return -1;
@@ -44,19 +44,19 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData imp
         this.previousNode = previousNode;
     }
 
-    public int getF() {
+    public double getF() {
         return this.f;
     }
 
-    public void setF(int f) {
+    public void setF(double f) {
         this.f = f;
     }
 
-    public int getG() {
+    public double getG() {
         return this.g;
     }
 
-    public void setG(int g) {
+    public void setG(double g) {
         this.g = g;
     }
 }

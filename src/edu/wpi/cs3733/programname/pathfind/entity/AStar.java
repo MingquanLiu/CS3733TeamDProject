@@ -85,6 +85,7 @@ public class AStar {
                 while(!(current.getX() == start.getX() && current.getY() == start.getY())) {
                     finalPath.add(current.getPreviousNode());
                     current = current.getPreviousNode();
+                    System.out.println(current.getId());
                 }
                 return finalPath;
             }
@@ -94,16 +95,24 @@ public class AStar {
                 // we also need to remove the previous node from the list of neighbors because we do not want to backtrack
                 neighbors.remove(current.getPreviousNode());
                 for (StarNode newnode : neighbors) {
-                    newnode.setPreviousNode(current);
-                    newnode.setF(actionCost(newnode) + distanceToGo(newnode, goal));
+                    int nodePlace = this.listContainsId(frontier, newnode);
+                    if(nodePlace > -1) {
+                        System.out.println("The new node costs " + (actionCost(newnode) + distanceToGo(newnode, goal)));
+                        if (frontier.get(nodePlace).getF() > actionCost(newnode) + distanceToGo(newnode, goal)) {
+                            System.out.println("Here");
+                            frontier.remove(frontier.get(nodePlace));
+                            newnode.setPreviousNode(current);
+                            frontier.add(newnode);
+                            newnode.setF(actionCost(newnode) + distanceToGo(newnode, goal));
+                        }
+                    }
+                    else {
+                        newnode.setPreviousNode(current);
+                        frontier.add(newnode);
+                        newnode.setF(actionCost(newnode) + distanceToGo(newnode, goal));
+                    }
                     // this is where the node is put in the right place in the queue
-                    frontier.add(newnode);
                     Collections.sort(frontier);
-// The manual sorting on lines 103-106 has been temporarily disabled in favor of sorting the list based on compareTo method in StarNode
-//                    for (int i = 0; i < frontier.size(); i++) {
-//                        if (newnode.f < frontier.get(i).f)
-//                            frontier.add(i - 1, newnode); // This is where stuff maybe blows up
-//                    }
                 }
             }
         }
@@ -111,25 +120,36 @@ public class AStar {
     }
 
     // returns the cost of moving from the starting node to the provided node
-    private int actionCost(StarNode node) {
+    private double actionCost(StarNode node) {
         StarNode previous = node.getPreviousNode();
-        int xDist = previous.getX() - node.getX();
-        int yDist = previous.getY() - node.getY();
+        double xDist = previous.getX() - node.getX();
+        double yDist = previous.getY() - node.getY();
         double totalDist = Math.sqrt(xDist*xDist + yDist*yDist);
-        node.setG(previous.getG() + (int)Math.floor(totalDist));
+        node.setG(previous.getG() + totalDist);
         return node.getG();
 }
 
 
     // returns the pixel distance from the provided node to the destination node
-    private int distanceToGo(StarNode node, StarNode goal) {
-        int xDist = goal.getX() - node.getX();
-        int yDist = goal.getY() - node.getY();
+    private double distanceToGo(StarNode node, StarNode goal) {
+        double xDist = goal.getX() - node.getX();
+        double yDist = goal.getY() - node.getY();
         double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
-        return (int)distToGo;
+        return distToGo;
     }
 
     public List<NodeData> getFinalList() {
         return finalList;
+    }
+
+    private int listContainsId(LinkedList<StarNode> listOfNodes, StarNode node) {
+        for(int i = 0; i < listOfNodes.size(); i++) {
+            if(node.getId() == listOfNodes.get(i).getId()) {
+                System.out.println("The list contains node " + listOfNodes.get(i).getId());
+                System.out.println("Node " + listOfNodes.get(i).getId() + " costs " + listOfNodes.get(i).getF());
+                return i;
+            }
+        }
+        return -1;
     }
 }

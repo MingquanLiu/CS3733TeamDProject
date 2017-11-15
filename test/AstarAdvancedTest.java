@@ -17,10 +17,10 @@ public class AstarAdvancedTest {
     NodeData node1 = new NodeData("1", new Coordinate(3, 3), "Basic", "Lobby One", "L1");
     NodeData node2 = new NodeData("2", new Coordinate(3, 4), "Basic", "Hallway One", "H1");
     NodeData node3 = new NodeData("3", new Coordinate(3, 5), "Basic", "Hallway Two", "H2");
-    NodeData node4 = new NodeData("4", new Coordinate(1, 4), "Basic", "Hallway Three", "H3");
+    NodeData node4 = new NodeData("4", new Coordinate(2, 4), "Basic", "Hallway Three", "H3");
     NodeData node5 = new NodeData("5", new Coordinate(4, 4), "Basic", "Connector One", "C1");
     NodeData node6 = new NodeData("6", new Coordinate(3, 6), "Basic", "Hallway Two", "H2");
-    NodeData node7 = new NodeData("7", new Coordinate(1, 5), "Basic", "Hallway Three", "H3");
+    NodeData node7 = new NodeData("7", new Coordinate(2, 5), "Basic", "Hallway Three", "H3");
     NodeData node8 = new NodeData("8", new Coordinate(4, 5), "Basic", "Connector One", "C1");
 
     Edge edge1 = new Edge("1", "2", "E1");
@@ -93,47 +93,4 @@ public class AstarAdvancedTest {
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
                 astarReturn.get(i).getId());
     }
-
-//    @Test
-//    // Can we do a super simple path?
-//    public void OneStepPath(){
-//        AStar Path = new AStar(allNodes, allEdges,"9", "8");
-//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star9));
-//        List<NodeData> astarReturn = Path.getFinalList();
-//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-//                astarReturn.get(i).getId());
-//    }
-//
-//    @Test
-//    // Failure case: when we go from one node to itself
-//    public void ZeroStepPath(){
-//        AStar Path = new AStar(allNodes, allEdges,"1", "1");
-//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-//        List<NodeData> astarReturn = Path.getFinalList();
-//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-//                astarReturn.get(i).getId());
-//    }
-//
-//    @Test(expected = java.lang.NullPointerException.class)
-//    // Failure case: the path does not exist (There are no edges leading to that node)
-//    // TODO: Catch a different exception in the future
-//    public void NonexistantPath() {
-//        allNodes.add(new NodeData("10", new Coordinate(15, 15), "Disconnected", "Outside", "O"));
-//        AStar Path = new AStar(allNodes, allEdges, "1", "10");
-//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-//        List<NodeData> astarReturn = Path.getFinalList();
-//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-//                astarReturn.get(i).getId());
-//    }
-//
-//    @Test(expected = java.lang.NullPointerException.class)
-//    // Failure case: the path does not exist (The node does not exist)
-//    // TODO: Catch a different exception in the future
-//    public void NonexistantNode() {
-//        AStar Path = new AStar(allNodes, allEdges,"1", "10");
-//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-//        List<NodeData> astarReturn = Path.getFinalList();
-//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-//                astarReturn.get(i).getId());
-//    }
 }
