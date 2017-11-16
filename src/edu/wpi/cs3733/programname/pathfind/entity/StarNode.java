@@ -45,6 +45,15 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData imp
         this.previousNode = previousNode;
     }
 
+    public boolean isVisited() {
+        if(f != 0) return true;
+        return false;
+    }
+
+    public void visit() {
+        this.f = 100;
+    }
+
     public double getF() {
         return this.f;
     }
