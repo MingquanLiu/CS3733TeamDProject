@@ -71,20 +71,20 @@ public class BFS {
 
         //list of all the nodes that are adjacent to nodes already explored
         LinkedList<StarNode> frontier = new LinkedList<StarNode>();
-
         //list of all the nodes in the path from start to finish
         LinkedList<NodeData> finalPath = new LinkedList<NodeData>();
 
         frontier.add(start);
 
         while(!frontier.isEmpty()) {
-            if(frontier.getFirst().isVisited()) frontier.removeFirst();
-            else {
                 StarNode current = frontier.getFirst();
+                current.visit();
+                System.out.println("evaluating node: " + current.getId());
                 frontier.removeFirst(); // pop the priority queue
+                //System.out.println("current frontier size: " + frontier.size());
                 if (current.getX() == goal.getX() && current.getY() == goal.getY()) {
                     // If we are at the goal, we need to backtrack through the shortest path
-                    System.out.println("At target!");
+                    System.out.println("At target!, Begin Traceback");
                     finalPath.add(current); // we have to add the goal to the path before we start backtracking
                     while (!(current.getX() == start.getX() && current.getY() == start.getY())) {
                         finalPath.add(current.getPreviousNode());
@@ -98,13 +98,16 @@ public class BFS {
                     // we also need to remove the previous node from the list of neighbors because we do not want to backtrack
                     neighbors.remove(current.getPreviousNode());
                     for (StarNode newnode : neighbors) {
-                        newnode.setPreviousNode(current);
-                        frontier.add(newnode);
-                        newnode.visit();
+                        if(!newnode.isVisited() && !newnode.isonlist()) {
+                            //System.out.println("add to frontier: " + newnode.getId());
+                            newnode.addtolist();
+                            newnode.setPreviousNode(current);
+                            frontier.add(newnode);
+                        }
                     }
                 }
             }
-        }
+
 
         return null;
     }
