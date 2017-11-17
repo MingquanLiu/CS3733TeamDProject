@@ -1,7 +1,6 @@
 /**
  * AStar class: create an AStar object each time you want to find a new path
  * Then call AStar.getFinalList() to get the list of nodes along the path
- *
  */
 package edu.wpi.cs3733.programname.pathfind.entity;
 
@@ -24,10 +23,11 @@ public class DFS {
 
     /**
      * constructor for AStar
-     * @param nodes list of nodes
-     * @param edges list of edges
+     *
+     * @param nodes   list of nodes
+     * @param edges   list of edges
      * @param startID starting location
-     * @param goalID destination location
+     * @param goalID  destination location
      */
     public DFS(List<NodeData> nodes, List<Edge> edges, String startID, String goalID) {
         this.allEdges = edges;
@@ -43,12 +43,12 @@ public class DFS {
      */
     private void init() {
         System.out.println("Initializing A*");
-        for(NodeData node: allNodes) {
+        for (NodeData node : allNodes) {
             // Creates the StarNodes
             allStarNodes.put(node.getId(), new StarNode(node));
         }
 
-        for(Edge edge: allEdges) {
+        for (Edge edge : allEdges) {
             StarNode node1 = allStarNodes.get(edge.getFirstNodeId());
             StarNode node2 = allStarNodes.get(edge.getSecondNodeId());
 
@@ -60,8 +60,9 @@ public class DFS {
 
     /**
      * calculates path from start to finish
+     *
      * @param startID starting location
-     * @param goalID end location
+     * @param goalID  end location
      * @return list of nodes that make up the path
      */
     private List<NodeData> pathFind(String startID, String goalID) {
@@ -77,30 +78,30 @@ public class DFS {
 
         frontier.add(start);
 
-        while(!frontier.isEmpty()) {
-            if(frontier.getFirst().isVisited()) frontier.removeFirst();
-            else {
-                StarNode current = frontier.getFirst();
-                frontier.removeFirst(); // pop the priority queue
-                if (current.getX() == goal.getX() && current.getY() == goal.getY()) {
-                    // If we are at the goal, we need to backtrack through the shortest path
-                    System.out.println("At target!");
-                    finalPath.add(current); // we have to add the goal to the path before we start backtracking
-                    while (!(current.getX() == start.getX() && current.getY() == start.getY())) {
-                        finalPath.add(current.getPreviousNode());
-                        current = current.getPreviousNode();
-                        System.out.println(current.getId());
-                    }
-                    return finalPath;
-                } else {
-                    // we need to get all the neighbor nodes, identify their costs, and put them into the queue
-                    LinkedList<StarNode> neighbors = current.getNeighbors();
-                    // we also need to remove the previous node from the list of neighbors because we do not want to backtrack
-                    neighbors.remove(current.getPreviousNode());
-                    for (StarNode newnode : neighbors) {
+        while (!frontier.isEmpty()) {
+            StarNode current = frontier.getFirst();
+            current.visit();
+            frontier.removeFirst(); // pop the priority queue
+            if (current.getX() == goal.getX() && current.getY() == goal.getY()) {
+                // If we are at the goal, we need to backtrack through the shortest path
+                System.out.println("At target!");
+                finalPath.add(current); // we have to add the goal to the path before we start backtracking
+                while (!(current.getX() == start.getX() && current.getY() == start.getY())) {
+                    finalPath.add(current.getPreviousNode());
+                    current = current.getPreviousNode();
+                    System.out.println(current.getId());
+                }
+                return finalPath;
+            } else {
+                // we need to get all the neighbor nodes, identify their costs, and put them into the queue
+                LinkedList<StarNode> neighbors = current.getNeighbors();
+                // we also need to remove the previous node from the list of neighbors because we do not want to backtrack
+                neighbors.remove(current.getPreviousNode());
+                for (StarNode newnode : neighbors) {
+                    if (!newnode.isVisited() && !newnode.isonlist()) {
+                        newnode.addtolist();
                         newnode.setPreviousNode(current);
                         frontier.addFirst(newnode);
-                        newnode.visit();
                     }
                 }
             }
@@ -115,8 +116,8 @@ public class DFS {
     }
 
     private int listContainsId(LinkedList<StarNode> listOfNodes, StarNode node) {
-        for(int i = 0; i < listOfNodes.size(); i++) {
-            if(node.getId() == listOfNodes.get(i).getId()) {
+        for (int i = 0; i < listOfNodes.size(); i++) {
+            if (node.getId() == listOfNodes.get(i).getId()) {
                 System.out.println("The list contains node " + listOfNodes.get(i).getId());
                 System.out.println("Node " + listOfNodes.get(i).getId() + " costs " + listOfNodes.get(i).getF());
                 return i;
