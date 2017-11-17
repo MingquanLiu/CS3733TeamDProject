@@ -8,13 +8,14 @@ package edu.wpi.cs3733.programname.pathfind.entity;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.pathfind.PathStrategyIF;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AStar implements PathFinder {
+public class AStar implements PathStrategyIF {
     List<NodeData> allNodes;
     List<Edge> allEdges;
 
