@@ -65,7 +65,7 @@ public class AStar implements PathStrategyIF {
      * @param goalID end location
      * @return list of nodes that make up the path
      */
-    private List<NodeData> pathFind(String startID, String goalID) {
+    private List<NodeData> pathFind(String startID, String goalID){// throws NoPathException {
         // TODO: Throw a "No such node" exception
         StarNode start = allStarNodes.get(startID);
         StarNode goal = allStarNodes.get(goalID);
@@ -121,7 +121,8 @@ public class AStar implements PathStrategyIF {
                 }
             }
         }
-        return null; // TODO: throw a "Path not found" exception
+        return null;
+//        throw new NoPathException(startID, goalID);
     }
 
     /**

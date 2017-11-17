@@ -64,7 +64,7 @@ public class BFS implements PathStrategyIF {
      * @param goalID end location
      * @return list of nodes that make up the path
      */
-    private List<NodeData> pathFind(String startID, String goalID) {
+    private List<NodeData> pathFind(String startID, String goalID){// throws NoPathException {
         // TODO: Throw a "No such node" exception
         StarNode start = allStarNodes.get(startID);
         StarNode goal = allStarNodes.get(goalID);
@@ -107,9 +107,8 @@ public class BFS implements PathStrategyIF {
                 }
             }
         }
-
-
         return null;
+//        throw new NoPathException(startID, goalID);
     }
 
     public List<NodeData> getFinalList() {
