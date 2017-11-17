@@ -88,7 +88,8 @@ public class DFSAdvancedTest {
         DFS Path = new DFS(allNodes, allEdges,"1", "7");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star7, star4, star1));
         List<NodeData> DFSReturn = Path.getFinalList();
-        for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                DFSReturn.get(i).getId());
+        Assert.assertEquals(finalOrder.getFirst().getId(), DFSReturn.get(0).getId());
+        for(int i = 0; i < DFSReturn.size(); i++)
+            Assert.assertEquals(finalOrder.get(i).getId(), DFSReturn.get(i).getId());
     }
 }

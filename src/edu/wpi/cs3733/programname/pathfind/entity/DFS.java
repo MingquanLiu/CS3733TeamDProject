@@ -85,6 +85,7 @@ public class DFS {
             if (current.getX() == goal.getX() && current.getY() == goal.getY()) {
                 // If we are at the goal, we need to backtrack through the shortest path
                 System.out.println("At target!");
+                System.out.println(current.getId());
                 finalPath.add(current); // we have to add the goal to the path before we start backtracking
                 while (!(current.getX() == start.getX() && current.getY() == start.getY())) {
                     finalPath.add(current.getPreviousNode());
