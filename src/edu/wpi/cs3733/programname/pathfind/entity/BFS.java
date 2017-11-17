@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BFS {
+public class BFS implements PathFinder {
     List<NodeData> allNodes;
     List<Edge> allEdges;
 

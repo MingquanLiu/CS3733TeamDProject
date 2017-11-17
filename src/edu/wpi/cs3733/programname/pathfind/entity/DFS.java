@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DFS {
+public class DFS implements PathFinder {
     List<NodeData> allNodes;
     List<Edge> allEdges;
 

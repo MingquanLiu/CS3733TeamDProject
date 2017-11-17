@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AStar {
+public class AStar implements PathFinder {
     List<NodeData> allNodes;
     List<Edge> allEdges;
 
