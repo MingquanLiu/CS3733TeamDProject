@@ -2,6 +2,7 @@ import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -56,7 +57,7 @@ public class AstarAdvancedTest {
 
     @Test
     // This is a basic test to get from point 1 to point 2 along one edge
-    public void StraightPath(){
+    public void StraightPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"1", "2");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star2, star1));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -66,7 +67,7 @@ public class AstarAdvancedTest {
 
     @Test
     // Now let's try to get from Node 3 to Node 1. There are 3 legal paths but only one ideal path
-    public void IntermedPath(){
+    public void IntermedPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"3", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -76,7 +77,7 @@ public class AstarAdvancedTest {
 
     @Test
     // Let's start at the far end of the tree and try to get to the first node
-    public void LongPath(){
+    public void LongPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"6", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star6));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -86,7 +87,7 @@ public class AstarAdvancedTest {
 
     @Test
     // Trying to travel around the C part of the hallway
-    public void CPath(){
+    public void CPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"1", "7");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star7, star4, star1));
         List<NodeData> astarReturn = Path.getFinalList();

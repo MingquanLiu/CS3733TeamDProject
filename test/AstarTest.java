@@ -2,6 +2,7 @@ import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class AstarTest {
     @Test
     // This is a simple test. We have nodes 1-4 which are all connected by only one edge each (a straight line of nodes)
     // If we can get from node 1 to node 4, we are on the right track
-    public void StraightPath(){
+    public void StraightPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"1", "4");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star2, star1));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -63,7 +64,7 @@ public class AstarTest {
 
     @Test
     // We are using nodes 1-4 in a row again, but starting in the middle and trying to get to the far end
-    public void IntermedPath(){
+    public void IntermedPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"3", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -73,7 +74,7 @@ public class AstarTest {
 
     @Test
     // Let's start at the far end of the tree and try to get to the first node
-    public void LongPath(){
+    public void LongPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"8", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star5, star7, star8));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -83,7 +84,7 @@ public class AstarTest {
 
     @Test
     // Trying to travel around the C part of the hallway
-    public void CPath(){
+    public void CPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"6", "4");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star5, star6));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -93,7 +94,7 @@ public class AstarTest {
 
     @Test
     // Can we do a super simple path?
-    public void OneStepPath(){
+    public void OneStepPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"9", "8");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star9));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -103,7 +104,7 @@ public class AstarTest {
 
     @Test
     // Failure case: when we go from one node to itself
-    public void ZeroStepPath(){
+    public void ZeroStepPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"1", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
         List<NodeData> astarReturn = Path.getFinalList();
@@ -111,10 +112,9 @@ public class AstarTest {
                 astarReturn.get(i).getId());
     }
 
-    @Test(expected = java.lang.NullPointerException.class)
+    @Test(expected = NoPathException.class)
     // Failure case: the path does not exist (There are no edges leading to that node)
-    // TODO: Catch a different exception in the future
-    public void NonexistantPath() {
+    public void NonexistantPath() throws NoPathException {
         allNodes.add(new NodeData("10", new Coordinate(15, 15),"2", "Disconnected", "Outside", "O"));
         AStar Path = new AStar(allNodes, allEdges, "1", "10");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
@@ -126,7 +126,7 @@ public class AstarTest {
     @Test(expected = java.lang.NullPointerException.class)
     // Failure case: the path does not exist (The node does not exist)
     // TODO: Catch a different exception in the future
-    public void NonexistantNode() {
+    public void NonexistantNode() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"1", "10");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
         List<NodeData> astarReturn = Path.getFinalList();
