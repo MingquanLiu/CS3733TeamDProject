@@ -40,12 +40,14 @@ public class TextDirections {
                 case "ELEV":
                     if(lastNode.getType().equals("ELEV"))
                         directions += "\nGet off the elevator on floor " + node.getFloor();
-                    directions += "\nGet on " + name;
+                    else
+                        directions += "\nGet on " + name;
                     break;
                 case "STAI":
                     if(lastNode.getType().equals("STAI"))
                         directions += "\nExit the stairs on floor " + node.getFloor();
-                    directions += "\nEnter " + name;
+                    else
+                        directions += "\nEnter " + name;
                     break;
                 case "HALL":
                     if(!lastNode.getType().equals("HALL") || !face.equals("straight"))
