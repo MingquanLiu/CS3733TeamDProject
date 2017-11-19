@@ -10,6 +10,8 @@ import edu.wpi.cs3733.programname.database.*;
 
 import org.junit.Test;
 import java.sql.Connection;
+import java.sql.SQLException;
+
 import static junit.framework.TestCase.assertEquals;
 
 public class DBConnectionTest {
@@ -134,5 +136,17 @@ public class DBConnectionTest {
 
 
 
+    }
+
+    @Test
+    public void dropAllTest() throws SQLException{
+        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
+        TestDB.setDBConnection();                   // Sets up the connection
+        DBTables mDbTable = new DBTables();
+        CsvReader mCsvReader = new CsvReader();
+        CsvWriter mCsvWriter = new CsvWriter();
+        Connection conn = TestDB.getConnection();
+
+        mDbTable.createAllTables(TestDB);
     }
 }
