@@ -5,6 +5,7 @@ import edu.wpi.cs3733.programname.pathfind.entity.AStar;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -17,9 +18,9 @@ public class TextDirectionsTest {
     NodeData node2 = new NodeData("2", new Coordinate(2, 4),"2","HALL", "Hallway One", "H1");
     NodeData node3 = new NodeData("3", new Coordinate(4, 4),"2","HALL", "Hallway Two", "H2");
     NodeData node4 = new NodeData("4", new Coordinate(6, 4),"2", "HALL", "Hallway Three", "H3");
-    NodeData node5 = new NodeData("5", new Coordinate(4, 6),"2","STAI", "Connector One", "C1");
+    NodeData node5 = new NodeData("5", new Coordinate(4, 6),"2","HALL", "Connector One", "C1");
     NodeData node6 = new NodeData("6", new Coordinate(6, 6),"2", "DEPT", "Room One", "R1");
-    NodeData node7 = new NodeData("7", new Coordinate(4, 8),"2", "STAI", "Connector Two", "C2");
+    NodeData node7 = new NodeData("7", new Coordinate(4, 8),"2", "HALL", "Connector Two", "C2");
     NodeData node8 = new NodeData("8", new Coordinate(6, 8),"2", "HALL", "Hallway Four", "H4");
     NodeData node9 = new NodeData("9", new Coordinate(8, 8),"2","DEPT", "Room Two", "R2");
 
@@ -42,6 +43,15 @@ public class TextDirectionsTest {
     @Test
     public void BasicText() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"8", "1");
+        List<NodeData> astarReturn = Path.getFinalList();
+        TextDirections d = new TextDirections(astarReturn);
+        System.out.println(d.getTextDirections());
+    }
+
+    @Test
+    // Trying to travel around the C part of the hallway
+    public void CPath() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"6", "4");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
         System.out.println(d.getTextDirections());

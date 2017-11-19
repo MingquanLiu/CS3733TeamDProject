@@ -29,9 +29,12 @@ public class TextDirections {
             String name = node.getLongName();
             String face;
 
+            // TODO: Fix directions, we are only getting 90 degrees out
             double directionChange = Math.atan2((lastNode.getY()-node.getY()),(lastNode.getX()-node.getX()));
-            if(directionChange < 90 && directionChange > 50) face = "left";
-            else if(directionChange > -90 && directionChange < -50) face = "right";
+            directionChange = Math.toDegrees(directionChange);
+            System.out.println(directionChange);
+            if(directionChange <= 90 && directionChange > 50) face = "right";
+            else if(directionChange >= -90 && directionChange < -50) face = "left";
             else face = "straight";
             switch (type) {
                 case "ELEV":
@@ -41,7 +44,7 @@ public class TextDirections {
                     directions += "\nEnter " + name;
                     break;
                 case "HALL":
-                    if(!lastNode.getType().equals("HALL"))
+                    if(!lastNode.getType().equals("HALL") || !face.equals("straight"))
                         directions += "\nGo " + face + " down the hall";
                     break;
                 default:
