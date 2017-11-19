@@ -59,7 +59,7 @@ public class TextDirectionsTest {
     public TextDirectionsTest() {}
 
     @Test
-    public void BasicText() throws NoPathException {
+    public void BasicTest() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"8", "1");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
@@ -67,9 +67,32 @@ public class TextDirectionsTest {
     }
 
     @Test
-    // Trying to travel around the C part of the hallway
-    public void CPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"6", "4");
+    public void UpStairs() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"3", "15");
+        List<NodeData> astarReturn = Path.getFinalList();
+        TextDirections d = new TextDirections(astarReturn);
+        System.out.println(d.getTextDirections());
+    }
+
+    @Test
+    public void RestToRest() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"1", "12");
+        List<NodeData> astarReturn = Path.getFinalList();
+        TextDirections d = new TextDirections(astarReturn);
+        System.out.println(d.getTextDirections());
+    }
+
+    @Test
+    public void RetlToExit() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"9", "17");
+        List<NodeData> astarReturn = Path.getFinalList();
+        TextDirections d = new TextDirections(astarReturn);
+        System.out.println(d.getTextDirections());
+    }
+
+    @Test
+    public void H4toH2() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"11", "4");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
         System.out.println(d.getTextDirections());
