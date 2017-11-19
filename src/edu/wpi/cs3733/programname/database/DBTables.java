@@ -130,6 +130,42 @@ public class DBTables {
         }
     }
 
+
+
+    public void createPhoneExtensionsTables (DBConnection conn) {
+        try {
+            DatabaseMetaData dbm = conn.getConnection().getMetaData();
+            // check if "PhoneExtensions" table is there
+            ResultSet tables = dbm.getTables(null, null, "PHONEEXTENSIONS", null);
+            if (!tables.next()) {
+                String newTable = "CREATE TABLE PhoneExtensions (accountName VARCHAR(15), phoneExt INTEGER," +
+                                    "CONSTRAINT PhoneExtensions_PK PRIMARY KEY (accountName, phoneExt)," +
+                                    "CONSTRAINT PhoneExtensions_FK1 FOREIGN KEY (accountName) REFERENCES Staff (accountName))";
+
+                // Creates new PhoneExtensions table
+                conn.execute(newTable);
+                System.out.println("\nPhoneExtensions Table Created");
+            } else {
+                String dropTable = ("DROP TABLE PhonesExtensions");
+                // Drops PhoneExtensions table
+                conn.execute(dropTable);
+                System.out.println("\nPhoneExtensions Table Dropped");
+
+                String newTable = "CREATE TABLE PhoneExtensions (accountName VARCHAR(15), phoneExt INTEGER," +
+                                    "CONSTRAINT PhoneExtensions_PK PRIMARY KEY (accountName, phoneExt)," +
+                                    "CONSTRAINT PhoneExtensions_FK1 FOREIGN KEY (accountName) REFERENCES Staff (accountName))";
+                // Creates new PhoneExtensions table
+                conn.execute(newTable);
+                System.out.println("PhoneExtensions Table Created\n");
+            }
+
+        } catch (SQLException e) {
+
+        }
+    }
+
+
+
     public void createTitlesTables (DBConnection conn) {
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
