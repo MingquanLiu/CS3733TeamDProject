@@ -472,7 +472,7 @@ public class MainUI {
         ArrayList<Line> lines = new ArrayList<Line>();
         NodeData prev = path.get(0);
         for(int i = 1; i < path.size(); i++){
-            Line l = new Line();        //how do I get the start/end coords of an edge
+            Line l = new Line();
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0);
