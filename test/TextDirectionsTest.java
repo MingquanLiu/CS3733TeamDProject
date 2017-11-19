@@ -113,7 +113,7 @@ public class TextDirectionsTest {
 //        double test3 = d.getDirectionAngle(node4, node6, node8);
 //        double test4 = d.getDirectionAngle(node5, node4, node6);
 //        Assert.assertEquals(-45,test1,0.1);
-//        Assert.assertEquals(-247.3,test2,0.1);
+//        Assert.assertEquals(112.7,test2,0.1);
 //        Assert.assertEquals(0,test3,0.1);
 //        Assert.assertEquals(90, test4,0.1);
 //    }

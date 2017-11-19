@@ -32,8 +32,12 @@ public class TextDirections {
             String face; // This is the direction the node is facing relative to the last
 
             double directionChange = getDirectionAngle(lastNode, node, nextNode);
-            if(directionChange <= 45 && directionChange > -45) face = "right";
-            else if(directionChange >= 135 && directionChange < -135) face = "left";
+            if(directionChange <= -45 && directionChange >= -135) face = "right";
+            else if(directionChange >= 135 && directionChange <= 45) face = "left";
+            else if(directionChange > 0 && directionChange < 45) face = "slight left";
+            else if(directionChange < 0 && directionChange > -45) face = "slight right";
+            else if(directionChange > -180 && directionChange < -135) face = "sharp right";
+            else if(directionChange < 180 && directionChange > 135) face = "sharp left";
             else face = "straight";
             switch (type) {
                 case "ELEV":
@@ -50,17 +54,17 @@ public class TextDirections {
                     break;
                 case "HALL":
                     if(!lastNode.getType().equals("HALL") || !face.equals("straight"))
-                        directions += "\nGo " + face + " down the hall";
+                        directions += "\nTake a " + face + " turn down the hall";
                     break;
                 default:
-                    directions += "\nContinue past " + name;
+                    directions += "\nContinue " + face + " past " + name;
                     break;
             }
         }
         directions += "\nYou have arrived at " + nodeList.get(nodeList.size()-1).getLongName();
     }
 
-    public double getDirectionAngle(NodeData previous, NodeData current, NodeData next) {
+    private double getDirectionAngle(NodeData previous, NodeData current, NodeData next) {
         double firstEdgeAngle = Math.atan2((current.getY()-previous.getY()),(current.getX()-previous.getX()));
         double secondEdgeAngle = Math.atan2((next.getY()-current.getY()),(next.getX()-current.getX()));
         firstEdgeAngle = Math.toDegrees(firstEdgeAngle);
@@ -68,7 +72,9 @@ public class TextDirections {
 
         double a = secondEdgeAngle - firstEdgeAngle;
         double angleBetween = ((a + 180)%360) - 180;
-        System.out.println(angleBetween);
+
+        if(angleBetween > 180) angleBetween = angleBetween - 360;
+        else if(angleBetween < -180) angleBetween = angleBetween + 360;
 
         return angleBetween;
 
