@@ -1,5 +1,3 @@
-package edu.wpi.cs3733.test;
-
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

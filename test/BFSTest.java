@@ -1,9 +1,8 @@
-package edu.wpi.cs3733.test;
-
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.pathfind.entity.AStar;
+import edu.wpi.cs3733.programname.pathfind.entity.BFS;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,9 +11,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
-public class AstarTest {
+public class BFSTest {
 
     NodeData node1 = new NodeData("1", new Coordinate(2, 2),"2","Basic", "Lobby One", "L1");
     NodeData node2 = new NodeData("2", new Coordinate(2, 4),"2","Basic", "Hallway One", "H1");
@@ -50,89 +47,88 @@ public class AstarTest {
     StarNode star8 = new StarNode(node8);
     StarNode star9 = new StarNode(node9);
 
-    public AstarTest() {}
+    public BFSTest() {}
 
     @Test
     // This is a simple test. We have nodes 1-4 which are all connected by only one edge each (a straight line of nodes)
     // If we can get from node 1 to node 4, we are on the right track
-    public void StraightPath(){
-        AStar Path = new AStar(allNodes, allEdges,"1", "4");
+    public void StraightPath() throws NoPathException {
+        BFS Path = new BFS(allNodes, allEdges,"1", "4");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star2, star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                BFSReturn.get(i).getId());
     }
 
     @Test
     // We are using nodes 1-4 in a row again, but starting in the middle and trying to get to the far end
-    public void IntermedPath(){
-        AStar Path = new AStar(allNodes, allEdges,"3", "1");
+    public void IntermedPath() throws NoPathException {
+        BFS Path = new BFS(allNodes, allEdges,"3", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                BFSReturn.get(i).getId());
     }
 
     @Test
     // Let's start at the far end of the tree and try to get to the first node
-    public void LongPath(){
-        AStar Path = new AStar(allNodes, allEdges,"8", "1");
+    public void LongPath() throws NoPathException {
+        BFS Path = new BFS(allNodes, allEdges,"8", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star5, star7, star8));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                BFSReturn.get(i).getId());
     }
 
     @Test
     // Trying to travel around the C part of the hallway
-    public void CPath(){
-        AStar Path = new AStar(allNodes, allEdges,"6", "4");
+    public void CPath() throws NoPathException {
+        BFS Path = new BFS(allNodes, allEdges,"6", "4");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star5, star6));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                BFSReturn.get(i).getId());
     }
 
     @Test
     // Can we do a super simple path?
-    public void OneStepPath(){
-        AStar Path = new AStar(allNodes, allEdges,"9", "8");
+    public void OneStepPath() throws NoPathException {
+        BFS Path = new BFS(allNodes, allEdges,"9", "8");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star9));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                BFSReturn.get(i).getId());
     }
 
     @Test
     // Failure case: when we go from one node to itself
-    public void ZeroStepPath(){
-        AStar Path = new AStar(allNodes, allEdges,"1", "1");
+    public void ZeroStepPath() throws NoPathException {
+        BFS Path = new BFS(allNodes, allEdges,"1", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                BFSReturn.get(i).getId());
     }
 
-    @Test(expected = java.lang.NullPointerException.class)
+    @Test(expected = NoPathException.class)
     // Failure case: the path does not exist (There are no edges leading to that node)
-    // TODO: Catch a different exception in the future
-    public void NonexistantPath() {
+    public void NonexistantPath() throws NoPathException {
         allNodes.add(new NodeData("10", new Coordinate(15, 15),"2", "Disconnected", "Outside", "O"));
-        AStar Path = new AStar(allNodes, allEdges, "1", "10");
+        BFS Path = new BFS(allNodes, allEdges, "1", "10");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                BFSReturn.get(i).getId());
     }
 
-    @Test(expected = java.lang.NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     // Failure case: the path does not exist (The node does not exist)
     // TODO: Catch a different exception in the future
-    public void NonexistantNode() {
-        AStar Path = new AStar(allNodes, allEdges,"1", "10");
+    public void NonexistantNode() throws NoPathException {
+        BFS Path = new BFS(allNodes, allEdges,"1", "10");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                BFSReturn.get(i).getId());
     }
 }
