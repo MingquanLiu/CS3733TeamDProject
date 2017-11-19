@@ -19,9 +19,8 @@ public class HandicappedPath implements PathStrategyIF {
 
         LinkedList<Edge> currentList = new LinkedList<Edge>();
 
-        for (Edge e : allEdges){
-            if (e.getRestrictions().contains(Edge.Restriction.HANDICAPPED))
-            {
+        for (Edge e : allEdges) {
+            if (e.getRestrictions().contains(Edge.Restriction.HANDICAPPED)) {
                 currentList.add(e);
             }
         }

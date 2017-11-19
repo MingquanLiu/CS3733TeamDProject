@@ -34,36 +34,30 @@ public class PathfindingController {
         //something about getEdges()
         try {
 
+            LinkedList<Edge> currentList = allEdges;
+            if (restrictions.contains(Edge.Restriction.GENERAL)) {
+                StandardPath standardPath = new StandardPath();
+                currentList = standardPath.getEdges(currentList);
+            }
+            if (restrictions.contains(Edge.Restriction.HANDICAPPED)) {
+                HandicappedPath handicappedPath = new HandicappedPath();
+                currentList = handicappedPath.getEdges(currentList);
+            }
 
-        LinkedList<Edge> currentList = allEdges;
-        if(restrictions.contains(Edge.Restriction.GENERAL))
-        {
-            StandardPath standardPath = new StandardPath();
-            currentList = standardPath.getEdges(currentList);
-        }
-        if(restrictions.contains(Edge.Restriction.HANDICAPPED))
-        {
-            HandicappedPath handicappedPath = new HandicappedPath();
-            currentList = handicappedPath.getEdges(currentList);
-        }
+            PathFinderFacade newPath = new PathFinderFacade(allNodes, currentList, startNode, endNode);
 
-        PathFinderFacade newPath = new PathFinderFacade(allNodes, currentList, startNode, endNode);
+            if (restrictions.contains(Edge.Restriction.ASTAR)) {
+                return newPath.findAstarPath();
+            }
+            if (restrictions.contains(Edge.Restriction.DEPTH)) {
+                return newPath.findDfsPath();
+            }
+            if (restrictions.contains(Edge.Restriction.BREADTH)) {
+                return newPath.findBfsPath();
+            }
 
-        if(restrictions.contains(Edge.Restriction.ASTAR))
-        {
-            return newPath.findAstarPath();
-        }
-        if(restrictions.contains(Edge.Restriction.DEPTH))
-        {
-            return newPath.findDfsPath();
-        }
-        if(restrictions.contains(Edge.Restriction.BREADTH))
-        {
-            return newPath.findBfsPath();
-        }
-
-        } catch (NoPathException npe){
-            // Add exception later 
+        } catch (NoPathException npe) {
+            // Add exception later
         }
 
         return null;
