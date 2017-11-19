@@ -43,8 +43,8 @@ public class NodeData {
     public String getNodeID() { return this.nodeID; }
 
 
-    public void setNodeID(String newId) {
-        this.nodeID = newId;
+    public void setNodeID(String nodeID) {
+        this.nodeID = nodeID;
     }
 
 
