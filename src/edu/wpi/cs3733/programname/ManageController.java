@@ -2,7 +2,7 @@ package edu.wpi.cs3733.programname;
 
 
 import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
@@ -41,9 +41,9 @@ public class ManageController {
 
     public List<NodeData> startPathfind(String startId, String goalId) {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
-        List<Edge> allEdges = dbQueryController.getAllEdgeData();
+        List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
         List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId);
-        System.out.println(finalPath.get(0).getId() + " to " + finalPath.get(finalPath.size() -1));
+        System.out.println(finalPath.get(0).getNodeID() + " to " + finalPath.get(finalPath.size() -1));
         return finalPath;
     }
 
@@ -51,7 +51,7 @@ public class ManageController {
         return this.dbQueryController.queryNodeById(nodeId);
     }
 
-    public Edge getEdgeData(String edgeId) {
+    public EdgeData getEdgeData(String edgeId) {
         return this.dbQueryController.queryEdgeById(edgeId);
     }
 
@@ -59,7 +59,7 @@ public class ManageController {
         return this.dbQueryController.getAllNodeData();
     }
 
-    public List<Edge> getAllEdgeData() {
+    public List<EdgeData> getAllEdgeData() {
         return this.dbQueryController.getAllEdgeData();
     }
 

@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.programname.database;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class DBTables {
     public DBTables(){
@@ -42,7 +41,7 @@ public class DBTables {
                 System.out.println("Nodes Table Created\n");
             }
         } catch (SQLException e) {
-            Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, e);
+
         }
     }
 
@@ -76,7 +75,7 @@ public class DBTables {
             }
 
         } catch (SQLException e) {
-            Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, e);
+
         }
     }
 }
