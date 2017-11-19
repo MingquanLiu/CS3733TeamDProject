@@ -51,7 +51,7 @@ public class DBTables {
                 System.out.println("Nodes Table Created\n");
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -87,19 +87,19 @@ public class DBTables {
             }
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
 
 
-    public void createStaffTables (DBConnection conn) {
+    public static void createStaffTables (DBConnection conn) {
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "Staff" table is there
             ResultSet tables = dbm.getTables(null, null, "STAFF", null);
             if (!tables.next()) {
-                String newTable = "CREATE TABLE Staff (accountName VARCHAR(15), accountPassword VARCHAR(20)," +
-                                    "firstName VARCHAR(15), middleInitial CHAR(1) lastName VARCHAR(20)," +
+                String newTable = "CREATE TABLE Staff (accountName VARCHAR(15), accountPassword VARCHAR(20), firstName VARCHAR(15), " +
+                                    "middleInitial CHAR(1), lastName VARCHAR(20)," +
                                     "CONSTRAINT Staff_PK PRIMARY KEY (accountName)," +
                                     "CONSTRAINT Staff_firstNameVal CHECK (firstName IS NOT NULL)," +
                                     "CONSTRAINT Staff_middleInitialVal CHECK (middleInitial IS NOT NULL)," +
@@ -114,8 +114,8 @@ public class DBTables {
                 conn.execute(dropTable);
                 System.out.println("\nStaff Table Dropped");
 
-                String newTable = "CREATE TABLE Staff (accountName VARCHAR(15), accountPassword VARCHAR(20)," +
-                                    "firstName VARCHAR(15), middleInitial CHAR(1) lastName VARCHAR(20)," +
+                String newTable = "CREATE TABLE Staff (accountName VARCHAR(15), accountPassword VARCHAR(20), firstName VARCHAR(15), " +
+                                    "middleInitial CHAR(1), lastName VARCHAR(20)," +
                                     "CONSTRAINT Staff_PK PRIMARY KEY (accountName)," +
                                     "CONSTRAINT Staff_firstNameVal CHECK (firstName IS NOT NULL)," +
                                     "CONSTRAINT Staff_middleInitialVal CHECK (middleInitial IS NOT NULL)," +
@@ -126,19 +126,19 @@ public class DBTables {
             }
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
 
 
 
-    public void createPhoneExtensionsTables (DBConnection conn) {
+    public static void createPhoneExtensionsTables (DBConnection conn) {
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "PhoneExtensions" table is there
             ResultSet tables = dbm.getTables(null, null, "PHONEEXTENSIONS", null);
             if (!tables.next()) {
-                String newTable = "CREATE TABLE PhoneExtensions (accountName VARCHAR(15), phoneExt INTEGER," +
+                String newTable = "CREATE TABLE PhoneExtensions(accountName VARCHAR(15), phoneExt INTEGER," +
                                     "CONSTRAINT PhoneExtensions_PK PRIMARY KEY (accountName, phoneExt)," +
                                     "CONSTRAINT PhoneExtensions_FK1 FOREIGN KEY (accountName) REFERENCES Staff (accountName))";
 
@@ -146,12 +146,12 @@ public class DBTables {
                 conn.execute(newTable);
                 System.out.println("\nPhoneExtensions Table Created");
             } else {
-                String dropTable = ("DROP TABLE PhonesExtensions");
+                String dropTable = ("DROP TABLE PhoneExtensions");
                 // Drops PhoneExtensions table
                 conn.execute(dropTable);
                 System.out.println("\nPhoneExtensions Table Dropped");
 
-                String newTable = "CREATE TABLE PhoneExtensions (accountName VARCHAR(15), phoneExt INTEGER," +
+                String newTable = "CREATE TABLE PhoneExtensions(accountName VARCHAR(15), phoneExt INTEGER," +
                                     "CONSTRAINT PhoneExtensions_PK PRIMARY KEY (accountName, phoneExt)," +
                                     "CONSTRAINT PhoneExtensions_FK1 FOREIGN KEY (accountName) REFERENCES Staff (accountName))";
                 // Creates new PhoneExtensions table
@@ -160,13 +160,14 @@ public class DBTables {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
 
         }
     }
 
 
 
-    public void createTitlesTables (DBConnection conn) {
+    public static void createTitlesTables (DBConnection conn) {
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "Titles" table is there
@@ -194,12 +195,12 @@ public class DBTables {
             }
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
 
 
-    public void createStaffTitlesTables (DBConnection conn) {
+    public static void createStaffTitlesTables (DBConnection conn) {
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "StaffTitles" table is there
@@ -229,7 +230,7 @@ public class DBTables {
             }
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
 
