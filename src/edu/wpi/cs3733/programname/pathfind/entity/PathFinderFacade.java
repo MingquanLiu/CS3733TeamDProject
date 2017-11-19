@@ -18,7 +18,7 @@ public class PathFinderFacade {
      * @param startID the text ID of the starting node
      * @param goalID the text ID of the goal or target node
      */
-    public PathFinderFacade(List<NodeData> nodes, List<Edge> edges, String startID, String goalID) {
+    public PathFinderFacade(List<NodeData> nodes, List<Edge> edges, String startID, String goalID) throws NoPathException {
         this.dfs = new DFS(nodes, edges, startID, goalID);
         this.bfs = new BFS(nodes, edges, startID, goalID);
         this.astar = new AStar(nodes, edges, startID, goalID);

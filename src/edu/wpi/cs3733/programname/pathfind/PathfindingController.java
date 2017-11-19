@@ -6,6 +6,7 @@ import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
 import edu.wpi.cs3733.programname.pathfind.PathStrategies.StandardPath;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.PathFinderFacade;
 
 import javax.xml.soap.Node;
@@ -25,8 +26,13 @@ public class PathfindingController {
      * @return - result is the list of nodes efficiently connecting startNode to endNode
      */
     public List<NodeData> initializePathfind(List<NodeData> allNodes, List<Edge> allEdges, String startNode, String endNode) {
-        PathFinderFacade newPath = new PathFinderFacade(allNodes, allEdges, startNode, endNode);
-        return newPath.findAstarPath();
+        try {
+            PathFinderFacade newPath = new PathFinderFacade(allNodes, allEdges, startNode, endNode);
+            return newPath.findAstarPath();
+        } catch (NoPathException npe) {
+            // TODO: Either we throw this exception up another level, or we handle it here
+        }
+        return null;
     }
 
 }
