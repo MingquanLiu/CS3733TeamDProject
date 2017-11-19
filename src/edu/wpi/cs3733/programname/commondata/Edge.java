@@ -1,10 +1,18 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import java.util.LinkedList;
+
 public class Edge {
+
+
+    public enum Restriction  {
+        GENERAL, DEPTH, BREADTH, HANDICAPPED, ASTAR
+    }
 
     private String firstNodeId;
     private String secondNodeId;
     private String edgeId;
+    private LinkedList<Restriction> restrictions;
 
     /**
      * constructor for Coordinate-Represents the connection between two Nodes
@@ -12,10 +20,19 @@ public class Edge {
      * @param second - the ending point of a given Edge
      * @param edgeId - the unique identifier for a given Edge
      */
-    public Edge(String first, String second, String edgeId) {
+    public Edge(String first, String second, String edgeId, LinkedList<Restriction> restrictions) {
         this.firstNodeId = first;
         this.secondNodeId = second;
         this.edgeId = edgeId;
+        this.restrictions = restrictions;
+    }
+
+    public LinkedList<Restriction> getRestrictions() {
+        return restrictions;
+    }
+
+    public void setRestrictions(LinkedList<Restriction> restrictions) {
+        this.restrictions = restrictions;
     }
 
     /**
