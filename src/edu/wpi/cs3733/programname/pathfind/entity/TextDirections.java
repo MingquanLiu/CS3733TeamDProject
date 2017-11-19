@@ -14,11 +14,33 @@ public class TextDirections {
     }
 
     private void produceText() {
+        String lastType = null;
         for(NodeData node: this.nodeList) {
             String type = node.getType();
             String name = node.getLongName();
 
-            directions += "\nGo to " + name;
+            if(lastType == null) {
+                // We need to start somewhere!
+                directions = "Begin at " + name;
+            }
+
+            else {
+                switch (type) {
+                    case "ELEV":
+                        directions += "\nGet on " + name;
+                        break;
+                    case "STAI":
+                        directions += "\nEnter " + name;
+                        break;
+                    case "HALL":
+                        if(lastType != "HALL")
+                            directions += "\nProceed down the hall";
+                        break;
+
+                }
+            }
+
+            lastType = type;
         }
     }
 
