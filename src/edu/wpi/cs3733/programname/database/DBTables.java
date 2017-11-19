@@ -46,7 +46,7 @@ public class DBTables {
                                     "('BMT', 'Shapiro', 'Tower', '45 Francis', '15 Francis'))," +
                                     "CONSTRAINT Nodes_xcoordVal check (xcoord >= 0 AND xcoord <= 9000)," +
                                     "CONSTRAINT Nodes_ycoordVal check (ycoord >= 0 AND ycoord <= 9000))";
-                // Creates new nodes table
+                // Creates new Nodes table
                 conn.execute(newTable);
                 System.out.println("Nodes Table Created\n");
             }
@@ -92,7 +92,7 @@ public class DBTables {
     }
 
 
-    public void createStaffTable (DBConnection conn) {
+    public void createStaffTables (DBConnection conn) {
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "Staff" table is there
@@ -100,26 +100,26 @@ public class DBTables {
             if (!tables.next()) {
                 String newTable = "CREATE TABLE Staff (accountName VARCHAR(15), accountPassword VARCHAR(20)," +
                                     "firstName VARCHAR(15), middleInitial CHAR(1) lastName VARCHAR(20)," +
-                                    "CONSTRAINT CSStaff_PK PRIMARY KEY (accountName)," +
-                                    "CONSTRAINT CSStaff_firstNameVal CHECK (firstName IS NOT NULL)," +
-                                    "CONSTRAINT CSStaff_middleInitialVal CHECK (middleInitial IS NOT NULL)," +
-                                    "CONSTRAINT CSStaff_lastNameVal CHECK (lastName IS NOT NULL))";
+                                    "CONSTRAINT Staff_PK PRIMARY KEY (accountName)," +
+                                    "CONSTRAINT Staff_firstNameVal CHECK (firstName IS NOT NULL)," +
+                                    "CONSTRAINT Staff_middleInitialVal CHECK (middleInitial IS NOT NULL)," +
+                                    "CONSTRAINT Staff_lastNameVal CHECK (lastName IS NOT NULL))";
 
-                // Creates new nodes table
+                // Creates new Staff table
                 conn.execute(newTable);
                 System.out.println("\nStaff Table Created");
             } else {
                 String dropTable = ("DROP TABLE Staff");
-                // Drops edges table
+                // Drops Staff table
                 conn.execute(dropTable);
                 System.out.println("\nStaff Table Dropped");
 
                 String newTable = "CREATE TABLE Staff (accountName VARCHAR(15), accountPassword VARCHAR(20)," +
                                     "firstName VARCHAR(15), middleInitial CHAR(1) lastName VARCHAR(20)," +
-                                    "CONSTRAINT CSStaff_PK PRIMARY KEY (accountName)," +
-                                    "CONSTRAINT CSStaff_firstNameVal CHECK (firstName IS NOT NULL)," +
-                                    "CONSTRAINT CSStaff_middleInitialVal CHECK (middleInitial IS NOT NULL)," +
-                                    "CONSTRAINT CSStaff_lastNameVal CHECK (lastName IS NOT NULL))";
+                                    "CONSTRAINT Staff_PK PRIMARY KEY (accountName)," +
+                                    "CONSTRAINT Staff_firstNameVal CHECK (firstName IS NOT NULL)," +
+                                    "CONSTRAINT Staff_middleInitialVal CHECK (middleInitial IS NOT NULL)," +
+                                    "CONSTRAINT Staff_lastNameVal CHECK (lastName IS NOT NULL))";
                 // Creates new Staff table
                 conn.execute(newTable);
                 System.out.println("Staff Table Created\n");
@@ -129,5 +129,72 @@ public class DBTables {
 
         }
     }
+
+    public void createTitlesTables (DBConnection conn) {
+        try {
+            DatabaseMetaData dbm = conn.getConnection().getMetaData();
+            // check if "Titles" table is there
+            ResultSet tables = dbm.getTables(null, null, "TITLES", null);
+            if (!tables.next()) {
+                String newTable = "CREATE TABLE Titles (acronym VARCHAR(20), titleName VARCHAR(50)," +
+                                    "CONSTRAINT Titles_PK PRIMARY KEY (acronym)," +
+                                    "CONSTRAINT Titles_U1 UNIQUE (titleName))";
+
+                // Creates new Titles table
+                conn.execute(newTable);
+                System.out.println("\nTitles Table Created");
+            } else {
+                String dropTable = ("DROP TABLE Titles");
+                // Drops Titles table
+                conn.execute(dropTable);
+                System.out.println("\nTitles Table Dropped");
+
+                String newTable = "CREATE TABLE Titles (acronym VARCHAR(20), titleName VARCHAR(50)," +
+                                    "CONSTRAINT Titles_PK PRIMARY KEY (acronym)," +
+                                    "CONSTRAINT Titles_U1 UNIQUE (titleName))";
+                // Creates new Titles table
+                conn.execute(newTable);
+                System.out.println("Titles Table Created\n");
+            }
+
+        } catch (SQLException e) {
+
+        }
     }
+
+
+    public void createStaffTitlesTables (DBConnection conn) {
+        try {
+            DatabaseMetaData dbm = conn.getConnection().getMetaData();
+            // check if "StaffTitles" table is there
+            ResultSet tables = dbm.getTables(null, null, "STAFFTITLES", null);
+            if (!tables.next()) {
+                String newTable = "CREATE TABLE StaffTitles (accountName VARCHAR(15), acronym VARCHAR(20)," +
+                                    "CONSTRAINT StaffTitles_PK PRIMARY KEY (accountName, acronym)," +
+                                    "CONSTRAINT StaffTitles_FK1 FOREIGN KEY (accountName) REFERENCES Staff (accountName)," +
+                                    "CONSTRAINT StaffTitles_FK2 FOREIGN KEY (acronym) REFERENCES Titles (acronym))";
+
+                // Creates new StaffTitles table
+                conn.execute(newTable);
+                System.out.println("\nStaffTitles Table Created");
+            } else {
+                String dropTable = ("DROP TABLE StaffTitles");
+                // Drops StaffTitles table
+                conn.execute(dropTable);
+                System.out.println("\nStaffTitles Table Dropped");
+
+                String newTable = "CREATE TABLE StaffTitles (accountName VARCHAR(15), acronym VARCHAR(20)," +
+                                    "CONSTRAINT StaffTitles_PK PRIMARY KEY (accountName, acronym)," +
+                                    "CONSTRAINT StaffTitles_FK1 FOREIGN KEY (accountName) REFERENCES Staff (accountName)," +
+                                    "CONSTRAINT StaffTitles_FK2 FOREIGN KEY (acronym) REFERENCES Titles (acronym))";
+                // Creates new StaffTitles table
+                conn.execute(newTable);
+                System.out.println("StaffTitles Table Created\n");
+            }
+
+        } catch (SQLException e) {
+
+        }
+    }
+
 }
