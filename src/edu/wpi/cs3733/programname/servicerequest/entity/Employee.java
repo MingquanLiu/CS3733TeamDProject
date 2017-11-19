@@ -1,20 +1,33 @@
 package edu.wpi.cs3733.programname.servicerequest.entity;
 
 public class Employee {
-    private String name;
-    private int id;
+    private String username;
+    private String password;
+    private String firstName;
+    private String middleName;
+    private String lastname;
     private boolean sysAdmin;
+    private String serviceType;
+
 
     /**
      * constructor for class Employee
-     * @param name the name of the employee
-     * @param id the id of the employee
+     * @param username the username of the employee
+     * @param password the password of the employee
+     * @param firstName the first name of the employee
+     * @param middleName the middle name of the employee
+     * @param lastname the last name of the employee
      * @param sysAdmin whether the employee is a system admin
+     * @param serviceType the service type this employee can assigned to
      */
-    public Employee(String name, int id, boolean sysAdmin){
-        this.name = name;
-        this.id = id;
+    public Employee(String username, String password, String firstName, String middleName, String lastname, boolean sysAdmin, String serviceType){
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastname = lastname;
         this.sysAdmin = sysAdmin;
+        this.serviceType = serviceType;
     }
 
     /**
