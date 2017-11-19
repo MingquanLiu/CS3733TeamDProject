@@ -38,9 +38,13 @@ public class TextDirections {
             else face = "straight";
             switch (type) {
                 case "ELEV":
+                    if(lastNode.getType().equals("ELEV"))
+                        directions += "\nGet off the elevator on floor " + node.getFloor();
                     directions += "\nGet on " + name;
                     break;
                 case "STAI":
+                    if(lastNode.getType().equals("STAI"))
+                        directions += "\nExit the stairs on floor " + node.getFloor();
                     directions += "\nEnter " + name;
                     break;
                 case "HALL":
