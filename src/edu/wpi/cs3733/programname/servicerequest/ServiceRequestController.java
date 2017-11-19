@@ -4,12 +4,18 @@ import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ServiceRequestController {
+
+    ArrayList<ServiceRequest> activeRequests;
+
     /**
      * constructor for class ServiceRequestController
      */
-    public ServiceRequestController(){ }
+    public ServiceRequestController(){
+        this.activeRequests = new ArrayList<>();
+    }
 
     /**
      * create a new service request with given sender and type
@@ -20,5 +26,9 @@ public class ServiceRequestController {
         // get the local time
         LocalDateTime time = LocalDateTime.now();
         ServiceRequest newRequest = new ServiceRequest(sender, time, type);
+    }
+
+    public ArrayList<ServiceRequest> getActiveRequests() {
+        return this.activeRequests;
     }
 }
