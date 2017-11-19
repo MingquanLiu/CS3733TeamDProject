@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BFS implements PathStrategyIF {
+public class BFS implements PathfindingFacadeIF {
     List<NodeData> allNodes;
     List<Edge> allEdges;
 

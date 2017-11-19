@@ -63,6 +63,9 @@ public class PathfindingController {
         }
 
         } catch (NoPathException npe){
+            // Add exception later 
         }
+
+        return null;
     }
 }
