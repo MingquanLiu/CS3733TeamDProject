@@ -63,12 +63,12 @@ public class TextDirections {
                 case "HALL":
                     if(!lastNode.getType().equals("HALL")) {
                         if (Math.abs(directionChange) > 25) {
-                            directions += "\nTake a " + face + " turn down the hall";
+                            directions += "\nTake the next " + face + " turn down the hall";
                         }
                         else directions += "\nGo straight down the hall";
                     }
                     else if(Math.abs(directionChange) > 25) {
-                        directions += "\nTake a " + face + " turn down the hall";
+                        directions += "\nTake the next " + face + " to continue down the hall";
                     }
                     break;
                 default:
