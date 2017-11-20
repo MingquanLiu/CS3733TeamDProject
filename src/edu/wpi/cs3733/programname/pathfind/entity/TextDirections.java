@@ -33,7 +33,7 @@ public class TextDirections {
 
             double directionChange = getDirectionAngle(lastNode, node, nextNode);
             if(directionChange <= -45 && directionChange >= -135) face = "right";
-            else if(directionChange >= 135 && directionChange <= 45) face = "left";
+            else if(directionChange <= 135 && directionChange >= 45) face = "left";
             else if(directionChange > 0 && directionChange < 45) face = "slight left";
             else if(directionChange < 0 && directionChange > -45) face = "slight right";
             else if(directionChange > -180 && directionChange < -135) face = "sharp right";
@@ -53,8 +53,15 @@ public class TextDirections {
                         directions += "\nEnter " + name;
                     break;
                 case "HALL":
-                    if(!lastNode.getType().equals("HALL") || !face.equals("straight"))
+                    if(!lastNode.getType().equals("HALL")) {
+                        if (Math.abs(directionChange) > 25) {
+                            directions += "\nTake a " + face + " turn down the hall";
+                        }
+                        else directions += "\nGo straight down the hall";
+                    }
+                    else if(Math.abs(directionChange) > 25) {
                         directions += "\nTake a " + face + " turn down the hall";
+                    }
                     break;
                 default:
                     directions += "\nContinue " + face + " past " + name;
