@@ -41,4 +41,22 @@ public class ServiceRequestController {
     public void printActiveRequests(){
         this.activeRequests.forEach(ServiceRequest::printRequest);
     }
+
+    public ArrayList<Employee> addGroupRecipients(ServiceRequest request, String type){
+        ArrayList<Employee> recipients = request.getGroupEmployees(type);
+        return recipients;
+    }
+
+    public ArrayList<Employee> addRecipients(ServiceRequest request, Employee newRecipient){
+        request.getRecipients().add(newRecipient);
+        return request.getRecipients();
+    }
+
+    public void addServiceRequestInDB(Employee sender, String time, String type, ArrayList<Employee> recipients, NodeData location, String description){
+        // todo
+    }
+
+    public void deleteServiceRequestInDB(ServiceRequest request){
+        // todo
+    }
 }
