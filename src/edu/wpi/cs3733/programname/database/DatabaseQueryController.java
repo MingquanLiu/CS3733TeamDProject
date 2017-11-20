@@ -4,6 +4,7 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -181,6 +182,47 @@ public class DatabaseQueryController {
         }
         return allNodeTypes;
 
+    }
+
+    public ArrayList<Employee> queryEmployeesByType(String type){
+        Employee queryResult = null;
+        ArrayList<Employee> group = new ArrayList<Employee>();
+        try {
+            String sql = "SELECT * FROM Employees WHERE serviceType = " + type;
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+
+            String username;
+            String password;
+            String firstName;
+            String middleName;
+            String lastName;
+            boolean sysAdmin;
+            int sysAdminInt;
+            String serviceType;
+
+            while(result.next()) {
+                username = result.getString("username");
+                password = result.getString("password");
+                firstName = result.getString("firstName");
+                middleName = result.getString("middleName");
+                lastName = result.getString("lastName");
+                sysAdminInt = result.getInt("sysAdmin");
+                serviceType = result.getString("serviceType");
+                if(sysAdminInt==1){
+                    sysAdmin = true;
+                }
+                else{
+                    sysAdmin = false;
+                }
+                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType);
+                group.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Insert Employee Failed!");
+            e.printStackTrace();
+        }
+        return group;
     }
 
 

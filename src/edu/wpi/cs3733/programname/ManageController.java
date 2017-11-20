@@ -8,8 +8,10 @@ import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
+import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 
 import java.sql.Connection;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,10 +81,27 @@ public class ManageController {
         this.dbModController.editNode(data);
     }
 
-    public void sendServiceRequest(String type) {
-        Employee emp = new Employee("me", 1, false);
-        this.serviceController.createServiceRequest(emp, type);
+    public List<Employee> queryEmployeeByRequestType(String requestType) {
+        return dbQueryController.queryEmployeesByType(requestType);
     }
+
+    public void createServiceRequest(Employee sender, String type, String description, NodeData location1,
+                                     NodeData location2) {
+         serviceController.createServiceRequest(sender, type, null, location1,
+                location2, description);
+    }
+
+    public void assignServiceRequest(ServiceRequest request, Employee recipient) {
+        ArrayList<Employee> recipientList = new ArrayList<Employee>();
+        recipientList.add(recipient);
+        serviceController.assignRequest(request, recipientList);
+    }
+
+    public void assignServiceRequest(ServiceRequest request, String requestType) {
+        ArrayList<Employee> recipients = dbQueryController.queryEmployeesByType(requestType);
+        serviceController.assignRequest(request, recipients);
+    }
+
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
     }

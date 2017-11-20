@@ -13,7 +13,8 @@ public class ServiceRequest {
     private LocalDateTime time;
     private String type;
     private ArrayList<Employee> recipients;
-    private NodeData location;
+    private NodeData location1;
+    private NodeData location2;
     private String description;
 
     /**
@@ -22,17 +23,47 @@ public class ServiceRequest {
      * @param time the date AND time of when service request was sent
      * @param type the type of service request
      */
-    public ServiceRequest(Employee sender, LocalDateTime time, String type, ArrayList<Employee> recipients, NodeData location, String description) {
+    public ServiceRequest(Employee sender, LocalDateTime time, String type, ArrayList<Employee> recipients,
+                          NodeData location1, NodeData location2, String description) {
         this.sender = sender;
         this.time = time;
         this.type = type;
         this.recipients = recipients;
-        this.location = location;
+        this.location1 = location1;
+        this.location2 = location2;
         this.description = description;
+    }
+
+    public Employee getSender() {
+        return sender;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public NodeData getLocation1() {
+        return location1;
+    }
+
+    public NodeData getLocation2() {
+        return location2;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public ArrayList<Employee> getRecipients() {
         return recipients;
+    }
+
+    public void setRecipients(ArrayList<Employee> recipients) {
+        this.recipients = recipients;
     }
 
     public void printRequest(){
@@ -40,57 +71,43 @@ public class ServiceRequest {
         System.out.println("Time Created: "+time);
         System.out.println("Type: "+type);
         System.out.println("Recipients: "+recipients);
-        System.out.println("Location: "+location);
+        System.out.println("Location1: "+location1);
         System.out.println("Description: "+description);
         System.out.println("");
     }
 
-    // move this method to DatabaseQueryController class
-    public ArrayList<Employee> getGroupEmployees(String type){
-        Employee queryResult = null;
-        ArrayList<Employee> group = new ArrayList<Employee>();
-        try {
-            String sql = "SELECT * FROM Employees WHERE serviceType = " + type;
-            //Statement stmt = dbConnection.getConnection().createStatement();
-            Statement stmt = null;
-            ResultSet result = stmt.executeQuery(sql);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-            String username;
-            String password;
-            String firstName;
-            String middleName;
-            String lastName;
-            boolean sysAdmin;
-            int sysAdminInt;
-            String serviceType;
+        ServiceRequest that = (ServiceRequest) o;
 
-            while(result.next()) {
-                username = result.getString("username");
-                password = result.getString("password");
-                firstName = result.getString("firstName");
-                middleName = result.getString("middleName");
-                lastName = result.getString("lastName");
-                sysAdminInt = result.getInt("sysAdmin");
-                serviceType = result.getString("serviceType");
-                if(sysAdminInt==1){
-                    sysAdmin = true;
-                }
-                else{
-                    sysAdmin = false;
-                }
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType);
-                group.add(queryResult);
-            }
-        } catch (SQLException e) {
-            System.out.println("Insert Employee Failed!");
-            e.printStackTrace();
-        }
-        return group;
+        if (!getSender().equals(that.getSender())) return false;
+        if (getTime() != null ? !getTime().equals(that.getTime()) : that.getTime() != null) return false;
+        if (getType() != null ? !getType().equals(that.getType()) : that.getType() != null) return false;
+        if (getRecipients() != null ? !getRecipients().equals(that.getRecipients()) : that.getRecipients() != null)
+            return false;
+        if (getLocation1() != null ? !getLocation1().equals(that.getLocation1()) : that.getLocation1() != null)
+            return false;
+        if (getLocation2() != null ? !getLocation2().equals(that.getLocation2()) : that.getLocation2() != null)
+            return false;
+        return getDescription() != null ? getDescription().equals(that.getDescription()) : that.getDescription() == null;
     }
 
+    @Override
+    public int hashCode() {
+        int result = getSender().hashCode();
+        result = 31 * result + (getTime() != null ? getTime().hashCode() : 0);
+        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
+        result = 31 * result + (getRecipients() != null ? getRecipients().hashCode() : 0);
+        result = 31 * result + (getLocation1() != null ? getLocation1().hashCode() : 0);
+        result = 31 * result + (getLocation2() != null ? getLocation2().hashCode() : 0);
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        return result;
+    }
 
-
-//    public ArrayList<Employee> assignTo(boolean group){
+    //    public ArrayList<Employee> assignTo(boolean group){
 //
 //        if(group){
 //            return addGroupRecipients();
