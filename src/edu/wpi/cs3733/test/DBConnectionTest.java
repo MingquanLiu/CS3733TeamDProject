@@ -34,7 +34,7 @@ public class DBConnectionTest {
 
         // MapDnodes.csv
 
-        mDbTable.createNodesTables(TestDB);           // Makes nodes table
+        mDbTable.dropAllTables(TestDB);           // Makes nodes table
         mCsvReader.insertNodes(conn,mCsvReader.readNodes(conn));
         mCsvWriter.writeNodes(conn, mCsvReader.readNodes(conn));
         printTables.printNodesTable(conn);          // Pulls data in nodes table from the database and print it
@@ -78,65 +78,65 @@ public class DBConnectionTest {
 //
 //    }
 
-    @Test
-    public void testStaffQueryDatabase() {
-        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
-        TestDB.setDBConnection();                   // Sets up the connection
-        DBTables mDbTable = new DBTables();
-
-
-        // MapDedges.csv
-        mDbTable.createStaffTables(TestDB);           // Makes nodes table
-
-
-
-    }
-
-    @Test
-    public void testPhoneExtensionsQueryDatabase() {
-        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
-        TestDB.setDBConnection();                   // Sets up the connection
-        DBTables mDbTable = new DBTables();
-        Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
-
-        // MapDedges.csv
-        mDbTable.createPhoneExtensionsTables(TestDB);           // Makes nodes table
-
-
-
-    }
-
-    @Test
-    public void testTitlesQueryDatabase() {
-        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
-        TestDB.setDBConnection();                   // Sets up the connection
-        DBTables mDbTable = new DBTables();
-        CsvReader mCsvReader = new CsvReader();
-        CsvWriter mCsvWriter = new CsvWriter();
-        Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
-
-        // MapDedges.csv
-        mDbTable.createTitlesTables(TestDB);           // Makes nodes table
-
-
-
-    }
-
-    @Test
-    public void testStaffTitlesQueryDatabase() {
-        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
-        TestDB.setDBConnection();                   // Sets up the connection
-        DBTables mDbTable = new DBTables();
-        CsvReader mCsvReader = new CsvReader();
-        CsvWriter mCsvWriter = new CsvWriter();
-        Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
-
-        // MapDedges.csv
-        mDbTable.createStaffTitlesTables(TestDB);           // Makes nodes table
-
-
-
-    }
+//    @Test
+//    public void testStaffQueryDatabase() {
+//        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
+//        TestDB.setDBConnection();                   // Sets up the connection
+//        DBTables mDbTable = new DBTables();
+//
+//
+//        // MapDedges.csv
+//        mDbTable.createStaffTables(TestDB);           // Makes nodes table
+//
+//
+//
+//    }
+//
+//    @Test
+//    public void testPhoneExtensionsQueryDatabase() {
+//        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
+//        TestDB.setDBConnection();                   // Sets up the connection
+//        DBTables mDbTable = new DBTables();
+//        Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
+//
+//        // MapDedges.csv
+//        mDbTable.createPhoneExtensionsTables(TestDB);           // Makes nodes table
+//
+//
+//
+//    }
+//
+//    @Test
+//    public void testTitlesQueryDatabase() {
+//        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
+//        TestDB.setDBConnection();                   // Sets up the connection
+//        DBTables mDbTable = new DBTables();
+//        CsvReader mCsvReader = new CsvReader();
+//        CsvWriter mCsvWriter = new CsvWriter();
+//        Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
+//
+//        // MapDedges.csv
+//        mDbTable.createTitlesTables(TestDB);           // Makes nodes table
+//
+//
+//
+//    }
+//
+//    @Test
+//    public void testStaffTitlesQueryDatabase() {
+//        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
+//        TestDB.setDBConnection();                   // Sets up the connection
+//        DBTables mDbTable = new DBTables();
+//        CsvReader mCsvReader = new CsvReader();
+//        CsvWriter mCsvWriter = new CsvWriter();
+//        Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
+//
+//        // MapDedges.csv
+//        mDbTable.createStaffTitlesTables(TestDB);           // Makes nodes table
+//
+//
+//
+//    }
 
     @Test
     public void dropAllTest() throws SQLException{
@@ -147,6 +147,6 @@ public class DBConnectionTest {
         CsvWriter mCsvWriter = new CsvWriter();
         Connection conn = TestDB.getConnection();
 
-        mDbTable.createAllTables(TestDB);
+        mDbTable.dropAllTables(TestDB);
     }
 }
