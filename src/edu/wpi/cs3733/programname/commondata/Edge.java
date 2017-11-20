@@ -6,7 +6,7 @@ public class Edge {
 
 
     public enum Restriction {
-        GENERAL, DEPTH, BREADTH, HANDICAPPED, ASTAR
+        GENERAL, DEPTH, BREADTH, HANDICAPPED, ASTAR, DIJKSTRAD
     }
 
     private String firstNodeId;

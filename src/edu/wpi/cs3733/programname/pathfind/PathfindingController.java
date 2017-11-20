@@ -49,11 +49,14 @@ public class PathfindingController {
             if (restrictions.contains(Edge.Restriction.ASTAR)) {
                 return newPath.findAstarPath();
             }
-            if (restrictions.contains(Edge.Restriction.DEPTH)) {
+            else if (restrictions.contains(Edge.Restriction.DEPTH)) {
                 return newPath.findDfsPath();
             }
-            if (restrictions.contains(Edge.Restriction.BREADTH)) {
+            else if (restrictions.contains(Edge.Restriction.BREADTH)) {
                 return newPath.findBfsPath();
+            }
+            else if (restrictions.contains(Edge.Restriction.DIJKSTRAD)) {
+                return newPath.findDijkstraPath();
             }
 
         } catch (NoPathException npe) {
