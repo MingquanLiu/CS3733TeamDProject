@@ -101,10 +101,24 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"11", "4");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star5, star10, star11));
         System.out.println(d.getTextDirections());
     }
 
+    @Test
+    public void LabtoDept1() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"15", "8");
+        List<NodeData> astarReturn = Path.getFinalList();
+        TextDirections d = new TextDirections(astarReturn);
+        System.out.println(d.getTextDirections());
+    }
+
+    @Test
+    public void ElevtoStair() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"5", "13");
+        List<NodeData> astarReturn = Path.getFinalList();
+        TextDirections d = new TextDirections(astarReturn);
+        System.out.println(d.getTextDirections());
+    }
 
     // TextDirections.getDirectionAngle() must be public in order to run this test
 //    @Test
