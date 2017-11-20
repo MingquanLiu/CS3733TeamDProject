@@ -1,7 +1,7 @@
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.pathfind.entity.BFS;
+import edu.wpi.cs3733.programname.pathfind.entity.Dijkstra;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
 import org.junit.Assert;
@@ -11,7 +11,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BFSAdvancedTest {
+import static org.junit.Assert.assertEquals;
+
+public class DijkstraAdvancedTest {
 
     NodeData node1 = new NodeData("1", new Coordinate(3, 3), "2", "Basic", "Lobby One", "L1");
     NodeData node2 = new NodeData("2", new Coordinate(3, 4), "2","Basic", "Hallway One", "H1");
@@ -51,45 +53,45 @@ public class BFSAdvancedTest {
     StarNode star7 = new StarNode(node7);
     StarNode star8 = new StarNode(node8);
 
-    public BFSAdvancedTest() {}
+    public DijkstraAdvancedTest() {}
 
     @Test
     // This is a basic test to get from point 1 to point 2 along one edge
     public void StraightPath() throws NoPathException {
-        BFS Path = new BFS(allNodes, allEdges,"1", "2");
+        Dijkstra Path = new Dijkstra(allNodes, allEdges,"1", "2");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star2, star1));
-        List<NodeData> BFSReturn = Path.getFinalList();
-        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                BFSReturn.get(i).getId());
+        List<NodeData> DijkstraReturn = Path.getFinalList();
+        for(int i = 0; i < DijkstraReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                DijkstraReturn.get(i).getId());
     }
 
     @Test
     // Now let's try to get from Node 3 to Node 1. There are 3 legal paths but only one ideal path
     public void IntermedPath() throws NoPathException {
-        BFS Path = new BFS(allNodes, allEdges,"3", "1");
+        Dijkstra Path = new Dijkstra(allNodes, allEdges,"3", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
-        List<NodeData> BFSReturn = Path.getFinalList();
-        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                BFSReturn.get(i).getId());
+        List<NodeData> DijkstraReturn = Path.getFinalList();
+        for(int i = 0; i < DijkstraReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                DijkstraReturn.get(i).getId());
     }
 
     @Test
     // Let's start at the far end of the tree and try to get to the first node
     public void LongPath() throws NoPathException {
-        BFS Path = new BFS(allNodes, allEdges,"6", "1");
+        Dijkstra Path = new Dijkstra(allNodes, allEdges,"6", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star6));
-        List<NodeData> BFSReturn = Path.getFinalList();
-        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                BFSReturn.get(i).getId());
+        List<NodeData> DijkstraReturn = Path.getFinalList();
+        for(int i = 0; i < DijkstraReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                DijkstraReturn.get(i).getId());
     }
 
     @Test
     // Trying to travel around the C part of the hallway
     public void CPath() throws NoPathException {
-        BFS Path = new BFS(allNodes, allEdges,"1", "7");
+        Dijkstra Path = new Dijkstra(allNodes, allEdges,"1", "7");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star7, star4, star1));
-        List<NodeData> BFSReturn = Path.getFinalList();
-        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                BFSReturn.get(i).getId());
+        List<NodeData> DijkstraReturn = Path.getFinalList();
+        for(int i = 0; i < DijkstraReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                DijkstraReturn.get(i).getId());
     }
 }

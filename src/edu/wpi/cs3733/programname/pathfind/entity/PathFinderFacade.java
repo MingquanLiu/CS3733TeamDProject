@@ -10,6 +10,7 @@ public class PathFinderFacade {
     private DFS dfs;
     private BFS bfs;
     private AStar astar;
+    private Dijkstra dijkstra;
 
     /**
      * Constructor:
@@ -22,6 +23,7 @@ public class PathFinderFacade {
         this.dfs = new DFS(nodes, edges, startID, goalID);
         this.bfs = new BFS(nodes, edges, startID, goalID);
         this.astar = new AStar(nodes, edges, startID, goalID);
+        this.dijkstra = new Dijkstra(nodes, edges, startID, goalID);
     }
 
     /**
@@ -46,5 +48,13 @@ public class PathFinderFacade {
      */
     public List<NodeData> findAstarPath() {
         return astar.getFinalList();
+    }
+
+    /**
+     * Finds the path according to Dijkstra's algorithm
+     * @return list of nodes connecting start to goal
+     */
+    public List<NodeData> findDijkstraPath() {
+        return dijkstra.getFinalList();
     }
 }
