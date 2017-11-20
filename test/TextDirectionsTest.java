@@ -105,6 +105,8 @@ public class TextDirectionsTest {
         System.out.println(d.getTextDirections());
     }
 
+
+    // TextDirections.getDirectionAngle() must be public in order to run this test
 //    @Test
 //    public void testDirections() {
 //        TextDirections d = new TextDirections(Arrays.asList(node1));

@@ -10,12 +10,19 @@ public class TextDirections {
     List<NodeData> nodeList;
     String directions;
 
+    /**
+     * The constructor for this class generates the text directions--call getTextDirections() to return them
+     * @param nodeList - a list of nodes along the desired path in order of goal->start (it is reversed here)
+     */
     public TextDirections(List<NodeData> nodeList) {
         this.nodeList = nodeList;
         Collections.reverse(this.nodeList);
         produceText();
     }
 
+    /**
+     * This method is called automatically on object creation and generates the string of text directions
+     */
     private void produceText() {
         // Gotta start somewhere
         directions = "Begin at " + nodeList.get(0).getLongName();
@@ -71,6 +78,14 @@ public class TextDirections {
         directions += "\nYou have arrived at " + nodeList.get(nodeList.size()-1).getLongName();
     }
 
+    /**
+     * Helper function to figure out the angle you have to turn at a specific node to get to the next one
+     *
+     * @param previous: the previous node in the path
+     * @param current: the current node (this is the one the visitor is hypothetically standing at)
+     * @param next: the next node to travel to
+     * @return: the angle between them. 90 is a left turn, -90 is a right turn, etc.
+     */
     private double getDirectionAngle(NodeData previous, NodeData current, NodeData next) {
         double firstEdgeAngle = Math.atan2((current.getY()-previous.getY()),(current.getX()-previous.getX()));
         double secondEdgeAngle = Math.atan2((next.getY()-current.getY()),(next.getX()-current.getX()));
@@ -87,6 +102,11 @@ public class TextDirections {
 
     }
 
+    /**
+     * This must be called to get the actual text directions
+     *
+     * @return: a block of text in a String with the directions from the start to the goal
+     */
     public String getTextDirections() {
         return this.directions;
     }
