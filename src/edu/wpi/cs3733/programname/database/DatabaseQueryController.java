@@ -80,14 +80,14 @@ public class DatabaseQueryController {
 
 
     // Query by userName
-    public EmployeeInfo queryEmployeesByUserName(DBConnection dbConnection, String uName{
-        return EmployeeQuery.queryByUserName(dbConnection, uName);
+    public EmployeeInfo queryEmployeesByUserName(DBConnection dbConnection, String uName){
+        return EmployeeQuery.queryByUser(dbConnection, uName);
     }
 
 
     // Query by fullName
     public EmployeeInfo queryEmployeesByFullName(DBConnection dbConnection, String fName, String mName, String lName){
-        return EmployeeQuery.queryByFullName(dbConnection, fName, mName, lName);
+        return EmployeeQuery.queryByName(dbConnection, fName, mName, lName);
     }
 
 
