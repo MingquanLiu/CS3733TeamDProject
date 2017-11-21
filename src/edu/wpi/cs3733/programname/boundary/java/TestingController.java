@@ -1,12 +1,9 @@
 package edu.wpi.cs3733.programname.boundary.java;
 
-import javafx.application.Application;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -14,10 +11,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class TestingController {
@@ -44,6 +41,12 @@ public class TestingController {
     private Button btnZoomOut;
     private double currentScale = 1.0;
 
+    //login popup objects
+    @FXML
+    private Button btnLogin;
+    @FXML
+    private Label lblLoginStatus;
+
     /*
     private ChangeListener<Number> zoomChange = new ChangeListener<Number>() {
         @Override
@@ -53,7 +56,33 @@ public class TestingController {
         }
     };
     */
-    //map zooming methods
+
+    //topmost methods are newest
+
+    //popup methods
+    public void popupHandler(ActionEvent e){
+        if(e.getSource() == btnLogin){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(("Login_Popup.fxml")));
+            Scene newScene;
+            try {
+                newScene = new Scene(loader.load());
+            } catch(IOException ex){
+                //Todo add some sort of error handling
+                return;
+            }
+
+            Stage loginStage = new Stage();
+            loginStage.setScene(newScene);
+            loginStage.showAndWait();
+
+            boolean loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+
+            lblLoginStatus.setText("logged in");
+
+
+        }
+    }
+    //map zooming method
     public void zoomHandler(ActionEvent e){
         if(e.getSource() == btnZoomOut){
             imgMap.setFitWidth(imgMap.getFitWidth()*.9);
