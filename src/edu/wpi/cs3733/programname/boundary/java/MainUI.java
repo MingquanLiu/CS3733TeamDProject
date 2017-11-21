@@ -136,6 +136,9 @@ public class MainUI {
     @FXML
     private Button addEdge;
 
+    @FXML
+    private Button btnCallPop;
+
     private boolean addingEdge = false;
     private boolean loggedOut = true;               //used to change the sign in/sign out button text
     private ManageController manager = new ManageController();               //global manage controller to call methods
@@ -558,4 +561,7 @@ public class MainUI {
         return "Not Found";
     }
 
+    public void examplePopup(ActionEvent e){
+
+    }
 }
