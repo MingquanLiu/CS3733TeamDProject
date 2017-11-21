@@ -8,7 +8,8 @@ public class ServiceRequest {
     private int id;
     private Employee requester;
     private String type;
-    private NodeData location;
+    private NodeData location1;
+    private NodeData location2;
     private String description;
     private Timestamp createdTime;
     private Timestamp handledTime;
@@ -17,11 +18,12 @@ public class ServiceRequest {
     private Employee handler;
 
 
-    public ServiceRequest(int id, Employee requester, String type, NodeData location, String description, Timestamp createdTime, Timestamp handledTime, Timestamp completedTime, String status, Employee handler) {
+    public ServiceRequest(int id, Employee requester, String type, NodeData location1, NodeData location2, String description, Timestamp createdTime, Timestamp handledTime, Timestamp completedTime, String status, Employee handler) {
         this.id = id;
         this.requester = requester;
         this.type = type;
-        this.location = location;
+        this.location1 = location1;
+        this.location2 = location2;
         this.description = description;
         this.createdTime = createdTime;
         this.handledTime = handledTime;
@@ -54,12 +56,20 @@ public class ServiceRequest {
         this.type = type;
     }
 
-    public NodeData getLocation() {
-        return location;
+    public NodeData getLocation1() {
+        return location1;
     }
 
-    public void setLocation(NodeData location) {
-        this.location = location;
+    public void setLocation1(NodeData location) {
+        this.location1 = location;
+    }
+
+    public NodeData getLocation2() {
+        return location2;
+    }
+
+    public void setLocation2(NodeData location) {
+        this.location2 = location;
     }
 
     public String getDescription() {
@@ -115,7 +125,8 @@ public class ServiceRequest {
         return "id=" + id + System.lineSeparator() +
                 "requester=" + requester.getUsername() + System.lineSeparator() +
                 ", type='" + type + '\'' + System.lineSeparator() +
-                ", location=" + location.getLongName() + System.lineSeparator() +
+                ", location1=" + location1.getLongName() + System.lineSeparator() +
+                ", location2=" + location2.getLongName() + System.lineSeparator() +
                 ", description='" + description + '\'' + System.lineSeparator() +
                 ", createdTime=" + createdTime.toString() + System.lineSeparator() +
                 ", handledTime=" + handledTime.toString() + System.lineSeparator() +
@@ -135,7 +146,8 @@ public class ServiceRequest {
         if (getId() != that.getId()) return false;
         if (!getRequester().equals(that.getRequester())) return false;
         if (!getType().equals(that.getType())) return false;
-        if (!getLocation().equals(that.getLocation())) return false;
+        if (!getLocation1().equals(that.getLocation1())) return false;
+        if (!getLocation2().equals(that.getLocation2())) return false;
         if (!getDescription().equals(that.getDescription())) return false;
         if (!getCreatedTime().equals(that.getCreatedTime())) return false;
         if (!getHandledTime().equals(that.getHandledTime())) return false;
@@ -149,7 +161,8 @@ public class ServiceRequest {
         int result = getId();
         result = 31 * result + getRequester().hashCode();
         result = 31 * result + getType().hashCode();
-        result = 31 * result + getLocation().hashCode();
+        result = 31 * result + getLocation1().hashCode();
+        result = 31 * result + getLocation2().hashCode();
         result = 31 * result + getDescription().hashCode();
         result = 31 * result + getCreatedTime().hashCode();
         result = 31 * result + getHandledTime().hashCode();

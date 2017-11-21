@@ -19,7 +19,7 @@ public class ServiceRequestController {
         this.queryServiceRequest = queryServiceRequest;
     }
 
-    public void createServiceRequest(Employee requester, String type, NodeData location, String description) {
+    public void createServiceRequest(Employee requester, String type, NodeData location1, NodeData location2, String description) {
         //generate random id
         Random randomID = new Random();
         int id = randomID.nextInt(1000) + 1;
@@ -30,7 +30,7 @@ public class ServiceRequestController {
         String status = "unhandled";
         Employee handler = null;
 
-        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location, description, createdTime, handledTime, completedTime, status, handler);
+        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description, createdTime, handledTime, completedTime, status, handler);
         queryServiceRequest.addServiceRequest(newServiceRequest);
         //send email
     }

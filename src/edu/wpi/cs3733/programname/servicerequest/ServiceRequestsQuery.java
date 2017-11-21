@@ -29,8 +29,10 @@ public class ServiceRequestsQuery {
             Employee requester;
             String requesterUsername;
             String type;
-            NodeData location;
-            String nodeID;
+            NodeData location1;
+            String node1ID;
+            NodeData location2;
+            String node2ID;
             String description;
             Timestamp createdTime;
             Timestamp handledTime;
@@ -50,13 +52,21 @@ public class ServiceRequestsQuery {
                     requester = new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername);
                 }
                 type = result.getString("type");
-                nodeID = result.getString("location");
+                node1ID = result.getString("location1");
                 // todo: handle null exception
-                if(new DatabaseQueryController(dbConnection).queryNodeById(nodeID) == null){
-                    location = null;
+                if(new DatabaseQueryController(dbConnection).queryNodeById(node1ID) == null){
+                    location1 = null;
                 }
                 else{
-                    location = new DatabaseQueryController(dbConnection).queryNodeById(nodeID);
+                    location1 = new DatabaseQueryController(dbConnection).queryNodeById(node1ID);
+                }
+                node2ID = result.getString("location2");
+                // todo: handle null exception
+                if(new DatabaseQueryController(dbConnection).queryNodeById(node2ID) == null){
+                    location2 = null;
+                }
+                else{
+                    location2 = new DatabaseQueryController(dbConnection).queryNodeById(node2ID);
                 }
                 description = result.getString("description");
                 createdTime = result.getTimestamp("createdTime");
@@ -71,7 +81,7 @@ public class ServiceRequestsQuery {
                 else{
                     handler = new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername);
                 }
-                queryResult = new ServiceRequest(id,requester, type, location, description, createdTime, handledTime, completedTime, status, handler);
+                queryResult = new ServiceRequest(id,requester, type, location1, location2, description, createdTime, handledTime, completedTime, status, handler);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -92,8 +102,10 @@ public class ServiceRequestsQuery {
             Employee requester;
             String requesterUsername;
             String type;
-            NodeData location;
-            String nodeID;
+            NodeData location1;
+            String node1ID;
+            NodeData location2;
+            String node2ID;
             String description;
             Timestamp createdTime;
             Timestamp handledTime;
@@ -112,13 +124,21 @@ public class ServiceRequestsQuery {
                     requester = new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername);
                 }
                 type = result.getString("type");
-                nodeID = result.getString("location");
+                node1ID = result.getString("location1");
                 // todo: handle null exception
-                if(new DatabaseQueryController(dbConnection).queryNodeById(nodeID) == null){
-                    location = null;
+                if(new DatabaseQueryController(dbConnection).queryNodeById(node1ID) == null){
+                    location1 = null;
                 }
                 else{
-                    location = new DatabaseQueryController(dbConnection).queryNodeById(nodeID);
+                    location1 = new DatabaseQueryController(dbConnection).queryNodeById(node1ID);
+                }
+                node2ID = result.getString("location2");
+                // todo: handle null exception
+                if(new DatabaseQueryController(dbConnection).queryNodeById(node2ID) == null){
+                    location2 = null;
+                }
+                else{
+                    location2 = new DatabaseQueryController(dbConnection).queryNodeById(node2ID);
                 }
                 description = result.getString("description");
                 createdTime = result.getTimestamp("createdTime");
@@ -133,7 +153,7 @@ public class ServiceRequestsQuery {
                 else{
                     handler = new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername);
                 }
-                queryResult = new ServiceRequest(id,requester, type, location, description, createdTime, handledTime, completedTime, status, handler);
+                queryResult = new ServiceRequest(id,requester, type, location1, location2, description, createdTime, handledTime, completedTime, status, handler);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -154,8 +174,10 @@ public class ServiceRequestsQuery {
             Employee requester;
             String requesterUsername;
             //String type;
-            NodeData location;
-            String nodeID;
+            NodeData location1;
+            String node1ID="";
+            NodeData location2;
+            String node2ID;
             String description;
             Timestamp createdTime;
             Timestamp handledTime;
@@ -175,13 +197,19 @@ public class ServiceRequestsQuery {
                     requester = new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername);
                 }
                 //type = result.getString("type");
-                nodeID = result.getString("location");
-                // todo: handle null exception
-                if(new DatabaseQueryController(dbConnection).queryNodeById(nodeID) == null){
-                    location = null;
+                if(new DatabaseQueryController(dbConnection).queryNodeById(node1ID) == null){
+                    location1 = null;
                 }
                 else{
-                    location = new DatabaseQueryController(dbConnection).queryNodeById(nodeID);
+                    location1 = new DatabaseQueryController(dbConnection).queryNodeById(node1ID);
+                }
+                node2ID = result.getString("location2");
+                // todo: handle null exception
+                if(new DatabaseQueryController(dbConnection).queryNodeById(node2ID) == null){
+                    location2 = null;
+                }
+                else{
+                    location2 = new DatabaseQueryController(dbConnection).queryNodeById(node2ID);
                 }
                 description = result.getString("description");
                 createdTime = result.getTimestamp("createdTime");
@@ -196,7 +224,7 @@ public class ServiceRequestsQuery {
                 else{
                     handler = new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername);
                 }
-                queryResult = new ServiceRequest(id,requester, serviceType, location, description, createdTime, handledTime, completedTime, status, handler);
+                queryResult = new ServiceRequest(id,requester, serviceType, location1, location2, description, createdTime, handledTime, completedTime, status, handler);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -211,8 +239,10 @@ public class ServiceRequestsQuery {
         Employee requester = serviceRequest.getRequester();
         String requesterUsername = requester.getUsername();
         String type = serviceRequest.getType();
-        NodeData location = serviceRequest.getLocation();
-        String nodeID = location.getId();
+        NodeData location1 = serviceRequest.getLocation1();
+        String node1ID = location1.getId();
+        NodeData location2 = serviceRequest.getLocation2();
+        String node2ID = location2.getId();
         String description = serviceRequest.getDescription();
         Timestamp createdTime = serviceRequest.getCreatedTime();
         Timestamp handledTime = serviceRequest.getHandledTime();
@@ -229,7 +259,7 @@ public class ServiceRequestsQuery {
         }
         String str;
         try {
-            str = "insert into ServiceRequests values( id +'" + requesterUsername + "', '" + type + "', '" + nodeID + "', '" + description +
+            str = "insert into ServiceRequests values( id +'" + requesterUsername + "', '" + type + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
                     "', '" + createdTime + "','" + handledTime + "', '" + completedTime + "',"+ status + "','"+ handlerUsername + "')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
