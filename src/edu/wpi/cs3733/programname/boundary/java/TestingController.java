@@ -42,6 +42,7 @@ public class TestingController {
     private Button btnZoomIn;
     @FXML
     private Button btnZoomOut;
+    private double currentScale = 1.0;
 
     /*
     private ChangeListener<Number> zoomChange = new ChangeListener<Number>() {
@@ -54,7 +55,14 @@ public class TestingController {
     */
     //map zooming methods
     public void zoomHandler(ActionEvent e){
-
+        if(e.getSource() == btnZoomOut){
+            imgMap.setFitWidth(imgMap.getFitWidth()*.9);
+            currentScale *= 0.9;
+        }
+        else{
+            imgMap.setFitWidth(imgMap.getFitWidth()*1.1);
+            currentScale *= 1.1;
+        }
     }
 
     //map switching methods
@@ -69,6 +77,7 @@ public class TestingController {
             System.out.println("down to floor" + floor);
             setFloor();
         }
+
     }
     public void setFloor(){
         Image oldImg = imgMap.getImage();
