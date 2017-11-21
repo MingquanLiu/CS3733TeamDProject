@@ -1,11 +1,10 @@
 import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -14,43 +13,43 @@ import java.util.List;
 
 public class TextDirectionsTest {
 
-    NodeData node1 = new NodeData("1", new Coordinate(1, 0),"1","REST", "Restroom One", "L1");
-    NodeData node2 = new NodeData("2", new Coordinate(1, 3),"1","HALL", "Hallway Three", "H1");
-    NodeData node3 = new NodeData("3", new Coordinate(5, 3),"1","INFO", "Security desk", "H2");
-    NodeData node4 = new NodeData("4", new Coordinate(3, 6),"1", "HALL", "Hallway Two", "H3");
-    NodeData node5 = new NodeData("5", new Coordinate(0, 6),"1","ELEV", "Elevator One", "C1");
-    NodeData node6 = new NodeData("6", new Coordinate(3, 9),"1", "HALL", "Hallway One", "R1");
-    NodeData node7 = new NodeData("7", new Coordinate(6, 9),"1", "STAI", "Stairway Two", "C2");
-    NodeData node8 = new NodeData("8", new Coordinate(3, 12),"1", "DEPT", "Department Four", "H4");
-    NodeData node9 = new NodeData("9", new Coordinate(10, 3),"2","RETL", "Cafe Two", "R2");
-    NodeData node10 = new NodeData("10", new Coordinate(10, 6),"2","ELEV", "Elevator One", "H1");
-    NodeData node11 = new NodeData("11", new Coordinate(13, 6),"2","HALL", "Hallway Four", "H2");
-    NodeData node12 = new NodeData("12", new Coordinate(16, 6),"2", "REST", "Restroom Five", "H3");
-    NodeData node13 = new NodeData("13", new Coordinate(10, 9),"2","STAI", "Stairway Two", "C1");
-    NodeData node14 = new NodeData("14", new Coordinate(13, 9),"2", "HALL", "Hallway Five", "R1");
-    NodeData node15 = new NodeData("15", new Coordinate(16, 11),"2", "LABS", "Laboratory Two", "C2");
-    NodeData node16 = new NodeData("16", new Coordinate(16, 14),"2", "HALL", "Hallway Six", "H4");
-    NodeData node17 = new NodeData("17", new Coordinate(14, 14),"2", "EXIT", "Exit Four", "H4");
+    NodeData node1 = new NodeData("1", new Coordinate(1, 0),"1", "15 Francis","REST", "Restroom One", "L1", "Team D");
+    NodeData node2 = new NodeData("2", new Coordinate(1, 3),"1", "15 Francis","HALL", "Hallway Three", "H1", "Team D");
+    NodeData node3 = new NodeData("3", new Coordinate(5, 3),"1", "15 Francis","INFO", "Security desk", "H2", "Team D");
+    NodeData node4 = new NodeData("4", new Coordinate(3, 6),"1", "15 Francis", "HALL", "Hallway Two", "H3", "Team D");
+    NodeData node5 = new NodeData("5", new Coordinate(0, 6),"1", "15 Francis","ELEV", "Elevator One", "C1", "Team D");
+    NodeData node6 = new NodeData("6", new Coordinate(3, 9),"1", "15 Francis", "HALL", "Hallway One", "R1", "Team D");
+    NodeData node7 = new NodeData("7", new Coordinate(6, 9),"1", "15 Francis", "STAI", "Stairway Two", "C2", "Team D");
+    NodeData node8 = new NodeData("8", new Coordinate(3, 12),"1", "15 Francis", "DEPT", "Department Four", "H4", "Team D");
+    NodeData node9 = new NodeData("9", new Coordinate(10, 3),"2", "15 Francis","RETL", "Cafe Two", "R2", "Team D");
+    NodeData node10 = new NodeData("10", new Coordinate(10, 6),"2", "15 Francis","ELEV", "Elevator One", "H1", "Team D");
+    NodeData node11 = new NodeData("11", new Coordinate(13, 6),"2", "15 Francis","HALL", "Hallway Four", "H2", "Team D");
+    NodeData node12 = new NodeData("12", new Coordinate(16, 6),"2", "15 Francis","REST", "Restroom Five", "H3", "Team D");
+    NodeData node13 = new NodeData("13", new Coordinate(10, 9),"2", "15 Francis","STAI", "Stairway Two", "C1", "Team D");
+    NodeData node14 = new NodeData("14", new Coordinate(13, 9),"2", "15 Francis", "HALL", "Hallway Five", "R1", "Team D");
+    NodeData node15 = new NodeData("15", new Coordinate(16, 11),"2", "15 Francis", "LABS", "Laboratory Two", "C2", "Team D");
+    NodeData node16 = new NodeData("16", new Coordinate(16, 14),"2", "15 Francis", "HALL", "Hallway Six", "H4", "Team D");
+    NodeData node17 = new NodeData("17", new Coordinate(14, 14),"2", "15 Francis", "EXIT", "Exit Four", "H4", "Team D");
 
 
-    Edge edge1 = new Edge("1", "2", "E1");
-    Edge edge2 = new Edge("2", "3", "E2");
-    Edge edge3 = new Edge("3", "4", "E3");
-    Edge edge4 = new Edge("2", "4", "E4");
-    Edge edge5 = new Edge("5", "4", "E5");
-    Edge edge6 = new Edge("4", "6", "E6");
-    Edge edge7 = new Edge("7", "6", "E7");
-    Edge edge8 = new Edge("8", "6", "E8");
-    Edge edge9 = new Edge("5", "10", "E1");
-    Edge edge10 = new Edge("7", "13", "E2");
-    Edge edge11 = new Edge("9", "11", "E3");
-    Edge edge12 = new Edge("11", "10", "E4");
-    Edge edge13 = new Edge("11", "12", "E5");
-    Edge edge14 = new Edge("11", "14", "E6");
-    Edge edge15 = new Edge("13", "14", "E7");
-    Edge edge16 = new Edge("14", "15", "E8");
-    Edge edge17 = new Edge("15", "16", "E7");
-    Edge edge18 = new Edge("16", "17", "E8");
+    EdgeData edge1 = new EdgeData("1", "2", "E1");
+    EdgeData edge2 = new EdgeData("2", "3", "E2");
+    EdgeData edge3 = new EdgeData("3", "4", "E3");
+    EdgeData edge4 = new EdgeData("2", "4", "E4");
+    EdgeData edge5 = new EdgeData("5", "4", "E5");
+    EdgeData edge6 = new EdgeData("4", "6", "E6");
+    EdgeData edge7 = new EdgeData("7", "6", "E7");
+    EdgeData edge8 = new EdgeData("8", "6", "E8");
+    EdgeData edge9 = new EdgeData("5", "10", "E1");
+    EdgeData edge10 = new EdgeData("7", "13", "E2");
+    EdgeData edge11 = new EdgeData("9", "11", "E3");
+    EdgeData edge12 = new EdgeData("11", "10", "E4");
+    EdgeData edge13 = new EdgeData("11", "12", "E5");
+    EdgeData edge14 = new EdgeData("11", "14", "E6");
+    EdgeData edge15 = new EdgeData("13", "14", "E7");
+    EdgeData edge16 = new EdgeData("14", "15", "E8");
+    EdgeData edge17 = new EdgeData("15", "16", "E7");
+    EdgeData edge18 = new EdgeData("16", "17", "E8");
 
     StarNode star4 = new StarNode(node4);
     StarNode star5 = new StarNode(node5);
@@ -59,7 +58,7 @@ public class TextDirectionsTest {
 
     LinkedList<NodeData> allNodes = new LinkedList<>(Arrays.asList(node1, node2, node3, node4, node5, node6, node7,
             node8, node9, node10, node11, node12, node13, node14, node15, node16, node17));
-    LinkedList<Edge> allEdges = new LinkedList<>(Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8,
+    LinkedList<EdgeData> allEdges = new LinkedList<>(Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8,
             edge9, edge10, edge11, edge12, edge13, edge14, edge15, edge16, edge17, edge18));
 
     public TextDirectionsTest() {}

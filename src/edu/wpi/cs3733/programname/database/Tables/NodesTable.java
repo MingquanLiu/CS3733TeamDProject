@@ -15,16 +15,16 @@ public class NodesTable {
                 System.out.println("2");
             }
 
-            String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(10), xcoord INTEGER, ycoord INTEGER, floor VARCHAR(3), building VARCHAR(20), " +
+            String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(10), xcoord INTEGER, ycoord INTEGER, floor VARCHAR(4), building VARCHAR(20), " +
                     "nodeType VARCHAR(4), longName VARCHAR(50), shortName VARCHAR(30), teamAssigned VARCHAR(6)," +
-                    "CONSTRAINT Nodes PRIMARY KEY (nodeID)," +
+                    "CONSTRAINT Nodes_PK PRIMARY KEY (nodeID)," +
                     "CONSTRAINT Nodes_nodeType CHECK (nodeType IN " +
                     "('HALL', 'ELEV', 'REST', 'STAI', 'DEPT', 'LABS', 'INFO', 'CONF', 'EXIT', 'RETL', 'SERV'))," +
                     "CONSTRAINT Nodes_building CHECK (building IN " +
-                    "('BMT', 'Shapiro', 'Tower', '45 Francis', '15 Francis'))," +
+                    "('BTM', 'Shapiro', 'Tower', '45 Francis', '15 Francis'))," +
                     "CONSTRAINT Nodes_xcoordVal check (xcoord >= 0 AND xcoord <= 5000)," +
-                    "CONSTRAINT Nodes_ycoordVal check (ycoord >= 0 AND ycoord <= 3400))";
-            // Creates new Nodes table
+                    "CONSTRAINT Nodes_ycoordVal check (ycoord >= 0 AND ycoord <= 5000))";
+
             conn.execute(newTable);
             System.out.println("\nNodes Table Created\n");
 

@@ -29,7 +29,6 @@ public class ManageController {
         CsvReader mCsvReader = new CsvReader();
         createAllTables(dbConnection);
         mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.readNodes(dbConnection.getConnection()));
-
         mCsvReader.insertEdges(dbConnection.getConnection(),mCsvReader.readEdges(dbConnection.getConnection()));
 //        DBTables.createEdgesTables(dbConnection);
 

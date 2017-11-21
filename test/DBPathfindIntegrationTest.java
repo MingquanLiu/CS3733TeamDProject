@@ -30,9 +30,9 @@ public class DBPathfindIntegrationTest {
         printTables.printNodesTable(conn);          // Pulls data in nodes table from the database and print it
 
 
-        mCsvReader.insertEdges(conn,mCsvReader.readEdges(conn));
-        mCsvWriter.writeEdges(conn, mCsvReader.readEdges(conn));
-        printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
+//        mCsvReader.insertEdges(conn,mCsvReader.readEdges(conn));
+//        mCsvWriter.writeEdges(conn, mCsvReader.readEdges(conn));
+//        printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
     }
 
     @Test

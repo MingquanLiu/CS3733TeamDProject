@@ -18,6 +18,7 @@ public class DBTables {
     }
 
     public static void createAllTables(DBConnection conn) {
+        System.out.println("About to drop");
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "StaffTitles" table is there
@@ -25,12 +26,18 @@ public class DBTables {
             ResultSet tables2 = dbm.getTables(null, null, "EDGES", null);
             ResultSet tables3 = dbm.getTables(null, null, "EMPLOYEES", null);
             ResultSet tables4 = dbm.getTables(null, null, "SERVICEREQUEST", null);
-            if (!tables1.next() || !tables2.next() || !tables3.next() || !tables4.next()) {
+            if (!tables1.next()) {
                 NodesTable.createNodesTables(conn);
+            }
+            else if (!tables2.next()){
                 EdgesTable.createEdgesTables(conn);
+                }
+            else if (!tables3.next()){
                 EmployeesTable.createEmployeesTables(conn);
-                ServiceRequestsTable.createServiceRequestsTable(conn);
-            } else {
+            }
+            else if (!tables4.next()){
+                ServiceRequestsTable.createServiceRequestsTable(conn);}
+            else {
 
                 String dropTable1 = ("DROP TABLE Edges");
                 String dropTable2 = ("DROP TABLE ServiceRequest");

@@ -8,6 +8,7 @@ import edu.wpi.cs3733.programname.database.*;
 import org.junit.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -20,32 +21,32 @@ public class DBConnectionTest {
     }
 
 
-    @Test
-    public void testNodeQueryDatabase() {
-        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
-        TestDB.setDBConnection();                   // Sets up the connection
-        DBTables mDbTable = new DBTables();
-        Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
-
-        // MapDnodes.csv
-
-        mDbTable.createAllTables(TestDB);           // Makes nodes table
-
-
-        ManageController manager = new ManageController();
-
-
-        NodeData expected = new NodeData("DREST00102", new Coordinate(4125,625), "2", "15 Francis",
-                "REST", "Restroom B elevator Floor 2", "Restroom B", "Team D");
-        assertEquals(expected, manager.getNodeData("DREST00102"));
-
-
-        NodeData expected2 = new NodeData("DDEPT00302",	3900, 640,	"2", "15 Francis",
-                "DEPT",	"Brigham Health Floor 2", "Brigham Health", "Team D");
-        assertEquals(expected2, manager.getNodeData("DDEPT00302"));
-
-
-    }
+//    @Test
+//    public void testNodeQueryDatabase() {
+//        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
+//        TestDB.setDBConnection();                   // Sets up the connection
+//        DBTables mDbTable = new DBTables();
+//        Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
+//
+//        // MapDnodes.csv
+//
+//        mDbTable.createAllTables(TestDB);           // Makes nodes table
+//
+//
+//        ManageController manager = new ManageController();
+//
+//
+//        NodeData expected = new NodeData("DREST00102", new Coordinate(4125,625), "2", "15 Francis",
+//                "REST", "Restroom B elevator Floor 2", "Restroom B", "Team D");
+//        assertEquals(expected, manager.getNodeData("DREST00102"));
+//
+//
+//        NodeData expected2 = new NodeData("DDEPT00302",	3900, 640,	"2", "15 Francis",
+//                "DEPT",	"Brigham Health Floor 2", "Brigham Health", "Team D");
+//        assertEquals(expected2, manager.getNodeData("DDEPT00302"));
+//
+//
+//    }
 
 
     @Test
@@ -59,16 +60,35 @@ public class DBConnectionTest {
 
         // MapDedges.csv
         mDbTable.createAllTables(TestDB);           // Makes nodes table
-        mCsvReader.insertEdges(conn,mCsvReader.readEdges(conn));
-        mCsvWriter.writeEdges(conn, mCsvReader.readEdges(conn));
-        printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
+
+        ArrayList<EdgeData> edgeList = mCsvReader.readEdges(conn);
+
+
+
+
+
+        mCsvReader.insertNodes(conn, mCsvReader.readNodes(conn));
+        mCsvReader.insertEdges(conn, edgeList);
+
+
+          printTables.printNodesTable(conn);
+          printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
+
+
+        mCsvWriter.writeNodes(conn,mCsvReader.readNodes(conn));
+        mCsvWriter.writeEdges(conn, edgeList);
+
 
         ManageController manager = new ManageController();
 
-        EdgeData expected = new EdgeData("DHALL00702_DHALL00802", "DHALL00702", "DHALL00802");
-        assertEquals(expected, manager.getEdgeData("DHALL00702_DHALL00802"));
+        EdgeData expected = new EdgeData("AHALL00502_ADEPT00102", "ADEPT00102", "AHALL00502");
+
+        System.out.println(manager.getEdgeData("AHALL00502_ADEPT00102"));
+        assertEquals(expected, manager.getEdgeData("AHALL00502_ADEPT00102"));
 
     }
+
+
 
 
 }
