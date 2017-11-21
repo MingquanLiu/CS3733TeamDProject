@@ -1,4 +1,3 @@
-package edu.wpi.cs3733.test;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.DBTables;
 import edu.wpi.cs3733.programname.database.printTables;
