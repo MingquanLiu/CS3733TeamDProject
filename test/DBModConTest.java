@@ -61,7 +61,7 @@ public class DBModConTest {
         theDBModControl.addNode(newBathroom);
         theDBModControl.editNode(newBathroom2);
         NodeData CREST = manager.getNodeData("CREST00102");
-        
+
         assertEquals(newBathroom2, CREST);
     }
 

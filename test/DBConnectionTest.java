@@ -1,6 +1,4 @@
-import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.database.DBTables;
-import edu.wpi.cs3733.programname.database.printTables;
+
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
