@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PathfindingController {
 
-    private enum searchType {
+    public enum searchType {
         ASTAR, DFS, BFS, DIJKSTRA
     }
     /**
@@ -30,14 +30,14 @@ public class PathfindingController {
      * @param endNode   - the ID of the end node, aka the destination, for the path
      * @return - result is the list of nodes efficiently connecting startNode to endNode
      */
-    public List<NodeData> initializePathfind(LinkedList<NodeData> allNodes, LinkedList<Edge> allEdges, String startNode,
+    public List<NodeData> initializePathfind(List<NodeData> allNodes, List<Edge> allEdges, String startNode,
                                              String endNode, Boolean handicapped, searchType type) {
         // ManageController manager = new ManageController();
         // List<Edge> allEdges = manager.getAllEdgeData();
         //something about getEdges()
         try {
 
-            LinkedList<Edge> currentList = allEdges;
+            List<Edge> currentList = allEdges;
 
             if(handicapped) allEdges = filterPath(allEdges);
 
@@ -63,8 +63,8 @@ public class PathfindingController {
         return null;
     }
 
-    private LinkedList<Edge> filterPath(LinkedList<Edge> edges) {
-        LinkedList<Edge> handicappedPath = new LinkedList<>();
+    private List<Edge> filterPath(List<Edge> edges) {
+        List<Edge> handicappedPath = new LinkedList<Edge>();
         for(Edge e: edges) {
             if(!e.getFirstNodeId().contains("STAI") && !e.getSecondNodeId().contains("STAI")) {
                 handicappedPath.add(e);
