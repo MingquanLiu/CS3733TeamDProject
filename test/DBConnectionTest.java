@@ -25,16 +25,11 @@ public class DBConnectionTest {
         DBConnection TestDB = new DBConnection();   // Creates new instance of connection
         TestDB.setDBConnection();                   // Sets up the connection
         DBTables mDbTable = new DBTables();
-        CsvReader mCsvReader = new CsvReader();
-        CsvWriter mCsvWriter = new CsvWriter();
         Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
 
         // MapDnodes.csv
 
-        //mDbTable.createAllTables(TestDB);           // Makes nodes table
-        mCsvReader.insertNodes(conn,mCsvReader.readNodes(conn));
-        mCsvWriter.writeNodes(conn, mCsvReader.readNodes(conn));
-        printTables.printNodesTable(conn);          // Pulls data in nodes table from the database and print it
+        mDbTable.createAllTables(TestDB);           // Makes nodes table
 
 
         ManageController manager = new ManageController();

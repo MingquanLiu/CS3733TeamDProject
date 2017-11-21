@@ -1,5 +1,12 @@
 package edu.wpi.cs3733.programname.database;
 
+import edu.wpi.cs3733.programname.database.Tables.EdgesTable;
+import edu.wpi.cs3733.programname.database.Tables.EmployeesTable;
+import edu.wpi.cs3733.programname.database.Tables.NodesTable;
+import edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable;
+import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
+import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
+
 import java.sql.*;
 import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.*;
 import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.*;
@@ -21,10 +28,10 @@ public class DBTables {
             ResultSet tables3 = dbm.getTables(null, null, "EMPLOYEES", null);
             ResultSet tables4 = dbm.getTables(null, null, "SERVICEREQUEST", null);
             if (!tables1.next() || !tables2.next() || !tables3.next() || !tables4.next()) {
-                createNodesTables(conn);
-                createEdgesTables(conn);
-                createEmployeesTables(conn);
-                createServiceRequestsTable(conn);
+                NodesTable.createNodesTables(conn);
+                EdgesTable.createEdgesTables(conn);
+                EmployeesTable.createEmployeesTables(conn);
+                ServiceRequestsTable.createServiceRequestsTable(conn);
             } else {
 
                 String dropTable1 = ("DROP TABLE Edges");
