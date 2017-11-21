@@ -4,6 +4,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
+import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -106,16 +107,16 @@ public class AstarElevatorTest {
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
                 astarReturn.get(i).getId());
     }
-//
-//    @Test
-//    public void OneStepPath() throws NoPathException {
-//        AStar Path = new AStar(allNodes, allEdges,"9", "8");
-//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star9));
-//        List<NodeData> astarReturn = Path.getFinalList();
-//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-//                astarReturn.get(i).getId());
-//    }
-//
+
+    @Test
+    public void OneStepPath() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"H9", "H5");
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star5, star14, star15, star8, star12, star9));
+        List<NodeData> astarReturn = Path.getFinalList();
+        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+                astarReturn.get(i).getId());
+    }
+
 //    @Test
 //    public void ZeroStepPath() throws NoPathException {
 //        AStar Path = new AStar(allNodes, allEdges,"1", "1");
