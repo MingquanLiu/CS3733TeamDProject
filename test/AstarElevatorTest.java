@@ -31,22 +31,22 @@ public class AstarElevatorTest {
     NodeData node14 = new NodeData("E2", new Coordinate(4, 4),"2", "ELEV", "Hallway Four", "H4");
     NodeData node15 = new NodeData("E3", new Coordinate(4, 8),"3","ELEV", "Room Two", "R2");
 
-    Edge edge1 = new Edge("1", "13", "E1");
-    Edge edge2 = new Edge("2", "13", "E2");
-    Edge edge3 = new Edge("2", "10", "E3");
-    Edge edge4 = new Edge("3", "10", "E4");
-    Edge edge5 = new Edge("14", "13", "E5");
-    Edge edge6 = new Edge("10", "11", "E6");
-    Edge edge7 = new Edge("14", "4", "E7");
-    Edge edge8 = new Edge("14", "5", "E8");
-    Edge edge9 = new Edge("11", "5", "E9");
-    Edge edge10 = new Edge("11", "6", "E10");
-    Edge edge11 = new Edge("12", "11", "E11");
-    Edge edge12 = new Edge("14", "15", "E12");
-    Edge edge13 = new Edge("15", "7", "E13");
-    Edge edge14 = new Edge("15", "8", "E14");
-    Edge edge15 = new Edge("12", "8", "E15");
-    Edge edge16 = new Edge("12", "9", "E16");
+    Edge edge1 = new Edge("H1", "E1", "E1");
+    Edge edge2 = new Edge("H2", "E1", "E2");
+    Edge edge3 = new Edge("H2", "S1", "E3");
+    Edge edge4 = new Edge("H3", "S1", "E4");
+    Edge edge5 = new Edge("E2", "E1", "E5");
+    Edge edge6 = new Edge("S1", "S2", "E6");
+    Edge edge7 = new Edge("E2", "H4", "E7");
+    Edge edge8 = new Edge("E2", "H5", "E8");
+    Edge edge9 = new Edge("S2", "H5", "E9");
+    Edge edge10 = new Edge("S2", "H6", "E10");
+    Edge edge11 = new Edge("S3", "S2", "E11");
+    Edge edge12 = new Edge("E2", "E3", "E12");
+    Edge edge13 = new Edge("E3", "H7", "E13");
+    Edge edge14 = new Edge("E3", "H8", "E14");
+    Edge edge15 = new Edge("S3", "H8", "E15");
+    Edge edge16 = new Edge("S3", "H9", "E16");
 
     LinkedList<NodeData> allNodes = new LinkedList<>(Arrays.asList(node1, node2, node3, node4, node5, node6, node7,
             node8, node9, node10, node11, node12, node13, node14, node15));
@@ -72,75 +72,75 @@ public class AstarElevatorTest {
     public AstarElevatorTest() {}
 
     @Test
-    public void StraightPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"1", "4");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star2, star1));
+    public void ElevPath() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"2", "8");
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star15, star14, star13, star2));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
                 astarReturn.get(i).getId());
     }
 
     @Test
-    public void IntermedPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"3", "1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
+    public void StairPath() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"3", "9");
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star9, star12, star11, star10, star3));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
                 astarReturn.get(i).getId());
     }
 
     @Test
-    public void LongPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"8", "1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star5, star7, star8));
+    public void ElevPath2() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"3", "7");
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star7, star15, star14, star13, star2, star10, star3));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
                 astarReturn.get(i).getId());
     }
 
     @Test
-    public void CPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"6", "4");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star5, star6));
+    public void ElevPath3() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"11", "1");
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star11, star5, star14, star13, star1));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
                 astarReturn.get(i).getId());
     }
-
-    @Test
-    public void OneStepPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"9", "8");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star9));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test
-    public void ZeroStepPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"1", "1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test
-    public void NonexistantPath() throws NoPathException {
-        allNodes.add(new NodeData("10", new Coordinate(15, 15),"2", "Disconnected", "Outside", "O"));
-        AStar Path = new AStar(allNodes, allEdges, "1", "10");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
-
-    @Test
-    public void NonexistantNode() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"1", "10");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-        List<NodeData> astarReturn = Path.getFinalList();
-        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-                astarReturn.get(i).getId());
-    }
+//
+//    @Test
+//    public void OneStepPath() throws NoPathException {
+//        AStar Path = new AStar(allNodes, allEdges,"9", "8");
+//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star9));
+//        List<NodeData> astarReturn = Path.getFinalList();
+//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+//                astarReturn.get(i).getId());
+//    }
+//
+//    @Test
+//    public void ZeroStepPath() throws NoPathException {
+//        AStar Path = new AStar(allNodes, allEdges,"1", "1");
+//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
+//        List<NodeData> astarReturn = Path.getFinalList();
+//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+//                astarReturn.get(i).getId());
+//    }
+//
+//    @Test
+//    public void NonexistantPath() throws NoPathException {
+//        allNodes.add(new NodeData("10", new Coordinate(15, 15),"2", "Disconnected", "Outside", "O"));
+//        AStar Path = new AStar(allNodes, allEdges, "1", "10");
+//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
+//        List<NodeData> astarReturn = Path.getFinalList();
+//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+//                astarReturn.get(i).getId());
+//    }
+//
+//    @Test
+//    public void NonexistantNode() throws NoPathException {
+//        AStar Path = new AStar(allNodes, allEdges,"1", "10");
+//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
+//        List<NodeData> astarReturn = Path.getFinalList();
+//        for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
+//                astarReturn.get(i).getId());
+//    }
 }
