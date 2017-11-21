@@ -2,7 +2,6 @@ package edu.wpi.cs3733.programname.database.ModificationMethods;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
-
 import java.sql.SQLException;
 
 public class EdgesMethod {

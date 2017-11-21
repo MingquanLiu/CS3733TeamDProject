@@ -4,8 +4,6 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.ModificationMethods.EdgesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
 
-import java.sql.SQLException;
-
 
 
 public class DatabaseModificationController {
@@ -33,8 +31,6 @@ public class DatabaseModificationController {
     public void deleteNode(NodeData data){
         NodesMethod.removeNode(conn, data);
     }
-
-
 
 
 

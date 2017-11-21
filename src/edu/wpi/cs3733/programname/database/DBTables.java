@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.programname.database;
-import java.sql.*;
-import java.util.ArrayList;
-import edu.wpi.cs3733.programname.database.Tables.*;
 
+import java.sql.*;
 import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.*;
 import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.*;
 import static edu.wpi.cs3733.programname.database.Tables.NodesTable.*;
@@ -52,20 +50,6 @@ public class DBTables {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
