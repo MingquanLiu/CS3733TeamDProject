@@ -8,8 +8,7 @@ import edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeeQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestQuery;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
+
 
 import java.util.List;
 

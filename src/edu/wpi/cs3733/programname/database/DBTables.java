@@ -4,14 +4,12 @@ import edu.wpi.cs3733.programname.database.Tables.EdgesTable;
 import edu.wpi.cs3733.programname.database.Tables.EmployeesTable;
 import edu.wpi.cs3733.programname.database.Tables.NodesTable;
 import edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 
 import java.sql.*;
 import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.*;
 import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.*;
 import static edu.wpi.cs3733.programname.database.Tables.NodesTable.*;
-import static edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable.createServiceRequestsTable;
+import static edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable.*;
 
 
 public class DBTables {
