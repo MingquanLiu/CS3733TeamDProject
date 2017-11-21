@@ -1,8 +1,11 @@
 package edu.wpi.cs3733.programname.boundary.java;
 
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,13 +14,18 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import jdk.management.resource.ResourceContext;
+import sun.plugin.javascript.navig.Anchor;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class TestingController {
+public class TestingController implements Initializable{
     @FXML
     private ImageView imgMap;
     @FXML
@@ -40,6 +48,8 @@ public class TestingController {
     @FXML
     private Button btnZoomOut;
     private double currentScale = 1.0;
+    private double minWidth = 1500;
+    private double maxWidth = 5000;
 
     //login popup objects
     @FXML
@@ -47,6 +57,27 @@ public class TestingController {
     @FXML
     private Label lblLoginStatus;
 
+    //hamburger
+    @FXML
+    private JFXHamburger burger;
+    @FXML
+    private AnchorPane paneControls;
+    private HamburgerSlideCloseTransition burgerTransition;
+    private boolean controlsVisible = false;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb){
+        burgerTransition = new HamburgerSlideCloseTransition(burger);
+        burgerTransition.setRate(-1);
+        paneControls.setVisible(controlsVisible);
+    }
+
+    public void openMenu(MouseEvent e){
+        burgerTransition.setRate(burgerTransition.getRate()*-1);
+        burgerTransition.play();
+        controlsVisible = !controlsVisible;
+        paneControls.setVisible(controlsVisible);
+    }
     /*
     private ChangeListener<Number> zoomChange = new ChangeListener<Number>() {
         @Override
@@ -58,6 +89,9 @@ public class TestingController {
     */
 
     //topmost methods are newest
+
+    //hamburger handling
+
 
     //popup methods
     public void popupHandler(ActionEvent e){
