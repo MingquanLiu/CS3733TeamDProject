@@ -58,7 +58,7 @@ public class DatabaseModificationController {
         try {
 
             str = "UPDATE Nodes SET xcoord = " + xcoord + ", ycoord = " + ycoord + ", floor = '" + floor +
-                    "', building = '" + building + ", nodeType = '" + nodeType + "', longName = '" + longName + "', shortName = '"
+                    "', building = '" + building + "', nodeType = '" + nodeType + "', longName = '" + longName + "', shortName = '"
                     + shortName + "', teamAssigned = '" + teamAssigned + "' WHERE nodeID = '" + nodeID + "'";
 
             System.out.println(str);

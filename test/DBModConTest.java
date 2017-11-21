@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.test;
+
 
 
 import edu.wpi.cs3733.programname.ManageController;
@@ -7,7 +7,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.database.*;
 
-import org.junit.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class DBModConTest {
     NodeData newBathroom = new NodeData ("CREST00102", replacedBathroomCoord,"2", "15 Francis",
             "REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
 
-    NodeData newBathroom2 = new NodeData ("CREST00102", replacedBathroomCoord,"2", "15 Francis",
+    NodeData newBathroom2 = new NodeData ("CREST00102", replacedBathroomCoord2,"2", "15 Francis",
             "REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
 
 
@@ -47,8 +47,8 @@ public class DBModConTest {
 
     @Test
     public void checkAddNode(){
-        theDBModControl.addNode(aBathroom);
         ManageController manager = new ManageController();
+        theDBModControl.addNode(aBathroom);
         //TODO: Change getNodeData to queryByNodeID???
         NodeData TREST = manager.getNodeData("TREST00102");
         assertEquals(aBathroom, TREST);
@@ -57,11 +57,11 @@ public class DBModConTest {
 
     @Test
     public void checkEditNode(){
-        theDBModControl.addNode(newBathroom);
         ManageController manager = new ManageController();
-        NodeData CREST = manager.getNodeData("CREST00102");
+        theDBModControl.addNode(newBathroom);
         theDBModControl.editNode(newBathroom2);
-
+        NodeData CREST = manager.getNodeData("CREST00102");
+        
         assertEquals(newBathroom2, CREST);
     }
 
