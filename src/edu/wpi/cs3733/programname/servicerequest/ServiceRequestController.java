@@ -1,79 +1,58 @@
 package edu.wpi.cs3733.programname.servicerequest;
 
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Random;
 
 public class ServiceRequestController {
-
-    ArrayList<ServiceRequest> unassignedRequests;
-    ArrayList<ServiceRequest> activeRequests;
-
-    /**
-     * constructor for class ServiceRequestController
-     */
-    public ServiceRequestController(){
-        this.unassignedRequests = new ArrayList<>();
-        this.activeRequests = new ArrayList<>();
+    private DBConnection dbConnection;
+    private ServiceRequestsQuery queryEmployee = new ServiceRequestsQuery(dbConnection);
+    private ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
+    public ServiceRequestController(DBConnection dbConnection, ServiceRequestsQuery queryEmployee, ServiceRequestsQuery queryServiceRequest) {
+        this.dbConnection = dbConnection;
+        this.queryEmployee = queryEmployee;
+        this.queryServiceRequest = queryServiceRequest;
     }
 
-    /**
-     * create a new service request with given sender and type
-     * @param sender the employee who sends the service request
-     * @param type the type of the service request
-     */
-    public void createServiceRequest(Employee sender, String type, ArrayList<Employee> recipients, NodeData location1,
-                                     NodeData location2, String description){
-        // get the local time
-        LocalDateTime time = LocalDateTime.now();
-        ServiceRequest newRequest = new ServiceRequest(sender, time, type, recipients, location1, location2, description);
-        this.unassignedRequests.add(newRequest);
+    public void createServiceRequest(Employee requester, String type, NodeData location, String description) {
+        Random randomID = new Random();
+        int id = randomID.nextInt(1000) + 1;
+        Date date = new Date();
+        Timestamp createdTime = new Timestamp(date.getTime());
+        Timestamp handledTime = null;
+        Timestamp completedTime = null;
+        String status = "unhandled";
+        Employee handler = null;
+
+        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location, description, createdTime, handledTime, completedTime, status, handler);
+        queryServiceRequest.addServiceRequest(newServiceRequest);
     }
 
-    public void assignRequest(ServiceRequest request, ArrayList<Employee> recipients) {
-        ServiceRequest found = null;
-        for (ServiceRequest unassigned : unassignedRequests) {
-            if (unassigned == request) {
-                found = unassigned;
-            }
-        }
-        if (found != null) {
-            found.setRecipients(recipients);
-            unassignedRequests.remove(found);
-            activeRequests.add(found);
-        }
+
+//    public ArrayList<Employee> addGroupRecipients(ServiceRequest request, String type){
+//        ArrayList<Employee> recipients = new ArrayList<>();
+//        return recipients;
+//    }
+
+
+    public void handleServiceRequest(ServiceRequest request, Employee handler){
+        queryServiceRequest.handleServiceRequest(request, handler);
     }
 
-    public ArrayList<ServiceRequest> getActiveRequests() {
-        return this.activeRequests;
+    public void completeServiceRequest(ServiceRequest request){
+        queryServiceRequest.completeServiceRequest(request);
+    }
+
+    public void removeServiceRequest(ServiceRequest request){
+        queryServiceRequest.removeServiceRequest(request);
     }
 
     public void deleteServiceRequest(ServiceRequest request){
-        this.activeRequests.remove(request);
-    }
-
-    public void printActiveRequests(){
-        this.activeRequests.forEach(ServiceRequest::printRequest);
-    }
-
-    public ArrayList<Employee> addGroupRecipients(ServiceRequest request, String type){
-        ArrayList<Employee> recipients = new ArrayList<>();
-        return recipients;
-    }
-
-    public ArrayList<Employee> addRecipients(ServiceRequest request, Employee newRecipient){
-        request.getRecipients().add(newRecipient);
-        return request.getRecipients();
-    }
-
-    public void addServiceRequestInDB(Employee sender, String time, String type, ArrayList<Employee> recipients, NodeData location, String description){
-        // todo
-    }
-
-    public void deleteServiceRequestInDB(ServiceRequest request){
-        // todo
+        queryServiceRequest.deleteServiceRequest(request);
     }
 }

@@ -2,119 +2,146 @@ package edu.wpi.cs3733.programname.servicerequest.entity;
 
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.sql.Timestamp;
 
 public class ServiceRequest {
-    private Employee sender;
-    private LocalDateTime time;
+    private int id;
+    private Employee requester;
     private String type;
-    private ArrayList<Employee> recipients;
-    private NodeData location1;
-    private NodeData location2;
+    private NodeData location;
     private String description;
+    private Timestamp createdTime;
+    private Timestamp handledTime;
+    private Timestamp completedTime;
+    private String status;
+    private Employee handler;
 
-    /**
-     * constructor for class ServiceRequest
-     * @param sender the employee who sent the service request
-     * @param time the date AND time of when service request was sent
-     * @param type the type of service request
-     */
-    public ServiceRequest(Employee sender, LocalDateTime time, String type, ArrayList<Employee> recipients,
-                          NodeData location1, NodeData location2, String description) {
-        this.sender = sender;
-        this.time = time;
+
+    public ServiceRequest(int id, Employee requester, String type, NodeData location, String description, Timestamp createdTime, Timestamp handledTime, Timestamp completedTime, String status, Employee handler) {
+        this.id = id;
+        this.requester = requester;
         this.type = type;
-        this.recipients = recipients;
-        this.location1 = location1;
-        this.location2 = location2;
+        this.location = location;
         this.description = description;
+        this.createdTime = createdTime;
+        this.handledTime = handledTime;
+        this.completedTime = completedTime;
+        this.status = status;
+        this.handler = handler;
     }
 
-    public Employee getSender() {
-        return sender;
+    public int getId() {
+        return id;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Employee getRequester() {
+        return requester;
+    }
+
+    public void setRequester(Employee requester) {
+        this.requester = requester;
     }
 
     public String getType() {
         return type;
     }
 
-    public NodeData getLocation1() {
-        return location1;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public NodeData getLocation2() {
-        return location2;
+    public NodeData getLocation() {
+        return location;
+    }
+
+    public void setLocation(NodeData location) {
+        this.location = location;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public ArrayList<Employee> getRecipients() {
-        return recipients;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setRecipients(ArrayList<Employee> recipients) {
-        this.recipients = recipients;
+    public Timestamp getCreatedTime() {
+        return createdTime;
     }
 
-    public void printRequest(){
-        System.out.println("Sender: "+sender);
-        System.out.println("Time Created: "+time);
-        System.out.println("Type: "+type);
-        System.out.println("Recipients: "+recipients);
-        System.out.println("Location1: "+location1);
-        System.out.println("Description: "+description);
-        System.out.println("");
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
     }
+
+    public Timestamp getHandledTime() {
+        return handledTime;
+    }
+
+    public void setHandledTime(Timestamp handledTime) {
+        this.handledTime = handledTime;
+    }
+
+    public Timestamp getCompletedTime() {
+        return completedTime;
+    }
+
+    public void setCompletedTime(Timestamp completedTime) {
+        this.completedTime = completedTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Employee getHandler() {
+        return handler;
+    }
+
+    public void setHandler(Employee handler) {
+        this.handler = handler;
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ServiceRequest)) return false;
 
         ServiceRequest that = (ServiceRequest) o;
 
-        if (!getSender().equals(that.getSender())) return false;
-        if (getTime() != null ? !getTime().equals(that.getTime()) : that.getTime() != null) return false;
-        if (getType() != null ? !getType().equals(that.getType()) : that.getType() != null) return false;
-        if (getRecipients() != null ? !getRecipients().equals(that.getRecipients()) : that.getRecipients() != null)
-            return false;
-        if (getLocation1() != null ? !getLocation1().equals(that.getLocation1()) : that.getLocation1() != null)
-            return false;
-        if (getLocation2() != null ? !getLocation2().equals(that.getLocation2()) : that.getLocation2() != null)
-            return false;
-        return getDescription() != null ? getDescription().equals(that.getDescription()) : that.getDescription() == null;
+        if (getId() != that.getId()) return false;
+        if (!getRequester().equals(that.getRequester())) return false;
+        if (!getType().equals(that.getType())) return false;
+        if (!getLocation().equals(that.getLocation())) return false;
+        if (!getDescription().equals(that.getDescription())) return false;
+        if (!getCreatedTime().equals(that.getCreatedTime())) return false;
+        if (!getHandledTime().equals(that.getHandledTime())) return false;
+        if (!getCompletedTime().equals(that.getCompletedTime())) return false;
+        if (!getStatus().equals(that.getStatus())) return false;
+        return getHandler().equals(that.getHandler());
     }
 
     @Override
     public int hashCode() {
-        int result = getSender().hashCode();
-        result = 31 * result + (getTime() != null ? getTime().hashCode() : 0);
-        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
-        result = 31 * result + (getRecipients() != null ? getRecipients().hashCode() : 0);
-        result = 31 * result + (getLocation1() != null ? getLocation1().hashCode() : 0);
-        result = 31 * result + (getLocation2() != null ? getLocation2().hashCode() : 0);
-        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        int result = getId();
+        result = 31 * result + getRequester().hashCode();
+        result = 31 * result + getType().hashCode();
+        result = 31 * result + getLocation().hashCode();
+        result = 31 * result + getDescription().hashCode();
+        result = 31 * result + getCreatedTime().hashCode();
+        result = 31 * result + getHandledTime().hashCode();
+        result = 31 * result + getCompletedTime().hashCode();
+        result = 31 * result + getStatus().hashCode();
+        result = 31 * result + getHandler().hashCode();
         return result;
     }
-
-    //    public ArrayList<Employee> assignTo(boolean group){
-//
-//        if(group){
-//            return addGroupRecipients();
-//        }
-//        else {
-//            return addRecipients();
-//        }
-//    }
-
 }

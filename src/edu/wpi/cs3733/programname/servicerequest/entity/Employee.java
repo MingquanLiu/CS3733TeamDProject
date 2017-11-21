@@ -30,12 +30,60 @@ public class Employee {
         this.serviceType = serviceType;
     }
 
-    /**
-     * getter for sysAdmin
-     * @return whether the employee is a system admin
-     */
-    public boolean getSysAdmin(){
-        return this.sysAdmin;
+
+    public String getUsername() {
+        return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public boolean getSysAdmin() {
+        return sysAdmin;
+    }
+
+    public void setSysAdmin(boolean sysAdmin) {
+        this.sysAdmin = sysAdmin;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
 }
