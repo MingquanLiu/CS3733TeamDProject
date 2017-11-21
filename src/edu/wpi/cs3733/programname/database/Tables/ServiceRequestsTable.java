@@ -9,7 +9,7 @@ public class ServiceRequestsTable {
     public static void createServiceRequestsTable(DBConnection conn) {
         try {
 
-            String newTable = "CREATE TABLE ServiceRequests(serviceID Integer, sender VARCHAR(15), " +
+            String newTable = "CREATE TABLE ServiceRequest(serviceID Integer, sender VARCHAR(15), " +
                     "receiver VARCHAR(15), node1 VARCHAR(10), node2 VARCHAR(10), " +
                     "serviceType VARCHAR(25), status VARCHAR(10), description VARCHAR(500), requestTime VARCHAR(30), " +
                     "handleTime VARCHAR(30), completionTime VARCHAR(30)," +
@@ -21,7 +21,7 @@ public class ServiceRequestsTable {
 
             // Creates new StaffTitles table
             conn.execute(newTable);
-            System.out.println("\nServiceRequests Table Created");
+            System.out.println("\nServiceRequest Table Created");
 
 
 
