@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.programname.commondata;
 
-
 public class NodeData {
 
     private String nodeID;
@@ -13,7 +12,18 @@ public class NodeData {
     private String teamAssigned;
 
 
-
+    /**
+     * NodeData constructor with location
+     *
+     * @param nodeID
+     * @param location
+     * @param floor
+     * @param building
+     * @param nodeType
+     * @param longName
+     * @param shortName
+     * @param teamAssigned
+     */
     public NodeData(String nodeID, Coordinate location, String floor, String building,
                     String nodeType, String longName, String shortName, String teamAssigned) {
         this.nodeID = nodeID;
@@ -27,6 +37,19 @@ public class NodeData {
     }
 
 
+    /**
+     * NodeData constructor with coordinates
+     *
+     * @param nodeID
+     * @param xcoord
+     * @param ycoord
+     * @param floor
+     * @param building
+     * @param nodeType
+     * @param longName
+     * @param shortName
+     * @param teamAssigned
+     */
     public NodeData(String nodeID, int xcoord, int ycoord, String floor, String building,
                     String nodeType, String longName, String shortName, String teamAssigned) {
         this.nodeID = nodeID;
@@ -40,89 +63,179 @@ public class NodeData {
     }
 
 
+    /**
+     * nodeID getter
+     *
+     * @return String nodeID
+     */
     public String getNodeID() { return this.nodeID; }
 
 
+    /**
+     * nodeID setter
+     *
+     * @param nodeID
+     */
     public void setNodeID(String nodeID) {
         this.nodeID = nodeID;
     }
 
 
+    /**
+     * xcoord getter
+     *
+     * @return int xcoord
+     */
     public int getXCoord() {
         return this.location.getXCoord();
     }
 
 
+    /**
+     * ycoord getter
+     *
+     * @return int ycoord
+     */
     public int getYCoord() {
         return this.location.getYCoord();
     }
 
 
+    /**
+     * location getter
+     *
+     * @return Coordinate location
+     */
     public Coordinate getLocation() {
         return location;
     }
 
 
+    /**
+     * location setter
+     *
+     * @param location
+     */
     public void setLocation(Coordinate location) {
         this.location = location;
     }
 
 
+    /**
+     * floor getter
+     *
+     * @return String floor
+     */
     public String getFloor() {
         return floor;
     }
 
 
+    /**
+     * floor setter
+     *
+     * @param floor
+     */
     public void setFloor(String floor) {
         this.floor = floor;
     }
 
 
+    /**
+     * building getter
+     *
+     * @return String building
+     */
     public String getBuilding() {
         return building;
     }
 
 
+    /**
+     * building setter
+     *
+     * @param building
+     */
     public void setBuilding(String building) {
         this.building = building;
     }
 
 
+    /**
+     * nodeType getter
+     *
+     * @return String nodeType
+     */
     public String getNodeType() {
         return nodeType;
     }
 
 
+    /**
+     * nodeType setter
+     *
+     * @param type
+     */
     public void setNodeType(String type) {
         this.nodeType = type;
     }
 
 
+    /**
+     * longName getter
+     *
+     * @return String longName
+     */
     public String getLongName() {
         return longName;
     }
 
 
+    /**
+     * longName setter
+     *
+     * @param longName
+     */
     public void setLongName(String longName) {
         this.longName = longName;
     }
 
 
+    /**
+     * shortName getter
+     *
+     * @return String shortName
+     */
     public String getShortName() {
         return shortName;
     }
 
 
+    /**
+     * shortName setter
+     *
+     * @param shortName
+     */
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
 
+    /**
+     * teamAssigned getter
+     *
+     * @return String teamAssigned
+     */
     public String getTeamAssigned() {
         return teamAssigned;
     }
 
 
+    /**
+     * teamAssigned setter
+     *
+     * @param teamAssigned
+     */
     public void setTeamAssigned(String teamAssigned) {
         this.teamAssigned = teamAssigned;
     }

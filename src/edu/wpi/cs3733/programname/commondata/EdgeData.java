@@ -6,6 +6,14 @@ public class EdgeData {
     private String startNode;
     private String endNode;
 
+
+    /**
+     * EdgeData constructor
+     *
+     * @param edgeID
+     * @param startNode
+     * @param endNode
+     */
     public EdgeData(String edgeID, String startNode, String endNode) {
         this.edgeID = edgeID;
         this.startNode = startNode;
@@ -13,35 +21,64 @@ public class EdgeData {
     }
 
 
+    /**
+     * edgeID getter
+     *
+     * @return String edgeID
+     */
     public String getEdgeID() {
         return edgeID;
     }
 
 
+    /**
+     * edgeID setter
+     *
+     * @param edgeID
+     */
     public void setEdgeID(String edgeID) {
         this.edgeID = edgeID;
     }
 
 
+    /**
+     * startNode getter
+     *
+     * @return String startNode
+     */
     public String getStartNode() {
         return startNode;
     }
 
 
+    /**
+     * startNode setter
+     *
+     * @param startNode
+     */
     public void setStartNode(String startNode) {
         this.startNode = startNode;
     }
 
 
+    /**
+     *  endNode getter
+     *
+     * @return String endNode
+     */
     public String getEndNode() {
         return endNode;
     }
 
 
+    /**
+     * endNode Setter
+     *
+     * @param endNode
+     */
     public void setEndNode(String endNode) {
         this.endNode = endNode;
     }
-
 
 
 

@@ -6,25 +6,50 @@ public class Coordinate {
     private int ycoord;
 
 
+    /**
+     * Coordinate constructor
+     *
+     * @param xcoord
+     * @param ycoord
+     */
     public Coordinate(int xcoord, int ycoord) {
         this.xcoord = xcoord;
         this.ycoord = ycoord;
     }
 
 
+    /**
+     * xcoord getter
+     *
+     * @return int xcoord
+     */
     public int getXCoord() {
         return xcoord;
     }
 
 
+    /**
+     * xcoord setter
+     *
+     * @param xcoord
+     */
+    public void setXCoord(int xcoord) { this.xcoord = xcoord; }
+
+
+    /**
+     * ycoord getter
+     *
+     * @return int ycoord
+     */
     public int getYCoord() {
         return ycoord;
     }
 
-
-    public void setXCoord(int xcoord) { this.xcoord = xcoord; }
-
-
+    /**
+     * ycoord setter
+     *
+     * @param ycoord
+     */
     public void setYCoord(int ycoord) { this.ycoord = ycoord; }
 
 
