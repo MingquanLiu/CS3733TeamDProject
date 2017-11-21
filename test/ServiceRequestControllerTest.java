@@ -10,17 +10,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ServiceRequestControllerTest {
 
-    //THIS CLASS IS USELESS BECAUSE WE THOUGHT CREATESERVICEREQUEST RETURNED BOOLEAN SO WE NEEDED TO TEST IT BUT JK TURNS OUT WE DONT HAVE TO IT RETURNS VOID
-    /*
-    @Test
-    public void createServiceRequestTest1(){
-        assertTrue(1,1);
-    }
-    */
-
+    //CHANGE TARGET EMAIL IF YOU RUN THIS TEST PLEASE
     @Test
     public void testSendEmail() {
         Employee emp = new Employee("admin", "admin", "admin", "a",
@@ -31,9 +25,13 @@ public class ServiceRequestControllerTest {
         recipients.add(emp);
         ServiceRequest request = new ServiceRequest(emp, LocalDateTime.now(), Constants.INTERPRETER_REQUEST,
                 recipients, location, null, "Interpreter Request needed for this test case!!!!");
-        ServiceRequestMessage message = new ServiceRequestMessage("test", "dbswenarton@wpi.edu",
+        ServiceRequestMessage message = new ServiceRequestMessage("cs3733teamD@gmail.com", "dbswenarton@wpi.edu",
                 request);
         message.sendMessage();
+        assertTrue(true);
+        // note: check target email to confirm test pass. change
     }
+
+
 
 }

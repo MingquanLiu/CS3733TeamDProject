@@ -22,6 +22,8 @@ public class ServiceRequest {
      * @param sender the employee who sent the service request
      * @param time the date AND time of when service request was sent
      * @param type the type of service request
+     * @param location1 the node location of a request
+     * @param location2 the second node location of a request on an edge, null if request is at a specific node
      */
     public ServiceRequest(Employee sender, LocalDateTime time, String type, ArrayList<Employee> recipients,
                           NodeData location1, NodeData location2, String description) {
