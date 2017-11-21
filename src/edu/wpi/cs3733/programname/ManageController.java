@@ -6,6 +6,7 @@ import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 
@@ -13,6 +14,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 
 public class ManageController {
 
@@ -42,7 +45,7 @@ public class ManageController {
     public List<NodeData> startPathfind(String startId, String goalId) {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<Edge> allEdges = dbQueryController.getAllEdgeData();
-        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId);
+        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, ASTAR);
         System.out.println(finalPath.get(0).getId() + " to " + finalPath.get(finalPath.size() -1));
         return finalPath;
     }
