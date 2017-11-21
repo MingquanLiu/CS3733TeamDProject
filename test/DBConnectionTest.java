@@ -61,30 +61,30 @@ public class DBConnectionTest {
         // MapDedges.csv
         mDbTable.createAllTables(TestDB);           // Makes nodes table
 
-        ArrayList<EdgeData> edgeList = mCsvReader.readEdges(conn);
+      //  ArrayList<EdgeData> edgeList = mCsvReader.readEdges(conn);
 
 
 
 
 
         mCsvReader.insertNodes(conn, mCsvReader.readNodes(conn));
-        mCsvReader.insertEdges(conn, edgeList);
+    //    mCsvReader.insertEdges(conn, edgeList);
 
 
           printTables.printNodesTable(conn);
-          printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
+      //    printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
 
 
         mCsvWriter.writeNodes(conn,mCsvReader.readNodes(conn));
-        mCsvWriter.writeEdges(conn, edgeList);
+       // mCsvWriter.writeEdges(conn, edgeList);
 
 
-        ManageController manager = new ManageController();
-
-        EdgeData expected = new EdgeData("AHALL00502_ADEPT00102", "ADEPT00102", "AHALL00502");
-
-        System.out.println(manager.getEdgeData("AHALL00502_ADEPT00102"));
-        assertEquals(expected, manager.getEdgeData("AHALL00502_ADEPT00102"));
+//        ManageController manager = new ManageController();
+//
+//        EdgeData expected = new EdgeData("AHALL00502_ADEPT00102", "ADEPT00102", "AHALL00502");
+//
+//        System.out.println(manager.getEdgeData("AHALL00502_ADEPT00102"));
+//        assertEquals(expected, manager.getEdgeData("AHALL00502_ADEPT00102"));
 
     }
 

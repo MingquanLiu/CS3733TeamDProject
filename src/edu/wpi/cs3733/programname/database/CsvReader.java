@@ -28,7 +28,7 @@ public class CsvReader {
      */
     public ArrayList<NodeData> readNodes(Connection conn) {
         ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
-        File[] file = new File("CSVFiles/").listFiles();
+        File[] file = new File("CSVNodes/").listFiles();
         try {
 // A C
             for (File csv: file) {
