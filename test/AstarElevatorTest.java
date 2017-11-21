@@ -101,7 +101,7 @@ public class AstarElevatorTest {
     @Test
     public void ElevPath3() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"S2", "H1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star11, star5, star14, star13, star1));
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star13, star14, star5, star11));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
                 astarReturn.get(i).getId());
