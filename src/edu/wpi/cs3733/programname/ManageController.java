@@ -50,7 +50,7 @@ public class ManageController {
     }
 
     public NodeData getNodeData(String nodeId) {
-        return this.dbQueryController.queryNodeById(nodeId);
+        return this.dbQueryController.queryNodeById(dbConnection, nodeId);
     }
 
     public EdgeData getEdgeData(String edgeId) {
@@ -66,7 +66,7 @@ public class ManageController {
     }
 
     public List<NodeData> queryNodeByType(String nodeType) {
-        return this.dbQueryController.queryNodeByType(nodeType);
+        return this.dbQueryController.queryNodeByType(dbConnection, nodeType);
     }
 
     public void addNode(NodeData data) {

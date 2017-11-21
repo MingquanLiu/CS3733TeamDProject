@@ -26,7 +26,6 @@ public class DBTables {
                 createEmployeesTables(conn);
             } else {
 
-
                 String dropTable2 = ("DROP TABLE Edges");
                 String dropTable1 = ("DROP TABLE Nodes");
                 String dropTable3 = ("DROP TABLE Employees");

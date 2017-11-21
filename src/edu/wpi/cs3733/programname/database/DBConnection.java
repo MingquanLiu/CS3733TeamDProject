@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.programname.database;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 public class DBConnection {
 
     // Derby Embedded Driver
