@@ -110,6 +110,20 @@ public class ServiceRequest {
         this.handler = handler;
     }
 
+    @Override
+    public String toString() {
+        return "id=" + id + System.lineSeparator() +
+                "requester=" + requester.getUsername() + System.lineSeparator() +
+                ", type='" + type + '\'' + System.lineSeparator() +
+                ", location=" + location.getLongName() + System.lineSeparator() +
+                ", description='" + description + '\'' + System.lineSeparator() +
+                ", createdTime=" + createdTime.toString() + System.lineSeparator() +
+                ", handledTime=" + handledTime.toString() + System.lineSeparator() +
+                ", completedTime=" + completedTime.toString() + System.lineSeparator() +
+                ", status='" + status + '\'' + System.lineSeparator() +
+                ", handler=" + handler.getUsername() + System.lineSeparator() +
+                "" +System.lineSeparator() ;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -14,11 +14,11 @@ public class EmployeesQuery {
         this.dbConnection = dbConnection;
     }
 
-    public ArrayList<Employee> queryEmployeesByType(String type){
+    public ArrayList<Employee> queryAllEmployees(){
         Employee queryResult = null;
         ArrayList<Employee> group = new ArrayList<Employee>();
         try {
-            String sql = "SELECT * FROM Employees WHERE serviceType = " + type;
+            String sql = "SELECT * FROM Employees";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String username;
@@ -39,6 +39,40 @@ public class EmployeesQuery {
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType);
+                group.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Select Employee Failed!");
+            e.printStackTrace();
+        }
+        return group;
+    }
+
+    public ArrayList<Employee> queryEmployeesByType(String type){
+        Employee queryResult = null;
+        ArrayList<Employee> group = new ArrayList<Employee>();
+        try {
+            String sql = "SELECT * FROM Employees WHERE serviceType = " + type;
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+            String username;
+            String password;
+            String firstName;
+            String middleName;
+            String lastName;
+            boolean sysAdmin;
+            int sysAdminInt;
+            //String serviceType;
+            while(result.next()) {
+                username = result.getString("username");
+                password = result.getString("password");
+                firstName = result.getString("firstName");
+                middleName = result.getString("middleName");
+                lastName = result.getString("lastName");
+                sysAdminInt = result.getInt("sysAdmin");
+                //serviceType = result.getString("serviceType");
+                sysAdmin = (sysAdminInt == 1)? true : false;
+                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, type);
                 group.add(queryResult);
             }
         } catch (SQLException e) {

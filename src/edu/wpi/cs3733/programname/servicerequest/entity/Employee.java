@@ -86,4 +86,15 @@ public class Employee {
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
+
+    @Override
+    public String toString() {
+        return "username='" + username + '\'' + System.lineSeparator() +
+                ", firstName='" + firstName + '\'' +
+                " middleName='" + middleName + '\'' +
+                " lastName='" + lastName + '\'' + System.lineSeparator() +
+                ", sysAdmin=" + sysAdmin + System.lineSeparator() +
+                ", serviceType='" + serviceType + '\'' + System.lineSeparator() +
+                "";
+    }
 }

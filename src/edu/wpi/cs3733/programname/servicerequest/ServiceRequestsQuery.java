@@ -18,11 +18,11 @@ public class ServiceRequestsQuery {
         this.dbConnection = dbConnection;
     }
 
-    public ArrayList<ServiceRequest> queryServiceRequestsByType(String serviceType){
+    public ArrayList<ServiceRequest> queryAllServiceRequests(){
         ServiceRequest queryResult = null;
         ArrayList<ServiceRequest> resultList = new ArrayList<ServiceRequest>();
         try {
-            String sql = "SELECT * FROM ServiceRequests WHERE type = " + serviceType;
+            String sql = "SELECT * FROM ServiceRequests";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             int id;
@@ -81,6 +81,131 @@ public class ServiceRequestsQuery {
         return resultList;
     }
 
+    public ArrayList<ServiceRequest> queryServiceRequestsByStatus(String status){
+        ServiceRequest queryResult = null;
+        ArrayList<ServiceRequest> resultList = new ArrayList<ServiceRequest>();
+        try {
+            String sql = "SELECT * FROM ServiceRequests WHERE status = " + status;
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+            int id;
+            Employee requester;
+            String requesterUsername;
+            String type;
+            NodeData location;
+            String nodeID;
+            String description;
+            Timestamp createdTime;
+            Timestamp handledTime;
+            Timestamp completedTime;
+            Employee handler;
+            String handlerUsername;
+
+            while(result.next()) {
+                id = result.getInt("id");
+                requesterUsername = result.getString("requester");
+                // todo: handle null exception
+                if(new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername) == null){
+                    requester = null;
+                }
+                else{
+                    requester = new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername);
+                }
+                type = result.getString("type");
+                nodeID = result.getString("location");
+                // todo: handle null exception
+                if(new DatabaseQueryController(dbConnection).queryNodeById(nodeID) == null){
+                    location = null;
+                }
+                else{
+                    location = new DatabaseQueryController(dbConnection).queryNodeById(nodeID);
+                }
+                description = result.getString("description");
+                createdTime = result.getTimestamp("createdTime");
+                handledTime = result.getTimestamp("handledTime");
+                completedTime = result.getTimestamp("completedTime");
+                //status = result.getString("status");
+                handlerUsername = result.getString("handler");
+                // todo: handle null exception
+                if(new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername) == null){
+                    handler = null;
+                }
+                else{
+                    handler = new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername);
+                }
+                queryResult = new ServiceRequest(id,requester, type, location, description, createdTime, handledTime, completedTime, status, handler);
+                resultList.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Select Service Request Failed!");
+            e.printStackTrace();
+        }
+        return resultList;
+    }
+
+    public ArrayList<ServiceRequest> queryServiceRequestsByType(String serviceType){
+        ServiceRequest queryResult = null;
+        ArrayList<ServiceRequest> resultList = new ArrayList<ServiceRequest>();
+        try {
+            String sql = "SELECT * FROM ServiceRequests WHERE type = " + serviceType;
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+            int id;
+            Employee requester;
+            String requesterUsername;
+            //String type;
+            NodeData location;
+            String nodeID;
+            String description;
+            Timestamp createdTime;
+            Timestamp handledTime;
+            Timestamp completedTime;
+            String status;
+            Employee handler;
+            String handlerUsername;
+
+            while(result.next()) {
+                id = result.getInt("id");
+                requesterUsername = result.getString("requester");
+                // todo: handle null exception
+                if(new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername) == null){
+                    requester = null;
+                }
+                else{
+                    requester = new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername);
+                }
+                //type = result.getString("type");
+                nodeID = result.getString("location");
+                // todo: handle null exception
+                if(new DatabaseQueryController(dbConnection).queryNodeById(nodeID) == null){
+                    location = null;
+                }
+                else{
+                    location = new DatabaseQueryController(dbConnection).queryNodeById(nodeID);
+                }
+                description = result.getString("description");
+                createdTime = result.getTimestamp("createdTime");
+                handledTime = result.getTimestamp("handledTime");
+                completedTime = result.getTimestamp("completedTime");
+                status = result.getString("status");
+                handlerUsername = result.getString("handler");
+                // todo: handle null exception
+                if(new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername) == null){
+                    handler = null;
+                }
+                else{
+                    handler = new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername);
+                }
+                queryResult = new ServiceRequest(id,requester, serviceType, location, description, createdTime, handledTime, completedTime, status, handler);
+                resultList.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Select Service Request Failed!");
+            e.printStackTrace();
+        }
+        return resultList;
+    }
+
     public void addServiceRequest(ServiceRequest serviceRequest){
         int id = serviceRequest.getId();
         Employee requester = serviceRequest.getRequester();
@@ -114,6 +239,7 @@ public class ServiceRequestsQuery {
         }
     }
 
+    // mark a service request as handled
     public void handleServiceRequest(ServiceRequest serviceRequest, Employee handler) {
         int id = serviceRequest.getId();
         String handlerUsername = handler.getUsername();
@@ -130,6 +256,7 @@ public class ServiceRequestsQuery {
         }
     }
 
+    // mark a service request as completed
     public void completeServiceRequest(ServiceRequest serviceRequest) {
         int id = serviceRequest.getId();
         Date date = new Date();
@@ -145,6 +272,7 @@ public class ServiceRequestsQuery {
         }
     }
 
+    // mark a service request as removed
     public void removeServiceRequest(ServiceRequest serviceRequest) {
         int id = serviceRequest.getId();
         String str;
@@ -159,6 +287,7 @@ public class ServiceRequestsQuery {
     }
 
 
+    // delete a service request from database
     public void deleteServiceRequest(ServiceRequest serviceRequest){
             int id = serviceRequest.getId();
             String str;
