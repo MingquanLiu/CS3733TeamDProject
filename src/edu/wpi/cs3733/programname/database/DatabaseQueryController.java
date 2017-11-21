@@ -4,10 +4,15 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
+
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery.queryEdgeByID;
+import static edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery.queryNodeByID;
 
 public class DatabaseQueryController {
 
@@ -18,112 +23,17 @@ public class DatabaseQueryController {
         this.dbConnection = dbConnection;
     }
 
-    public NodeData queryNodeById(String nID) {
-        NodeData queryResult = null;
-
-        try {
-            String sql = "SELECT * FROM Nodes " +
-                    "WHERE nodeID = " + "'" + nID + "'";
-            Statement stmt = dbConnection.getConnection().createStatement();
-            ResultSet result = stmt.executeQuery(sql);
-
-            String nodeID = "";
-            int xcoord = 0;
-            int ycoord = 0;
-            String floor = "";
-            String building = "";
-            String nodeType = "";
-            String longName = "";
-            String shortName = "";
-            String teamAssigned = "";
-
-            while(result.next()) {
-                nodeID = result.getString("nodeID");
-                xcoord = result.getInt("xcoord");
-                ycoord = result.getInt("ycoord");
-                floor = result.getString("floor");
-                building = result.getString("building");
-                nodeType = result.getString("nodeType");
-                longName = result.getString("longName");
-                shortName = result.getString("shortName");
-                teamAssigned = result.getString("teamAssigned");
-            }
-
-            Coordinate location = new Coordinate(xcoord, ycoord);
-            queryResult = new NodeData(nodeID, location, floor, building, nodeType, longName, shortName, teamAssigned);
-        } catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
-            e.printStackTrace();
-        }
-        return queryResult;
+    public void queryNodeById(DBConnection dbConnection, String nID) {
+        queryNodeByID(dbConnection, nID);
     }
 
-    public EdgeData queryEdgeById(String eID) {
-        EdgeData queryResult = null;
-
-        String edgeID = "";
-        String startNode = "";
-        String endNode = "";
-
-        try {
-            String sql = "SELECT * FROM Edges WHERE edgeID = " + "'" + eID + "'";
-            Statement stmt = dbConnection.getConnection().createStatement();
-            ResultSet result = stmt.executeQuery(sql);
-
-            while(result.next()) {
-                edgeID = result.getString("edgeID");
-                startNode = result.getString("startNode");
-                endNode = result.getString("endNode");
-            }
-        }
-        catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
-            e.printStackTrace();
-        }
-        queryResult = new EdgeData(edgeID, startNode, endNode);
-        return queryResult;
+    public void queryEdgeById(String eID) {
+        queryEdgeByID(dbConnection, eID);
     }
 
 
-    public List<NodeData> getAllNodeData() {
-        NodeData queryResult = null;
-        List<NodeData> allNodes = new ArrayList<NodeData>();
-
-        try {
-            String sql = "SELECT * FROM Nodes";
-            Statement stmt = dbConnection.getConnection().createStatement();
-            ResultSet result = stmt.executeQuery(sql);
-
-            String nodeID = "";
-            int xcoord = 0;
-            int ycoord = 0;
-            String floor = "";
-            String building = "";
-            String nodeType = "";
-            String longName = "";
-            String shortName = "";
-            String teamAssigned = "";
-
-            while(result.next()) {
-                nodeID = result.getString("nodeID");
-                xcoord = result.getInt("xcoord");
-                ycoord = result.getInt("ycoord");
-                floor = result.getString("floor");
-                building = result.getString("building");
-                nodeType = result.getString("nodeType");
-                longName = result.getString("longName");
-                shortName = result.getString("shortName");
-                teamAssigned = result.getString("teamAssigned");
-
-                Coordinate location = new Coordinate(xcoord, ycoord);
-                queryResult = new NodeData(nodeID, location, floor, building, nodeType, longName, shortName, teamAssigned);
-                allNodes.add(queryResult);
-            }
-        } catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
-            e.printStackTrace();
-        }
-        return allNodes;
+    public void getAllNodeData() {
+        NodesQuery.getAllNodeInfo(dbConnection);
     }
 
     public List<EdgeData> getAllEdgeData() {
