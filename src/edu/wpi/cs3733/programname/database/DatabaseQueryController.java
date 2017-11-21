@@ -1,11 +1,14 @@
 package edu.wpi.cs3733.programname.database;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
+import edu.wpi.cs3733.programname.commondata.EmployeeInfo;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequestInfo;
 import edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery;
+import edu.wpi.cs3733.programname.database.QueryMethods.EmployeeQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestQuery;
+import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 
 import java.util.List;
@@ -48,9 +51,16 @@ public class DatabaseQueryController {
     }
 
 
+    public List<EmployeeInfo> getAllEmployeeInfo() {
+        return EmployeeQuery.getAllEmployeeInfo(dbConnection);
+    }
+
+
     public List<ServiceRequestInfo> getAllServiceRequestInfo() {
         return ServiceRequestQuery.getAllServiceRequest(dbConnection);
     }
+
+
 
 
     // Query by type
@@ -63,11 +73,22 @@ public class DatabaseQueryController {
     }
 
 
-    // Query by statuts
+    // Query by status
     public List<ServiceRequestInfo> queryServiceRequesByStatus(DBConnection dbConnection, String status) {
         return ServiceRequestQuery.queryByStatus(dbConnection, status);
     }
 
+
+    // Query by userName
+    public EmployeeInfo queryEmployeesByUserName(DBConnection dbConnection, String uName{
+        return EmployeeQuery.queryByUserName(dbConnection, uName);
+    }
+
+
+    // Query by fullName
+    public EmployeeInfo queryEmployeesByFullName(DBConnection dbConnection, String fName, String mName, String lName){
+        return EmployeeQuery.queryByFullName(dbConnection, fName, mName, lName);
+    }
 
 
 
