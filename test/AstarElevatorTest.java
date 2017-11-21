@@ -73,7 +73,7 @@ public class AstarElevatorTest {
 
     @Test
     public void ElevPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"2", "8");
+        AStar Path = new AStar(allNodes, allEdges,"H2", "H8");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star8, star15, star14, star13, star2));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
@@ -82,7 +82,7 @@ public class AstarElevatorTest {
 
     @Test
     public void StairPath() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"3", "9");
+        AStar Path = new AStar(allNodes, allEdges,"H3", "H9");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star9, star12, star11, star10, star3));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
@@ -91,7 +91,7 @@ public class AstarElevatorTest {
 
     @Test
     public void ElevPath2() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"3", "7");
+        AStar Path = new AStar(allNodes, allEdges,"H3", "H7");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star7, star15, star14, star13, star2, star10, star3));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
@@ -100,7 +100,7 @@ public class AstarElevatorTest {
 
     @Test
     public void ElevPath3() throws NoPathException {
-        AStar Path = new AStar(allNodes, allEdges,"11", "1");
+        AStar Path = new AStar(allNodes, allEdges,"S2", "H1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star11, star5, star14, star13, star1));
         List<NodeData> astarReturn = Path.getFinalList();
         for(int i = 0; i < astarReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
