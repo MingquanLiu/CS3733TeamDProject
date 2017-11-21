@@ -17,7 +17,9 @@ import java.util.List;
 
 public class PathfindingController {
 
-
+    private enum searchType {
+        ASTAR, DFS, BFS, DIJKSTRA
+    }
     /**
      * Takes in the starting and ending locations, and calls PathFinderFacade to find the path between them
      * currently also takes linkedlists for nodedata and edges
@@ -28,34 +30,29 @@ public class PathfindingController {
      * @param endNode   - the ID of the end node, aka the destination, for the path
      * @return - result is the list of nodes efficiently connecting startNode to endNode
      */
-    public List<NodeData> initializePathfind(LinkedList<NodeData> allNodes, LinkedList<Edge> allEdges, String startNode, String endNode, LinkedList<Edge.Restriction> restrictions) {
+    public List<NodeData> initializePathfind(LinkedList<NodeData> allNodes, LinkedList<Edge> allEdges, String startNode,
+                                             String endNode, Boolean handicapped, searchType type) {
         // ManageController manager = new ManageController();
         // List<Edge> allEdges = manager.getAllEdgeData();
         //something about getEdges()
         try {
 
             LinkedList<Edge> currentList = allEdges;
-            if (restrictions.contains(Edge.Restriction.GENERAL)) {
-                StandardPath standardPath = new StandardPath();
-                currentList = standardPath.getEdges(currentList);
-            }
-            if (restrictions.contains(Edge.Restriction.HANDICAPPED)) {
-                HandicappedPath handicappedPath = new HandicappedPath();
-                currentList = handicappedPath.getEdges(currentList);
-            }
+
+            if(handicapped) allEdges = filterPath(allEdges);
 
             PathFinderFacade newPath = new PathFinderFacade(allNodes, currentList, startNode, endNode);
 
-            if (restrictions.contains(Edge.Restriction.ASTAR)) {
+            if (type == searchType.ASTAR) {
                 return newPath.findAstarPath();
             }
-            else if (restrictions.contains(Edge.Restriction.DEPTH)) {
+            else if (type == searchType.DFS) {
                 return newPath.findDfsPath();
             }
-            else if (restrictions.contains(Edge.Restriction.BREADTH)) {
+            else if (type == searchType.BFS) {
                 return newPath.findBfsPath();
             }
-            else if (restrictions.contains(Edge.Restriction.DIJKSTRAD)) {
+            else if (type == searchType.DIJKSTRA) {
                 return newPath.findDijkstraPath();
             }
 
@@ -64,5 +61,15 @@ public class PathfindingController {
         }
 
         return null;
+    }
+
+    private LinkedList<Edge> filterPath(LinkedList<Edge> edges) {
+        LinkedList<Edge> handicappedPath = new LinkedList<>();
+        for(Edge e: edges) {
+            if(!e.getFirstNodeId().contains("STAI") && !e.getSecondNodeId().contains("STAI")) {
+                handicappedPath.add(e);
+            }
+        }
+        return handicappedPath;
     }
 }
