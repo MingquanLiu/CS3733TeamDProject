@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DialogPane?>
@@ -29,7 +30,7 @@
                   <AnchorPane layoutX="19.6" layoutY="377.0" prefHeight="147.0" prefWidth="181.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0">
                      <children>
                         <Button fx:id="login" layoutX="121.0" layoutY="108.0" mnemonicParsing="false" onAction="#loginButtonHandler" text="Sign in" />
-                        <PasswordField fx:id="pass" layoutX="50.0" layoutY="74.0"  prefHeight="25.0" prefWidth="110.0" />
+                        <PasswordField fx:id="pass" layoutX="50.0" layoutY="74.0" prefHeight="25.0" prefWidth="110.0" />
                         <TextField fx:id="user" layoutX="50.0" layoutY="35.0" prefHeight="25.0" prefWidth="110.0" />
                         <Label layoutX="14.0" layoutY="39.0" text="User" />
                         <Label layoutX="14.0" layoutY="78.0" text="Pass" />
@@ -40,7 +41,7 @@
                   <Button fx:id="restrooms" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#locateRestroomButtonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Restrooms" />
                   <Button fx:id="vending" layoutX="16.0" layoutY="49.0" mnemonicParsing="false" onAction="#locateVendingMachineButtonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Vending Machines" />
                   <Button fx:id="serviceDesk" layoutX="16.0" layoutY="84.0" mnemonicParsing="false" onAction="#locateServiceDeskButtonHandler" prefHeight="25.0" prefWidth="168.0" text="Locate Service Desks" />
-                  <AnchorPane fx:id="admin" layoutX="14.0" layoutY="115.0" prefHeight="222.0" prefWidth="172.0">
+                  <AnchorPane fx:id="admin" layoutX="14.0" layoutY="115.0" prefHeight="372.0" prefWidth="172.0">
                      <children>
                         <Button fx:id="transportation" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#transportationSRButtonHandler" prefHeight="25.0" prefWidth="168.0" text="Transportation Request" />
                         <Button fx:id="interpreter" layoutX="2.0" layoutY="72.0" mnemonicParsing="false" onAction="#interpreterSRButtonHandler" prefHeight="25.0" prefWidth="168.0" text="Interpreter request" />
@@ -48,6 +49,10 @@
                         <Button fx:id="mapUpdate" layoutX="2.0" layoutY="107.0" minHeight="25.0" mnemonicParsing="false" onAction="#mapUpdateButtonHandler" prefWidth="168.0" text="Map Update" />
                         <Button fx:id="viewRequests" layoutX="40.0" layoutY="183.0" mnemonicParsing="false" onAction="#viewRequestsButtonHandler" prefHeight="25.0" prefWidth="95.0" text="View Requests" />
                         <Button fx:id="addEdge" layoutX="3.0" layoutY="144.0" mnemonicParsing="false" onAction="#addEdgeButtonHandler" prefHeight="25.0" prefWidth="168.0" text="Add Edge" />
+                        <Button fx:id="btnDepthFirst" layoutX="30.0" layoutY="226.0" mnemonicParsing="false" onAction="#depthFirstHandler" text="Depth First Search" />
+                        <Button fx:id="btnDepthFirst" layoutX="25.0" layoutY="265.0" mnemonicParsing="false" onAction="#breadthFirstHandler" text="Breadth First Search" />
+                        <Button fx:id="btnDijkstra" layoutX="36.0" layoutY="301.0" mnemonicParsing="false" onAction="#dijkstraHandler" text="Dijkstra's Search" />
+                        <Button fx:id="btnSendPath" layoutX="60.0" layoutY="333.0" mnemonicParsing="false" onAction="#pathSendHandler" text="email path" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
@@ -171,5 +176,6 @@
             <DropShadow height="30.0" radius="14.5" width="30.0" />
          </effect>
       </DialogPane>
+      <JFXButton buttonType="RAISED" layoutX="403.0" layoutY="446.0" ripplerFill="#a93c3c" />
    </children>
 </AnchorPane>

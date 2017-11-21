@@ -4,6 +4,7 @@ import com.sun.javafx.geom.Edge;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -136,6 +137,9 @@ public class MainUI {
     @FXML
     private Button addEdge;
 
+    @FXML
+    private Button btnSendPath;
+
     private boolean addingEdge = false;
     private boolean loggedOut = true;               //used to change the sign in/sign out button text
     private ManageController manager = new ManageController();               //global manage controller to call methods
@@ -161,15 +165,42 @@ public class MainUI {
 
     public void goButtonHandler(){
         System.out.println("drawing path");
-        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText());
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.ASTAR);
         displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void depthFirstHandler(){
+        System.out.println("depth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getId(), endLocation.getId(), searchType.DFS);
+        displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void breadthFirstHandler(){
+        System.out.println("depth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getId(), endLocation.getId(), searchType.BFS);
+        displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void dijkstraHandler(){
+        System.out.println("depth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getId(), endLocation.getId(), searchType.DIJKSTRA);
+        displayPath(p);
+        btnSendPath.setVisible(true);
     }
 
     public void clearButtonHandler(){
         System.out.println("clearing search");
         startLocation.setText("");
         endLocation.setText("");
+        btnSendPath.setVisible(false);
     }
+
+    //email path to default person
+    public void pathSendHandler(){
+
+    }
+
+
 
     public void locateRestroomButtonHandler(){
         System.out.println("locating restrooms");
