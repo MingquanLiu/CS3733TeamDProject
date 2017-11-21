@@ -1,4 +1,5 @@
 package edu.wpi.cs3733.programname.database;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import java.sql.SQLException;
@@ -84,6 +85,9 @@ public class DatabaseModificationController {
             e.printStackTrace();
         }
     }
+
+
+
 
 
     public void addEdge(String node1ID, String node2ID){
