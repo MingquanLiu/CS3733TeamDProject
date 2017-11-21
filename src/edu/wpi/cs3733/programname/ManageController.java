@@ -42,10 +42,11 @@ public class ManageController {
 
     }
 
-    public List<NodeData> startPathfind(String startId, String goalId) {
+    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<Edge> allEdges = dbQueryController.getAllEdgeData();
-        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, ASTAR);
+        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId,
+                false, pathfindType);
         System.out.println(finalPath.get(0).getId() + " to " + finalPath.get(finalPath.size() -1));
         return finalPath;
     }
