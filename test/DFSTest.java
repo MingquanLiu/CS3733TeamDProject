@@ -13,30 +13,31 @@ import java.util.List;
 
 public class DFSTest {
 
-    NodeData node1 = new NodeData("1", new Coordinate(2, 2),"2", "15 Francis", "Basic", "Lobby One", "L1","Team D");
-    NodeData node2 = new NodeData("2", new Coordinate(2, 4), "2", "15 Francis","Basic", "Hallway One", "H1","Team D");
-    NodeData node3 = new NodeData("3", new Coordinate(4, 4), "2","15 Francis","Basic", "Hallway Two", "H2","Team D");
-    NodeData node4 = new NodeData("4", new Coordinate(6, 4), "2","15 Francis","Basic", "Hallway Three", "H3","Team D");
-    NodeData node5 = new NodeData("5", new Coordinate(4, 6), "2","15 Francis","Basic", "Connector One", "C1","Team D");
-    NodeData node6 = new NodeData("6", new Coordinate(6, 6), "2","15 Francis","Basic", "Room One", "R1","Team D");
-    NodeData node7 = new NodeData("7", new Coordinate(4, 8), "2","15 Francis","Basic", "Connector Two", "C2","Team D");
-    NodeData node8 = new NodeData("8", new Coordinate(6, 8), "2","15 Francis","Basic", "Hallway Four", "H4","Team D");
-    NodeData node9 = new NodeData("9", new Coordinate(8, 8), "2","15 Francis","Basic", "Room Two", "R2","Team D");
+    NodeData node1 = new NodeData("1", new Coordinate(2, 2),"2","15 Francis","Basic", "Lobby One", "L1","Team D");
+    NodeData node2 = new NodeData("2", new Coordinate(2, 4),"2","15 Francis","Basic", "Hallway One", "H1","Team D");
+    NodeData node3 = new NodeData("3", new Coordinate(4, 4),"2","15 Francis","Basic", "Hallway Two", "H2","Team D");
+    NodeData node4 = new NodeData("4", new Coordinate(6, 4),"2","15 Francis", "Basic", "Hallway Three", "H3","Team D");
+    NodeData node5 = new NodeData("5", new Coordinate(4, 6),"2","15 Francis","Basic", "Connector One", "C1","Team D");
+    NodeData node6 = new NodeData("6", new Coordinate(6, 6),"2","15 Francis", "Basic", "Room One", "R1","Team D");
+    NodeData node7 = new NodeData("7", new Coordinate(4, 8),"2","15 Francis", "Basic", "Connector Two", "C2","Team D");
+    NodeData node8 = new NodeData("8", new Coordinate(6, 8),"2","15 Francis", "Basic", "Hallway Four", "H4","Team D");
+    NodeData node9 = new NodeData("9", new Coordinate(8, 8),"2","15 Francis","Basic", "Room Two", "R2","Team D");
 
-    EdgeData edge1 = new EdgeData("1", "2", "E1");
-    EdgeData edge2 = new EdgeData("2", "3", "E2");
-    EdgeData edge3 = new EdgeData("3", "4", "E3");
-    EdgeData edge4 = new EdgeData("3", "5", "E4");
-    EdgeData edge5 = new EdgeData("5", "6", "E5");
-    EdgeData edge6 = new EdgeData("5", "7", "E6");
-    EdgeData edge7 = new EdgeData("7", "8", "E7");
-    EdgeData edge8 = new EdgeData("8", "9", "E8");
-    EdgeData surprise = new EdgeData("6","8","ES");
+    EdgeData edge1 = new EdgeData("1", "1", "2");
+    EdgeData edge2 = new EdgeData("2", "2", "3");
+    EdgeData edge3 = new EdgeData("3", "3", "4");
+    EdgeData edge4 = new EdgeData("3", "4", "5");
+    EdgeData edge5 = new EdgeData("5", "5", "6");
+    EdgeData edge6 = new EdgeData("5", "6", "7");
+    EdgeData edge7 = new EdgeData("7", "7", "8");
+    EdgeData edge8 = new EdgeData("8", "8", "9");
+    EdgeData edge9 = new EdgeData("9", "9", "1");
+
 //    Edge surprise = new Edge("6","8","ES");
     // TODO: add new edges to try to throw the program off, see if we are finding most efficient path, etc.
 
-    LinkedList<NodeData> allNodes = new LinkedList<NodeData>(Arrays.asList(node1, node2, node3, node4, node5, node6, node7, node8, node9));
-    LinkedList<EdgeData> allEdges = new LinkedList<EdgeData>(Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8));
+    LinkedList<NodeData> allNodes = new LinkedList<>(Arrays.asList(node1, node2, node3, node4, node5, node6, node7, node8, node9));
+    LinkedList<EdgeData> allEdges = new LinkedList<>(Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge9));
 
     StarNode star1 = new StarNode(node1);
     StarNode star2 = new StarNode(node2);
@@ -55,7 +56,7 @@ public class DFSTest {
     // If we can get from node 1 to node 4, we are on the right track
     public void StraightPath() throws NoPathException {
         DFS Path = new DFS(allNodes, allEdges,"1", "4");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star2, star1));
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star5, star6, star7, star8, star9, star1));
         List<NodeData> DFSReturn = Path.getFinalList();
         for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
                 DFSReturn.get(i).getNodeID());
@@ -65,7 +66,7 @@ public class DFSTest {
     // We are using nodes 1-4 in a row again, but starting in the middle and trying to get to the far end
     public void IntermedPath() throws NoPathException {
         DFS Path = new DFS(allNodes, allEdges,"3", "1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star9, star8, star7, star6, star5, star4, star3));
         List<NodeData> DFSReturn = Path.getFinalList();
         for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
                 DFSReturn.get(i).getNodeID());
@@ -75,7 +76,7 @@ public class DFSTest {
     // Let's start at the far end of the tree and try to get to the first node
     public void LongPath() throws NoPathException {
         DFS Path = new DFS(allNodes, allEdges,"8", "1");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star5, star7, star8));
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star9, star8));
         List<NodeData> DFSReturn = Path.getFinalList();
         for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
                 DFSReturn.get(i).getNodeID());
@@ -85,7 +86,7 @@ public class DFSTest {
     // Trying to travel around the C part of the hallway
     public void CPath() throws NoPathException {
         DFS Path = new DFS(allNodes, allEdges,"6", "4");
-        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star5, star6));
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star4, star3, star2, star1, star9, star8, star7, star6));
         List<NodeData> DFSReturn = Path.getFinalList();
         for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
                 DFSReturn.get(i).getNodeID());

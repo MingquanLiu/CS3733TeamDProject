@@ -5,8 +5,8 @@ import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
-import edu.wpi.cs3733.programname.database.Tables.EdgesTable;
-import edu.wpi.cs3733.programname.database.Tables.NodesTable;
+import edu.wpi.cs3733.programname.database.Tables.EdgesTable.*;
+import edu.wpi.cs3733.programname.database.Tables.NodesTable.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
@@ -15,6 +15,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
+import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.*;
+import static edu.wpi.cs3733.programname.database.Tables.NodesTable.createNodesTables;
 
 public class ManageController {
 
@@ -33,9 +37,9 @@ public class ManageController {
         this.dbModController = new DatabaseModificationController(this.dbConnection);
         this.serviceController = new ServiceRequestController();
         CsvReader mCsvReader = new CsvReader();
-        NodesTable.createNodesTables(dbConnection);
+        createAllTables(dbConnection);
         mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.readNodes(dbConnection.getConnection()));
-        EdgesTable.createEdgesTables(dbConnection);           // Makes nodes table
+
         mCsvReader.insertEdges(dbConnection.getConnection(),mCsvReader.readEdges(dbConnection.getConnection()));
 //        DBTables.createEdgesTables(dbConnection);
 

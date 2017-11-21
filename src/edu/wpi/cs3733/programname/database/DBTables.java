@@ -13,7 +13,7 @@ public class DBTables {
     public DBTables() {
     }
 
-    public static void dropAllTables(DBConnection conn) {
+    public static void createAllTables(DBConnection conn) {
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "StaffTitles" table is there

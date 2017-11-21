@@ -112,25 +112,25 @@ public class BFSTest {
                 BFSReturn.get(i).getNodeID());
     }
 
-//    @Test(expected = NoPathException.class)
-//    // Failure case: the path does not exist (There are no edges leading to that node)
-//    public void NonexistantPath() throws NoPathException {
-//        allNodes.add(new NodeData("10", new Coordinate(15, 15),"2","15 Francis", "Disconnected", "Outside", "O", "Team D"));
-//        BFS Path = new BFS(allNodes, allEdges, "1", "10");
-//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-//        List<NodeData> BFSReturn = Path.getFinalList();
-//        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
-//                BFSReturn.get(i).getNodeID());
-//    }
+    @Test(expected = NoPathException.class)
+    // Failure case: the path does not exist (There are no edges leading to that node)
+    public void NonexistantPath() throws NoPathException {
+        allNodes.add(new NodeData("10", new Coordinate(15, 15),"2","15 Francis", "Disconnected", "Outside", "O", "Team D"));
+        BFS Path = new BFS(allNodes, allEdges, "1", "10");
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+                BFSReturn.get(i).getNodeID());
+    }
 
-//    @Test(expected = NullPointerException.class)
-//    // Failure case: the path does not exist (The node does not exist)
-//    // TODO: Catch a different exception in the future
-//    public void NonexistantNode() throws NoPathException {
-//        BFS Path = new BFS(allNodes, allEdges,"1", "10");
-//        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
-//        List<NodeData> BFSReturn = Path.getFinalList();
-//        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
-//                BFSReturn.get(i).getNodeID());
-//    }
+    @Test(expected = NullPointerException.class)
+    // Failure case: the path does not exist (The node does not exist)
+    // TODO: Catch a different exception in the future
+    public void NonexistantNode() throws NoPathException {
+        BFS Path = new BFS(allNodes, allEdges,"1", "10");
+        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1));
+        List<NodeData> BFSReturn = Path.getFinalList();
+        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+                BFSReturn.get(i).getNodeID());
+    }
 }
