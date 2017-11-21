@@ -6,6 +6,7 @@ import edu.wpi.cs3733.programname.database.Tables.*;
 import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.*;
 import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.*;
 import static edu.wpi.cs3733.programname.database.Tables.NodesTable.*;
+import static edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable.createServiceRequestsTable;
 
 
 public class DBTables {
@@ -20,25 +21,29 @@ public class DBTables {
             ResultSet tables1 = dbm.getTables(null, null, "NODES", null);
             ResultSet tables2 = dbm.getTables(null, null, "EDGES", null);
             ResultSet tables3 = dbm.getTables(null, null, "EMPLOYEES", null);
-            if (!tables1.next() || !tables2.next() || !tables3.next()) {
+            ResultSet tables4 = dbm.getTables(null, null, "SERVICEREQUESTS", null);
+            if (!tables1.next() || !tables2.next() || !tables3.next() || !tables4.next()) {
                 createNodesTables(conn);
                 createEdgesTables(conn);
                 createEmployeesTables(conn);
+                createServiceRequestsTable(conn);
             } else {
 
-                String dropTable2 = ("DROP TABLE Edges");
-                String dropTable1 = ("DROP TABLE Nodes");
+                String dropTable1 = ("DROP TABLE Edges");
+                String dropTable2 = ("DROP TABLE ServiceRequests");
                 String dropTable3 = ("DROP TABLE Employees");
+                String dropTable4 = ("DROP TABLE Nodes");
                 // Drops StaffTitles table
-                conn.execute(dropTable2);
                 conn.execute(dropTable1);
+                conn.execute(dropTable2);
                 conn.execute(dropTable3);
+                conn.execute(dropTable4);
                 System.out.println("\nAll Tables Dropped");
 
                 createNodesTables(conn);
                 createEdgesTables(conn);
                 createEmployeesTables(conn);
-
+                createServiceRequestsTable(conn);
 
 
             }
