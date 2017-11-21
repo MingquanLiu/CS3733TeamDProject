@@ -118,7 +118,7 @@ public class DFS implements PathStrategyIF {
 
     private int listContainsId(LinkedList<StarNode> listOfNodes, StarNode node) {
         for (int i = 0; i < listOfNodes.size(); i++) {
-            if (node.getId() == listOfNodes.get(i).getId()) {
+            if (node.getId().equals(listOfNodes.get(i).getId())) {
                 System.out.println("The list contains node " + listOfNodes.get(i).getId());
                 System.out.println("Node " + listOfNodes.get(i).getId() + " costs " + listOfNodes.get(i).getF());
                 return i;
