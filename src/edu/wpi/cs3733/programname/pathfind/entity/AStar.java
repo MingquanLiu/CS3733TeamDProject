@@ -153,10 +153,10 @@ public class AStar implements PathStrategyIF {
         double yDist = goal.getY() - node.getY();
         double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
         if(node.getType().equals("STAI")) {
-            distToGo = 10 * distToGo * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
+            distToGo = 2 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
         }
         else if(node.getType().equals("ELEV")) {
-            distToGo = 0.5 * distToGo * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
+            distToGo = 0.25 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
         }
         return distToGo;
     }
