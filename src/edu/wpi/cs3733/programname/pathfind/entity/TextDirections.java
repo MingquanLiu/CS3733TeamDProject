@@ -35,7 +35,7 @@ public class TextDirections {
             node = nodeList.get(i);
             lastNode = nodeList.get(i-1);
             nextNode = nodeList.get(i+1);
-            String type = node.getType();
+            String type = node.getNodeType();
             String name = node.getLongName();
             String face; // This is the direction the node is facing relative to the last
 
@@ -49,19 +49,19 @@ public class TextDirections {
             else face = "straight";
             switch (type) {
                 case "ELEV":
-                    if(lastNode.getType().equals("ELEV"))
+                    if(lastNode.getNodeType().equals("ELEV"))
                         directions += "\nGet off the elevator on floor " + node.getFloor();
                     else
                         directions += "\nGet on " + name;
                     break;
                 case "STAI":
-                    if(lastNode.getType().equals("STAI"))
+                    if(lastNode.getNodeType().equals("STAI"))
                         directions += "\nExit the stairs on floor " + node.getFloor();
                     else
                         directions += "\nEnter " + name;
                     break;
                 case "HALL":
-                    if(!lastNode.getType().equals("HALL")) {
+                    if(!lastNode.getNodeType().equals("HALL")) {
                         if (Math.abs(directionChange) > 25) {
                             directions += "\nTake the next " + face + " turn down the hall";
                         }
@@ -88,8 +88,8 @@ public class TextDirections {
      * @return: the angle between them. 90 is a left turn, -90 is a right turn, etc.
      */
     private double getDirectionAngle(NodeData previous, NodeData current, NodeData next) {
-        double firstEdgeAngle = Math.atan2((current.getY()-previous.getY()),(current.getX()-previous.getX()));
-        double secondEdgeAngle = Math.atan2((next.getY()-current.getY()),(next.getX()-current.getX()));
+        double firstEdgeAngle = Math.atan2((current.getYCoord()-previous.getYCoord()),(current.getXCoord()-previous.getXCoord()));
+        double secondEdgeAngle = Math.atan2((next.getYCoord()-current.getYCoord()),(next.getXCoord()-current.getXCoord()));
         firstEdgeAngle = Math.toDegrees(firstEdgeAngle);
         secondEdgeAngle = Math.toDegrees(secondEdgeAngle);
 
