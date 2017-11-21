@@ -25,14 +25,14 @@ public class AstarTest {
     NodeData node8 = new NodeData("8", new Coordinate(6, 8),"2", "Basic", "Hallway Four", "H4");
     NodeData node9 = new NodeData("9", new Coordinate(8, 8),"2","Basic", "Room Two", "R2");
 
-    Edge edge1 = new Edge("1", "2", "E1", null);
-    Edge edge2 = new Edge("2", "3", "E2", null);
-    Edge edge3 = new Edge("3", "4", "E3", null);
-    Edge edge4 = new Edge("3", "5", "E4", null);
-    Edge edge5 = new Edge("5", "6", "E5", null);
-    Edge edge6 = new Edge("5", "7", "E6", null);
-    Edge edge7 = new Edge("7", "8", "E7", null);
-    Edge edge8 = new Edge("8", "9", "E8", null);
+    Edge edge1 = new Edge("1", "2", "E1");
+    Edge edge2 = new Edge("2", "3", "E2");
+    Edge edge3 = new Edge("3", "4", "E3");
+    Edge edge4 = new Edge("3", "5", "E4");
+    Edge edge5 = new Edge("5", "6", "E5");
+    Edge edge6 = new Edge("5", "7", "E6");
+    Edge edge7 = new Edge("7", "8", "E7");
+    Edge edge8 = new Edge("8", "9", "E8");
 //    Edge surprise = new Edge("6","8","ES");
     // TODO: add new edges to try to throw the program off, see if we are finding most efficient path, etc.
 
