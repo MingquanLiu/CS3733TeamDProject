@@ -28,7 +28,7 @@ public class ManageController {
         this.serviceController = new ServiceRequestController();
         CsvReader mCsvReader = new CsvReader();
         createAllTables(dbConnection);
-        mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.readNodes(dbConnection.getConnection()));
+        mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.getListOfNodes(dbConnection.getConnection()));
         mCsvReader.insertEdges(dbConnection.getConnection(),mCsvReader.readEdges(dbConnection.getConnection()));
 //        DBTables.createEdgesTables(dbConnection);
 

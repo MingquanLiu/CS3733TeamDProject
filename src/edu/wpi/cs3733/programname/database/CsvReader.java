@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.database.ReadFiles.*;
+
+import javax.xml.soap.Node;
 
 
 public class CsvReader {
@@ -26,46 +29,46 @@ public class CsvReader {
      * @param conn
      * @return
      */
-    public ArrayList<NodeData> readNodes(Connection conn) {
-        ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
-        File[] file = new File("CSVNodes/").listFiles();
-        try {
-// A C
-            for (File csv: file) {
+    public ArrayList<NodeData> getListOfNodes(Connection conn) {
+        ArrayList<NodeData> A = new ArrayList<NodeData>();
+        ArrayList<NodeData> B = new ArrayList<NodeData>();
+        ArrayList<NodeData> C = new ArrayList<NodeData>();
+        ArrayList<NodeData> D = new ArrayList<NodeData>();
+        ArrayList<NodeData> E = new ArrayList<NodeData>();
+        ArrayList<NodeData> F = new ArrayList<NodeData>();
+        ArrayList<NodeData> G = new ArrayList<NodeData>();
+        ArrayList<NodeData> H = new ArrayList<NodeData>();
+        ArrayList<NodeData> I = new ArrayList<NodeData>();
+        ArrayList<NodeData> W = new ArrayList<NodeData>();
+        ArrayList<NodeData> FinalList = new ArrayList<NodeData>();
 
+        A = MapA.readNodes(conn);
+        B = MapB.readNodes(conn);
+        C = MapC.readNodes(conn);
+        D = MapD.readNodes(conn);
+        E = MapE.readNodes(conn);
+        F = MapF.readNodes(conn);
+        G = MapG.readNodes(conn);
+        H = MapH.readNodes(conn);
+        I = MapI.readNodes(conn);
+        W = MapW.readNodes(conn);
 
-                Scanner inputStream = new Scanner(csv);
+        FinalList.addAll(A);
+        FinalList.addAll(B);
+        FinalList.addAll(C);
+        FinalList.addAll(D);
+        FinalList.addAll(E);
+        FinalList.addAll(F);
+        FinalList.addAll(G);
+        FinalList.addAll(H);
+        FinalList.addAll(I);
+        FinalList.addAll(W);
 
-                // Ignores first line in csv file i.e. header row
-                inputStream.nextLine();
-                int count = 0;
-                // Reads all lines in the file
-                while (inputStream.hasNextLine()) {
-                    // Reads current row and converts to a string
-                    String data = inputStream.nextLine();
+        System.out.println(FinalList.size());
+        return FinalList;
 
-                    // Seperates the string into fields and stores into an array
-                    String[] values = data.split(",");
-
-                    // Converts int fields from strings to integers
-                    int x = Integer.parseInt(values[1]);
-                    int y = Integer.parseInt(values[2]);
-                    Coordinate location = new Coordinate(x, y);
-                    NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
-                    nodeList.add(nodeObject);
-
-
-
-                } // end while
-
-
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-
-        }
-        return nodeList;
     } // end readNodes
+
 
 
     // Insert Nodes into DB
@@ -77,7 +80,7 @@ public class CsvReader {
                     "VALUES (?,?,?,?,?,?,?,?,?)");
 
             int j = 0;
-            System.out.println(count);
+
             for (i = 0; i < count; i++) {
                 pst.setString(1, nodesList.get(i).getNodeID());
                 pst.setInt(2, nodesList.get(i).getXCoord());
@@ -111,11 +114,11 @@ public class CsvReader {
 
             for (String letter: TeamLetter) {
                 String fileName = "Map" + letter + "edges.csv";
-                File file = new File("CSVFiles/" + fileName);
+                File file = new File("CSVEdges/" + fileName);
                 Scanner inputStream = new Scanner(file);
 
                 // Ignores first line in csv file i.e. header row
-                inputStream.nextLine();
+                inputStream.hasNextLine();
 
                 // Reads all lines in the file
                 while (inputStream.hasNextLine()) {
