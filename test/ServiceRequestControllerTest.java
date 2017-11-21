@@ -1,52 +1,69 @@
-import edu.wpi.cs3733.programname.commondata.Constants;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.servicerequest.EmployeesQuery;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequestMessage;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+//import static org.junit.Assert.assertEquals;
 
 public class ServiceRequestControllerTest {
 
     //CHANGE TARGET EMAIL IF YOU RUN THIS TEST PLEASE
+//    @Test
+//    public void testSendEmail() {
+//        Employee emp = new Employee("admin", "admin", "admin", "a",
+//                "admin", true, Constants.INTERPRETER_REQUEST);
+//        ArrayList<Employee> recipients = new ArrayList<Employee>();
+//        NodeData location = new NodeData("request_loc", new Coordinate(4000,500), "2F", Constants.INTERPRETER_REQUEST,
+//                "request", "request");
+//        recipients.add(emp);
+//        ServiceRequest request = new ServiceRequest(emp, LocalDateTime.now(), Constants.INTERPRETER_REQUEST,
+//                recipients, location, null, "Interpreter Request needed for this test case!!!!");
+//        ServiceRequestMessage message = new ServiceRequestMessage("cs3733teamD@gmail.com", "dbswenarton@wpi.edu",
+//                request);
+//        message.sendMessage();
+//        assertTrue(true);
+//        // note: check target email to confirm test pass. change
+//    }
+
+
+    // Yufei's email test
     @Test
-    public void testSendEmail() {
-        Employee emp = new Employee("admin", "admin", "admin", "a",
-                "admin", true, Constants.INTERPRETER_REQUEST);
-        ArrayList<Employee> recipients = new ArrayList<Employee>();
-        NodeData location = new NodeData("request_loc", new Coordinate(4000,500), "2F", Constants.INTERPRETER_REQUEST,
-                "request", "request");
-        recipients.add(emp);
-        ServiceRequest request = new ServiceRequest(emp, LocalDateTime.now(), Constants.INTERPRETER_REQUEST,
-                recipients, location, null, "Interpreter Request needed for this test case!!!!");
-        ServiceRequestMessage message = new ServiceRequestMessage("cs3733teamD@gmail.com", "dbswenarton@wpi.edu",
-                request);
-        message.sendMessage();
-        assertTrue(true);
-        // note: check target email to confirm test pass. change
+    public void testEmail(){
+        DBConnection dbConnection = new DBConnection();
+        EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
+        ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
+        ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
+        Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "interpreter");
+        Coordinate aBathroomCoord = new Coordinate(4125, 625);
+        NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","REST","Restroom B elevator Floor 2", "Restroom B");
+        NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","REST","Restroom B elevator Floor 2", "Restroom B");
+        ServiceRequest serviceRequest = new ServiceRequest(1, john,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
+        srController.sendEmail(serviceRequest);
     }
+
+
 
     // This test is for checking the sql query String
     // This is not working
     @Test
     public void testQuery(){
-        DBConnection dbConnection = new DBConnection;
-        ServiceRequestsQuery queryEmployee = new ServiceRequestsQuery(dbConnection);
+        DBConnection dbConnection = new DBConnection();
+        EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
         ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
         ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
         Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation");
         Coordinate aBathroomCoord = new Coordinate(4125, 625);
+        NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","REST","Restroom B elevator Floor 2", "Restroom B");
         NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","REST","Restroom B elevator Floor 2", "Restroom B");
-        srController.createServiceRequest(john, "transportation", aBathroom, "need a wheelchair");
+        // test insert service request
+        srController.createServiceRequest(john, "transportation", aBathroom, bBathroom, "need a wheelchair");
         assertEquals(0,0);
     }
 

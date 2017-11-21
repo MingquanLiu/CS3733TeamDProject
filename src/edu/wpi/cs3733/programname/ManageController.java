@@ -1,19 +1,14 @@
 package edu.wpi.cs3733.programname;
 
 
-import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
+import edu.wpi.cs3733.programname.servicerequest.EmployeesQuery;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
+import edu.wpi.cs3733.programname.servicerequest.ServiceRequestsQuery;
 
-import java.sql.Connection;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ManageController {
@@ -23,6 +18,8 @@ public class ManageController {
     private DatabaseQueryController dbQueryController;
     private DatabaseModificationController dbModController;
     private ServiceRequestController serviceController;
+    private EmployeesQuery employeesQuery;
+    private ServiceRequestsQuery serviceRequestsQuery;
 
     public ManageController() {
         this.dbConnection = new DBConnection();
@@ -31,7 +28,7 @@ public class ManageController {
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
-        this.serviceController = new ServiceRequestController();
+        this.serviceController = new ServiceRequestController(dbConnection, employeesQuery, serviceRequestsQuery);
         CsvReader mCsvReader = new CsvReader();
         DBTables.createNodesTables(dbConnection);
         mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.readNodes(dbConnection.getConnection()));
@@ -81,26 +78,26 @@ public class ManageController {
         this.dbModController.editNode(data);
     }
 
-    public List<Employee> queryEmployeeByRequestType(String requestType) {
-        return dbQueryController.queryEmployeesByType(requestType);
-    }
+//    public List<Employee> queryEmployeeByRequestType(String requestType) {
+//        return dbQueryController.queryEmployeesByType(requestType);
+//    }
 
-    public void createServiceRequest(Employee sender, String type, String description, NodeData location1,
-                                     NodeData location2) {
-         serviceController.createServiceRequest(sender, type, null, location1,
-                location2, description);
-    }
+//    public void createServiceRequest(Employee sender, String type, String description, NodeData location1,
+//                                     NodeData location2) {
+//         serviceController.createServiceRequest(sender, type, null, location1,
+//                location2, description);
+//    }
 
-    public void assignServiceRequest(ServiceRequest request, Employee recipient) {
-        ArrayList<Employee> recipientList = new ArrayList<Employee>();
-        recipientList.add(recipient);
-        serviceController.assignRequest(request, recipientList);
-    }
+//    public void assignServiceRequest(ServiceRequest request, Employee recipient) {
+//        ArrayList<Employee> recipientList = new ArrayList<Employee>();
+//        recipientList.add(recipient);
+//        serviceController.assignRequest(request, recipientList);
+//    }
 
-    public void assignServiceRequest(ServiceRequest request, String requestType) {
-        ArrayList<Employee> recipients = dbQueryController.queryEmployeesByType(requestType);
-        serviceController.assignRequest(request, recipients);
-    }
+//    public void assignServiceRequest(ServiceRequest request, String requestType) {
+//        ArrayList<Employee> recipients = dbQueryController.queryEmployeesByType(requestType);
+//        serviceController.assignRequest(request, recipients);
+//    }
 
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);

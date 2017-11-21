@@ -259,8 +259,8 @@ public class ServiceRequestsQuery {
         }
         String str;
         try {
-            str = "insert into ServiceRequests values( id +'" + requesterUsername + "', '" + type + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
-                    "', '" + createdTime + "','" + handledTime + "', '" + completedTime + "',"+ status + "','"+ handlerUsername + "')";
+            str = "insert into ServiceRequests values(" + id + ",'" + requesterUsername + "', '" + type + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
+                    "', '" + createdTime + "','" + handledTime + "', '" + completedTime + "','"+ status + "','"+ handlerUsername + "')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
@@ -277,7 +277,7 @@ public class ServiceRequestsQuery {
         Timestamp handledTime = new Timestamp(date.getTime());
         String str;
         try {
-            str = "update ServiceRequests set handledTime = '"+ handledTime +"' status = 'handled', handler = '"+ handlerUsername +"' where id = '" + id ;
+            str = "update ServiceRequests set handledTime = '"+ handledTime +"' status = 'handled', handler = '"+ handlerUsername +"' where id = " + id ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
@@ -293,7 +293,7 @@ public class ServiceRequestsQuery {
         Timestamp completedTime = new Timestamp(date.getTime());
         String str;
         try {
-            str = "update ServiceRequests set completedTime = '"+ completedTime +"' status = 'completed' where id = '" + id ;
+            str = "update ServiceRequests set completedTime = '"+ completedTime +"' status = 'completed' where id = " + id ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
@@ -307,7 +307,7 @@ public class ServiceRequestsQuery {
         int id = serviceRequest.getId();
         String str;
         try {
-            str = "update ServiceRequests set status = 'removed' where id = '" + id ;
+            str = "update ServiceRequests set status = 'removed' where id = " + id ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {

@@ -3,6 +3,7 @@ package edu.wpi.cs3733.programname.servicerequest.entity;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class ServiceRequest {
     private int id;
@@ -18,7 +19,23 @@ public class ServiceRequest {
     private Employee handler;
 
 
-    public ServiceRequest(int id, Employee requester, String type, NodeData location1, NodeData location2, String description, Timestamp createdTime, Timestamp handledTime, Timestamp completedTime, String status, Employee handler) {
+    public ServiceRequest(int id, Employee requester, String type, NodeData location1, NodeData location2, String description) {
+        this.id = id;
+        this.requester = requester;
+        this.type = type;
+        this.location1 = location1;
+        this.location2 = location2;
+        this.description = description;
+        Date date = new Date();
+        this.createdTime = new Timestamp(date.getTime());
+        this.handledTime = null;
+        this.completedTime = null;
+        this.status = "unhandled";
+        this.handler = null;
+    }
+
+    public ServiceRequest(int id, Employee requester, String type, NodeData location1, NodeData location2,
+                          String description, Timestamp createdTime, Timestamp handledTime, Timestamp completedTime, String status, Employee handler) {
         this.id = id;
         this.requester = requester;
         this.type = type;
@@ -31,6 +48,8 @@ public class ServiceRequest {
         this.status = status;
         this.handler = handler;
     }
+
+
 
     public int getId() {
         return id;
@@ -120,20 +139,48 @@ public class ServiceRequest {
         this.handler = handler;
     }
 
+    private String timeToString(Timestamp time){
+        if(time == null){
+            return "not handled yet";
+        }
+        else{
+            return time.toString();
+        }
+    }
+
+
     @Override
     public String toString() {
-        return "id=" + id + System.lineSeparator() +
-                "requester=" + requester.getUsername() + System.lineSeparator() +
-                ", type='" + type + '\'' + System.lineSeparator() +
-                ", location1=" + location1.getLongName() + System.lineSeparator() +
-                ", location2=" + location2.getLongName() + System.lineSeparator() +
-                ", description='" + description + '\'' + System.lineSeparator() +
-                ", createdTime=" + createdTime.toString() + System.lineSeparator() +
-                ", handledTime=" + handledTime.toString() + System.lineSeparator() +
-                ", completedTime=" + completedTime.toString() + System.lineSeparator() +
-                ", status='" + status + '\'' + System.lineSeparator() +
-                ", handler=" + handler.getUsername() + System.lineSeparator() +
-                "" +System.lineSeparator() ;
+        if (this.handler == null){
+            return "" +System.lineSeparator()+
+                    "id: " + id + System.lineSeparator() +
+                    "requester: " + requester.getFirstName() +  " " +requester.getLastName() + System.lineSeparator() +
+                    "type: " + type + System.lineSeparator() +
+                    "location1: " + location1.getLongName() + System.lineSeparator() +
+                    "location2: " + location2.getLongName() + System.lineSeparator() +
+                    "description: " + description + System.lineSeparator() +
+                    "createdTime: " + createdTime.toString() + System.lineSeparator() +
+                    "handledTime: " + this.timeToString(handledTime) + System.lineSeparator() +
+                    "completedTime: " + this.timeToString(completedTime) + System.lineSeparator() +
+                    "status: " + status + System.lineSeparator() +
+                    "handler: " + "not handled yet" + System.lineSeparator() +
+                    "" +System.lineSeparator() ;
+        }
+        else{
+            return "" +System.lineSeparator()+
+                    "id: " + id + System.lineSeparator() +
+                    "requester: " + requester.getFirstName() + " " +requester.getLastName() + System.lineSeparator() +
+                    "type: " + type + System.lineSeparator() +
+                    "location1: " + location1.getLongName() + System.lineSeparator() +
+                    "location2: " + location2.getLongName() + System.lineSeparator() +
+                    "description: " + description + System.lineSeparator() +
+                    "createdTime: " + createdTime.toString() + System.lineSeparator() +
+                    "handledTime: " + this.timeToString(handledTime) + System.lineSeparator() +
+                    "completedTime: " + this.timeToString(completedTime) + System.lineSeparator() +
+                    "status: " + status + System.lineSeparator() +
+                    "handler: " + handler.getUsername() + System.lineSeparator() +
+                    "" +System.lineSeparator() ;
+        }
     }
 
     @Override

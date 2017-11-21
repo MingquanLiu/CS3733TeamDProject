@@ -4,9 +4,8 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
+import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequestMessage;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Random;
 
 public class ServiceRequestController {
@@ -23,16 +22,10 @@ public class ServiceRequestController {
         //generate random id
         Random randomID = new Random();
         int id = randomID.nextInt(1000) + 1;
-        Date date = new Date();
-        Timestamp createdTime = new Timestamp(date.getTime());
-        Timestamp handledTime = null;
-        Timestamp completedTime = null;
-        String status = "unhandled";
-        Employee handler = null;
-
-        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description, createdTime, handledTime, completedTime, status, handler);
+        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description);
         queryServiceRequest.addServiceRequest(newServiceRequest);
         //send email
+        sendEmail(newServiceRequest);
     }
 
 
@@ -98,5 +91,29 @@ public class ServiceRequestController {
 
     public void deleteServiceRequest(ServiceRequest request){
         queryServiceRequest.deleteServiceRequest(request);
+    }
+
+    public String requestReport(ServiceRequest request){
+        return request.toString();
+    }
+
+    public void sendEmail(ServiceRequest request){
+        String recipient = "";
+        switch(request.getType()){
+            case "interpreter":
+                recipient = "interpreterbwhospital@gmail.com";
+                break;
+
+            case "maintenance":
+                recipient = "maintenancebwhospital@gmail.com";
+                break;
+
+            case "transportation":
+                recipient = "transportationbwhospital@gmail.com";
+                break;
+        }
+        String content = this.requestReport(request);
+        ServiceRequestMessage email = new ServiceRequestMessage(recipient,content);
+        email.sendMessage();
     }
 }
