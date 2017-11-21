@@ -160,7 +160,7 @@ public class AStar {
 
     private int listContainsId(LinkedList<StarNode> listOfNodes, StarNode node) {
         for(int i = 0; i < listOfNodes.size(); i++) {
-            if(node.getNodeID() == listOfNodes.get(i).getNodeID()) {
+            if(node.getNodeID().equals(listOfNodes.get(i).getNodeID())) {
                 System.out.println("The list contains node " + listOfNodes.get(i).getNodeID());
                 System.out.println("Node " + listOfNodes.get(i).getNodeID() + " costs " + listOfNodes.get(i).getF());
                 return i;
