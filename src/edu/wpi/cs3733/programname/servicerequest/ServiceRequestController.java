@@ -34,12 +34,6 @@ public class ServiceRequestController {
     }
 
 
-//    public ArrayList<Employee> addGroupRecipients(ServiceRequest request, String type){
-//        ArrayList<Employee> recipients = new ArrayList<>();
-//        return recipients;
-//    }
-
-
     public void handleServiceRequest(ServiceRequest request, Employee handler){
         queryServiceRequest.handleServiceRequest(request, handler);
     }

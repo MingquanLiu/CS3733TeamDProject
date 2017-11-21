@@ -1,6 +1,9 @@
 import edu.wpi.cs3733.programname.commondata.Constants;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
+import edu.wpi.cs3733.programname.servicerequest.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequestMessage;
@@ -9,7 +12,7 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ServiceRequestControllerTest {
@@ -30,6 +33,21 @@ public class ServiceRequestControllerTest {
         message.sendMessage();
         assertTrue(true);
         // note: check target email to confirm test pass. change
+    }
+
+    // This test is for checking the sql query String
+    // This is not working
+    @Test
+    public void testQuery(){
+        DBConnection dbConnection = new DBConnection;
+        ServiceRequestsQuery queryEmployee = new ServiceRequestsQuery(dbConnection);
+        ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
+        ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
+        Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation");
+        Coordinate aBathroomCoord = new Coordinate(4125, 625);
+        NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","REST","Restroom B elevator Floor 2", "Restroom B");
+        srController.createServiceRequest(john, "transportation", aBathroom, "need a wheelchair");
+        assertEquals(0,0);
     }
 
 

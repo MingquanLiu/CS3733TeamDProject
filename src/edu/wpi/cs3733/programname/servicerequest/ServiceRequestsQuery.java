@@ -43,11 +43,21 @@ public class ServiceRequestsQuery {
                 id = result.getInt("id");
                 requesterUsername = result.getString("requester");
                 // todo: handle null exception
-                requester = new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername);
+                if(new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername) == null){
+                    requester = null;
+                }
+                else{
+                    requester = new EmployeesQuery(dbConnection).queryEmployeeByUsername(requesterUsername);
+                }
                 type = result.getString("type");
                 nodeID = result.getString("location");
                 // todo: handle null exception
-                location = new DatabaseQueryController(dbConnection).queryNodeById(nodeID);
+                if(new DatabaseQueryController(dbConnection).queryNodeById(nodeID) == null){
+                    location = null;
+                }
+                else{
+                    location = new DatabaseQueryController(dbConnection).queryNodeById(nodeID);
+                }
                 description = result.getString("description");
                 createdTime = result.getTimestamp("createdTime");
                 handledTime = result.getTimestamp("handledTime");
@@ -55,7 +65,12 @@ public class ServiceRequestsQuery {
                 status = result.getString("status");
                 handlerUsername = result.getString("handler");
                 // todo: handle null exception
-                handler = new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername);
+                if(new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername) == null){
+                    handler = null;
+                }
+                else{
+                    handler = new EmployeesQuery(dbConnection).queryEmployeeByUsername(handlerUsername);
+                }
                 queryResult = new ServiceRequest(id,requester, type, location, description, createdTime, handledTime, completedTime, status, handler);
                 resultList.add(queryResult);
             }
@@ -78,15 +93,20 @@ public class ServiceRequestsQuery {
         Timestamp handledTime = serviceRequest.getHandledTime();
         Timestamp completedTime = serviceRequest.getCompletedTime();
         String status = serviceRequest.getStatus();
-        Employee handler = serviceRequest.getHandler();
+        String handlerUsername;
         // todo: handle null
-        String handlerUsername = handler.getUsername();
-
+        if(serviceRequest.getHandler() == null){
+            handlerUsername = "unknown";
+        }
+        else{
+            Employee handler = serviceRequest.getHandler();
+            handlerUsername = handler.getUsername();
+        }
         String str;
         try {
             str = "insert into ServiceRequests values( id +'" + requesterUsername + "', '" + type + "', '" + nodeID + "', '" + description +
                     "', '" + createdTime + "','" + handledTime + "', '" + completedTime + "',"+ status + "','"+ handlerUsername + "')";
-            //System.out.println(str);
+            System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Insert Service Request Failed!");
@@ -102,7 +122,7 @@ public class ServiceRequestsQuery {
         String str;
         try {
             str = "update ServiceRequests set handledTime = '"+ handledTime +"' status = 'handled', handler = '"+ handlerUsername +"' where id = '" + id ;
-            //System.out.println(str);
+            System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Handle Service Request Failed!");
@@ -117,7 +137,7 @@ public class ServiceRequestsQuery {
         String str;
         try {
             str = "update ServiceRequests set completedTime = '"+ completedTime +"' status = 'completed' where id = '" + id ;
-            //System.out.println(str);
+            System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Complete Service Request Failed!");
@@ -130,7 +150,7 @@ public class ServiceRequestsQuery {
         String str;
         try {
             str = "update ServiceRequests set status = 'removed' where id = '" + id ;
-            //System.out.println(str);
+            System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Remove Service Request Failed!");
@@ -139,13 +159,12 @@ public class ServiceRequestsQuery {
     }
 
 
-
     public void deleteServiceRequest(ServiceRequest serviceRequest){
             int id = serviceRequest.getId();
             String str;
             try {
                 str ="delete from ServiceRequests where id = " + id ;
-                //System.out.println(str);
+                System.out.println(str);
                 dbConnection.executeUpdate(str);
             } catch (SQLException e) {
                 System.out.println("Delete Service Request Failed!");
