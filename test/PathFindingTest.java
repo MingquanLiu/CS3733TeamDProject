@@ -49,16 +49,16 @@ public class PathFindingTest {
 
     public PathFindingTest() {}
 
-    @Test
+//    @Test
     // This is a simple test. We have nodes 1-4 which are all connected by only one edge each (a straight line of nodes)
     // If we can get from node 1 to node 4, we are on the right track
-    public void StraightPath(){
-        PathfindingController controller = new PathfindingController();
-
-        List<Edge> givenList = controller.filterPath(allEdges);
-        List<Edge> expected = new LinkedList<>(Arrays.asList(edge2, edge4, edge6));
-        for (int i = 0; i < givenList.size(); i++) {
-            Assert.assertEquals(givenList.get(i).getEdgeId(), expected.get(i).getEdgeId());
-        }
-    }
+//    public void StraightPath(){
+//        PathfindingController controller = new PathfindingController();
+//
+//        List<Edge> givenList = controller.filterPath(allEdges);
+//        List<Edge> expected = new LinkedList<>(Arrays.asList(edge2, edge4, edge6));
+//        for (int i = 0; i < givenList.size(); i++) {
+//            Assert.assertEquals(givenList.get(i).getEdgeId(), expected.get(i).getEdgeId());
+//        }
+//    }
 }
