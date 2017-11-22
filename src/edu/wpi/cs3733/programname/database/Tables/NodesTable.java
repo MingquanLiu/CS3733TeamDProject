@@ -15,11 +15,11 @@ public class NodesTable {
                 System.out.println("2");
             }
 
-            String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(10), xcoord INTEGER, ycoord INTEGER, floor VARCHAR(4), building VARCHAR(20), " +
-                    "nodeType VARCHAR(4), longName VARCHAR(50), shortName VARCHAR(30), teamAssigned VARCHAR(6)," +
+            String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(20), xcoord INTEGER, ycoord INTEGER, floor VARCHAR(4), building VARCHAR(20), " +
+                    "nodeType VARCHAR(4), longName VARCHAR(100), shortName VARCHAR(100), teamAssigned VARCHAR(6)," +
                     "CONSTRAINT Nodes_PK PRIMARY KEY (nodeID)," +
                     "CONSTRAINT Nodes_nodeType CHECK (nodeType IN " +
-                    "('HALL', 'ELEV', 'REST', 'STAI', 'DEPT', 'LABS', 'INFO', 'CONF', 'EXIT', 'RETL', 'SERV'))," +
+                    "('HALL', 'ELEV', 'REST', 'STAI', 'DEPT', 'LABS', 'INFO', 'CONF', 'EXIT', 'RETL', 'SERV', 'BATH'))," +
                     "CONSTRAINT Nodes_building CHECK (building IN " +
                     "('BTM', 'Shapiro', 'Tower', '45 Francis', '15 Francis'))," +
                     "CONSTRAINT Nodes_xcoordVal check (xcoord >= 0 AND xcoord <= 5000)," +

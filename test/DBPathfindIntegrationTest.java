@@ -25,8 +25,8 @@ public class DBPathfindIntegrationTest {
         conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
 
         mDbTable.createAllTables(TestDB);           // Makes nodes table
-        mCsvReader.insertNodes(conn,mCsvReader.readNodes(conn));
-        mCsvWriter.writeNodes(conn, mCsvReader.readNodes(conn));
+        mCsvReader.insertNodes(conn,mCsvReader.getListOfNodes(conn));
+        mCsvWriter.writeNodes(conn, mCsvReader.getListOfNodes(conn));
         printTables.printNodesTable(conn);          // Pulls data in nodes table from the database and print it
 
 
