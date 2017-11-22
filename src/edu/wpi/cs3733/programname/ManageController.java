@@ -7,6 +7,8 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
+import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
+import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 
@@ -89,6 +91,12 @@ public class ManageController {
     }
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
+    }
+
+    public void sendTextDirectionsEmail(List<NodeData> path, String recipient) {
+        TextDirections textDirections = new TextDirections(path);
+        PathfindingMessage msg = new PathfindingMessage(recipient, textDirections.getEmailMessageBody());
+        msg.sendMessage();
     }
 }
 

@@ -8,11 +8,14 @@ import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
+import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
+import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import org.junit.Assert;
 import org.junit.Test;
 import org.w3c.dom.Node;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,6 +51,18 @@ public class PathFindingTest {
 
 
     public PathFindingTest() {}
+
+    @Test
+    public void testPathfindingEmail() {
+        List<NodeData> nodes = new ArrayList<NodeData>();
+        nodes.add(node1);
+        nodes.add(node2);
+        nodes.add(node3);
+        TextDirections td = new TextDirections(nodes);
+        String body = td.getEmailMessageBody();
+        PathfindingMessage pfm = new PathfindingMessage("dswenarton@gmail.com", body);
+        pfm.sendMessage();
+    }
 
 //    @Test
     // This is a simple test. We have nodes 1-4 which are all connected by only one edge each (a straight line of nodes)

@@ -5,6 +5,7 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -160,30 +161,35 @@ public class MainUI {
     private int prevSelectX = 0;
     private int prevSelectY = 0;
     private String foundNodeId = "";
+    private List<NodeData> currentPath;
 
     private HashMap<Coordinate, String> nodeIDs;
 
     public void goButtonHandler(){
         System.out.println("drawing path");
         List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.ASTAR);
+        currentPath = p;
         displayPath(p);
         btnSendPath.setVisible(true);
     }
     public void depthFirstHandler(){
         System.out.println("depth first path drawing");
         List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.DFS);
+        currentPath = p;
         displayPath(p);
         btnSendPath.setVisible(true);
     }
     public void breadthFirstHandler(){
         System.out.println("Breadth first path drawing");
         List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.BFS);
+        currentPath = p;
         displayPath(p);
         btnSendPath.setVisible(true);
     }
     public void dijkstraHandler(){
         System.out.println("depth first path drawing");
         List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.DIJKSTRA);
+        currentPath = p;
         displayPath(p);
         btnSendPath.setVisible(true);
     }
@@ -197,7 +203,15 @@ public class MainUI {
 
     //email path to default person
     public void pathSendHandler(){
+        try {
+            if (currentPath == null) {
+                throw new Exception("No path in UI");
+            } else {
+                manager.sendTextDirectionsEmail(currentPath, user.getText());
+            }
+        } catch(Exception e) {
 
+        }
     }
 
 
