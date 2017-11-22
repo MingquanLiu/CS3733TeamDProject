@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AStar {
+public class AStar implements PathfindingFacadeIF {
     List<NodeData> allNodes;
     List<EdgeData> allEdges;
 
@@ -47,7 +47,10 @@ public class AStar {
             allStarNodes.put(node.getNodeID(), new StarNode(node));
         }
 
+
         for(EdgeData edge: allEdges) {
+            System.out.println("Starting A*");
+
             StarNode node1 = allStarNodes.get(edge.getStartNode());
             StarNode node2 = allStarNodes.get(edge.getEndNode());
 
@@ -65,6 +68,8 @@ public class AStar {
      */
     private List<NodeData> pathFind(String startID, String goalID) {
         // TODO: Throw a "No such node" exception
+
+        System.out.println("Starting A*");
         StarNode start = allStarNodes.get(startID);
         StarNode goal = allStarNodes.get(goalID);
 
@@ -76,7 +81,6 @@ public class AStar {
 
         frontier.add(start);
 
-        System.out.println("Starting A*");
 
         while(!frontier.isEmpty()) {
             StarNode current = frontier.getFirst();
@@ -149,6 +153,15 @@ public class AStar {
         double xDist = goal.getXCoord() - node.getXCoord();
         double yDist = goal.getYCoord() - node.getYCoord();
         double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
+        /*************************************************************
+         * This is where the new elevator stuff was added
+         **************************************************************/
+        if(node.getNodeType().equals("STAI")) {
+            distToGo = 4 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
+        }
+        else if(node.getNodeType().equals("ELEV")) {
+            distToGo = 0 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
+        }
         return distToGo;
     }
 

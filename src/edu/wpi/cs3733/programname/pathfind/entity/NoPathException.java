@@ -8,6 +8,6 @@ public class NoPathException extends Exception {
         this.startID = startID;
         this.goalID = goalID;
 
-        System.out.println("No such node from " + startID + " to " + goalID);
+        System.out.println("No such path from " + startID + " to " + goalID);
     }
 }

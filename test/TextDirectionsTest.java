@@ -69,6 +69,7 @@ public class TextDirectionsTest {
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
         System.out.println(d.getTextDirections());
+        System.out.println(d.getEmailMessageBody());
     }
 
     @Test

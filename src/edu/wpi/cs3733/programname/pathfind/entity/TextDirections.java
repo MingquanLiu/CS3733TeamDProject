@@ -110,4 +110,21 @@ public class TextDirections {
     public String getTextDirections() {
         return this.directions;
     }
+
+    /**
+     * This method is called to get a formatted email message body containing a short message with
+     * text directions included
+     * @return: a lengthy string with the message inside
+     */
+    public String getEmailMessageBody() {
+        String emailDirections = "Hello,\nYou recently requested directions from " + nodeList.get(0).getLongName() +
+               " to " + nodeList.get(nodeList.size()-1).getLongName() + " at the Brigham and Women's hospital. " +
+                "Your directions are included below.\n";
+        String[] lines = this.directions.split("\\r?\\n");
+        for(int i = 0; i < lines.length; i++) {
+            emailDirections += "\n" + (i + 1) + ". " + lines[i];
+        }
+        emailDirections += "\nRegards,\nKiosk Devs\n\n(Note: This inbox is not monitored. Please do not reply.)";
+        return emailDirections;
+    }
 }
