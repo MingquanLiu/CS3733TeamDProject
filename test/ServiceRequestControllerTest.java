@@ -33,18 +33,18 @@ public class ServiceRequestControllerTest {
 //    }
 
 
-    // Yufei's email test
+    // test email
     @Test
     public void testEmail(){
         DBConnection dbConnection = new DBConnection();
         EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
         ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
         ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
-        Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "interpreter");
+        Employee wong = new Employee("user", "pass", "Wilson", "", "Wong", true, "interpreter");
         Coordinate aBathroomCoord = new Coordinate(4125, 625);
         NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","REST","Restroom B elevator Floor 2", "Restroom B");
         NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","REST","Restroom B elevator Floor 2", "Restroom B");
-        ServiceRequest serviceRequest = new ServiceRequest(1, john,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
+        ServiceRequest serviceRequest = new ServiceRequest(1, wong,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
         srController.sendEmail(serviceRequest);
     }
 

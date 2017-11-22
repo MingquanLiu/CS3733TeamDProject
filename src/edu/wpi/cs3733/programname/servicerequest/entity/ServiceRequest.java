@@ -153,32 +153,34 @@ public class ServiceRequest {
     public String toString() {
         if (this.handler == null){
             return "" +System.lineSeparator()+
-                    "id: " + id + System.lineSeparator() +
-                    "requester: " + requester.getFirstName() +  " " +requester.getLastName() + System.lineSeparator() +
-                    "type: " + type + System.lineSeparator() +
-                    "location1: " + location1.getLongName() + System.lineSeparator() +
-                    "location2: " + location2.getLongName() + System.lineSeparator() +
-                    "description: " + description + System.lineSeparator() +
-                    "createdTime: " + createdTime.toString() + System.lineSeparator() +
-                    "handledTime: " + this.timeToString(handledTime) + System.lineSeparator() +
-                    "completedTime: " + this.timeToString(completedTime) + System.lineSeparator() +
-                    "status: " + status + System.lineSeparator() +
-                    "handler: " + "not handled yet" + System.lineSeparator() +
+                    "ID: " + id + System.lineSeparator() +
+                    "Requester: " + requester.getFirstName() +  " " +requester.getLastName() + System.lineSeparator() +
+                    "Type: " + type + System.lineSeparator() +
+                    "Location: between Location1 and Location2"+System.lineSeparator() +
+                    "Location1: " + location1.getLongName() + System.lineSeparator() +
+                    "Location2: " + location2.getLongName() + System.lineSeparator() +
+                    "Description: " + description + System.lineSeparator() +
+                    "Created Time: " + createdTime.toString() + System.lineSeparator() +
+                    "Handled Time: " + this.timeToString(handledTime) + System.lineSeparator() +
+                    "Completed Time: " + this.timeToString(completedTime) + System.lineSeparator() +
+                    "Status: " + status + System.lineSeparator() +
+                    "Handler: " + "not handled yet" + System.lineSeparator() +
                     "" +System.lineSeparator() ;
         }
         else{
             return "" +System.lineSeparator()+
-                    "id: " + id + System.lineSeparator() +
-                    "requester: " + requester.getFirstName() + " " +requester.getLastName() + System.lineSeparator() +
-                    "type: " + type + System.lineSeparator() +
-                    "location1: " + location1.getLongName() + System.lineSeparator() +
-                    "location2: " + location2.getLongName() + System.lineSeparator() +
-                    "description: " + description + System.lineSeparator() +
-                    "createdTime: " + createdTime.toString() + System.lineSeparator() +
-                    "handledTime: " + this.timeToString(handledTime) + System.lineSeparator() +
-                    "completedTime: " + this.timeToString(completedTime) + System.lineSeparator() +
-                    "status: " + status + System.lineSeparator() +
-                    "handler: " + handler.getUsername() + System.lineSeparator() +
+                    "ID: " + id + System.lineSeparator() +
+                    "Requester: " + requester.getFirstName() + " " +requester.getLastName() + System.lineSeparator() +
+                    "Type: " + type + System.lineSeparator() +
+                    "Location: between Location1 and Location2"+System.lineSeparator() +
+                    "Location1: " + location1.getLongName() + System.lineSeparator() +
+                    "Location2: " + location2.getLongName() + System.lineSeparator() +
+                    "Description: " + description + System.lineSeparator() +
+                    "CreatedTime: " + createdTime.toString() + System.lineSeparator() +
+                    "HandledTime: " + this.timeToString(handledTime) + System.lineSeparator() +
+                    "CompletedTime: " + this.timeToString(completedTime) + System.lineSeparator() +
+                    "Status: " + status + System.lineSeparator() +
+                    "Handler: " + handler.getUsername() + System.lineSeparator() +
                     "" +System.lineSeparator() ;
         }
     }
