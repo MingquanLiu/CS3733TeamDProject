@@ -171,19 +171,19 @@ public class MainUI {
     }
     public void depthFirstHandler(){
         System.out.println("depth first path drawing");
-        List<NodeData> p = manager.startPathfind(startLocation.getId(), endLocation.getId(), searchType.DFS);
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.DFS);
         displayPath(p);
         btnSendPath.setVisible(true);
     }
     public void breadthFirstHandler(){
-        System.out.println("depth first path drawing");
-        List<NodeData> p = manager.startPathfind(startLocation.getId(), endLocation.getId(), searchType.BFS);
+        System.out.println("Breadth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.BFS);
         displayPath(p);
         btnSendPath.setVisible(true);
     }
     public void dijkstraHandler(){
         System.out.println("depth first path drawing");
-        List<NodeData> p = manager.startPathfind(startLocation.getId(), endLocation.getId(), searchType.DIJKSTRA);
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.DIJKSTRA);
         displayPath(p);
         btnSendPath.setVisible(true);
     }
