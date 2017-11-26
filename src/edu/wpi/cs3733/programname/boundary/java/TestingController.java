@@ -2,6 +2,8 @@ package edu.wpi.cs3733.programname.boundary.java;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import javafx.animation.FadeTransition;
+import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import jdk.management.resource.ResourceContext;
 import sun.plugin.javascript.navig.Anchor;
 
@@ -57,26 +60,36 @@ public class TestingController implements Initializable{
     @FXML
     private Label lblLoginStatus;
 
-    //hamburger
+    //hamburger pane and transitions
     @FXML
     private JFXHamburger burger;
     @FXML
     private AnchorPane paneControls;
     private HamburgerSlideCloseTransition burgerTransition;
     private boolean controlsVisible = false;
+    private FadeTransition controlsTransition;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
         burgerTransition = new HamburgerSlideCloseTransition(burger);
         burgerTransition.setRate(-1);
+
+        controlsTransition = new FadeTransition(new Duration(500), paneControls);
+        controlsTransition.setFromValue(0);
+        controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
     }
 
     public void openMenu(MouseEvent e){
         burgerTransition.setRate(burgerTransition.getRate()*-1);
         burgerTransition.play();
+
         controlsVisible = !controlsVisible;
+        controlsTransition.play();
         paneControls.setVisible(controlsVisible);
+
+        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
+        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
     }
     /*
     private ChangeListener<Number> zoomChange = new ChangeListener<Number>() {
