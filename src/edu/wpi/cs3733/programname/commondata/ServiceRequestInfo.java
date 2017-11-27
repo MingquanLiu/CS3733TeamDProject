@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.programname.commondata;
 
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
-
 public class ServiceRequestInfo {
     Integer serviceID;
     String sender;          // Employee userName

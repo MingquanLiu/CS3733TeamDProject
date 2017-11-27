@@ -5,9 +5,7 @@ import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
-import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 
 import java.util.List;
 import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
