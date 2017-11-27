@@ -24,31 +24,30 @@ public class DBPathfindIntegrationTest {
         CsvWriter mCsvWriter = new CsvWriter();
         conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
 
-        mDbTable.createNodesTables(TestDB);           // Makes nodes table
-        mCsvReader.insertNodes(conn,mCsvReader.readNodes(conn));
-        mCsvWriter.writeNodes(conn, mCsvReader.readNodes(conn));
+        mDbTable.createAllTables(TestDB);           // Makes nodes table
+        mCsvReader.insertNodes(conn,mCsvReader.getListOfNodes(conn));
+        mCsvWriter.writeNodes(conn, mCsvReader.getListOfNodes(conn));
         printTables.printNodesTable(conn);          // Pulls data in nodes table from the database and print it
 
-        // MapDedges.csv
-        mDbTable.createEdgesTables(TestDB);           // Makes nodes table
-        mCsvReader.insertEdges(conn,mCsvReader.readEdges(conn));
-        mCsvWriter.writeEdges(conn, mCsvReader.readEdges(conn));
-        printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
+
+//        mCsvReader.insertEdges(conn,mCsvReader.readEdges(conn));
+//        mCsvWriter.writeEdges(conn, mCsvReader.readEdges(conn));
+//        printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
     }
 
     @Test
     public void testBasicDbPathfind() {
         ManageController manager = new ManageController();
         NodeData hallwayOne = new NodeData("DHALL00102", new Coordinate(4770,1140), "2",
-                "HALL", "Hallway 1 Floor 2", "Hallway D0102");
+                "15 Francis","HALL", "Hallway 1 Floor 2", "Hallway D0102", "Team D");
         NodeData hallwayTwo = new NodeData("DHALL00202", new Coordinate(4750,1080), "2",
-                "HALL", "Hallway 2 Floor 2", "Hallway D0202");
+                "15 Francis", "HALL", "Hallway 2 Floor 2", "Hallway D0202", "Team D");
 
 
         List<NodeData> expected = new ArrayList<>();
         expected.add(hallwayTwo);
         expected.add(hallwayOne);
-        List<NodeData> result = manager.startPathfind(hallwayOne.getId(), hallwayTwo.getId());
+        List<NodeData> result = manager.startPathfind(hallwayOne.getNodeID(), hallwayTwo.getNodeID());
 
         int i = 0;
         for (NodeData data: result) {

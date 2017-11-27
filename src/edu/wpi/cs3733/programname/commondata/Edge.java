@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import java.util.LinkedList;
+
 public class Edge {
 
     private String firstNodeId;
@@ -8,7 +10,8 @@ public class Edge {
 
     /**
      * constructor for Coordinate-Represents the connection between two Nodes
-     * @param first - the starting point of a given Edge
+     *
+     * @param first  - the starting point of a given Edge
      * @param second - the ending point of a given Edge
      * @param edgeId - the unique identifier for a given Edge
      */
@@ -20,6 +23,7 @@ public class Edge {
 
     /**
      * getter for nodeID of first node of an edge
+     *
      * @return the nodeID of the first ID
      */
     public String getFirstNodeId() {
@@ -28,6 +32,7 @@ public class Edge {
 
     /**
      * setter for nodeID of first node of an edge
+     *
      * @param firstNodeId the nodeID of the first ID
      */
     public void setFirstNodeId(String firstNodeId) {
@@ -36,6 +41,7 @@ public class Edge {
 
     /**
      * getter for nodeID of second node of an edge
+     *
      * @return the nodeID of the second node
      */
     public String getSecondNodeId() {
@@ -44,6 +50,7 @@ public class Edge {
 
     /**
      * setter for nodeID of a second node of an edge
+     *
      * @param secondNodeId the nodeID of the second node
      */
     public void setSecondNodeId(String secondNodeId) {
@@ -52,6 +59,7 @@ public class Edge {
 
     /**
      * getter for ID of an edge
+     *
      * @return the ID of the edge
      */
     public String getEdgeId() {
@@ -60,6 +68,7 @@ public class Edge {
 
     /**
      * setter for ID of an edge
+     *
      * @param edgeId the ID of the edge
      */
     public void setEdgeId(String edgeId) {
@@ -68,6 +77,7 @@ public class Edge {
 
     /**
      * checks if generic object is equal
+     *
      * @param o any generic object
      * @return true if objects equal, else false
      */
@@ -85,6 +95,7 @@ public class Edge {
 
     /**
      * sets the hascode using nodeIDs
+     *
      * @return the hashcode
      */
     @Override

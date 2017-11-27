@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.programname;
 
-import edu.wpi.cs3733.programname.boundary.java.MainUI;
-import edu.wpi.cs3733.programname.database.DBTables;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
