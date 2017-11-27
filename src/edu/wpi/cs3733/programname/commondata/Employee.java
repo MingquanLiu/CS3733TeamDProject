@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.servicerequest.entity;
+package edu.wpi.cs3733.programname.commondata;
 
 public class Employee {
     private String username;

@@ -1,6 +1,4 @@
-package edu.wpi.cs3733.programname.servicerequest.entity;
-
-import edu.wpi.cs3733.programname.commondata.NodeData;
+package edu.wpi.cs3733.programname.commondata;
 
 import java.sql.Timestamp;
 import java.util.Date;

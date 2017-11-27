@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequestInfo;
 import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

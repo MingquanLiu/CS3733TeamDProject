@@ -5,8 +5,8 @@ import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.servicerequest.EmployeesQuery;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestsQuery;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.Employee;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

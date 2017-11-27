@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.programname.servicerequest;
 
+import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.DatabaseQueryController;
-import edu.wpi.cs3733.programname.servicerequest.entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

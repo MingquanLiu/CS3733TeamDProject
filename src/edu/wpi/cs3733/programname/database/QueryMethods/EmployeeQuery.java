@@ -3,7 +3,6 @@ package edu.wpi.cs3733.programname.database.QueryMethods;
 import edu.wpi.cs3733.programname.commondata.EmployeeInfo;
 import edu.wpi.cs3733.programname.commondata.ServiceRequestInfo;
 import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
