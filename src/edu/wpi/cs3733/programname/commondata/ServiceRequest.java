@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class ServiceRequest {
     private int id;
-    private Employee requester;
+    private Employee sender;
     private String type;
     private NodeData location1;
     private NodeData location2;
@@ -14,12 +14,12 @@ public class ServiceRequest {
     private Timestamp handledTime;
     private Timestamp completedTime;
     private String status;
-    private Employee handler;
+    private Employee receiver;
 
 
-    public ServiceRequest(int id, Employee requester, String type, NodeData location1, NodeData location2, String description) {
+    public ServiceRequest(int id, Employee sender, String type, NodeData location1, NodeData location2, String description) {
         this.id = id;
-        this.requester = requester;
+        this.sender = sender;
         this.type = type;
         this.location1 = location1;
         this.location2 = location2;
@@ -29,13 +29,13 @@ public class ServiceRequest {
         this.handledTime = null;
         this.completedTime = null;
         this.status = "unhandled";
-        this.handler = null;
+        this.receiver = null;
     }
 
-    public ServiceRequest(int id, Employee requester, String type, NodeData location1, NodeData location2,
-                          String description, Timestamp createdTime, Timestamp handledTime, Timestamp completedTime, String status, Employee handler) {
+    public ServiceRequest(int id, Employee sender, String type, NodeData location1, NodeData location2,
+                          String description, Timestamp createdTime, Timestamp handledTime, Timestamp completedTime, String status, Employee receiver) {
         this.id = id;
-        this.requester = requester;
+        this.sender = sender;
         this.type = type;
         this.location1 = location1;
         this.location2 = location2;
@@ -44,7 +44,7 @@ public class ServiceRequest {
         this.handledTime = handledTime;
         this.completedTime = completedTime;
         this.status = status;
-        this.handler = handler;
+        this.receiver = receiver;
     }
 
 
@@ -57,12 +57,12 @@ public class ServiceRequest {
         this.id = id;
     }
 
-    public Employee getRequester() {
-        return requester;
+    public Employee getsender() {
+        return sender;
     }
 
-    public void setRequester(Employee requester) {
-        this.requester = requester;
+    public void setsender(Employee sender) {
+        this.sender = sender;
     }
 
     public String getType() {
@@ -129,12 +129,12 @@ public class ServiceRequest {
         this.status = status;
     }
 
-    public Employee getHandler() {
-        return handler;
+    public Employee getreceiver() {
+        return receiver;
     }
 
-    public void setHandler(Employee handler) {
-        this.handler = handler;
+    public void setreceiver(Employee receiver) {
+        this.receiver = receiver;
     }
 
     private String timeToString(Timestamp time){
@@ -149,10 +149,10 @@ public class ServiceRequest {
 
     @Override
     public String toString() {
-        if (this.handler == null){
+        if (this.receiver == null){
             return "" +System.lineSeparator()+
                     "ID: " + id + System.lineSeparator() +
-                    "Requester: " + requester.getFirstName() +  " " +requester.getLastName() + System.lineSeparator() +
+                    "sender: " + sender.getFirstName() +  " " +sender.getLastName() + System.lineSeparator() +
                     "Type: " + type + System.lineSeparator() +
                     "Location: between Location1 and Location2"+System.lineSeparator() +
                     "Location1: " + location1.getLongName() + System.lineSeparator() +
@@ -162,13 +162,13 @@ public class ServiceRequest {
                     "Handled Time: " + this.timeToString(handledTime) + System.lineSeparator() +
                     "Completed Time: " + this.timeToString(completedTime) + System.lineSeparator() +
                     "Status: " + status + System.lineSeparator() +
-                    "Handler: " + "not handled yet" + System.lineSeparator() +
+                    "receiver: " + "not handled yet" + System.lineSeparator() +
                     "" +System.lineSeparator() ;
         }
         else{
             return "" +System.lineSeparator()+
                     "ID: " + id + System.lineSeparator() +
-                    "Requester: " + requester.getFirstName() + " " +requester.getLastName() + System.lineSeparator() +
+                    "sender: " + sender.getFirstName() + " " +sender.getLastName() + System.lineSeparator() +
                     "Type: " + type + System.lineSeparator() +
                     "Location: between Location1 and Location2"+System.lineSeparator() +
                     "Location1: " + location1.getLongName() + System.lineSeparator() +
@@ -178,7 +178,7 @@ public class ServiceRequest {
                     "HandledTime: " + this.timeToString(handledTime) + System.lineSeparator() +
                     "CompletedTime: " + this.timeToString(completedTime) + System.lineSeparator() +
                     "Status: " + status + System.lineSeparator() +
-                    "Handler: " + handler.getUsername() + System.lineSeparator() +
+                    "receiver: " + receiver.getUsername() + System.lineSeparator() +
                     "" +System.lineSeparator() ;
         }
     }
@@ -191,7 +191,7 @@ public class ServiceRequest {
         ServiceRequest that = (ServiceRequest) o;
 
         if (getId() != that.getId()) return false;
-        if (!getRequester().equals(that.getRequester())) return false;
+        if (!getsender().equals(that.getsender())) return false;
         if (!getType().equals(that.getType())) return false;
         if (!getLocation1().equals(that.getLocation1())) return false;
         if (!getLocation2().equals(that.getLocation2())) return false;
@@ -200,13 +200,13 @@ public class ServiceRequest {
         if (!getHandledTime().equals(that.getHandledTime())) return false;
         if (!getCompletedTime().equals(that.getCompletedTime())) return false;
         if (!getStatus().equals(that.getStatus())) return false;
-        return getHandler().equals(that.getHandler());
+        return getreceiver().equals(that.getreceiver());
     }
 
     @Override
     public int hashCode() {
         int result = getId();
-        result = 31 * result + getRequester().hashCode();
+        result = 31 * result + getsender().hashCode();
         result = 31 * result + getType().hashCode();
         result = 31 * result + getLocation1().hashCode();
         result = 31 * result + getLocation2().hashCode();
@@ -215,7 +215,7 @@ public class ServiceRequest {
         result = 31 * result + getHandledTime().hashCode();
         result = 31 * result + getCompletedTime().hashCode();
         result = 31 * result + getStatus().hashCode();
-        result = 31 * result + getHandler().hashCode();
+        result = 31 * result + getreceiver().hashCode();
         return result;
     }
 }
