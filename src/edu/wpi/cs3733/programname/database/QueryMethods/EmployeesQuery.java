@@ -52,7 +52,7 @@ public class EmployeesQuery {
         Employee queryResult = null;
         ArrayList<Employee> group = new ArrayList<Employee>();
         try {
-            String sql = "SELECT * FROM Employees WHERE serviceType = " + type;
+            String sql = "SELECT * FROM Employees WHERE serviceType = '" + type + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String username;
@@ -85,7 +85,7 @@ public class EmployeesQuery {
     public Employee queryEmployeeByUsername(String username){
         Employee queryResult = null;
         try {
-            String sql = "SELECT * FROM Employees WHERE username = " + username;
+            String sql = "SELECT * FROM Employees WHERE username = '" + username +"'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String password;
