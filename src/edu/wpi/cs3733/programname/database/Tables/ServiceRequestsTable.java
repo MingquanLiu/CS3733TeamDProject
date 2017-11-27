@@ -10,14 +10,14 @@ public class ServiceRequestsTable {
         try {
 
             String newTable = "CREATE TABLE ServiceRequest(serviceID Integer, sender VARCHAR(15), " +
-                    "receiver VARCHAR(15), node1ID VARCHAR(10), node2ID VARCHAR(10), " +
+                    "receiver VARCHAR(15), node1ID VARCHAR(20), node2ID VARCHAR(20), " +
                     "serviceType VARCHAR(25), status VARCHAR(10), description VARCHAR(500), requestTime VARCHAR(30), " +
                     "handleTime VARCHAR(30), completionTime VARCHAR(30)," +
                     "CONSTRAINT ServiceRequests PRIMARY KEY (serviceID)," +
                     "CONSTRAINT ServiceRequests_FK1 FOREIGN KEY (sender) REFERENCES Employees (userName)," +
                     "CONSTRAINT ServiceRequests_FK2 FOREIGN KEY (receiver) REFERENCES Employees (userName)," +
-                    "CONSTRAINT ServiceRequests_FK3 FOREIGN KEY (node1) REFERENCES Nodes (nodeID)," +
-                    "CONSTRAINT ServiceRequests_FK4 FOREIGN KEY (node2) REFERENCES Nodes (nodeID))";
+                    "CONSTRAINT ServiceRequests_FK3 FOREIGN KEY (node1ID) REFERENCES Nodes (nodeID)," +
+                    "CONSTRAINT ServiceRequests_FK4 FOREIGN KEY (node2ID) REFERENCES Nodes (nodeID))";
 
             // Creates new StaffTitles table
             conn.execute(newTable);

@@ -20,7 +20,7 @@ public class MapAedges {
                 Scanner inputStream = new Scanner(file);
 
                 // Ignores first line in csv file i.e. header row
-                inputStream.hasNextLine();
+                inputStream.nextLine();
 
                 // Reads all lines in the file
                 while (inputStream.hasNextLine()) {
@@ -45,3 +45,5 @@ public class MapAedges {
         return edgeList;
     } // end readEdges
 }
+
+
