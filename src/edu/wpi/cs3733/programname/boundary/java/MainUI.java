@@ -416,7 +416,6 @@ public class MainUI {
             }
         }
         return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null);
-
     }
 
     private void showNodeInfo(NodeData nodeData){

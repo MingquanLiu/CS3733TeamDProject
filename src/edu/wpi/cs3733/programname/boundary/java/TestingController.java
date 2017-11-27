@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname.boundary.java;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
 import javafx.scene.Node;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.NodeData;
@@ -107,6 +108,8 @@ public class TestingController implements Initializable{
     final double minWidth = 1500;
     final double maxWidth = 5000;
 
+    //showing nodes
+    private String selectingLocation = "";
 
 
     //this runs on startup
@@ -121,17 +124,95 @@ public class TestingController implements Initializable{
         paneControls.setVisible(controlsVisible);
 
         imgMap.setFitWidth(imgMap.getFitWidth()*0.3138);
-        //panningPane.setPrefWidth(panningPane.getPrefWidth()*0.3138);
         currentScale = 0.3138;
 
         manager = new ManageController();
 
-        //gc = drawingCanvas.getGraphicsContext2D();
     }
 
     //topmost methods are newest
 
-    //pathing functions
+    //displaying node info on click
+    /*
+    public void displayNodeInfo(MouseEvent e){
+        clearMain();
+        int x = (int) e.getX();
+        int y = (int) e.getY();
+        switch (selectingLocation) {
+            //case for displaying nearest node info when nothing is selected
+            case "":
+                System.out.println("Get in findNodeData");
+                List<NodeData> nodes = manager.getAllNodeData();
+                NodeData mClickedNode= getClosestNode(nodes,x,y);
+                mClickedNode = manager.getNodeData(mClickedNode.getId());
+                showNode(mClickedNode);
+                showNodeInfo(mClickedNode);
+                break;
+                // the rest of the situations when you click on the map
+            case "nodeAdd":
+                locationsSelected = true;
+                prevSelectX = UICoordinateToDBCoordinate(x,initX);
+                prevSelectY = UICoordinateToDBCoordinate(y,initY);
+                nodeAddCoords.setText(prevSelectX + ", " + prevSelectY);
+                drawCycle(prevSelectX,prevSelectY);
+                nodeAdditionPane.setVisible(true);
+                selectingLocation = "";
+                break;
+            case "maintenance":
+                locationsSelected = true;
+                requestDescription.setText(requestDescription.getText() + "\n at " + x + ", " + y);
+                serviceRequester.setVisible(true);
+                selectingLocation = "";
+                break;
+            case "addEdge":
+                if (addEdgeN1.equals("")  || addEdgeN2.equals("")) {
+                    nodes = manager.getAllNodeData();
+                    mClickedNode = getClosestNode(nodes,x,y);
+                    showNode(mClickedNode);
+                    if (addEdgeN1.equals("")) {
+                        addEdgeN1 = mClickedNode.getId();
+                    } else if (addEdgeN2.equals("")) {
+                        addEdgeN2 = mClickedNode.getId();
+                    }
+                    if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
+                        clearMain();
+                        NodeData n1 = manager.getNodeData(addEdgeN1);
+                        NodeData n2 = manager.getNodeData(addEdgeN2);
+                        showEdge(n1,n2);
+                        manager.addEdge(addEdgeN1, addEdgeN2);
+                        addEdge.setText("Add Edge");
+                        addEdgeN1 = "";
+                        addEdgeN2 = "";
+                        selectingLocation = "";
+                    }
+                }
+                break;
+
+        }
+    }
+    private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
+        int dbX = (int)(mouseX*(1/currentScale));
+        int dbY = (int)(mouseY*(1/currentScale));
+        int resultX = 0;
+        int resultY = 0;
+        String resultNodeId = "";
+        double d = 0;
+        for (NodeData node : nodeDataList) {
+            int nodeX = node.getX();
+            int nodeY = node.getY();
+//                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
+            double temp = Math.sqrt(Math.pow(dbX - nodeX, 2) + Math.pow(dbY - nodeY, 2));
+            if (temp < d||d==0) {
+                d = temp;
+                resultX = nodeX;
+                resultY = nodeY;
+                resultNodeId = node.getId();
+            }
+        }
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null);
+    }
+    */
+    //pathfinding functions
     public void goButtonHandler(){
         System.out.println("drawing path");
         currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText());
