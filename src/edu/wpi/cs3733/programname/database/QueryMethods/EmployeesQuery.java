@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.servicerequest;
+package edu.wpi.cs3733.programname.database.QueryMethods;
 
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
@@ -30,8 +30,8 @@ public class EmployeesQuery {
             int sysAdminInt;
             String serviceType;
             while(result.next()) {
-                username = result.getString("username");
-                password = result.getString("password");
+                username = result.getString("userName");
+                password = result.getString("passWord");
                 firstName = result.getString("firstName");
                 middleName = result.getString("middleName");
                 lastName = result.getString("lastName");

@@ -2,6 +2,8 @@ package edu.wpi.cs3733.programname.servicerequest;
 
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
+import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequestMessage;
