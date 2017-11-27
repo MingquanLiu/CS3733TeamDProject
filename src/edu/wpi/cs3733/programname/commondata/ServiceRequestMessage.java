@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.servicerequest.entity;
+package edu.wpi.cs3733.programname.commondata;
 
 import com.sun.mail.smtp.SMTPMessage;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;

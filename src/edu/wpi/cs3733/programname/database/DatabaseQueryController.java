@@ -1,14 +1,13 @@
 package edu.wpi.cs3733.programname.database;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.EmployeeInfo;
+import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequestInfo;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery;
-import edu.wpi.cs3733.programname.database.QueryMethods.EmployeeQuery;
-import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
-import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestQuery;
 
+import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
+import edu.wpi.cs3733.programname.servicerequest.EmployeesQuery;
 
 
 import java.sql.ResultSet;
@@ -40,9 +39,9 @@ public class DatabaseQueryController {
     }
 
 
-    public List<ServiceRequestInfo> queryServiceRequesByID(DBConnection dbConnection, String srID) {
-        return ServiceRequestQuery.queryByID(dbConnection, srID);
-    }
+//    public List<ServiceRequest> queryServiceRequesByID(DBConnection dbConnection, String srID) {
+//        return ServiceRequestQuery.queryByID(dbConnection, srID);
+//    }
 
 
     // Get List of  all data
@@ -56,14 +55,14 @@ public class DatabaseQueryController {
     }
 
 
-    public List<EmployeeInfo> getAllEmployeeInfo() {
-        return EmployeeQuery.getAllEmployeeInfo(dbConnection);
-    }
-
-
-    public List<ServiceRequestInfo> getAllServiceRequestInfo() {
-        return ServiceRequestQuery.getAllServiceRequest(dbConnection);
-    }
+//    public List<Employee> getAllEmployeeInfo() {
+//        return EmployeesQuery.getAllEmployee(dbConnection);
+//    }
+//
+//
+//    public List<ServiceRequest> getAllServiceRequestInfo() {
+//        return ServiceRequestQuery.getAllServiceRequest(dbConnection);
+//    }
 
 
 
@@ -73,27 +72,27 @@ public class DatabaseQueryController {
         return NodesQuery.queryNodeByType(dbConnection, nType);
     }
 
-    public List<ServiceRequestInfo> queryServiceRequesByType(DBConnection dbConnection, String type) {
-        return ServiceRequestQuery.queryByType(dbConnection, type);
-    }
-
-
-    // Query by status
-    public List<ServiceRequestInfo> queryServiceRequesByStatus(DBConnection dbConnection, String status) {
-        return ServiceRequestQuery.queryByStatus(dbConnection, status);
-    }
-
-
-    // Query by userName
-    public EmployeeInfo queryEmployeesByUserName(DBConnection dbConnection, String uName){
-        return EmployeeQuery.queryByUser(dbConnection, uName);
-    }
-
-
-    // Query by fullName
-    public EmployeeInfo queryEmployeesByFullName(DBConnection dbConnection, String fName, String mName, String lName){
-        return EmployeeQuery.queryByName(dbConnection, fName, mName, lName);
-    }
+//    public List<ServiceRequest> queryServiceRequesByType(DBConnection dbConnection, String type) {
+//        return ServiceRequestQuery.queryByType(dbConnection, type);
+//    }
+//
+//
+//    // Query by status
+//    public List<ServiceRequest> queryServiceRequesByStatus(DBConnection dbConnection, String status) {
+//        return ServiceRequestQuery.queryByStatus(dbConnection, status);
+//    }
+//
+//
+//    // Query by userName
+//    public Employee queryEmployeesByUserName(DBConnection dbConnection, String uName){
+//        return EmployeesQuery.queryByUsername(dbConnection, uName);
+//    }
+//
+//
+//    // Query by fullName
+//    public Employee queryEmployeesByFullName(DBConnection dbConnection, String fName, String mName, String lName){
+//        return EmployeesQuery.queryByName(dbConnection, fName, mName, lName);
+//    }
 
 
 
