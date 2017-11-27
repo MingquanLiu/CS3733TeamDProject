@@ -2,39 +2,53 @@ package edu.wpi.cs3733.programname.boundary.java;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import javafx.scene.Node;
+import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.NodeData;
 import javafx.animation.FadeTransition;
-import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import jdk.management.resource.ResourceContext;
-import sun.plugin.javascript.navig.Anchor;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
 public class TestingController implements Initializable{
+
+    //FXML objects
     @FXML
-    private ImageView imgMap;
+    private StackPane drawingStack;
+    @FXML
+    private AnchorPane mainPane;
     @FXML
     private ScrollPane paneScroll;
     @FXML
-    private Slider slideMapZoom;
+    private Canvas drawingCanvas;
+    @FXML
+    private ImageView imgMap;
+    @FXML
+    private AnchorPane panningPane;
 
     //map switching objects
     @FXML
@@ -50,9 +64,6 @@ public class TestingController implements Initializable{
     private Button btnZoomIn;
     @FXML
     private Button btnZoomOut;
-    private double currentScale = 1.0;
-    private double minWidth = 1500;
-    private double maxWidth = 5000;
 
     //login popup objects
     @FXML
@@ -65,10 +76,40 @@ public class TestingController implements Initializable{
     private JFXHamburger burger;
     @FXML
     private AnchorPane paneControls;
+
+
+    //location search
+    @FXML
+    private Button btnGo;
+    @FXML
+    private Button clear;
+    @FXML
+    private TextField txtStartLocation;
+    @FXML
+    private TextField txtEndLocation;
+
+
+    //global variables, not FXML tied
+    private ManageController manager;
+
+    //locations search
+    private List<Shape> drawings = new ArrayList<>();
+    private GraphicsContext gc;
+    private List<NodeData> currentPath;
+
+    //hamburger transitions
     private HamburgerSlideCloseTransition burgerTransition;
     private boolean controlsVisible = false;
     private FadeTransition controlsTransition;
 
+    //zooming/panning
+    private double currentScale;
+    final double minWidth = 1500;
+    final double maxWidth = 5000;
+
+
+
+    //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb){
         burgerTransition = new HamburgerSlideCloseTransition(burger);
@@ -78,8 +119,61 @@ public class TestingController implements Initializable{
         controlsTransition.setFromValue(0);
         controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
+
+        imgMap.setFitWidth(imgMap.getFitWidth()*0.3138);
+        //panningPane.setPrefWidth(panningPane.getPrefWidth()*0.3138);
+        currentScale = 0.3138;
+
+        manager = new ManageController();
+
+        //gc = drawingCanvas.getGraphicsContext2D();
     }
 
+    //topmost methods are newest
+
+    //pathing functions
+    public void goButtonHandler(){
+        System.out.println("drawing path");
+        currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText());
+        displayPath(currentPath);
+    }
+
+    private void displayPath(List<NodeData> path){
+        clearMain();
+        System.out.println("drawing path");
+        NodeData prev = path.get(0);
+        int x = (int) (prev.getX()*currentScale);
+        int y = (int) (prev.getY()*currentScale);
+        System.out.println(x + ", " + y);
+        ArrayList<Line> lines = new ArrayList<>();
+        for(int i = 1; i < path.size(); i++){
+            Line l = new Line();
+            NodeData n = path.get(i);
+            l.setStroke(Color.BLUE);
+            l.setStrokeWidth(5.0);
+            l.setStartX(prev.getX()*currentScale);
+            l.setStartY(prev.getY()*currentScale);
+            l.setEndX(n.getX()*currentScale);
+            l.setEndY(n.getY()*currentScale);
+            lines.add(l);
+            prev = n;
+        }
+        drawings.addAll(lines);
+        panningPane.getChildren().addAll(lines);
+    }
+
+    private void clearMain(){
+        if(drawings.size() > 0){
+            for(Shape shape:drawings){
+                System.out.println("success remove");
+                panningPane.getChildren().remove(shape);
+            }
+            drawings = new ArrayList<>();
+        }
+    }
+
+
+    //hamburger handling
     public void openMenu(MouseEvent e){
         burgerTransition.setRate(burgerTransition.getRate()*-1);
         burgerTransition.play();
@@ -91,20 +185,6 @@ public class TestingController implements Initializable{
         controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
         controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
     }
-    /*
-    private ChangeListener<Number> zoomChange = new ChangeListener<Number>() {
-        @Override
-        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            imgMap.setFitHeight((double)newValue * 1000.0);
-            imgMap.setFitWidth((double)newValue * 1000.0);
-        }
-    };
-    */
-
-    //topmost methods are newest
-
-    //hamburger handling
-
 
     //popup methods
     public void popupHandler(ActionEvent e){
@@ -131,14 +211,25 @@ public class TestingController implements Initializable{
     }
     //map zooming method
     public void zoomHandler(ActionEvent e){
+
         if(e.getSource() == btnZoomOut){
-            imgMap.setFitWidth(imgMap.getFitWidth()*.9);
+            if(imgMap.getFitWidth() <= minWidth){
+                return;
+            }
+            imgMap.setFitWidth(Math.max(imgMap.getFitWidth()*.9,minWidth));
             currentScale *= 0.9;
         }
         else{
-            imgMap.setFitWidth(imgMap.getFitWidth()*1.1);
+            if(imgMap.getFitWidth() >= maxWidth){
+                return;
+            }
+            imgMap.setFitWidth(Math.min(imgMap.getFitWidth()*1.1, maxWidth));
             currentScale *= 1.1;
         }
+        if(!(currentPath == null)) {
+            displayPath(currentPath);
+        }
+        System.out.println(currentScale);
     }
 
     //map switching methods
@@ -174,13 +265,4 @@ public class TestingController implements Initializable{
         System.out.println(e.getX() + ", " + e.getY());
     }
 
-    /*
-    public void handleZoom(ActionEvent e) {
-        System.out.println("zooming");
-            double change = slideMapZoom.getValue();
-            imgMap.setScaleX(imgMap.getScaleX()*change);
-            imgMap.setScaleY(imgMap.getScaleY()*change);
-
-    }
-    */
 }

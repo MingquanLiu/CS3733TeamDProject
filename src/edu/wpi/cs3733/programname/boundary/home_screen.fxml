@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -15,19 +14,20 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <content>
-                <ImageView fx:id="imgMap" fitHeight="3400.0" fitWidth="5000.0" onMouseClicked="#showMouseCoords" pickOnBounds="true" preserveRatio="true">
-                    <image>
+         <content>
+            <AnchorPane fx:id="panningPane">
+               <children>
+                  <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
                         <Image url="@Resources/Floor_2.png" />
-                    </image>
-                    <viewport>
-                        <Rectangle2D />
-                    </viewport>
-                </ImageView>
-            </content>
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </content>
         </ScrollPane>
         <AnchorPane layoutX="50.0" layoutY="20.0" prefHeight="111.0" prefWidth="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
             <children>
@@ -74,7 +74,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="80.0">
+        <AnchorPane prefHeight="75.0" prefWidth="106.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="80.0">
             <children>
                 <Label fx:id="lblLoginStatus" layoutX="-4.0" layoutY="28.0" text="not logged in" />
             <JFXButton fx:id="btnLogin" onAction="#popupHandler" text="Login" />
@@ -99,16 +99,17 @@
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
                      </GridPane.margin></Label>
-                  <JFXTextField promptText="Start Location" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtStartLocation" promptText="Start Location" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField promptText="End Location" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtEndLocation" promptText="End Location" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="2.0" />
                      </GridPane.margin>
                   </JFXTextField>
+                  <JFXButton fx:id="btnGo" onAction="#goButtonHandler" style="-fx-background-color: green;" text="go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
                     </children>
                 </GridPane>
             </children>

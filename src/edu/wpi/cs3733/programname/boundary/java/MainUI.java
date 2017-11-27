@@ -23,7 +23,7 @@ import static javafx.scene.paint.Color.*;
 import static javax.print.attribute.standard.Chromaticity.COLOR;
 
 public class MainUI {
-    //locatiosn search
+    //location search
     @FXML
     private Button go;
     @FXML
@@ -477,6 +477,7 @@ public class MainUI {
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0);
+            l.setStartX(DBCoordinateToUICoordinate(prev.getX(),initX));
             l.setStartX(DBCoordinateToUICoordinate(prev.getX(),initX));
             l.setStartY(DBCoordinateToUICoordinate(prev.getY(),initY));
             l.setEndX(DBCoordinateToUICoordinate(n.getX(),initX));
