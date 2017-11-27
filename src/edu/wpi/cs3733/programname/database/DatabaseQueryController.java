@@ -6,7 +6,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequestInfo;
 import edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
-
+import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class DatabaseQueryController {
 
 
     public List<ServiceRequestInfo> queryServiceRequesByID(DBConnection dbConnection, String srID) {
-        return ServiceRequestQuery.queryByID(dbConnection, srID);
+        return ServiceRequestsQuery.queryByID(dbConnection, srID);
     }
 
 

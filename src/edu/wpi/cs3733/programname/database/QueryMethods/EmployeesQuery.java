@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
 import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
+import edu.wpi.cs3733.programname.commondata.Employee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,8 +30,8 @@ public class EmployeesQuery {
             int sysAdminInt;
             String serviceType;
             while(result.next()) {
-                username = result.getString("userName");
-                password = result.getString("passWord");
+                username = result.getString("username");
+                password = result.getString("password");
                 firstName = result.getString("firstName");
                 middleName = result.getString("middleName");
                 lastName = result.getString("lastName");
