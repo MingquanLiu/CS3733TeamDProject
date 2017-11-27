@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname;
 
+
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
@@ -7,6 +8,7 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
+
 import java.util.List;
 import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
 
@@ -20,6 +22,8 @@ public class ManageController {
     private DatabaseQueryController dbQueryController;
     private DatabaseModificationController dbModController;
     private ServiceRequestController serviceController;
+    private EmployeesQuery employeesQuery;
+    private ServiceRequestsQuery serviceRequestsQuery;
 
     public ManageController() {
         this.dbConnection = new DBConnection();
@@ -28,7 +32,7 @@ public class ManageController {
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
-        this.serviceController = new ServiceRequestController();
+        this.serviceController = new ServiceRequestController(dbConnection, employeesQuery, serviceRequestsQuery);
         CsvReader mCsvReader = new CsvReader();
         createAllTables(dbConnection);
         mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.getListOfNodes(dbConnection.getConnection()));
@@ -78,10 +82,27 @@ public class ManageController {
         this.dbModController.editNode(data);
     }
 
-    public void sendServiceRequest(String type) {
-        Employee emp = new Employee("me", 1, false);
-        this.serviceController.createServiceRequest(emp, type);
-    }
+//    public List<Employee> queryEmployeeByRequestType(String requestType) {
+//        return dbQueryController.queryEmployeesByType(requestType);
+//    }
+
+//    public void createServiceRequest(Employee sender, String type, String description, NodeData location1,
+//                                     NodeData location2) {
+//         serviceController.createServiceRequest(sender, type, null, location1,
+//                location2, description);
+//    }
+
+//    public void assignServiceRequest(ServiceRequest request, Employee recipient) {
+//        ArrayList<Employee> recipientList = new ArrayList<Employee>();
+//        recipientList.add(recipient);
+//        serviceController.assignRequest(request, recipientList);
+//    }
+
+//    public void assignServiceRequest(ServiceRequest request, String requestType) {
+//        ArrayList<Employee> recipients = dbQueryController.queryEmployeesByType(requestType);
+//        serviceController.assignRequest(request, recipients);
+//    }
+
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
     }
