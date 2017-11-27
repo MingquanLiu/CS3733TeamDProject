@@ -335,6 +335,7 @@ public class MainUI {
      * @param e the instance of a mouse click
      */
     public void displayNodeInfo(MouseEvent e){
+        System.out.println("Mouse Clicked");
         clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();

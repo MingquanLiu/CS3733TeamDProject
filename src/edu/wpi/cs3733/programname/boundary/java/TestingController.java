@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
@@ -34,14 +35,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static javafx.scene.paint.Color.RED;
+
 
 public class TestingController implements Initializable{
 
     //FXML objects
     @FXML
     private StackPane drawingStack;
-    @FXML
-    private AnchorPane mainPane;
     @FXML
     private ScrollPane paneScroll;
     @FXML
@@ -131,10 +132,32 @@ public class TestingController implements Initializable{
     }
 
     //topmost methods are newest
+    private void drawCycle(int x, int y){
+        Circle c = new Circle(x, y, 5, RED);
+        panningPane.getChildren().add(c);
+        drawings.add(c);
+    }
+
+    private void showNode(NodeData n){
+        drawCycle((int)(n.getX()*currentScale),(int)(n.getY()*currentScale));
+    }
+
+    private void showNodeInfo(NodeData nodeData){
+        int dbX = nodeData.getX();
+        int dbY = nodeData.getY();
+        System.out.println("Node Coordinate: "+dbX+","+dbY+" Node Name: "+nodeData.getLongName());
+//        nodeInfoPane.setLayoutX(DBCoordinateToUICoordinate(dbX,initX) + 3);
+//        nodeInfoPane.setLayoutY(DBCoordinateToUICoordinate(dbY,initY) + 3);
+//        nodeInfoPane.setVisible(true);
+//        nodeInfoLocation.setText(dbX + ", " + dbY);
+//        nodeInfoType.setText("" + nodeData.getType());
+//        nodeInfoLongName.setText("" + nodeData.getLongName());
+//        nodeInfoShortName.setText("" + nodeData.getShortName());
+    }
 
     //displaying node info on click
-    /*
-    public void displayNodeInfo(MouseEvent e){
+
+    public void mouseClickHandler(MouseEvent e){
         clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
@@ -149,44 +172,44 @@ public class TestingController implements Initializable{
                 showNodeInfo(mClickedNode);
                 break;
                 // the rest of the situations when you click on the map
-            case "nodeAdd":
-                locationsSelected = true;
-                prevSelectX = UICoordinateToDBCoordinate(x,initX);
-                prevSelectY = UICoordinateToDBCoordinate(y,initY);
-                nodeAddCoords.setText(prevSelectX + ", " + prevSelectY);
-                drawCycle(prevSelectX,prevSelectY);
-                nodeAdditionPane.setVisible(true);
-                selectingLocation = "";
-                break;
-            case "maintenance":
-                locationsSelected = true;
-                requestDescription.setText(requestDescription.getText() + "\n at " + x + ", " + y);
-                serviceRequester.setVisible(true);
-                selectingLocation = "";
-                break;
-            case "addEdge":
-                if (addEdgeN1.equals("")  || addEdgeN2.equals("")) {
-                    nodes = manager.getAllNodeData();
-                    mClickedNode = getClosestNode(nodes,x,y);
-                    showNode(mClickedNode);
-                    if (addEdgeN1.equals("")) {
-                        addEdgeN1 = mClickedNode.getId();
-                    } else if (addEdgeN2.equals("")) {
-                        addEdgeN2 = mClickedNode.getId();
-                    }
-                    if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
-                        clearMain();
-                        NodeData n1 = manager.getNodeData(addEdgeN1);
-                        NodeData n2 = manager.getNodeData(addEdgeN2);
-                        showEdge(n1,n2);
-                        manager.addEdge(addEdgeN1, addEdgeN2);
-                        addEdge.setText("Add Edge");
-                        addEdgeN1 = "";
-                        addEdgeN2 = "";
-                        selectingLocation = "";
-                    }
-                }
-                break;
+//            case "nodeAdd":
+//                locationsSelected = true;
+//                prevSelectX = UICoordinateToDBCoordinate(x,initX);
+//                prevSelectY = UICoordinateToDBCoordinate(y,initY);
+//                nodeAddCoords.setText(prevSelectX + ", " + prevSelectY);
+//                drawCycle(prevSelectX,prevSelectY);
+//                nodeAdditionPane.setVisible(true);
+//                selectingLocation = "";
+//                break;
+//            case "maintenance":
+//                locationsSelected = true;
+//                requestDescription.setText(requestDescription.getText() + "\n at " + x + ", " + y);
+//                serviceRequester.setVisible(true);
+//                selectingLocation = "";
+//                break;
+//            case "addEdge":
+//                if (addEdgeN1.equals("")  || addEdgeN2.equals("")) {
+//                    nodes = manager.getAllNodeData();
+//                    mClickedNode = getClosestNode(nodes,x,y);
+//                    showNode(mClickedNode);
+//                    if (addEdgeN1.equals("")) {
+//                        addEdgeN1 = mClickedNode.getId();
+//                    } else if (addEdgeN2.equals("")) {
+//                        addEdgeN2 = mClickedNode.getId();
+//                    }
+//                    if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
+//                        clearMain();
+//                        NodeData n1 = manager.getNodeData(addEdgeN1);
+//                        NodeData n2 = manager.getNodeData(addEdgeN2);
+//                        showEdge(n1,n2);
+//                        manager.addEdge(addEdgeN1, addEdgeN2);
+//                        addEdge.setText("Add Edge");
+//                        addEdgeN1 = "";
+//                        addEdgeN2 = "";
+//                        selectingLocation = "";
+//                    }
+//                }
+//                break;
 
         }
     }
@@ -211,7 +234,7 @@ public class TestingController implements Initializable{
         }
         return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null);
     }
-    */
+
     //pathfinding functions
     public void goButtonHandler(){
         System.out.println("drawing path");
@@ -231,7 +254,7 @@ public class TestingController implements Initializable{
             Line l = new Line();
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
-            l.setStrokeWidth(5.0);
+            l.setStrokeWidth(5.0*currentScale);
             l.setStartX(prev.getX()*currentScale);
             l.setStartY(prev.getY()*currentScale);
             l.setEndX(n.getX()*currentScale);
@@ -282,30 +305,26 @@ public class TestingController implements Initializable{
             Stage loginStage = new Stage();
             loginStage.setScene(newScene);
             loginStage.showAndWait();
-
             boolean loggedIn = loader.<LoginPopup>getController().getLoggedIn();
-
             lblLoginStatus.setText("logged in");
-
-
         }
     }
     //map zooming method
     public void zoomHandler(ActionEvent e){
-
+        clearMain();
         if(e.getSource() == btnZoomOut){
             if(imgMap.getFitWidth() <= minWidth){
                 return;
             }
-            imgMap.setFitWidth(Math.max(imgMap.getFitWidth()*.9,minWidth));
-            currentScale *= 0.9;
+            imgMap.setFitWidth(Math.max(imgMap.getFitWidth()*.8,minWidth));
+            currentScale *= 0.8;
         }
         else{
             if(imgMap.getFitWidth() >= maxWidth){
                 return;
             }
-            imgMap.setFitWidth(Math.min(imgMap.getFitWidth()*1.1, maxWidth));
-            currentScale *= 1.1;
+            imgMap.setFitWidth(Math.min(imgMap.getFitWidth()*1.2, maxWidth));
+            currentScale *= 1.2;
         }
         if(!(currentPath == null)) {
             displayPath(currentPath);
@@ -325,9 +344,9 @@ public class TestingController implements Initializable{
             System.out.println("down to floor" + floor);
             setFloor();
         }
-
     }
-    public void setFloor(){
+
+    private void setFloor(){
         Image oldImg = imgMap.getImage();
         String oldUrl = oldImg.impl_getUrl();  //using a deprecated method for lack of a better solution currently
         System.out.println("old image: " + oldUrl);
@@ -345,5 +364,6 @@ public class TestingController implements Initializable{
     public void showMouseCoords(MouseEvent e){
         System.out.println(e.getX() + ", " + e.getY());
     }
+
 
 }
