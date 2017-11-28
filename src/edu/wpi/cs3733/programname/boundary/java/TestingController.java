@@ -291,6 +291,11 @@ public class TestingController implements Initializable{
         currentNodes = new ArrayList<>();
     }
 
+    private void relocateNodeInfoPane(){
+        if(!nodeInfoLocation.getText().equals("")){
+            //TODO Relocate the map
+        }
+    }
     //map switching methods
     public void mapChange(ActionEvent e){
         if(e.getSource() == btnMapUp && floor < 3){
@@ -450,6 +455,7 @@ public class TestingController implements Initializable{
             clearNodes();
             showNodeList(mNodes);
         }
+        relocateNodeInfoPane();
         System.out.println(currentScale);
     }
 
