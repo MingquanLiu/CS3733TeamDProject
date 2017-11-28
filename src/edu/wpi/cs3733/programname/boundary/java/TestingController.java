@@ -279,6 +279,8 @@ public class TestingController implements Initializable{
             }
             drawings = new ArrayList<>();
         }
+        txtEndLocation.setText("");
+        txtStartLocation.setText("");
     }
 
     private void clearPath(){

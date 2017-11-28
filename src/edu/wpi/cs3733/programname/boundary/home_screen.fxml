@@ -125,7 +125,19 @@
                         <Insets left="2.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXButton fx:id="btnGo" onAction="#goButtonHandler" style="-fx-background-color: green;" text="go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
+                  <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.4000244140625" minWidth="10.0" prefWidth="242.4000244140625" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.20001220703125" minWidth="10.0" prefWidth="57.5999755859375" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXButton fx:id="btnGo" onAction="#goButtonHandler" style="-fx-background-color: green;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+                        <JFXButton style="-fx-background-color: RED;" text="Clear" GridPane.halignment="RIGHT" />
+                     </children>
+                  </GridPane>
                     </children>
                 </GridPane>
             </children>
