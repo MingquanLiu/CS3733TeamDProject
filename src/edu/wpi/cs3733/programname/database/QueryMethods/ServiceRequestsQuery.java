@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,9 +36,12 @@ public class ServiceRequestsQuery {
             NodeData location2;
             String node2ID;
             String description;
-            Timestamp requestTime;
-            Timestamp handleTime;
-            Timestamp completionTime;
+//            Timestamp requestTime;
+//            Timestamp handleTime;
+//            Timestamp completionTime;
+            String requestTime;
+            String handleTime;
+            String completionTime;
             String status;
             Employee receiver;
             String receiverUsername;
@@ -70,9 +74,12 @@ public class ServiceRequestsQuery {
                     location2 = new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node2ID);
                 }
                 description = result.getString("description");
-                requestTime = result.getTimestamp("requestTime");
-                handleTime = result.getTimestamp("handleTime");
-                completionTime = result.getTimestamp("completionTime");
+//                requestTime = result.getTimestamp("requestTime");
+//                handleTime = result.getTimestamp("handleTime");
+//                completionTime = result.getTimestamp("completionTime");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 // todo: handle null exception
@@ -108,9 +115,12 @@ public class ServiceRequestsQuery {
             NodeData location2;
             String node2ID;
             String description;
-            Timestamp requestTime;
-            Timestamp handleTime;
-            Timestamp completionTime;
+//            Timestamp requestTime;
+//            Timestamp handleTime;
+//            Timestamp completionTime;
+            String requestTime;
+            String handleTime;
+            String completionTime;
             Employee receiver;
             String receiverUsername;
 
@@ -142,9 +152,12 @@ public class ServiceRequestsQuery {
                     location2 = new DatabaseQueryController(dbConnection).queryNodeById(dbConnection, node2ID);
                 }
                 description = result.getString("description");
-                requestTime = result.getTimestamp("requestTime");
-                handleTime = result.getTimestamp("handleTime");
-                completionTime = result.getTimestamp("completionTime");
+//                requestTime = result.getTimestamp("requestTime");
+//                handleTime = result.getTimestamp("handleTime");
+//                completionTime = result.getTimestamp("completionTime");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
                 //status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 // todo: handle null exception
@@ -176,13 +189,16 @@ public class ServiceRequestsQuery {
             String senderUsername;
             //String serviceType;
             NodeData location1;
-            String node1ID="";
+            String node1ID;
             NodeData location2;
             String node2ID;
             String description;
-            Timestamp requestTime;
-            Timestamp handleTime;
-            Timestamp completionTime;
+//            Timestamp requestTime;
+//            Timestamp handleTime;
+//            Timestamp completionTime;
+            String requestTime;
+            String handleTime;
+            String completionTime;
             String status;
             Employee receiver;
             String receiverUsername;
@@ -198,6 +214,7 @@ public class ServiceRequestsQuery {
                     sender = new EmployeesQuery(dbConnection).queryEmployeeByUsername(senderUsername);
                 }
                 //serviceType = result.getString("serviceType");
+                node1ID = result.getString("location1");
                 if(new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node1ID) == null){
                     location1 = null;
                 }
@@ -213,9 +230,12 @@ public class ServiceRequestsQuery {
                     location2 = new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node2ID);
                 }
                 description = result.getString("description");
-                requestTime = result.getTimestamp("requestTime");
-                handleTime = result.getTimestamp("handleTime");
-                completionTime = result.getTimestamp("completionTime");
+//                requestTime = result.getTimestamp("requestTime");
+//                handleTime = result.getTimestamp("handleTime");
+//                completionTime = result.getTimestamp("completionTime");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 // todo: handle null exception
@@ -235,9 +255,8 @@ public class ServiceRequestsQuery {
         return resultList;
     }
 
-    public ArrayList<ServiceRequest> queryServiceRequestsByID(int serviceID){
+    public ServiceRequest queryServiceRequestsByID(int serviceID){
         ServiceRequest queryResult = null;
-        ArrayList<ServiceRequest> resultList = new ArrayList<ServiceRequest>();
         try {
             String sql = "SELECT * FROM ServiceRequests WHERE serviceID = " + serviceID;
             Statement stmt = dbConnection.getConnection().createStatement();
@@ -250,9 +269,12 @@ public class ServiceRequestsQuery {
             NodeData location2;
             String node2ID;
             String description;
-            Timestamp requestTime;
-            Timestamp handleTime;
-            Timestamp completionTime;
+//            Timestamp requestTime;
+//            Timestamp handleTime;
+//            Timestamp completionTime;
+            String requestTime;
+            String handleTime;
+            String completionTime;
             String status;
             Employee receiver;
             String receiverUsername;
@@ -284,9 +306,12 @@ public class ServiceRequestsQuery {
                     location2 = new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node2ID);
                 }
                 description = result.getString("description");
-                requestTime = result.getTimestamp("requestTime");
-                handleTime = result.getTimestamp("handleTime");
-                completionTime = result.getTimestamp("completionTime");
+//                requestTime = result.getTimestamp("requestTime");
+//                handleTime = result.getTimestamp("handleTime");
+//                completionTime = result.getTimestamp("completionTime");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 // todo: handle null exception
@@ -297,13 +322,12 @@ public class ServiceRequestsQuery {
                     receiver = new EmployeesQuery(dbConnection).queryEmployeeByUsername(receiverUsername);
                 }
                 queryResult = new ServiceRequest(serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status);
-                resultList.add(queryResult);
             }
         } catch (SQLException e) {
             System.out.println("Select Service Request Failed!");
             e.printStackTrace();
         }
-        return resultList;
+        return queryResult;
     }
 
     public void addServiceRequest(ServiceRequest serviceRequest){
@@ -316,9 +340,12 @@ public class ServiceRequestsQuery {
         NodeData location2 = serviceRequest.getLocation2();
         String node2ID = location2.getNodeID();
         String description = serviceRequest.getDescription();
-        Timestamp requestTime = serviceRequest.getRequestTime();
-        Timestamp handleTime = serviceRequest.getHandleTime();
-        Timestamp completionTime = serviceRequest.getCompletionTime();
+//        Timestamp requestTime = serviceRequest.getRequestTime();
+//        Timestamp handleTime = serviceRequest.getHandleTime();
+//        Timestamp completionTime = serviceRequest.getCompletionTime();
+        String requestTime = serviceRequest.getRequestTime();
+        String handleTime = serviceRequest.getHandleTime();
+        String completionTime = serviceRequest.getCompletionTime();
         String status = serviceRequest.getStatus();
         String receiverUsername;
         // todo: handle null
@@ -346,10 +373,11 @@ public class ServiceRequestsQuery {
         int serviceID = serviceRequest.getServiceID();
         String receiverUsername = receiver.getUsername();
         Date date = new Date();
-        Timestamp handleTime = new Timestamp(date.getTime());
+        String handleTime;// = new Timestamp(date.getTime());
+        handleTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(date.getTime()));
         String str;
         try {
-            str = "update ServiceRequests set handleTime = '"+ handleTime +"' status = 'handled', receiver = '"+ receiverUsername +"' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set handleTime = '"+ handleTime +"', status = 'handled', receiver = '"+ receiverUsername +"' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
@@ -362,10 +390,11 @@ public class ServiceRequestsQuery {
     public void completeServiceRequest(ServiceRequest serviceRequest) {
         int serviceID = serviceRequest.getServiceID();
         Date date = new Date();
-        Timestamp completionTime = new Timestamp(date.getTime());
+        String completionTime;// = new Timestamp(date.getTime());
+        completionTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(date.getTime()));
         String str;
         try {
-            str = "update ServiceRequests set completionTime = '"+ completionTime +"' status = 'completed' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set completionTime = '"+ completionTime +"', status = 'completed' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {

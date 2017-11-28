@@ -29,6 +29,10 @@ public class ServiceRequestController {
         queryServiceRequest.addServiceRequest(newServiceRequest);
     }
 
+    public void addServiceRequest(ServiceRequest newRequest){
+        queryServiceRequest.addServiceRequest(newRequest);
+    }
+
     public ArrayList<Employee> getAllEmployees(){
         return queryEmployee.queryAllEmployees();
     }
@@ -130,8 +134,7 @@ public class ServiceRequestController {
     }
 
     public ServiceRequest getServiceRequestByID(int srID){
-        ArrayList<ServiceRequest> list = queryServiceRequest.queryServiceRequestsByID(srID);
-        return list.get(1);
+        return queryServiceRequest.queryServiceRequestsByID(srID);
     }
 
     public Employee getEmployeeByUsername(String username){

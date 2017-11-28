@@ -121,4 +121,41 @@ public class Employee {
 //                ", serviceType='" + serviceType + '\'' + System.lineSeparator() +
 //                ", email='" + email + '\'' + System.lineSeparator();
 //    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
+
+        Employee employee = (Employee) o;
+
+        if (getSysAdmin() != employee.getSysAdmin()) return false;
+        if (getUsername() != null ? !getUsername().equals(employee.getUsername()) : employee.getUsername() != null)
+            return false;
+        if (getPassword() != null ? !getPassword().equals(employee.getPassword()) : employee.getPassword() != null)
+            return false;
+        if (getFirstName() != null ? !getFirstName().equals(employee.getFirstName()) : employee.getFirstName() != null)
+            return false;
+        if (getMiddleName() != null ? !getMiddleName().equals(employee.getMiddleName()) : employee.getMiddleName() != null)
+            return false;
+        if (getLastName() != null ? !getLastName().equals(employee.getLastName()) : employee.getLastName() != null)
+            return false;
+        if (getServiceType() != null ? !getServiceType().equals(employee.getServiceType()) : employee.getServiceType() != null)
+            return false;
+        return getEmail() != null ? getEmail().equals(employee.getEmail()) : employee.getEmail() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getUsername() != null ? getUsername().hashCode() : 0;
+        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+        result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+        result = 31 * result + (getMiddleName() != null ? getMiddleName().hashCode() : 0);
+        result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
+        result = 31 * result + (getSysAdmin() ? 1 : 0);
+        result = 31 * result + (getServiceType() != null ? getServiceType().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        return result;
+    }
 }
