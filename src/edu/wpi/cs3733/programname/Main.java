@@ -13,7 +13,7 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("boundary/home_screen.fxml"));
+        loader.setLocation(getClass().getResource("boundary/admin_screen.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("The best application");
         primaryStage.setScene(new Scene(root, 1500, 750));
