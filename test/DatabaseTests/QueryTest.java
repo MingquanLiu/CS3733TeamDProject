@@ -29,7 +29,7 @@ public class QueryTest {
 
     EdgeData edge1 = new EdgeData("TREST00102_DREST00102", "TREST00102", "DREST00102");
     DBConnection conn = new DBConnection();   // Creates new instance of connection
-    NodesQuery nodesQuery = new NodesQuery();
+    NodesQuery nodesQuery = new NodesQuery(conn);
     DatabaseModificationController theDBModControl = new DatabaseModificationController(conn);
 
 
@@ -38,7 +38,7 @@ public class QueryTest {
         theDBModControl.addNode(aBathroom);
         theDBModControl.addNode(newBathroom);
         List<NodeData> actual = new ArrayList<NodeData>();
-        actual = nodesQuery.getNodeByTypeAndFloor(conn,"REST","2");
+        actual = nodesQuery.getNodeByTypeAndFloor("REST","2");
         List<NodeData> expected = new ArrayList<NodeData>();
         expected.add(aBathroom);
         expected.add(newBathroom);
@@ -49,7 +49,7 @@ public class QueryTest {
     public void testGetNodeByCoordAndFloor(){
         theDBModControl.addNode(aBathroom);
         theDBModControl.addNode(newBathroom);
-        NodeData actual = nodesQuery.getNodeByCoordAndFloor(conn,aBathroomCoord,"2");
+        NodeData actual = nodesQuery.getNodeByCoordAndFloor(aBathroomCoord,"2");
         assertEquals(aBathroom,actual);
     }
 }

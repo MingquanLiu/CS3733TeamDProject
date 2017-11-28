@@ -35,9 +35,9 @@ public class ServiceRequestControllerTest {
     NodeData teamDnode2 = new NodeData("DELEV00B02",coord2,"2","15 Francis","ELEV","Elevator B Floor 2","Elevator B2","Team D");
     NodeData bBathroom = new NodeData ("TREST00101", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
     NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-    ServiceRequest wongServiceRequest = new ServiceRequest(1, wong,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
-    ServiceRequest newWongRequest = new ServiceRequest(1, wong, john,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish","","","","handled");
-    ServiceRequest johnServiceRequest = new ServiceRequest(1, john,"transportation",teamDnode1, teamDnode2,"need a wheelchair");
+    ServiceRequest wongServiceRequest = new ServiceRequest(1, "wwong2","interpreter","TREST00102","TREST00101","Need someone speaks Spanish");
+    ServiceRequest newWongRequest = new ServiceRequest(1, "wwong2", "userjohn","interpreter","TREST00102","TREST00101","Need someone speaks Spanish","","","","handled");
+    ServiceRequest johnServiceRequest = new ServiceRequest(1, "userjohn","transportation","DELEV00A02", "DELEV00B02","need a wheelchair");
     DatabaseModificationController dbModControl = new DatabaseModificationController(dbConnection);
 
     //CHANGE TARGET EMAIL IF YOU RUN THIS TEST PLEASE
@@ -118,7 +118,7 @@ public class ServiceRequestControllerTest {
     @Test
     public void testCreateServiceRequestQuery(){
         // test insert service request
-        srController.createServiceRequest(john, "transportation", teamDnode1, teamDnode2, "need a wheelchair");
+        srController.createServiceRequest("userjohn", "transportation", "DELEV00A02", "DELEV00B02", "need a wheelchair");
         assertEquals(0,0);
     }
 
@@ -140,7 +140,7 @@ public class ServiceRequestControllerTest {
         dbModControl.addNode(teamDnode1);
         dbModControl.addNode(teamDnode2);
         queryEmployee.addEmployee(john);
-        srController.createServiceRequest(john, "transportation", teamDnode1, teamDnode2, "need a wheelchair");
+        srController.createServiceRequest("userjohn", "transportation", "DELEV00A02", "DELEV00B02", "need a wheelchair");
         ArrayList<ServiceRequest> result = new ArrayList<ServiceRequest>();
         result = srController.getTransportationRequest();
         ArrayList<ServiceRequest> unexpected = new ArrayList<ServiceRequest>();
@@ -156,7 +156,7 @@ public class ServiceRequestControllerTest {
         queryEmployee.addEmployee(wong);
         queryEmployee.addEmployee(john);
         srController.addServiceRequest(wongServiceRequest);
-        srController.handleServiceRequest(wongServiceRequest,john);
+        srController.handleServiceRequest(wongServiceRequest,"userjohn");
         ServiceRequest result = srController.getServiceRequestByID(1);
         ServiceRequest unexpected = newWongRequest;
         assertNotEquals(unexpected,result);

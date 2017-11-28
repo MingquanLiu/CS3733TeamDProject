@@ -120,7 +120,7 @@ public class ServiceRequestsQuery {
             int serviceID;
             String senderUsername;
             //String serviceType;
-            String node1ID="";
+            String node1ID;
             String node2ID;
             String description;
 //            Timestamp requestTime;
@@ -136,6 +136,7 @@ public class ServiceRequestsQuery {
                 serviceID = result.getInt("serviceID");
                 senderUsername = result.getString("sender");
                 //serviceType = result.getString("serviceType");
+                node1ID = result.getString("location1");
                 node2ID = result.getString("location2");
                 description = result.getString("description");
 //                requestTime = result.getTimestamp("requestTime");
