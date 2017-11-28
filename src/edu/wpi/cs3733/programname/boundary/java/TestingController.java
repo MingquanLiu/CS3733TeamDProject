@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.programname.boundary.java;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import com.sun.org.apache.xalan.internal.lib.NodeInfo;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
-import javafx.scene.Node;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import javafx.animation.FadeTransition;
@@ -19,7 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -40,6 +40,7 @@ import static javafx.scene.paint.Color.RED;
 
 public class TestingController implements Initializable{
 
+
     //FXML objects
     @FXML
     private StackPane drawingStack;
@@ -51,40 +52,58 @@ public class TestingController implements Initializable{
     private ImageView imgMap;
     @FXML
     private AnchorPane panningPane;
+    @FXML
+    private DialogPane serviceRequester;
 
     //map switching objects
     @FXML
-    private Button btnMapUp;
+    private JFXButton btnMapUp;
     @FXML
-    private Button btnMapDwn;
+    private JFXButton btnMapDwn;
     @FXML
     private Label lblCurrentFloor;
     private int floor = 2;
 
     //zoom and pan objects
     @FXML
-    private Button btnZoomIn;
+    private JFXButton btnZoomIn;
     @FXML
-    private Button btnZoomOut;
+    private JFXButton btnZoomOut;
 
     //Admin features
     @FXML
-    private Button btnLogin;
+    private JFXButton btnLogin;
     @FXML
     private Label lblLoginStatus;
     @FXML
-    private Button btnOpenAdmin;
+    private JFXButton btnOpenAdmin;
     @FXML
-    private Button btnInterpreterReq;
+    private JFXButton btnInterpreterReq;
     @FXML
-    private Button btnMaintenanceReq;
+    private JFXButton btnMaintenanceReq;
     @FXML
-    private Button btnTransportationReq;
+    private JFXButton btnTransportationReq;
+
+    @FXML
+    private JFXButton btnLocateBR;
+    @FXML
+    private JFXButton btnLocateVM;
+    @FXML
+    private JFXButton btnLocateSD;
+    @FXML
+    private JFXButton btnLocateWR;
+    @FXML
+    private JFXButton btnMapEdit;
 
     //service request dialog
     @FXML
     private TextArea requestDescription;
-
+    @FXML
+    private JFXButton btnSelectMaintenanceLocation;
+    @FXML
+    private JFXButton btnCancelRequestAttempt;
+    @FXML
+    private JFXButton btnSubmitRequest;
 
     //hamburger pane and transitions
     @FXML
@@ -94,13 +113,25 @@ public class TestingController implements Initializable{
 
     //location search
     @FXML
-    private Button btnGo;
+    private JFXButton btnGo;
     @FXML
-    private Button clear;
+    private JFXButton clear;
     @FXML
     private TextField txtStartLocation;
     @FXML
     private TextField txtEndLocation;
+
+    //Node info panel
+    @FXML
+    private DialogPane nodeInfoPane;
+    @FXML
+    private Label nodeInfoType;
+    @FXML
+    private Label nodeInfoShortName;
+    @FXML
+    private Label nodeInfoLongName;
+    @FXML
+    private Label nodeInfoLocation;
 
 
 
@@ -111,6 +142,7 @@ public class TestingController implements Initializable{
     private List<Shape> drawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
+    private List<NodeData> currentNodes = new ArrayList<>();
 
     //hamburger transitions
     private HamburgerSlideCloseTransition burgerTransition;
@@ -121,14 +153,25 @@ public class TestingController implements Initializable{
     private double currentScale;
     final double minWidth = 1500;
     final double maxWidth = 5000;
+    final private int originalMapRatioIndex = 3;
 
     //showing nodes
     private String selectingLocation = "";
-
-
+    ArrayList<Double> mapRatio = new ArrayList<>();
+    private int currentMapRatioIndex;
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb){
+        currentMapRatioIndex =originalMapRatioIndex;
+//        mapRatio.add(0.24);
+
+        mapRatio.add(0.318);
+        mapRatio.add(0.35);
+        mapRatio.add(0.39);
+        mapRatio.add(0.43);
+        mapRatio.add(0.48);
+        mapRatio.add(0.55);
+        mapRatio.add(0.60);
         burgerTransition = new HamburgerSlideCloseTransition(burger);
         burgerTransition.setRate(-1);
 
@@ -136,99 +179,49 @@ public class TestingController implements Initializable{
         controlsTransition.setFromValue(0);
         controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
-
-        imgMap.setFitWidth(imgMap.getFitWidth()*0.3138);
-        currentScale = 0.3138;
-
+        currentScale = mapRatio.get(currentMapRatioIndex);
+        imgMap.setFitWidth(maxWidth*currentScale);
         manager = new ManageController();
-
     }
 
     //topmost methods are newest
     private void drawCycle(int x, int y){
-        Circle c = new Circle(x, y, 5, RED);
+        double radius = 10*currentScale;
+        Circle c = new Circle(x, y, radius, RED);
         panningPane.getChildren().add(c);
         drawings.add(c);
     }
 
+    private void showNodeList (List<NodeData> nodeDataList){
+        for(int i = 0;i <nodeDataList.size();i++){
+            showNode(nodeDataList.get(i));
+        }
+    }
     private void showNode(NodeData n){
-        drawCycle((int)(n.getX()*currentScale),(int)(n.getY()*currentScale));
+        currentNodes.add(n);
+        drawCycle(DBCToUIC(n.getX(),currentScale),DBCToUIC(n.getY(),currentScale));
     }
 
     private void showNodeInfo(NodeData nodeData){
         int dbX = nodeData.getX();
         int dbY = nodeData.getY();
         System.out.println("Node Coordinate: "+dbX+","+dbY+" Node Name: "+nodeData.getLongName());
-//        nodeInfoPane.setLayoutX(DBCoordinateToUICoordinate(dbX,initX) + 3);
-//        nodeInfoPane.setLayoutY(DBCoordinateToUICoordinate(dbY,initY) + 3);
-//        nodeInfoPane.setVisible(true);
-//        nodeInfoLocation.setText(dbX + ", " + dbY);
-//        nodeInfoType.setText("" + nodeData.getType());
-//        nodeInfoLongName.setText("" + nodeData.getLongName());
-//        nodeInfoShortName.setText("" + nodeData.getShortName());
+        nodeInfoPane.setVisible(true);
+        nodeInfoPane.setLayoutX(DBCToUIC(dbX,currentScale) + 3);
+        nodeInfoPane.setLayoutY(DBCToUIC(dbY,currentScale) + 3);
+        nodeInfoPane.setVisible(true);
+        nodeInfoLocation.setText(dbX + ", " + dbY);
+        nodeInfoType.setText("" + nodeData.getType());
+        nodeInfoLongName.setText("" + nodeData.getLongName());
+        nodeInfoShortName.setText("" + nodeData.getShortName());
     }
 
     //displaying node info on click
 
-    public void mouseClickHandler(MouseEvent e){
-        clearMain();
-        int x = (int) e.getX();
-        int y = (int) e.getY();
-        switch (selectingLocation) {
-            //case for displaying nearest node info when nothing is selected
-            case "":
-                System.out.println("Get in findNodeData");
-                List<NodeData> nodes = manager.getAllNodeData();
-                NodeData mClickedNode= getClosestNode(nodes,x,y);
-                mClickedNode = manager.getNodeData(mClickedNode.getId());
-                showNode(mClickedNode);
-                showNodeInfo(mClickedNode);
-                break;
-                // the rest of the situations when you click on the map
-//            case "nodeAdd":
-//                locationsSelected = true;
-//                prevSelectX = UICoordinateToDBCoordinate(x,initX);
-//                prevSelectY = UICoordinateToDBCoordinate(y,initY);
-//                nodeAddCoords.setText(prevSelectX + ", " + prevSelectY);
-//                drawCycle(prevSelectX,prevSelectY);
-//                nodeAdditionPane.setVisible(true);
-//                selectingLocation = "";
-//                break;
-//            case "maintenance":
-//                locationsSelected = true;
-//                requestDescription.setText(requestDescription.getText() + "\n at " + x + ", " + y);
-//                serviceRequester.setVisible(true);
-//                selectingLocation = "";
-//                break;
-//            case "addEdge":
-//                if (addEdgeN1.equals("")  || addEdgeN2.equals("")) {
-//                    nodes = manager.getAllNodeData();
-//                    mClickedNode = getClosestNode(nodes,x,y);
-//                    showNode(mClickedNode);
-//                    if (addEdgeN1.equals("")) {
-//                        addEdgeN1 = mClickedNode.getId();
-//                    } else if (addEdgeN2.equals("")) {
-//                        addEdgeN2 = mClickedNode.getId();
-//                    }
-//                    if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
-//                        clearMain();
-//                        NodeData n1 = manager.getNodeData(addEdgeN1);
-//                        NodeData n2 = manager.getNodeData(addEdgeN2);
-//                        showEdge(n1,n2);
-//                        manager.addEdge(addEdgeN1, addEdgeN2);
-//                        addEdge.setText("Add Edge");
-//                        addEdgeN1 = "";
-//                        addEdgeN2 = "";
-//                        selectingLocation = "";
-//                    }
-//                }
-//                break;
 
-        }
-    }
     private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
-        int dbX = (int)(mouseX*(1/currentScale));
-        int dbY = (int)(mouseY*(1/currentScale));
+        int dbX = UICToDBC(mouseX,currentScale);
+        int dbY =UICToDBC(mouseY,currentScale);
         int resultX = 0;
         int resultY = 0;
         String resultNodeId = "";
@@ -248,12 +241,7 @@ public class TestingController implements Initializable{
         return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null);
     }
 
-    //pathfinding functions
-    public void goButtonHandler(){
-        System.out.println("drawing path");
-        currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText());
-        displayPath(currentPath);
-    }
+
 
     private void displayPath(List<NodeData> path){
         clearMain();
@@ -289,60 +277,12 @@ public class TestingController implements Initializable{
         }
     }
 
-
-    //hamburger handling
-    public void openMenu(MouseEvent e){
-        burgerTransition.setRate(burgerTransition.getRate()*-1);
-        burgerTransition.play();
-
-        controlsVisible = !controlsVisible;
-        controlsTransition.play();
-        paneControls.setVisible(controlsVisible);
-
-        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
-        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
+    private void clearPath(){
+        currentPath = new ArrayList<>();
     }
 
-    //popup methods
-    public void popupHandler(ActionEvent e){
-        if(e.getSource() == btnLogin){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(("Login_Popup.fxml")));
-            Scene newScene;
-            try {
-                newScene = new Scene(loader.load());
-            } catch(IOException ex){
-                //Todo add some sort of error handling
-                return;
-            }
-
-            Stage loginStage = new Stage();
-            loginStage.setScene(newScene);
-            loginStage.showAndWait();
-            boolean loggedIn = loader.<LoginPopup>getController().getLoggedIn();
-            lblLoginStatus.setText("logged in");
-        }
-    }
-    //map zooming method
-    public void zoomHandler(ActionEvent e){
-        clearMain();
-        if(e.getSource() == btnZoomOut){
-            if(imgMap.getFitWidth() <= minWidth){
-                return;
-            }
-            imgMap.setFitWidth(Math.max(imgMap.getFitWidth()*.8,minWidth));
-            currentScale *= 0.8;
-        }
-        else{
-            if(imgMap.getFitWidth() >= maxWidth){
-                return;
-            }
-            imgMap.setFitWidth(Math.min(imgMap.getFitWidth()*1.2, maxWidth));
-            currentScale *= 1.2;
-        }
-        if(!(currentPath == null)) {
-            displayPath(currentPath);
-        }
-        System.out.println(currentScale);
+    private void clearNodes(){
+        currentNodes = new ArrayList<>();
     }
 
     //map switching methods
@@ -358,7 +298,6 @@ public class TestingController implements Initializable{
             setFloor();
         }
     }
-
     private void setFloor(){
         Image oldImg = imgMap.getImage();
         String oldUrl = oldImg.impl_getUrl();  //using a deprecated method for lack of a better solution currently
@@ -378,5 +317,189 @@ public class TestingController implements Initializable{
         System.out.println(e.getX() + ", " + e.getY());
     }
 
+    private int UICToDBC(int value, double scale){
+        return (int)(value/scale);
+    }
+    private int DBCToUIC(int value, double scale){
+        return (int)(value*scale);
+    }
+    public void mouseClickHandler(MouseEvent e){
+        clearMain();
+        int x = (int) e.getX();
+        int y = (int) e.getY();
+        switch (selectingLocation) {
+            //case for displaying nearest node info when nothing is selected
+            case "":
+                System.out.println("Get in findNodeData X:"+x+" Y:"+y);
+
+                List<NodeData> nodes = manager.getAllNodeData();
+                NodeData mClickedNode= getClosestNode(nodes,x,y);
+                mClickedNode = manager.getNodeData(mClickedNode.getId());
+                showNode(mClickedNode);
+                showNodeInfo(mClickedNode);
+                break;
+            case "selectLocation":
+                Coordinate mCoordinate = new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale));
+                requestDescription.setText(mCoordinate.getX()+","+mCoordinate.getY());
+                serviceRequester.setVisible(true);
+                selectingLocation = "";
+                break;
+            // the rest of the situations when you click on the map
+//            case "maintenance":
+//                locationsSelected = true;
+//                requestDescription.setText(requestDescription.getText() + "\n at " + x + ", " + y);
+//                serviceRequester.setVisible(true);
+//                selectingLocation = "";
+//                break;
+
+        }
+    }
+    //hamburger handling
+    public void openMenu(MouseEvent e){
+        burgerTransition.setRate(burgerTransition.getRate()*-1);
+        burgerTransition.play();
+
+        controlsVisible = !controlsVisible;
+        controlsTransition.play();
+        paneControls.setVisible(controlsVisible);
+
+        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
+        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
+    }
+
+    //popup methods
+    public void loginButtonHandler(){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(("Login_Popup.fxml")));
+            Scene newScene;
+            try {
+                newScene = new Scene(loader.load());
+            } catch(IOException ex){
+                //Todo add some sort of error handling
+                return;
+            }
+            Stage loginStage = new Stage();
+            loginStage.setScene(newScene);
+            loginStage.showAndWait();
+            boolean loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+            lblLoginStatus.setText("logged in");
+    }
+
+    //Locate Bathroom/ Service desk/ VendingMachine JFXButton Handler
+    public void locateHandler(ActionEvent event){
+        Object mEvent = event.getSource();
+        String nodeType = "";
+        if(mEvent.equals(btnLocateBR)){
+            nodeType = "REST";
+        }
+        if(mEvent.equals(btnLocateSD)){
+            nodeType = "INFO";
+        }
+        if(mEvent.equals(btnLocateVM)){
+            nodeType = "";
+        }
+        if(mEvent.equals(btnLocateWR)){
+            nodeType = "";
+        }
+        if(!nodeType.equals("")){
+            List<NodeData> mList = manager.queryNodeByTypeFloor(nodeType, Integer.toString(floor));
+            if(mList!=null&&!mList.isEmpty())
+            showNodeList(mList);
+        }
+    }
+    
+    //map zooming method
+    public void zoomHandler(ActionEvent e){
+//        clearMain();
+
+        if(e.getSource() == btnZoomOut){
+//            if(imgMap.getFitWidth() <= minWidth){
+//                return;
+//            }
+            if(currentMapRatioIndex==0){
+                return;
+            }
+            currentMapRatioIndex -=1;
+            currentScale = mapRatio.get(currentMapRatioIndex);
+            imgMap.setFitWidth(maxWidth*currentScale);
+        }
+        else{
+//            if(imgMap.getFitWidth() >= maxWidth){
+//                return;
+//            }
+            if(currentMapRatioIndex==(mapRatio.size()-1)){
+                return;
+            }
+            currentMapRatioIndex +=1;
+            currentScale = mapRatio.get(currentMapRatioIndex);
+            imgMap.setFitWidth(maxWidth*currentScale);
+        }
+        clearMain();
+        if(!(currentPath == null)&&!currentPath.isEmpty()) {
+            List<NodeData> mPath = currentPath;
+            clearPath();
+            displayPath(mPath);
+        }
+        if(!(currentNodes == null)&&!currentNodes.isEmpty()) {
+            List<NodeData> mNodes = currentNodes;
+            clearNodes();
+            showNodeList(mNodes);
+        }
+        System.out.println(currentScale);
+    }
+
+
+    public void goButtonHandler(){
+        System.out.println("drawing path");
+        currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText());
+        displayPath(currentPath);
+    }
+
+    public void SRHandler(ActionEvent e){
+        Object mEvent = e.getSource();
+        serviceRequester.setVisible(true);
+        String SRType = "";
+        if(mEvent == btnInterpreterReq){
+            SRType = "I";
+        }
+        if(mEvent == btnMaintenanceReq){
+            SRType = "M";
+        }
+        if(mEvent == btnTransportationReq){
+            SRType = "T";
+        }
+        requestDescription.setText(SRType);
+    }
+
+    public void mapEditHandler(){
+        System.out.println("In map Edit handler");
+    }
+
+    public void openAdminHandler(){
+        System.out.println("In open admin handler");
+    }
+
+    public void SRWindowHandler(ActionEvent e){
+        Object mEvent = e.getSource();
+        serviceRequester.setVisible(false);
+        if(mEvent == btnSelectMaintenanceLocation){
+            selectingLocation = "selectLocation";
+        }
+        if(mEvent == btnCancelRequestAttempt){
+            //TODO clear the text
+            requestDescription.setText("");
+
+        }
+        if(mEvent == btnSubmitRequest){
+            //TODO clear the text and submit the SR
+            manager.sendServiceRequest(requestDescription.getText());
+        }
+    }
+    public void closeNodeInfoHandler(){
+        nodeInfoPane.setVisible(false);
+        nodeInfoLocation.setText("");
+        nodeInfoLongName.setText("");
+        nodeInfoShortName.setText("");
+        nodeInfoType.setText("");
+    }
 
 }
