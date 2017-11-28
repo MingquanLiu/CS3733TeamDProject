@@ -62,7 +62,7 @@ public class DBConnectionTest {
         // MapDedges.csv
         mDbTable.createAllTables(TestDB);           // Makes nodes table
 
-        ArrayList<EdgeData> edgeList = mCsvReader.readEdges(conn);
+        ArrayList<EdgeData> edgeList = mCsvReader.getListOfEdges(conn);
         ArrayList<NodeData> nodeList = mCsvReader.getListOfNodes(conn);
 
 
