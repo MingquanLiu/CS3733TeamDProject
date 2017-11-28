@@ -1,4 +1,4 @@
-/**
+package PathfindingTests; /**
  * Created by Treksh on 14/11/17.
  */
 

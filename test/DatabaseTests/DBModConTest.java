@@ -1,4 +1,4 @@
-
+package DatabaseTests;
 
 
 import edu.wpi.cs3733.programname.ManageController;
