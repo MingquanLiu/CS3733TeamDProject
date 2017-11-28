@@ -29,21 +29,21 @@ public class ServiceRequestsQuery {
             int serviceID;
             Employee sender;
             String senderUsername;
-            String type;
+            String serviceType;
             NodeData location1;
             String node1ID;
             NodeData location2;
             String node2ID;
             String description;
-            Timestamp createdTime;
-            Timestamp handledTime;
-            Timestamp completedTime;
+            Timestamp requestTime;
+            Timestamp handleTime;
+            Timestamp completionTime;
             String status;
             Employee receiver;
             String receiverUsername;
 
             while(result.next()) {
-                id = result.getInt("id");
+                serviceID = result.getInt("serviceID");
                 senderUsername = result.getString("sender");
                 // todo: handle null exception
                 if(new EmployeesQuery(dbConnection).queryEmployeeByUsername(senderUsername) == null){
@@ -52,7 +52,7 @@ public class ServiceRequestsQuery {
                 else{
                     sender = new EmployeesQuery(dbConnection).queryEmployeeByUsername(senderUsername);
                 }
-                type = result.getString("type");
+                serviceType = result.getString("serviceType");
                 node1ID = result.getString("location1");
                 // todo: handle null exception
                 if(new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node1ID) == null){
@@ -70,9 +70,9 @@ public class ServiceRequestsQuery {
                     location2 = new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node2ID);
                 }
                 description = result.getString("description");
-                createdTime = result.getTimestamp("createdTime");
-                handledTime = result.getTimestamp("handledTime");
-                completedTime = result.getTimestamp("completedTime");
+                requestTime = result.getTimestamp("requestTime");
+                handleTime = result.getTimestamp("handleTime");
+                completionTime = result.getTimestamp("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 // todo: handle null exception
@@ -82,7 +82,7 @@ public class ServiceRequestsQuery {
                 else{
                     receiver = new EmployeesQuery(dbConnection).queryEmployeeByUsername(receiverUsername);
                 }
-                queryResult = new ServiceRequest(serviceID,sender, type, location1, location2, description, createdTime, handledTime, completedTime, status, receiver);
+                queryResult = new ServiceRequest(serviceID,sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -102,15 +102,15 @@ public class ServiceRequestsQuery {
             int serviceID;
             Employee sender;
             String senderUsername;
-            String type;
+            String serviceType;
             NodeData location1;
             String node1ID;
             NodeData location2;
             String node2ID;
             String description;
-            Timestamp createdTime;
-            Timestamp handledTime;
-            Timestamp completedTime;
+            Timestamp requestTime;
+            Timestamp handleTime;
+            Timestamp completionTime;
             Employee receiver;
             String receiverUsername;
 
@@ -124,7 +124,7 @@ public class ServiceRequestsQuery {
                 else{
                     sender = new EmployeesQuery(dbConnection).queryEmployeeByUsername(senderUsername);
                 }
-                type = result.getString("type");
+                serviceType = result.getString("serviceType");
                 node1ID = result.getString("location1");
                 // todo: handle null exception
                 if(new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node1ID) == null){
@@ -142,9 +142,9 @@ public class ServiceRequestsQuery {
                     location2 = new DatabaseQueryController(dbConnection).queryNodeById(dbConnection, node2ID);
                 }
                 description = result.getString("description");
-                createdTime = result.getTimestamp("createdTime");
-                handledTime = result.getTimestamp("handledTime");
-                completedTime = result.getTimestamp("completedTime");
+                requestTime = result.getTimestamp("requestTime");
+                handleTime = result.getTimestamp("handleTime");
+                completionTime = result.getTimestamp("completionTime");
                 //status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 // todo: handle null exception
@@ -154,7 +154,7 @@ public class ServiceRequestsQuery {
                 else{
                     receiver = new EmployeesQuery(dbConnection).queryEmployeeByUsername(receiverUsername);
                 }
-                queryResult = new ServiceRequest(serviceID,sender, type, location1, location2, description, createdTime, handledTime, completedTime, status, receiver);
+                queryResult = new ServiceRequest(serviceID,sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -164,25 +164,25 @@ public class ServiceRequestsQuery {
         return resultList;
     }
 
-    public ArrayList<ServiceRequest> queryServiceRequestsByType(String serviceType){
+    public ArrayList<ServiceRequest> queryServiceRequestsByserviceType(String serviceserviceType){
         ServiceRequest queryResult = null;
         ArrayList<ServiceRequest> resultList = new ArrayList<ServiceRequest>();
         try {
-            String sql = "SELECT * FROM ServiceRequests WHERE type = '" + serviceType + "'";
+            String sql = "SELECT * FROM ServiceRequests WHERE serviceType = '" + serviceserviceType + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             int serviceID;
             Employee sender;
             String senderUsername;
-            //String type;
+            //String serviceType;
             NodeData location1;
             String node1ID="";
             NodeData location2;
             String node2ID;
             String description;
-            Timestamp createdTime;
-            Timestamp handledTime;
-            Timestamp completedTime;
+            Timestamp requestTime;
+            Timestamp handleTime;
+            Timestamp completionTime;
             String status;
             Employee receiver;
             String receiverUsername;
@@ -197,7 +197,7 @@ public class ServiceRequestsQuery {
                 else{
                     sender = new EmployeesQuery(dbConnection).queryEmployeeByUsername(senderUsername);
                 }
-                //type = result.getString("type");
+                //serviceType = result.getString("serviceType");
                 if(new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node1ID) == null){
                     location1 = null;
                 }
@@ -213,9 +213,9 @@ public class ServiceRequestsQuery {
                     location2 = new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node2ID);
                 }
                 description = result.getString("description");
-                createdTime = result.getTimestamp("createdTime");
-                handledTime = result.getTimestamp("handledTime");
-                completedTime = result.getTimestamp("completedTime");
+                requestTime = result.getTimestamp("requestTime");
+                handleTime = result.getTimestamp("handleTime");
+                completionTime = result.getTimestamp("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 // todo: handle null exception
@@ -225,7 +225,7 @@ public class ServiceRequestsQuery {
                 else{
                     receiver = new EmployeesQuery(dbConnection).queryEmployeeByUsername(receiverUsername);
                 }
-                queryResult = new ServiceRequest(serviceID,sender, serviceType, location1, location2, description, createdTime, handledTime, completedTime, status, receiver);
+                queryResult = new ServiceRequest(serviceID,sender, receiver, serviceserviceType, location1, location2, description, requestTime, handleTime, completionTime, status);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -244,15 +244,15 @@ public class ServiceRequestsQuery {
             ResultSet result = stmt.executeQuery(sql);
             Employee sender;
             String senderUsername;
-            String type;
+            String serviceType;
             NodeData location1;
             String node1ID;
             NodeData location2;
             String node2ID;
             String description;
-            Timestamp createdTime;
-            Timestamp handledTime;
-            Timestamp completedTime;
+            Timestamp requestTime;
+            Timestamp handleTime;
+            Timestamp completionTime;
             String status;
             Employee receiver;
             String receiverUsername;
@@ -266,7 +266,7 @@ public class ServiceRequestsQuery {
                 else{
                     sender = new EmployeesQuery(dbConnection).queryEmployeeByUsername(senderUsername);
                 }
-                type = result.getString("type");
+                serviceType = result.getString("serviceType");
                 node1ID = result.getString("location1");
                 // todo: handle null exception
                 if(new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node1ID) == null){
@@ -284,10 +284,9 @@ public class ServiceRequestsQuery {
                     location2 = new DatabaseQueryController(dbConnection).queryNodeById(dbConnection,node2ID);
                 }
                 description = result.getString("description");
-                createdTime = result.getTimestamp("createdTime");
-                handledTime = result.getTimestamp("handledTime");
-                completedTime = result.getTimestamp("completedTime");
-                //status = result.getString("status");
+                requestTime = result.getTimestamp("requestTime");
+                handleTime = result.getTimestamp("handleTime");
+                completionTime = result.getTimestamp("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 // todo: handle null exception
@@ -297,7 +296,7 @@ public class ServiceRequestsQuery {
                 else{
                     receiver = new EmployeesQuery(dbConnection).queryEmployeeByUsername(receiverUsername);
                 }
-                queryResult = new ServiceRequest(serviceID, sender, type, location1, location2, description, createdTime, handledTime, completedTime, status, receiver);
+                queryResult = new ServiceRequest(serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -311,15 +310,15 @@ public class ServiceRequestsQuery {
         int serviceID = serviceRequest.getserviceID();
         Employee sender = serviceRequest.getsender();
         String senderUsername = sender.getUsername();
-        String type = serviceRequest.getType();
+        String serviceType = serviceRequest.getserviceType();
         NodeData location1 = serviceRequest.getLocation1();
         String node1ID = location1.getNodeID();
         NodeData location2 = serviceRequest.getLocation2();
         String node2ID = location2.getNodeID();
         String description = serviceRequest.getDescription();
-        Timestamp createdTime = serviceRequest.getCreatedTime();
-        Timestamp handledTime = serviceRequest.getHandledTime();
-        Timestamp completedTime = serviceRequest.getCompletedTime();
+        Timestamp requestTime = serviceRequest.getrequestTime();
+        Timestamp handleTime = serviceRequest.gethandleTime();
+        Timestamp completionTime = serviceRequest.getcompletionTime();
         String status = serviceRequest.getStatus();
         String receiverUsername;
         // todo: handle null
@@ -332,8 +331,8 @@ public class ServiceRequestsQuery {
         }
         String str;
         try {
-            str = "insert into ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + type + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
-                    "', '" + createdTime + "','" + handledTime + "', '" + completedTime + "','"+ status + "','"+ receiverUsername + "')";
+            str = "insert into ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
+                    "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','"+ status + "','"+ receiverUsername + "')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
@@ -347,10 +346,10 @@ public class ServiceRequestsQuery {
         int serviceID = serviceRequest.getserviceID();
         String receiverUsername = receiver.getUsername();
         Date date = new Date();
-        Timestamp handledTime = new Timestamp(date.getTime());
+        Timestamp handleTime = new Timestamp(date.getTime());
         String str;
         try {
-            str = "update ServiceRequests set handledTime = '"+ handledTime +"' status = 'handled', receiver = '"+ receiverUsername +"' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set handleTime = '"+ handleTime +"' status = 'handled', receiver = '"+ receiverUsername +"' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
@@ -363,10 +362,10 @@ public class ServiceRequestsQuery {
     public void completeServiceRequest(ServiceRequest serviceRequest) {
         int serviceID = serviceRequest.getserviceID();
         Date date = new Date();
-        Timestamp completedTime = new Timestamp(date.getTime());
+        Timestamp completionTime = new Timestamp(date.getTime());
         String str;
         try {
-            str = "update ServiceRequests set completedTime = '"+ completedTime +"' status = 'completed' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set completionTime = '"+ completionTime +"' status = 'completed' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
