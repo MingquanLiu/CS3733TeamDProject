@@ -29,6 +29,7 @@ public class EmployeesQuery {
             boolean sysAdmin;
             int sysAdminInt;
             String serviceType;
+            String email;
             while(result.next()) {
                 username = result.getString("username");
                 password = result.getString("password");
@@ -38,7 +39,8 @@ public class EmployeesQuery {
                 sysAdminInt = result.getInt("sysAdmin");
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType);
+                email = result.getString("email");
+                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
                 group.add(queryResult);
             }
         } catch (SQLException e) {
@@ -63,6 +65,7 @@ public class EmployeesQuery {
             boolean sysAdmin;
             int sysAdminInt;
             //String serviceType;
+            String email;
             while(result.next()) {
                 username = result.getString("username");
                 password = result.getString("password");
@@ -72,7 +75,8 @@ public class EmployeesQuery {
                 sysAdminInt = result.getInt("sysAdmin");
                 //serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, type);
+                email = result.getString("email");
+                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, type, email);
                 group.add(queryResult);
             }
         } catch (SQLException e) {
@@ -95,6 +99,7 @@ public class EmployeesQuery {
             boolean sysAdmin;
             int sysAdminInt;
             String serviceType;
+            String email;
             while(result.next()) {
                 username = result.getString("username");
                 password = result.getString("password");
@@ -104,7 +109,8 @@ public class EmployeesQuery {
                 sysAdminInt = result.getInt("sysAdmin");
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType);
+                email = result.getString("email");
+                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
             }
         } catch (SQLException e) {
             System.out.println("Select Employee Failed!");
@@ -122,9 +128,10 @@ public class EmployeesQuery {
         boolean sysAdmin = employee.getSysAdmin();
         int sysAdminInt = sysAdmin? 1: 0;
         String serviceType = employee.getServiceType();
+        String email = employee.getEmail();
         String str;
         try {
-            str = "insert into Employees values('" + username + "', '" + password + "', '" + firstName + "', '" + middleName + "', '" + lastName + "'," + sysAdminInt + ", '" + serviceType + "')";
+            str = "insert into Employees values('" + username + "', '" + password + "', '" + firstName + "', '" + middleName + "', '" + lastName + "'," + sysAdminInt + ", '" + serviceType + "','" + email + "')";
             //System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {

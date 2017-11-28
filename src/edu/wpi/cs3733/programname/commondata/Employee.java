@@ -8,6 +8,7 @@ public class Employee {
     private String lastName;
     private boolean sysAdmin;
     private String serviceType;
+    private String email;
 
 
     /**
@@ -20,7 +21,7 @@ public class Employee {
      * @param sysAdmin whether the employee is a system admin
      * @param serviceType the service type this employee can assigned to
      */
-    public Employee(String username, String password, String firstName, String middleName, String lastName, boolean sysAdmin, String serviceType){
+    public Employee(String username, String password, String firstName, String middleName, String lastName, boolean sysAdmin, String serviceType, String email){
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -28,6 +29,7 @@ public class Employee {
         this.lastName = lastName;
         this.sysAdmin = sysAdmin;
         this.serviceType = serviceType;
+        this.email = email;
     }
 
 
@@ -87,6 +89,14 @@ public class Employee {
         this.serviceType = serviceType;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "username='" + username + '\'' + System.lineSeparator() +
@@ -95,6 +105,7 @@ public class Employee {
                 " lastName='" + lastName + '\'' + System.lineSeparator() +
                 ", sysAdmin=" + sysAdmin + System.lineSeparator() +
                 ", serviceType='" + serviceType + '\'' + System.lineSeparator() +
+                ", email='" + email + '\'' + System.lineSeparator() +
                 "";
     }
 }

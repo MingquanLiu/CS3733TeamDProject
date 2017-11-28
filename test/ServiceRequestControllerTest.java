@@ -21,8 +21,8 @@ public class ServiceRequestControllerTest {
     EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
     ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
     ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
-    Employee wong = new Employee("user", "pass", "Wilson", "", "Wong", true, "interpreter");
-    Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation");
+    Employee wong = new Employee("user", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com");
+    Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation","john@test.com");
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
     Coordinate coord1 = new Coordinate(4550,375);
     NodeData teamDnode1 = new NodeData("DELEV00A02",coord1,"2","15 Francis","ELEV","Elevator A Floor 2","Elevator A2","Team D");
@@ -55,7 +55,6 @@ public class ServiceRequestControllerTest {
     @Before
     public void setupDbTables() {
         DBTables.createAllTables(dbConnection);           // Makes all table
-
         queryEmployee.addEmployee(john);
     }
 
@@ -63,18 +62,18 @@ public class ServiceRequestControllerTest {
     // test email
     @Test
     public void testEmail(){
-    srController.sendEmail(serviceRequest);
+    srController.sendEmailByType(serviceRequest);
     }
 
 
-
-
-
-    // This test is for checking the sql query String
-    // This is not working
     @Test
-    public void testQuery(){
+    public void testAddEmployee(){
 
+    }
+
+
+    @Test
+    public void testCreateServiceRequestQuery(){
   // test insert service request
         srController.createServiceRequest(john, "transportation", teamDnode1, teamDnode2, "need a wheelchair");
         assertEquals(0,0);

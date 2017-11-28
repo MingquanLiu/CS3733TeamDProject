@@ -27,8 +27,6 @@ public class ServiceRequestController {
         int id = randomID.nextInt(1000) + 1;
         ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description);
         queryServiceRequest.addServiceRequest(newServiceRequest);
-        //send email
-        sendEmail(newServiceRequest);
     }
 
     public ArrayList<Employee> getAllEmployees(){
@@ -157,7 +155,15 @@ public class ServiceRequestController {
         return request.toString();
     }
 
-    public void sendEmail(ServiceRequest request){
+    public void sendEmailToEmployee(ServiceRequest request, Employee receiver){
+        String recipient = receiver.getEmail();
+        String content = this.requestReport(request);
+        ServiceRequestMessage email = new ServiceRequestMessage(recipient,content);
+        email.sendMessage();
+    }
+
+
+    public void sendEmailByType(ServiceRequest request){
         String recipient = "";
         switch(request.getServiceType()){
             case "interpreter":
