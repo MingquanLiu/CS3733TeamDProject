@@ -6,7 +6,7 @@ import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequestMessage;
+import edu.wpi.cs3733.programname.commondata.ServiceRequestMessage;
 
 import java.util.ArrayList;
 import java.util.Random;

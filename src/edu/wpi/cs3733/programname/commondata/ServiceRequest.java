@@ -4,73 +4,73 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class ServiceRequest {
-    private int id;
-    private Employee requester;
-    private String type;
+    private int serviceID;
+    private Employee sender;
+    private String serviceType;
     private NodeData location1;
     private NodeData location2;
     private String description;
-    private Timestamp createdTime;
-    private Timestamp handledTime;
-    private Timestamp completedTime;
+    private Timestamp requestTime;
+    private Timestamp handleTime;
+    private Timestamp completionTime;
     private String status;
-    private Employee handler;
+    private Employee receiver;
 
 
-    public ServiceRequest(int id, Employee requester, String type, NodeData location1, NodeData location2, String description) {
-        this.id = id;
-        this.requester = requester;
-        this.type = type;
+    public ServiceRequest(int serviceID, Employee sender, String serviceType, NodeData location1, NodeData location2, String description) {
+        this.serviceID = serviceID;
+        this.sender = sender;
+        this.serviceType = serviceType;
         this.location1 = location1;
         this.location2 = location2;
         this.description = description;
         Date date = new Date();
-        this.createdTime = new Timestamp(date.getTime());
-        this.handledTime = null;
-        this.completedTime = null;
+        this.requestTime = new Timestamp(date.getTime());
+        this.handleTime = null;
+        this.completionTime = null;
         this.status = "unhandled";
-        this.handler = null;
+        this.receiver = null;
     }
 
-    public ServiceRequest(int id, Employee requester, String type, NodeData location1, NodeData location2,
-                          String description, Timestamp createdTime, Timestamp handledTime, Timestamp completedTime, String status, Employee handler) {
-        this.id = id;
-        this.requester = requester;
-        this.type = type;
+    public ServiceRequest(int serviceID, Employee sender, Employee receiver, String serviceType, NodeData location1, NodeData location2,
+                          String description, Timestamp requestTime, Timestamp handleTime, Timestamp completionTime, String status) {
+        this.serviceID = serviceID;
+        this.sender = sender;
+        this.serviceType = serviceType;
         this.location1 = location1;
         this.location2 = location2;
         this.description = description;
-        this.createdTime = createdTime;
-        this.handledTime = handledTime;
-        this.completedTime = completedTime;
+        this.requestTime = requestTime;
+        this.handleTime = handleTime;
+        this.completionTime = completionTime;
         this.status = status;
-        this.handler = handler;
+        this.receiver = receiver;
     }
 
 
 
-    public int getId() {
-        return id;
+    public int getServiceID() {
+        return serviceID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setServiceID(int serviceID) {
+        this.serviceID = serviceID;
     }
 
-    public Employee getRequester() {
-        return requester;
+    public Employee getSender() {
+        return sender;
     }
 
-    public void setRequester(Employee requester) {
-        this.requester = requester;
+    public void setSender(Employee sender) {
+        this.sender = sender;
     }
 
-    public String getType() {
-        return type;
+    public String getServiceType() {
+        return serviceType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
     public NodeData getLocation1() {
@@ -97,28 +97,28 @@ public class ServiceRequest {
         this.description = description;
     }
 
-    public Timestamp getCreatedTime() {
-        return createdTime;
+    public Timestamp getRequestTime() {
+        return requestTime;
     }
 
-    public void setCreatedTime(Timestamp createdTime) {
-        this.createdTime = createdTime;
+    public void setRequestTime(Timestamp requestTime) {
+        this.requestTime = requestTime;
     }
 
-    public Timestamp getHandledTime() {
-        return handledTime;
+    public Timestamp getHandleTime() {
+        return handleTime;
     }
 
-    public void setHandledTime(Timestamp handledTime) {
-        this.handledTime = handledTime;
+    public void setHandleTime(Timestamp handleTime) {
+        this.handleTime = handleTime;
     }
 
-    public Timestamp getCompletedTime() {
-        return completedTime;
+    public Timestamp getCompletionTime() {
+        return completionTime;
     }
 
-    public void setCompletedTime(Timestamp completedTime) {
-        this.completedTime = completedTime;
+    public void setCompletionTime(Timestamp completionTime) {
+        this.completionTime = completionTime;
     }
 
     public String getStatus() {
@@ -129,12 +129,12 @@ public class ServiceRequest {
         this.status = status;
     }
 
-    public Employee getHandler() {
-        return handler;
+    public Employee getReceiver() {
+        return receiver;
     }
 
-    public void setHandler(Employee handler) {
-        this.handler = handler;
+    public void setReceiver(Employee receiver) {
+        this.receiver = receiver;
     }
 
     private String timeToString(Timestamp time){
@@ -149,36 +149,36 @@ public class ServiceRequest {
 
     @Override
     public String toString() {
-        if (this.handler == null){
+        if (this.receiver == null){
             return "" +System.lineSeparator()+
-                    "ID: " + id + System.lineSeparator() +
-                    "Requester: " + requester.getFirstName() +  " " +requester.getLastName() + System.lineSeparator() +
-                    "Type: " + type + System.lineSeparator() +
+                    "ID: " + serviceID + System.lineSeparator() +
+                    "sender: " + sender.getFirstName() +  " " +sender.getLastName() + System.lineSeparator() +
+                    "serviceType: " + serviceType + System.lineSeparator() +
                     "Location: between Location1 and Location2"+System.lineSeparator() +
                     "Location1: " + location1.getLongName() + System.lineSeparator() +
                     "Location2: " + location2.getLongName() + System.lineSeparator() +
                     "Description: " + description + System.lineSeparator() +
-                    "Created Time: " + createdTime.toString() + System.lineSeparator() +
-                    "Handled Time: " + this.timeToString(handledTime) + System.lineSeparator() +
-                    "Completed Time: " + this.timeToString(completedTime) + System.lineSeparator() +
+                    "Created Time: " + requestTime.toString() + System.lineSeparator() +
+                    "Handled Time: " + this.timeToString(handleTime) + System.lineSeparator() +
+                    "Completed Time: " + this.timeToString(completionTime) + System.lineSeparator() +
                     "Status: " + status + System.lineSeparator() +
-                    "Handler: " + "not handled yet" + System.lineSeparator() +
+                    "receiver: " + "not handled yet" + System.lineSeparator() +
                     "" +System.lineSeparator() ;
         }
         else{
             return "" +System.lineSeparator()+
-                    "ID: " + id + System.lineSeparator() +
-                    "Requester: " + requester.getFirstName() + " " +requester.getLastName() + System.lineSeparator() +
-                    "Type: " + type + System.lineSeparator() +
+                    "ID: " + serviceID + System.lineSeparator() +
+                    "sender: " + sender.getFirstName() + " " +sender.getLastName() + System.lineSeparator() +
+                    "serviceType: " + serviceType + System.lineSeparator() +
                     "Location: between Location1 and Location2"+System.lineSeparator() +
                     "Location1: " + location1.getLongName() + System.lineSeparator() +
                     "Location2: " + location2.getLongName() + System.lineSeparator() +
                     "Description: " + description + System.lineSeparator() +
-                    "CreatedTime: " + createdTime.toString() + System.lineSeparator() +
-                    "HandledTime: " + this.timeToString(handledTime) + System.lineSeparator() +
-                    "CompletedTime: " + this.timeToString(completedTime) + System.lineSeparator() +
+                    "requestTime: " + requestTime.toString() + System.lineSeparator() +
+                    "handleTime: " + this.timeToString(handleTime) + System.lineSeparator() +
+                    "completionTime: " + this.timeToString(completionTime) + System.lineSeparator() +
                     "Status: " + status + System.lineSeparator() +
-                    "Handler: " + handler.getUsername() + System.lineSeparator() +
+                    "receiver: " + receiver.getUsername() + System.lineSeparator() +
                     "" +System.lineSeparator() ;
         }
     }
@@ -190,32 +190,32 @@ public class ServiceRequest {
 
         ServiceRequest that = (ServiceRequest) o;
 
-        if (getId() != that.getId()) return false;
-        if (!getRequester().equals(that.getRequester())) return false;
-        if (!getType().equals(that.getType())) return false;
+        if (getServiceID() != that.getServiceID()) return false;
+        if (!getSender().equals(that.getSender())) return false;
+        if (!getServiceType().equals(that.getServiceType())) return false;
         if (!getLocation1().equals(that.getLocation1())) return false;
         if (!getLocation2().equals(that.getLocation2())) return false;
         if (!getDescription().equals(that.getDescription())) return false;
-        if (!getCreatedTime().equals(that.getCreatedTime())) return false;
-        if (!getHandledTime().equals(that.getHandledTime())) return false;
-        if (!getCompletedTime().equals(that.getCompletedTime())) return false;
+        if (!getRequestTime().equals(that.getRequestTime())) return false;
+        if (!getHandleTime().equals(that.getHandleTime())) return false;
+        if (!getCompletionTime().equals(that.getCompletionTime())) return false;
         if (!getStatus().equals(that.getStatus())) return false;
-        return getHandler().equals(that.getHandler());
+        return getReceiver().equals(that.getReceiver());
     }
 
     @Override
     public int hashCode() {
-        int result = getId();
-        result = 31 * result + getRequester().hashCode();
-        result = 31 * result + getType().hashCode();
+        int result = getServiceID();
+        result = 31 * result + getSender().hashCode();
+        result = 31 * result + getServiceType().hashCode();
         result = 31 * result + getLocation1().hashCode();
         result = 31 * result + getLocation2().hashCode();
         result = 31 * result + getDescription().hashCode();
-        result = 31 * result + getCreatedTime().hashCode();
-        result = 31 * result + getHandledTime().hashCode();
-        result = 31 * result + getCompletedTime().hashCode();
+        result = 31 * result + getRequestTime().hashCode();
+        result = 31 * result + getHandleTime().hashCode();
+        result = 31 * result + getCompletionTime().hashCode();
         result = 31 * result + getStatus().hashCode();
-        result = 31 * result + getHandler().hashCode();
+        result = 31 * result + getReceiver().hashCode();
         return result;
     }
 }

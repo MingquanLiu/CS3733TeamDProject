@@ -16,8 +16,8 @@ public class ServiceRequestsTable {
                     "CONSTRAINT ServiceRequests PRIMARY KEY (serviceID)," +
                     "CONSTRAINT ServiceRequests_FK1 FOREIGN KEY (sender) REFERENCES Employees (username)," +
                     "CONSTRAINT ServiceRequests_FK2 FOREIGN KEY (receiver) REFERENCES Employees (username)," +
-                    "CONSTRAINT ServiceRequests_FK3 FOREIGN KEY (location1) REFERENCES Nodes (nodeID)," +
-                    "CONSTRAINT ServiceRequests_FK4 FOREIGN KEY (location2) REFERENCES Nodes (nodeID))";
+                    "CONSTRAINT ServiceRequests_FK3 FOREIGN KEY (location1) REFERENCES Nodes (nodeID) ON DELETE CASCADE," +
+                    "CONSTRAINT ServiceRequests_FK4 FOREIGN KEY (location2) REFERENCES Nodes (nodeID) ON DELETE CASCADE)";
 
             // Creates new StaffTitles table
             conn.execute(newTable);
