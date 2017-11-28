@@ -24,6 +24,10 @@ public class ServiceRequestControllerTest {
     Employee wong = new Employee("user", "pass", "Wilson", "", "Wong", true, "interpreter");
     Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation");
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
+    Coordinate coord1 = new Coordinate(4550,375);
+    NodeData teamDnode1 = new NodeData("DELEV00A02",coord1,"2","15 Francis","ELEV","Elevator A Floor 2","Elevator A2","Team D");
+    Coordinate coord2 = new Coordinate(4155,650);
+    NodeData teamDnode2 = new NodeData("DELEV00B02",coord2,"2","15 Francis","ELEV","Elevator B Floor 2","Elevator B2","Team D");
     NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
     NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
     ServiceRequest serviceRequest = new ServiceRequest(1, wong,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
@@ -50,9 +54,7 @@ public class ServiceRequestControllerTest {
 
     @Before
     public void setupDbTables() {
-        // MapDnodes.csv
-        DBTables.createAllTables(dbConnection);           // Makes nodes table
-
+        DBTables.createAllTables(dbConnection);           // Makes all table
     }
 
 
@@ -69,7 +71,7 @@ public class ServiceRequestControllerTest {
     @Test
     public void testQuery(){
   // test insert service request
-        srController.createServiceRequest(john, "transportation", aBathroom, bBathroom, "need a wheelchair");
+        srController.createServiceRequest(john, "transportation", teamDnode1, teamDnode2, "need a wheelchair");
         assertEquals(0,0);
     }
 
