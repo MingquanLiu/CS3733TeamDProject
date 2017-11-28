@@ -92,7 +92,7 @@ public class CsvReader {
 
             }
 
-            System.out.println("Number of rows: " + j);
+            System.out.println("Number of node rows: " + j);
 
         } catch (SQLException e) {
             e.printStackTrace();

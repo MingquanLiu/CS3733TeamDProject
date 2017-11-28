@@ -62,16 +62,17 @@ public class DBConnectionTest {
         mDbTable.createAllTables(TestDB);           // Makes nodes table
 
         ArrayList<EdgeData> edgeList = mCsvReader.readEdges(conn);
+        ArrayList<NodeData> nodeList = mCsvReader.getListOfNodes(conn);
 
 
 
 
 
-        mCsvReader.insertNodes(conn, mCsvReader.getListOfNodes(conn));
+        mCsvReader.insertNodes(conn, nodeList);
         mCsvReader.insertEdges(conn, edgeList);
 
 
-          printTables.printNodesTable(conn);
+        printTables.printNodesTable(conn);
           printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
 
 
