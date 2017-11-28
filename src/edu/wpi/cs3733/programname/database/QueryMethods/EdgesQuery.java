@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EdgesQuery {
-
-
-    public static List<EdgeData> getAllEdgeInfo(DBConnection dbConnection) {
+    private DBConnection dbConnection;
+    public EdgesQuery(DBConnection dbConnection){this.dbConnection = dbConnection;}
+    public List<EdgeData> getAllEdgeInfo() {
         EdgeData queryResult = null;
         List<EdgeData> allEdges = new ArrayList<EdgeData>();
 
@@ -43,7 +43,7 @@ public class EdgesQuery {
 
 
 
-    public static EdgeData queryEdgeByID(DBConnection dbConnection, String eID) {
+    public EdgeData queryEdgeByID(String eID) {
         EdgeData queryResult = null;
 
         String edgeID = "";

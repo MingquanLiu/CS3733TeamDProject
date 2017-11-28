@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class EmployeesQuery {
-    DBConnection dbConnection;
+    private DBConnection dbConnection;
     public EmployeesQuery(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
     }

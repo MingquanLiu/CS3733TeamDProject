@@ -10,22 +10,24 @@ import java.util.List;
 
 public class DatabaseQueryController {
 
-    DBConnection dbConnection;
-
-
+    private DBConnection dbConnection;
+    private NodesQuery nodesQuery;
+    private EdgesQuery edgesQuery;
     public DatabaseQueryController(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
+        nodesQuery = new NodesQuery(dbConnection);
+        edgesQuery = new EdgesQuery(dbConnection);
     }
 
 
     // Query By ID
-    public NodeData queryNodeById(DBConnection dbConnection, String nID) {
-        return NodesQuery.queryNodeByID(dbConnection, nID);
+    public NodeData queryNodeById(String nID) {
+        return nodesQuery.queryNodeByID( nID);
     }
 
 
     public EdgeData queryEdgeById(String eID) {
-        return EdgesQuery.queryEdgeByID(dbConnection, eID);
+        return edgesQuery.queryEdgeByID(eID);
     }
 
 
@@ -36,12 +38,12 @@ public class DatabaseQueryController {
 
     // Get List of  all data
     public List<NodeData> getAllNodeData() {
-        return NodesQuery.getAllNodeInfo(dbConnection);
+        return nodesQuery.getAllNodeInfo();
     }
 
 
     public List<EdgeData> getAllEdgeData() {
-        return EdgesQuery.getAllEdgeInfo(dbConnection);
+        return edgesQuery.getAllEdgeInfo();
     }
 
 
@@ -58,8 +60,8 @@ public class DatabaseQueryController {
 
 
     // Query by type
-    public List<NodeData> queryNodeByType(DBConnection dbConnection, String nType) {
-        return NodesQuery.queryNodeByType(dbConnection, nType);
+    public List<NodeData> queryNodeByType(String nType) {
+        return nodesQuery.queryNodeByType(nType);
     }
 
 //    public List<ServiceRequestInfo> queryServiceRequesByType(DBConnection dbConnection, String type) {

@@ -21,7 +21,7 @@ public class ServiceRequestController {
         this.queryServiceRequest = queryServiceRequest;
     }
 
-    public void createServiceRequest(Employee requester, String type, NodeData location1, NodeData location2, String description) {
+    public void createServiceRequest(String requester, String type, String location1, String location2, String description) {
         //generate random id
         Random randomID = new Random();
         int id = randomID.nextInt(1000) + 1;
@@ -125,7 +125,7 @@ public class ServiceRequestController {
         System.out.print(queryServiceRequest.queryServiceRequestsByStatus("removed"));
     }
 
-    public void handleServiceRequest(ServiceRequest request, Employee handler){
+    public void handleServiceRequest(ServiceRequest request, String handler){
         queryServiceRequest.handleServiceRequest(request, handler);
     }
 

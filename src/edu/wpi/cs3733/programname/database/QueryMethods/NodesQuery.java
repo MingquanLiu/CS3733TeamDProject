@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NodesQuery {
-
-    public static NodeData queryNodeByID(DBConnection dbConnection, String nID) {
+    private DBConnection dbConnection;
+    public NodesQuery(DBConnection dbConnection){this.dbConnection = dbConnection;}
+    public NodeData queryNodeByID(String nID) {
         NodeData queryResult = null;
 
         try {
@@ -54,7 +55,7 @@ public class NodesQuery {
     }
 
 
-    public static List<NodeData> getAllNodeInfo(DBConnection dbConnection) {
+    public List<NodeData> getAllNodeInfo() {
         NodeData queryResult = null;
         ArrayList<NodeData> allNodes = new ArrayList<NodeData>();
 
@@ -96,7 +97,7 @@ public class NodesQuery {
     }
 
 
-    public static List<NodeData> getAllNodeData(DBConnection dbConnection) {
+    public List<NodeData> getAllNodeData() {
         NodeData queryResult = null;
         List<NodeData> allNodes = new ArrayList<NodeData>();
 
@@ -138,7 +139,7 @@ public class NodesQuery {
     }
 
 
-    public static List<NodeData> queryNodeByType(DBConnection dbConnection, String nType) {
+    public List<NodeData> queryNodeByType(String nType) {
 
         NodeData queryResult = null;
         List<NodeData> allNodeTypes = new ArrayList<NodeData>();
@@ -182,7 +183,7 @@ public class NodesQuery {
     }
 
 
-    public List<NodeData> getNodeByTypeAndFloor(DBConnection dbConnection, String type, String floor){
+    public List<NodeData> getNodeByTypeAndFloor(String type, String floor){
 
         NodeData queryResult = null;
         List<NodeData> allNodeTypes = new ArrayList<NodeData>();
@@ -224,7 +225,7 @@ public class NodesQuery {
     }
 
 
-    public NodeData getNodeByCoordAndFloor(DBConnection dbConnection, Coordinate coord, String floor){
+    public NodeData getNodeByCoordAndFloor(Coordinate coord, String floor){
         NodeData queryResult = null;
         int xcoord = coord.getXCoord();
         int ycoord = coord.getYCoord();

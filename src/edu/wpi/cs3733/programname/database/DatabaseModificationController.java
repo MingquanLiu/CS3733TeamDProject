@@ -7,7 +7,7 @@ import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
 
 
 public class DatabaseModificationController {
-    DBConnection conn;
+    private DBConnection conn;
 
     /**
      *

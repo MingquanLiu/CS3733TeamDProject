@@ -5,19 +5,19 @@ import java.util.Date;
 
 public class ServiceRequest {
     private int serviceID;
-    private Employee sender;
+    private String sender;
     private String serviceType;
-    private NodeData location1;
-    private NodeData location2;
+    private String location1;
+    private String location2;
     private String description;
     private Timestamp requestTime;
     private Timestamp handleTime;
     private Timestamp completionTime;
     private String status;
-    private Employee receiver;
+    private String receiver;
 
 
-    public ServiceRequest(int serviceID, Employee sender, String serviceType, NodeData location1, NodeData location2, String description) {
+    public ServiceRequest(int serviceID, String sender, String serviceType, String location1, String location2, String description) {
         this.serviceID = serviceID;
         this.sender = sender;
         this.serviceType = serviceType;
@@ -32,7 +32,7 @@ public class ServiceRequest {
         this.receiver = null;
     }
 
-    public ServiceRequest(int serviceID, Employee sender, Employee receiver, String serviceType, NodeData location1, NodeData location2,
+    public ServiceRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2,
                           String description, Timestamp requestTime, Timestamp handleTime, Timestamp completionTime, String status) {
         this.serviceID = serviceID;
         this.sender = sender;
@@ -57,11 +57,11 @@ public class ServiceRequest {
         this.serviceID = serviceID;
     }
 
-    public Employee getSender() {
+    public String getSender() {
         return sender;
     }
 
-    public void setSender(Employee sender) {
+    public void setSender(String sender) {
         this.sender = sender;
     }
 
@@ -73,19 +73,19 @@ public class ServiceRequest {
         this.serviceType = serviceType;
     }
 
-    public NodeData getLocation1() {
+    public String getLocation1() {
         return location1;
     }
 
-    public void setLocation1(NodeData location) {
+    public void setLocation1(String location) {
         this.location1 = location;
     }
 
-    public NodeData getLocation2() {
+    public String getLocation2() {
         return location2;
     }
 
-    public void setLocation2(NodeData location) {
+    public void setLocation2(String location) {
         this.location2 = location;
     }
 
@@ -129,11 +129,11 @@ public class ServiceRequest {
         this.status = status;
     }
 
-    public Employee getReceiver() {
+    public String getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(Employee receiver) {
+    public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
 
@@ -152,11 +152,11 @@ public class ServiceRequest {
         if (this.receiver == null){
             return "" +System.lineSeparator()+
                     "ID: " + serviceID + System.lineSeparator() +
-                    "sender: " + sender.getFirstName() +  " " +sender.getLastName() + System.lineSeparator() +
+                    "sender: " + sender +  " " +sender + System.lineSeparator() +
                     "serviceType: " + serviceType + System.lineSeparator() +
                     "Location: between Location1 and Location2"+System.lineSeparator() +
-                    "Location1: " + location1.getLongName() + System.lineSeparator() +
-                    "Location2: " + location2.getLongName() + System.lineSeparator() +
+                    "Location1: " + location1 + System.lineSeparator() +
+                    "Location2: " + location2 + System.lineSeparator() +
                     "Description: " + description + System.lineSeparator() +
                     "Created Time: " + requestTime.toString() + System.lineSeparator() +
                     "Handled Time: " + this.timeToString(handleTime) + System.lineSeparator() +
@@ -168,17 +168,17 @@ public class ServiceRequest {
         else{
             return "" +System.lineSeparator()+
                     "ID: " + serviceID + System.lineSeparator() +
-                    "sender: " + sender.getFirstName() + " " +sender.getLastName() + System.lineSeparator() +
+                    "sender: " + sender + " " +sender + System.lineSeparator() +
                     "serviceType: " + serviceType + System.lineSeparator() +
                     "Location: between Location1 and Location2"+System.lineSeparator() +
-                    "Location1: " + location1.getLongName() + System.lineSeparator() +
-                    "Location2: " + location2.getLongName() + System.lineSeparator() +
+                    "Location1: " + location1 + System.lineSeparator() +
+                    "Location2: " + location2 + System.lineSeparator() +
                     "Description: " + description + System.lineSeparator() +
                     "requestTime: " + requestTime.toString() + System.lineSeparator() +
                     "handleTime: " + this.timeToString(handleTime) + System.lineSeparator() +
                     "completionTime: " + this.timeToString(completionTime) + System.lineSeparator() +
                     "Status: " + status + System.lineSeparator() +
-                    "receiver: " + receiver.getUsername() + System.lineSeparator() +
+                    "receiver: " + receiver + System.lineSeparator() +
                     "" +System.lineSeparator() ;
         }
     }
