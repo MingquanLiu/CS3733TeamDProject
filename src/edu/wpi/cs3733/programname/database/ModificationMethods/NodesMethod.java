@@ -6,8 +6,9 @@ import java.sql.SQLException;
 
 public class NodesMethod {
 
-
-    public static void insertNode(DBConnection conn, NodeData data) {
+    private DBConnection dbConnection ;
+    public NodesMethod(DBConnection dbConnection){this.dbConnection = dbConnection;}
+    public void insertNode(NodeData data) {
         String nodeID = data.getNodeID();
         int xcoord = data.getXCoord();
         int ycoord = data.getYCoord();
@@ -25,7 +26,7 @@ public class NodesMethod {
                     building + "', '" + nodeType + "', '" + longName + "', '" + shortName + "', '" + teamAssigned + "')";
 
             System.out.println(str);
-            conn.executeUpdate(str);
+            dbConnection.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
@@ -33,7 +34,7 @@ public class NodesMethod {
     }
 
 
-    public static void modifyNode(DBConnection conn, NodeData data) {
+    public void modifyNode(NodeData data) {
         String nodeID = data.getNodeID();
         int xcoord = data.getXCoord();
         int ycoord = data.getYCoord();
@@ -51,7 +52,7 @@ public class NodesMethod {
                     + shortName + "', teamAssigned = '" + teamAssigned + "' WHERE nodeID = '" + nodeID + "'";
 
             System.out.println(str);
-            conn.executeUpdate(str);
+            dbConnection.executeUpdate(str);
 
         } catch (SQLException e) {
             System.out.println("Edit Node Failed!");
@@ -60,7 +61,7 @@ public class NodesMethod {
     }
 
 
-    public static void removeNode(DBConnection conn, NodeData data) {
+    public void removeNode(NodeData data) {
         String nodeID = data.getNodeID();
         String str;
 
@@ -68,7 +69,7 @@ public class NodesMethod {
             str = "DELETE FROM Nodes WHERE nodeID = '" + nodeID + "'";
 
             System.out.println(str);
-            conn.executeUpdate(str);
+            dbConnection.executeUpdate(str);
         } catch (SQLException e) {
             System.out.println("Delete Node Failed!");
             e.printStackTrace();

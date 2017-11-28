@@ -1,46 +1,56 @@
 package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
+import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.ModificationMethods.EdgesMethod;
+import edu.wpi.cs3733.programname.database.ModificationMethods.EmployeesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
-
+import edu.wpi.cs3733.programname.database.ModificationMethods.ServiceRequestsMethod;
+import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
+import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
 
 public class DatabaseModificationController {
-    private DBConnection conn;
-
+    private NodesMethod nodesMethod;
+    private EdgesMethod edgesMethod;
+    private EmployeesMethod employeesMethod;
+    private ServiceRequestsMethod serviceRequestsMethod;
     /**
      *
      * @param conn the connection to the database
      */
     public DatabaseModificationController(DBConnection conn){
-        this.conn = conn;
+        nodesMethod = new NodesMethod(conn);
+        edgesMethod = new EdgesMethod(conn);
+        employeesMethod = new EmployeesMethod(conn);
+        serviceRequestsMethod = new ServiceRequestsMethod(conn);
     }
 
-
+    //Node Modification
     public void addNode(NodeData data) {
-        NodesMethod.insertNode(conn, data);
+        nodesMethod.insertNode(data);
     }
 
 
     public void editNode(NodeData data) {
-        NodesMethod.modifyNode(conn, data);
+        nodesMethod.modifyNode(data);
     }
 
 
     public void deleteNode(NodeData data){
-        NodesMethod.removeNode(conn, data);
+        nodesMethod.removeNode(data);
     }
 
-
+    //Edge Modification
 
     public void addEdge(String node1ID, String node2ID){
-        EdgesMethod.insertEdge(conn, node1ID, node2ID);
+        edgesMethod.insertEdge(node1ID, node2ID);
     }
 
 
     public void editEdge(EdgeData data){
-        EdgesMethod.modifyEdge(conn, data);
+        edgesMethod.modifyEdge(data);
     }
 
     /**
@@ -48,6 +58,29 @@ public class DatabaseModificationController {
      * @param data the edge that we want to delete
      */
     public void deleteEdge(EdgeData data) {
-        EdgesMethod.removeEdge(conn, data);
+        edgesMethod.removeEdge(data);
+    }
+
+    //Employee Modification
+    public void addEmployee(Employee employee){
+        employeesMethod.addEmployee(employee);
+    }
+
+    //Service Request Modification
+    public void addServiceRequest(ServiceRequest serviceRequest){
+        serviceRequestsMethod.addServiceRequest(serviceRequest);
+    }
+    public void handleServiceRequest(ServiceRequest serviceRequest, String receiver){
+        serviceRequestsMethod.handleServiceRequest(serviceRequest,receiver);
+    }
+
+    public void completeServiceRequest(ServiceRequest serviceRequest){
+        serviceRequestsMethod.completeServiceRequest(serviceRequest);
+    }
+    public void removeServiceRequest(ServiceRequest serviceRequest){
+        serviceRequestsMethod.removeServiceRequest(serviceRequest);
+    }
+    public void deleteServiceRequest(ServiceRequest serviceRequest){
+        serviceRequestsMethod.deleteServiceRequest(serviceRequest);
     }
 }

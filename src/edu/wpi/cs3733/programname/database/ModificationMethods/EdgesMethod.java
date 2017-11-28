@@ -6,14 +6,16 @@ import java.sql.SQLException;
 
 public class EdgesMethod {
 
-    public static void insertEdge(DBConnection conn, String node1ID, String node2ID) {
+    private DBConnection dbConnection;
+    public EdgesMethod(DBConnection dbConnection){this.dbConnection = dbConnection;}
+    public void insertEdge(String node1ID, String node2ID) {
         String nodeID = node1ID + "_" + node2ID;
         String str;
 
         try {
             str = "INSERT INTO Edges VALUES('" + nodeID + "', '" + node1ID + "', '" + node2ID + "')";
             System.out.println(str);
-            conn.executeUpdate(str);
+            dbConnection.executeUpdate(str);
 
         } catch (SQLException e) {
             System.out.println("Add Edge Failed!");
@@ -22,7 +24,7 @@ public class EdgesMethod {
     }
 
 
-    public static void modifyEdge(DBConnection conn, EdgeData data) {
+    public void modifyEdge( EdgeData data) {
         String edgeID = data.getEdgeID();
         String startNode = data.getStartNode();
         String endNode = data.getEndNode();
@@ -31,7 +33,7 @@ public class EdgesMethod {
         try {
             str = "UPDATE Edges SET startNode = '" + startNode + "', endNode = '" + endNode + "' where edgeId = '" + edgeID + "'";
             System.out.println(str);
-            conn.executeUpdate(str);
+            dbConnection.executeUpdate(str);
 
         } catch (SQLException e) {
             System.out.println("Add Edge Failed!");
@@ -44,14 +46,14 @@ public class EdgesMethod {
      *
      * @param data the edge that we want to delete
      */
-    public static void removeEdge(DBConnection conn, EdgeData data) {
+    public void removeEdge(EdgeData data) {
         String edgeID = data.getEdgeID();
         String str;
 
         try {
             str = "DELETE FROM Edges WHERE edgeID = '" + edgeID + "'";
             System.out.println(str);
-            conn.executeUpdate(str);
+            dbConnection.executeUpdate(str);
 
         } catch (SQLException e) {
             System.out.println("Delete Edge Failed!");

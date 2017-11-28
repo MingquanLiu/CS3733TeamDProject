@@ -1,22 +1,29 @@
 package edu.wpi.cs3733.programname.database;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
+import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery;
+import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
+import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class DatabaseQueryController {
 
-    private DBConnection dbConnection;
     private NodesQuery nodesQuery;
     private EdgesQuery edgesQuery;
+    private EmployeesQuery employeesQuery;
+    private ServiceRequestsQuery serviceRequestsQuery;
     public DatabaseQueryController(DBConnection dbConnection) {
-        this.dbConnection = dbConnection;
         nodesQuery = new NodesQuery(dbConnection);
         edgesQuery = new EdgesQuery(dbConnection);
+        employeesQuery = new EmployeesQuery(dbConnection);
+        serviceRequestsQuery = new ServiceRequestsQuery(dbConnection);
     }
 
 
@@ -86,7 +93,35 @@ public class DatabaseQueryController {
 //        return EmployeeQuery.queryByName(dbConnection, fName, mName, lName);
 //    }
 
+    //Employee Query
+    public ArrayList<Employee> queryAllEmployees(){
+        return employeesQuery.queryAllEmployees();
+    }
 
+    public ArrayList<Employee> queryEmployeesByType(String type){
+        return employeesQuery.queryEmployeesByType(type);
+    }
+
+    public Employee queryEmployeeByUsername(String username){
+        return employeesQuery.queryEmployeeByUsername(username);
+    }
+
+    //Service Request Query
+    public ArrayList<ServiceRequest> queryAllServiceRequests(){
+        return serviceRequestsQuery.queryAllServiceRequests();
+    }
+
+    public ArrayList<ServiceRequest> queryServiceRequestsByStatus(String status){
+        return serviceRequestsQuery.queryServiceRequestsByStatus(status);
+    }
+
+    public ArrayList<ServiceRequest> queryServiceRequestsByType(String serviceType){
+        return serviceRequestsQuery.queryServiceRequestsByType(serviceType);
+    }
+
+    public ServiceRequest queryServiceRequestsByID(int serviceID){
+        return serviceRequestsQuery.queryServiceRequestsByID(serviceID);
+    }
 
 
 }
