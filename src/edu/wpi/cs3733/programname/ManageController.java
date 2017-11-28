@@ -3,6 +3,7 @@ package edu.wpi.cs3733.programname;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
@@ -13,6 +14,8 @@ import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
 import java.util.List;
+import java.util.Random;
+
 import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
 
 
@@ -113,6 +116,15 @@ public class ManageController {
         TextDirections textDirections = new TextDirections(path);
         PathfindingMessage msg = new PathfindingMessage(recipient, textDirections.getEmailMessageBody());
         msg.sendMessage();
+    }
+
+    public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description) {
+        //generate random id
+        Random randomID = new Random();
+        int id = randomID.nextInt(1000) + 1;
+        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description);
+        //queryServiceRequest.addServiceRequest(newServiceRequest);
+        return newServiceRequest;
     }
 }
 
