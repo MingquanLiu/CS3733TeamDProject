@@ -1,13 +1,12 @@
 
 import edu.wpi.cs3733.programname.commondata.Coordinate;
+import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
-import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
-import edu.wpi.cs3733.programname.commondata.Employee;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
-import org.junit.Before;
+import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -15,6 +14,18 @@ import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertEquals;
 
 public class ServiceRequestControllerTest {
+
+    DBConnection dbConnection = new DBConnection();
+    EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
+    ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
+    ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
+    Employee wong = new Employee("user", "pass", "Wilson", "", "Wong", true, "interpreter");
+    Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation");
+    Coordinate aBathroomCoord = new Coordinate(4125, 625);
+    NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
+    NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
+    ServiceRequest serviceRequest = new ServiceRequest(1, wong,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
+
 
     //CHANGE TARGET EMAIL IF YOU RUN THIS TEST PLEASE
 //    @Test
@@ -35,31 +46,10 @@ public class ServiceRequestControllerTest {
 //    }
 
 
-    @Before
-     DBConnection dbConnection = new DBConnection();
-     EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
-     ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
-     ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
-     Employee wong = new Employee("user", "pass", "Wilson", "", "Wong", true, "interpreter");
-     Coordinate aBathroomCoord = new Coordinate(4125, 625);
-     NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-     NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-     ServiceRequest serviceRequest = new ServiceRequest(1, wong,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
-
-
     // test email
     @Test
     public void testEmail(){
-//        DBConnection dbConnection = new DBConnection();
-//        EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
-//        ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
-//        ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
-//        Employee wong = new Employee("user", "pass", "Wilson", "", "Wong", true, "interpreter");
-//        Coordinate aBathroomCoord = new Coordinate(4125, 625);
-//        NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-//        NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-//        ServiceRequest serviceRequest = new ServiceRequest(1, wong,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
-        srController.sendEmail(serviceRequest);
+    srController.sendEmail(serviceRequest);
     }
 
 
@@ -68,15 +58,7 @@ public class ServiceRequestControllerTest {
     // This is not working
     @Test
     public void testQuery(){
-        DBConnection dbConnection = new DBConnection();
-        EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
-        ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
-        ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
-        Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation");
-        Coordinate aBathroomCoord = new Coordinate(4125, 625);
-        NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-        NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-        // test insert service request
+  // test insert service request
         srController.createServiceRequest(john, "transportation", aBathroom, bBathroom, "need a wheelchair");
         assertEquals(0,0);
     }
