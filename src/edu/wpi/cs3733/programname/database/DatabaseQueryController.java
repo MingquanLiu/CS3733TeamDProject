@@ -1,19 +1,9 @@
 package edu.wpi.cs3733.programname.database;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery;
-
 import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
-import edu.wpi.cs3733.programname.servicerequest.EmployeesQuery;
-
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
 import java.util.List;
 
@@ -39,8 +29,8 @@ public class DatabaseQueryController {
     }
 
 
-//    public List<ServiceRequest> queryServiceRequesByID(DBConnection dbConnection, String srID) {
-//        return ServiceRequestQuery.queryByID(dbConnection, srID);
+//    public List<ServiceRequestInfo> queryServiceRequesByID(DBConnection dbConnection, String srID) {
+//        return ServiceRequestsQuery.queryByID(dbConnection, srID);
 //    }
 
 
@@ -55,12 +45,12 @@ public class DatabaseQueryController {
     }
 
 
-//    public List<Employee> getAllEmployeeInfo() {
-//        return EmployeesQuery.getAllEmployee(dbConnection);
+//    public List<EmployeeInfo> getAllEmployeeInfo() {
+//        return EmployeeQuery.getAllEmployeeInfo(dbConnection);
 //    }
+
 //
-//
-//    public List<ServiceRequest> getAllServiceRequestInfo() {
+//    public List<ServiceRequestInfo> getAllServiceRequestInfo() {
 //        return ServiceRequestQuery.getAllServiceRequest(dbConnection);
 //    }
 
@@ -72,26 +62,26 @@ public class DatabaseQueryController {
         return NodesQuery.queryNodeByType(dbConnection, nType);
     }
 
-//    public List<ServiceRequest> queryServiceRequesByType(DBConnection dbConnection, String type) {
+//    public List<ServiceRequestInfo> queryServiceRequesByType(DBConnection dbConnection, String type) {
 //        return ServiceRequestQuery.queryByType(dbConnection, type);
 //    }
 //
-//
+
 //    // Query by status
-//    public List<ServiceRequest> queryServiceRequesByStatus(DBConnection dbConnection, String status) {
+//    public List<ServiceRequestInfo> queryServiceRequesByStatus(DBConnection dbConnection, String status) {
 //        return ServiceRequestQuery.queryByStatus(dbConnection, status);
 //    }
-//
+
 //
 //    // Query by userName
-//    public Employee queryEmployeesByUserName(DBConnection dbConnection, String uName){
-//        return EmployeesQuery.queryByUsername(dbConnection, uName);
+//    public EmployeeInfo queryEmployeesByUserName(DBConnection dbConnection, String uName){
+//        return EmployeeQuery.queryByUser(dbConnection, uName);
 //    }
-//
+
 //
 //    // Query by fullName
-//    public Employee queryEmployeesByFullName(DBConnection dbConnection, String fName, String mName, String lName){
-//        return EmployeesQuery.queryByName(dbConnection, fName, mName, lName);
+//    public EmployeeInfo queryEmployeesByFullName(DBConnection dbConnection, String fName, String mName, String lName){
+//        return EmployeeQuery.queryByName(dbConnection, fName, mName, lName);
 //    }
 
 
