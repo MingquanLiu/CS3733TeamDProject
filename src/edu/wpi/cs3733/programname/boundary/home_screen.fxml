@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -27,6 +27,26 @@
                         <Image url="@Resources/Floor_2.png" />
                      </image>
                   </ImageView>
+                    <DialogPane fx:id="nodeInfoPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;" visible="false">
+                        <content>
+                            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="100.0">
+                                <children>
+                                    <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                                    <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+                                    <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <JFXButton fx:id="closeNodeInfo" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" onAction="#closeNodeInfoHandler" text="Close" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <Label fx:id="nodeInfoLocation" layoutX="14.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+                                </children>
+                            </AnchorPane>
+                        </content>
+                        <header>
+                            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Node Info">
+                                <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                </padding>
+                            </Label>
+                        </header>
+                    </DialogPane>
                </children>
             </AnchorPane>
          </content>
@@ -157,32 +177,14 @@
                 <AnchorPane prefHeight="178.0" prefWidth="350.0">
                     <children>
                         <TextArea fx:id="requestDescription" layoutX="23.0" prefHeight="125.0" prefWidth="305.0" />
-                        <JFXButton fx:id="btnSelectMaintenanceLocation" onAction="#SRWindowHandler" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" text="Select Location(s)" />
-                        <JFXButton fx:id="btnCancelRequestAttempt" onAction="#SRWindowHandler" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" text="Cancel" />
-                        <JFXButton fx:id="btnSubmitRequest" onAction="#SRWindowHandler" layoutX="211.0" layoutY="125.0" mnemonicParsing="false" text="Submit" />
+                        <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Select Location(s)" />
+                        <JFXButton fx:id="btnCancelRequestAttempt" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Cancel" />
+                        <JFXButton fx:id="btnSubmitRequest" layoutX="211.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Submit" />
+                  <Label fx:id="lblServiceType" text="Label" />
+                  <Label fx:id="lblServiceLocation" text="Label" AnchorPane.rightAnchor="0.0" />
                     </children>
                 </AnchorPane>
             </content>
             </DialogPane>
-        <DialogPane fx:id="nodeInfoPane" layoutX="429.0" layoutY="215.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;" visible="false">
-            <content>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="100.0">
-                    <children>
-                        <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
-                        <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
-                        <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <JFXButton fx:id="closeNodeInfo" onAction="#closeNodeInfoHandler" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" text="Close" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <Label fx:id="nodeInfoLocation" layoutX="14.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
-                    </children>
-                </AnchorPane>
-            </content>
-            <header>
-                <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Node Info">
-                    <padding>
-                        <Insets left="5.0" top="5.0" />
-                    </padding>
-                </Label>
-            </header>
-        </DialogPane>
     </children>
 </AnchorPane>

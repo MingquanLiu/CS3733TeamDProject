@@ -104,6 +104,10 @@ public class TestingController implements Initializable{
     private JFXButton btnCancelRequestAttempt;
     @FXML
     private JFXButton btnSubmitRequest;
+    @FXML
+    private Label lblServiceLovation;
+    @FXML
+    private Label lblServiceType;
 
     //hamburger pane and transitions
     @FXML
