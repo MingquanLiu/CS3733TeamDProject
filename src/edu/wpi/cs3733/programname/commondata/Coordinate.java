@@ -59,6 +59,11 @@ public class Coordinate {
         return y == that.y;
     }
 
+    @Override
+    public String toString() {
+        return "(" + x + "," + y + ")";
+    }
+
     /**
      * converts item to hash code using the x and y coordinate
      * @return the hashcode
