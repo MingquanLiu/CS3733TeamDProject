@@ -167,49 +167,21 @@ public class ServiceRequest {
         this.receiver = receiver;
     }
 
-    private String timeToString(Timestamp time){
-        if(time == null){
-            return "not handled yet";
-        }
-        else{
-            return time.toString();
-        }
-    }
-
     @Override
     public String toString() {
-        if (this.receiver == null){
-            return "" +System.lineSeparator()+
+    return "" +System.lineSeparator()+
                     "ID: " + serviceID + System.lineSeparator() +
-                    "sender: " + sender +  " " +sender + System.lineSeparator() +
+                    "sender: " + sender + System.lineSeparator() +
                     "serviceType: " + serviceType + System.lineSeparator() +
                     "Location: between Location1 and Location2"+System.lineSeparator() +
                     "Location1: " + location1 + System.lineSeparator() +
                     "Location2: " + location2 + System.lineSeparator() +
                     "Description: " + description + System.lineSeparator() +
-                    "Created Time: " + requestTime + System.lineSeparator() +
-                    "Handled Time: " + handleTime + System.lineSeparator() +
-                    "Completed Time: " + completionTime + System.lineSeparator() +
+                    "RequestTime: " + requestTime + System.lineSeparator() +
+                    "HandleTime: " + handleTime + System.lineSeparator() +
+                    "CompletionTime: " + completionTime + System.lineSeparator() +
                     "Status: " + status + System.lineSeparator() +
-                    "receiver: " + "not handled yet" + System.lineSeparator() +
-                    "" +System.lineSeparator() ;
-        }
-        else{
-            return "" +System.lineSeparator()+
-                    "ID: " + serviceID + System.lineSeparator() +
-                    "sender: " + sender + " " +sender + System.lineSeparator() +
-                    "serviceType: " + serviceType + System.lineSeparator() +
-                    "Location: between Location1 and Location2"+System.lineSeparator() +
-                    "Location1: " + location1 + System.lineSeparator() +
-                    "Location2: " + location2 + System.lineSeparator() +
-                    "Description: " + description + System.lineSeparator() +
-                    "requestTime: " + requestTime + System.lineSeparator() +
-                    "handleTime: " + handleTime + System.lineSeparator() +
-                    "completionTime: " + completionTime + System.lineSeparator() +
-                    "Status: " + status + System.lineSeparator() +
-                    "receiver: " + receiver + System.lineSeparator() +
-                    "" +System.lineSeparator() ;
-        }
+                    "Receiver: " + receiver + System.lineSeparator();
     }
 
 
@@ -240,19 +212,19 @@ public class ServiceRequest {
         return getReceiver() != null ? getReceiver().equals(that.getReceiver()) : that.getReceiver() == null;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int result = getServiceID();
-//        result = 31 * result + getSender().hashCode();
-//        result = 31 * result + getServiceType().hashCode();
-//        result = 31 * result + getLocation1().hashCode();
-//        result = 31 * result + getLocation2().hashCode();
-//        result = 31 * result + getDescription().hashCode();
-//        result = 31 * result + getRequestTime().hashCode();
-//        result = 31 * result + getHandleTime().hashCode();
-//        result = 31 * result + getCompletionTime().hashCode();
-//        result = 31 * result + getStatus().hashCode();
-//        result = 31 * result + getReceiver().hashCode();
-//        return result;
-//    }
+    @Override
+    public int hashCode() {
+        int result = getServiceID();
+        result = 31 * result + (getSender() != null ? getSender().hashCode() : 0);
+        result = 31 * result + (getServiceType() != null ? getServiceType().hashCode() : 0);
+        result = 31 * result + (getLocation1() != null ? getLocation1().hashCode() : 0);
+        result = 31 * result + (getLocation2() != null ? getLocation2().hashCode() : 0);
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        result = 31 * result + (getRequestTime() != null ? getRequestTime().hashCode() : 0);
+        result = 31 * result + (getHandleTime() != null ? getHandleTime().hashCode() : 0);
+        result = 31 * result + (getCompletionTime() != null ? getCompletionTime().hashCode() : 0);
+        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+        result = 31 * result + (getReceiver() != null ? getReceiver().hashCode() : 0);
+        return result;
+    }
 }

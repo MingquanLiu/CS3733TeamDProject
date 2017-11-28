@@ -103,7 +103,8 @@ public class ServiceRequestsQuery {
             ResultSet result = stmt.executeQuery(sql);
             int serviceID;
             String senderUsername;
-            String node1ID="";
+            //String serviceType;
+            String node1ID;
             String node2ID;
             String description;
             String requestTime;
@@ -115,6 +116,8 @@ public class ServiceRequestsQuery {
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
                 senderUsername = result.getString("sender");
+                node1ID = result.getString("location1");
+
                 node2ID = result.getString("location2");
                 description = result.getString("description");
                 requestTime = result.getString("requestTime");
