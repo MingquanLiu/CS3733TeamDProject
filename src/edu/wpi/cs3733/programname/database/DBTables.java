@@ -30,7 +30,7 @@ public class DBTables {
             ResultSet tables1 = dbm.getTables(null, null, "NODES", null);
             ResultSet tables2 = dbm.getTables(null, null, "EDGES", null);
             ResultSet tables3 = dbm.getTables(null, null, "EMPLOYEES", null);
-            ResultSet tables4 = dbm.getTables(null, null, "SERVICEREQUEST", null);
+            ResultSet tables4 = dbm.getTables(null, null, "SERVICEREQUESTS", null);
             if (!tables1.next()) {
                 NodesTable.createNodesTables(conn);
             }
@@ -45,7 +45,7 @@ public class DBTables {
             else {
 
                 String dropTable1 = ("DROP TABLE Edges");
-                String dropTable2 = ("DROP TABLE ServiceRequest");
+                String dropTable2 = ("DROP TABLE ServiceRequests");
                 String dropTable3 = ("DROP TABLE Employees");
                 String dropTable4 = ("DROP TABLE Nodes");
                 // Drops StaffTitles table

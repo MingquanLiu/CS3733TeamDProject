@@ -49,27 +49,27 @@ public class ServiceRequest {
 
 
 
-    public int getserviceID() {
+    public int getServiceID() {
         return serviceID;
     }
 
-    public void setserviceID(int serviceID) {
+    public void setServiceID(int serviceID) {
         this.serviceID = serviceID;
     }
 
-    public Employee getsender() {
+    public Employee getSender() {
         return sender;
     }
 
-    public void setsender(Employee sender) {
+    public void setSender(Employee sender) {
         this.sender = sender;
     }
 
-    public String getserviceType() {
+    public String getServiceType() {
         return serviceType;
     }
 
-    public void setserviceType(String serviceType) {
+    public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
 
@@ -97,27 +97,27 @@ public class ServiceRequest {
         this.description = description;
     }
 
-    public Timestamp getrequestTime() {
+    public Timestamp getRequestTime() {
         return requestTime;
     }
 
-    public void setrequestTime(Timestamp requestTime) {
+    public void setRequestTime(Timestamp requestTime) {
         this.requestTime = requestTime;
     }
 
-    public Timestamp gethandleTime() {
+    public Timestamp getHandleTime() {
         return handleTime;
     }
 
-    public void sethandleTime(Timestamp handleTime) {
+    public void setHandleTime(Timestamp handleTime) {
         this.handleTime = handleTime;
     }
 
-    public Timestamp getcompletionTime() {
+    public Timestamp getCompletionTime() {
         return completionTime;
     }
 
-    public void setcompletionTime(Timestamp completionTime) {
+    public void setCompletionTime(Timestamp completionTime) {
         this.completionTime = completionTime;
     }
 
@@ -129,11 +129,11 @@ public class ServiceRequest {
         this.status = status;
     }
 
-    public Employee getreceiver() {
+    public Employee getReceiver() {
         return receiver;
     }
 
-    public void setreceiver(Employee receiver) {
+    public void setReceiver(Employee receiver) {
         this.receiver = receiver;
     }
 
@@ -190,32 +190,32 @@ public class ServiceRequest {
 
         ServiceRequest that = (ServiceRequest) o;
 
-        if (getserviceID() != that.getserviceID()) return false;
-        if (!getsender().equals(that.getsender())) return false;
-        if (!getserviceType().equals(that.getserviceType())) return false;
+        if (getServiceID() != that.getServiceID()) return false;
+        if (!getSender().equals(that.getSender())) return false;
+        if (!getServiceType().equals(that.getServiceType())) return false;
         if (!getLocation1().equals(that.getLocation1())) return false;
         if (!getLocation2().equals(that.getLocation2())) return false;
         if (!getDescription().equals(that.getDescription())) return false;
-        if (!getrequestTime().equals(that.getrequestTime())) return false;
-        if (!gethandleTime().equals(that.gethandleTime())) return false;
-        if (!getcompletionTime().equals(that.getcompletionTime())) return false;
+        if (!getRequestTime().equals(that.getRequestTime())) return false;
+        if (!getHandleTime().equals(that.getHandleTime())) return false;
+        if (!getCompletionTime().equals(that.getCompletionTime())) return false;
         if (!getStatus().equals(that.getStatus())) return false;
-        return getreceiver().equals(that.getreceiver());
+        return getReceiver().equals(that.getReceiver());
     }
 
     @Override
     public int hashCode() {
-        int result = getserviceID();
-        result = 31 * result + getsender().hashCode();
-        result = 31 * result + getserviceType().hashCode();
+        int result = getServiceID();
+        result = 31 * result + getSender().hashCode();
+        result = 31 * result + getServiceType().hashCode();
         result = 31 * result + getLocation1().hashCode();
         result = 31 * result + getLocation2().hashCode();
         result = 31 * result + getDescription().hashCode();
-        result = 31 * result + getrequestTime().hashCode();
-        result = 31 * result + gethandleTime().hashCode();
-        result = 31 * result + getcompletionTime().hashCode();
+        result = 31 * result + getRequestTime().hashCode();
+        result = 31 * result + getHandleTime().hashCode();
+        result = 31 * result + getCompletionTime().hashCode();
         result = 31 * result + getStatus().hashCode();
-        result = 31 * result + getreceiver().hashCode();
+        result = 31 * result + getReceiver().hashCode();
         return result;
     }
 }

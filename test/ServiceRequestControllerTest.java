@@ -4,9 +4,11 @@ import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.database.DBTables;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -44,6 +46,14 @@ public class ServiceRequestControllerTest {
 //        assertTrue(true);
 //        // note: check target email to confirm test pass. change
 //    }
+
+
+    @Before
+    public void setupDbTables() {
+        // MapDnodes.csv
+        DBTables.createAllTables(dbConnection);           // Makes nodes table
+
+    }
 
 
     // test email

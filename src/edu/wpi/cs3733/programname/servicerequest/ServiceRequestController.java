@@ -159,7 +159,7 @@ public class ServiceRequestController {
 
     public void sendEmail(ServiceRequest request){
         String recipient = "";
-        switch(request.getType()){
+        switch(request.getServiceType()){
             case "interpreter":
                 recipient = "interpreterbwhospital@gmail.com";
                 break;

@@ -164,7 +164,7 @@ public class ServiceRequestsQuery {
         return resultList;
     }
 
-    public ArrayList<ServiceRequest> queryServiceRequestsByserviceType(String serviceserviceType){
+    public ArrayList<ServiceRequest> queryServiceRequestsByType(String serviceserviceType){
         ServiceRequest queryResult = null;
         ArrayList<ServiceRequest> resultList = new ArrayList<ServiceRequest>();
         try {
@@ -307,32 +307,32 @@ public class ServiceRequestsQuery {
     }
 
     public void addServiceRequest(ServiceRequest serviceRequest){
-        int serviceID = serviceRequest.getserviceID();
-        Employee sender = serviceRequest.getsender();
+        int serviceID = serviceRequest.getServiceID();
+        Employee sender = serviceRequest.getSender();
         String senderUsername = sender.getUsername();
-        String serviceType = serviceRequest.getserviceType();
+        String serviceType = serviceRequest.getServiceType();
         NodeData location1 = serviceRequest.getLocation1();
         String node1ID = location1.getNodeID();
         NodeData location2 = serviceRequest.getLocation2();
         String node2ID = location2.getNodeID();
         String description = serviceRequest.getDescription();
-        Timestamp requestTime = serviceRequest.getrequestTime();
-        Timestamp handleTime = serviceRequest.gethandleTime();
-        Timestamp completionTime = serviceRequest.getcompletionTime();
+        Timestamp requestTime = serviceRequest.getRequestTime();
+        Timestamp handleTime = serviceRequest.getHandleTime();
+        Timestamp completionTime = serviceRequest.getCompletionTime();
         String status = serviceRequest.getStatus();
         String receiverUsername;
         // todo: handle null
-        if(serviceRequest.getreceiver() == null){
+        if(serviceRequest.getReceiver() == null){
             receiverUsername = "unknown";
         }
         else{
-            Employee receiver = serviceRequest.getreceiver();
+            Employee receiver = serviceRequest.getReceiver();
             receiverUsername = receiver.getUsername();
         }
         String str;
         try {
-            str = "insert into ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
-                    "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','"+ status + "','"+ receiverUsername + "')";
+            str = "insert into ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + receiverUsername + "','" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
+                    "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','"+ status + "')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
@@ -343,7 +343,7 @@ public class ServiceRequestsQuery {
 
     // mark a service request as handled
     public void handleServiceRequest(ServiceRequest serviceRequest, Employee receiver) {
-        int serviceID = serviceRequest.getserviceID();
+        int serviceID = serviceRequest.getServiceID();
         String receiverUsername = receiver.getUsername();
         Date date = new Date();
         Timestamp handleTime = new Timestamp(date.getTime());
@@ -360,7 +360,7 @@ public class ServiceRequestsQuery {
 
     // mark a service request as completed
     public void completeServiceRequest(ServiceRequest serviceRequest) {
-        int serviceID = serviceRequest.getserviceID();
+        int serviceID = serviceRequest.getServiceID();
         Date date = new Date();
         Timestamp completionTime = new Timestamp(date.getTime());
         String str;
@@ -376,7 +376,7 @@ public class ServiceRequestsQuery {
 
     // mark a service request as removed
     public void removeServiceRequest(ServiceRequest serviceRequest) {
-        int serviceID = serviceRequest.getserviceID();
+        int serviceID = serviceRequest.getServiceID();
         String str;
         try {
             str = "update ServiceRequests set status = 'removed' where serviceID = " + serviceID ;
@@ -391,7 +391,7 @@ public class ServiceRequestsQuery {
 
     // delete a service request from database
     public void deleteServiceRequest(ServiceRequest serviceRequest){
-            int serviceID = serviceRequest.getserviceID();
+            int serviceID = serviceRequest.getServiceID();
             String str;
             try {
                 str ="delete from ServiceRequests where serviceID = " + serviceID ;
