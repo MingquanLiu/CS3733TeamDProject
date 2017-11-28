@@ -35,8 +35,8 @@ public class QueryTest {
 
     @Test
     public void testGetNodeByTypeAndFloor(){
-        theDBModControl.addNode(aBathroom);
-        theDBModControl.addNode(newBathroom);
+//        theDBModControl.addNode(aBathroom);
+//        theDBModControl.addNode(newBathroom);
         List<NodeData> actual = new ArrayList<NodeData>();
         actual = nodesQuery.getNodeByTypeAndFloor("REST","2");
         List<NodeData> expected = new ArrayList<NodeData>();
@@ -47,8 +47,8 @@ public class QueryTest {
 
     @Test
     public void testGetNodeByCoordAndFloor(){
-        theDBModControl.addNode(aBathroom);
-        theDBModControl.addNode(newBathroom);
+//        theDBModControl.addNode(aBathroom);
+//        theDBModControl.addNode(newBathroom);
         NodeData actual = nodesQuery.getNodeByCoordAndFloor(aBathroomCoord,"2");
         assertEquals(aBathroom,actual);
     }
