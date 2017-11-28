@@ -381,7 +381,7 @@ public class TestingController implements Initializable{
 
     //popup methods
     public void loginButtonHandler(){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(("Login_Popup.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml")));
             Scene newScene;
             try {
                 newScene = new Scene(loader.load());
@@ -490,14 +490,8 @@ public class TestingController implements Initializable{
         }
         requestDescription.setText(SRType);
     }
-
-    public void mapEditHandler(){
-        System.out.println("In map Edit handler");
-    }
-
-    public void openAdminHandler(){
-        System.out.println("In open admin handler");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml")));
+    private void showScene(String url){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Scene newScene;
         try {
             newScene = new Scene(loader.load());
@@ -505,9 +499,18 @@ public class TestingController implements Initializable{
             //Todo add some sort of error handling
             return;
         }
-        Stage loginStage = new Stage();
-        loginStage.setScene(newScene);
-        loginStage.showAndWait();
+        Stage newStage = new Stage();
+        newStage.setScene(newScene);
+        newStage.showAndWait();
+    }
+    public void mapEditHandler(){
+        System.out.println("In map Edit handler");
+        showScene("/edu/wpi/cs3733/programname/boundary/admin_screen.fxml");
+    }
+
+    public void openAdminHandler(){
+        System.out.println("In open admin handler");
+        showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
     }
 
     public void SRWindowHandler(ActionEvent e){
