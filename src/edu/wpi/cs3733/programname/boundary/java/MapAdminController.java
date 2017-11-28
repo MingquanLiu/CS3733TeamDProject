@@ -1,11 +1,14 @@
 package edu.wpi.cs3733.programname.boundary.java;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,15 +24,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.RED;
 
-public class MapAdminController {
+public class MapAdminController implements Initializable {
 
     @FXML
     private AnchorPane mainPane;
@@ -109,16 +115,59 @@ public class MapAdminController {
 
     private NodeData nodeToEdit;
 
+    final private int originalMapRatioIndex = 3;
+
+    ArrayList<Double> mapRatio = new ArrayList<>();
+    private int currentMapRatioIndex;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb){
+        currentMapRatioIndex =originalMapRatioIndex;
+//        mapRatio.add(0.24);
+
+        mapRatio.add(0.318);
+        mapRatio.add(0.35);
+        mapRatio.add(0.39);
+        mapRatio.add(0.43);
+        mapRatio.add(0.48);
+        mapRatio.add(0.55);
+        mapRatio.add(0.60);
+        currentScale = mapRatio.get(currentMapRatioIndex);
+        System.out.println("Scale: " + currentScale);
+        imgMap.setFitWidth(maxWidth*currentScale);
+        manager = new ManageController();
+
+        List<NodeData> nodes = manager.getAllNodeData();
+
+        showNodeList(nodes);
+    }
+    private int UICToDBC(int value, double scale){
+        return (int)(value/scale);
+    }
+    private int DBCToUIC(int value, double scale){
+        return (int)(value*scale);
+    }
+
+    private void showNodeList (List<NodeData> nodeDataList){
+        for(int i = 0;i <nodeDataList.size();i++){
+            showNode(nodeDataList.get(i));
+            int dbX = DBCToUIC(nodeDataList.get(i).getX(),currentScale);
+            int dbY = DBCToUIC(nodeDataList.get(i).getY(),currentScale);
+            System.out.println("Node Coordinate: "+dbX+","+dbY+" Node Name: "+nodeDataList.get(i).getLongName());
+        }
+    }
+
     /**
      * reads different mouse click and executes appropraite steps
      * @param e the instance of a mouse click
      */
     public void onClickMap(MouseEvent e){
         System.out.println("Mouse Clicked");
-        clearMain();
+        //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
         List<NodeData> nodes = manager.getAllNodeData();
+
 
         switch (selectingLocation) {
             case "":
@@ -126,6 +175,7 @@ public class MapAdminController {
                 NodeData mClickedNode= getClosestNode(nodes,x,y);
                 mClickedNode = manager.getNodeData(mClickedNode.getId());
                 showNode(mClickedNode);
+
                 //showNodeInfo(mClickedNode);
                 break;
             case "nodeAdd":
@@ -253,8 +303,8 @@ public class MapAdminController {
 
     @SuppressWarnings("Duplicates")
     private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
-        int dbX = (int)(mouseX*(1/currentScale));
-        int dbY = (int)(mouseY*(1/currentScale));
+        int dbX = UICToDBC(mouseX,currentScale);
+        int dbY = UICToDBC(mouseY,currentScale);
         int resultX = 0;
         int resultY = 0;
         String resultNodeId = "";
@@ -287,7 +337,6 @@ public class MapAdminController {
 
     @SuppressWarnings("Duplicates")
     public void zoomHandler(ActionEvent e){
-        clearMain();
         if(e.getSource() == btnZoomOut){
             if(imgMap.getFitWidth() <= minWidth){
                 return;
@@ -371,13 +420,16 @@ public class MapAdminController {
     }
 
     private void showNode(NodeData n){
-        drawCircle((int)(n.getX()*currentScale),(int)(n.getY()*currentScale));
+        System.out.println("normal x: " + n.getX() +" and y: " + n.getY());
+        System.out.println("modified x: " + DBCToUIC(n.getX(),currentScale) + " and y: " + DBCToUIC(n.getY(),currentScale));
+        drawCircle (DBCToUIC(n.getX(),currentScale),DBCToUIC(n.getY(),currentScale));
     }
 
     private void drawCircle(int x, int y){
         Circle c = new Circle(x, y, 5, RED);
-        mainPane.getChildren().add(c);
+        panningPane.getChildren().add(c);
         drawings.add(c);
+
     }
 
     private void displayEdge(NodeData n1, NodeData n2){
