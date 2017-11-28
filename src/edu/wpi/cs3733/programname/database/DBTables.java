@@ -3,12 +3,17 @@ package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.database.Tables.EdgesTable;
 import edu.wpi.cs3733.programname.database.Tables.EmployeesTable;
 import edu.wpi.cs3733.programname.database.Tables.NodesTable;
-//import edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable;
+import edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable;
 
-import java.sql.*;
-import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.*;
-import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.*;
-import static edu.wpi.cs3733.programname.database.Tables.NodesTable.*;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.createEdgesTables;
+import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.createEmployeesTables;
+import static edu.wpi.cs3733.programname.database.Tables.NodesTable.createNodesTables;
+
+//import edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable;
 //import static edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable.*;
 
 
@@ -35,17 +40,17 @@ public class DBTables {
             else if (!tables3.next()){
                 EmployeesTable.createEmployeesTables(conn);
             }
-//            else if (!tables4.next()){
-//                ServiceRequestsTable.createServiceRequestsTable(conn);}
+            else if (!tables4.next()){
+                ServiceRequestsTable.createServiceRequestsTable(conn);}
             else {
 
                 String dropTable1 = ("DROP TABLE Edges");
-//                String dropTable2 = ("DROP TABLE ServiceRequest");
+                String dropTable2 = ("DROP TABLE ServiceRequest");
                 String dropTable3 = ("DROP TABLE Employees");
                 String dropTable4 = ("DROP TABLE Nodes");
                 // Drops StaffTitles table
                 conn.execute(dropTable1);
-//                conn.execute(dropTable2);
+                conn.execute(dropTable2);
                 conn.execute(dropTable3);
                 conn.execute(dropTable4);
                 System.out.println("\nAll Tables Dropped");
