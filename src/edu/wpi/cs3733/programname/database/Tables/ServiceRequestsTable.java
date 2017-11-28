@@ -10,7 +10,7 @@ public class ServiceRequestsTable {
         try {
 
             String newTable = "CREATE TABLE ServiceRequests(serviceID Integer, sender VARCHAR(15), " +
-                    "receiver VARCHAR(15), serviceType VARCHAR(25), location1ID VARCHAR(20), location2 VARCHAR(20), " +
+                    "receiver VARCHAR(15), serviceType VARCHAR(25), location1 VARCHAR(20), location2 VARCHAR(20), " +
                     "description VARCHAR(500), requestTime VARCHAR(30), " +
                     "handleTime VARCHAR(30), completionTime VARCHAR(30), status VARCHAR(10), " +
                     "CONSTRAINT ServiceRequests PRIMARY KEY (serviceID)," +

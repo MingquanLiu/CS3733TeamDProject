@@ -3,7 +3,6 @@ package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.database.Tables.EdgesTable;
 import edu.wpi.cs3733.programname.database.Tables.EmployeesTable;
 import edu.wpi.cs3733.programname.database.Tables.NodesTable;
-import edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -12,6 +11,7 @@ import java.sql.SQLException;
 import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.createEdgesTables;
 import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.createEmployeesTables;
 import static edu.wpi.cs3733.programname.database.Tables.NodesTable.createNodesTables;
+import static edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable.createServiceRequestsTable;
 
 //import edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable;
 //import static edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable.*;
@@ -23,7 +23,7 @@ public class DBTables {
     }
 
     public static void createAllTables(DBConnection conn) {
-        System.out.println("About to drop");
+
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "StaffTitles" table is there
@@ -41,9 +41,9 @@ public class DBTables {
                 EmployeesTable.createEmployeesTables(conn);
             }
             else if (!tables4.next()){
-                ServiceRequestsTable.createServiceRequestsTable(conn);}
+                createServiceRequestsTable(conn);}
             else {
-
+                System.out.println("About to drop");
                 String dropTable1 = ("DROP TABLE Edges");
                 String dropTable2 = ("DROP TABLE ServiceRequests");
                 String dropTable3 = ("DROP TABLE Employees");
@@ -58,7 +58,7 @@ public class DBTables {
                 createNodesTables(conn);
                 createEdgesTables(conn);
                 createEmployeesTables(conn);
-//                createServiceRequestsTable(conn);
+                createServiceRequestsTable(conn);
 
 
             }
