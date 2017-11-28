@@ -67,6 +67,10 @@ public class ManageController {
         return this.dbQueryController.queryNodeByType(nodeType);
     }
 
+    public List<NodeData> queryNodeByTypeFloor(String nodeType,String Floor) {
+        return this.dbQueryController.queryNodeByType(nodeType);
+    }
+
     public void addNode(NodeData data) {
         this.dbModController.addNode(data);
     }

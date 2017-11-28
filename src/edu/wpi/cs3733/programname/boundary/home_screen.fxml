@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -129,15 +129,15 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton prefHeight="100.0" prefWidth="200.0" text="Bathrooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-                  <JFXButton prefHeight="100.0" prefWidth="200.0" text="Vending Machines" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <JFXButton prefHeight="100.0" prefWidth="200.0" text="Service  Desks" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <JFXButton prefHeight="100.0" prefWidth="200.0" text="Waiting Rooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="btnOpenAdmin" prefHeight="100.0" prefWidth="200.0" text="Admin Features" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                  <JFXButton fx:id="btnTransportationReq" prefHeight="100.0" prefWidth="200.0" text="Transportation Request" GridPane.rowIndex="5" />
-                  <JFXButton fx:id="btnInterpreterReq" prefHeight="100.0" prefWidth="200.0" text="Interpreter Request" GridPane.rowIndex="6" />
-                  <JFXButton fx:id="btnMaintenanceReq" prefHeight="100.0" prefWidth="200.0" text="Maintenance Request" GridPane.rowIndex="7" />
-                  <JFXButton prefWidth="200.0" text="Map edit" GridPane.rowIndex="8" />
+                  <JFXButton fx:id="btnLocateBR" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Bathrooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnLocateVM" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Vending Machines" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnLocateSD" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Service  Desks" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnLocateWR" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Waiting Rooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnOpenAdmin" onAction="#openAdminHandler" prefHeight="100.0" prefWidth="200.0" text="Admin Features" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                  <JFXButton fx:id="btnTransportationReq" onAction="#SRHandler" prefHeight="100.0" prefWidth="200.0" text="Transportation Request" GridPane.rowIndex="5" />
+                  <JFXButton fx:id="btnInterpreterReq" onAction="#SRHandler" prefHeight="100.0" prefWidth="200.0" text="Interpreter Request" GridPane.rowIndex="6" />
+                  <JFXButton fx:id="btnMaintenanceReq" onAction="#SRHandler" prefHeight="100.0" prefWidth="200.0" text="Maintenance Request" GridPane.rowIndex="7" />
+                  <JFXButton fx:id="btnMapEdit" onAction="#mapEditHandler" prefWidth="200.0" text="Map edit" GridPane.rowIndex="8" />
                </children>
             </GridPane>
          </children></AnchorPane>
@@ -149,29 +149,29 @@
         <AnchorPane prefHeight="75.0" prefWidth="106.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <Label fx:id="lblLoginStatus" layoutX="-4.0" layoutY="28.0" text="not logged in" />
-            <JFXButton fx:id="btnLogin" layoutX="-4.0" onAction="#popupHandler" text="Login" />
+            <JFXButton fx:id="btnLogin" layoutX="-4.0" onAction="#loginButtonHandler" text="Login" />
             </children>
         </AnchorPane>
-        <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="600.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white;">
+        <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="600.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white;" visible="false">
             <content>
                 <AnchorPane prefHeight="178.0" prefWidth="350.0">
                     <children>
                         <TextArea fx:id="requestDescription" layoutX="23.0" prefHeight="125.0" prefWidth="305.0" />
-                        <JFXButton fx:id="selectMaintenanceLocation" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" text="Select Location(s)" />
-                        <JFXButton fx:id="cancelRequestAttempt" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" text="Cancel" />
-                        <JFXButton fx:id="submitRequest" layoutX="211.0" layoutY="125.0" mnemonicParsing="false" text="Submit" />
+                        <JFXButton fx:id="btnSelectMaintenanceLocation" onAction="#SRWindowHandler" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" text="Select Location(s)" />
+                        <JFXButton fx:id="btnCancelRequestAttempt" onAction="#SRWindowHandler" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" text="Cancel" />
+                        <JFXButton fx:id="btnSubmitRequest" onAction="#SRWindowHandler" layoutX="211.0" layoutY="125.0" mnemonicParsing="false" text="Submit" />
                     </children>
                 </AnchorPane>
             </content>
             </DialogPane>
-        <DialogPane fx:id="nodeInfoPane" layoutX="429.0" layoutY="215.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;">
+        <DialogPane fx:id="nodeInfoPane" layoutX="429.0" layoutY="215.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;" visible="false">
             <content>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="100.0">
                     <children>
                         <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
                         <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
                         <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <JFXButton fx:id="closeNodeInfo" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" text="Close" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <JFXButton fx:id="closeNodeInfo" onAction="#closeNodeInfoHandler" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" text="Close" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <Label fx:id="nodeInfoLocation" layoutX="14.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
                     </children>
                 </AnchorPane>
