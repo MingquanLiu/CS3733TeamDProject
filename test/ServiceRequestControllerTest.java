@@ -1,4 +1,5 @@
 
+import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
@@ -39,6 +40,7 @@ public class ServiceRequestControllerTest {
     ServiceRequest newWongRequest = new ServiceRequest(1, "wwong2", "userjohn","interpreter","TREST00102","TREST00101","Need someone speaks Spanish","","","","handled");
     ServiceRequest johnServiceRequest = new ServiceRequest(1, "userjohn","transportation","DELEV00A02", "DELEV00B02","need a wheelchair");
     DatabaseModificationController dbModControl = new DatabaseModificationController(dbConnection);
+    ManageController controller = new ManageController();
 
     //CHANGE TARGET EMAIL IF YOU RUN THIS TEST PLEASE
 //    @Test
@@ -72,15 +74,19 @@ public class ServiceRequestControllerTest {
         srController.sendEmailByType(wongServiceRequest);
     }
 
-//    @Test
-//    public void testSendEmail(){
-//    }
+
+    @Test
+    public void testSendEmail(){
+        srController.addEmployee(yufei);
+        srController.sendEmailToEmployee(wongServiceRequest,yufei);
+    }
 
 
     @Test
     public void testAddEmployee(){
         queryEmployee.addEmployee(wong);
     }
+
 
     @Test
     public void testQueryEmployeeByUsername(){
@@ -146,7 +152,6 @@ public class ServiceRequestControllerTest {
         ArrayList<ServiceRequest> unexpected = new ArrayList<ServiceRequest>();
         unexpected.add(johnServiceRequest);
         assertNotEquals(unexpected,result);
-
     }
 
     @Test
@@ -163,8 +168,20 @@ public class ServiceRequestControllerTest {
 
     }
 
+    @Test
+    public void checkConstraint1(){
+        //FOREIGN KEY (sender) REFERENCES Employees (username)
+        dbModControl.addNode(aBathroom);
+        dbModControl.addNode(bBathroom);
+        ServiceRequest badRequest = new ServiceRequest(2, "ygao6","interpreter","TREST00102","TREST00101","Need someone speaks Spanish");
+        srController.addEmployee();
+    }
 
 
+    @Test
+    public void checkConstraint3(){
+        //FOREIGN KEY (location1) REFERENCES Nodes (nodeID) ON DELETE CASCADE
 
+    }
 
 }
