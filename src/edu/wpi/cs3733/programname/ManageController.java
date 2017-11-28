@@ -6,6 +6,9 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.servicerequest.EmployeesQuery;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
+import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
+import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestsQuery;
 
@@ -41,12 +44,11 @@ public class ManageController {
 
     }
 
-    public List<NodeData> startPathfind(String startId, String goalId) {
+    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
         List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, ASTAR);
         System.out.println(finalPath.get(0).getNodeID() + " to " + finalPath.get(finalPath.size() -1));
-
         return finalPath;
     }
 
@@ -105,6 +107,12 @@ public class ManageController {
 
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
+    }
+
+    public void sendTextDirectionsEmail(List<NodeData> path, String recipient) {
+        TextDirections textDirections = new TextDirections(path);
+        PathfindingMessage msg = new PathfindingMessage(recipient, textDirections.getEmailMessageBody());
+        msg.sendMessage();
     }
 }
 

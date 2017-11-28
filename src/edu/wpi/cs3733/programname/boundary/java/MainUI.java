@@ -4,6 +4,8 @@ import com.sun.javafx.geom.Edge;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -116,7 +118,7 @@ public class MainUI {
     @FXML
     private DialogPane nodeAdditionPane;
     @FXML
-    private TextField nodeAddNodeID;
+    private TextField nodeAddID;
     @FXML
     private TextField nodeAddCoords;
     private Coordinate nodeAddCoordinates;
@@ -125,9 +127,9 @@ public class MainUI {
     @FXML
     private TextField nodeAddBuilding;
     @FXML
-    private TextField nodeAddNodeType;
+    private TextField nodeAddType;
     @FXML
-    private TextField nodeAddLongName;
+    private TextField nodeAddName;
     @FXML
     private TextField nodeAddShortName;
     @FXML
@@ -145,6 +147,9 @@ public class MainUI {
     @FXML
     private Button addEdge;
 
+    @FXML
+    private Button btnSendPath;
+
     private boolean addingEdge = false;
     private boolean loggedOut = true;               //used to change the sign in/sign out button text
     private ManageController manager = new ManageController();               //global manage controller to call methods
@@ -160,75 +165,104 @@ public class MainUI {
 
     private List<Shape> drawings = new ArrayList<>();
 
-    int initX = 1501;
-    int initY = 1021;
-    int prevSelectX = 0;
-    int prevSelectY = 0;
+    private int initX = 3315;
+    private int initY = 280;
+    private int prevSelectX = 0;
+    private int prevSelectY = 0;
+    private String foundNodeId = "";
+    private List<NodeData> currentPath;
 
     private HashMap<Coordinate, String> nodeIDs;
 
-    /**
-     * reads different button clicks and executes appropriate steps
-     * @param e the instance of a button being clicked
-     */
-    public void buttonHandler(ActionEvent e){
-        clearMain();
-        //pathfinding button handling
-        if(e.getSource() == go){
-            System.out.println("drawing path");
-            List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText());
-            displayPath(p);
-        }
-        else if(e.getSource() == clear){
-            System.out.println("clearing search");
-            startLocation.setText("");
-            endLocation.setText("");
-        }
+    public void goButtonHandler(){
+        System.out.println("drawing path");
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.ASTAR);
+        currentPath = p;
+        displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void depthFirstHandler(){
+        System.out.println("depth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.DFS);
+        currentPath = p;
+        displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void breadthFirstHandler(){
+        System.out.println("Breadth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.BFS);
+        currentPath = p;
+        displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void dijkstraHandler(){
+        System.out.println("depth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.DIJKSTRA);
+        currentPath = p;
+        displayPath(p);
+        btnSendPath.setVisible(true);
+    }
 
+    public void clearButtonHandler(){
+        System.out.println("clearing search");
+        startLocation.setText("");
+        endLocation.setText("");
+        btnSendPath.setVisible(false);
+    }
 
-        //basic requests button handling
-        else if(e.getSource() == restrooms){
-            System.out.println("locating restrooms");
-            List<NodeData> nodes = manager.queryNodeByType("REST");
-            for(NodeData n:nodes){
-                showNode(n);
+    //email path to default person
+    public void pathSendHandler(){
+        try {
+            if (currentPath == null) {
+                throw new Exception("No path in UI");
+            } else {
+                manager.sendTextDirectionsEmail(currentPath, user.getText());
             }
-        }
-        else if(e.getSource() == vending){
-            System.out.println("locating vending machines");
-            List<NodeData> nodes = manager.queryNodeByType("VEND");
-            for(NodeData n:nodes){
-                showNode(n);
-            }
+        } catch(Exception e) {
 
         }
-        else if(e.getSource() == serviceDesk) {
-            System.out.println("locating service desks");
-            List<NodeData> nodes = manager.queryNodeByType("INFO");
-            for (NodeData n : nodes) {
-                showNode(n);
-            }
-        }
+    }
 
-        //admin button handling
-        //  log in, check the logged on boolean and change the sign in button
-        else if(e.getSource() == login && loggedOut){
+
+
+    public void locateRestroomButtonHandler(){
+        System.out.println("locating restrooms");
+        List<NodeData> nodes = manager.queryNodeByType("REST");
+        for(NodeData n:nodes){
+            showNode(n);
+        }
+    }
+
+    public void locateVendingMachineButtonHandler(){
+        System.out.println("locating vending machines");
+        List<NodeData> nodes = manager.queryNodeByType("VEND");
+        for(NodeData n:nodes){
+            showNode(n);
+        }
+    }
+
+    public void locateServiceDeskButtonHandler(){
+        System.out.println("locating service desks");
+        List<NodeData> nodes = manager.queryNodeByType("INFO");
+        for (NodeData n : nodes) {
+            showNode(n);
+        }
+    }
+
+    public void loginButtonHandler(){
+        if(loggedOut){
             System.out.println("logging in");
-
             //adminUser = manager.login(user.getText(), pass.getText());
             //if(adminUser != null){
-                login.setText("Sign out");
-                loggedOut = false;
-                admin.setVisible(true);
-                //if (adminUser.isSysAdmin()){
-                    mapUpdate.setVisible(true);
-                //}
-                cancelLogin.setVisible(false);
+            login.setText("Sign out");
+            loggedOut = false;
+            admin.setVisible(true);
+            //if (adminUser.isSysAdmin()){
+            mapUpdate.setVisible(true);
             //}
-
-        }
-        //  log off, check the logged on boolean and change the sign in button
-        else if(e.getSource() == login && !loggedOut){
+            cancelLogin.setVisible(false);
+            //}
+        }else{
             System.out.println("logging out");
             /*
             manager.logout(adminUser);
@@ -240,113 +274,113 @@ public class MainUI {
             mapUpdate.setVisible(true);
             cancelLogin.setVisible(true);
         }
-        else if(e.getSource() == addEdge && !addingEdge){
+    }
+
+    public void addEdgeButtonHandler(){
+        if(addingEdge){
+            addEdge.setText("Add Edge");
+            selectingLocation = "";
+            addingEdge = false;
+        }else{
             addEdge.setText("cancel");
             selectingLocation = "addEdge";
             addingEdge = true;
         }
-        //  log off, check the logged on boolean and change the sign in button
-        else if(e.getSource() == addEdge && addingEdge){
-            addEdge.setText("Add Edge");
-            selectingLocation = "";
-            addingEdge = false;
-        }
-        //  clear the username/pass text
-        else if(e.getSource() == cancelLogin){
-            user.setText("");
-            pass.setText("");
-        }
-        //admin requests
-        else if(e.getSource() == transportation) {
-            System.out.println("proccessing transportation request");
-            menu.setExpanded(false);
-            serviceRequester.setVisible((true));
+    }
 
-            requestType = "transport";
-            requestDescription.setText("Transportation request for");
-        }
-        else if(e.getSource() == interpreter){
-            System.out.println("proccessing interpreter request");
-            menu.setExpanded(false);
-            serviceRequester.setVisible((true));
+    public void cancelLoginButtonHandler(){
+        user.setText("");
+        pass.setText("");
+    }
+    public void transportationSRButtonHandler(){
+        System.out.println("proccessing transportation request");
+        menu.setExpanded(false);
+        serviceRequester.setVisible((true));
+        requestType = "transport";
+        requestDescription.setText("Transportation request for");
+    }
+    public void interpreterSRButtonHandler(){
+        System.out.println("proccessing interpreter request");
+        menu.setExpanded(false);
+        serviceRequester.setVisible((true));
 
-            requestType = "interpreter";
-            requestDescription.setText("Interpreter request for");
-        }
-        else if(e.getSource() == maintenance){
-            System.out.println("proccessing maintenance request");
-            menu.setExpanded(false);
-            serviceRequester.setVisible((true));
-
-            requestType = "maintenance";
-        }
-        else if(e.getSource() == submitRequest){
-            System.out.println("submitting " + requestType + " request");
-            //manager.sendServiceRequest(adminUser, requestType);
-            locationsSelected = false;
-            requestType = "";
-            menu.setExpanded(true);
-            serviceRequester.setVisible(false);
-            requestDescription.setText("");
-        }
-
-        else if(e.getSource() == mapUpdate){
-            mapBuilderOpened = true;
-            nodeAddNodeID.setText("");
-            nodeAddCoords.setText("");
-            nodeAddFloor.setText("");
-            nodeAddBuilding.setText("");
-            nodeAddNodeType.setText("");
-            nodeAddLongName.setText("");
-            nodeAddShortName.setText("");
-            nodeAddTeamAssigned.setText("");
-            nodeAdditionPane.setVisible(true);
-        }
-        else if(e.getSource() == closeNodeInfo){
-            nodeInfoPane.setVisible(false);
-            clearMain();
-        }
-        else if(e.getSource() == nodeAddCancel){
-            mapBuilderOpened = false;
-            nodeAdditionPane.setVisible(false);
-        }
-        else if(e.getSource() == nodeAddSubmit){
-            nodeAddCoordinates = new Coordinate(prevSelectX,prevSelectY);
-            NodeData n = new NodeData(nodeAddNodeID.getText(), nodeAddCoordinates, nodeAddFloor.getText(), nodeAddBuilding.getText(),
-                                        nodeAddNodeType.getText(), nodeAddLongName.getText(), nodeAddShortName.getText(), nodeAddTeamAssigned.getText());
-            mapBuilderOpened = false;
-            nodeAdditionPane.setVisible(false);
-            manager.addNode(n);
-        }
-        else if(e.getSource() == nodeAddSelectLocation){
-            System.out.println("selecting locations");
-            selectCoor = true;
-            nodeAdditionPane.setVisible(false);
-            selectingLocation = "nodeAdd";
-        }
-        else if(e.getSource() == selectMaintenanceLocation){
-            serviceRequester.setVisible(false);
-            selectingLocation = "maintenance";
-        }
-        else if(e.getSource() == cancelRequestAttempt){
-            System.out.println("canceling request attempt");
-            menu.setExpanded(true);
-            requestDescription.setText("");
-            serviceRequester.setVisible(false);
-        }
-        //maintenance request modification handling
-        else if(e.getSource() == viewRequests){
-            System.out.println("showing requests");
-            displayServiceRequestStatus();
-        }
-        else if(e.getSource() == closeRequestWindow){
-            System.out.println("closing request window");
-            serviceInfo.setVisible(false);
-        }
+        requestType = "interpreter";
+        requestDescription.setText("Interpreter request for");
+    }
+    public void maintenanceSRButtonHandler(){
+        System.out.println("proccessing maintenance request");
+        menu.setExpanded(false);
+        serviceRequester.setVisible((true));
+        requestType = "maintenance";
+    }
+    public void submitRequestButtonHandler(){
+        System.out.println("submitting " + requestType + " request");
+        //manager.sendServiceRequest(adminUser, requestType);
+        locationsSelected = false;
+        requestType = "";
+        menu.setExpanded(true);
+        serviceRequester.setVisible(false);
+        requestDescription.setText("");
+    }
+    public void mapUpdateButtonHandler(){
+        mapBuilderOpened = true;
+        nodeAddCoords.setText("");
+        nodeAddID.setText("");
+        nodeAddName.setText("");
+        nodeAddShortName.setText("");
+        nodeAddType.setText("");
+        nodeAdditionPane.setVisible(true);
+    }
+    public void closeNodeInfoButtonHandler(){
+        nodeInfoPane.setVisible(false);
+        clearMain();
     }
 
 
-    //mouseclick handling
+    public void nodeAddCancelButtonHandler(){
+        mapBuilderOpened = false;
+        nodeAdditionPane.setVisible(false);
+    }
+
+    public void nodeAddSubmitButtonHandler(){
+        Coordinate mCoordinate = new Coordinate(prevSelectX,prevSelectY);
+        NodeData n = new NodeData(nodeAddID.getText(), mCoordinate, "2", nodeAddType.getText(), nodeAddName.getText(), nodeAddShortName.getText(),null,null);
+        mapBuilderOpened = false;
+        nodeAdditionPane.setVisible(false);
+        manager.addNode(n);
+    }
+    public void nodeAddSelectLocationButtonHandler(){
+        System.out.println("selecting locations");
+        selectCoor = true;
+        nodeAdditionPane.setVisible(false);
+        selectingLocation = "nodeAdd";
+    }
+
+    public void selectMaintenanceLocationButtonHandler(){
+        serviceRequester.setVisible(false);
+        selectingLocation = "maintenance";
+    }
+
+    public void cancelRequestAttemptButtonHandler(){
+        System.out.println("canceling request attempt");
+        menu.setExpanded(true);
+        requestDescription.setText("");
+        serviceRequester.setVisible(false);
+    }
+
+    public void viewRequestsButtonHandler(){
+        System.out.println("showing requests");
+        displayServiceRequestStatus();
+    }
+
+    public void closeRequestWindowButtonHandler(){
+        System.out.println("closing request window");
+        serviceInfo.setVisible(false);
+    }
+
+    /**
+     * reads different button clicks and executes appropriate steps
+     */
 
     /**
      * reads different mouse click and executes appropraite steps
@@ -355,124 +389,130 @@ public class MainUI {
     public void displayNodeInfo(MouseEvent e){
         clearMain();
         int x = (int) e.getX();
-        int movedX = makeX(x);
         int y = (int) e.getY();
-        int movedY = makeY(y);
-        System.out.println("This mouse clicked at X: "+x+" Y:"+y);
-        int nodeX = 0;
-        int nodeY = 0;
-        int realX = x;
-        int realY = y;
-        String foundNodeId = "";
-        double d = 1000;
-        double temp;
-        Coordinate loc = new Coordinate(x,y);
-        if(selectingLocation.equals("")) {
-//            System.out.println("mouse x,y: " + x + ", " + y + "  moved x,y: " + movedX +", " +movedY);
-            List<NodeData> nodes = manager.getAllNodeData();
-            for(NodeData node:nodes){
-                nodeX = node.getXCoord();
-                nodeY = node.getYCoord();
-//                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
-                temp = Math.sqrt(Math.pow(movedX-nodeX,2)+Math.pow(movedY-nodeY,2));
-                if (temp<d){
-                    d = temp;
-                    realX = nodeX;
-                    realY = nodeY;
-                    foundNodeId = node.getNodeID();
-                }
-            }
-            loc.setXCoord(convertX(realX));
-            loc.setYCoord(convertY(realY));
-            NodeData n = manager.getNodeData(foundNodeId);
-            showNode(n);
-            nodeInfoPane.setLayoutX(convertX(realX) + 3);
-            nodeInfoPane.setLayoutY(convertY(realY) + 3);
-            nodeInfoPane.setVisible(true);
-            nodeInfoLocation.setText(realX + ", " + realY);
-
-            nodeInfoType.setText("" + n.getNodeType());
-            nodeInfoLongName.setText("" + n.getLongName());
-            nodeInfoShortName.setText("" + n.getShortName());
-        }
-        else if(selectingLocation.equals("nodeAdd")){
-            selectingLocation = "";
-            locationsSelected = true;
-            nodeAddCoordinates = loc;
-            prevSelectX = makeX(loc.getXCoord());
-            prevSelectY = makeY(loc.getYCoord());
-            nodeAddCoords.setText(prevSelectX + ", " + prevSelectY);
-            Circle c = new Circle(prevSelectX, prevSelectY, 5, RED);
-            mainPane.getChildren().addAll(c);
-            drawings.add(c);
-            nodeAdditionPane.setVisible(true);
-
-        }
-        else if(selectingLocation.equals("maintenance")){
-            selectingLocation = "";
-            locationsSelected = true;
-            requestDescription.setText(requestDescription.getText() + "\n at " + loc.getXCoord() + ", " + loc.getYCoord());
-            serviceRequester.setVisible(true);
-        }
-        else if(selectingLocation.equals("addEdge")){
-
-            if (addEdgeN1 ==""||addEdgeN2==""){
+        switch (selectingLocation) {
+            case "":
+                System.out.println("Get in findNodeData");
                 List<NodeData> nodes = manager.getAllNodeData();
-                for(NodeData node:nodes){
-                    nodeX = node.getXCoord();
-                    nodeY = node.getYCoord();
-//                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
-                    temp = Math.sqrt(Math.pow(movedX-nodeX,2)+Math.pow(movedY-nodeY,2));
-                    if (temp<d){
-                        d = temp;
-                        realX = nodeX;
-                        realY = nodeY;
-                        foundNodeId = node.getNodeID();
+                NodeData mClickedNode= getClosestNode(nodes,x,y);
+                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
+                showNode(mClickedNode);
+                showNodeInfo(mClickedNode);
+                break;
+            case "nodeAdd":
+                locationsSelected = true;
+                prevSelectX = UICoordinateToDBCoordinate(x,initX);
+                prevSelectY = UICoordinateToDBCoordinate(y,initY);
+                nodeAddCoords.setText(prevSelectX + ", " + prevSelectY);
+                drawCycle(prevSelectX,prevSelectY);
+                nodeAdditionPane.setVisible(true);
+                selectingLocation = "";
+                break;
+            case "maintenance":
+                locationsSelected = true;
+                requestDescription.setText(requestDescription.getText() + "\n at " + x + ", " + y);
+                serviceRequester.setVisible(true);
+                selectingLocation = "";
+                break;
+            case "addEdge":
+                if (addEdgeN1.equals("")  || addEdgeN2.equals("")) {
+                    nodes = manager.getAllNodeData();
+                    mClickedNode = getClosestNode(nodes,x,y);
+                    showNode(mClickedNode);
+                    if (addEdgeN1.equals("")) {
+                        addEdgeN1 = mClickedNode.getNodeID();
+                    } else if (addEdgeN2.equals("")) {
+                        addEdgeN2 = mClickedNode.getNodeID();
+                    }
+                    if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
+                        clearMain();
+                        NodeData n1 = manager.getNodeData(addEdgeN1);
+                        NodeData n2 = manager.getNodeData(addEdgeN2);
+                        showEdge(n1,n2);
+                        manager.addEdge(addEdgeN1, addEdgeN2);
+                        addEdge.setText("Add Edge");
+                        addEdgeN1 = "";
+                        addEdgeN2 = "";
+                        selectingLocation = "";
                     }
                 }
-                Circle c = new Circle(convertX(realX), convertY(realY), 5, RED);
-                mainPane.getChildren().addAll((c));
-                drawings.add(c);
-                loc.setXCoord(convertX(realX));
-                loc.setYCoord(convertY(realY));
-                if(addEdgeN1==""){
-                    addEdgeN1 = foundNodeId;
-                }else if(addEdgeN2 == ""){
-                    addEdgeN2 = foundNodeId;
-                }
-                if (addEdgeN1 !=""&&addEdgeN2!=""){
-                    NodeData n1 = manager.getNodeData(addEdgeN1);
-                    NodeData n2 = manager.getNodeData(addEdgeN2);
-                    clearMain();
-                    Line l = new Line(convertX(n1.getXCoord()), convertY(n1.getYCoord()), convertX(n2.getXCoord()), convertY(n2.getYCoord()));
-                    l.setStrokeWidth(8);
-                    l.setStroke(BLUE);
-                    Circle c1 = new Circle(convertX(n1.getXCoord()), convertY(n1.getYCoord()), 5, RED);
-                    Circle c2 = new Circle(convertX(n2.getXCoord()), convertY(n2.getYCoord()), 5, RED);
-                    mainPane.getChildren().addAll(l, c1, c2);
-                    drawings.add(l);
-                    drawings.add(c1);
-                    drawings.add(c2);
-                    manager.addEdge(addEdgeN1,addEdgeN2);
-                    addEdgeN1 = "";
-                    addEdgeN2 = "";
-                    selectingLocation = "";
-                    addEdge.setText("Add Edge");
-                }
-            }
-
+                break;
         }
     }
 
+
+    private int UICoordinateToDBCoordinate(int originalValue, int changingConstant){
+        return originalValue+changingConstant;
+    }
+    private int DBCoordinateToUICoordinate(int originalValue, int changingConstant){
+        return originalValue-changingConstant;
+    }
+
+    private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
+        int dbX = UICoordinateToDBCoordinate(mouseX,initX);
+        int dbY = UICoordinateToDBCoordinate(mouseY,initY);
+        int resultX = 0;
+        int resultY = 0;
+        String resultNodeId = "";
+        double d = 0;
+        for (NodeData node : nodeDataList) {
+            int nodeX = node.getXCoord();
+            int nodeY = node.getYCoord();
+//                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
+            double temp = Math.sqrt(Math.pow(dbX - nodeX, 2) + Math.pow(dbY - nodeY, 2));
+            if (temp < d||d==0) {
+                d = temp;
+                resultX = nodeX;
+                resultY = nodeY;
+                resultNodeId = node.getNodeID();
+            }
+        }
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null,null,null);
+
+    }
+
+    private void showNodeInfo(NodeData nodeData){
+        int dbX = nodeData.getXCoord();
+        int dbY = nodeData.getYCoord();
+        nodeInfoPane.setLayoutX(DBCoordinateToUICoordinate(dbX,initX) + 3);
+        nodeInfoPane.setLayoutY(DBCoordinateToUICoordinate(dbY,initY) + 3);
+        nodeInfoPane.setVisible(true);
+        nodeInfoLocation.setText(dbX + ", " + dbY);
+        nodeInfoType.setText("" + nodeData.getNodeType());
+        nodeInfoLongName.setText("" + nodeData.getLongName());
+        nodeInfoShortName.setText("" + nodeData.getShortName());
+    }
+    //mouseclick handling
+
+    private void drawCycle(int x, int y){
+        Circle c = new Circle(x, y, 5, RED);
+        mainPane.getChildren().add(c);
+        drawings.add(c);
+    }
+
+    private void drawLine(int x1, int y1, int x2, int y2){
+        Line line = new Line(x1,y1,x2,y2);
+        line.setStrokeWidth(8);
+        line.setStroke(BLUE);
+        mainPane.getChildren().add(line);
+        drawings.add(line);
+    }
     /**
      * shows the basic information of a node that was clicked
      * @param n a node that was clicked
      */
-    public void showNode(NodeData n){
-        Circle c = new Circle(convertX(n.getXCoord()), convertY(n.getYCoord()), 5, Color.RED);
-        c.setFill(Color.RED);
-        drawings.add(c);
-        mainPane.getChildren().addAll(c);
+    private void showNode(NodeData n){
+        drawCycle(DBCoordinateToUICoordinate(n.getXCoord(),initX),DBCoordinateToUICoordinate(n.getYCoord(),initY));
+    }
+
+    private void showEdge(NodeData n1, NodeData n2){
+        int DBX1 = DBCoordinateToUICoordinate(n1.getXCoord(),initX);
+        int DBY1 = DBCoordinateToUICoordinate(n1.getYCoord(),initY);
+        int DBX2 = DBCoordinateToUICoordinate(n2.getXCoord(),initX);
+        int DBY2 = DBCoordinateToUICoordinate(n2.getYCoord(),initY);
+        drawLine(DBX1,DBY1,DBX2,DBY2);
+        drawCycle(DBX1,DBY1);
+        drawCycle(DBX2,DBY2);
     }
 
     /**
@@ -489,10 +529,10 @@ public class MainUI {
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0);
-            l.setStartX(convertX(prev.getXCoord()));
-            l.setStartY(convertY(prev.getYCoord()));
-            l.setEndX(convertX(n.getXCoord()));
-            l.setEndY(convertY(n.getYCoord()));
+            l.setStartX(DBCoordinateToUICoordinate(prev.getXCoord(),initX));
+            l.setStartY(DBCoordinateToUICoordinate(prev.getYCoord(),initY));
+            l.setEndX(DBCoordinateToUICoordinate(n.getXCoord(),initX));
+            l.setEndY(DBCoordinateToUICoordinate(n.getYCoord(),initY));
             lines.add(l);
             prev = n;
         }
@@ -505,47 +545,12 @@ public class MainUI {
      * displays the status of a service request
      * not fully finished, will complete in future iteration
      */
-    public void displayServiceRequestStatus() {
+    private void displayServiceRequestStatus() {
         serviceInfo.setVisible(true);
         //requestsList.getItems().addAll(manager.getRequests());
     }
 
-    /**
-     * converts actual coordinates and scales it to map on UI
-     * @param x the x coordinate
-     * @return the new x coordinate (that works for the UI)
-     */
-    public int convertX(int x) {
-        return x - 3315;
-    }
-
-    /**
-     * oonverts the actual coordinates and scales it to map on UI
-     * @param y the y coordinate
-     * @return the new y coordinate (that works for the UI)
-     */
-    public int convertY(int y) {
-        return y - 280;
-    }
-
-    /**
-     * converts the map UI coordinate to the actual coordinate
-     * @param x the x coordinate
-     * @return the new x coordinate (that works for the initial map)
-     */
-    public int makeX(int x){
-        return x + 3315;
-    }
-
-    /**
-     * converts the map UI coordinate to the actual coordinate
-     * @param y the y coordinate
-     * @return the new y coordinate (that works for the initial map)
-     */
-    public int makeY(int y){
-        return y + 280;
-    }
-    public void clearMain(){
+    private void clearMain(){
         if(drawings.size() > 0){
             for(Shape shape:drawings){
                 System.out.println("success remove");
