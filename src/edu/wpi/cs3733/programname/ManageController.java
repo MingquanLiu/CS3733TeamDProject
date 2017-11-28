@@ -3,14 +3,18 @@ package edu.wpi.cs3733.programname;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.database.*;
+import edu.wpi.cs3733.programname.database.CsvReader;
+import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.database.DatabaseModificationController;
+import edu.wpi.cs3733.programname.database.DatabaseQueryController;
+import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
+import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 
 import java.util.List;
+
 import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
-
-
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 
 public class ManageController {

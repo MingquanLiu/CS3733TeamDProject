@@ -1,5 +1,4 @@
 import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.Edge;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.entity.Dijkstra;
@@ -11,8 +10,6 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class DijkstraTest {
 
