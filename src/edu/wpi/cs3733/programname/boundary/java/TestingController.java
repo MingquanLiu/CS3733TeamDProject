@@ -290,6 +290,7 @@ public class TestingController implements Initializable{
 
     private void clearPath(){
         currentPath = new ArrayList<>();
+
     }
 
     private void clearNodes(){
@@ -532,6 +533,7 @@ public class TestingController implements Initializable{
         nodeInfoType.setText("");
         lblNodeX.setText("");
         lblNodeY.setText("");
+        clearMain();
     }
 
 }

@@ -189,7 +189,7 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton fx:id="btnOpenAdmin" onAction="#openAdminHandler" text="Servie Request Manager" />
+                        <JFXButton fx:id="btnOpenAdmin" maxWidth="200.0" onAction="#openAdminHandler" text="Servie Request Manager" GridPane.halignment="CENTER" />
                         <JFXButton fx:id="btnInterpreterReq" maxWidth="200.0" onAction="#SRHandler" text="Interpreter Request" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <JFXButton fx:id="btnMaintenanceReq" maxWidth="200.0" onAction="#SRHandler" text="Maintenance Request" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <JFXButton fx:id="btnTansportationReq" maxWidth="200.0" onAction="#SRHandler" text="Transportation Request" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
@@ -210,16 +210,18 @@
             <JFXButton fx:id="btnLogin" layoutX="-4.0" onAction="#loginButtonHandler" text="Login" />
             </children>
         </AnchorPane>
-        <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="600.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white;" visible="false">
+        <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="600.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white;">
             <content>
                 <AnchorPane prefHeight="178.0" prefWidth="350.0">
                     <children>
-                        <TextArea fx:id="requestDescription" layoutX="23.0" prefHeight="125.0" prefWidth="305.0" />
+                        <TextArea fx:id="requestDescription" layoutX="23.0" prefHeight="111.0" prefWidth="305.0" />
                         <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Select Location(s)" />
                         <JFXButton fx:id="btnCancelRequestAttempt" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Cancel" />
                         <JFXButton fx:id="btnSubmitRequest" layoutX="211.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Submit" />
-                  <Label fx:id="lblServiceType" text="Label" />
-                  <Label fx:id="lblServiceLocation" text="Label" AnchorPane.rightAnchor="0.0" />
+                  <Label fx:id="lblServiceType" layoutX="29.0" layoutY="111.0" text="Label" />
+                  <Label fx:id="lblServiceLocation" layoutX="109.0" layoutY="110.0" text="Label" AnchorPane.rightAnchor="214.0" />
+                  <Label layoutX="14.0" layoutY="111.0" text="X: " />
+                  <Label layoutX="80.0" layoutY="111.0" text="Y: " />
                     </children>
                 </AnchorPane>
             </content>
