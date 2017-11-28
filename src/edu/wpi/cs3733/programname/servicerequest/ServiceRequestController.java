@@ -2,10 +2,13 @@ package edu.wpi.cs3733.programname.servicerequest;
 
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
+import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.commondata.ServiceRequestMessage;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ServiceRequestController {
@@ -28,49 +31,96 @@ public class ServiceRequestController {
         sendEmail(newServiceRequest);
     }
 
+    public ArrayList<Employee> getAllEmployees(){
+        return queryEmployee.queryAllEmployees();
+    }
 
     public void printAllEmployees(){
         System.out.print(queryEmployee.queryAllEmployees());
+    }
+
+    public ArrayList<Employee> getInterpreterEmployees(){
+        return queryEmployee.queryEmployeesByType("interpreter");
     }
 
     public void printInterpreterEmployees(){
         System.out.print(queryEmployee.queryEmployeesByType("interpreter"));
     }
 
+    public ArrayList<Employee> getMaintenanceEmployees(){
+        return queryEmployee.queryEmployeesByType("maintenance");
+    }
+
     public void printMaintenanceEmployees(){
         System.out.print(queryEmployee.queryEmployeesByType("maintenance"));
+    }
+
+    public ArrayList<Employee> getTransportationEmployees(){
+        return queryEmployee.queryEmployeesByType("transportation");
     }
 
     public void printTransportationEmployees(){
         System.out.print(queryEmployee.queryEmployeesByType("transportation"));
     }
 
+    public ArrayList<ServiceRequest> getAllServiceRequest(){
+        return queryServiceRequest.queryAllServiceRequests();
+    }
+
     public void printAllServiceRequest(){
         System.out.print(queryServiceRequest.queryAllServiceRequests());
+    }
+
+    public ArrayList<ServiceRequest> getInterpreterRequest(){
+        return queryServiceRequest.queryServiceRequestsByType("interpreter");
     }
 
     public void printInterpreterRequest(){
         System.out.print(queryServiceRequest.queryServiceRequestsByType("interpreter"));
     }
 
+    public ArrayList<ServiceRequest> getMaintenanceRequest(){
+        return queryServiceRequest.queryServiceRequestsByType("maintenance");
+    }
+
     public void printMaintenanceRequest(){
         System.out.print(queryServiceRequest.queryServiceRequestsByType("maintenance"));
+    }
+
+    public ArrayList<ServiceRequest> getTransportationRequest(){
+        return queryServiceRequest.queryServiceRequestsByType("transportation");
     }
 
     public void printTransportationRequest(){
         System.out.print(queryServiceRequest.queryServiceRequestsByType("transportation"));
     }
 
+    public ArrayList<ServiceRequest> getUnhandledRequest(){
+        return queryServiceRequest.queryServiceRequestsByStatus("unhandled");
+    }
+
     public void printUnhandledServiceRequest(){
         System.out.print(queryServiceRequest.queryServiceRequestsByStatus("unhandled"));
+    }
+
+    public ArrayList<ServiceRequest> getHandledRequest(){
+        return queryServiceRequest.queryServiceRequestsByStatus("handled");
     }
 
     public void printHandledServiceRequest(){
         System.out.print(queryServiceRequest.queryServiceRequestsByStatus("handled"));
     }
 
+    public ArrayList<ServiceRequest> getCompletedRequest(){
+        return queryServiceRequest.queryServiceRequestsByStatus("completed");
+    }
+
     public void printCompletedServiceRequest(){
         System.out.print(queryServiceRequest.queryServiceRequestsByStatus("completed"));
+    }
+
+    public ArrayList<ServiceRequest> getRemovedRequest(){
+        return queryServiceRequest.queryServiceRequestsByStatus("removed");
     }
 
     public void printRemovedServiceRequest(){
@@ -80,6 +130,16 @@ public class ServiceRequestController {
     public void handleServiceRequest(ServiceRequest request, Employee handler){
         queryServiceRequest.handleServiceRequest(request, handler);
     }
+
+    public ServiceRequest getServiceRequestByID(int srID){
+        ArrayList<ServiceRequest> list = queryServiceRequest.queryServiceRequestsByID(srID);
+        return list.get(1);
+    }
+
+    public Employee getEmployeeByUsername(String username){
+        return queryEmployee.queryEmployeeByUsername(username);
+    }
+
 
     public void completeServiceRequest(ServiceRequest request){
         queryServiceRequest.completeServiceRequest(request);
@@ -99,7 +159,7 @@ public class ServiceRequestController {
 
     public void sendEmail(ServiceRequest request){
         String recipient = "";
-        switch(request.getType()){
+        switch(request.getServiceType()){
             case "interpreter":
                 recipient = "interpreterbwhospital@gmail.com";
                 break;

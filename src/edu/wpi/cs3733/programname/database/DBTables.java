@@ -4,11 +4,17 @@ import edu.wpi.cs3733.programname.database.Tables.EdgesTable;
 import edu.wpi.cs3733.programname.database.Tables.EmployeesTable;
 import edu.wpi.cs3733.programname.database.Tables.NodesTable;
 
-import java.sql.*;
-import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.*;
-import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.*;
-import static edu.wpi.cs3733.programname.database.Tables.NodesTable.*;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static edu.wpi.cs3733.programname.database.Tables.EdgesTable.createEdgesTables;
+import static edu.wpi.cs3733.programname.database.Tables.EmployeesTable.createEmployeesTables;
+import static edu.wpi.cs3733.programname.database.Tables.NodesTable.createNodesTables;
 import static edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable.createServiceRequestsTable;
+
+//import edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable;
+//import static edu.wpi.cs3733.programname.database.Tables.ServiceRequestsTable.*;
 
 
 public class DBTables {
@@ -17,14 +23,14 @@ public class DBTables {
     }
 
     public static void createAllTables(DBConnection conn) {
-        System.out.println("About to drop");
+
         try {
             DatabaseMetaData dbm = conn.getConnection().getMetaData();
             // check if "StaffTitles" table is there
             ResultSet tables1 = dbm.getTables(null, null, "NODES", null);
             ResultSet tables2 = dbm.getTables(null, null, "EDGES", null);
             ResultSet tables3 = dbm.getTables(null, null, "EMPLOYEES", null);
-            ResultSet tables4 = dbm.getTables(null, null, "SERVICEREQUEST", null);
+            ResultSet tables4 = dbm.getTables(null, null, "SERVICEREQUESTS", null);
             if (!tables1.next()) {
                 NodesTable.createNodesTables(conn);
             }
@@ -37,9 +43,9 @@ public class DBTables {
             else if (!tables4.next()){
                 createServiceRequestsTable(conn);}
             else {
-
+                System.out.println("About to drop");
                 String dropTable1 = ("DROP TABLE Edges");
-                String dropTable2 = ("DROP TABLE ServiceRequest");
+                String dropTable2 = ("DROP TABLE ServiceRequests");
                 String dropTable3 = ("DROP TABLE Employees");
                 String dropTable4 = ("DROP TABLE Nodes");
                 // Drops StaffTitles table
