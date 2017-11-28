@@ -4,6 +4,7 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.*;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,7 +38,7 @@ public class DBPathfindIntegrationTest {
 //        printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
     }
 
-<<<<<<< HEAD:test/IntegrationTests/DBPathfindIntegrationTest.java
+
     @Test
     public void testBasicDbPathfind() {
         ManageController manager = new ManageController();
@@ -50,7 +51,7 @@ public class DBPathfindIntegrationTest {
         List<NodeData> expected = new ArrayList<>();
         expected.add(hallwayTwo);
         expected.add(hallwayOne);
-        List<NodeData> result = manager.startPathfind(hallwayOne.getNodeID(), hallwayTwo.getNodeID());
+        List<NodeData> result = manager.startPathfind(hallwayOne.getNodeID(), hallwayTwo.getNodeID(), PathfindingController.searchType.ASTAR);
 
         int i = 0;
         for (NodeData data: result) {
@@ -58,7 +59,7 @@ public class DBPathfindIntegrationTest {
             i++;
         }
     }
-=======
+
 //    @Test
 //    public void testBasicDbPathfind() {
 //        ManageController manager = new ManageController();
@@ -79,7 +80,6 @@ public class DBPathfindIntegrationTest {
 //            i++;
 //        }
 //    }
->>>>>>> master:test/DBPathfindIntegrationTest.java
 
 
 

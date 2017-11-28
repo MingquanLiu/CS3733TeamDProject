@@ -34,24 +34,24 @@ public class TextDirectionsTest {
     NodeData node17 = new NodeData("17", new Coordinate(14, 14),"2", "15 Francis", "EXIT", "Exit Four", "H4", "Team D");
 
 
-    EdgeData edge1 = new EdgeData("1", "2", "E1");
-    EdgeData edge2 = new EdgeData("2", "3", "E2");
-    EdgeData edge3 = new EdgeData("3", "4", "E3");
-    EdgeData edge4 = new EdgeData("2", "4", "E4");
-    EdgeData edge5 = new EdgeData("5", "4", "E5");
-    EdgeData edge6 = new EdgeData("4", "6", "E6");
-    EdgeData edge7 = new EdgeData("7", "6", "E7");
-    EdgeData edge8 = new EdgeData("8", "6", "E8");
-    EdgeData edge9 = new EdgeData("5", "10", "E1");
-    EdgeData edge10 = new EdgeData("7", "13", "E2");
-    EdgeData edge11 = new EdgeData("9", "11", "E3");
-    EdgeData edge12 = new EdgeData("11", "10", "E4");
-    EdgeData edge13 = new EdgeData("11", "12", "E5");
-    EdgeData edge14 = new EdgeData("11", "14", "E6");
-    EdgeData edge15 = new EdgeData("13", "14", "E7");
-    EdgeData edge16 = new EdgeData("14", "15", "E8");
-    EdgeData edge17 = new EdgeData("15", "16", "E7");
-    EdgeData edge18 = new EdgeData("16", "17", "E8");
+    EdgeData edge1 = new EdgeData("E1", "1", "2");
+    EdgeData edge2 = new EdgeData("E2", "2", "3");
+    EdgeData edge3 = new EdgeData("E3", "3", "4");
+    EdgeData edge4 = new EdgeData("E4", "2", "4");
+    EdgeData edge5 = new EdgeData("E5", "5", "4");
+    EdgeData edge6 = new EdgeData("E6", "4", "6");
+    EdgeData edge7 = new EdgeData("E7", "7", "6");
+    EdgeData edge8 = new EdgeData("E8", "8", "6");
+    EdgeData edge9 = new EdgeData("E1", "5", "10");
+    EdgeData edge10 = new EdgeData("E2", "7", "13");
+    EdgeData edge11 = new EdgeData("E3", "9", "11");
+    EdgeData edge12 = new EdgeData("E4", "11", "10");
+    EdgeData edge13 = new EdgeData("E5", "11", "12");
+    EdgeData edge14 = new EdgeData("E6", "11", "14");
+    EdgeData edge15 = new EdgeData("E7", "13", "14");
+    EdgeData edge16 = new EdgeData("E8", "14", "15");
+    EdgeData edge17 = new EdgeData("E7", "15", "16");
+    EdgeData edge18 = new EdgeData("E8", "16", "17");
 
     StarNode star4 = new StarNode(node4);
     StarNode star5 = new StarNode(node5);
