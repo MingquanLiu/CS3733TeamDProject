@@ -47,7 +47,7 @@ public class NodesQuery {
             Coordinate location = new Coordinate(xcoord, ycoord);
             queryResult = new NodeData(nodeID, location, floor, building, nodeType, longName, shortName, teamAssigned);
         } catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
+            System.out.println("Get Node Failed!");
             e.printStackTrace();
         }
         return queryResult;
@@ -89,7 +89,7 @@ public class NodesQuery {
                 allNodes.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
+            System.out.println("Get Node Failed!");
             e.printStackTrace();
         }
         return allNodes;
@@ -131,7 +131,7 @@ public class NodesQuery {
                 allNodes.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
+            System.out.println("Get Node Failed!");
             e.printStackTrace();
         }
         return allNodes;
@@ -174,10 +174,88 @@ public class NodesQuery {
                 allNodeTypes.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Insert Node Failed!");
+            System.out.println("Get Node Failed!");
             e.printStackTrace();
         }
         return allNodeTypes;
 
+    }
+
+
+    public List<NodeData> getNodeByTypeAndFloor(DBConnection dbConnection, String type, String floor){
+
+        NodeData queryResult = null;
+        List<NodeData> allNodeTypes = new ArrayList<NodeData>();
+
+        try {
+            String sql = "SELECT * FROM Nodes " +
+                    "WHERE nodeType = '" + type + "' and floor = '" + floor + "'";
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+
+            String nodeID = "";
+            int xcoord = 0;
+            int ycoord = 0;
+            String building = "";
+            String longName = "";
+            String shortName = "";
+            String teamAssigned = "";
+
+            while(result.next()) {
+                nodeID = result.getString("nodeID");
+                xcoord = result.getInt("xcoord");
+                ycoord = result.getInt("ycoord");
+                floor = result.getString("floor");
+                building = result.getString("building");
+                longName = result.getString("longName");
+                shortName = result.getString("shortName");
+                teamAssigned = result.getString("teamAssigned");
+
+                Coordinate location = new Coordinate(xcoord, ycoord);
+                queryResult = new NodeData(nodeID, location, floor, building, type, longName, shortName, teamAssigned);
+                allNodeTypes.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Get Node Failed!");
+            e.printStackTrace();
+        }
+        return allNodeTypes;
+
+    }
+
+
+    public NodeData getNodeByCoordAndFloor(DBConnection dbConnection, Coordinate coord, String floor){
+        NodeData queryResult = null;
+        int xcoord = coord.getXCoord();
+        int ycoord = coord.getYCoord();
+
+        try {
+            String sql = "SELECT * FROM Nodes " +
+                    "WHERE xcoord = " + xcoord + "and ycoord =" + ycoord +" and floor = '" + floor + "'";
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+            String nodeID = "";
+            String building = "";
+            String nodeType = "";
+            String longName = "";
+            String shortName = "";
+            String teamAssigned = "";
+            while(result.next()) {
+                nodeID = result.getString("nodeID");
+                xcoord = result.getInt("xcoord");
+                ycoord = result.getInt("ycoord");
+                building = result.getString("building");
+                nodeType = result.getString("nodeType");
+                longName = result.getString("longName");
+                shortName = result.getString("shortName");
+                teamAssigned = result.getString("teamAssigned");
+            }
+            Coordinate location = new Coordinate(xcoord, ycoord);
+            queryResult = new NodeData(nodeID, location, floor, building, nodeType, longName, shortName, teamAssigned);
+        } catch (SQLException e) {
+            System.out.println("Get Node Failed!");
+            e.printStackTrace();
+        }
+        return queryResult;
     }
 }

@@ -86,7 +86,7 @@ public class ServiceRequestsQuery {
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Select Service Request Failed!");
+            System.out.println("Get Service Request Failed!");
             e.printStackTrace();
         }
         return resultList;
@@ -158,7 +158,7 @@ public class ServiceRequestsQuery {
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Select Service Request Failed!");
+            System.out.println("Get Service Request Failed!");
             e.printStackTrace();
         }
         return resultList;
@@ -229,7 +229,7 @@ public class ServiceRequestsQuery {
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Select Service Request Failed!");
+            System.out.println("Get Service Request Failed!");
             e.printStackTrace();
         }
         return resultList;

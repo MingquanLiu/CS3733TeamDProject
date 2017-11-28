@@ -1,22 +1,18 @@
 package DatabaseTests;
 
-
-import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.database.*;
-
-
-import org.junit.Before;
+import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.database.DatabaseModificationController;
+import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
 import org.junit.Test;
 
-import java.sql.Connection;
-
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.assertEquals;
 
-public class DBModConTest {
-
+public class QueryTest {
 
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
     Coordinate replacedBathroomCoord = new Coordinate(2124, 625);
@@ -33,46 +29,27 @@ public class DBModConTest {
 
     EdgeData edge1 = new EdgeData("TREST00102_DREST00102", "TREST00102", "DREST00102");
     DBConnection conn = new DBConnection();   // Creates new instance of connection
+    NodesQuery nodesQuery = new NodesQuery();
     DatabaseModificationController theDBModControl = new DatabaseModificationController(conn);
 
-    public DBModConTest(){};
-
-    @Before
-    public void setupDbTables() {
-        // MapDnodes.csv
-        DBTables.createAllTables(conn);           // Makes nodes table
-
-    }
-
 
     @Test
-    public void checkAddNode(){
-        ManageController manager = new ManageController();
-        theDBModControl.addNode(aBathroom);
-        //TODO: Change getNodeData to queryByNodeID???
-        NodeData TREST = manager.getNodeData("TREST00102");
-        assertEquals(aBathroom, TREST);
-    }
-
-
-    @Test
-    public void checkEditNode(){
-        ManageController manager = new ManageController();
-        theDBModControl.addNode(newBathroom);
-        theDBModControl.editNode(newBathroom2);
-        NodeData CREST = manager.getNodeData("CREST00102");
-
-        assertEquals(newBathroom2, CREST);
-    }
-
-    @Test
-    public void test(){
+    public void testGetNodeByTypeAndFloor(){
         theDBModControl.addNode(aBathroom);
         theDBModControl.addNode(newBathroom);
-        theDBModControl.addEdge("TREST00102", "CREST00102");
-        theDBModControl.editEdge(edge1);
-        theDBModControl.deleteEdge(edge1);
-        assertEquals(0,0);
+        List<NodeData> actual = new ArrayList<NodeData>();
+        actual = nodesQuery.getNodeByTypeAndFloor(conn,"REST","2");
+        List<NodeData> expected = new ArrayList<NodeData>();
+        expected.add(aBathroom);
+        expected.add(newBathroom);
+        assertEquals(expected,actual);
     }
 
+    @Test
+    public void testGetNodeByCoordAndFloor(){
+        theDBModControl.addNode(aBathroom);
+        theDBModControl.addNode(newBathroom);
+        NodeData actual = nodesQuery.getNodeByCoordAndFloor(conn,aBathroomCoord,"2");
+        assertEquals(aBathroom,actual);
+    }
 }

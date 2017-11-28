@@ -44,7 +44,7 @@ public class EmployeesQuery {
                 group.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Select Employee Failed!");
+            System.out.println("Get Employee Failed!");
             e.printStackTrace();
         }
         return group;
@@ -80,7 +80,7 @@ public class EmployeesQuery {
                 group.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Select Employee Failed!");
+            System.out.println("Get Employee Failed!");
             e.printStackTrace();
         }
         return group;
@@ -113,7 +113,7 @@ public class EmployeesQuery {
                 queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
             }
         } catch (SQLException e) {
-            System.out.println("Select Employee Failed!");
+            System.out.println("Get Employee Failed!");
             e.printStackTrace();
         }
         return queryResult;
