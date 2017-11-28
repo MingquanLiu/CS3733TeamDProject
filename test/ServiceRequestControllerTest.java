@@ -25,10 +25,9 @@ import static org.junit.Assert.assertNotEquals;
 public class ServiceRequestControllerTest {
 
     DBConnection dbConnection = new DBConnection();
-    EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
-    ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
-
-    ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
+    EmployeesQuery queryEmployee;
+    ServiceRequestsQuery queryServiceRequest;
+    ServiceRequestController srController;
     Employee wong = new Employee("wwong2", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com");
     Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", false, "transportation","john@test.com");
     Employee yufei = new Employee("ygao6", "pass", "Yufei", "", "Gao", true, "transportation","ygao6@wpi.edu");
@@ -42,9 +41,9 @@ public class ServiceRequestControllerTest {
     ServiceRequest wongServiceRequest = new ServiceRequest(1, "wwong2","interpreter","TREST00102","TREST00101","Need someone speaks Spanish");
     ServiceRequest newWongRequest = new ServiceRequest(1, "wwong2", "userjohn","interpreter","TREST00102","TREST00101","Need someone speaks Spanish","","","","handled");
     ServiceRequest johnServiceRequest = new ServiceRequest(1, "userjohn","transportation","DELEV00A02", "DELEV00B02","need a wheelchair");
-    DatabaseModificationController dbModControl = new DatabaseModificationController(dbConnection);
-    DatabaseQueryController databaseQueryController = new DatabaseQueryController(dbConnection);
-    ManageController controller = new ManageController();
+    DatabaseModificationController dbModControl;
+    DatabaseQueryController databaseQueryController;
+    ManageController controller;
 
     //CHANGE TARGET EMAIL IF YOU RUN THIS TEST PLEASE
 //    @Test
@@ -67,7 +66,14 @@ public class ServiceRequestControllerTest {
 
     @Before
     public void setupDbTables() {
+        dbConnection.setDBConnection();
         DBTables.createAllTables(dbConnection);           // Makes all table
+        queryServiceRequest = new ServiceRequestsQuery(dbConnection);
+        srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
+        queryEmployee = new EmployeesQuery(dbConnection);
+        dbModControl = new DatabaseModificationController(dbConnection);
+        databaseQueryController = new DatabaseQueryController(dbConnection);
+//        controller = new ManageController();
         //queryEmployee.addEmployee(john);
     }
 
