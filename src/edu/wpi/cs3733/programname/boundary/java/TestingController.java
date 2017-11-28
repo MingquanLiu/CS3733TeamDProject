@@ -67,18 +67,30 @@ public class TestingController implements Initializable{
     @FXML
     private Button btnZoomOut;
 
-    //login popup objects
+    //Admin features
     @FXML
     private Button btnLogin;
     @FXML
     private Label lblLoginStatus;
+    @FXML
+    private Button btnOpenAdmin;
+    @FXML
+    private Button btnInterpreterReq;
+    @FXML
+    private Button btnMaintenanceReq;
+    @FXML
+    private Button btnTransportationReq;
+
+    //service request dialog
+    @FXML
+    private TextArea requestDescription;
+
 
     //hamburger pane and transitions
     @FXML
     private JFXHamburger burger;
     @FXML
     private AnchorPane paneControls;
-
 
     //location search
     @FXML
@@ -89,6 +101,7 @@ public class TestingController implements Initializable{
     private TextField txtStartLocation;
     @FXML
     private TextField txtEndLocation;
+
 
 
     //global variables, not FXML tied
