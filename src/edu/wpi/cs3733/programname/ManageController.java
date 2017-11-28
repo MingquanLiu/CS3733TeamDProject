@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname;
 
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
+import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.*;
@@ -13,6 +14,7 @@ import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -125,6 +127,13 @@ public class ManageController {
         ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description);
         //queryServiceRequest.addServiceRequest(newServiceRequest);
         return newServiceRequest;
+    }
+
+    public ArrayList<Employee> getInterpreterEmployees(){
+        return employeesQuery.queryEmployeesByType("interpreter");
+    }
+    public ArrayList<ServiceRequest> getInterpreterRequest(){
+        return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }
 }
 

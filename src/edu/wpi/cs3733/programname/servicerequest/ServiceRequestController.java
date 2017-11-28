@@ -46,9 +46,7 @@ public class ServiceRequestController {
 //        System.out.print(queryEmployee.queryAllEmployees());
 //    }
 //
-//    public ArrayList<Employee> getInterpreterEmployees(){
-//        return queryEmployee.queryEmployeesByType("interpreter");
-//    }
+
 //
 //    public void printInterpreterEmployees(){
 //        System.out.print(queryEmployee.queryEmployeesByType("interpreter"));
@@ -78,9 +76,7 @@ public class ServiceRequestController {
 //        System.out.print(queryServiceRequest.queryAllServiceRequests());
 //    }
 //
-//    public ArrayList<ServiceRequest> getInterpreterRequest(){
-//        return queryServiceRequest.queryServiceRequestsByType("interpreter");
-//    }
+
 //
 //    public void printInterpreterRequest(){
 //        System.out.print(queryServiceRequest.queryServiceRequestsByType("interpreter"));

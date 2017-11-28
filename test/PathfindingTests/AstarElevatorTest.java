@@ -72,7 +72,6 @@ public class AstarElevatorTest {
     StarNode star15 = new StarNode(node15);
 
     public AstarElevatorTest() {}
-
     @Test
     public void ElevPath() throws NoPathException {
         AStar Path = new AStar(allNodes, allEdges,"H2", "H8");
