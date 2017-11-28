@@ -104,7 +104,7 @@ public class CsvReader {
     } // end insertNodes
 
 
-    // EDGES MapDedges.csv
+    // EDGES
     public ArrayList<EdgeData> getListOfEdges(Connection conn) {
         // ArrayLists stores data values is proper columns
         ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();

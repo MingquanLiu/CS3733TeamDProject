@@ -59,7 +59,6 @@ public class DBConnectionTest {
         CsvWriter mCsvWriter = new CsvWriter();
         Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
 
-        // MapDedges.csv
         mDbTable.createAllTables(TestDB);           // Makes nodes table
 
         ArrayList<EdgeData> edgeList = mCsvReader.getListOfEdges(conn);

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,9 +33,12 @@ public class ServiceRequestsQuery {
             String node1ID;
             String node2ID;
             String description;
-            Timestamp requestTime;
-            Timestamp handleTime;
-            Timestamp completionTime;
+//            Timestamp requestTime;
+//            Timestamp handleTime;
+//            Timestamp completionTime;
+            String requestTime;
+            String handleTime;
+            String completionTime;
             String status;
             String receiverUsername;
 
@@ -45,9 +49,12 @@ public class ServiceRequestsQuery {
                 node1ID = result.getString("location1");
                 node2ID = result.getString("location2");
                 description = result.getString("description");
-                requestTime = result.getTimestamp("requestTime");
-                handleTime = result.getTimestamp("handleTime");
-                completionTime = result.getTimestamp("completionTime");
+//                requestTime = result.getTimestamp("requestTime");
+//                handleTime = result.getTimestamp("handleTime");
+//                completionTime = result.getTimestamp("completionTime");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status);
@@ -73,10 +80,9 @@ public class ServiceRequestsQuery {
             String node1ID;
             String node2ID;
             String description;
-            Timestamp requestTime;
-            Timestamp handleTime;
-            Timestamp completionTime;
-
+            String requestTime;
+            String handleTime;
+            String completionTime;
             String receiverUsername;
 
             while(result.next()) {
@@ -86,9 +92,12 @@ public class ServiceRequestsQuery {
                 node1ID = result.getString("location1");
                 node2ID = result.getString("location2");
                 description = result.getString("description");
-                requestTime = result.getTimestamp("requestTime");
-                handleTime = result.getTimestamp("handleTime");
-                completionTime = result.getTimestamp("completionTime");
+//                requestTime = result.getTimestamp("requestTime");
+//                handleTime = result.getTimestamp("handleTime");
+//                completionTime = result.getTimestamp("completionTime");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
                 //status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status);
@@ -114,9 +123,12 @@ public class ServiceRequestsQuery {
             String node1ID="";
             String node2ID;
             String description;
-            Timestamp requestTime;
-            Timestamp handleTime;
-            Timestamp completionTime;
+//            Timestamp requestTime;
+//            Timestamp handleTime;
+//            Timestamp completionTime;
+            String requestTime;
+            String handleTime;
+            String completionTime;
             String status;
             String receiverUsername;
 
@@ -126,9 +138,12 @@ public class ServiceRequestsQuery {
                 //serviceType = result.getString("serviceType");
                 node2ID = result.getString("location2");
                 description = result.getString("description");
-                requestTime = result.getTimestamp("requestTime");
-                handleTime = result.getTimestamp("handleTime");
-                completionTime = result.getTimestamp("completionTime");
+//                requestTime = result.getTimestamp("requestTime");
+//                handleTime = result.getTimestamp("handleTime");
+//                completionTime = result.getTimestamp("completionTime");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceserviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status);
@@ -141,9 +156,8 @@ public class ServiceRequestsQuery {
         return resultList;
     }
 
-    public ArrayList<ServiceRequest> queryServiceRequestsByID(int serviceID){
+    public ServiceRequest queryServiceRequestsByID(int serviceID){
         ServiceRequest queryResult = null;
-        ArrayList<ServiceRequest> resultList = new ArrayList<ServiceRequest>();
         try {
             String sql = "SELECT * FROM ServiceRequests WHERE serviceID = " + serviceID;
             Statement stmt = dbConnection.getConnection().createStatement();
@@ -153,9 +167,12 @@ public class ServiceRequestsQuery {
             String node1ID;
             String node2ID;
             String description;
-            Timestamp requestTime;
-            Timestamp handleTime;
-            Timestamp completionTime;
+//            Timestamp requestTime;
+//            Timestamp handleTime;
+//            Timestamp completionTime;
+            String requestTime;
+            String handleTime;
+            String completionTime;
             String status;
             String receiverUsername;
 
@@ -165,19 +182,21 @@ public class ServiceRequestsQuery {
                 node1ID = result.getString("location1");
                 node2ID = result.getString("location2");
                 description = result.getString("description");
-                requestTime = result.getTimestamp("requestTime");
-                handleTime = result.getTimestamp("handleTime");
-                completionTime = result.getTimestamp("completionTime");
+//                requestTime = result.getTimestamp("requestTime");
+//                handleTime = result.getTimestamp("handleTime");
+//                completionTime = result.getTimestamp("completionTime");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 queryResult = new ServiceRequest(serviceID, senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status);
-                resultList.add(queryResult);
             }
         } catch (SQLException e) {
             System.out.println("Select Service Request Failed!");
             e.printStackTrace();
         }
-        return resultList;
+        return queryResult;
     }
 
     public void addServiceRequest(ServiceRequest serviceRequest){
@@ -187,9 +206,12 @@ public class ServiceRequestsQuery {
         String node1ID = serviceRequest.getLocation1();
         String node2ID = serviceRequest.getLocation2();
         String description = serviceRequest.getDescription();
-        Timestamp requestTime = serviceRequest.getRequestTime();
-        Timestamp handleTime = serviceRequest.getHandleTime();
-        Timestamp completionTime = serviceRequest.getCompletionTime();
+//        Timestamp requestTime = serviceRequest.getRequestTime();
+//        Timestamp handleTime = serviceRequest.getHandleTime();
+//        Timestamp completionTime = serviceRequest.getCompletionTime();
+        String requestTime = serviceRequest.getRequestTime();
+        String handleTime = serviceRequest.getHandleTime();
+        String completionTime = serviceRequest.getCompletionTime();
         String status = serviceRequest.getStatus();
         String receiverUsername = serviceRequest.getReceiver();
         String str;
@@ -208,10 +230,11 @@ public class ServiceRequestsQuery {
     public void handleServiceRequest(ServiceRequest serviceRequest, String receiver) {
         int serviceID = serviceRequest.getServiceID();
         Date date = new Date();
-        Timestamp handleTime = new Timestamp(date.getTime());
+        String handleTime;// = new Timestamp(date.getTime());
+        handleTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(date.getTime()));
         String str;
         try {
-            str = "update ServiceRequests set handleTime = '"+ handleTime +"' status = 'handled', receiver = '"+ receiver +"' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set handleTime = '"+ handleTime +"', status = 'handled', receiver = '"+ receiver +"' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {
@@ -224,10 +247,11 @@ public class ServiceRequestsQuery {
     public void completeServiceRequest(ServiceRequest serviceRequest) {
         int serviceID = serviceRequest.getServiceID();
         Date date = new Date();
-        Timestamp completionTime = new Timestamp(date.getTime());
+        String completionTime;// = new Timestamp(date.getTime());
+        completionTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(date.getTime()));
         String str;
         try {
-            str = "update ServiceRequests set completionTime = '"+ completionTime +"' status = 'completed' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set completionTime = '"+ completionTime +"', status = 'completed' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
         } catch (SQLException e) {

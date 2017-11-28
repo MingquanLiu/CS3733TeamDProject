@@ -5,6 +5,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.DBTables;
+import edu.wpi.cs3733.programname.database.DatabaseModificationController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
@@ -14,7 +15,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertNotEquals;
 
 //import static org.junit.Assert.assertEquals;
 
@@ -25,16 +26,19 @@ public class ServiceRequestControllerTest {
     ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
     ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
     Employee wong = new Employee("wwong2", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com");
-    Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation","john@test.com");
+    Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", false, "transportation","john@test.com");
+    Employee yufei = new Employee("ygao6", "pass", "Yufei", "", "Gao", true, "transportation","ygao6@wpi.edu");
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
     Coordinate coord1 = new Coordinate(4550,375);
     NodeData teamDnode1 = new NodeData("DELEV00A02",coord1,"2","15 Francis","ELEV","Elevator A Floor 2","Elevator A2","Team D");
     Coordinate coord2 = new Coordinate(4155,650);
     NodeData teamDnode2 = new NodeData("DELEV00B02",coord2,"2","15 Francis","ELEV","Elevator B Floor 2","Elevator B2","Team D");
-    NodeData bBathroom = new NodeData ("TREST00102", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
+    NodeData bBathroom = new NodeData ("TREST00101", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
     NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-    ServiceRequest serviceRequest = new ServiceRequest(1, wong,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
-
+    ServiceRequest wongServiceRequest = new ServiceRequest(1, wong,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish");
+    ServiceRequest newWongRequest = new ServiceRequest(1, wong, john,"interpreter",aBathroom,bBathroom,"Need someone speaks Spanish","","","","handled");
+    ServiceRequest johnServiceRequest = new ServiceRequest(1, john,"transportation",teamDnode1, teamDnode2,"need a wheelchair");
+    DatabaseModificationController dbModControl = new DatabaseModificationController(dbConnection);
 
     //CHANGE TARGET EMAIL IF YOU RUN THIS TEST PLEASE
 //    @Test
@@ -64,9 +68,13 @@ public class ServiceRequestControllerTest {
 
     // test email
     @Test
-    public void testEmail(){
-        srController.sendEmailByType(serviceRequest);
+    public void testSendEmailByType(){
+        srController.sendEmailByType(wongServiceRequest);
     }
+
+//    @Test
+//    public void testSendEmail(){
+//    }
 
 
     @Test
@@ -78,14 +86,14 @@ public class ServiceRequestControllerTest {
     public void testQueryEmployeeByUsername(){
         queryEmployee.addEmployee(wong);
         Employee result = queryEmployee.queryEmployeeByUsername("wwong2");
-        assertSame(wong,result); //This test failed but the expected value is same with the actual value
+        assertEquals(wong, result);
     }
 
     @Test
     public void testQueryEmployeeByUsername2(){
         queryEmployee.addEmployee(john);
         Employee result = queryEmployee.queryEmployeeByUsername("userjohn");
-        assertSame(john,result); //This test failed but the expected value is same with the actual value
+        assertEquals(john,result);
     }
 
     @Test
@@ -94,7 +102,16 @@ public class ServiceRequestControllerTest {
         ArrayList<Employee> result = queryEmployee.queryEmployeesByType("interpreter");
         ArrayList<Employee> expected = new ArrayList<Employee>();
         expected.add(wong);
-        assertSame(expected,result); //This test failed but the expected value is same with the actual value
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void testGetAllEmployees(){
+        queryEmployee.addEmployee(wong);
+        ArrayList<Employee> result = new ArrayList<Employee>();
+        result = srController.getAllEmployees();
+        ArrayList<Employee> expected = new ArrayList<Employee>();
+        expected.add(wong);
     }
 
 
@@ -104,6 +121,49 @@ public class ServiceRequestControllerTest {
         srController.createServiceRequest(john, "transportation", teamDnode1, teamDnode2, "need a wheelchair");
         assertEquals(0,0);
     }
+
+    @Test
+    public void testGetInterpreterRequest(){
+        dbModControl.addNode(aBathroom);
+        dbModControl.addNode(bBathroom);
+        queryEmployee.addEmployee(wong);
+        srController.addServiceRequest(wongServiceRequest);
+        ArrayList<ServiceRequest> result = new ArrayList<ServiceRequest>();
+        result = srController.getInterpreterRequest();
+        ArrayList<ServiceRequest> expected = new ArrayList<ServiceRequest>();
+        expected.add(wongServiceRequest);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void testGetTransportationRequest(){
+        dbModControl.addNode(teamDnode1);
+        dbModControl.addNode(teamDnode2);
+        queryEmployee.addEmployee(john);
+        srController.createServiceRequest(john, "transportation", teamDnode1, teamDnode2, "need a wheelchair");
+        ArrayList<ServiceRequest> result = new ArrayList<ServiceRequest>();
+        result = srController.getTransportationRequest();
+        ArrayList<ServiceRequest> unexpected = new ArrayList<ServiceRequest>();
+        unexpected.add(johnServiceRequest);
+        assertNotEquals(unexpected,result);
+
+    }
+
+    @Test
+    public void testHandleRequest(){
+        dbModControl.addNode(aBathroom);
+        dbModControl.addNode(bBathroom);
+        queryEmployee.addEmployee(wong);
+        queryEmployee.addEmployee(john);
+        srController.addServiceRequest(wongServiceRequest);
+        srController.handleServiceRequest(wongServiceRequest,john);
+        ServiceRequest result = srController.getServiceRequestByID(1);
+        ServiceRequest unexpected = newWongRequest;
+        assertNotEquals(unexpected,result);
+
+    }
+
+
 
 
 
