@@ -27,7 +27,7 @@
                         <Image url="@Resources/Floor_2.png" />
                      </image>
                   </ImageView>
-                    <DialogPane fx:id="nodeInfoPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;" visible="false">
+                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;">
                         <content>
                             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="100.0">
                                 <children>
@@ -35,7 +35,23 @@
                                     <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
                                     <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     <JFXButton fx:id="closeNodeInfo" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" onAction="#closeNodeInfoHandler" text="Close" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                    <Label fx:id="nodeInfoLocation" layoutX="14.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+                              <GridPane layoutX="2.0" layoutY="68.0" prefHeight="29.0" prefWidth="147.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label fx:id="lblNodeX" text="Label" GridPane.columnIndex="1" />
+                                    <Label fx:id="lblNodeY" text="Label" GridPane.columnIndex="3" />
+                                    <Label text="X: " />
+                                    <Label text="Y:" GridPane.columnIndex="2" />
+                                 </children>
+                              </GridPane>
                                 </children>
                             </AnchorPane>
                         </content>
@@ -135,41 +151,51 @@
                     </rowConstraints>
                      <children>
                         <JFXButton fx:id="btnGo" onAction="#goButtonHandler" style="-fx-background-color: green;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                        <JFXButton style="-fx-background-color: RED;" text="Clear" GridPane.halignment="RIGHT" />
+                        <JFXButton onAction="#clearMain" style="-fx-background-color: RED;" text="Clear" GridPane.halignment="RIGHT" />
                      </children>
                   </GridPane>
                     </children>
                 </GridPane>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="paneControls" layoutY="63.0" prefHeight="401.0" prefWidth="166.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
+      <AnchorPane fx:id="paneControls" layoutY="63.0" prefHeight="401.0" prefWidth="166.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="63.0">
          <children>
-            <GridPane layoutY="103.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="262.0" prefWidth="166.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <GridPane layoutY="103.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="272.0" prefWidth="166.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="84.79998779296875" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <JFXButton fx:id="btnLocateBR" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Bathrooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="btnLocateVM" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Vending Machines" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="btnLocateSD" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Service  Desks" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="btnLocateWR" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Waiting Rooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="btnOpenAdmin" onAction="#openAdminHandler" prefHeight="100.0" prefWidth="200.0" text="Admin Features" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                  <JFXButton fx:id="btnTransportationReq" onAction="#SRHandler" prefHeight="100.0" prefWidth="200.0" text="Transportation Request" GridPane.rowIndex="5" />
-                  <JFXButton fx:id="btnInterpreterReq" onAction="#SRHandler" prefHeight="100.0" prefWidth="200.0" text="Interpreter Request" GridPane.rowIndex="6" />
-                  <JFXButton fx:id="btnMaintenanceReq" onAction="#SRHandler" prefHeight="100.0" prefWidth="200.0" text="Maintenance Request" GridPane.rowIndex="7" />
-                  <JFXButton fx:id="btnMapEdit" onAction="#mapEditHandler" prefWidth="200.0" text="Map edit" GridPane.rowIndex="8" />
+                  <GridPane fx:id="paneAdminFeatures" minHeight="-Infinity" prefHeight="155.0" prefWidth="166.0" GridPane.rowIndex="4" GridPane.valignment="TOP">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <JFXButton fx:id="btnOpenAdmin" onAction="#openAdminHandler" text="Servie Request Manager" />
+                        <JFXButton fx:id="btnInterpreterReq" maxWidth="200.0" onAction="#SRHandler" text="Interpreter Request" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXButton fx:id="btnMaintenanceReq" maxWidth="200.0" onAction="#SRHandler" text="Maintenance Request" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <JFXButton fx:id="btnTansportationReq" maxWidth="200.0" onAction="#SRHandler" text="Transportation Request" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <JFXButton fx:id="btnMapEdit" maxWidth="200.0" onAction="#mapEditHandler" text="Map Edit" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                     </children>
+                  </GridPane>
                </children>
             </GridPane>
          </children></AnchorPane>
