@@ -22,8 +22,10 @@ public class NodesTable {
                     "('HALL', 'ELEV', 'REST', 'STAI', 'DEPT', 'LABS', 'INFO', 'CONF', 'EXIT', 'RETL', 'SERV', 'BATH'))," +
                     "CONSTRAINT Nodes_building CHECK (building IN " +
                     "('BTM', 'Shapiro', 'Tower', '45 Francis', '15 Francis'))," +
+                    "CONSTRAINT Nodes_floor CHECK (floor IN " +
+                    "('L2', 'L1', 'G', '1', '2', '3'))," +
                     "CONSTRAINT Nodes_xcoordVal check (xcoord >= 0 AND xcoord <= 5000)," +
-                    "CONSTRAINT Nodes_ycoordVal check (ycoord >= 0 AND ycoord <= 5000))";
+                    "CONSTRAINT Nodes_ycoordVal check (ycoord >= 0 AND ycoord <= 3400))";
 
             conn.execute(newTable);
             System.out.println("\nNodes Table Created\n");

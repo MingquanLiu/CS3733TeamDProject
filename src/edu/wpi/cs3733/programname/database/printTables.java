@@ -19,14 +19,14 @@ public class printTables{
             String nodeID = "";
             int xcoord = 0;
             int ycoord = 0;
-            int floor = 0;
+            String floor = "";
             String building = "";
             String nodeType = "";
             String longName = "";
             String shortName = "";
             String teamAssigned = "";
 
-            System.out.printf("%-15s %-10s %-10s %-10s %-15s %-15s %-50s %-30s %-20s\n", "nodeID","xcoord","ycoord","floor","building","nodeType","longName","shortName","teamAssigned");
+            System.out.printf("%-15s %-10s %-10s %-10s %-15s %-15s %-55s %-30s %-20s\n", "nodeID","xcoord","ycoord","floor","building","nodeType","longName","shortName","teamAssigned");
 
             // Gets all data in the table
             while (rset.next()) {
@@ -34,7 +34,7 @@ public class printTables{
                 nodeID = rset.getString("nodeID");
                 xcoord = rset.getInt("xcoord");
                 ycoord = rset.getInt("ycoord");
-                floor = rset.getInt("floor");
+                floor = rset.getString("floor");
                 building = rset.getString("building");
                 nodeType = rset.getString("nodeType");
                 longName = rset.getString("longName");
@@ -42,7 +42,7 @@ public class printTables{
                 teamAssigned = rset.getString("teamAssigned");
 
 
-                System.out.printf("%-15s %-10s %-10s %-10s %-15s %-15s %-50s %-30s %-20s\n", nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned);
+                System.out.printf("%-15s %-10s %-10s %-10s %-15s %-15s %-55s %-30s %-20s\n", nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned);
                 count++;
             }
             // Confirms the number of updated rows
