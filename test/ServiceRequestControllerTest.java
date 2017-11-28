@@ -11,7 +11,10 @@ import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 //import static org.junit.Assert.assertEquals;
 
@@ -21,7 +24,7 @@ public class ServiceRequestControllerTest {
     EmployeesQuery queryEmployee = new EmployeesQuery(dbConnection);
     ServiceRequestsQuery queryServiceRequest = new ServiceRequestsQuery(dbConnection);
     ServiceRequestController srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
-    Employee wong = new Employee("user", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com");
+    Employee wong = new Employee("wwong2", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com");
     Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", true, "transportation","john@test.com");
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
     Coordinate coord1 = new Coordinate(4550,375);
@@ -55,26 +58,49 @@ public class ServiceRequestControllerTest {
     @Before
     public void setupDbTables() {
         DBTables.createAllTables(dbConnection);           // Makes all table
-        queryEmployee.addEmployee(john);
+        //queryEmployee.addEmployee(john);
     }
 
 
     // test email
     @Test
     public void testEmail(){
-    srController.sendEmailByType(serviceRequest);
+        srController.sendEmailByType(serviceRequest);
     }
 
 
     @Test
     public void testAddEmployee(){
+        queryEmployee.addEmployee(wong);
+    }
 
+    @Test
+    public void testQueryEmployeeByUsername(){
+        queryEmployee.addEmployee(wong);
+        Employee result = queryEmployee.queryEmployeeByUsername("wwong2");
+        assertSame(wong,result); //This test failed but the expected value is same with the actual value
+    }
+
+    @Test
+    public void testQueryEmployeeByUsername2(){
+        queryEmployee.addEmployee(john);
+        Employee result = queryEmployee.queryEmployeeByUsername("userjohn");
+        assertSame(john,result); //This test failed but the expected value is same with the actual value
+    }
+
+    @Test
+    public void testQueryEmployeeByType(){
+        queryEmployee.addEmployee(wong);
+        ArrayList<Employee> result = queryEmployee.queryEmployeesByType("interpreter");
+        ArrayList<Employee> expected = new ArrayList<Employee>();
+        expected.add(wong);
+        assertSame(expected,result); //This test failed but the expected value is same with the actual value
     }
 
 
     @Test
     public void testCreateServiceRequestQuery(){
-  // test insert service request
+        // test insert service request
         srController.createServiceRequest(john, "transportation", teamDnode1, teamDnode2, "need a wheelchair");
         assertEquals(0,0);
     }

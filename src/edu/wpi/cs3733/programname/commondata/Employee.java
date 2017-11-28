@@ -99,13 +99,26 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "username='" + username + '\'' + System.lineSeparator() +
+        return "Employee{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
-                " middleName='" + middleName + '\'' +
-                " lastName='" + lastName + '\'' + System.lineSeparator() +
-                ", sysAdmin=" + sysAdmin + System.lineSeparator() +
-                ", serviceType='" + serviceType + '\'' + System.lineSeparator() +
-                ", email='" + email + '\'' + System.lineSeparator() +
-                "";
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", sysAdmin=" + sysAdmin +
+                ", serviceType='" + serviceType + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
+
+    //    @Override
+//    public String toString() {
+//        return "username='" + username + '\'' + System.lineSeparator() +
+//                ", firstName='" + firstName + '\'' +
+//                " middleName='" + middleName + '\'' +
+//                " lastName='" + lastName + '\'' + System.lineSeparator() +
+//                ", sysAdmin=" + sysAdmin + System.lineSeparator() +
+//                ", serviceType='" + serviceType + '\'' + System.lineSeparator() +
+//                ", email='" + email + '\'' + System.lineSeparator();
+//    }
 }

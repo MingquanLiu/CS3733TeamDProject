@@ -10,8 +10,8 @@ public class EmployeesTable {
         try {
 
             String newTable = "CREATE TABLE Employees(username VARCHAR(15), password VARCHAR(20), firstName VARCHAR(15), " +
-                    "middleName VARCHAR(10), lastName VARCHAR(20), sysAdmin Integer, serviceType VARCHAR(20), email VARCHAR(30)" +
-                    "CONSTRAINT Employees_PK PRIMARY KEY (userName), " +
+                    "middleName VARCHAR(10), lastName VARCHAR(20), sysAdmin Integer, serviceType VARCHAR(20), email VARCHAR(50)," +
+                    "CONSTRAINT Employees_PK PRIMARY KEY (username), " +
                     "CONSTRAINT serviceType_VAL CHECK (serviceType IN ('interpreter', 'maintenance', 'transportation', 'none')))";
 
             // Creates new StaffTitles table

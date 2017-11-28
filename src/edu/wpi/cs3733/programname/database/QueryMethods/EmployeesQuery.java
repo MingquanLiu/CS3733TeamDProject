@@ -101,7 +101,7 @@ public class EmployeesQuery {
             String serviceType;
             String email;
             while(result.next()) {
-                username = result.getString("username");
+                //username = result.getString("username");
                 password = result.getString("password");
                 firstName = result.getString("firstName");
                 middleName = result.getString("middleName");
