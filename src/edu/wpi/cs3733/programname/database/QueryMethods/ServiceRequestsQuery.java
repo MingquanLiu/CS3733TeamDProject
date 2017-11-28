@@ -323,7 +323,7 @@ public class ServiceRequestsQuery {
         String receiverUsername;
         // todo: handle null
         if(serviceRequest.getReceiver() == null){
-            receiverUsername = "unknown";
+            receiverUsername = "null";
         }
         else{
             Employee receiver = serviceRequest.getReceiver();
@@ -331,7 +331,7 @@ public class ServiceRequestsQuery {
         }
         String str;
         try {
-            str = "insert into ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + receiverUsername + "','" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
+            str = "INSERT INTO ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + receiverUsername + "','" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
                     "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','"+ status + "')";
             System.out.println(str);
             dbConnection.executeUpdate(str);

@@ -55,6 +55,8 @@ public class ServiceRequestControllerTest {
     @Before
     public void setupDbTables() {
         DBTables.createAllTables(dbConnection);           // Makes all table
+
+        queryEmployee.addEmployee(john);
     }
 
 
@@ -66,10 +68,13 @@ public class ServiceRequestControllerTest {
 
 
 
+
+
     // This test is for checking the sql query String
     // This is not working
     @Test
     public void testQuery(){
+
   // test insert service request
         srController.createServiceRequest(john, "transportation", teamDnode1, teamDnode2, "need a wheelchair");
         assertEquals(0,0);
