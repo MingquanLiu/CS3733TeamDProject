@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -71,6 +72,8 @@ public class TestingController implements Initializable{
     private JFXButton btnZoomOut;
 
     //Admin features
+    @FXML
+    private GridPane paneAdminFeatures;
     @FXML
     private JFXButton btnLogin;
     @FXML
@@ -135,9 +138,9 @@ public class TestingController implements Initializable{
     @FXML
     private Label nodeInfoLongName;
     @FXML
-    private Label nodeInfoLocation;
-
-
+    private Label lblNodeX;
+    @FXML
+    private Label lblNodeY;
 
     //global variables, not FXML tied
     private ManageController manager;
@@ -214,7 +217,9 @@ public class TestingController implements Initializable{
         nodeInfoPane.setLayoutX(DBCToUIC(dbX,currentScale) + 3);
         nodeInfoPane.setLayoutY(DBCToUIC(dbY,currentScale) + 3);
         nodeInfoPane.setVisible(true);
-        nodeInfoLocation.setText(dbX + ", " + dbY);
+        //nodeInfoLocation.setText(dbX + ", " + dbY);
+        lblNodeX.setText(dbX + "");
+        lblNodeY.setText(dbY + "");
         nodeInfoType.setText("" + nodeData.getType());
         nodeInfoLongName.setText("" + nodeData.getLongName());
         nodeInfoShortName.setText("" + nodeData.getShortName());
@@ -271,7 +276,7 @@ public class TestingController implements Initializable{
         panningPane.getChildren().addAll(lines);
     }
 
-    private void clearMain(){
+    public void clearMain(){
         if(drawings.size() > 0){
             for(Shape shape:drawings){
                 System.out.println("success remove");
@@ -285,17 +290,13 @@ public class TestingController implements Initializable{
 
     private void clearPath(){
         currentPath = new ArrayList<>();
+
     }
 
     private void clearNodes(){
         currentNodes = new ArrayList<>();
     }
 
-    private void relocateNodeInfoPane(){
-        if(!nodeInfoLocation.getText().equals("")){
-            //TODO Relocate the map
-        }
-    }
     //map switching methods
     public void mapChange(ActionEvent e){
         if(e.getSource() == btnMapUp && floor < 3){
@@ -419,46 +420,54 @@ public class TestingController implements Initializable{
     }
     
     //map zooming method
-    public void zoomHandler(ActionEvent e){
+    public void zoomHandler(ActionEvent e) {
 //        clearMain();
 
-        if(e.getSource() == btnZoomOut){
+        if (e.getSource() == btnZoomOut) {
 //            if(imgMap.getFitWidth() <= minWidth){
 //                return;
 //            }
-            if(currentMapRatioIndex==0){
+            if (currentMapRatioIndex == 0) {
                 return;
             }
-            currentMapRatioIndex -=1;
+            currentMapRatioIndex -= 1;
             currentScale = mapRatio.get(currentMapRatioIndex);
-            imgMap.setFitWidth(maxWidth*currentScale);
-        }
-        else{
+            imgMap.setFitWidth(maxWidth * currentScale);
+        } else {
 //            if(imgMap.getFitWidth() >= maxWidth){
 //                return;
 //            }
-            if(currentMapRatioIndex==(mapRatio.size()-1)){
+            if (currentMapRatioIndex == (mapRatio.size() - 1)) {
                 return;
             }
-            currentMapRatioIndex +=1;
+            currentMapRatioIndex += 1;
             currentScale = mapRatio.get(currentMapRatioIndex);
-            imgMap.setFitWidth(maxWidth*currentScale);
+            imgMap.setFitWidth(maxWidth * currentScale);
         }
         clearMain();
-        if(!(currentPath == null)&&!currentPath.isEmpty()) {
+        if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
             clearPath();
             displayPath(mPath);
         }
-        if(!(currentNodes == null)&&!currentNodes.isEmpty()) {
+        if (!(currentNodes == null) && !currentNodes.isEmpty()) {
             List<NodeData> mNodes = currentNodes;
             clearNodes();
             showNodeList(mNodes);
+            System.out.println(currentScale);
         }
-        relocateNodeInfoPane();
-        System.out.println(currentScale);
+        relocateNodeInfo();
     }
 
+    //relocate the node info panel
+    public void relocateNodeInfo(){
+        if(nodeInfoPane.isVisible()){
+            int x = Integer.parseInt(lblNodeX.getText());
+            int y = Integer.parseInt(lblNodeY.getText());
+            nodeInfoPane.setLayoutX(x*currentScale);
+            nodeInfoPane.setLayoutY(y*currentScale);
+        }
+    }
 
     public void goButtonHandler(){
         System.out.println("drawing path");
@@ -488,6 +497,17 @@ public class TestingController implements Initializable{
 
     public void openAdminHandler(){
         System.out.println("In open admin handler");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml")));
+        Scene newScene;
+        try {
+            newScene = new Scene(loader.load());
+        } catch(IOException ex){
+            //Todo add some sort of error handling
+            return;
+        }
+        Stage loginStage = new Stage();
+        loginStage.setScene(newScene);
+        loginStage.showAndWait();
     }
 
     public void SRWindowHandler(ActionEvent e){
@@ -508,10 +528,12 @@ public class TestingController implements Initializable{
     }
     public void closeNodeInfoHandler(){
         nodeInfoPane.setVisible(false);
-        nodeInfoLocation.setText("");
         nodeInfoLongName.setText("");
         nodeInfoShortName.setText("");
         nodeInfoType.setText("");
+        lblNodeX.setText("");
+        lblNodeY.setText("");
+        clearMain();
     }
 
 }
