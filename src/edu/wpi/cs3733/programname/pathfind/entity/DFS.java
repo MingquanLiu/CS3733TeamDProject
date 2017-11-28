@@ -4,19 +4,17 @@
  */
 package edu.wpi.cs3733.programname.pathfind.entity;
 
-import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.PathStrategyIF;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class DFS implements PathfindingFacadeIF {
     List<NodeData> allNodes;
-    List<Edge> allEdges;
+    List<EdgeData> allEdges;
 
     // We need a HashMap so we can access StarNodes via the corresponding nodeID
     HashMap<String, StarNode> allStarNodes = new HashMap<>();
@@ -30,7 +28,7 @@ public class DFS implements PathfindingFacadeIF {
      * @param startID starting location
      * @param goalID  destination location
      */
-    public DFS(List<NodeData> nodes, List<Edge> edges, String startID, String goalID) throws NoPathException {
+    public DFS(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
         this.allEdges = edges;
         this.allNodes = nodes;
         this.init();
@@ -46,12 +44,12 @@ public class DFS implements PathfindingFacadeIF {
         System.out.println("Initializing A*");
         for (NodeData node : allNodes) {
             // Creates the StarNodes
-            allStarNodes.put(node.getId(), new StarNode(node));
+            allStarNodes.put(node.getNodeID(), new StarNode(node));
         }
 
-        for (Edge edge : allEdges) {
-            StarNode node1 = allStarNodes.get(edge.getFirstNodeId());
-            StarNode node2 = allStarNodes.get(edge.getSecondNodeId());
+        for (EdgeData edge : allEdges) {
+            StarNode node1 = allStarNodes.get(edge.getStartNode());
+            StarNode node2 = allStarNodes.get(edge.getEndNode());
 
             node1.addNeighbor(node2);
             node2.addNeighbor(node1);
@@ -83,15 +81,15 @@ public class DFS implements PathfindingFacadeIF {
             StarNode current = frontier.getFirst();
             current.visit();
             frontier.removeFirst(); // pop the priority queue
-            if (current.getX() == goal.getX() && current.getY() == goal.getY()) {
+            if (current.getXCoord() == goal.getXCoord() && current.getYCoord() == goal.getYCoord()) {
                 // If we are at the goal, we need to backtrack through the shortest path
                 System.out.println("At target!");
-                System.out.println(current.getId());
+                System.out.println(current.getNodeID());
                 finalPath.add(current); // we have to add the goal to the path before we start backtracking
-                while (!(current.getX() == start.getX() && current.getY() == start.getY())) {
+                while (!(current.getXCoord() == start.getXCoord() && current.getYCoord() == start.getYCoord())) {
                     finalPath.add(current.getPreviousNode());
                     current = current.getPreviousNode();
-                    System.out.println(current.getId());
+                    System.out.println(current.getNodeID());
                 }
                 return finalPath;
             } else {
@@ -118,9 +116,9 @@ public class DFS implements PathfindingFacadeIF {
 
     private int listContainsId(LinkedList<StarNode> listOfNodes, StarNode node) {
         for (int i = 0; i < listOfNodes.size(); i++) {
-            if (node.getId().equals(listOfNodes.get(i).getId())) {
-                System.out.println("The list contains node " + listOfNodes.get(i).getId());
-                System.out.println("Node " + listOfNodes.get(i).getId() + " costs " + listOfNodes.get(i).getF());
+            if (node.getNodeID().equals(listOfNodes.get(i).getNodeID())) {
+                System.out.println("The list contains node " + listOfNodes.get(i).getNodeID());
+                System.out.println("Node " + listOfNodes.get(i).getNodeID() + " costs " + listOfNodes.get(i).getF());
                 return i;
             }
         }
