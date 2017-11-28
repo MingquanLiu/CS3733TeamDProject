@@ -120,6 +120,9 @@ public class MapAdminController {
         int y = (int) e.getY();
         List<NodeData> nodes = manager.getAllNodeData();
 
+        for (NodeData n : nodes){
+            showNode(n);
+        }
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");

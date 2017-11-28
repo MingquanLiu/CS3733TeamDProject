@@ -84,11 +84,11 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="btnZoomIn" onAction="#zoomHandler" text="+" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                        <JFXButton fx:id="btnZoomIn" onAction="#zoomHandler" scaleX="0.5" scaleY="0.5" text="+" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
                         <Font size="45.0" />
                      </font></JFXButton>
-                        <JFXButton fx:id="btnZoomOut" onAction="#zoomHandler" prefHeight="128.0" styleClass="zoom" stylesheets="@Resources/global_stylesheet.css" text="-" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomOut" onAction="#zoomHandler" prefHeight="128.0" scaleX="0.5" scaleY="0.5" styleClass="zoom" stylesheets="@Resources/global_stylesheet.css" text="-" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="60.0" />
                      </font></JFXButton>
