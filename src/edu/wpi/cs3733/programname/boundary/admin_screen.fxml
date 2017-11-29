@@ -105,7 +105,7 @@
                     </rowConstraints>
                     <children>
                   <JFXButton fx:id="btnAddNode" onAction="#addHandler" text="Add a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                  <JFXButton fx:id="btnAddEdge" onAction="#addEdgeHandler" text="Add an Edge" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                  <JFXButton fx:id="btnAddEdge" onAction="#addHandler" text="Add an Edge" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
                   <JFXButton  text="Switch Algorithm" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
                         <Font name="System Bold" size="12.0" />
