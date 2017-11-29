@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="359.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.FAQ_Popup">
+<AnchorPane fx:id="mainWindow" prefHeight="359.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.FAQ_Popup">
    <children>
        <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="35.0" prefHeight="324.0" prefWidth="542.0">
          <content>
-            <TextArea editable="false" prefHeight="352.0" prefWidth="540.0" text="&#10;Q: How do I find my path to a location?&#10;A: &#10;Step 1: Go to the home page, select &quot;Start Loction&quot; box and click on the place you are at. &#10;Step 2: Select &quot;End Location&quot; box and click on where you want to go. &#10;Step 3: Hit on the green &quot;go&quot; button, the path will be highlighted in blue.&#10;(Tip: in case you pick the wrong location, click the red &quot;clear&quot; button. )&#10;&#10;Q: How do I find bathrooms?&#10;A:&#10;&#10;Q:&#10;A:&#10;&#10;Q:&#10;A:&#10;&#10;Q:&#10;A:&#10;&#10;Q:&#10;A:&#10;&#10;Q:&#10;A:" wrapText="true" />
+            <TextArea fx:id="text" editable="false" prefHeight="352.0" prefWidth="540.0" text="&#10;Q: How do I find my path to a location?&#10;A: &#10;Step 1: Go to the home page, select &quot;Start Loction&quot; box and click on the place you are at. &#10;Step 2: Select &quot;End Location&quot; box and click on where you want to go. &#10;Step 3: Hit on the green &quot;go&quot; button, the path will be highlighted in blue.&#10;(Tip: in case you pick the wrong location, click the red &quot;clear&quot; button. )&#10;&#10;Q: How do I find bathrooms?&#10;A:&#10;&#10;Q:&#10;A:&#10;&#10;Q:&#10;A:&#10;&#10;Q:&#10;A:&#10;&#10;Q:&#10;A:&#10;&#10;Q:&#10;A:" wrapText="true" />
          </content>
       </ScrollPane>
-      <Label layoutX="241.0" layoutY="4.0" text="FAQs">
+      <Label fx:id="title" layoutX="241.0" layoutY="4.0" text="FAQs">
          <font>
             <Font size="24.0" />
          </font>
