@@ -12,7 +12,7 @@ public class CsvWriter {
     public void writeNodes(Connection conn, ArrayList<NodeData> nodesList) {
         try {
             // Write out the csv file
-            String outFileName = "MapDnodes(WriteOut).csv";
+            String outFileName = "AllMapNodes.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -54,7 +54,7 @@ public class CsvWriter {
     public void writeEdges(Connection conn, ArrayList<EdgeData> edgesList) {
         try {
             // Write File
-            String outFileName = "MapDedges(WriteOut).csv";
+            String outFileName = "AllMapEdges.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
