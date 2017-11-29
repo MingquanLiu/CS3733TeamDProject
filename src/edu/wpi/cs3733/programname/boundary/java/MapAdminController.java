@@ -37,8 +37,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
-import static javafx.scene.paint.Color.BLUE;
-import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.*;
 
 public class MapAdminController implements Initializable {
 
@@ -132,11 +131,18 @@ public class MapAdminController implements Initializable {
     @FXML
     private JFXButton nodeInfoX;
 
+    @FXML
+    private AnchorPane editEdgePane;
+    @FXML
+    private JFXButton confirmEditEdge;
+    @FXML
+    private JFXButton cancleEditEdge;
+
     ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
     private String nodeAction = "";
-    private String addEdgeN1 = "";
-    private String addEdgeN2 = "";
+    private NodeData selectEdgeN1 = null;
+    private NodeData selectEdgeN2 = null;
 
     private int prevClickX;
     private int prevClickY;
@@ -153,8 +159,11 @@ public class MapAdminController implements Initializable {
     private String selectingLocation = "";
     private boolean locationsSelected;
     private List<EdgeData> currentEdge = new ArrayList<>();
+    private List<EdgeData> currentEdges2 = new ArrayList<>();
     private List<NodeData> currentNodes = new ArrayList<>();
+    private List<NodeData> currentNodes2 = new ArrayList<>();
     private List<NodeData> floorNodes;
+    private List<Shape> edgeDrawing = new ArrayList<>();
     private boolean addingEdge;
 
     private NodeData nodeToEdit;
@@ -164,6 +173,7 @@ public class MapAdminController implements Initializable {
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
     private DBConnection dbConnection;
+    private EdgeData mEdge;
     @Override
     public void initialize(URL url, ResourceBundle rb){
     }
@@ -205,6 +215,11 @@ public class MapAdminController implements Initializable {
             showNode(nodeDataList.get(i));
         }
     }
+    private void showNodeList2 (List<NodeData> nodeDataList){
+        for(int i = 0;i <nodeDataList.size();i++){
+            showNode2(nodeDataList.get(i));
+        }
+    }
     private void showNode(NodeData n){
         currentNodes.add(n);
         System.out.println("x:"+DBCToUIC(n.getXCoord(),currentScale) +" y:"+DBCToUIC(n.getYCoord(),currentScale));
@@ -214,10 +229,21 @@ public class MapAdminController implements Initializable {
 
 
     private void drawCircle(int x, int y){
+
         double radius = 7*currentScale;
         Circle c = new Circle(x, y, radius, RED);
         panningPane.getChildren().add(c);
         drawings.add(c);
+    }
+    private void showNode2(NodeData n){
+        currentNodes2.add(n);
+        drawCircle2(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
+    }
+    private void drawCircle2(int x, int y){
+        double radius = 10*currentScale;
+        Circle c = new Circle(x, y, radius, GREEN);
+        panningPane.getChildren().add(c);
+        edgeDrawing.add(c);
     }
 
     private void displayEdge(NodeData n1, NodeData n2){
@@ -226,6 +252,14 @@ public class MapAdminController implements Initializable {
         line.setStroke(BLUE);
         panningPane.getChildren().add(line);
         drawings.add(line);
+    }
+
+    private void displayEdge2(NodeData n1, NodeData n2){
+        Line line = new Line(n1.getXCoord()*currentScale,n1.getYCoord()*currentScale,n2.getXCoord()*currentScale,n2.getYCoord()*currentScale);
+        line.setStrokeWidth(12*currentScale);
+        line.setStroke(YELLOW);
+        panningPane.getChildren().add(line);
+        edgeDrawing.add(line);
     }
 
     private void displayEdges(List<EdgeData> edges){
@@ -238,7 +272,15 @@ public class MapAdminController implements Initializable {
             }
         }
     }
-
+    private void clearEdgeDrawing(){
+        if(edgeDrawing.size() > 0){
+            for(Shape shape:edgeDrawing){
+                System.out.println("success remove");
+                panningPane.getChildren().remove(shape);
+            }
+            edgeDrawing = new ArrayList<>();
+        }
+    }
     private NodeData getNode(String nodeID){
         for(NodeData nodeData:floorNodes){
             if(nodeData.getNodeID().equals(nodeID)){
@@ -273,13 +315,10 @@ public class MapAdminController implements Initializable {
         int x = (int) e.getX();
         int y = (int) e.getY();
         List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor));
-
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
                 NodeData mClickedNode= getClosestNode(nodes,x,y);
-                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
-                showNode(mClickedNode);
                 break;
             case "selectLocation":
                 switch (nodeAction){
@@ -297,6 +336,21 @@ public class MapAdminController implements Initializable {
                 }
                 nodeInfoPane.setVisible(true);
                 selectingLocation = "";
+                break;
+            case "selectEdge":
+                if(selectEdgeN1==null){
+                    selectEdgeN1=getClosestNode(nodes,x,y);
+                    showNode2(selectEdgeN1);
+                }else if(selectEdgeN2==null){
+                    selectEdgeN2 = getClosestNode(nodes,x,y);
+                    showNode2(selectEdgeN2);
+                }
+                if(selectEdgeN2!=null&&selectEdgeN1!=null){
+                    mEdge = new EdgeData(selectEdgeN1.getNodeID()+selectEdgeN2.getNodeID(),selectEdgeN1.getNodeID(),selectEdgeN2.getNodeID());
+                    displayEdge2(selectEdgeN1,selectEdgeN2);
+                    selectingLocation = "";
+                    setupBurger();
+                }
                 break;
 //            case "nodeAdd":
 //                locationsSelected = true;
@@ -392,6 +446,9 @@ public class MapAdminController implements Initializable {
     private void clearNodes(){
         currentNodes = new ArrayList<>();
     }
+    private void clearNodes2(){
+        currentNodes2 = new ArrayList<>();
+    }
 
     private void clearNodeInfoText(){
         textNodeId.setText("");
@@ -406,6 +463,7 @@ public class MapAdminController implements Initializable {
 
     @SuppressWarnings("Duplicates")
     public void mapChange(ActionEvent e){
+        clearEdgeDrawing();
         if(e.getSource() == btnMapUp && floor < 3){
             floor ++;
             System.out.println("up to floor" + floor);
@@ -461,6 +519,9 @@ public class MapAdminController implements Initializable {
             nodeInfoDelete.setVisible(false);
             nodeInfoEdit.setVisible(false);
             nodeAction = "addNode";
+        }else{
+            selectingLocation = "selectEdge";
+            setupBurger();
         }
     }
     public void deleteHandler(ActionEvent event){
@@ -470,6 +531,9 @@ public class MapAdminController implements Initializable {
             nodeInfoDelete.setVisible(true);
             nodeInfoEdit.setVisible(false);
             nodeAction = "deleteNode";
+        }else{
+            selectingLocation = "selectEdge";
+            setupBurger();
         }
     }
     public void editHandler(){
@@ -484,7 +548,7 @@ public class MapAdminController implements Initializable {
         String message = "Node " + name + " (" + id + ")  was successfully added to" +
                 " the map at location " + loc.toString();
     }
-    
+
     public void nodeInfoHandler(ActionEvent event){
         nodeInfoPane.setVisible(false);
         if(event.getSource()==nodeInfoSetLocation){
@@ -583,6 +647,7 @@ public class MapAdminController implements Initializable {
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         clearMain();
+        clearEdgeDrawing();
         if (!(currentEdge == null) && !currentEdge.isEmpty()) {
             List<EdgeData> mEdges = currentEdge;
             clearEdge();
@@ -592,6 +657,15 @@ public class MapAdminController implements Initializable {
             List<NodeData> mNodes = currentNodes;
             clearNodes();
             showNodeList(mNodes);
+            System.out.println(currentScale);
+        }
+        if (mEdge != null) {
+            displayEdge2(selectEdgeN1,selectEdgeN2);
+        }
+        if (!(currentNodes2 == null) && !currentNodes2.isEmpty()) {
+            List<NodeData> mNodes = currentNodes2;
+            clearNodes2();
+            showNodeList2(mNodes);
             System.out.println(currentScale);
         }
     }
