@@ -81,32 +81,32 @@
                     </rowConstraints>
                     <children>
                         <Label text="Floor:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <JFXButton fx:id="btnMapUp" onAction="#mapChange" text="go up" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="btnMapDwn" onAction="#mapChange" text="go down" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <Label fx:id="lblCurrentFloor" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <JFXButton fx:id="btnMapUp" onAction="#mapChange" styleClass="buttonn" stylesheets="@Resources/general_button.css" text="go up" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="btnMapDwn" onAction="#mapChange" styleClass="buttonn" stylesheets="@Resources/general_button.css" text="go down" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Label fx:id="lblCurrentFloor" style="-fx-background-color: #ffffff;" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
             <children>
-                <GridPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <GridPane layoutY="-5.0" prefHeight="148.0" prefWidth="203.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-103.0" AnchorPane.topAnchor="-5.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="72.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="btnZoomIn" onAction="#zoomHandler" scaleX="0.5" scaleY="0.5" text="+" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                        <JFXButton fx:id="btnZoomIn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="144.0" scaleX="0.5" scaleY="0.5" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="+" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
-                        <Font size="45.0" />
+                        <Font name="Arial Black" size="58.0" />
                      </font></JFXButton>
-                        <JFXButton fx:id="btnZoomOut" onAction="#zoomHandler" prefHeight="128.0" scaleX="0.5" scaleY="0.5" styleClass="zoom" stylesheets="@Resources/global_stylesheet.css" text="-" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomOut" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="144.0" scaleX="0.5" scaleY="0.5" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="-" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
-                        <Font size="60.0" />
+                        <Font name="Arial Black" size="58.0" />
                      </font></JFXButton>
                     </children>
                 </GridPane>
@@ -131,12 +131,12 @@
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
                      </GridPane.margin></Label>
-                  <JFXTextField fx:id="txtStartLocation" promptText="Start Location" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtStartLocation" promptText="Start Location" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtEndLocation" promptText="End Location" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtEndLocation" promptText="End Location" style="-fx-border-color: #000000;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="2.0" />
                      </GridPane.margin>
