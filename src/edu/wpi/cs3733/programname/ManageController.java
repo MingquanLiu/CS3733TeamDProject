@@ -6,6 +6,7 @@ import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
+import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
@@ -43,7 +44,7 @@ public class ManageController {
 
     }
 
-    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) {
+    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) throws InvalidNodeException{
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
         List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, pathfindType);
@@ -91,6 +92,10 @@ public class ManageController {
 
     public void editNode(NodeData data) {
         this.dbModController.editNode(data);
+    }
+
+    public boolean login(String username, String password) {
+        return this.dbQueryController.login(username, password);
     }
 
     public List<Employee> getAllEmployees() {

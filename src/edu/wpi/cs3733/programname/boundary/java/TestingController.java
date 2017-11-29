@@ -11,6 +11,7 @@ import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
+import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,6 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
+import static edu.wpi.cs3733.programname.commondata.Constants.MAINTENANCE_REQUEST;
+import static edu.wpi.cs3733.programname.commondata.Constants.TRANSPORTATION_REQUEST;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 import static javafx.scene.paint.Color.RED;
@@ -214,6 +218,7 @@ public class TestingController implements Initializable{
         paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(maxWidth*currentScale);
+
     }
     public void setSearchType(PathfindingController.searchType searchType){
         System.out.println(currentMapRatioIndex);
@@ -505,7 +510,12 @@ public class TestingController implements Initializable{
 
     public void goButtonHandler(){
         System.out.println("drawing path");
-        currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), ASTAR);
+        try {
+            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), ASTAR);
+        }
+        catch(InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        }
         displayPath(currentPath);
         clearPathFindLoc();
     }
@@ -523,12 +533,15 @@ public class TestingController implements Initializable{
         serviceRequester.setVisible(true);
         String SRType = "";
         if(mEvent == btnInterpreterReq){
+            lblReqType.setText("Interpreter Request");
             SRType = "Language to: \nLanguage from:";
         }
         if(mEvent == btnMaintenanceReq){
+            lblReqType.setText("Maintenance Request");
             SRType = "Maintenance type: \nMaintenance urgency(1-5): ";
         }
         if(mEvent == btnTransportationReq){
+            lblReqType.setText("Transportation Request");
             SRType = "Transportation type: \nTransportation urgency: ";
         }
         requestDescription.setText(SRType);
@@ -549,15 +562,18 @@ public class TestingController implements Initializable{
         newStage.showAndWait();
         return loader;
     }
-
+    
     public void loginButtonHandler() throws IOException {
-//        String username = txtUser.getText();
+        String username = "";
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
         loader.<LoginPopup>getController().initData(dbConnection);
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
+            username = txtUser.getText();
+        }
         if(loggedIn) {
-//            employeeLoggedIn = manager.queryEmployeeByUsername(username);
-//            lblLoginStatus.setText("logged in");
+            employeeLoggedIn = manager.queryEmployeeByUsername(username);
+            lblLoginStatus.setText("logged in");
             loggedIn = true;
             showAdminControls();
         }
@@ -616,12 +632,23 @@ public class TestingController implements Initializable{
         }
         if(mEvent == btnSubmitRequest){
             //TODO clear the text and submit the SR
-            String type = lblReqType.getText();
+            String typeText = lblReqType.getText();
+            String type = "";
+
+            if (typeText == "Interpreter Request") {
+                type = INTERPRETER_REQUEST;
+            } else if (typeText == "Transportation Request") {
+                type = TRANSPORTATION_REQUEST;
+            } else if (typeText == "Maintenance Request") {
+                type = MAINTENANCE_REQUEST;
+            }
+
             int locX = Integer.parseInt(lblServiceX.getText());
             int locY = Integer.parseInt(lblServiceX.getText());
             String locationId = getClosestNode(manager.getAllNodeData(), locX, locY).getNodeID();
             String description = requestDescription.getText();
-            manager.createServiceRequest(employeeLoggedIn.getUsername(), type, locationId, null, description);
+            String senderUsername = employeeLoggedIn.getUsername();
+            manager.createServiceRequest("testusername", type, locationId, null, description);
         }
     }
 
