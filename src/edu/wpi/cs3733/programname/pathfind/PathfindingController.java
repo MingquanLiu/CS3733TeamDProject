@@ -9,8 +9,7 @@ import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.PathFinderFacade;
 
 import javax.xml.soap.Node;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class PathfindingController {
 
@@ -150,7 +149,27 @@ public class PathfindingController {
     //@TODO YOU NEED A COMPARATOR FOR NODEDATA THAT RETURNS THE RAW DISTANCE VALUE OR SOMETHING LIKE THAT
     // Returns a linked list of all the providedNodes, sorted by nearest to startNode
     private List<NodeData> sortByNearestNode(List<NodeData> providedNodes, NodeData startNode){
-        List<NodeData> Sorted = new LinkedList<NodeData>();
+        ArrayList<NodeData> Sorted = new ArrayList<NodeData>();
+        ArrayList<Double> distances = new ArrayList<>();
+        HashMap<Double, NodeData> fuck = new HashMap<Double,NodeData>();
+        int initialX = startNode.getXCoord();
+        int initialY = startNode.getYCoord();
+        int index = 0;
+        for (NodeData NodeIterator: providedNodes){
+            int IteratorX = NodeIterator.getXCoord();
+            int IteratorY = NodeIterator.getYCoord();
+            double XDist = initialX - IteratorX;
+            double YDist = initialY - IteratorY;
+            double distToGo = Math.sqrt(XDist*XDist + YDist*YDist);
+            fuck.put(distToGo, NodeIterator);
+            distances.add(distToGo);
+            index++;
+        }
+        Collections.sort(distances);
+        for(Double distanceIterator: distances){
+            Sorted.add(fuck.get(distanceIterator));
+        }
+
         return Sorted;
     }
 
