@@ -478,11 +478,13 @@ public class TestingController implements Initializable{
             nodeType = "INFO";
         }
         if(mEvent.equals(btnLocateVM)){
-            nodeType = "";
+            nodeType = "RETL";
         }
         if(mEvent.equals(btnLocateWR)){
-            nodeType = "";
+            nodeType = "DEPT";
         }
+        clearNodes();
+        clearMain();
         if(!nodeType.equals("")){
             List<NodeData> mList = manager.queryNodeByTypeFloor(nodeType, Integer.toString(floor));
             if(mList!=null&&!mList.isEmpty())
