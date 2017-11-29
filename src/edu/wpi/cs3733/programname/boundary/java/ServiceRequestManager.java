@@ -44,21 +44,21 @@ public class ServiceRequestManager {
     @FXML
     JFXListView<String> listUnassigned = new JFXListView<String>();
     @FXML
-    JFXListView<String> listEmployees = new JFXListView<String>();
+    JFXListView<String> listEmployees;
     @FXML
     JFXButton btnAssignRequest;
     @FXML
     JFXButton btnDeleteUnassigned;
 
     @FXML
-    JFXListView<String> listAssigned = new JFXListView<String>();
+    JFXListView<String> listAssigned;
     @FXML
     JFXButton btnMarkCompleted;
     @FXML
     JFXButton btnDeleteAssigned;
 
     @FXML
-    JFXListView<String> listCompleted = new JFXListView<String>();
+    JFXListView<String> listCompleted;
     @FXML
     JFXButton btnDeleteCompleted;
 
@@ -104,7 +104,6 @@ public class ServiceRequestManager {
             int index = listUnassigned.getEditingIndex();
             ServiceRequest requestToDelete = currUnassigned.get(index);
             //TODO delete from database
-
         }
         else if (currVisible == "assigned") {
             int index = listAssigned.getEditingIndex();
@@ -114,7 +113,7 @@ public class ServiceRequestManager {
             int index = listAssigned.getEditingIndex();
             ServiceRequest requestToDelete = currUnassigned.get(index);
         }
-
+        updateCurrentView();
     }
 
     public void assignButtonHandler() {
@@ -123,7 +122,7 @@ public class ServiceRequestManager {
 
     public String createServiceRequestListString(ServiceRequest sr) {
         NodeData loc1 = manager.getNodeData(sr.getLocation1());
-        if (sr.getLocation2() == null) {
+        if (sr.getLocation2() == null || sr.getLocation2() == "null") {
             return sr.getServiceType() + " - " + loc1.getLongName();
         }
         else {
@@ -150,10 +149,11 @@ public class ServiceRequestManager {
     }
 
     public void updateUnassignedView() {
-        listUnassigned = new JFXListView<String>();
-        listEmployees = new JFXListView<String>();
         currUnassigned = manager.getUnassignedRequests();
         currEmployees = manager.getAllEmployees();
+
+        listUnassigned.getItems().removeAll();
+        listEmployees.getItems().removeAll();
 
         for(ServiceRequest sr: currUnassigned) {
             String requestDisplay = createServiceRequestListString(sr);
@@ -166,8 +166,8 @@ public class ServiceRequestManager {
     }
 
     public void updateAssignedRequests() {
-        listAssigned = new JFXListView<String>();
         currAssigned = manager.getAssignedRequests();
+        listAssigned.getItems().removeAll();
         for(ServiceRequest sr: currAssigned) {
             String requestDisplay = createServiceRequestListString(sr);
             listAssigned.getItems().add(requestDisplay);
@@ -175,9 +175,8 @@ public class ServiceRequestManager {
     }
 
     public void updateCompletedRequests() {
-        listCompleted = new JFXListView<String>();
         currCompleted = manager.getCompletedRequests();
-
+        listCompleted.getItems().removeAll();
         for(ServiceRequest sr: currCompleted) {
             String requestDisplay = createServiceRequestListString(sr);
             listCompleted.getItems().add(requestDisplay);

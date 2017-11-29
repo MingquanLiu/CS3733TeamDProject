@@ -99,23 +99,19 @@ public class ManageController {
     }
 
     public List<Employee> getAllEmployees() {
-        //return this.dbQueryController.queryAllEmployees();
-        return null;
+        return this.dbQueryController.queryAllEmployees();
     }
 
     public List<ServiceRequest> getUnassignedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("unassigned");
-        return null;
+        return this.dbQueryController.queryServiceRequestsByStatus("unhandled");
     }
 
     public List<ServiceRequest> getAssignedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("assigned");
-        return null;
+        return this.dbQueryController.queryServiceRequestsByStatus("unhandled");
     }
 
     public List<ServiceRequest> getCompletedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("complete");
-        return null;
+        return this.dbQueryController.queryServiceRequestsByStatus("completed");
     }
 
 //    public List<Employee> queryEmployeeByRequestType(String requestType) {
