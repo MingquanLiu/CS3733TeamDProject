@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -238,11 +238,11 @@
                         <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Select Location(s)" />
                         <JFXButton fx:id="btnCancelRequestAttempt" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Cancel" />
                         <JFXButton fx:id="btnSubmitRequest" layoutX="211.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Submit" />
-                  <Label fx:id="lblServiceX" layoutX="29.0" layoutY="111.0" text="Label" />
+                  <Label fx:id="lblServiceX" layoutX="29.0" layoutY="111.0" />
                   <Label fx:id="lblServiceY" layoutX="109.0" layoutY="110.0" AnchorPane.rightAnchor="214.0" />
                   <Label layoutX="14.0" layoutY="111.0" text="X: " />
                   <Label layoutX="80.0" layoutY="111.0" text="Y: " />
-                  <Label fx:id="lblReqType" layoutX="305.0" layoutY="111.0" text="Label" />
+                  <Label fx:id="lblReqType" layoutX="305.0" layoutY="111.0" />
                     </children>
                 </AnchorPane>
             </content>

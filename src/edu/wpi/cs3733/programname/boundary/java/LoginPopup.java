@@ -20,11 +20,12 @@ public class LoginPopup {
     private ManageController manager;
     boolean succesfulLogin;
 
+    
+
     public void buttonHandler(ActionEvent e){
         System.out.println("a button was clicked");
         if(e.getSource() == btnSubmit){
-            succesfulLogin = true;
-            //succesfulLogin = manager.login(txtUser.getText(), txtPass.getText());
+            succesfulLogin = manager.login(txtUser.getText(), txtPass.getText());
             if(succesfulLogin) {
                 System.out.println("logging in");
                 btnSubmit.getScene().getWindow().hide();

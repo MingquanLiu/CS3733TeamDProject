@@ -178,16 +178,11 @@ public class CsvReader {
 
         try {
                 Scanner inputStream = new Scanner(csv);
-
-
                 inputStream.nextLine();
-
 
                 while (inputStream.hasNextLine()) {
                     // Reads current row and converts to a string
                     String data = inputStream.nextLine();
-
-
                     String[] values = data.split(",");
 
                     boolean sysAdmin;
@@ -203,11 +198,8 @@ public class CsvReader {
 
                 } // end while
 
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-
         }
         return employeeList;
     }
@@ -236,6 +228,7 @@ public class CsvReader {
                 pst.setString(7, employeeList.get(i).getServiceType());
                 pst.setString(8, employeeList.get(i).getEmail());
                 pst.executeUpdate();
+                System.out.println(employeeList.get(i).getUsername() + " added*******");
             }
 
         } catch (SQLException e) {

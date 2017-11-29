@@ -5,6 +5,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.PathStrategies.HandicappedPath;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
 import edu.wpi.cs3733.programname.pathfind.PathStrategies.StandardPath;
+import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.PathFinderFacade;
 
@@ -27,7 +28,7 @@ public class PathfindingController {
      * @return - result is the list of nodes efficiently connecting startNode to endNode
      */
     public List<NodeData> initializePathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
-                                             String endNode, Boolean handicapped, searchType type) {
+                                             String endNode, Boolean handicapped, searchType type) throws InvalidNodeException {
         // ManageController manager = new ManageController();
         // List<EdgeData> allEdges = manager.getAllEdgeData();
         //something about getEdges()
@@ -55,7 +56,6 @@ public class PathfindingController {
         } catch (NoPathException npe) {
             // Add exception later
         }
-
         return null;
     }
 
