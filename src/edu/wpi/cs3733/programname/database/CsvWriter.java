@@ -81,4 +81,78 @@ public class CsvWriter {
         }
     }
 
+
+
+    public void writeEmployees(Connection conn, ArrayList<Employee> employeeList) {
+        try {
+            // Write File
+            String outFileName = "Employees(WriteOut).csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+            int j;
+
+            // Prints header fields
+            prt.println("username, password, firstName, middleName, lastName, sysAdmin, serviceType, email");
+            for (j = 0; j < employeeList.size(); j++) {
+                prt.println(employeeList.get(j).getUsername() + "," +
+                        employeeList.get(j).getPassword() + "," +
+                        employeeList.get(j).getFirstName() + "," +
+                        employeeList.get(j).getMiddleName() + "," +
+                        employeeList.get(j).getLastName() + "," +
+                        employeeList.get(j).getSysAdmin() + "," +
+                        employeeList.get(j).getServiceType() + "," +
+                        employeeList.get(j).getEmail()
+
+                );
+            } // end for
+
+            prt.flush();
+            prt.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+
+    public void writeServiceRequests(Connection conn, ArrayList<ServiceRequest> srList) {
+        try {
+            // Write File
+            String outFileName = "ServiceRequests(WriteOut).csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+            int j;
+
+            // Prints header fields
+            prt.println("serviceID, sender, serviceType, location1, location2, description");
+            for (j = 0; j < srList.size(); j++) {
+                prt.println(srList.get(j).getServiceID() + "," +
+                        srList.get(j).getSender() + "," +
+                        srList.get(j).getServiceType() + "," +
+                        srList.get(j).getLocation1() + "," +
+                        srList.get(j).getLocation2() + "," +
+                        srList.get(j).getDescription()
+
+                );
+            } // end for
+
+            prt.flush();
+            prt.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
 }
