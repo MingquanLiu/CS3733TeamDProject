@@ -137,11 +137,11 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: white;" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="+" GridPane.halignment="CENTER">
+                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="+" GridPane.halignment="CENTER">
                             <font>
                                 <Font name="Arial Black" size="58.0" />
                             </font></JFXButton>
-                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: #ffffff;" styleClass="zoom" stylesheets="@Resources/global_stylesheet.css" text="-" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoom" stylesheets="@Resources/global_stylesheet.css" text="-" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Arial Black" size="58.0" />
                             </font></JFXButton>
@@ -149,7 +149,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="paneControls" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="paneControls" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: rgba(255,255,255,0.8); -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane layoutY="103.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                     <columnConstraints>
