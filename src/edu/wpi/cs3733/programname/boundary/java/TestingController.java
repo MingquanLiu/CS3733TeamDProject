@@ -2,10 +2,12 @@ package edu.wpi.cs3733.programname.boundary.java;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.sun.org.apache.xalan.internal.lib.NodeInfo;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
@@ -151,6 +153,9 @@ public class TestingController implements Initializable{
     @FXML
     private Label lblNodeY;
 
+    @FXML
+    private JFXTextField txtUser;
+
     //global variables, not FXML tied
     private ManageController manager;
 
@@ -176,7 +181,10 @@ public class TestingController implements Initializable{
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
     private boolean loggedIn;
+    private Employee employeeLoggedIn;
+
     private DBConnection dbConnection;
+
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -358,6 +366,7 @@ public class TestingController implements Initializable{
             case "":
                 clearMain();
                 System.out.println("Get in findNodeData X:"+x+" Y:"+y);
+
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 showNodeInfo(mClickedNode);
@@ -521,9 +530,11 @@ public class TestingController implements Initializable{
     }
 
     public void loginButtonHandler(){
+        String username = txtUser.getText();
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         if(loggedIn) {
+            employeeLoggedIn = manager.queryEmployeeByUsername(username);
             lblLoginStatus.setText("logged in");
             loggedIn = true;
             showAdminControls();
@@ -582,7 +593,12 @@ public class TestingController implements Initializable{
         }
         if(mEvent == btnSubmitRequest){
             //TODO clear the text and submit the SR
-            manager.sendServiceRequest(requestDescription.getText());
+            String type = lblReqType.getText();
+            int locX = Integer.parseInt(lblServiceX.getText());
+            int locY = Integer.parseInt(lblServiceX.getText());
+            String locationId = getClosestNode(manager.getAllNodeData(), locX, locY).getNodeID();
+            String description = requestDescription.getText();
+            manager.createServiceRequest(employeeLoggedIn.getUsername(), type, locationId, null, description);
         }
     }
 
