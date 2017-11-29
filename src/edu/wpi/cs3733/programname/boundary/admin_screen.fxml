@@ -38,7 +38,7 @@
                               <Font name="Bell MT Bold" size="22.0" />
                            </font>
                         </Label>
-                        <JFXButton fx:id="nodeInfoX" layoutX="277.0" layoutY="3.0" text="X" AnchorPane.rightAnchor="0.0">
+                        <JFXButton fx:id="nodeInfoX" onAction="#nodeInfoXHandler" layoutX="277.0" layoutY="3.0" text="X" AnchorPane.rightAnchor="0.0">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>

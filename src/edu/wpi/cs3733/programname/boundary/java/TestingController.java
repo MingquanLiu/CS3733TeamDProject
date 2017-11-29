@@ -557,23 +557,23 @@ public class TestingController implements Initializable{
             //Todo add some sort of error handling
             return loader;
         }
+        loader.<LoginPopup>getController().initData(dbConnection);
         Stage newStage = new Stage();
         newStage.setScene(newScene);
         newStage.showAndWait();
         return loader;
     }
-    
+
     public void loginButtonHandler() throws IOException {
-        String username = "";
+        String username = "admin";
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
-        loader.<LoginPopup>getController().initData(dbConnection);
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
-        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
-            username = txtUser.getText();
-        }
+//        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
+//            username = txtUser.getText();
+//        }
         if(loggedIn) {
             employeeLoggedIn = manager.queryEmployeeByUsername(username);
-            lblLoginStatus.setText("logged in");
+//            lblLoginStatus.setText("logged in");
             loggedIn = true;
             showAdminControls();
         }

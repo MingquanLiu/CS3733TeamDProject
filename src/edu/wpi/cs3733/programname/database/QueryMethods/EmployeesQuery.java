@@ -150,7 +150,7 @@ public class EmployeesQuery {
             e.printStackTrace();
         }
 
-        if (queryResult.getPassword() == passwordAttempt) {
+        if (queryResult.getPassword().equals(passwordAttempt) ) {
             return true;
         }
         else return false;
