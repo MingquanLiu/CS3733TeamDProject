@@ -114,8 +114,6 @@ public class TestingController implements Initializable{
     @FXML
     private Label lblServiceX;
     @FXML
-    private Label lblServiceType;
-    @FXML
     private Label lblReqType;
 
     //hamburger pane and transitions
@@ -172,13 +170,14 @@ public class TestingController implements Initializable{
     private String selectingLocation = "";
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
+    private boolean loggedIn;
 
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb){
         currentMapRatioIndex =originalMapRatioIndex;
 //        mapRatio.add(0.24);
-
+        paneAdminFeatures.setVisible(false);
         mapRatio.add(0.318);
         mapRatio.add(0.35);
         mapRatio.add(0.39);
@@ -513,10 +512,15 @@ public class TestingController implements Initializable{
 
     public void loginButtonHandler(){
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
-        boolean loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         if(loggedIn) {
             lblLoginStatus.setText("logged in");
+            loggedIn = true;
+            showAdminControls();
         }
+    }
+    private void showAdminControls(){
+        paneAdminFeatures.setVisible(loggedIn);
     }
 
     public void mapEditHandler(){
