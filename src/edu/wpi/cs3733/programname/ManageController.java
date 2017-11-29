@@ -107,11 +107,15 @@ public class ManageController {
     }
 
     public List<ServiceRequest> getAssignedRequests() {
-        return this.dbQueryController.queryServiceRequestsByStatus("unhandled");
+        return this.dbQueryController.queryServiceRequestsByStatus("handled");
     }
 
     public List<ServiceRequest> getCompletedRequests() {
         return this.dbQueryController.queryServiceRequestsByStatus("completed");
+    }
+
+    public void assignServiceRequest(ServiceRequest request, String username) {
+        this.dbModController.handleServiceRequest(request, username);
     }
 
 //    public List<Employee> queryEmployeeByRequestType(String requestType) {
@@ -154,13 +158,14 @@ public class ManageController {
         return newServiceRequest;
     }
 
+    public void deleteServiceRequest(ServiceRequest request) {
+        dbModController.deleteServiceRequest(request);
+    }
+
     public Employee queryEmployeeByUsername(String username) {
         return dbQueryController.queryEmployeeByUsername(username);
     }
 
-    public ArrayList<Employee> getInterpreterEmployees(){
-        return employeesQuery.queryEmployeesByType("interpreter");
-    }
     public ArrayList<ServiceRequest> getInterpreterRequest(){
         return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }

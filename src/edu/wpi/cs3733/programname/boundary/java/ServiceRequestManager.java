@@ -73,12 +73,15 @@ public class ServiceRequestManager {
     public void initData(DBConnection dbConnection){
         dbConnection = dbConnection;
         manager = new ManageController(dbConnection);
+        unassignedRequestButtonHandler();
+        btnMarkCompleted.setVisible(false);
     }
 
     public void unassignedRequestButtonHandler() {
         unassignedRequests.setVisible(true);
         assignedRequests.setVisible(false);
         completedRequests.setVisible(false);
+        btnMarkCompleted.setVisible(false);
         currVisible = "unassigned";
         updateUnassignedView();
     }
@@ -87,6 +90,7 @@ public class ServiceRequestManager {
         assignedRequests.setVisible(true);
         unassignedRequests.setVisible(false);
         completedRequests.setVisible(false);
+        btnMarkCompleted.setVisible(true);
         currVisible = "assigned";
         updateAssignedRequests();
     }
@@ -95,29 +99,39 @@ public class ServiceRequestManager {
         completedRequests.setVisible(true);
         assignedRequests.setVisible(false);
         unassignedRequests.setVisible(false);
+        btnMarkCompleted.setVisible(false);
         currVisible = "complete";
         updateCompletedRequests();
     }
 
     public void deleteRequestButtonHandler() {
         if (currVisible == "unassigned") {
-            int index = listUnassigned.getEditingIndex();
+            int index = listUnassigned.getSelectionModel().getSelectedIndex();
             ServiceRequest requestToDelete = currUnassigned.get(index);
-            //TODO delete from database
+            manager.deleteServiceRequest(requestToDelete);
         }
         else if (currVisible == "assigned") {
-            int index = listAssigned.getEditingIndex();
+            int index = listAssigned.getSelectionModel().getSelectedIndex();
             ServiceRequest requestToDelete = currUnassigned.get(index);
+            manager.deleteServiceRequest(requestToDelete);
         }
         else if (currVisible == "complete") {
-            int index = listAssigned.getEditingIndex();
+            int index = listAssigned.getSelectionModel().getSelectedIndex();
             ServiceRequest requestToDelete = currUnassigned.get(index);
+            manager.deleteServiceRequest(requestToDelete);
         }
         updateCurrentView();
     }
 
     public void assignButtonHandler() {
+        int requestIndex = listAssigned.getSelectionModel().getSelectedIndex();
+        int employeeIndex = listAssigned.getSelectionModel().getSelectedIndex();
 
+        ServiceRequest request = currAssigned.get(requestIndex);
+        Employee employee = currEmployees.get(employeeIndex);
+
+        this.manager.assignServiceRequest(request, employee.getUsername());
+        updateCurrentView();
     }
 
     public String createServiceRequestListString(ServiceRequest sr) {
@@ -152,8 +166,8 @@ public class ServiceRequestManager {
         currUnassigned = manager.getUnassignedRequests();
         currEmployees = manager.getAllEmployees();
 
-        listUnassigned.getItems().removeAll();
-        listEmployees.getItems().removeAll();
+        listUnassigned.getItems().clear();
+        listEmployees.getItems().clear();
 
         for(ServiceRequest sr: currUnassigned) {
             String requestDisplay = createServiceRequestListString(sr);
@@ -167,7 +181,7 @@ public class ServiceRequestManager {
 
     public void updateAssignedRequests() {
         currAssigned = manager.getAssignedRequests();
-        listAssigned.getItems().removeAll();
+        listAssigned.getItems().clear();
         for(ServiceRequest sr: currAssigned) {
             String requestDisplay = createServiceRequestListString(sr);
             listAssigned.getItems().add(requestDisplay);
@@ -176,7 +190,7 @@ public class ServiceRequestManager {
 
     public void updateCompletedRequests() {
         currCompleted = manager.getCompletedRequests();
-        listCompleted.getItems().removeAll();
+        listCompleted.getItems().clear();
         for(ServiceRequest sr: currCompleted) {
             String requestDisplay = createServiceRequestListString(sr);
             listCompleted.getItems().add(requestDisplay);
