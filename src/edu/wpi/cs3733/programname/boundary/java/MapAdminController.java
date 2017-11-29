@@ -168,7 +168,6 @@ public class MapAdminController implements Initializable {
         int y = (int) e.getY();
         List<NodeData> nodes = manager.getAllNodeData();
 
-
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
