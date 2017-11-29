@@ -531,11 +531,11 @@ public class TestingController implements Initializable{
     }
 
     public void loginButtonHandler(){
-        String username = txtUser.getText();
+//        String username = txtUser.getText();
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         if(loggedIn) {
-            employeeLoggedIn = manager.queryEmployeeByUsername(username);
+//            employeeLoggedIn = manager.queryEmployeeByUsername(username);
             lblLoginStatus.setText("logged in");
             loggedIn = true;
             showAdminControls();
