@@ -259,4 +259,47 @@ public class NodesQuery {
         }
         return queryResult;
     }
+
+    public List<NodeData> queryNodeByFloor(String nFloor) {
+
+        NodeData queryResult = null;
+        List<NodeData> allNodesByFloor = new ArrayList<NodeData>();
+
+        try {
+            String sql = "SELECT * FROM Nodes WHERE floor = " + "'" + nFloor + "'";
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+
+            String nodeID = "";
+            int xcoord = 0;
+            int ycoord = 0;
+            String floor = "";
+            String building = "";
+            String nodeType = "";
+            String longName = "";
+            String shortName = "";
+            String teamAssigned = "";
+
+            while(result.next()) {
+                nodeID = result.getString("nodeID");
+                xcoord = result.getInt("xcoord");
+                ycoord = result.getInt("ycoord");
+                floor = result.getString("floor");
+                building = result.getString("building");
+                nodeType = result.getString("nodeType");
+                longName = result.getString("longName");
+                shortName = result.getString("shortName");
+                teamAssigned = result.getString("teamAssigned");
+
+                Coordinate location = new Coordinate(xcoord, ycoord);
+                queryResult = new NodeData(nodeID, location, floor, building, nodeType, longName, shortName, teamAssigned);
+                allNodesByFloor.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Get Node Failed!");
+            e.printStackTrace();
+        }
+        return allNodesByFloor;
+
+    }
 }
