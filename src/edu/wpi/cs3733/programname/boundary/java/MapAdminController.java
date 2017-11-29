@@ -160,15 +160,17 @@ public class MapAdminController implements Initializable {
         currentScale = mapRatio.get(currentMapRatioIndex);
         System.out.println("Scale: " + currentScale);
         imgMap.setFitWidth(maxWidth*currentScale);
+        showNodeAndPath();
 
+    }
+
+    private void showNodeAndPath(){
         List<NodeData> nodes = manager.queryNodeByFloor(lblCurrentFloor.getText());
         floorNodes = nodes;
         List<EdgeData> edges = manager.getAllEdgeData();
         displayEdges(edges);
         showNodeList(nodes);
     }
-
-
     private void showNodeList (List<NodeData> nodeDataList){
         for(int i = 0;i <nodeDataList.size();i++){
             showNode(nodeDataList.get(i));
@@ -364,11 +366,15 @@ public class MapAdminController implements Initializable {
             floor ++;
             System.out.println("up to floor" + floor);
             setFloor();
+            clearMain();
+            showNodeAndPath();
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
             floor --;
             System.out.println("down to floor" + floor);
             setFloor();
+            clearMain();
+            showNodeAndPath();
         }
     }
 
