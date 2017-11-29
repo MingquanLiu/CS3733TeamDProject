@@ -141,6 +141,7 @@ public class MapAdminController implements Initializable {
     ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
     private String nodeAction = "";
+    private String edgeAction = "";
     private NodeData selectEdgeN1 = null;
     private NodeData selectEdgeN2 = null;
 
@@ -200,7 +201,6 @@ public class MapAdminController implements Initializable {
         System.out.println("Scale: " + currentScale);
         imgMap.setFitWidth(maxWidth*currentScale);
         showNodeAndPath();
-
     }
 
     private void showNodeAndPath(){
@@ -222,8 +222,6 @@ public class MapAdminController implements Initializable {
     }
     private void showNode(NodeData n){
         currentNodes.add(n);
-        System.out.println("x:"+DBCToUIC(n.getXCoord(),currentScale) +" y:"+DBCToUIC(n.getYCoord(),currentScale));
-        System.out.println("X:"+n.getXCoord()+" Y:"+n.getYCoord());
         drawCircle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
     }
 
@@ -348,8 +346,22 @@ public class MapAdminController implements Initializable {
                 if(selectEdgeN2!=null&&selectEdgeN1!=null){
                     mEdge = new EdgeData(selectEdgeN1.getNodeID()+selectEdgeN2.getNodeID(),selectEdgeN1.getNodeID(),selectEdgeN2.getNodeID());
                     displayEdge2(selectEdgeN1,selectEdgeN2);
+                    if(edgeAction == "addEdge"){
+                        manager.addEdge(selectEdgeN1.getNodeID(),selectEdgeN2.getNodeID());
+                    }
+                    if(edgeAction == "deleteEdge"){
+                        String edgeId = getEdge(currentEdge,selectEdgeN1.getNodeID(),selectEdgeN2.getNodeID());
+                        if(!edgeId.equals("")){
+                            manager.deleteEdge(edgeId);
+                            System.out.println("Edge Exists");
+                        }
+                    }
                     selectingLocation = "";
+                    clearMain();
+                    clearEdgeDrawing();
+                    showNodeAndPath();
                     setupBurger();
+                    selectEdgeN2 = selectEdgeN1= null;
                 }
                 break;
 //            case "nodeAdd":
@@ -404,6 +416,18 @@ public class MapAdminController implements Initializable {
 //                break;
         }
     }
+
+    private String getEdge(List<EdgeData> edgeDataList,String node1,String node2){
+        for(EdgeData edgeData:edgeDataList){
+            if(edgeData.getStartNode().equals(node1)&&edgeData.getEndNode().equals(node2)){
+                return edgeData.getEdgeID();
+            }
+            if(edgeData.getStartNode().equals(node2)&&edgeData.getEndNode().equals(node1)){
+                return edgeData.getEdgeID();
+            }
+        }
+        return "";
+    }
     @SuppressWarnings("Duplicates")
     private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
         int dbX = UICToDBC(mouseX,currentScale);
@@ -432,7 +456,6 @@ public class MapAdminController implements Initializable {
     public void clearMain(){
         if(drawings.size() > 0){
             for(Shape shape:drawings){
-                System.out.println("success remove");
                 panningPane.getChildren().remove(shape);
             }
             drawings = new ArrayList<>();
@@ -521,7 +544,9 @@ public class MapAdminController implements Initializable {
             nodeAction = "addNode";
         }else{
             selectingLocation = "selectEdge";
+            edgeAction = "addEdge";
             setupBurger();
+//            editEdgePane.setVisible(true);
         }
     }
     public void deleteHandler(ActionEvent event){
@@ -533,7 +558,9 @@ public class MapAdminController implements Initializable {
             nodeAction = "deleteNode";
         }else{
             selectingLocation = "selectEdge";
+            edgeAction = "deleteEdge";
             setupBurger();
+//            editEdgePane.setVisible(true);
         }
     }
     public void editHandler(){
@@ -568,14 +595,23 @@ public class MapAdminController implements Initializable {
                 NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
                 manager.addNode(newNode);
                 displayAddNodeConfirmation(id, longName, loc);
+                clearNodeInfoText();
+                clearMain();
+                showNodeAndPath();
             }
             if(event.getSource()==nodeInfoDelete){
                 NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
                 manager.deleteNode(newNode);
+                clearNodeInfoText();
+                clearMain();
+                showNodeAndPath();
             }
             if(event.getSource()==nodeInfoEdit){
                 NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
                 manager.editNode(newNode);
+                clearNodeInfoText();
+                clearMain();
+                showNodeAndPath();
             }
         }
 

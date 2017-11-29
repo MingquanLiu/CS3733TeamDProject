@@ -138,6 +138,9 @@ public class ManageController {
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
     }
+    public void deleteEdge(String edgeId){
+        this.dbModController.deleteEdge(this.dbQueryController.queryEdgeById(edgeId));;
+    }
 
     public void sendTextDirectionsEmail(List<NodeData> path, String recipient) {
         TextDirections textDirections = new TextDirections(path);
