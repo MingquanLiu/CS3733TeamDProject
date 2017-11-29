@@ -493,15 +493,15 @@ public class TestingController implements Initializable{
         serviceRequester.setVisible(true);
         String SRType = "";
         if(mEvent == btnInterpreterReq){
-            SRType = "I";
+            SRType = "Language to: \nLanguage from:";
         }
         if(mEvent == btnMaintenanceReq){
-            SRType = "M";
+            SRType = "Maintenance type: \nMaintenance urgency(1-5): ";
         }
         if(mEvent == btnTransportationReq){
-            SRType = "T";
+            SRType = "Transportation type: \nTransportation urgency: ";
         }
-        lblReqType.setText(SRType);
+        requestDescription.setText(SRType);
     }
 
     //popup methods
