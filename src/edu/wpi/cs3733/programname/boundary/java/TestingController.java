@@ -185,12 +185,17 @@ public class TestingController implements Initializable{
     private Employee employeeLoggedIn;
 
     private DBConnection dbConnection;
+    private PathfindingController.searchType mSearchType= ASTAR;
 
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb){
+    }
+
+    public void initData(DBConnection dbConnection){
         currentMapRatioIndex =originalMapRatioIndex;
         manager = new ManageController(dbConnection);
+        this.dbConnection = dbConnection;
 //        mapRatio.add(0.24);
         paneAdminFeatures.setVisible(false);
         mapRatio.add(0.318);
@@ -209,11 +214,10 @@ public class TestingController implements Initializable{
         paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(maxWidth*currentScale);
-
     }
-
-    public void initData(DBConnection dbConnection){
-        this.dbConnection = dbConnection;
+    public void setSearchType(PathfindingController.searchType searchType){
+        System.out.println(currentMapRatioIndex);
+        this.mSearchType = searchType;
     }
     //topmost methods are newest
     private void drawCycle(int x, int y){
@@ -374,6 +378,7 @@ public class TestingController implements Initializable{
                 showNodeInfo(mClickedNode);
                 break;
             case "selectLocation":
+                System.out.println("In selectLocation");
                 Coordinate mCoordinate = new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale));
                 lblServiceX.setText(""+mCoordinate.getXCoord());
                 lblServiceY.setText(""+mCoordinate.getYCoord());
@@ -410,6 +415,9 @@ public class TestingController implements Initializable{
     }
     //hamburger handling
     public void openMenu(MouseEvent e){
+        setBurger();
+    }
+    public void setBurger(){
         burgerTransition.setRate(burgerTransition.getRate()*-1);
         burgerTransition.play();
 
@@ -598,6 +606,7 @@ public class TestingController implements Initializable{
         serviceRequester.setVisible(false);
         if(mEvent == btnSelectMaintenanceLocation){
             selectingLocation = "selectLocation";
+            setBurger();
         }
         if(mEvent == btnCancelRequestAttempt){
             //TODO clear the text

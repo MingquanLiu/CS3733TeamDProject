@@ -2,15 +2,19 @@ package edu.wpi.cs3733.programname.boundary.java;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -100,6 +104,14 @@ public class MapAdminController implements Initializable {
     private AnchorPane paneControls;
     @FXML
     private JFXHamburger burger;
+    @FXML
+    private JFXRadioButton DFS;
+    @FXML
+    private JFXRadioButton BFS;
+    @FXML
+    private JFXRadioButton Dijkstra;
+    @FXML
+    private JFXRadioButton ASTAR;
 
     ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
@@ -135,8 +147,6 @@ public class MapAdminController implements Initializable {
     private DBConnection dbConnection;
     @Override
     public void initialize(URL url, ResourceBundle rb){
-
-
     }
 
     public void initData(DBConnection dbConnection){
@@ -467,6 +477,28 @@ public class MapAdminController implements Initializable {
         nodeToEdit.setShortName(textNodeShortName.getText());
 
         manager.addNode(nodeToEdit);
+    }
+    public void selectPFAlgorithm(ActionEvent e){
+        PathfindingController.searchType searchType = PathfindingController.searchType.ASTAR;
+        Object mEvent = e.getSource();
+        if(mEvent==DFS){
+            searchType = PathfindingController.searchType.DFS;
+        }
+        if(mEvent==BFS){
+            searchType = PathfindingController.searchType.BFS;
+        }
+        if(mEvent==Dijkstra){
+            searchType = PathfindingController.searchType.DIJKSTRA;
+        }
+        if(mEvent==ASTAR){
+            searchType = PathfindingController.searchType.ASTAR;
+        }
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/edu/wpi/cs3733/programname/boundary/admin_screen.fxml"
+                )
+        );
+        loader.<TestingController>getController().setSearchType(searchType);
     }
 
     public void openMenuHandler(){
