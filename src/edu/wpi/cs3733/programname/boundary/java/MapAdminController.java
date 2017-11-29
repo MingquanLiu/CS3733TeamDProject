@@ -339,8 +339,6 @@ public class MapAdminController implements Initializable {
         return new NodeData(resultNodeId,new Coordinate(resultX,resultY),lblCurrentFloor.getText(),null,null,null,null,null);
     }
 
-
-
     @SuppressWarnings("Duplicates")
     public void clearMain(){
         if(drawings.size() > 0){

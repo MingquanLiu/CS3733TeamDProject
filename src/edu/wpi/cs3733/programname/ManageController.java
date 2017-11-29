@@ -93,12 +93,6 @@ public class ManageController {
         this.dbModController.editNode(data);
     }
 
-
-    public void sendServiceRequest(String type) {
-        Employee emp = new Employee("me", "1","","Mike","Liu",false,INTERPRETER_REQUEST,"mikelmq99@gmail.com");
-//        createServiceRequest(emp, type);
-    }
-
     public List<Employee> getAllEmployees() {
         //return this.dbQueryController.queryAllEmployees();
         return null;
@@ -155,8 +149,12 @@ public class ManageController {
         Random randomID = new Random();
         int id = randomID.nextInt(1000) + 1;
         ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description);
-        //queryServiceRequest.addServiceRequest(newServiceRequest);
+        dbModController.addServiceRequest(newServiceRequest);
         return newServiceRequest;
+    }
+
+    public Employee queryEmployeeByUsername(String username) {
+        return dbQueryController.queryEmployeeByUsername(username);
     }
 
     public ArrayList<Employee> getInterpreterEmployees(){

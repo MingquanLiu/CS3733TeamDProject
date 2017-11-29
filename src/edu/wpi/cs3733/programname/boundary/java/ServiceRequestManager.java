@@ -169,8 +169,7 @@ public class ServiceRequestManager {
         listAssigned = new JFXListView<String>();
         currAssigned = manager.getAssignedRequests();
         for(ServiceRequest sr: currAssigned) {
-      //      String requestDisplay = createServiceRequestListString(sr);
-            String requestDisplay = "test passed!!!!!!!!";
+            String requestDisplay = createServiceRequestListString(sr);
             listAssigned.getItems().add(requestDisplay);
         }
     }
@@ -180,8 +179,7 @@ public class ServiceRequestManager {
         currCompleted = manager.getCompletedRequests();
 
         for(ServiceRequest sr: currCompleted) {
-         //   String requestDisplay = createServiceRequestListString(sr);
-            String requestDisplay = "test passed!!!!!!!!";
+            String requestDisplay = createServiceRequestListString(sr);
             listCompleted.getItems().add(requestDisplay);
         }
     }
