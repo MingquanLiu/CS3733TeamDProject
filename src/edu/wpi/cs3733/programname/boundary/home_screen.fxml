@@ -101,11 +101,11 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: #ffffff;" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="+" textAlignment="CENTER" GridPane.halignment="CENTER">
+                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="+" textAlignment="CENTER" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Arial Black" size="58.0" />
                      </font></JFXButton>
-                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: #ffffff;" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="-" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="-" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="Arial Black" size="58.0" />
                      </font></JFXButton>
@@ -151,15 +151,15 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton fx:id="btnGo" onAction="#goButtonHandler" style="-fx-background-color: green;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                        <JFXButton fx:id="btnClear" onAction="#clearPathFindLoc" style="-fx-background-color: RED;" text="Clear" GridPane.halignment="RIGHT" />
+                        <JFXButton fx:id="btnGo" buttonType="RAISED" onAction="#goButtonHandler" style="-fx-background-color: #ccffda;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+                        <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearPathFindLoc" style="-fx-background-color: #ffb3bb;" text="Clear" GridPane.halignment="RIGHT" />
                      </children>
                   </GridPane>
                     </children>
                 </GridPane>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="166.0" style="-fx-background-color: white; -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="166.0" style="-fx-background-color: rgba(255,255,255,0.8); -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane layoutX="2.0" layoutY="72.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="150.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0">
               <columnConstraints>
