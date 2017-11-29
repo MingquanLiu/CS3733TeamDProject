@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.TestingController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -29,20 +30,17 @@
                         <Image url="@Resources/Floor_2.png" />
                      </image>
                   </ImageView>
-                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;" visible="false">
+                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
                         <content>
-                            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="100.0">
+                            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="150.0">
                                 <children>
-                                    <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
-                                    <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
-                                    <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <JFXButton fx:id="closeNodeInfo" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" onAction="#closeNodeInfoHandler" text="Close" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                              <GridPane layoutX="2.0" layoutY="68.0" prefHeight="29.0" prefWidth="147.0">
+                                    <JFXButton fx:id="closeNodeInfo" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" onAction="#closeNodeInfoHandler" style="-fx-background-color: #d2d2d2; -fx-border-color: black;" text="Close" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                              <GridPane layoutX="32.0" layoutY="68.0" prefHeight="29.0" prefWidth="136.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="25.0">
                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="20.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="20.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -54,42 +52,60 @@
                                     <Label text="Y:" GridPane.columnIndex="2" />
                                  </children>
                               </GridPane>
+                              <GridPane layoutX="3.0" layoutY="5.0">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="175.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                          <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" textAlignment="CENTER" GridPane.halignment="CENTER" />
+                                          <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                          <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
                                 </children>
                             </AnchorPane>
                         </content>
                         <header>
-                            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Node Info">
+                            <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #c0c0c0; -fx-border-color: transparent transparent black transparent;" text="Node Info" textAlignment="CENTER">
                                 <padding>
-                                    <Insets left="5.0" top="5.0" />
+                                    <Insets left="50.0" top="5.0" />
                                 </padding>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
                             </Label>
                         </header>
                     </DialogPane>
+                    <AnchorPane layoutX="20.0" layoutY="97.0" prefHeight="111.0" prefWidth="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="97.0">
+                        <children>
+                            <GridPane prefHeight="150.0" prefWidth="100.0" style="-fx-border-color: black; -fx-background-color: rgba(255,255,255,0.8);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <children>
+                                    <Label text="Floor:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                    <JFXButton fx:id="btnMapUp" buttonType="RAISED" onAction="#mapChange" styleClass="buttonn" stylesheets="@Resources/general_button.css" text="go up" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                    <JFXButton fx:id="btnMapDwn" buttonType="RAISED" onAction="#mapChange" styleClass="buttonn" stylesheets="@Resources/general_button.css" text="go down" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label fx:id="lblCurrentFloor" style="-fx-background-color: #ffffff;" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                </children>
+                            </GridPane>
+                        </children>
+                    </AnchorPane>
                </children>
             </AnchorPane>
          </content>
         </ScrollPane>
-        <AnchorPane layoutX="50.0" layoutY="20.0" prefHeight="111.0" prefWidth="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
-            <children>
-                <GridPane prefHeight="150.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Label text="Floor:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <JFXButton fx:id="btnMapUp" onAction="#mapChange" styleClass="buttonn" stylesheets="@Resources/general_button.css" text="go up" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="btnMapDwn" onAction="#mapChange" styleClass="buttonn" stylesheets="@Resources/general_button.css" text="go down" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                        <Label fx:id="lblCurrentFloor" style="-fx-background-color: #ffffff;" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                    </children>
-                </GridPane>
-            </children>
-        </AnchorPane>
         <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
             <children>
                 <GridPane layoutY="-5.0" prefHeight="148.0" prefWidth="203.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-103.0" AnchorPane.topAnchor="-5.0">
@@ -128,17 +144,17 @@
                     <children>
                         <Label text="Location Direction Search">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
                      </GridPane.margin></Label>
-                  <JFXTextField fx:id="txtStartLocation" onMouseClicked="#selectStartField" promptText="Start Location" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtStartLocation" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtEndLocation" onMouseClicked="#selectEndField" promptText="End Location" style="-fx-border-color: #000000;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtEndLocation" onMouseClicked="#selectEndField" promptText="End Location" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="2.0" />
                      </GridPane.margin>
@@ -160,7 +176,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="166.0" style="-fx-background-color: rgba(255,255,255,0.8); -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="166.0" style="-fx-background-color: rgba(255,255,255,0.9); -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane layoutX="2.0" layoutY="72.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="150.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0">
               <columnConstraints>
@@ -197,7 +213,7 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton fx:id="btnOpenAdmin" buttonType="RAISED" maxWidth="200.0" onAction="#openAdminHandler" text="Servie Request Manager" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <JFXButton fx:id="btnOpenAdmin" buttonType="RAISED" maxWidth="200.0" onAction="#openAdminHandler" text="Service Request Manager" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <JFXButton fx:id="btnInterpreterReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Interpreter Request" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                         <JFXButton fx:id="btnMaintenanceReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Maintenance Request" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                         <JFXButton fx:id="btnTansportationReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Transportation Request" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
@@ -224,6 +240,7 @@
             </GridPane>
             <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
               <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
+            <Button fx:id="helpButton" layoutX="54.0" layoutY="638.0" mnemonicParsing="false" onAction="#helpButtonHandler" text="HELP" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="50.0" prefWidth="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -231,14 +248,14 @@
             <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenu" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-          <AnchorPane fx:id="serviceRequester" layoutX="528.0" layoutY="156.0" prefHeight="256.0" prefWidth="486.0" style="-fx-background-color: white;" visible="false">
+          <AnchorPane fx:id="serviceRequester" layoutX="528.0" layoutY="156.0" prefHeight="247.0" prefWidth="486.0" style="-fx-background-color: white;" visible="false">
               <children>
-                  <TextArea fx:id="requestDescription" layoutX="20.0" layoutY="62.0" prefHeight="145.0" prefWidth="313.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="170.0" />
-                  <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="352.0" layoutY="128.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Select Location(s)" AnchorPane.bottomAnchor="103.0" />
-                  <JFXButton fx:id="btnCancelRequestAttempt" layoutX="340.0" layoutY="183.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Cancel" />
-                  <JFXButton fx:id="btnSubmitRequest" layoutX="420.0" layoutY="183.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Submit" />
-            <Label fx:id="lblServiceX" layoutX="406.0" layoutY="71.0" text="Label" AnchorPane.bottomAnchor="168.0" />
-            <Label fx:id="lblServiceY" layoutX="109.0" layoutY="110.0" AnchorPane.rightAnchor="214.0" />
+                  <TextArea fx:id="requestDescription" layoutX="14.0" layoutY="81.0" prefHeight="145.0" prefWidth="313.0" AnchorPane.leftAnchor="14.0" />
+                  <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="352.0" layoutY="128.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Select Location(s)" />
+                  <JFXButton fx:id="btnCancelRequestAttempt" layoutX="340.0" layoutY="196.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Cancel" />
+                  <JFXButton fx:id="btnSubmitRequest" layoutX="412.0" layoutY="196.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Submit" />
+            <Label fx:id="lblServiceX" layoutX="384.0" layoutY="71.0" AnchorPane.bottomAnchor="168.0" />
+            <Label fx:id="lblServiceY" layoutX="384.0" layoutY="93.0" />
             <Label layoutX="366.0" layoutY="67.0" text="X: " AnchorPane.bottomAnchor="164.0">
                <font>
                   <Font size="16.0" />
@@ -249,8 +266,8 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lblReqType" layoutX="406.0" layoutY="102.0" text="Label" AnchorPane.bottomAnchor="137.0" />
-            <Pane layoutX="-1.0" layoutY="-8.0" prefHeight="50.0" prefWidth="486.0" style="-fx-background-color: #c0c0c0;" AnchorPane.rightAnchor="0.0">
+            <Label fx:id="lblReqType" layoutX="14.0" layoutY="50.0" AnchorPane.bottomAnchor="180.0" />
+            <Pane layoutX="-1.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="486.0" style="-fx-background-color: #c0c0c0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label layoutX="140.0" layoutY="10.0" text="New Service Request" textAlignment="CENTER">
                      <font>
