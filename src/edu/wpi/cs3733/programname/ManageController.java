@@ -79,23 +79,7 @@ public class ManageController {
     public List<NodeData> queryNodeByFloor(String floor) {
         return this.dbQueryController.queryNodeByFloor(floor);
     }
-
-    public List<ServiceRequest> getUnassignedRequests() {
-        return this.dbQueryController.queryServiceRequestsByStatus(Constants.UNASSIGNED_REQUEST);
-    }
-
-    public List<ServiceRequest> getAssignedRequests() {
-        return this.dbQueryController.queryServiceRequestsByStatus(Constants.ASSIGNED_REQUEST);
-    }
-
-    public List<ServiceRequest> getCompletedRequests() {
-        return this.dbQueryController.queryServiceRequestsByStatus(Constants.COMPLETED_REQUEST);
-    }
-
-    public List<Employee> getAllEmployees() {
-        return this.dbQueryController.queryAllEmployees();
-    }
-
+    
     public void addNode(NodeData data) {
         this.dbModController.addNode(data);
     }
