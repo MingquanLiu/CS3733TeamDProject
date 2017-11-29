@@ -10,6 +10,8 @@ import edu.wpi.cs3733.programname.database.ModificationMethods.ServiceRequestsMe
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
+import java.sql.Connection;
+
 
 public class DatabaseModificationController {
     private NodesMethod nodesMethod;
@@ -84,6 +86,23 @@ public class DatabaseModificationController {
         serviceRequestsMethod.deleteServiceRequest(serviceRequest);
     }
 
+//    // Reader Methods
+//
+//    public void updateCsvNodes(Connection conn){
+//        mCsv.writeNodes(conn);
+//    }
+//
+//    public void updateCsvEdges(Connection conn){
+//        mCsv.writeEdges(conn);
+//    }
+//
+//    public void updateCsvEmployees(Connection conn){
+//        mCsv.writeEmployees(conn);
+//    }
+//
+//    public void updateCsvServiceRequests(Connection conn){
+//        mCsv.writeServiceRequests(conn);
+//    }
 
 
     // get

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname.database.ModificationMethods;
 
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 
 import java.sql.SQLException;
@@ -12,8 +13,10 @@ import java.util.Date;
 public class ServiceRequestsMethod {
 
     private DBConnection dbConnection ;
-    private ManageController mCon;
-    public ServiceRequestsMethod(DBConnection dbConnection){this.dbConnection = dbConnection;}
+    private CsvWriter wrt;
+    public ServiceRequestsMethod(DBConnection dbConnection){
+        this.dbConnection = dbConnection;
+        this.wrt = new CsvWriter();}
 
     public void addServiceRequest(ServiceRequest serviceRequest){
         int serviceID = serviceRequest.getServiceID();
@@ -36,7 +39,7 @@ public class ServiceRequestsMethod {
                     "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','"+ status + "')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvServiceRequests(dbConnection.getConnection());
+            this.wrt.writeServiceRequests(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Insert Service Request Failed!");
@@ -55,7 +58,7 @@ public class ServiceRequestsMethod {
             str = "update ServiceRequests set handleTime = '"+ handleTime +"', status = 'handled', receiver = '"+ receiver +"' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvServiceRequests(dbConnection.getConnection());
+            this.wrt.writeServiceRequests(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Handle Service Request Failed!");
@@ -74,7 +77,7 @@ public class ServiceRequestsMethod {
             str = "update ServiceRequests set completionTime = '"+ completionTime +"', status = 'completed' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvServiceRequests(dbConnection.getConnection());
+            this.wrt.writeServiceRequests(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Complete Service Request Failed!");
@@ -90,7 +93,7 @@ public class ServiceRequestsMethod {
             str = "update ServiceRequests set status = 'removed' where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvServiceRequests(dbConnection.getConnection());
+            this.wrt.writeServiceRequests(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Remove Service Request Failed!");
@@ -107,7 +110,7 @@ public class ServiceRequestsMethod {
             str ="delete from ServiceRequests where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvServiceRequests(dbConnection.getConnection());
+            this.wrt.writeServiceRequests(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Delete Service Request Failed!");

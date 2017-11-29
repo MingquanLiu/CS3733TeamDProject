@@ -2,14 +2,18 @@ package edu.wpi.cs3733.programname.database.ModificationMethods;
 
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import java.sql.SQLException;
 
 public class NodesMethod {
 
     private DBConnection dbConnection ;
-    private ManageController mCon;
-    public NodesMethod(DBConnection dbConnection){this.dbConnection = dbConnection;}
+    private CsvWriter wrt;
+    public NodesMethod(DBConnection dbConnection){
+        this.dbConnection = dbConnection;
+        this.wrt = new CsvWriter();}
+
     public void insertNode(NodeData data) {
         String nodeID = data.getNodeID();
         int xcoord = data.getXCoord();
@@ -29,7 +33,7 @@ public class NodesMethod {
 
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvNodes(dbConnection.getConnection());
+            this.wrt.writeNodes(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
@@ -56,7 +60,7 @@ public class NodesMethod {
 
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvNodes(dbConnection.getConnection());
+            this.wrt.writeNodes(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Edit Node Failed!");
@@ -74,7 +78,7 @@ public class NodesMethod {
 
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvNodes(dbConnection.getConnection());
+            this.wrt.writeNodes(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Delete Node Failed!");
             e.printStackTrace();

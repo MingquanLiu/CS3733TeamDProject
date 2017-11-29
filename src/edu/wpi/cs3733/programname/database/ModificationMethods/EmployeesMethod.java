@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname.database.ModificationMethods;
 
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
+import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 
 import java.sql.SQLException;
@@ -9,8 +10,10 @@ import java.sql.SQLException;
 public class EmployeesMethod {
 
     private DBConnection dbConnection;
-    private ManageController mCon;
-    public EmployeesMethod(DBConnection dbConnection){this.dbConnection = dbConnection;}
+    private CsvWriter wrt;
+    public EmployeesMethod(DBConnection dbConnection){
+        this.dbConnection = dbConnection;
+        this.wrt = new CsvWriter();}
 
     public void addEmployee(Employee employee){
         String username = employee.getUsername();
@@ -27,7 +30,7 @@ public class EmployeesMethod {
             str = "insert into Employees values('" + username + "', '" + password + "', '" + firstName + "', '" + middleName + "', '" + lastName + "'," + sysAdminInt + ", '" + serviceType + "','" + email + "')";
             //System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvEmployees(dbConnection.getConnection());
+            this.wrt.writeEmployees(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Insert Employee Failed!");
             e.printStackTrace();

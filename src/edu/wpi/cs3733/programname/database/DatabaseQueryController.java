@@ -9,6 +9,7 @@ import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class DatabaseQueryController {
     private EdgesQuery edgesQuery;
     private EmployeesQuery employeesQuery;
     private ServiceRequestsQuery serviceRequestsQuery;
+
     public DatabaseQueryController(DBConnection dbConnection) {
         nodesQuery = new NodesQuery(dbConnection);
         edgesQuery = new EdgesQuery(dbConnection);
@@ -133,8 +135,6 @@ public class DatabaseQueryController {
         return serviceRequestsQuery.queryServiceRequestsByID(serviceID);
     }
 
-
-    // Reader Methods
 
 
 

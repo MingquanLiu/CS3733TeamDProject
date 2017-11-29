@@ -1,15 +1,19 @@
 package edu.wpi.cs3733.programname.database.ModificationMethods;
 
-import edu.wpi.cs3733.programname.ManageController;
+
 import edu.wpi.cs3733.programname.commondata.EdgeData;
+import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import java.sql.SQLException;
 
 public class EdgesMethod {
 
     private DBConnection dbConnection;
-    private ManageController mCon;
-    public EdgesMethod(DBConnection dbConnection){this.dbConnection = dbConnection;}
+    private CsvWriter wrt;
+    public EdgesMethod(DBConnection dbConnection){
+        this.dbConnection = dbConnection;
+        this.wrt = new CsvWriter();}
+
     public void insertEdge(String node1ID, String node2ID) {
         String nodeID = node1ID + "_" + node2ID;
         String str;
@@ -18,7 +22,7 @@ public class EdgesMethod {
             str = "INSERT INTO Edges VALUES('" + nodeID + "', '" + node1ID + "', '" + node2ID + "')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvEdges(dbConnection.getConnection());
+            this.wrt.writeEdges(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Add EdgeData Failed!");
@@ -37,7 +41,7 @@ public class EdgesMethod {
             str = "UPDATE Edges SET startNode = '" + startNode + "', endNode = '" + endNode + "' where edgeId = '" + edgeID + "'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvEdges(dbConnection.getConnection());
+            this.wrt.writeEdges(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Add EdgeData Failed!");
@@ -58,7 +62,7 @@ public class EdgesMethod {
             str = "DELETE FROM Edges WHERE edgeID = '" + edgeID + "'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.mCon.updateCsvEdges(dbConnection.getConnection());
+            this.wrt.writeEdges(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Delete EdgeData Failed!");

@@ -33,7 +33,7 @@ public class ManageController {
     private ServiceRequestController serviceController;
     private EmployeesQuery employeesQuery;
     private ServiceRequestsQuery serviceRequestsQuery;
-    private CsvWriter mCsv;
+    private CsvWriter wrt;
 
     public ManageController(DBConnection dbConnection) {
         this.dbConnection = new DBConnection();
@@ -43,7 +43,7 @@ public class ManageController {
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
         this.serviceController = new ServiceRequestController(dbConnection, employeesQuery, serviceRequestsQuery);
-        this.mCsv = new CsvWriter();
+        this.wrt = new CsvWriter();
     }
 
     public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) throws InvalidNodeException{
@@ -179,21 +179,22 @@ public class ManageController {
         return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }
 
+        // Reader Methods
 
     public void updateCsvNodes(Connection conn){
-        mCsv.writeNodes(conn);
+        wrt.writeNodes(conn);
     }
 
     public void updateCsvEdges(Connection conn){
-        mCsv.writeEdges(conn);
+        wrt.writeEdges(conn);
     }
 
     public void updateCsvEmployees(Connection conn){
-        mCsv.writeEmployees(conn);
+        wrt.writeEmployees(conn);
     }
 
     public void updateCsvServiceRequests(Connection conn){
-        mCsv.writeServiceRequests(conn);
+        wrt.writeServiceRequests(conn);
     }
 
 }
