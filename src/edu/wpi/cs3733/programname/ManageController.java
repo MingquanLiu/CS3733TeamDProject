@@ -32,26 +32,21 @@ public class ManageController {
     private EmployeesQuery employeesQuery;
     private ServiceRequestsQuery serviceRequestsQuery;
 
-    public ManageController() {
+    public ManageController(DBConnection dbConnection) {
         this.dbConnection = new DBConnection();
-        dbConnection.setDBConnection();
+
 
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
         this.serviceController = new ServiceRequestController(dbConnection, employeesQuery, serviceRequestsQuery);
-        CsvReader mCsvReader = new CsvReader();
-        createAllTables(dbConnection);
-        mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.getListOfNodes(dbConnection.getConnection()));
-        mCsvReader.insertEdges(dbConnection.getConnection(),mCsvReader.getListOfEdges(dbConnection.getConnection()));
-
 
     }
 
     public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
-        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, ASTAR);
+        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, pathfindType);
         System.out.println(finalPath.get(0).getNodeID() + " to " + finalPath.get(finalPath.size() -1));
         return finalPath;
     }
@@ -71,7 +66,9 @@ public class ManageController {
     public List<EdgeData> getAllEdgeData() {
         return this.dbQueryController.getAllEdgeData();
     }
-
+    public List<EdgeData> getEdgeDataByFloor(String floor){
+        return dbQueryController.queryEdgeDataByFloor(floor);
+    }
     public List<NodeData> queryNodeByType(String nodeType) {
         return this.dbQueryController.queryNodeByType(nodeType);
     }

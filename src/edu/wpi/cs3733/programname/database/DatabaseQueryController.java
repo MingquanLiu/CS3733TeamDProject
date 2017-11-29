@@ -53,7 +53,9 @@ public class DatabaseQueryController {
         return edgesQuery.getAllEdgeInfo();
     }
 
-
+    public List<EdgeData> queryEdgeDataByFloor(String floor) {
+        return edgesQuery.queryEdgeByFloor(floor);
+    }
 //    public List<EmployeeInfo> getAllEmployeeInfo() {
 //        return EmployeeQuery.getAllEmployeeInfo(dbConnection);
 //    }

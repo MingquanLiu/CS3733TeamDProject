@@ -80,7 +80,7 @@ public class DBConnectionTest {
         mCsvWriter.writeEdges(conn, edgeList);
 
 
-        ManageController manager = new ManageController();
+        ManageController manager = new ManageController(TestDB);
 
         EdgeData expected = new EdgeData("DHALL05102_DSTAI00802", "DHALL05102", "DSTAI00802");
 

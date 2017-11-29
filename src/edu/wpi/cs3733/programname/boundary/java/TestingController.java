@@ -7,6 +7,7 @@ import com.sun.org.apache.xalan.internal.lib.NodeInfo;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -22,12 +23,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -173,11 +176,12 @@ public class TestingController implements Initializable{
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
     private boolean loggedIn;
-
+    private DBConnection dbConnection;
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb){
         currentMapRatioIndex =originalMapRatioIndex;
+        manager = new ManageController(dbConnection);
 //        mapRatio.add(0.24);
         paneAdminFeatures.setVisible(false);
         mapRatio.add(0.318);
@@ -196,9 +200,12 @@ public class TestingController implements Initializable{
         paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(maxWidth*currentScale);
-        manager = new ManageController();
+
     }
 
+    public void initData(DBConnection dbConnection){
+        this.dbConnection = dbConnection;
+    }
     //topmost methods are newest
     private void drawCycle(int x, int y){
         double radius = 10*currentScale;
@@ -344,13 +351,13 @@ public class TestingController implements Initializable{
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.getAllNodeData();
+        List<NodeData> nodes = manager.queryNodeByFloor(""+floor);
         NodeData mClickedNode= getClosestNode(nodes,x,y);
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected
             case "":
+                clearMain();
                 System.out.println("Get in findNodeData X:"+x+" Y:"+y);
-
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 showNodeInfo(mClickedNode);
@@ -526,14 +533,40 @@ public class TestingController implements Initializable{
         paneAdminFeatures.setVisible(loggedIn);
     }
 
-    public void mapEditHandler(){
+    public void mapEditHandler() throws IOException {
         System.out.println("In map Edit handler");
-        showScene("/edu/wpi/cs3733/programname/boundary/admin_screen.fxml");
+//        showScene("/edu/wpi/cs3733/programname/boundary/admin_screen.fxml");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/edu/wpi/cs3733/programname/boundary/admin_screen.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<MapAdminController>getController().initData(dbConnection);
+        stage.show();
     }
 
-    public void openAdminHandler(){
+    public void openAdminHandler() throws IOException {
         System.out.println("In open admin handler");
-        showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
+        //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/edu/wpi/cs3733/programname/boundary/serv_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<ServiceRequestManager>getController().initData(dbConnection);
+        stage.show();
     }
 
     public void SRWindowHandler(ActionEvent e){

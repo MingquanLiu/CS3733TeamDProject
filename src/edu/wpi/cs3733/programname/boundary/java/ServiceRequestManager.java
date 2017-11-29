@@ -6,6 +6,7 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -61,15 +62,18 @@ public class ServiceRequestManager {
     @FXML
     JFXButton btnDeleteCompleted;
 
-    ManageController manager = new ManageController();
-
+    ManageController manager;
+    private DBConnection dbConnection;
     List<ServiceRequest> currUnassigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currAssigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currCompleted = new ArrayList<ServiceRequest>();
     List<Employee> currEmployees = new ArrayList<Employee>();
 
     String currVisible = "unassigned";
-
+    public void initData(DBConnection dbConnection){
+        dbConnection = dbConnection;
+        manager = new ManageController(dbConnection);
+    }
 
     public void unassignedRequestButtonHandler() {
         unassignedRequests.setVisible(true);

@@ -17,10 +17,10 @@ import static junit.framework.TestCase.assertEquals;
 public class DBPathfindIntegrationTest {
 
     Connection conn;
-
+    DBConnection TestDB = new DBConnection();
     @Before
     public void setupTables() {
-        DBConnection TestDB = new DBConnection();   // Creates new instance of connection
+           // Creates new instance of connection
         TestDB.setDBConnection();                   // Sets up the connection
         DBTables mDbTable = new DBTables();
         CsvReader mCsvReader = new CsvReader();
@@ -41,7 +41,7 @@ public class DBPathfindIntegrationTest {
 
     @Test
     public void testBasicDbPathfind() {
-        ManageController manager = new ManageController();
+        ManageController manager = new ManageController(TestDB);
         NodeData hallwayOne = new NodeData("DHALL00102", new Coordinate(4770,1140), "2",
                 "15 Francis","HALL", "Hallway 1 Floor 2", "Hallway D0102", "Team D");
         NodeData hallwayTwo = new NodeData("DHALL00202", new Coordinate(4750,1080), "2",

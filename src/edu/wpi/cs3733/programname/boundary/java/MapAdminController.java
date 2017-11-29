@@ -7,6 +7,7 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -99,7 +100,7 @@ public class MapAdminController implements Initializable {
     @FXML
     private JFXHamburger burger;
 
-    ManageController manager = new ManageController();
+    ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
 
     private String addEdgeN1 = "";
@@ -130,12 +131,17 @@ public class MapAdminController implements Initializable {
 
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
-
+    private DBConnection dbConnection;
     @Override
     public void initialize(URL url, ResourceBundle rb){
+
+
+    }
+
+    public void initData(DBConnection dbConnection){
         currentMapRatioIndex =originalMapRatioIndex;
 //        mapRatio.add(0.24);
-
+        manager = new ManageController(dbConnection);
         mapRatio.add(0.318);
         mapRatio.add(0.35);
         mapRatio.add(0.39);
@@ -153,14 +159,12 @@ public class MapAdminController implements Initializable {
         currentScale = mapRatio.get(currentMapRatioIndex);
         System.out.println("Scale: " + currentScale);
         imgMap.setFitWidth(maxWidth*currentScale);
-        manager = new ManageController();
 
-        List<NodeData> nodes = manager.getAllNodeData();
+        List<NodeData> nodes = manager.queryNodeByFloor(""+floor);
         floorNodes = nodes;
         List<EdgeData> edges = manager.getAllEdgeData();
         displayEdges(edges);
         showNodeList(nodes);
-
     }
 
 
@@ -219,14 +223,23 @@ public class MapAdminController implements Initializable {
 
     private void displayEdges(List<EdgeData> edges){
         for(EdgeData edge:edges){
-            displayEdge(getNode(edge.getStartNode()),getNode(edge.getEndNode()));
+            NodeData node1=getNode(edge.getStartNode());
+            NodeData node2 = getNode(edge.getEndNode());
+            if(node1!=null&&node2!=null){
+                displayEdge(node1,node2);
+            }
+
         }
     }
 
     private NodeData getNode(String nodeID){
         for(NodeData nodeData:floorNodes){
             if(nodeData.getNodeID().equals(nodeID)){
-                return nodeData;
+                if(nodeData.getFloor().equals(Integer.toString(floor))){
+                    return nodeData;
+                }else{
+                    return null;
+                }
             }
         }
         return null;
