@@ -82,6 +82,9 @@ public class ManageController {
     public List<NodeData> queryNodeByFloor(String floor) {
         return this.dbQueryController.queryNodeByFloor(floor);
     }
+    public List<NodeData> queryNodeByTypeFloor(String nodeType, String floor) {
+        return this.dbQueryController.queryNodeByType(nodeType);
+    }
 
     public void addNode(NodeData data) {
         this.dbModController.addNode(data);
@@ -167,5 +170,7 @@ public class ManageController {
     public ArrayList<ServiceRequest> getInterpreterRequest(){
         return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }
+
+
 }
 
