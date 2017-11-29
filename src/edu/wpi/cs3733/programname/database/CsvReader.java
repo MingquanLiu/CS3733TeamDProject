@@ -27,13 +27,52 @@ public class CsvReader {
      * @return
      */
 
+//    public ArrayList<NodeData> getListOfNodes(Connection conn) {
+//        ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
+//        String[] csvNodes = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
+//
+//        try {
+//            for (String letter: csvNodes) {
+//                File csv = new File("Map" + letter + "Nodes.csv");
+//                Scanner inputStream = new Scanner(csv);
+//
+//                // Ignores first line in csv file i.e. header row
+//                inputStream.nextLine();
+//
+//                // Reads all lines in the file
+//                while (inputStream.hasNextLine()) {
+//                    // Reads current row and converts to a string
+//                    String data = inputStream.nextLine();
+//
+//                    // Seperates the string into fields and stores into an array
+//                    String[] values = data.split(",");
+//
+//                    // Converts int fields from strings to integers
+//                    int x = Integer.parseInt(values[1]);
+//                    int y = Integer.parseInt(values[2]);
+//                    Coordinate location = new Coordinate(x, y);
+//                    NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
+//                    nodeList.add(nodeObject);
+//
+//
+//                } // end while
+//
+//
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//
+//        }
+//        return nodeList;
+//    }// end readNodes
+
     public ArrayList<NodeData> getListOfNodes(Connection conn) {
         ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
-        String[] csvNodes = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
 
         try {
-            for (String letter: csvNodes) {
-                File csv = new File("Map" + letter + "Nodes.csv");
+
+                File csv = new File("AllMapNodes.csv");
                 Scanner inputStream = new Scanner(csv);
 
                 // Ignores first line in csv file i.e. header row
@@ -58,16 +97,12 @@ public class CsvReader {
                 } // end while
 
 
-            }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
 
         }
         return nodeList;
     }// end readNodes
-
-
 
 
 
@@ -105,34 +140,68 @@ public class CsvReader {
     } // end insertNodes
 
 
+//    // EDGES
+//    public ArrayList<EdgeData> getListOfEdges(Connection conn) {
+//        // ArrayLists stores data values is proper columns
+//        ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
+//        String[] csvEdges = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
+//
+//        try {
+//                for (String letter: csvEdges) {
+//                    File csv = new File("Map" + letter + "edges.csv");
+//                    Scanner inputStream = new Scanner(csv);
+//
+//                    // Ignores first line in csv file i.e. header row
+//                    inputStream.nextLine();
+//
+//                    // Reads all lines in the file
+//                    while (inputStream.hasNextLine()) {
+//                        // Reads current row and converts to a string
+//                        String data = inputStream.nextLine();
+//
+//                        // Seperates the string into fields and stores into an array
+//                        String[] values = data.split(",");
+//
+//                        EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
+//                        edgeList.add(edgeObject);
+//
+//                    } // end while
+//
+//                }
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//
+//        }
+//        return edgeList;
+//    } // end readEdges
+
+
     // EDGES
     public ArrayList<EdgeData> getListOfEdges(Connection conn) {
         // ArrayLists stores data values is proper columns
         ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
-        String[] csvEdges = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
 
         try {
-                for (String letter: csvEdges) {
-                    File csv = new File("Map" + letter + "edges.csv");
-                    Scanner inputStream = new Scanner(csv);
+                File csv = new File("AllMapEdges.csv");
+                Scanner inputStream = new Scanner(csv);
 
-                    // Ignores first line in csv file i.e. header row
-                    inputStream.nextLine();
+                // Ignores first line in csv file i.e. header row
+                inputStream.nextLine();
 
-                    // Reads all lines in the file
-                    while (inputStream.hasNextLine()) {
-                        // Reads current row and converts to a string
-                        String data = inputStream.nextLine();
+                // Reads all lines in the file
+                while (inputStream.hasNextLine()) {
+                    // Reads current row and converts to a string
+                    String data = inputStream.nextLine();
 
-                        // Seperates the string into fields and stores into an array
-                        String[] values = data.split(",");
+                    // Seperates the string into fields and stores into an array
+                    String[] values = data.split(",");
 
-                        EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
-                        edgeList.add(edgeObject);
+                    EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
+                    edgeList.add(edgeObject);
 
-                    } // end while
+                } // end while
 
-                }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -140,8 +209,6 @@ public class CsvReader {
         }
         return edgeList;
     } // end readEdges
-
-
 
 
     public void insertEdges(Connection conn, ArrayList<EdgeData> edgesList) {
