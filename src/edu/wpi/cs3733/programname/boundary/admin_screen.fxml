@@ -3,20 +3,19 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.geometry.Insets?>
-<?import com.jfoenix.controls.JFXTextField?>
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.MapAdminController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.MapAdminController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
@@ -45,8 +44,8 @@
                     </rowConstraints>
                     <children>
                         <Label text="Floor:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <JFXButton fx:id="btnMapUp" onAction="#mapChange" text="go up" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <JFXButton fx:id="btnMapDwn" onAction="#mapChange" text="go down" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="btnMapUp" onAction="#mapChange" styleClass="buttonn" stylesheets="@Resources/general_button.css" text="go up" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="btnMapDwn" onAction="#mapChange" styleClass="buttonn" stylesheets="@Resources/general_button.css" text="go down" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <Label fx:id="lblCurrentFloor" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
@@ -56,64 +55,118 @@
             <children>
                 <GridPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="btnZoomIn" onAction="#zoomHandler" text="+" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: white;" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="+" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                             <font>
-                                <Font size="45.0" />
+                                <Font name="Arial Black" size="58.0" />
                             </font></JFXButton>
-                        <JFXButton fx:id="btnZoomOut" onAction="#zoomHandler" prefHeight="128.0" styleClass="zoom" stylesheets="@Resources/global_stylesheet.css" text="-" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: #ffffff;" styleClass="zoom" stylesheets="@Resources/global_stylesheet.css" text="-" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font size="60.0" />
+                                <Font name="Arial Black" size="58.0" />
                             </font></JFXButton>
                     </children>
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="paneControls" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="paneControls" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <GridPane layoutY="103.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                <GridPane layoutY="103.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.5999755859375" minWidth="10.0" prefWidth="81.5999755859375" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.4000244140625" minWidth="10.0" prefWidth="118.4000244140625" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="15.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                  <JFXButton text="Add Node" />
-                  <JFXButton text="Add Edge" GridPane.columnIndex="1" />
-                  <JFXButton text="Change Algorithm" wrapText="true" GridPane.rowIndex="1" />
-                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXButton text="Add a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <JFXButton text="Add an Edge" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                  <JFXButton text="Switch Algorithm" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></JFXButton>
+                  <GridPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXRadioButton text="DFS" />
-                        <JFXRadioButton text="BFS" GridPane.rowIndex="1" />
-                        <JFXRadioButton text="Dijkstra" GridPane.rowIndex="2" />
-                        <JFXRadioButton text="Astar" GridPane.rowIndex="3" />
+                        <JFXRadioButton text="DFS">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin></JFXRadioButton>
+                        <JFXRadioButton text="BFS" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin></JFXRadioButton>
+                        <JFXRadioButton text="Dijkstra" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin></JFXRadioButton>
+                        <JFXRadioButton text="Astar" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin></JFXRadioButton>
+                        <Line endX="100.0" opacity="0.3" startX="-100.0" GridPane.valignment="TOP" />
                      </children>
                   </GridPane>
+                  <Label text="Addition" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+                  <Label text="Deletion" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <JFXButton text="Delete a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+                  <JFXButton text="Delete an Edge" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
+                  <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
+                  <Label text="Edit" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="13">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="13" GridPane.valignment="BOTTOM" />
+                  <JFXButton text="Edit a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="14" />
                     </children>
                 </GridPane>
+            <Line endX="100.0" layoutX="92.0" layoutY="100.0" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Line endX="100.0" layoutX="101.0" layoutY="260.0" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Line endX="100.0" layoutX="102.0" layoutY="360.0" startX="-100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Line endX="100.0" layoutX="103.0" layoutY="455.0" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             </children></AnchorPane>
         <AnchorPane prefHeight="50.0" prefWidth="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <JFXHamburger fx:id="burger" onMouseClicked="#openMenuHandler" layoutX="10.0" layoutY="15.0" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenuHandler" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
     </children>
