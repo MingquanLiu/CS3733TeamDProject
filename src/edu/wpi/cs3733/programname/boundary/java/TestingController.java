@@ -564,12 +564,15 @@ public class TestingController implements Initializable{
     }
 
     public void loginButtonHandler(){
-//        String username = txtUser.getText();
+        String username = "";
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
+            username = txtUser.getText();
+        }
         if(loggedIn) {
-//            employeeLoggedIn = manager.queryEmployeeByUsername(username);
-//            lblLoginStatus.setText("logged in");
+            employeeLoggedIn = manager.queryEmployeeByUsername(username);
+            lblLoginStatus.setText("logged in");
             loggedIn = true;
             showAdminControls();
         }
@@ -643,7 +646,8 @@ public class TestingController implements Initializable{
             int locY = Integer.parseInt(lblServiceX.getText());
             String locationId = getClosestNode(manager.getAllNodeData(), locX, locY).getNodeID();
             String description = requestDescription.getText();
-            manager.createServiceRequest(employeeLoggedIn.getUsername(), type, locationId, null, description);
+            String senderUsername = employeeLoggedIn.getUsername();
+            manager.createServiceRequest("testusername", type, locationId, null, description);
         }
     }
 
