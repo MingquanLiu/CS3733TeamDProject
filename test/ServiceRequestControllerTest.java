@@ -12,9 +12,12 @@ import edu.wpi.cs3733.programname.database.DatabaseQueryController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
+import org.apache.derby.shared.common.error.DerbySQLIntegrityConstraintViolationException;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -178,16 +181,17 @@ public class ServiceRequestControllerTest {
 
     }
 
-    @Test
+    @Test (expected = DerbySQLIntegrityConstraintViolationException.class)
     public void checkConstraint1(){
         //FOREIGN KEY (sender) REFERENCES Employees (username)
         dbModControl.addNode(aBathroom);
         dbModControl.addNode(bBathroom);
         ServiceRequest badRequest = new ServiceRequest(2, "ygao6","interpreter","TREST00102","TREST00101","Need someone speaks Spanish");
+        dbModControl.addServiceRequest(badRequest);
     }
 
 
-    @Test
+    @Test (expected = SQLException.class)
     public void checkConstraint3(){
         //FOREIGN KEY (location1) REFERENCES Nodes (nodeID) ON DELETE CASCADE
 

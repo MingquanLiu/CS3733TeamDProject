@@ -29,11 +29,11 @@ public class CsvReader {
 
     public ArrayList<NodeData> getListOfNodes(Connection conn) {
         ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
-        File[] file = new File("CSVNodes/").listFiles();
+        String[] csvNodes = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
 
         try {
-            for (File csv : file) {
-
+            for (String letter: csvNodes) {
+                File csv = new File("Map" + letter + "Nodes.csv");
                 Scanner inputStream = new Scanner(csv);
 
                 // Ignores first line in csv file i.e. header row
@@ -56,6 +56,7 @@ public class CsvReader {
 
 
                 } // end while
+
 
             }
 
@@ -108,31 +109,30 @@ public class CsvReader {
     public ArrayList<EdgeData> getListOfEdges(Connection conn) {
         // ArrayLists stores data values is proper columns
         ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
-        File[] file = new File("CSVEdges/").listFiles();
+        String[] csvEdges = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
 
         try {
+                for (String letter: csvEdges) {
+                    File csv = new File("Map" + letter + "edges.csv");
+                    Scanner inputStream = new Scanner(csv);
 
-            for (File csv : file) {
-                Scanner inputStream = new Scanner(csv);
+                    // Ignores first line in csv file i.e. header row
+                    inputStream.nextLine();
 
-                // Ignores first line in csv file i.e. header row
-                inputStream.nextLine();
+                    // Reads all lines in the file
+                    while (inputStream.hasNextLine()) {
+                        // Reads current row and converts to a string
+                        String data = inputStream.nextLine();
 
-                // Reads all lines in the file
-                while (inputStream.hasNextLine()) {
-                    // Reads current row and converts to a string
-                    String data = inputStream.nextLine();
+                        // Seperates the string into fields and stores into an array
+                        String[] values = data.split(",");
 
-                    // Seperates the string into fields and stores into an array
-                    String[] values = data.split(",");
+                        EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
+                        edgeList.add(edgeObject);
 
-                    EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
-                    edgeList.add(edgeObject);
+                    } // end while
 
-                } // end while
-
-            }
-
+                }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -167,5 +167,152 @@ public class CsvReader {
         }
     } // end insertNodes
 
+
+
+
+    // EMPLOYEES
+    public ArrayList<Employee> getListOfEmployees(Connection conn) {
+
+        ArrayList<Employee> employeeList = new ArrayList<Employee>();
+        File csv = new File("Employees.csv");
+
+        try {
+                Scanner inputStream = new Scanner(csv);
+
+
+                inputStream.nextLine();
+
+
+                while (inputStream.hasNextLine()) {
+                    // Reads current row and converts to a string
+                    String data = inputStream.nextLine();
+
+
+                    String[] values = data.split(",");
+
+                    boolean sysAdmin;
+                    if(Integer.parseInt(values[5]) == 1) {
+                        sysAdmin = true;
+                    }
+                    else {
+                        sysAdmin = false;
+                    }
+
+                    Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
+                    employeeList.add(employeeObject);
+
+                } // end while
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return employeeList;
+    }
+
+
+
+
+    public void insertEmployees(Connection conn, ArrayList<Employee> employeeList) {
+
+        int i;
+        int count = employeeList.size();
+
+        try {
+            // SQL Insert
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO Employees(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email)" +
+                    "VALUES (?,?,?,?,?,?,?,?)");
+
+
+            for (i = 0; i < count; i++) {
+                pst.setString(1, employeeList.get(i).getUsername());
+                pst.setString(2, employeeList.get(i).getPassword());
+                pst.setString(3, employeeList.get(i).getFirstName());
+                pst.setString(4, employeeList.get(i).getMiddleName());
+                pst.setString(5, employeeList.get(i).getLastName());
+                pst.setBoolean(6, employeeList.get(i).getSysAdmin());
+                pst.setString(7, employeeList.get(i).getServiceType());
+                pst.setString(8, employeeList.get(i).getEmail());
+                pst.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+    // SERVICEREQUESTS
+    public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) {
+
+        ArrayList<ServiceRequest> srList = new ArrayList<ServiceRequest>();
+        File csv = new File("ServiceRequests.csv");
+
+        try {
+            Scanner inputStream = new Scanner(csv);
+
+
+            inputStream.nextLine();
+
+
+            while (inputStream.hasNextLine()) {
+                // Reads current row and converts to a string
+                String data = inputStream.nextLine();
+
+
+                String[] values = data.split(",");
+
+                int serviceID = Integer.parseInt(values[0]);
+
+                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5]);
+                srList.add(srObject);
+
+            } // end while
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return srList;
+    }
+
+
+
+
+
+
+    public void insertServiceRequests(Connection conn, ArrayList<ServiceRequest> srList) {
+
+        int i;
+        int count = srList.size();
+
+        try {
+            // SQL Insert
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO ServiceRequests(serviceID, sender, serviceType, location1, location2, description)" +
+                    "VALUES (?,?,?,?,?,?)");
+
+
+            for (i = 0; i < count; i++) {
+                pst.setInt(1, srList.get(i).getServiceID());
+                pst.setString(2, srList.get(i).getSender());
+                pst.setString(3, srList.get(i).getServiceType());
+                pst.setString(4, srList.get(i).getLocation1());
+                pst.setString(5, srList.get(i).getLocation2());
+                pst.setString(6, srList.get(i).getDescription());
+                pst.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
