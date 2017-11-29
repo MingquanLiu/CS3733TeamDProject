@@ -8,6 +8,7 @@ import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
+import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -71,6 +72,10 @@ public class ManageController {
         return this.dbQueryController.queryNodeByType(nodeType);
     }
 
+    public boolean login(String username, String password) {
+        return false;
+    }
+
     public void addNode(NodeData data) {
         this.dbModController.addNode(data);
     }
@@ -87,6 +92,27 @@ public class ManageController {
         Employee emp = new Employee("me", 1, false);
         this.serviceController.createServiceRequest(emp, type);
     }
+
+    public List<Employee> getAllEmployees() {
+        //return this.dbQueryController.queryAllEmployees();
+        return null;
+    }
+
+    public List<ServiceRequest> getUnassignedRequests() {
+        //return this.dbQueryController.queryServiceRequestsByStatus("unassigned");
+        return null;
+    }
+
+    public List<ServiceRequest> getAssignedRequests() {
+        //return this.dbQueryController.queryServiceRequestsByStatus("assigned");
+        return null;
+    }
+
+    public List<ServiceRequest> getCompletedRequests() {
+        //return this.dbQueryController.queryServiceRequestsByStatus("complete");
+        return null;
+    }
+
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
     }
