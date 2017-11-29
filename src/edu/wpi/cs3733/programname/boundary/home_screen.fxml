@@ -101,11 +101,11 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: #ffffff;" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="+" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: #ffffff;" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="+" textAlignment="CENTER" GridPane.halignment="CENTER">
                      <font>
                         <Font name="Arial Black" size="58.0" />
                      </font></JFXButton>
-                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: #ffffff;" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="-" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: #ffffff;" styleClass="zoombutton" stylesheets="@Resources/general_button.css" text="-" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font name="Arial Black" size="58.0" />
                      </font></JFXButton>
@@ -222,6 +222,7 @@
                </children>
             </GridPane>
             <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+              <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="50.0" prefWidth="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -229,7 +230,6 @@
             <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenu" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-        <AnchorPane prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="400.0" />
         <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="600.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white;" visible="false">
             <content>
                 <AnchorPane prefHeight="178.0" prefWidth="350.0">
