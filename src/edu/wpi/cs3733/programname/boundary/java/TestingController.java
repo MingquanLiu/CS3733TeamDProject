@@ -536,7 +536,7 @@ public class TestingController implements Initializable{
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         if(loggedIn) {
 //            employeeLoggedIn = manager.queryEmployeeByUsername(username);
-            lblLoginStatus.setText("logged in");
+//            lblLoginStatus.setText("logged in");
             loggedIn = true;
             showAdminControls();
         }
