@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 
-import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.Employee;
-import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
@@ -79,6 +76,22 @@ public class ManageController {
 
     public List<NodeData> queryNodeByFloor(String floor) {
         return this.dbQueryController.queryNodeByFloor(floor);
+    }
+
+    public List<ServiceRequest> getUnassignedRequests() {
+        return this.dbQueryController.queryServiceRequestsByStatus(Constants.UNASSIGNED_REQUEST);
+    }
+
+    public List<ServiceRequest> getAssignedRequests() {
+        return this.dbQueryController.queryServiceRequestsByStatus(Constants.ASSIGNED_REQUEST);
+    }
+
+    public List<ServiceRequest> getCompletedRequests() {
+        return this.dbQueryController.queryServiceRequestsByStatus(Constants.COMPLETED_REQUEST);
+    }
+
+    public List<Employee> getAllEmployees() {
+        return this.dbQueryController.queryAllEmployees();
     }
 
     public void addNode(NodeData data) {
