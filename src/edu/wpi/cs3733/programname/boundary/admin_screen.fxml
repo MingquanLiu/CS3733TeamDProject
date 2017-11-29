@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -26,6 +28,66 @@
                                 <Image url="@Resources/Floor_2.png" />
                             </image>
                         </ImageView>
+                  <AnchorPane layoutX="501.0" layoutY="210.0" prefHeight="268.0" prefWidth="503.0" style="-fx-background-color: white; -fx-border-color: #1c221d;">
+                     <children>
+                        <Pane layoutX="1.0" prefHeight="50.0" prefWidth="320.0" style="-fx-background-color: #c0c0c0; -fx-border-color: #1c221d transparent #494949 transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Label layoutX="82.0" layoutY="14.0" text="Node Information" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+                           <font>
+                              <Font name="Bell MT Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <JFXButton layoutX="277.0" layoutY="3.0" text="X" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <GridPane layoutX="38.0" layoutY="110.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="55.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="5.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="55.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Node ID:" />
+                              <Label text="Coordinate:" GridPane.rowIndex="1" />
+                              <Label text="Floor:" GridPane.rowIndex="2" />
+                              <Label text="Building:" GridPane.rowIndex="3" />
+                              <Label text="Node Type:" GridPane.columnIndex="3" />
+                              <Label text="Long Name:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label text="Short Name:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <Label text="Team Assigned:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <JFXTextField GridPane.columnIndex="1" />
+                              <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <JFXTextField GridPane.columnIndex="4" />
+                              <JFXTextField GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <JFXTextField GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <JFXTextField GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                        <JFXButton layoutX="327.0" layoutY="217.0" style="-fx-background-color: #d2d2d2;" text="Add">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton layoutX="410.0" layoutY="217.0" style="-fx-background-color: #d2d2d2;" text="Delete">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton layoutX="32.0" layoutY="217.0" />
+                        <JFXButton layoutX="57.0" layoutY="223.0" />
+                     </children>
+                  </AnchorPane>
                     </children>
                 </AnchorPane>
             </content>
