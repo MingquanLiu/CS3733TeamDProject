@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.MapAdminController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.MapAdminController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
@@ -30,7 +30,7 @@
                                 <Image url="@Resources/Floor_2.png" />
                             </image>
                         </ImageView>
-                  <AnchorPane layoutX="501.0" layoutY="210.0" prefHeight="256.0" prefWidth="503.0" style="-fx-background-color: white; -fx-border-color: #1c221d;">
+                  <AnchorPane fx:id="nodeInfoPane" layoutX="501.0" layoutY="210.0" prefHeight="256.0" prefWidth="503.0" style="-fx-background-color: white; -fx-border-color: #1c221d;">
                      <children>
                         <Pane layoutX="1.0" prefHeight="50.0" prefWidth="320.0" style="-fx-background-color: #c0c0c0; -fx-border-color: #1c221d transparent #494949 transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="14.0" text="Node Information" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
@@ -38,7 +38,7 @@
                               <Font name="Bell MT Bold" size="22.0" />
                            </font>
                         </Label>
-                        <JFXButton layoutX="277.0" layoutY="3.0" text="X" AnchorPane.rightAnchor="0.0">
+                        <JFXButton fx:id="nodeInfoX" layoutX="277.0" layoutY="3.0" text="X" AnchorPane.rightAnchor="0.0">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -66,33 +66,33 @@
                               <Label text="Long Name:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                               <Label text="Short Name:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                               <Label text="Team Assigned:" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                              <JFXTextField GridPane.columnIndex="1" />
-                              <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <JFXTextField GridPane.columnIndex="4" />
-                              <JFXTextField GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                              <JFXTextField GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                              <JFXTextField GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="textNodeId" GridPane.columnIndex="1" />
+                              <JFXTextField fx:id="textNodeLocation" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXTextField fx:id="textNodeFloor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="textNodeBuilding" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="textNodeType" GridPane.columnIndex="4" />
+                              <JFXTextField fx:id="textNodeFullName" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <JFXTextField fx:id="textNodeShortName" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="textNodeTeamAssigned" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
-                        <JFXButton fx:id="node_info_set_location" layoutX="14.0" layoutY="203.0" style="-fx-background-color: #d2d2d2;" text="Set Location">
+                        <JFXButton fx:id="nodeInfoSetLocation" layoutX="14.0" layoutY="203.0" style="-fx-background-color: #d2d2d2;" text="Set Location">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font></JFXButton>
                         <StackPane layoutX="389.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="100.0">
                            <children>
-                              <JFXButton fx:id="node_info_add" style="-fx-background-color: #d2d2d2;" text="Add">
+                              <JFXButton fx:id="nodeInfoAdd" onAction="#addNodeHandler" style="-fx-background-color: #d2d2d2;" text="Add">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="node_info_delete" style="-fx-background-color: #d2d2d2;" text="Delete">
+                              <JFXButton fx:id="nodeInfoDelete" onAction="#removeNodeHandler" style="-fx-background-color: #d2d2d2;" text="Delete">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton fx:id="node_info_edit" style="-fx-background-color: #d2d2d2;" text="Edit">
+                              <JFXButton fx:id="nodeInfoEdit" onAction="#editNodeHandler" style="-fx-background-color: #d2d2d2;" text="Edit">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>

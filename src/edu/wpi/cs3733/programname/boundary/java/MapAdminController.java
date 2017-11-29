@@ -61,6 +61,10 @@ public class MapAdminController implements Initializable {
     private TextField textNodeFullName;
     @FXML
     private TextField textNodeShortName;
+    @FXML
+    private TextField textNodeBuilding;
+    @FXML
+    private TextField textNodeTeamAssigned;
 
     @FXML
     private JFXButton btnRemove;
@@ -112,6 +116,20 @@ public class MapAdminController implements Initializable {
     private JFXRadioButton Dijkstra;
     @FXML
     private JFXRadioButton ASTAR;
+
+    //Node Info Pane
+    @FXML
+    private AnchorPane nodeInfoPane;
+    @FXML
+    private JFXButton nodeInfoSetLocation;
+    @FXML
+    private JFXButton nodeInfoAdd;
+    @FXML
+    private JFXButton nodeInfoEdit;
+    @FXML
+    private JFXButton nodeInfoDelete;
+    @FXML
+    private JFXButton nodeInfoX;
 
     ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
@@ -502,6 +520,10 @@ public class MapAdminController implements Initializable {
     }
 
     public void openMenuHandler(){
+       setupBurger();
+    }
+
+    public void setupBurger(){
         burgerTransition.setRate(burgerTransition.getRate()*-1);
         burgerTransition.play();
 
@@ -512,8 +534,6 @@ public class MapAdminController implements Initializable {
         controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
         controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
     }
-
-
     public void displayDeleteNodeConfirmation(NodeData nodeToRemove) {
         gridMapEdit.setVisible(true);
     }

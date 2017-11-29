@@ -534,7 +534,7 @@ public class TestingController implements Initializable{
         requestDescription.setText(SRType);
     }
 
-    //popup methods
+//    //popup methods
     private FXMLLoader showScene(String url){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Scene newScene;
@@ -550,9 +550,10 @@ public class TestingController implements Initializable{
         return loader;
     }
 
-    public void loginButtonHandler(){
+    public void loginButtonHandler() throws IOException {
 //        String username = txtUser.getText();
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
+        loader.<LoginPopup>getController().initData(dbConnection);
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         if(loggedIn) {
 //            employeeLoggedIn = manager.queryEmployeeByUsername(username);
