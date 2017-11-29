@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -28,12 +29,12 @@
                                 <Image url="@Resources/Floor_2.png" />
                             </image>
                         </ImageView>
-                  <AnchorPane layoutX="501.0" layoutY="210.0" prefHeight="268.0" prefWidth="503.0" style="-fx-background-color: white; -fx-border-color: #1c221d;">
+                  <AnchorPane layoutX="501.0" layoutY="210.0" prefHeight="256.0" prefWidth="503.0" style="-fx-background-color: white; -fx-border-color: #1c221d;">
                      <children>
                         <Pane layoutX="1.0" prefHeight="50.0" prefWidth="320.0" style="-fx-background-color: #c0c0c0; -fx-border-color: #1c221d transparent #494949 transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="14.0" text="Node Information" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
                            <font>
-                              <Font name="Bell MT Bold" size="18.0" />
+                              <Font name="Bell MT Bold" size="22.0" />
                            </font>
                         </Label>
                         <JFXButton layoutX="277.0" layoutY="3.0" text="X" AnchorPane.rightAnchor="0.0">
@@ -74,21 +75,29 @@
                               <JFXTextField GridPane.columnIndex="4" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
-                        <JFXButton layoutX="327.0" layoutY="217.0" style="-fx-background-color: #d2d2d2;" text="Add">
-                           <font>
-                              <Font name="System Italic" size="16.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton layoutX="410.0" layoutY="217.0" style="-fx-background-color: #d2d2d2;" text="Delete">
+                        <JFXButton fx:id="node_info_set_location" layoutX="14.0" layoutY="203.0" style="-fx-background-color: #d2d2d2;" text="Set Location">
                            <font>
                               <Font name="System Bold" size="16.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton layoutX="38.0" layoutY="220.0" text="Set Location" />
-                        <JFXButton layoutX="231.0" layoutY="220.0" text="Edit">
-                           <font>
-                              <Font size="16.0" />
                            </font></JFXButton>
+                        <StackPane layoutX="389.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="100.0">
+                           <children>
+                              <JFXButton fx:id="node_info_add" style="-fx-background-color: #d2d2d2;" text="Add">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="node_info_delete" style="-fx-background-color: #d2d2d2;" text="Delete">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXButton fx:id="node_info_edit" style="-fx-background-color: #d2d2d2;" text="Edit">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </StackPane>
                      </children>
                   </AnchorPane>
                     </children>
