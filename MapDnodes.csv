@@ -1,4 +1,4 @@
-nodeId, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned
+nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName,teamAssigned
 DELEV00A02,4550,375,2,15 Francis,ELEV,Elevator A Floor 2,Elevator A2,Team D
 DELEV00B02,4155,650,2,15 Francis,ELEV,Elevator B Floor 2,Elevator B2,Team D
 DELEV00C02,3955,885,2,15 Francis,ELEV,Elevator C Floor 2,Elevator C2,Team D
@@ -25,7 +25,6 @@ DSTAI00502,4065,630,2,15 Francis,STAI,Staircase5 Floor2,Staircase5,Team D
 DSTAI00602,3950,865,2,15 Francis,STAI,Staircase6 Floor2,Staircase6,Team D
 DSTAI00702,3855,565,2,15 Francis,STAI,Staircase7 Floor2,Staircase7,Team D
 DSTAI00802,3535,645,2,15 Francis,STAI,Staircase8 Floor2,Staircase8,Team D
-WHALL00202,3360,860,2,15 Francis,HALL,Hallway Connector 2 Floor 2,Hallway W0202,Team D
 DHALL00102,4770,1140,2,15 Francis,HALL,Hallway 1 Floor 2,Hallway D0102,Team D
 DHALL00202,4750,1080,2,15 Francis,HALL,Hallway 2 Floor 2,Hallway D0202,Team D
 DHALL00302,4725,995,2,15 Francis,HALL,Hallway 3 Floor 2,Hallway D0302,Team D

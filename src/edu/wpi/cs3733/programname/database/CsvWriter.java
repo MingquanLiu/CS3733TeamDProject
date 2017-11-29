@@ -23,16 +23,15 @@ public class CsvWriter {
 
             for (j = 0; j < nodesList.size(); j++) {
                 prt.println(
-                        nodesList.get(j).getId() + "," +
-                                nodesList.get(j).getX() + "," +
-                                nodesList.get(j).getY() + "," +
+                        nodesList.get(j).getNodeID() + "," +
+                                nodesList.get(j).getXCoord() + "," +
+                                nodesList.get(j).getYCoord() + "," +
                                 nodesList.get(j).getFloor() + "," +
-                                "15 Francis" + "," +
-                                nodesList.get(j).getType() + "," +
+                                nodesList.get(j).getBuilding() + "," +
+                                nodesList.get(j).getNodeType() + "," +
                                 nodesList.get(j).getLongName() + "," +
                                 nodesList.get(j).getShortName() + "," +
-                                "Team D"
-
+                                nodesList.get(j).getTeamAssigned()
                 );
             } // end for
 
@@ -52,7 +51,7 @@ public class CsvWriter {
 
 
 
-    public void writeEdges(Connection conn, ArrayList<Edge> edgesList) {
+    public void writeEdges(Connection conn, ArrayList<EdgeData> edgesList) {
         try {
             // Write File
             String outFileName = "MapDedges(WriteOut).csv";
@@ -64,9 +63,9 @@ public class CsvWriter {
             // Prints header fields
             prt.println("edgeID, startNode, endNode");
             for (j = 0; j < edgesList.size(); j++) {
-                prt.println(edgesList.get(j).getEdgeId() + "," +
-                        edgesList.get(j).getFirstNodeId() + "," +
-                        edgesList.get(j).getSecondNodeId()
+                prt.println(edgesList.get(j).getEdgeID() + "," +
+                        edgesList.get(j).getStartNode() + "," +
+                        edgesList.get(j).getEndNode()
                 );
             } // end for
 
@@ -79,6 +78,79 @@ public class CsvWriter {
         } catch (IOException e) {
             e.printStackTrace();
 
+        }
+    }
+
+
+
+    public void writeEmployees(Connection conn, ArrayList<Employee> employeeList) {
+        try {
+            // Write File
+            String outFileName = "Employees(WriteOut).csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+            int j;
+
+            // Prints header fields
+            prt.println("username, password, firstName, middleName, lastName, sysAdmin, serviceType, email");
+            for (j = 0; j < employeeList.size(); j++) {
+                prt.println(employeeList.get(j).getUsername() + "," +
+                        employeeList.get(j).getPassword() + "," +
+                        employeeList.get(j).getFirstName() + "," +
+                        employeeList.get(j).getMiddleName() + "," +
+                        employeeList.get(j).getLastName() + "," +
+                        employeeList.get(j).getSysAdmin() + "," +
+                        employeeList.get(j).getServiceType() + "," +
+                        employeeList.get(j).getEmail()
+
+                );
+            } // end for
+
+            prt.flush();
+            prt.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+
+    public void writeServiceRequests(Connection conn, ArrayList<ServiceRequest> srList) {
+        try {
+            // Write File
+            String outFileName = "ServiceRequests(WriteOut).csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+            int j;
+
+            // Prints header fields
+            prt.println("serviceID, sender, serviceType, location1, location2, description");
+            for (j = 0; j < srList.size(); j++) {
+                prt.println(srList.get(j).getServiceID() + "," +
+                        srList.get(j).getSender() + "," +
+                        srList.get(j).getServiceType() + "," +
+                        srList.get(j).getLocation1() + "," +
+                        srList.get(j).getLocation2() + "," +
+                        srList.get(j).getDescription()
+
+                );
+            } // end for
+
+            prt.flush();
+            prt.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
 
         }
     }
