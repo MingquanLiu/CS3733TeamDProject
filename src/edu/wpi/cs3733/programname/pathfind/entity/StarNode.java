@@ -12,13 +12,14 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import java.util.LinkedList;
 
 public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData implements Comparable<StarNode> {
+
     protected double f, g; // f is total cost, g is action cost to this node
     protected StarNode previousNode;
-    protected LinkedList<StarNode> neighbors = new LinkedList<>();
+    protected LinkedList<StarNode> neighbors = new LinkedList<StarNode>();
 
     public StarNode(NodeData node) {
-        super(node.getId(), node.getLocation(), node.getFloor(),
-                node.getType(), node.getLongName(), node.getShortName());
+        super(node.getNodeID(), node.getLocation(), node.getFloor(), node.getBuilding(),
+                node.getNodeType(), node.getLongName(), node.getShortName(), node.getTeamAssigned());
     }
 
     @Override

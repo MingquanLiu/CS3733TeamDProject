@@ -1,13 +1,13 @@
 package edu.wpi.cs3733.programname.pathfind.entity;
 
-import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.*;
 
 public class Dijkstra implements PathfindingFacadeIF {
     List<NodeData> allNodes;
-    List<Edge> allEdges;
+    List<EdgeData> allEdges;
 
     // We need a HashMap so we can access StarNodes via the corresponding nodeID
     HashMap<String, StarNode> allStarNodes = new HashMap<>();
@@ -20,7 +20,7 @@ public class Dijkstra implements PathfindingFacadeIF {
      * @param startID starting location
      * @param goalID destination location
      */
-    public Dijkstra(List<NodeData> nodes, List<Edge> edges, String startID, String goalID) throws NoPathException {
+    public Dijkstra(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
         this.allEdges = edges;
         this.allNodes = nodes;
         this.init();
@@ -34,13 +34,13 @@ public class Dijkstra implements PathfindingFacadeIF {
         System.out.println("Initializing A*");
         for (NodeData node : allNodes) {
             // Creates the StarNodes
-            allStarNodes.put(node.getId(), new StarNode(node));
-            allStarNodes.get(node.getId()).setF(10000);
+            allStarNodes.put(node.getNodeID(), new StarNode(node));
+            allStarNodes.get(node.getNodeID()).setF(10000);
         }
 
-        for (Edge edge : allEdges) {
-            StarNode node1 = allStarNodes.get(edge.getFirstNodeId());
-            StarNode node2 = allStarNodes.get(edge.getSecondNodeId());
+        for (EdgeData edge : allEdges) {
+            StarNode node1 = allStarNodes.get(edge.getStartNode());
+            StarNode node2 = allStarNodes.get(edge.getEndNode());
 
             node1.addNeighbor(node2);
             node2.addNeighbor(node1);
@@ -70,14 +70,14 @@ public class Dijkstra implements PathfindingFacadeIF {
         while(!queue.isEmpty()) {
             StarNode current = queue.getFirst();
             queue.removeFirst(); // pop the priority queue
-            if(current.getX() == goal.getX() && current.getY() == goal.getY()) {
+            if(current.getXCoord() == goal.getXCoord() && current.getYCoord() == goal.getYCoord()) {
                 // If we are at the goal, we need to backtrack through the shortest path
                 System.out.println("At target!");
                 finalPath.add(current); // we have to add the goal to the path before we start backtracking
-                while(!(current.getX() == start.getX() && current.getY() == start.getY())) {
+                while(!(current.getXCoord() == start.getXCoord() && current.getYCoord() == start.getYCoord())) {
                     finalPath.add(current.getPreviousNode());
                     current = current.getPreviousNode();
-                    System.out.println(current.getId());
+                    System.out.println(current.getNodeID());
                 }
                 return finalPath;
             }
@@ -110,8 +110,8 @@ public class Dijkstra implements PathfindingFacadeIF {
      * @return the distance between the two nodes
      */
     private double distanceToNode(StarNode node, StarNode goal) {
-        double xDist = goal.getX() - node.getX();
-        double yDist = goal.getY() - node.getY();
+        double xDist = goal.getXCoord() - node.getXCoord();
+        double yDist = goal.getYCoord() - node.getYCoord();
         double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
         return distToGo;
     }

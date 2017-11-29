@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.programname.pathfind;
 
-import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.PathStrategies.HandicappedPath;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
@@ -10,8 +8,6 @@ import edu.wpi.cs3733.programname.pathfind.PathStrategies.StandardPath;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.PathFinderFacade;
 
-import javax.xml.soap.Node;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,14 +26,14 @@ public class PathfindingController {
      * @param endNode   - the ID of the end node, aka the destination, for the path
      * @return - result is the list of nodes efficiently connecting startNode to endNode
      */
-    public List<NodeData> initializePathfind(List<NodeData> allNodes, List<Edge> allEdges, String startNode,
+    public List<NodeData> initializePathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
                                              String endNode, Boolean handicapped, searchType type) {
         // ManageController manager = new ManageController();
         // List<Edge> allEdges = manager.getAllEdgeData();
         //something about getEdges()
         try {
 
-            List<Edge> currentList = allEdges;
+            List<EdgeData> currentList = allEdges;
 
             if(handicapped) allEdges = filterPath(allEdges);
 
@@ -63,10 +59,10 @@ public class PathfindingController {
         return null;
     }
 
-    private List<Edge> filterPath(List<Edge> edges) {
-        List<Edge> handicappedPath = new LinkedList<Edge>();
-        for(Edge e: edges) {
-            if(!e.getFirstNodeId().contains("STAI") && !e.getSecondNodeId().contains("STAI")) {
+    private List<EdgeData> filterPath(List<EdgeData> edges) {
+        List<EdgeData> handicappedPath = new LinkedList<EdgeData>();
+        for(EdgeData e: edges) {
+            if(!e.getStartNode().contains("STAI") && !e.getEndNode().contains("STAI")) {
                 handicappedPath.add(e);
             }
         }

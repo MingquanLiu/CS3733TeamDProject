@@ -23,16 +23,15 @@ public class CsvWriter {
 
             for (j = 0; j < nodesList.size(); j++) {
                 prt.println(
-                        nodesList.get(j).getId() + "," +
-                                nodesList.get(j).getX() + "," +
-                                nodesList.get(j).getY() + "," +
+                        nodesList.get(j).getNodeID() + "," +
+                                nodesList.get(j).getXCoord() + "," +
+                                nodesList.get(j).getYCoord() + "," +
                                 nodesList.get(j).getFloor() + "," +
-                                "15 Francis" + "," +
-                                nodesList.get(j).getType() + "," +
+                                nodesList.get(j).getBuilding() + "," +
+                                nodesList.get(j).getNodeType() + "," +
                                 nodesList.get(j).getLongName() + "," +
                                 nodesList.get(j).getShortName() + "," +
-                                "Team D"
-
+                                nodesList.get(j).getTeamAssigned()
                 );
             } // end for
 
@@ -52,7 +51,7 @@ public class CsvWriter {
 
 
 
-    public void writeEdges(Connection conn, ArrayList<Edge> edgesList) {
+    public void writeEdges(Connection conn, ArrayList<EdgeData> edgesList) {
         try {
             // Write File
             String outFileName = "MapDedges(WriteOut).csv";
@@ -64,9 +63,9 @@ public class CsvWriter {
             // Prints header fields
             prt.println("edgeID, startNode, endNode");
             for (j = 0; j < edgesList.size(); j++) {
-                prt.println(edgesList.get(j).getEdgeId() + "," +
-                        edgesList.get(j).getFirstNodeId() + "," +
-                        edgesList.get(j).getSecondNodeId()
+                prt.println(edgesList.get(j).getEdgeID() + "," +
+                        edgesList.get(j).getStartNode() + "," +
+                        edgesList.get(j).getEndNode()
                 );
             } // end for
 
@@ -78,7 +77,6 @@ public class CsvWriter {
 
         } catch (IOException e) {
             e.printStackTrace();
-
 
         }
     }

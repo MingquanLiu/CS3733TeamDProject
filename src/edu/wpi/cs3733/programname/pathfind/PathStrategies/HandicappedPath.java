@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.programname.pathfind.PathStrategies;
 
-import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.pathfind.PathStrategyIF;
 
 import java.util.LinkedList;
@@ -15,7 +15,7 @@ public class HandicappedPath implements PathStrategyIF {
     }
 
     @Override
-    public LinkedList<Edge> getEdges(LinkedList<Edge> allEdges) {
+    public LinkedList<EdgeData> getEdges(LinkedList<EdgeData> allEdges) {
 //
 //        LinkedList<Edge> currentList = new LinkedList<Edge>();
 //
