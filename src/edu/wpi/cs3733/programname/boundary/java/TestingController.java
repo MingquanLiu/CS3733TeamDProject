@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import com.sun.org.apache.xalan.internal.lib.NodeInfo;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
@@ -14,7 +13,6 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -174,7 +172,7 @@ public class TestingController implements Initializable{
     private ManageController manager;
 
     //locations search
-    private List<Shape> drawings = new ArrayList<>();
+    private List<Shape> pathDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
     private List<NodeData> currentNodes = new ArrayList<>();
@@ -196,6 +194,7 @@ public class TestingController implements Initializable{
     private int currentMapRatioIndex;
     private boolean loggedIn;
     private Employee employeeLoggedIn;
+    private List<Shape> shownNodes = new ArrayList<>();
 
     private DBConnection dbConnection;
     private PathfindingController.searchType mSearchType= ASTAR;
@@ -238,7 +237,7 @@ public class TestingController implements Initializable{
         double radius = 10*currentScale;
         Circle c = new Circle(x, y, radius, RED);
         panningPane.getChildren().add(c);
-        drawings.add(c);
+        shownNodes.add(c);
     }
 
     private void showNodeList (List<NodeData> nodeDataList){
@@ -314,19 +313,15 @@ public class TestingController implements Initializable{
             }
             prev = n;
         }
-        drawings.addAll(lines);
+        pathDrawings.addAll(lines);
         panningPane.getChildren().addAll(lines);
         emailDirections.setVisible(true);
     }
 
     public void clearMain(){
-        if(drawings.size() > 0){
-            for(Shape shape:drawings){
-                System.out.println("success remove");
-                panningPane.getChildren().remove(shape);
-            }
-            drawings = new ArrayList<>();
-        }
+        clearPath();
+        closeNodeInfoHandler();
+        clearPathFindLoc();
     }
     public void clearPathFindLoc(){
         txtEndLocation.setText("");
@@ -335,11 +330,24 @@ public class TestingController implements Initializable{
 
     private void clearPath(){
         currentPath = new ArrayList<>();
-
+        if(pathDrawings.size() > 0){
+            for(Shape shape: pathDrawings){
+                System.out.println("success remove");
+                panningPane.getChildren().remove(shape);
+            }
+            pathDrawings = new ArrayList<>();
+        }
     }
 
     private void clearNodes(){
         currentNodes = new ArrayList<>();
+        if(shownNodes.size() > 0){
+            for(Shape shape:shownNodes){
+                System.out.println("success remove");
+                panningPane.getChildren().remove(shape);
+            }
+            shownNodes = new ArrayList<>();
+        }
     }
 
     //map switching methods
@@ -348,7 +356,6 @@ public class TestingController implements Initializable{
             floor ++;
             System.out.println("up to floor" + floor);
             setFloor();
-            clearMain();
             clearNodes();
             displayPath(currentPath);
             nodeInfoPane.setVisible(false);
@@ -357,7 +364,6 @@ public class TestingController implements Initializable{
             floor --;
             System.out.println("down to floor" + floor);
             setFloor();
-            clearMain();
             clearNodes();
             displayPath(currentPath);
             nodeInfoPane.setVisible(false);
@@ -397,7 +403,7 @@ public class TestingController implements Initializable{
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected
             case "":
-                clearMain();
+                //clearMain();
                 clearNodes();
                 System.out.println("Get in findNodeData X:"+x+" Y:"+y);
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
@@ -413,7 +419,7 @@ public class TestingController implements Initializable{
                 selectingLocation = "";
                 break;
             case "selectStart":
-                clearMain();
+                clearNodes();
                 String startId = mClickedNode.getNodeID();
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
@@ -422,7 +428,7 @@ public class TestingController implements Initializable{
                 selectingLocation = "";
                 break;
             case "selectEnd":
-                clearMain();
+                clearNodes();
                 String endId = mClickedNode.getNodeID();
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
@@ -694,7 +700,6 @@ public class TestingController implements Initializable{
 
     public void closeNodeInfoHandler(){
         clearNodes();
-        clearMain();
         nodeInfoPane.setVisible(false);
 //        nodeInfoLongName.setText("");
 //        nodeInfoShortName.setText("");
