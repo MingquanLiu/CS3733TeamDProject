@@ -4,6 +4,8 @@ import com.sun.javafx.geom.Edge;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -111,20 +113,29 @@ public class MainUI {
     @FXML
     private Button closeNodeInfo;
 
+
     //node addition pane
     @FXML
     private DialogPane nodeAdditionPane;
     @FXML
     private TextField nodeAddID;
     @FXML
+    private TextField nodeAddCoords;
+    private Coordinate nodeAddCoordinates;
+    @FXML
+    private TextField nodeAddFloor;
+    @FXML
+    private TextField nodeAddBuilding;
+    @FXML
+    private TextField nodeAddType;
+    @FXML
     private TextField nodeAddName;
     @FXML
     private TextField nodeAddShortName;
     @FXML
-    private TextField nodeAddType;
-    @FXML
-    private TextField nodeAddCoords;
-    private Coordinate nodeAddCoordinates;
+    private TextField nodeAddTeamAssigned;
+
+
     @FXML
     private Button nodeAddSelectLocation;
     @FXML
@@ -138,6 +149,7 @@ public class MainUI {
 
     @FXML
     private Button btnCallPop;
+    private Button btnSendPath;
 
     private boolean addingEdge = false;
     private boolean loggedOut = true;               //used to change the sign in/sign out button text
@@ -159,20 +171,60 @@ public class MainUI {
     private int prevSelectX = 0;
     private int prevSelectY = 0;
     private String foundNodeId = "";
+    private List<NodeData> currentPath;
 
     private HashMap<Coordinate, String> nodeIDs;
 
     public void goButtonHandler(){
         System.out.println("drawing path");
-        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText());
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.ASTAR);
+        currentPath = p;
         displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void depthFirstHandler(){
+        System.out.println("depth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.DFS);
+        currentPath = p;
+        displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void breadthFirstHandler(){
+        System.out.println("Breadth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.BFS);
+        currentPath = p;
+        displayPath(p);
+        btnSendPath.setVisible(true);
+    }
+    public void dijkstraHandler(){
+        System.out.println("depth first path drawing");
+        List<NodeData> p = manager.startPathfind(startLocation.getText(), endLocation.getText(), searchType.DIJKSTRA);
+        currentPath = p;
+        displayPath(p);
+        btnSendPath.setVisible(true);
     }
 
     public void clearButtonHandler(){
         System.out.println("clearing search");
         startLocation.setText("");
         endLocation.setText("");
+        btnSendPath.setVisible(false);
     }
+
+    //email path to default person
+    public void pathSendHandler(){
+        try {
+            if (currentPath == null) {
+                throw new Exception("No path in UI");
+            } else {
+                manager.sendTextDirectionsEmail(currentPath, user.getText());
+            }
+        } catch(Exception e) {
+
+        }
+    }
+
+
 
     public void locateRestroomButtonHandler(){
         System.out.println("locating restrooms");
@@ -285,6 +337,7 @@ public class MainUI {
         clearMain();
     }
 
+
     public void nodeAddCancelButtonHandler(){
         mapBuilderOpened = false;
         nodeAdditionPane.setVisible(false);
@@ -292,7 +345,7 @@ public class MainUI {
 
     public void nodeAddSubmitButtonHandler(){
         Coordinate mCoordinate = new Coordinate(prevSelectX,prevSelectY);
-        NodeData n = new NodeData(nodeAddID.getText(), mCoordinate, "2", nodeAddType.getText(), nodeAddName.getText(), nodeAddShortName.getText());
+        NodeData n = new NodeData(nodeAddID.getText(), mCoordinate, "2", nodeAddType.getText(), nodeAddName.getText(), nodeAddShortName.getText(),null,null);
         mapBuilderOpened = false;
         nodeAdditionPane.setVisible(false);
         manager.addNode(n);
@@ -344,7 +397,7 @@ public class MainUI {
                 System.out.println("Get in findNodeData");
                 List<NodeData> nodes = manager.getAllNodeData();
                 NodeData mClickedNode= getClosestNode(nodes,x,y);
-                mClickedNode = manager.getNodeData(mClickedNode.getId());
+                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 showNodeInfo(mClickedNode);
                 break;
@@ -369,9 +422,9 @@ public class MainUI {
                     mClickedNode = getClosestNode(nodes,x,y);
                     showNode(mClickedNode);
                     if (addEdgeN1.equals("")) {
-                        addEdgeN1 = mClickedNode.getId();
+                        addEdgeN1 = mClickedNode.getNodeID();
                     } else if (addEdgeN2.equals("")) {
-                        addEdgeN2 = mClickedNode.getId();
+                        addEdgeN2 = mClickedNode.getNodeID();
                     }
                     if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
                         clearMain();
@@ -405,28 +458,29 @@ public class MainUI {
         String resultNodeId = "";
         double d = 0;
         for (NodeData node : nodeDataList) {
-            int nodeX = node.getX();
-            int nodeY = node.getY();
+            int nodeX = node.getXCoord();
+            int nodeY = node.getYCoord();
 //                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
             double temp = Math.sqrt(Math.pow(dbX - nodeX, 2) + Math.pow(dbY - nodeY, 2));
             if (temp < d||d==0) {
                 d = temp;
                 resultX = nodeX;
                 resultY = nodeY;
-                resultNodeId = node.getId();
+                resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null);
+
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null,null,null);
     }
 
     private void showNodeInfo(NodeData nodeData){
-        int dbX = nodeData.getX();
-        int dbY = nodeData.getY();
+        int dbX = nodeData.getXCoord();
+        int dbY = nodeData.getYCoord();
         nodeInfoPane.setLayoutX(DBCoordinateToUICoordinate(dbX,initX) + 3);
         nodeInfoPane.setLayoutY(DBCoordinateToUICoordinate(dbY,initY) + 3);
         nodeInfoPane.setVisible(true);
         nodeInfoLocation.setText(dbX + ", " + dbY);
-        nodeInfoType.setText("" + nodeData.getType());
+        nodeInfoType.setText("" + nodeData.getNodeType());
         nodeInfoLongName.setText("" + nodeData.getLongName());
         nodeInfoShortName.setText("" + nodeData.getShortName());
     }
@@ -450,14 +504,14 @@ public class MainUI {
      * @param n a node that was clicked
      */
     private void showNode(NodeData n){
-        drawCycle(DBCoordinateToUICoordinate(n.getX(),initX),DBCoordinateToUICoordinate(n.getY(),initY));
+        drawCycle(DBCoordinateToUICoordinate(n.getXCoord(),initX),DBCoordinateToUICoordinate(n.getYCoord(),initY));
     }
 
     private void showEdge(NodeData n1, NodeData n2){
-        int DBX1 = DBCoordinateToUICoordinate(n1.getX(),initX);
-        int DBY1 = DBCoordinateToUICoordinate(n1.getY(),initY);
-        int DBX2 = DBCoordinateToUICoordinate(n2.getX(),initX);
-        int DBY2 = DBCoordinateToUICoordinate(n2.getY(),initY);
+        int DBX1 = DBCoordinateToUICoordinate(n1.getXCoord(),initX);
+        int DBY1 = DBCoordinateToUICoordinate(n1.getYCoord(),initY);
+        int DBX2 = DBCoordinateToUICoordinate(n2.getXCoord(),initX);
+        int DBY2 = DBCoordinateToUICoordinate(n2.getYCoord(),initY);
         drawLine(DBX1,DBY1,DBX2,DBY2);
         drawCycle(DBX1,DBY1);
         drawCycle(DBX2,DBY2);
@@ -478,10 +532,13 @@ public class MainUI {
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0);
             l.setStartX(DBCoordinateToUICoordinate(prev.getX(),initX));
-            l.setStartX(DBCoordinateToUICoordinate(prev.getX(),initX));
             l.setStartY(DBCoordinateToUICoordinate(prev.getY(),initY));
             l.setEndX(DBCoordinateToUICoordinate(n.getX(),initX));
             l.setEndY(DBCoordinateToUICoordinate(n.getY(),initY));
+            l.setStartX(DBCoordinateToUICoordinate(prev.getXCoord(),initX));
+            l.setStartY(DBCoordinateToUICoordinate(prev.getYCoord(),initY));
+            l.setEndX(DBCoordinateToUICoordinate(n.getXCoord(),initX));
+            l.setEndY(DBCoordinateToUICoordinate(n.getYCoord(),initY));
             lines.add(l);
             prev = n;
         }
@@ -518,8 +575,8 @@ public class MainUI {
     public String getNodeIdWithCoor(List<NodeData> mList, Coordinate coordinate){
         for(NodeData mNodeData : mList){
             Coordinate mCoord = mNodeData.getLocation();
-            if(mCoord.getX() == coordinate.getX()&&mCoord.getY() == coordinate.getY()){
-                return mNodeData.getId();
+            if(mCoord.getXCoord() == coordinate.getXCoord()&&mCoord.getYCoord() == coordinate.getYCoord()){
+                return mNodeData.getNodeID();
             }
         }
         return "Not Found";

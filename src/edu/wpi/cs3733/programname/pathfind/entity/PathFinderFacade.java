@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.programname.pathfind.entity;
 
-import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.List;
@@ -10,6 +10,7 @@ public class PathFinderFacade {
     private DFS dfs;
     private BFS bfs;
     private AStar astar;
+    private Dijkstra dijkstra;
 
     /**
      * Constructor:
@@ -18,10 +19,11 @@ public class PathFinderFacade {
      * @param startID the text ID of the starting node
      * @param goalID the text ID of the goal or target node
      */
-    public PathFinderFacade(List<NodeData> nodes, List<Edge> edges, String startID, String goalID) throws NoPathException {
+    public PathFinderFacade(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
         this.dfs = new DFS(nodes, edges, startID, goalID);
         this.bfs = new BFS(nodes, edges, startID, goalID);
         this.astar = new AStar(nodes, edges, startID, goalID);
+        this.dijkstra = new Dijkstra(nodes, edges, startID, goalID);
     }
 
     /**
@@ -46,5 +48,13 @@ public class PathFinderFacade {
      */
     public List<NodeData> findAstarPath() {
         return astar.getFinalList();
+    }
+
+    /**
+     * Finds the path according to Dijkstra's algorithm
+     * @return list of nodes connecting start to goal
+     */
+    public List<NodeData> findDijkstraPath() {
+        return dijkstra.getFinalList();
     }
 }
