@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 import static javafx.scene.paint.Color.RED;
 
@@ -269,7 +270,7 @@ public class TestingController implements Initializable{
                 resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,""+floor,null,null,null,null);
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),lblCurrentFloor.getText(),null,null,null,null,null);
     }
 
     private void displayPath(List<NodeData> path){
@@ -343,7 +344,7 @@ public class TestingController implements Initializable{
         Image newImg = new Image(file.toString());
         imgMap.setImage(newImg);
 
-        lblCurrentFloor.setText("" + floor);
+        lblCurrentFloor.setText(convertFloor(floor));
     }
     public void showMouseCoords(MouseEvent e){
         System.out.println(e.getX() + ", " + e.getY());
@@ -359,7 +360,7 @@ public class TestingController implements Initializable{
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloor(""+floor);
+        List<NodeData> nodes = manager.queryNodeByFloor(lblCurrentFloor.getText());
         NodeData mClickedNode= getClosestNode(nodes,x,y);
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected

@@ -80,7 +80,7 @@ public class ServiceRequestManager {
         assignedRequests.setVisible(false);
         completedRequests.setVisible(false);
         currVisible = "unassigned";
-//        updateUnassignedView();
+        updateUnassignedView();
     }
 
     public void assignedRequestButtonHandler() {
