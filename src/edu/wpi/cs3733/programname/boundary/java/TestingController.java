@@ -66,7 +66,7 @@ public class TestingController implements Initializable{
     @FXML
     private AnchorPane panningPane;
     @FXML
-    private DialogPane serviceRequester;
+    private AnchorPane serviceRequester;
 
     //map switching objects
     @FXML

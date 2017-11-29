@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -113,7 +114,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane opacity="0.58" prefHeight="80.0" styleClass="searchPane" stylesheets="@Resources/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane opacity="0.58" prefHeight="80.0" prefWidth="619.0" styleClass="searchPane" stylesheets="@Resources/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane prefHeight="60.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -230,22 +231,36 @@
             <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenu" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-        <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="600.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white;" visible="false">
-            <content>
-                <AnchorPane prefHeight="178.0" prefWidth="350.0">
-                    <children>
-                        <TextArea fx:id="requestDescription" layoutX="23.0" prefHeight="111.0" prefWidth="305.0" />
-                        <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="14.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Select Location(s)" />
-                        <JFXButton fx:id="btnCancelRequestAttempt" layoutX="276.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Cancel" />
-                        <JFXButton fx:id="btnSubmitRequest" layoutX="211.0" layoutY="125.0" mnemonicParsing="false" onAction="#SRWindowHandler" text="Submit" />
-                  <Label fx:id="lblServiceX" layoutX="29.0" layoutY="111.0" />
-                  <Label fx:id="lblServiceY" layoutX="109.0" layoutY="110.0" AnchorPane.rightAnchor="214.0" />
-                  <Label layoutX="14.0" layoutY="111.0" text="X: " />
-                  <Label layoutX="80.0" layoutY="111.0" text="Y: " />
-                  <Label fx:id="lblReqType" layoutX="305.0" layoutY="111.0" />
-                    </children>
-                </AnchorPane>
-            </content>
-            </DialogPane>
+          <AnchorPane fx:id="serviceRequester" layoutX="528.0" layoutY="156.0" prefHeight="256.0" prefWidth="486.0" style="-fx-background-color: white;" visible="false">
+              <children>
+                  <TextArea fx:id="requestDescription" layoutX="20.0" layoutY="62.0" prefHeight="145.0" prefWidth="313.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="170.0" />
+                  <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="352.0" layoutY="128.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Select Location(s)" AnchorPane.bottomAnchor="103.0" />
+                  <JFXButton fx:id="btnCancelRequestAttempt" layoutX="340.0" layoutY="183.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Cancel" />
+                  <JFXButton fx:id="btnSubmitRequest" layoutX="420.0" layoutY="183.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Submit" />
+            <Label fx:id="lblServiceX" layoutX="406.0" layoutY="71.0" text="Label" AnchorPane.bottomAnchor="168.0" />
+            <Label fx:id="lblServiceY" layoutX="109.0" layoutY="110.0" AnchorPane.rightAnchor="214.0" />
+            <Label layoutX="366.0" layoutY="67.0" text="X: " AnchorPane.bottomAnchor="164.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="366.0" layoutY="98.0" text="Y: " AnchorPane.bottomAnchor="133.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblReqType" layoutX="406.0" layoutY="102.0" text="Label" AnchorPane.bottomAnchor="137.0" />
+            <Pane layoutX="-1.0" layoutY="-8.0" prefHeight="50.0" prefWidth="486.0" style="-fx-background-color: #c0c0c0;" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Label layoutX="140.0" layoutY="10.0" text="New Service Request" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+              </children>
+          </AnchorPane>
+
     </children>
 </AnchorPane>
