@@ -108,7 +108,11 @@ public class TestingController implements Initializable{
     @FXML
     private JFXButton btnSubmitRequest;
     @FXML
-    private Label lblServiceLovation;
+    private Label lblServiceLocation;
+    @FXML
+    private Label lblServiceY;
+    @FXML
+    private Label lblServiceX;
     @FXML
     private Label lblServiceType;
     @FXML
