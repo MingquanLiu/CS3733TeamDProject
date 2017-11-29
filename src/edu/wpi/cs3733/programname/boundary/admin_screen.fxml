@@ -121,22 +121,22 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXRadioButton selected="true" text="DFS">
+                        <JFXRadioButton fx:id="DFS" onAction="#selectPFAlgorithm" selected="true" text="DFS" >
                            <GridPane.margin>
                               <Insets left="50.0" />
                            </GridPane.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="pathfinding" />
                            </toggleGroup></JFXRadioButton>
-                        <JFXRadioButton selected="true" text="BFS" toggleGroup="$pathfinding" GridPane.rowIndex="1">
+                        <JFXRadioButton fx:id="BFS" onAction="#selectPFAlgorithm" selected="true" text="BFS" toggleGroup="$pathfinding" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="50.0" />
                            </GridPane.margin></JFXRadioButton>
-                        <JFXRadioButton selected="true" text="Dijkstra" toggleGroup="$pathfinding" GridPane.rowIndex="2">
+                        <JFXRadioButton fx:id="Dijkstra" onAction="#selectPFAlgorithm" selected="true" text="Dijkstra" toggleGroup="$pathfinding" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="50.0" />
                            </GridPane.margin></JFXRadioButton>
-                        <JFXRadioButton selected="true" text="Astar" toggleGroup="$pathfinding" GridPane.rowIndex="3">
+                        <JFXRadioButton fx:id="ASTAR" onAction="#selectPFAlgorithm" selected="true" text="Astar" toggleGroup="$pathfinding" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="50.0" />
                            </GridPane.margin></JFXRadioButton>
