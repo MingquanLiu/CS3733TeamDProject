@@ -68,13 +68,18 @@ public class ServiceRequestManager {
     List<ServiceRequest> currAssigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currCompleted = new ArrayList<ServiceRequest>();
     List<Employee> currEmployees = new ArrayList<Employee>();
-
     String currVisible = "unassigned";
+
+    int requestIndex = -1;
+    int employeeIndex = -1;
+
     public void initData(DBConnection dbConnection){
         dbConnection = dbConnection;
         manager = new ManageController(dbConnection);
         unassignedRequestButtonHandler();
         btnMarkCompleted.setVisible(false);
+        btnAssignRequest.toFront();
+        btnDeleteUnassigned.toFront();
     }
 
     public void unassignedRequestButtonHandler() {
@@ -82,6 +87,8 @@ public class ServiceRequestManager {
         assignedRequests.setVisible(false);
         completedRequests.setVisible(false);
         btnMarkCompleted.setVisible(false);
+        btnAssignRequest.toFront();
+        btnDeleteAssigned.toFront();
         currVisible = "unassigned";
         updateUnassignedView();
     }
@@ -91,6 +98,8 @@ public class ServiceRequestManager {
         unassignedRequests.setVisible(false);
         completedRequests.setVisible(false);
         btnMarkCompleted.setVisible(true);
+        btnMarkCompleted.toFront();
+        btnDeleteCompleted.toFront();
         currVisible = "assigned";
         updateAssignedRequests();
     }
@@ -124,26 +133,44 @@ public class ServiceRequestManager {
     }
 
     public void assignButtonHandler() {
-        int requestIndex = listAssigned.getSelectionModel().getSelectedIndex();
-        int employeeIndex = listAssigned.getSelectionModel().getSelectedIndex();
+        int reqIndex = listUnassigned.getSelectionModel().getSelectedIndex();
+        int emplIndex = listEmployees.getSelectionModel().getSelectedIndex();
+        if (reqIndex > -1) {
+            requestIndex = reqIndex;
+        }
+        else if (emplIndex > -1) {
+            employeeIndex = emplIndex;
+        }
+        if (requestIndex > -1 && employeeIndex > -1) {
+            executeAssign();
+        }
+    }
 
+    public void executeAssign() {
+        System.out.println("Assign Button Pressed");
         ServiceRequest request = currAssigned.get(requestIndex);
         Employee employee = currEmployees.get(employeeIndex);
-
         this.manager.assignServiceRequest(request, employee.getUsername());
         updateCurrentView();
     }
 
     public String createServiceRequestListString(ServiceRequest sr) {
         NodeData loc1 = manager.getNodeData(sr.getLocation1());
-        if (sr.getLocation2() == null || sr.getLocation2() == "null") {
-            return sr.getServiceType() + " - " + loc1.getLongName();
-        }
-        else {
-            NodeData loc2 = manager.getNodeData(sr.getLocation2());
-            return sr.getServiceType() + " - Hallway between " + loc1.getShortName() +
-                    " and " + loc2.getShortName();
-        }
+        System.out.println("Service Request String == " + sr.getLocation2());
+        System.out.println("Char test = " + sr.getLocation2().charAt(0));
+        System.out.println("String length = " + sr.getLocation2().length());
+        return sr.getServiceType() + " - " + loc1.getLongName();
+//        if (sr.getLocation2() == null || sr.getLocation2() == "null") {
+//            return sr.getServiceType() + " - " + loc1.getLongName();
+//        }
+//        else if (sr.getLocation2().trim() == "") {
+//            return sr.getServiceType() + " - " + loc1.getLongName();
+//        }
+//        else {
+//            NodeData loc2 = manager.getNodeData(sr.getLocation2());
+//            return sr.getServiceType() + " - Hallway between " + loc1.getShortName() +
+//                    " and " + loc2.getShortName();
+//        }
     }
 
     public String createEmployeeListString(Employee e) {

@@ -316,6 +316,7 @@ public class TestingController implements Initializable{
         }
         drawings.addAll(lines);
         panningPane.getChildren().addAll(lines);
+        emailDirections.setVisible(true);
     }
 
     public void clearMain(){
@@ -707,6 +708,23 @@ public class TestingController implements Initializable{
                 )
         );
         stage.show();
+    }
+
+    public void handleEmailButton() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/edu/wpi/cs3733/programname/boundary/email_Direction.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<Email_Direction>getController().initialize(manager, currentPath);
+        stage.show();
+        emailDirections.setVisible(false);
     }
 
 }
