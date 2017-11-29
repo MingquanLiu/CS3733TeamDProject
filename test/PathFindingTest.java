@@ -64,6 +64,7 @@ public class PathFindingTest {
         pfm.sendMessage();
     }
 
+
 //    @Test
     // This is a simple test. We have nodes 1-4 which are all connected by only one edge each (a straight line of nodes)
     // If we can get from node 1 to node 4, we are on the right track
