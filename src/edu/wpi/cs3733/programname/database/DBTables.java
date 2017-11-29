@@ -32,49 +32,36 @@ public class DBTables {
             ResultSet tables3 = dbm.getTables(null, null, "EMPLOYEES", null);
             ResultSet tables4 = dbm.getTables(null, null, "SERVICEREQUESTS", null);
 
-            if (!tables4.next()){
-                createServiceRequestsTable(conn);}
-            else {
+            if (tables4.next() || tables4.getFetchSize() == 0){
                 System.out.println("About to drop service requests table");
                 String dropTableSR = ("DROP TABLE ServiceRequests");
                 conn.execute(dropTableSR);
-                System.out.println("About to create service requests table");
-                createServiceRequestsTable(conn);
             }
-
-            if (!tables3.next()){
-                EmployeesTable.createEmployeesTables(conn);
-            }
-            else {
+            if (tables3.next() || tables3.getFetchSize() == 0){
                 System.out.println("About to drop employees table");
                 String dropEmployeesTable = ("DROP TABLE Employees");
                 conn.execute(dropEmployeesTable);
-                System.out.println("About to create employees table");
-                createEmployeesTables(conn);
             }
 
-            if (!tables2.next()) {
-                EdgesTable.createEdgesTables(conn);
-            }
-            else {
+            if (tables2.next() || tables2.getFetchSize() == 0) {
                 System.out.println("About to drop edge table");
                 String dropEdgeTable = ("DROP TABLE Edges");
                 conn.execute(dropEdgeTable);
-                System.out.println("About to create edge table");
-                createEdgesTables(conn);
             }
 
-            if (!tables1.next()) {
-                System.out.println("About to create node table");
-                NodesTable.createNodesTables(conn);
-            }
-            else {
+            if (tables1.next() || tables1.getFetchSize() == 0) {
                 System.out.println("About to drop node table");
                 String dropNodeTable = ("DROP TABLE Nodes");
                 conn.execute(dropNodeTable);
-                System.out.println("About to create node table");
-                createNodesTables(conn);
             }
+            System.out.println("About to create node table");
+            createNodesTables(conn);
+            System.out.println("About to create edge table");
+            createEdgesTables(conn);
+            System.out.println("About to create employee table");
+            createEmployeesTables(conn);
+            System.out.println("About to create service table");
+            createServiceRequestsTable(conn);
 
         } catch (SQLException e) {
             e.printStackTrace();

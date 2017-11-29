@@ -6,6 +6,7 @@ import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
+import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
@@ -43,7 +44,7 @@ public class ManageController {
 
     }
 
-    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) {
+    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) throws InvalidNodeException{
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
         List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, pathfindType);
@@ -93,24 +94,28 @@ public class ManageController {
         this.dbModController.editNode(data);
     }
 
+    public boolean login(String username, String password) {
+        return this.dbQueryController.login(username, password);
+    }
+
     public List<Employee> getAllEmployees() {
-        //return this.dbQueryController.queryAllEmployees();
-        return null;
+        return this.dbQueryController.queryAllEmployees();
     }
 
     public List<ServiceRequest> getUnassignedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("unassigned");
-        return null;
+        return this.dbQueryController.queryServiceRequestsByStatus("unhandled");
     }
 
     public List<ServiceRequest> getAssignedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("assigned");
-        return null;
+        return this.dbQueryController.queryServiceRequestsByStatus("handled");
     }
 
     public List<ServiceRequest> getCompletedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("complete");
-        return null;
+        return this.dbQueryController.queryServiceRequestsByStatus("completed");
+    }
+
+    public void assignServiceRequest(ServiceRequest request, String username) {
+        this.dbModController.handleServiceRequest(request, username);
     }
 
 //    public List<Employee> queryEmployeeByRequestType(String requestType) {
@@ -137,6 +142,9 @@ public class ManageController {
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
     }
+    public void deleteEdge(String edgeId){
+        this.dbModController.deleteEdge(this.dbQueryController.queryEdgeById(edgeId));;
+    }
 
     public void sendTextDirectionsEmail(List<NodeData> path, String recipient) {
         TextDirections textDirections = new TextDirections(path);
@@ -153,13 +161,14 @@ public class ManageController {
         return newServiceRequest;
     }
 
+    public void deleteServiceRequest(ServiceRequest request) {
+        dbModController.deleteServiceRequest(request);
+    }
+
     public Employee queryEmployeeByUsername(String username) {
         return dbQueryController.queryEmployeeByUsername(username);
     }
 
-    public ArrayList<Employee> getInterpreterEmployees(){
-        return employeesQuery.queryEmployeesByType("interpreter");
-    }
     public ArrayList<ServiceRequest> getInterpreterRequest(){
         return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }

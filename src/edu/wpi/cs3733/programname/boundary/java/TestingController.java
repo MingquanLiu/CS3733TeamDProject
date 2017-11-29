@@ -11,8 +11,10 @@ import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
+import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,6 +44,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
+import static edu.wpi.cs3733.programname.commondata.Constants.MAINTENANCE_REQUEST;
+import static edu.wpi.cs3733.programname.commondata.Constants.TRANSPORTATION_REQUEST;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 import static javafx.scene.paint.Color.RED;
@@ -62,7 +67,7 @@ public class TestingController implements Initializable{
     @FXML
     private AnchorPane panningPane;
     @FXML
-    private DialogPane serviceRequester;
+    private AnchorPane serviceRequester;
 
     //map switching objects
     @FXML
@@ -134,7 +139,7 @@ public class TestingController implements Initializable{
     @FXML
     private JFXButton btnGo;
     @FXML
-    private JFXButton clear;
+    private JFXButton btnClear;
     @FXML
     private TextField txtStartLocation;
     @FXML
@@ -156,6 +161,14 @@ public class TestingController implements Initializable{
 
     @FXML
     private JFXTextField txtUser;
+
+    //FAQ
+    @FXML
+    private Button helpButton;
+
+    //Email
+    @FXML
+    private JFXButton emailDirections;
 
     //global variables, not FXML tied
     private ManageController manager;
@@ -185,12 +198,17 @@ public class TestingController implements Initializable{
     private Employee employeeLoggedIn;
 
     private DBConnection dbConnection;
+    private PathfindingController.searchType mSearchType= ASTAR;
 
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb){
+    }
+
+    public void initData(DBConnection dbConnection){
         currentMapRatioIndex =originalMapRatioIndex;
         manager = new ManageController(dbConnection);
+        this.dbConnection = dbConnection;
 //        mapRatio.add(0.24);
         paneAdminFeatures.setVisible(false);
         mapRatio.add(0.318);
@@ -211,9 +229,9 @@ public class TestingController implements Initializable{
         imgMap.setFitWidth(maxWidth*currentScale);
 
     }
-
-    public void initData(DBConnection dbConnection){
-        this.dbConnection = dbConnection;
+    public void setSearchType(PathfindingController.searchType searchType){
+        System.out.println(currentMapRatioIndex);
+        this.mSearchType = searchType;
     }
     //topmost methods are newest
     private void drawCycle(int x, int y){
@@ -274,6 +292,7 @@ public class TestingController implements Initializable{
     }
 
     private void displayPath(List<NodeData> path){
+        currentPath= path;
         clearMain();
         System.out.println("drawing path");
         NodeData prev = path.get(0);
@@ -284,17 +303,20 @@ public class TestingController implements Initializable{
         for(int i = 1; i < path.size(); i++){
             Line l = new Line();
             NodeData n = path.get(i);
-            l.setStroke(Color.BLUE);
-            l.setStrokeWidth(5.0*currentScale);
-            l.setStartX(prev.getXCoord()*currentScale);
-            l.setStartY(prev.getYCoord()*currentScale);
-            l.setEndX(n.getXCoord()*currentScale);
-            l.setEndY(n.getYCoord()*currentScale);
-            lines.add(l);
+            if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
+                l.setStroke(Color.BLUE);
+                l.setStrokeWidth(5.0*currentScale);
+                l.setStartX(prev.getXCoord()*currentScale);
+                l.setStartY(prev.getYCoord()*currentScale);
+                l.setEndX(n.getXCoord()*currentScale);
+                l.setEndY(n.getYCoord()*currentScale);
+                lines.add(l);
+            }
             prev = n;
         }
         drawings.addAll(lines);
         panningPane.getChildren().addAll(lines);
+        emailDirections.setVisible(true);
     }
 
     public void clearMain(){
@@ -305,6 +327,8 @@ public class TestingController implements Initializable{
             }
             drawings = new ArrayList<>();
         }
+    }
+    public void clearPathFindLoc(){
         txtEndLocation.setText("");
         txtStartLocation.setText("");
     }
@@ -324,11 +348,17 @@ public class TestingController implements Initializable{
             floor ++;
             System.out.println("up to floor" + floor);
             setFloor();
+            clearMain();
+            clearNodes();
+            clearPath();
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
             floor --;
             System.out.println("down to floor" + floor);
             setFloor();
+            clearMain();
+            clearNodes();
+            clearPath();
         }
     }
     private void setFloor(){
@@ -366,13 +396,14 @@ public class TestingController implements Initializable{
             //case for displaying nearest node info when nothing is selected
             case "":
                 clearMain();
+                clearNodes();
                 System.out.println("Get in findNodeData X:"+x+" Y:"+y);
-
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 showNodeInfo(mClickedNode);
                 break;
             case "selectLocation":
+                System.out.println("In selectLocation");
                 Coordinate mCoordinate = new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale));
                 lblServiceX.setText(""+mCoordinate.getXCoord());
                 lblServiceY.setText(""+mCoordinate.getYCoord());
@@ -380,12 +411,22 @@ public class TestingController implements Initializable{
                 selectingLocation = "";
                 break;
             case "selectStart":
+                clearMain();
                 String startId = mClickedNode.getNodeID();
+                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
+                showNode(mClickedNode);
+                showNodeInfo(mClickedNode);
                 txtStartLocation.setText(startId);
+                selectingLocation = "";
                 break;
             case "selectEnd":
+                clearMain();
                 String endId = mClickedNode.getNodeID();
+                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
+                showNode(mClickedNode);
+                showNodeInfo(mClickedNode);
                 txtEndLocation.setText(endId);
+                selectingLocation = "";
                 break;
             // the rest of the situations when you click on the map
 //            case "maintenance":
@@ -399,10 +440,24 @@ public class TestingController implements Initializable{
     }
     //hamburger handling
     public void openMenu(MouseEvent e){
+        setBurger();
+    }
+    public void setBurger(){
         burgerTransition.setRate(burgerTransition.getRate()*-1);
         burgerTransition.play();
 
         controlsVisible = !controlsVisible;
+        controlsTransition.play();
+        paneControls.setVisible(controlsVisible);
+
+        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
+        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
+    }
+    private void setBurgerFalse(){
+        burgerTransition.setRate(burgerTransition.getRate()*-1);
+        burgerTransition.play();
+
+        controlsVisible = false;
         controlsTransition.play();
         paneControls.setVisible(controlsVisible);
 
@@ -459,6 +514,7 @@ public class TestingController implements Initializable{
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         clearMain();
+
         if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
             clearPath();
@@ -486,8 +542,15 @@ public class TestingController implements Initializable{
 
     public void goButtonHandler(){
         System.out.println("drawing path");
-        currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), ASTAR);
+        try {
+            System.out.println(mSearchType);
+            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType);
+        }
+        catch(InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        }
         displayPath(currentPath);
+        clearPathFindLoc();
     }
 
     //select location when clicking on the text field
@@ -503,18 +566,21 @@ public class TestingController implements Initializable{
         serviceRequester.setVisible(true);
         String SRType = "";
         if(mEvent == btnInterpreterReq){
+            lblReqType.setText("Interpreter Request");
             SRType = "Language to: \nLanguage from:";
         }
         if(mEvent == btnMaintenanceReq){
+            lblReqType.setText("Maintenance Request");
             SRType = "Maintenance type: \nMaintenance urgency(1-5): ";
         }
         if(mEvent == btnTransportationReq){
+            lblReqType.setText("Transportation Request");
             SRType = "Transportation type: \nTransportation urgency: ";
         }
         requestDescription.setText(SRType);
     }
 
-    //popup methods
+//    //popup methods
     private FXMLLoader showScene(String url){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Scene newScene;
@@ -524,18 +590,22 @@ public class TestingController implements Initializable{
             //Todo add some sort of error handling
             return loader;
         }
+        loader.<LoginPopup>getController().initData(dbConnection);
         Stage newStage = new Stage();
         newStage.setScene(newScene);
         newStage.showAndWait();
         return loader;
     }
 
-    public void loginButtonHandler(){
-//        String username = txtUser.getText();
+    public void loginButtonHandler() throws IOException {
+        String username = "admin";
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+//        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
+//            username = txtUser.getText();
+//        }
         if(loggedIn) {
-//            employeeLoggedIn = manager.queryEmployeeByUsername(username);
+            employeeLoggedIn = manager.queryEmployeeByUsername(username);
 //            lblLoginStatus.setText("logged in");
             loggedIn = true;
             showAdminControls();
@@ -560,9 +630,9 @@ public class TestingController implements Initializable{
                 )
         );
         loader.<MapAdminController>getController().initData(dbConnection);
+        loader.<MapAdminController>getController().setmTestController(this);
         stage.show();
     }
-
     public void openAdminHandler() throws IOException {
         System.out.println("In open admin handler");
         //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
@@ -586,6 +656,7 @@ public class TestingController implements Initializable{
         serviceRequester.setVisible(false);
         if(mEvent == btnSelectMaintenanceLocation){
             selectingLocation = "selectLocation";
+            setBurger();
         }
         if(mEvent == btnCancelRequestAttempt){
             //TODO clear the text
@@ -594,23 +665,66 @@ public class TestingController implements Initializable{
         }
         if(mEvent == btnSubmitRequest){
             //TODO clear the text and submit the SR
-            String type = lblReqType.getText();
+            String typeText = lblReqType.getText();
+            String type = "";
+
+            if (typeText == "Interpreter Request") {
+                type = INTERPRETER_REQUEST;
+            } else if (typeText == "Transportation Request") {
+                type = TRANSPORTATION_REQUEST;
+            } else if (typeText == "Maintenance Request") {
+                type = MAINTENANCE_REQUEST;
+            }
+
             int locX = Integer.parseInt(lblServiceX.getText());
             int locY = Integer.parseInt(lblServiceX.getText());
             String locationId = getClosestNode(manager.getAllNodeData(), locX, locY).getNodeID();
             String description = requestDescription.getText();
-            manager.createServiceRequest(employeeLoggedIn.getUsername(), type, locationId, null, description);
+         //   String senderUsername = employeeLoggedIn.getUsername();
+            manager.createServiceRequest("admin", type, locationId, null, description);
         }
     }
 
     public void closeNodeInfoHandler(){
+        clearNodes();
         nodeInfoPane.setVisible(false);
-        nodeInfoLongName.setText("");
-        nodeInfoShortName.setText("");
-        nodeInfoType.setText("");
-        lblNodeX.setText("");
-        lblNodeY.setText("");
-        clearMain();
+//        nodeInfoLongName.setText("");
+//        nodeInfoShortName.setText("");
+//        nodeInfoType.setText("");
+//        lblNodeX.setText("");
+//        lblNodeY.setText("");
+    }
+
+    public void helpButtonHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/edu/wpi/cs3733/programname/boundary/FAQ_Popup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void handleEmailButton() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/edu/wpi/cs3733/programname/boundary/email_Direction.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<Email_Direction>getController().initialize(manager, currentPath);
+        stage.show();
+        emailDirections.setVisible(false);
     }
 
 }

@@ -112,6 +112,10 @@ public class DatabaseQueryController {
         return employeesQuery.queryEmployeeByUsername(username);
     }
 
+    public boolean login(String username, String password) {
+        return employeesQuery.validateLogin(username, password);
+    }
+
     //Service Request Query
     public ArrayList<ServiceRequest> queryAllServiceRequests(){
         return serviceRequestsQuery.queryAllServiceRequests();
@@ -128,5 +132,15 @@ public class DatabaseQueryController {
     public ServiceRequest queryServiceRequestsByID(int serviceID){
         return serviceRequestsQuery.queryServiceRequestsByID(serviceID);
     }
+
+
+    // Reader Methods
+
+
+
+
+
+
+    // Writer Methods
 
 }

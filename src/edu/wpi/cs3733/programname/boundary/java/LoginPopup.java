@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname.boundary.java;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,11 +21,12 @@ public class LoginPopup {
     private ManageController manager;
     boolean succesfulLogin;
 
+    
+
     public void buttonHandler(ActionEvent e){
         System.out.println("a button was clicked");
         if(e.getSource() == btnSubmit){
-            succesfulLogin = true;
-            //succesfulLogin = manager.login(txtUser.getText(), txtPass.getText());
+            succesfulLogin = manager.login(txtUser.getText(), txtPass.getText());
             if(succesfulLogin) {
                 System.out.println("logging in");
                 btnSubmit.getScene().getWindow().hide();
@@ -42,5 +44,9 @@ public class LoginPopup {
     }
     public boolean getLoggedIn(){
         return succesfulLogin;
+    }
+    public void initData(DBConnection dbConnection){
+        System.out.println("init For Login");
+        manager = new ManageController(dbConnection);
     }
 }

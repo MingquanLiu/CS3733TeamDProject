@@ -1,0 +1,9 @@
+username,password,firstName,middleName,lastName,sysAdmin,serviceType,email
+wwong2,professor,Wilson,,Wong,1,interpreter,wwong2@wpi.du
+ygao6,yufeigao,Yufei,,Gao,1,interpreter,ygao6@wpi.edu
+hkduong,1234,Haiau,Kieu,Duong,1,transportation,hkduong@wpi.edu
+mliu,123123,Mingquan,,Liu,1,maintenance,mliu@wpi.edu
+dpwivagg,password,Daniel,,Wivagg,1,maintenance,dpwivagg@wpi.edu
+kaquartuccio,password1,Ken,,Quartuccio,1,maintenance,kaquartuccio@wpi.edu
+sbhattacharjee,cryingTears,Shreeja,,Bhattacharjee,0,transportation,sbhattacharjee@wpi.edu
+admin,admin,admin,a,admin,1,none,cs3733teamD@gmail.com
