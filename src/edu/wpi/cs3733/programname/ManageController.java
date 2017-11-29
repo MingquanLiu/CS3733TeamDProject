@@ -12,10 +12,7 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,12 +77,8 @@ public class ManageController {
         return this.dbQueryController.queryNodeByType(nodeType);
     }
 
-    public List<NodeData> queryNodeByTypeFloor(String nodeType,String Floor) {
-        return this.dbQueryController.queryNodeByType(nodeType);
-    }
-
-    public boolean login(String username, String password) {
-        return false;
+    public List<NodeData> queryNodeByFloor(String floor) {
+        return this.dbQueryController.queryNodeByFloor(floor);
     }
 
     public void addNode(NodeData data) {
@@ -98,32 +91,6 @@ public class ManageController {
 
     public void editNode(NodeData data) {
         this.dbModController.editNode(data);
-    }
-
-
-    public void sendServiceRequest(String type) {
-        Employee emp = new Employee("me", 1, false);
-        this.serviceController.createServiceRequest(emp, type);
-    }
-
-    public List<Employee> getAllEmployees() {
-        //return this.dbQueryController.queryAllEmployees();
-        return null;
-    }
-
-    public List<ServiceRequest> getUnassignedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("unassigned");
-        return null;
-    }
-
-    public List<ServiceRequest> getAssignedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("assigned");
-        return null;
-    }
-
-    public List<ServiceRequest> getCompletedRequests() {
-        //return this.dbQueryController.queryServiceRequestsByStatus("complete");
-        return null;
     }
 
 //    public List<Employee> queryEmployeeByRequestType(String requestType) {
@@ -146,7 +113,6 @@ public class ManageController {
 //        ArrayList<Employee> recipients = dbQueryController.queryEmployeesByType(requestType);
 //        serviceController.assignRequest(request, recipients);
 //    }
-
 
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
