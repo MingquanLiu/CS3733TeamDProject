@@ -60,6 +60,7 @@ public class AStar implements PathfindingFacadeIF {
 
     }
 
+
     /**
      * calculates path from start to finish
      * @param startID starting location
@@ -101,6 +102,7 @@ public class AStar implements PathfindingFacadeIF {
                 LinkedList<StarNode> neighbors = current.getNeighbors();
                 // we also need to remove the previous node from the list of neighbors because we do not want to backtrack
                 neighbors.remove(current.getPreviousNode());
+
                 for (StarNode newnode : neighbors) {
                     int nodePlace = this.listContainsId(frontier, newnode);
                     if(nodePlace > -1) {
@@ -156,12 +158,12 @@ public class AStar implements PathfindingFacadeIF {
         /*************************************************************
          * This is where the new elevator stuff was added
          **************************************************************/
-        if(node.getNodeType().equals("STAI")) {
-            distToGo = 4 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
-        }
-        else if(node.getNodeType().equals("ELEV")) {
-            distToGo = 0 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
-        }
+//        if(node.getNodeType().equals("STAI")) {
+//            distToGo = 4 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
+//        }
+//        else if(node.getNodeType().equals("ELEV")) {
+//            distToGo = 0 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
+//        }
         return distToGo;
     }
 

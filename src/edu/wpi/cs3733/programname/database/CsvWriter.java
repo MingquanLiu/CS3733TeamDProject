@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import edu.wpi.cs3733.programname.commondata.*;
 
 public class CsvWriter {
+    public DBConnection dbConnection;
 
-    public CsvWriter() {}
+    public CsvWriter() {
+        this.dbConnection = dbConnection;
+    }
 
 //    public void writeNodes(Connection conn, ArrayList<NodeData> nodesList) {
 //        try {
