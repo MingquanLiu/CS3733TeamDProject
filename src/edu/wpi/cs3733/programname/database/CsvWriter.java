@@ -174,34 +174,55 @@ public class CsvWriter {
 
 
 
-    public void writeEmployees(Connection conn, ArrayList<Employee> employeeList) {
+    public void writeEmployees(Connection conn) {
         try {
-            // Write File
-            String outFileName = "Employees(WriteOut).csv";
+            Statement statement = conn.createStatement();
+            ResultSet rset = statement.executeQuery("SELECT * FROM Employees");
+            String outFileName = "AllEmployees.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
-            int j;
+
+
+            // Initialize table fields
+            String username = "";
+            String password = "";
+            String firstName = "";
+            String middleName = "";
+            String lastName = "";
+            int sysAdmin = 0;
+            String serviceType = "";
+            String email = "";
+
 
             // Prints header fields
             prt.println("username, password, firstName, middleName, lastName, sysAdmin, serviceType, email");
-            for (j = 0; j < employeeList.size(); j++) {
-                prt.println(employeeList.get(j).getUsername() + "," +
-                        employeeList.get(j).getPassword() + "," +
-                        employeeList.get(j).getFirstName() + "," +
-                        employeeList.get(j).getMiddleName() + "," +
-                        employeeList.get(j).getLastName() + "," +
-                        employeeList.get(j).getSysAdmin() + "," +
-                        employeeList.get(j).getServiceType() + "," +
-                        employeeList.get(j).getEmail()
+            while (rset.next()) {
+                username = rset.getString("username");
+                password = rset.getString("password");
+                firstName = rset.getString("firstName");
+                middleName = rset.getString("middleName");
+                lastName = rset.getString("lastName");
+                sysAdmin = rset.getInt("sysAdmin");
+                serviceType = rset.getString("serviceType");
+                email = rset.getString("email");
 
-                );
-            } // end for
+
+                prt.println(username + "," +
+                        password + "," +
+                        firstName + "," +
+                        middleName + "," +
+                        lastName + "," +
+                        sysAdmin + "," +
+                        serviceType + "," +
+                        email);
+            }
+
 
             prt.flush();
             prt.close();
 
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
 
         } catch (IOException e) {
@@ -212,32 +233,65 @@ public class CsvWriter {
 
 
 
-    public void writeServiceRequests(Connection conn, ArrayList<ServiceRequest> srList) {
+    public void writeServiceRequests(Connection conn) {
         try {
-            // Write File
-            String outFileName = "ServiceRequests(WriteOut).csv";
+            Statement statement = conn.createStatement();
+            ResultSet rset = statement.executeQuery("SELECT * FROM Employees");
+            String outFileName = "AllEmployees.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
-            int j;
+
+
+
+            // Initialize table fields
+            int serviceID = 0;
+            String sender = "";
+            String receiver = "";
+            String serviceType = "";
+            String location1 = "";
+            String location2 = "";
+            String description = "";
+            String requestTime = "";
+            String handleTime = "";
+            String completionTime = "";
+            String status = "";
+
+
 
             // Prints header fields
-            prt.println("serviceID, sender, serviceType, location1, location2, description");
-            for (j = 0; j < srList.size(); j++) {
-                prt.println(srList.get(j).getServiceID() + "," +
-                        srList.get(j).getSender() + "," +
-                        srList.get(j).getServiceType() + "," +
-                        srList.get(j).getLocation1() + "," +
-                        srList.get(j).getLocation2() + "," +
-                        srList.get(j).getDescription()
+            prt.println("serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status");
+            while (rset.next()) {
+                serviceID = rset.getInt("serviceID");
+                sender = rset.getString("sender");
+                receiver = rset.getString("receiver");
+                serviceType = rset.getString("serviceType");
+                location1 = rset.getString("location1");
+                location2 = rset.getString("location2");
+                description = rset.getString("description");
+                requestTime = rset.getString("requestTime");
+                handleTime = rset.getString("handleTime");
+                completionTime = rset.getString("completionTime");
+                status = rset.getString("status");
 
-                );
-            } // end for
+
+                prt.println(serviceID + "," +
+                        sender + "," +
+                        receiver + "," +
+                        serviceType + "," +
+                        location1 + "," +
+                        location2 + "," +
+                        description + "," +
+                        requestTime + "," +
+                        handleTime + "," +
+                        completionTime + "," +
+                        status);
+            }
+
 
             prt.flush();
             prt.close();
-
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
 
         } catch (IOException e) {

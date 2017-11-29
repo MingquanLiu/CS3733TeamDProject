@@ -13,6 +13,7 @@ import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,6 +33,7 @@ public class ManageController {
     private ServiceRequestController serviceController;
     private EmployeesQuery employeesQuery;
     private ServiceRequestsQuery serviceRequestsQuery;
+    private CsvWriter mCsv;
 
     public ManageController(DBConnection dbConnection) {
         this.dbConnection = new DBConnection();
@@ -41,7 +43,7 @@ public class ManageController {
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
         this.serviceController = new ServiceRequestController(dbConnection, employeesQuery, serviceRequestsQuery);
-
+        this.mCsv = new CsvWriter();
     }
 
     public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) throws InvalidNodeException{
@@ -173,6 +175,22 @@ public class ManageController {
         return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }
 
+
+    public void updateCsvNodes(Connection conn){
+        mCsv.writeNodes(conn);
+    }
+
+    public void updateCsvEdges(Connection conn){
+        mCsv.writeEdges(conn);
+    }
+
+    public void updateCsvEmployees(Connection conn){
+        mCsv.writeEmployees(conn);
+    }
+
+    public void updateCsvServiceRequests(Connection conn){
+        mCsv.writeServiceRequests(conn);
+    }
 
 }
 

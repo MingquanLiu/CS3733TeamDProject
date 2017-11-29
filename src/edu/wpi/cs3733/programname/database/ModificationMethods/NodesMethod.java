@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.database.ModificationMethods;
 
+import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import java.sql.SQLException;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 public class NodesMethod {
 
     private DBConnection dbConnection ;
+    private ManageController mCon;
     public NodesMethod(DBConnection dbConnection){this.dbConnection = dbConnection;}
     public void insertNode(NodeData data) {
         String nodeID = data.getNodeID();
@@ -27,6 +29,7 @@ public class NodesMethod {
 
             System.out.println(str);
             dbConnection.executeUpdate(str);
+            this.mCon.updateCsvNodes(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Insert Node Failed!");
             e.printStackTrace();
@@ -53,6 +56,7 @@ public class NodesMethod {
 
             System.out.println(str);
             dbConnection.executeUpdate(str);
+            this.mCon.updateCsvNodes(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Edit Node Failed!");
@@ -70,6 +74,7 @@ public class NodesMethod {
 
             System.out.println(str);
             dbConnection.executeUpdate(str);
+            this.mCon.updateCsvNodes(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Delete Node Failed!");
             e.printStackTrace();
