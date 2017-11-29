@@ -79,6 +79,7 @@ public class ServiceRequestManager {
         unassignedRequestButtonHandler();
         btnMarkCompleted.setVisible(false);
         btnAssignRequest.toFront();
+        btnDeleteAssigned.toFront();
         btnDeleteUnassigned.toFront();
     }
 
@@ -135,10 +136,10 @@ public class ServiceRequestManager {
     public void assignButtonHandler() {
         int reqIndex = listUnassigned.getSelectionModel().getSelectedIndex();
         int emplIndex = listEmployees.getSelectionModel().getSelectedIndex();
-        if (reqIndex > -1) {
+        if (reqIndex > -1 && requestIndex < 0) {
             requestIndex = reqIndex;
         }
-        else if (emplIndex > -1) {
+        else if (emplIndex > -1 && employeeIndex < 0) {
             employeeIndex = emplIndex;
         }
         if (requestIndex > -1 && employeeIndex > -1) {
@@ -148,9 +149,18 @@ public class ServiceRequestManager {
 
     public void executeAssign() {
         System.out.println("Assign Button Pressed");
-        ServiceRequest request = currAssigned.get(requestIndex);
+        ServiceRequest request = currUnassigned.get(requestIndex);
         Employee employee = currEmployees.get(employeeIndex);
         this.manager.assignServiceRequest(request, employee.getUsername());
+        updateCurrentView();
+        requestIndex = -1;
+        employeeIndex = -1;
+    }
+
+    public void markCompletedHandler() {
+        int index = listAssigned.getSelectionModel().getSelectedIndex();
+        ServiceRequest request = currAssigned.get(index);
+        this.manager.completeServiceRequest(request);
         updateCurrentView();
     }
 

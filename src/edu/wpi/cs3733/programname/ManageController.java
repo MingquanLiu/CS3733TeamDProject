@@ -118,6 +118,10 @@ public class ManageController {
         this.dbModController.handleServiceRequest(request, username);
     }
 
+    public void completeServiceRequest(ServiceRequest request) {
+        this.dbModController.completeServiceRequest(request);
+    }
+
 //    public List<Employee> queryEmployeeByRequestType(String requestType) {
 //        return dbQueryController.queryEmployeesByType(requestType);
 //    }
