@@ -356,7 +356,8 @@ public class TestingController implements Initializable{
                 break;
             case "selectLocation":
                 Coordinate mCoordinate = new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale));
-                requestDescription.setText(mCoordinate.getX()+","+mCoordinate.getY());
+                lblServiceX.setText(""+mCoordinate.getX());
+                lblServiceY.setText(""+mCoordinate.getY());
                 serviceRequester.setVisible(true);
                 selectingLocation = "";
                 break;
@@ -492,7 +493,7 @@ public class TestingController implements Initializable{
         if(mEvent == btnTransportationReq){
             SRType = "T";
         }
-        requestDescription.setText(SRType);
+        lblReqType.setText(SRType);
     }
 
     //popup methods
