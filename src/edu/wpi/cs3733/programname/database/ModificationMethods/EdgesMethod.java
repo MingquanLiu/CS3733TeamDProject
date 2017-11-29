@@ -18,7 +18,7 @@ public class EdgesMethod {
             dbConnection.executeUpdate(str);
 
         } catch (SQLException e) {
-            System.out.println("Add Edge Failed!");
+            System.out.println("Add EdgeData Failed!");
             e.printStackTrace();
         }
     }
@@ -36,7 +36,7 @@ public class EdgesMethod {
             dbConnection.executeUpdate(str);
 
         } catch (SQLException e) {
-            System.out.println("Add Edge Failed!");
+            System.out.println("Add EdgeData Failed!");
             e.printStackTrace();
         }
     }
@@ -56,7 +56,7 @@ public class EdgesMethod {
             dbConnection.executeUpdate(str);
 
         } catch (SQLException e) {
-            System.out.println("Delete Edge Failed!");
+            System.out.println("Delete EdgeData Failed!");
             e.printStackTrace();
         }
     }

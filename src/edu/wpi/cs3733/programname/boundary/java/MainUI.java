@@ -531,10 +531,10 @@ public class MainUI {
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0);
-            l.setStartX(DBCoordinateToUICoordinate(prev.getX(),initX));
-            l.setStartY(DBCoordinateToUICoordinate(prev.getY(),initY));
-            l.setEndX(DBCoordinateToUICoordinate(n.getX(),initX));
-            l.setEndY(DBCoordinateToUICoordinate(n.getY(),initY));
+            l.setStartX(DBCoordinateToUICoordinate(prev.getXCoord(),initX));
+            l.setStartY(DBCoordinateToUICoordinate(prev.getYCoord(),initY));
+            l.setEndX(DBCoordinateToUICoordinate(n.getXCoord(),initX));
+            l.setEndY(DBCoordinateToUICoordinate(n.getYCoord(),initY));
             l.setStartX(DBCoordinateToUICoordinate(prev.getXCoord(),initX));
             l.setStartY(DBCoordinateToUICoordinate(prev.getYCoord(),initY));
             l.setEndX(DBCoordinateToUICoordinate(n.getXCoord(),initX));
@@ -572,7 +572,7 @@ public class MainUI {
      * @param coordinate
      * @return corresponding ID given node  coordinate
      */
-    public String getNodeIdWithCoor(List<NodeData> mList, Coordinate coordinate){
+    public String getNodeIDWithCoor(List<NodeData> mList, Coordinate coordinate){
         for(NodeData mNodeData : mList){
             Coordinate mCoord = mNodeData.getLocation();
             if(mCoord.getXCoord() == coordinate.getXCoord()&&mCoord.getYCoord() == coordinate.getYCoord()){

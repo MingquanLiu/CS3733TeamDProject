@@ -9,12 +9,14 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
+
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
 import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
 
 
@@ -104,6 +106,32 @@ public class ManageController {
 
     public void editNode(NodeData data) {
         this.dbModController.editNode(data);
+    }
+
+
+    public void sendServiceRequest(String type) {
+        Employee emp = new Employee("me", "1","","Mike","Liu",false,INTERPRETER_REQUEST,"mikelmq99@gmail.com");
+//        createServiceRequest(emp, type);
+    }
+
+    public List<Employee> getAllEmployees() {
+        //return this.dbQueryController.queryAllEmployees();
+        return null;
+    }
+
+    public List<ServiceRequest> getUnassignedRequests() {
+        //return this.dbQueryController.queryServiceRequestsByStatus("unassigned");
+        return null;
+    }
+
+    public List<ServiceRequest> getAssignedRequests() {
+        //return this.dbQueryController.queryServiceRequestsByStatus("assigned");
+        return null;
+    }
+
+    public List<ServiceRequest> getCompletedRequests() {
+        //return this.dbQueryController.queryServiceRequestsByStatus("complete");
+        return null;
     }
 
 //    public List<Employee> queryEmployeeByRequestType(String requestType) {

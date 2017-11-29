@@ -35,7 +35,7 @@ public class EdgesQuery {
             }
         }
         catch (SQLException e) {
-            System.out.println("Get Edge Failed!");
+            System.out.println("Get EdgeData Failed!");
             e.printStackTrace();
         }
         return allEdges;
@@ -62,7 +62,7 @@ public class EdgesQuery {
             }
         }
         catch (SQLException e) {
-            System.out.println("Get Edge Failed!");
+            System.out.println("Get EdgeData Failed!");
             e.printStackTrace();
         }
         queryResult = new EdgeData(edgeID, startNode, endNode);

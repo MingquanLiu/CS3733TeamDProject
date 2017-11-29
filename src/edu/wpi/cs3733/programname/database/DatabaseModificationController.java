@@ -42,7 +42,7 @@ public class DatabaseModificationController {
         nodesMethod.removeNode(data);
     }
 
-    //Edge Modification
+    //EdgeData Modification
 
     public void addEdge(String node1ID, String node2ID){
         edgesMethod.insertEdge(node1ID, node2ID);

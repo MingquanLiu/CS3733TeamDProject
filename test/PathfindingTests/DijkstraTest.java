@@ -31,7 +31,7 @@ public class DijkstraTest {
     EdgeData edge6 = new EdgeData("E6","5", "7");
     EdgeData edge7 = new EdgeData("E7","7", "8");
     EdgeData edge8 = new EdgeData("E8","8", "9");
-//    Edge surprise = new Edge("6","8","ES");
+//    EdgeData surprise = new EdgeData("6","8","ES");
     // TODO: add new edges to try to throw the program off, see if we are finding most efficient path, etc.
 
     LinkedList<NodeData> allNodes = new LinkedList<>(Arrays.asList(node1, node2, node3, node4, node5, node6, node7, node8, node9));
