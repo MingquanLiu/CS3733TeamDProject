@@ -126,4 +126,7 @@ public class DatabaseQueryController {
     }
 
 
+    public List<NodeData> queryNodeByFloor(String floor) {
+        return null;
+    }
 }

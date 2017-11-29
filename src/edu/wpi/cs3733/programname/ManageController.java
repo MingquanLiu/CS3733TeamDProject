@@ -164,5 +164,7 @@ public class ManageController {
     public ArrayList<ServiceRequest> getInterpreterRequest(){
         return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }
+
+
 }
 
