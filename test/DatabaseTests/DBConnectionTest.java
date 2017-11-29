@@ -76,8 +76,8 @@ public class DBConnectionTest {
           printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
 
 
-        mCsvWriter.writeNodes(conn,mCsvReader.getListOfNodes(conn));
-        mCsvWriter.writeEdges(conn, edgeList);
+        mCsvWriter.writeNodes(conn);
+        mCsvWriter.writeEdges(conn);
 
 
         ManageController manager = new ManageController(TestDB);
