@@ -121,7 +121,7 @@ public class MapAdminController implements Initializable {
     //showing nodes
     private String selectingLocation = "";
     private boolean locationsSelected;
-    private List<NodeData> currentPath;
+    private List<EdgeData> currentEdge = new ArrayList<>();
     private List<NodeData> currentNodes = new ArrayList<>();
     private List<NodeData> floorNodes;
     private boolean addingEdge;
@@ -229,16 +229,16 @@ public class MapAdminController implements Initializable {
             NodeData node1=getNode(edge.getStartNode());
             NodeData node2 = getNode(edge.getEndNode());
             if(node1!=null&&node2!=null){
+                currentEdge.add(edge);
                 displayEdge(node1,node2);
             }
-
         }
     }
 
     private NodeData getNode(String nodeID){
         for(NodeData nodeData:floorNodes){
             if(nodeData.getNodeID().equals(nodeID)){
-                if(nodeData.getFloor().equals(Integer.toString(floor))){
+                if(nodeData.getFloor().equals(lblCurrentFloor.getText())){
                     return nodeData;
                 }else{
                     return null;
@@ -351,8 +351,8 @@ public class MapAdminController implements Initializable {
             drawings = new ArrayList<>();
         }
     }
-    private void clearPath(){
-        currentPath = new ArrayList<>();
+    private void clearEdge(){
+        currentEdge = new ArrayList<>();
 
     }
 
@@ -367,6 +367,8 @@ public class MapAdminController implements Initializable {
             System.out.println("up to floor" + floor);
             setFloor();
             clearMain();
+            clearEdge();
+            clearNodes();
             showNodeAndPath();
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
@@ -374,6 +376,8 @@ public class MapAdminController implements Initializable {
             System.out.println("down to floor" + floor);
             setFloor();
             clearMain();
+            clearEdge();
+            clearNodes();
             showNodeAndPath();
         }
     }
@@ -507,10 +511,10 @@ public class MapAdminController implements Initializable {
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         clearMain();
-        if (!(currentPath == null) && !currentPath.isEmpty()) {
-            List<NodeData> mPath = currentPath;
-            clearPath();
-            displayPath(mPath);
+        if (!(currentEdge == null) && !currentEdge.isEmpty()) {
+            List<EdgeData> mEdges = currentEdge;
+            clearEdge();
+            displayEdges(mEdges);
         }
         if (!(currentNodes == null) && !currentNodes.isEmpty()) {
             List<NodeData> mNodes = currentNodes;

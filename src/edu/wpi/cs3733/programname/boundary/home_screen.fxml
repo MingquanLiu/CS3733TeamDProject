@@ -152,7 +152,7 @@
                     </rowConstraints>
                      <children>
                         <JFXButton fx:id="btnGo" onAction="#goButtonHandler" style="-fx-background-color: green;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                        <JFXButton onAction="#clearMain" style="-fx-background-color: RED;" text="Clear" GridPane.halignment="RIGHT" />
+                        <JFXButton fx:id="btnClear" onAction="#clearPathFindLoc" style="-fx-background-color: RED;" text="Clear" GridPane.halignment="RIGHT" />
                      </children>
                   </GridPane>
                     </children>

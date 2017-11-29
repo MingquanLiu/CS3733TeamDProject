@@ -134,7 +134,7 @@ public class TestingController implements Initializable{
     @FXML
     private JFXButton btnGo;
     @FXML
-    private JFXButton clear;
+    private JFXButton btnClear;
     @FXML
     private TextField txtStartLocation;
     @FXML
@@ -305,6 +305,8 @@ public class TestingController implements Initializable{
             }
             drawings = new ArrayList<>();
         }
+    }
+    public void clearPathFindLoc(){
         txtEndLocation.setText("");
         txtStartLocation.setText("");
     }
@@ -367,7 +369,6 @@ public class TestingController implements Initializable{
             case "":
                 clearMain();
                 System.out.println("Get in findNodeData X:"+x+" Y:"+y);
-
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 showNodeInfo(mClickedNode);
@@ -380,12 +381,22 @@ public class TestingController implements Initializable{
                 selectingLocation = "";
                 break;
             case "selectStart":
+                clearMain();
                 String startId = mClickedNode.getNodeID();
+                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
+                showNode(mClickedNode);
+                showNodeInfo(mClickedNode);
                 txtStartLocation.setText(startId);
+                selectingLocation = "";
                 break;
             case "selectEnd":
+                clearMain();
                 String endId = mClickedNode.getNodeID();
+                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
+                showNode(mClickedNode);
+                showNodeInfo(mClickedNode);
                 txtEndLocation.setText(endId);
+                selectingLocation = "";
                 break;
             // the rest of the situations when you click on the map
 //            case "maintenance":
@@ -488,6 +499,7 @@ public class TestingController implements Initializable{
         System.out.println("drawing path");
         currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), ASTAR);
         displayPath(currentPath);
+        clearPathFindLoc();
     }
 
     //select location when clicking on the text field
