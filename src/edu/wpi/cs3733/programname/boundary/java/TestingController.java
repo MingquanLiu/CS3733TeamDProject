@@ -292,6 +292,7 @@ public class TestingController implements Initializable{
     }
 
     private void displayPath(List<NodeData> path){
+        currentPath= path;
         clearMain();
         System.out.println("drawing path");
         NodeData prev = path.get(0);
@@ -302,13 +303,15 @@ public class TestingController implements Initializable{
         for(int i = 1; i < path.size(); i++){
             Line l = new Line();
             NodeData n = path.get(i);
-            l.setStroke(Color.BLUE);
-            l.setStrokeWidth(5.0*currentScale);
-            l.setStartX(prev.getXCoord()*currentScale);
-            l.setStartY(prev.getYCoord()*currentScale);
-            l.setEndX(n.getXCoord()*currentScale);
-            l.setEndY(n.getYCoord()*currentScale);
-            lines.add(l);
+            if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
+                l.setStroke(Color.BLUE);
+                l.setStrokeWidth(5.0*currentScale);
+                l.setStartX(prev.getXCoord()*currentScale);
+                l.setStartY(prev.getYCoord()*currentScale);
+                l.setEndX(n.getXCoord()*currentScale);
+                l.setEndY(n.getYCoord()*currentScale);
+                lines.add(l);
+            }
             prev = n;
         }
         drawings.addAll(lines);
@@ -344,11 +347,17 @@ public class TestingController implements Initializable{
             floor ++;
             System.out.println("up to floor" + floor);
             setFloor();
+            clearMain();
+            clearNodes();
+            clearPath();
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
             floor --;
             System.out.println("down to floor" + floor);
             setFloor();
+            clearMain();
+            clearNodes();
+            clearPath();
         }
     }
     private void setFloor(){
@@ -386,6 +395,7 @@ public class TestingController implements Initializable{
             //case for displaying nearest node info when nothing is selected
             case "":
                 clearMain();
+                clearNodes();
                 System.out.println("Get in findNodeData X:"+x+" Y:"+y);
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
@@ -503,6 +513,7 @@ public class TestingController implements Initializable{
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         clearMain();
+
         if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
             clearPath();
@@ -531,7 +542,8 @@ public class TestingController implements Initializable{
     public void goButtonHandler(){
         System.out.println("drawing path");
         try {
-            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), ASTAR);
+            System.out.println(mSearchType);
+            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType);
         }
         catch(InvalidNodeException ine) {
             currentPath = new ArrayList<>();
@@ -617,9 +629,9 @@ public class TestingController implements Initializable{
                 )
         );
         loader.<MapAdminController>getController().initData(dbConnection);
+        loader.<MapAdminController>getController().setmTestController(this);
         stage.show();
     }
-
     public void openAdminHandler() throws IOException {
         System.out.println("In open admin handler");
         //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
@@ -673,13 +685,13 @@ public class TestingController implements Initializable{
     }
 
     public void closeNodeInfoHandler(){
+        clearNodes();
         nodeInfoPane.setVisible(false);
-        nodeInfoLongName.setText("");
-        nodeInfoShortName.setText("");
-        nodeInfoType.setText("");
-        lblNodeX.setText("");
-        lblNodeY.setText("");
-        clearMain();
+//        nodeInfoLongName.setText("");
+//        nodeInfoShortName.setText("");
+//        nodeInfoType.setText("");
+//        lblNodeX.setText("");
+//        lblNodeY.setText("");
     }
 
     public void helpButtonHandler()throws IOException {

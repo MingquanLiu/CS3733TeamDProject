@@ -30,9 +30,9 @@
                         <Image url="@Resources/Floor_2.png" />
                      </image>
                   </ImageView>
-                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
+                    <DialogPane fx:id="nodeInfoPane"  layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
                         <content>
-                            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="150.0">
+                            <AnchorPane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="150.0">
                                 <children>
                                     <JFXButton fx:id="closeNodeInfo" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" onAction="#closeNodeInfoHandler" style="-fx-background-color: #d2d2d2; -fx-border-color: black;" text="Close" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                               <GridPane layoutX="32.0" layoutY="68.0" prefHeight="29.0" prefWidth="136.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="25.0">

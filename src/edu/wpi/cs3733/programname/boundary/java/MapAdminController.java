@@ -137,7 +137,7 @@ public class MapAdminController implements Initializable {
     private JFXButton confirmEditEdge;
     @FXML
     private JFXButton cancleEditEdge;
-
+    private TestingController mTestController;
     ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
     private String nodeAction = "";
@@ -177,6 +177,9 @@ public class MapAdminController implements Initializable {
     private EdgeData mEdge;
     @Override
     public void initialize(URL url, ResourceBundle rb){
+    }
+    public void setmTestController(TestingController testController){
+        this.mTestController = testController;
     }
 
     public void initData(DBConnection dbConnection){
@@ -336,20 +339,20 @@ public class MapAdminController implements Initializable {
                 selectingLocation = "";
                 break;
             case "selectEdge":
+                NodeData mNode =getClosestNode(nodes,x,y);
                 if(selectEdgeN1==null){
-                    selectEdgeN1=getClosestNode(nodes,x,y);
+                    selectEdgeN1= mNode;
                     showNode2(selectEdgeN1);
                 }else if(selectEdgeN2==null){
-                    selectEdgeN2 = getClosestNode(nodes,x,y);
+                    selectEdgeN2 = mNode;
                     showNode2(selectEdgeN2);
                 }
                 if(selectEdgeN2!=null&&selectEdgeN1!=null){
-                    mEdge = new EdgeData(selectEdgeN1.getNodeID()+selectEdgeN2.getNodeID(),selectEdgeN1.getNodeID(),selectEdgeN2.getNodeID());
                     displayEdge2(selectEdgeN1,selectEdgeN2);
-                    if(edgeAction == "addEdge"){
+                    if(edgeAction.equals("addEdge") ){
                         manager.addEdge(selectEdgeN1.getNodeID(),selectEdgeN2.getNodeID());
                     }
-                    if(edgeAction == "deleteEdge"){
+                    if(edgeAction.equals("deleteEdge") ){
                         String edgeId = getEdge(currentEdge,selectEdgeN1.getNodeID(),selectEdgeN2.getNodeID());
                         if(!edgeId.equals("")){
                             manager.deleteEdge(edgeId);
@@ -360,60 +363,10 @@ public class MapAdminController implements Initializable {
                     clearMain();
                     clearEdgeDrawing();
                     showNodeAndPath();
-                    setupBurger();
                     selectEdgeN2 = selectEdgeN1= null;
+//                    setupBurger();
                 }
                 break;
-//            case "nodeAdd":
-//                locationsSelected = true;
-//                prevClickX = x;
-//                prevClickY = y;
-//                textNodeLocation.setText(prevClickX + "," + prevClickY);
-//                drawCircle(prevClickX,prevClickY);
-//                gridMapEdit.setVisible(true);
-//                selectingLocation = "";
-//                break;
-//            case "addEdge":
-//                if (addEdgeN1.equals("")  || addEdgeN2.equals("")) {
-//                    nodes = manager.getAllNodeData();
-//                    mClickedNode = getClosestNode(nodes,x,y);
-//                    showNode(mClickedNode);
-//                    if (addEdgeN1.equals("")) {
-//                        addEdgeN1 = mClickedNode.getNodeID();
-//                    } else if (addEdgeN2.equals("")) {
-//                        addEdgeN2 = mClickedNode.getNodeID();
-//                    }
-//                    if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
-//                        clearMain();
-//                        NodeData n1 = manager.getNodeData(addEdgeN1);
-//                        NodeData n2 = manager.getNodeData(addEdgeN2);
-//                        displayEdge(n1,n2);
-//                        manager.addEdge(addEdgeN1, addEdgeN2);
-//                        addEdgeN1 = "";
-//                        addEdgeN2 = "";
-//                        selectingLocation = "";
-//                    }
-//                }
-//            case "editNode":
-//                int editX = x;
-//                int editY = y;
-//                nodeToEdit = getClosestNode(nodes, editX, editY);
-//                textNodeId.setText(nodeToEdit.getNodeID());
-//                textNodeLocation.setText(nodeToEdit.getLocation().toString());
-//                textNodeFloor.setText(nodeToEdit.getFloor());
-//                textNodeType.setText(nodeToEdit.getNodeType());
-//                textNodeFullName.setText(nodeToEdit.getLongName());
-//                textNodeShortName.setText(nodeToEdit.getShortName());
-//
-//                selectingLocation = "";
-//                gridMapEdit.setVisible(true);
-//                btnSubmitNodeEdit.setVisible(true);
-//            case "removeNode":
-//                int removeX = x;
-//                int removeY = y;
-//                NodeData nodeToRemove = getClosestNode(nodes, removeX, removeY);
-//                displayDeleteNodeConfirmation(nodeToRemove);
-//                break;
         }
     }
 
@@ -545,7 +498,7 @@ public class MapAdminController implements Initializable {
         }else{
             selectingLocation = "selectEdge";
             edgeAction = "addEdge";
-            setupBurger();
+//            setupBurger();
 //            editEdgePane.setVisible(true);
         }
     }
@@ -559,7 +512,7 @@ public class MapAdminController implements Initializable {
         }else{
             selectingLocation = "selectEdge";
             edgeAction = "deleteEdge";
-            setupBurger();
+//            setupBurger();
 //            editEdgePane.setVisible(true);
         }
     }
@@ -617,10 +570,12 @@ public class MapAdminController implements Initializable {
 
     }
     public void selectPFAlgorithm(ActionEvent e){
-        PathfindingController.searchType searchType = PathfindingController.searchType.ASTAR;
+        PathfindingController.searchType searchType = PathfindingController.searchType.DFS;
         Object mEvent = e.getSource();
+        System.out.println("Source"+mEvent.toString());
         if(mEvent==DFS){
             searchType = PathfindingController.searchType.DFS;
+            System.out.println("In DFS");
         }
         if(mEvent==BFS){
             searchType = PathfindingController.searchType.BFS;
@@ -631,12 +586,7 @@ public class MapAdminController implements Initializable {
         if(mEvent==ASTAR){
             searchType = PathfindingController.searchType.ASTAR;
         }
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/edu/wpi/cs3733/programname/boundary/admin_screen.fxml"
-                )
-        );
-        loader.<TestingController>getController().setSearchType(searchType);
+        mTestController.setSearchType(searchType);
     }
 
     public void openMenuHandler(){
