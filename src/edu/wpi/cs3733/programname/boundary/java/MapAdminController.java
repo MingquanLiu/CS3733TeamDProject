@@ -17,10 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -67,7 +64,9 @@ public class MapAdminController implements Initializable {
     private TextField textNodeTeamAssigned;
 
     @FXML
-    private JFXButton btnRemove;
+    private JFXButton btnDeleteNode;
+    @FXML
+    private JFXButton btnDeleteEdge;
     @FXML
     private JFXButton btnAddNode;
     @FXML
@@ -116,6 +115,8 @@ public class MapAdminController implements Initializable {
     private JFXRadioButton Dijkstra;
     @FXML
     private JFXRadioButton ASTAR;
+    @FXML
+    private ToggleGroup pathfinding;
 
     //Node Info Pane
     @FXML
@@ -133,7 +134,7 @@ public class MapAdminController implements Initializable {
 
     ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
-
+    private String nodeAction = "";
     private String addEdgeN1 = "";
     private String addEdgeN2 = "";
 
@@ -211,31 +212,6 @@ public class MapAdminController implements Initializable {
         drawCircle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
     }
 
-    @SuppressWarnings("Duplicates")
-    private void displayPath(List<NodeData> path){
-        clearMain();
-        System.out.println("drawing path");
-        NodeData prev = path.get(0);
-        int x = (int) (prev.getXCoord()*currentScale);
-        int y = (int) (prev.getYCoord()*currentScale);
-        System.out.println(x + ", " + y);
-        ArrayList<Line> lines = new ArrayList<>();
-        for(int i = 1; i < path.size(); i++){
-            Line l = new Line();
-            NodeData n = path.get(i);
-            l.setStroke(Color.BLUE);
-            l.setStrokeWidth(5.0*currentScale);
-            l.setStartX(prev.getXCoord()*currentScale);
-            l.setStartY(prev.getYCoord()*currentScale);
-            l.setEndX(n.getXCoord()*currentScale);
-            l.setEndY(n.getYCoord()*currentScale);
-            lines.add(l);
-            prev = n;
-        }
-        drawings.addAll(lines);
-        panningPane.getChildren().addAll(lines);
-    }
-
 
     private void drawCircle(int x, int y){
         double radius = 7*currentScale;
@@ -276,6 +252,16 @@ public class MapAdminController implements Initializable {
         return null;
     }
 
+    private void setNodeDataToInfoPane(NodeData nodeData){
+        textNodeId.setText(nodeData.getNodeID());
+        textNodeBuilding.setText(nodeData.getBuilding());
+        textNodeFloor.setText(nodeData.getFloor());
+        textNodeFullName.setText(nodeData.getLongName());
+        textNodeLocation.setText(nodeData.getLocation().toString());
+        textNodeShortName.setText(nodeData.getShortName());
+        textNodeTeamAssigned.setText(nodeData.getTeamAssigned());
+        textNodeType.setText(nodeData.getNodeType());
+    }
 
     /**
      * reads different mouse click and executes appropraite steps
@@ -286,7 +272,7 @@ public class MapAdminController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.getAllNodeData();
+        List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor));
 
         switch (selectingLocation) {
             case "":
@@ -295,56 +281,73 @@ public class MapAdminController implements Initializable {
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 break;
-            case "nodeAdd":
-                locationsSelected = true;
-                prevClickX = x;
-                prevClickY = y;
-                textNodeLocation.setText(prevClickX + "," + prevClickY);
-                drawCircle(prevClickX,prevClickY);
-                gridMapEdit.setVisible(true);
-                selectingLocation = "";
-                break;
-            case "addEdge":
-                if (addEdgeN1.equals("")  || addEdgeN2.equals("")) {
-                    nodes = manager.getAllNodeData();
-                    mClickedNode = getClosestNode(nodes,x,y);
-                    showNode(mClickedNode);
-                    if (addEdgeN1.equals("")) {
-                        addEdgeN1 = mClickedNode.getNodeID();
-                    } else if (addEdgeN2.equals("")) {
-                        addEdgeN2 = mClickedNode.getNodeID();
-                    }
-                    if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
-                        clearMain();
-                        NodeData n1 = manager.getNodeData(addEdgeN1);
-                        NodeData n2 = manager.getNodeData(addEdgeN2);
-                        displayEdge(n1,n2);
-                        manager.addEdge(addEdgeN1, addEdgeN2);
-                        addEdgeN1 = "";
-                        addEdgeN2 = "";
-                        selectingLocation = "";
-                    }
+            case "selectLocation":
+                switch (nodeAction){
+                    case "addNode":
+                        textNodeLocation .setText(UICToDBC(x,currentScale)+","+UICToDBC(y,currentScale));
+                        break;
+                    case "deleteNode":
+                        mClickedNode= getClosestNode(nodes,x,y);
+                        setNodeDataToInfoPane(mClickedNode);
+                        break;
+                    case "editNode":
+                        mClickedNode= getClosestNode(nodes,x,y);
+                        setNodeDataToInfoPane(mClickedNode);
+                        break;
                 }
-            case "editNode":
-                int editX = x;
-                int editY = y;
-                nodeToEdit = getClosestNode(nodes, editX, editY);
-                textNodeId.setText(nodeToEdit.getNodeID());
-                textNodeLocation.setText(nodeToEdit.getLocation().toString());
-                textNodeFloor.setText(nodeToEdit.getFloor());
-                textNodeType.setText(nodeToEdit.getNodeType());
-                textNodeFullName.setText(nodeToEdit.getLongName());
-                textNodeShortName.setText(nodeToEdit.getShortName());
-                
+                nodeInfoPane.setVisible(true);
                 selectingLocation = "";
-                gridMapEdit.setVisible(true);
-                btnSubmitNodeEdit.setVisible(true);
-            case "removeNode":
-                int removeX = x;
-                int removeY = y;
-                NodeData nodeToRemove = getClosestNode(nodes, removeX, removeY);
-                displayDeleteNodeConfirmation(nodeToRemove);
                 break;
+//            case "nodeAdd":
+//                locationsSelected = true;
+//                prevClickX = x;
+//                prevClickY = y;
+//                textNodeLocation.setText(prevClickX + "," + prevClickY);
+//                drawCircle(prevClickX,prevClickY);
+//                gridMapEdit.setVisible(true);
+//                selectingLocation = "";
+//                break;
+//            case "addEdge":
+//                if (addEdgeN1.equals("")  || addEdgeN2.equals("")) {
+//                    nodes = manager.getAllNodeData();
+//                    mClickedNode = getClosestNode(nodes,x,y);
+//                    showNode(mClickedNode);
+//                    if (addEdgeN1.equals("")) {
+//                        addEdgeN1 = mClickedNode.getNodeID();
+//                    } else if (addEdgeN2.equals("")) {
+//                        addEdgeN2 = mClickedNode.getNodeID();
+//                    }
+//                    if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
+//                        clearMain();
+//                        NodeData n1 = manager.getNodeData(addEdgeN1);
+//                        NodeData n2 = manager.getNodeData(addEdgeN2);
+//                        displayEdge(n1,n2);
+//                        manager.addEdge(addEdgeN1, addEdgeN2);
+//                        addEdgeN1 = "";
+//                        addEdgeN2 = "";
+//                        selectingLocation = "";
+//                    }
+//                }
+//            case "editNode":
+//                int editX = x;
+//                int editY = y;
+//                nodeToEdit = getClosestNode(nodes, editX, editY);
+//                textNodeId.setText(nodeToEdit.getNodeID());
+//                textNodeLocation.setText(nodeToEdit.getLocation().toString());
+//                textNodeFloor.setText(nodeToEdit.getFloor());
+//                textNodeType.setText(nodeToEdit.getNodeType());
+//                textNodeFullName.setText(nodeToEdit.getLongName());
+//                textNodeShortName.setText(nodeToEdit.getShortName());
+//
+//                selectingLocation = "";
+//                gridMapEdit.setVisible(true);
+//                btnSubmitNodeEdit.setVisible(true);
+//            case "removeNode":
+//                int removeX = x;
+//                int removeY = y;
+//                NodeData nodeToRemove = getClosestNode(nodes, removeX, removeY);
+//                displayDeleteNodeConfirmation(nodeToRemove);
+//                break;
         }
     }
     @SuppressWarnings("Duplicates")
@@ -354,6 +357,7 @@ public class MapAdminController implements Initializable {
         int resultX = 0;
         int resultY = 0;
         String resultNodeId = "";
+        NodeData mNode = null;
         double d = 0;
         for (NodeData node : nodeDataList) {
             int nodeX = node.getXCoord();
@@ -364,9 +368,10 @@ public class MapAdminController implements Initializable {
                 resultX = nodeX;
                 resultY = nodeY;
                 resultNodeId = node.getNodeID();
+                mNode = node;
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),lblCurrentFloor.getText(),null,null,null,null,null);
+        return mNode;
     }
 
     @SuppressWarnings("Duplicates")
@@ -386,6 +391,17 @@ public class MapAdminController implements Initializable {
 
     private void clearNodes(){
         currentNodes = new ArrayList<>();
+    }
+
+    private void clearNodeInfoText(){
+        textNodeId.setText("");
+        textNodeBuilding.setText("");
+        textNodeFloor.setText("");
+        textNodeFullName.setText("");
+        textNodeLocation.setText("");
+        textNodeShortName.setText("");
+        textNodeTeamAssigned.setText("");
+        textNodeType.setText("");
     }
 
     @SuppressWarnings("Duplicates")
@@ -433,83 +449,72 @@ public class MapAdminController implements Initializable {
         gridMapEdit.setVisible(false);
     }
 
-    private void clearNodeInfoText(){
-        textNodeId.setText("");
-        textNodeBuilding.setText("");
-        textNodeFloor.setText("");
-        textNodeFullName.setText("");
-        textNodeLocation.setText("");
-        textNodeShortName.setText("");
-        textNodeTeamAssigned.setText("");
-        textNodeType.setText("");
-    }
+
     public void nodeInfoXHandler(){
         nodeInfoPane.setVisible(false);
         clearNodeInfoText();
     }
-    public void addNodeHandler() {
-        String id = textNodeId.getText();
-        String nodeType = textNodeType.getText();
-
-        String location = textNodeLocation.getText();
-        String[] locXY = location.split(",");
-        Coordinate loc = new Coordinate(Integer.parseInt(locXY[0]), Integer.parseInt(locXY[1]));
-
-        String longName = textNodeFullName.getText();
-        String floor = textNodeFloor.getText();
-        String shortName = textNodeShortName.getText();
-
-        String building = textNodeBuilding.getText();               //figure out building based on Coordinate
-        String teamAssigned = textNodeTeamAssigned.getText();           //figure out what to do with this field for new nodes
-
-        NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
-        manager.addNode(newNode);
-        displayAddNodeConfirmation(id, longName, loc);
+    public void addHandler(ActionEvent event){
+        if(event.getSource()==btnAddNode){
+            nodeInfoPane.setVisible(true);
+            nodeInfoAdd.setVisible(true);
+            nodeInfoDelete.setVisible(false);
+            nodeInfoEdit.setVisible(false);
+            nodeAction = "addNode";
+        }
+    }
+    public void deleteHandler(ActionEvent event){
+        if(event.getSource()==btnDeleteNode){
+            nodeInfoPane.setVisible(true);
+            nodeInfoAdd.setVisible(false);
+            nodeInfoDelete.setVisible(true);
+            nodeInfoEdit.setVisible(false);
+            nodeAction = "deleteNode";
+        }
+    }
+    public void editHandler(){
+            nodeInfoPane.setVisible(true);
+            nodeInfoAdd.setVisible(false);
+            nodeInfoDelete.setVisible(false);
+            nodeInfoEdit.setVisible(true);
+            nodeAction = "editNode";
     }
 
     public void displayAddNodeConfirmation(String id, String name, Coordinate loc) {
         String message = "Node " + name + " (" + id + ")  was successfully added to" +
                 " the map at location " + loc.toString();
     }
-
-    public void addEdgeHandler() {
-        if(addingEdge){
-            selectingLocation = "";
-            addingEdge = false;
+    
+    public void nodeInfoHandler(ActionEvent event){
+        nodeInfoPane.setVisible(false);
+        if(event.getSource()==nodeInfoSetLocation){
+            selectingLocation = "selectLocation";
         }else{
-            selectingLocation = "addEdge";
-            addingEdge = true;
+            String id = textNodeId.getText();
+            String nodeType = textNodeType.getText();
+            String location = textNodeLocation.getText();
+            String[] locXY = location.split(",");
+            Coordinate loc = new Coordinate(Integer.parseInt(locXY[0]), Integer.parseInt(locXY[1]));
+            String longName = textNodeFullName.getText();
+            String floor = textNodeFloor.getText();
+            String shortName = textNodeShortName.getText();
+            String building = textNodeBuilding.getText();               //figure out building based on Coordinate
+            String teamAssigned = textNodeTeamAssigned.getText();           //figure out what to do with this field for new nodes
+            if(event.getSource()==nodeInfoAdd){
+                NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
+                manager.addNode(newNode);
+                displayAddNodeConfirmation(id, longName, loc);
+            }
+            if(event.getSource()==nodeInfoDelete){
+                NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
+                manager.deleteNode(newNode);
+            }
+            if(event.getSource()==nodeInfoEdit){
+                NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
+                manager.editNode(newNode);
+            }
         }
-    }
 
-    public void removeNodeHandler() {
-        selectingLocation = "removeNode";
-        gridMapEdit.setVisible(false);
-    }
-
-    public void editNodeHandler() {
-        selectingLocation = "editNode";
-        gridMapEdit.setVisible(false);
-    }
-
-    public void submitEditNodeHandler() {
-        manager.deleteNode(nodeToEdit);
-
-        String location = textNodeLocation.getText();
-        location = location.replace('(', ' ');
-        location = location.replace(')', ' ');
-        location = location.trim();
-        String[] locXY = location.split(",");
-        Coordinate loc = new Coordinate(Integer.parseInt(locXY[0]), Integer.parseInt(locXY[0]));
-
-        nodeToEdit.setNodeID(textNodeId.getText());
-        nodeToEdit.setLocation(loc);
-        nodeToEdit.setFloor(textNodeFloor.getText());
-        nodeToEdit.setNodeType(textNodeType.getText());
-        nodeToEdit.setLongName(textNodeFullName.getText());
-        nodeToEdit.setShortName(textNodeShortName.getText());
-
-        manager.addNode(nodeToEdit);
     }
     public void selectPFAlgorithm(ActionEvent e){
         PathfindingController.searchType searchType = PathfindingController.searchType.ASTAR;
