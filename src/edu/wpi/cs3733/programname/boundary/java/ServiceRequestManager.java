@@ -75,7 +75,7 @@ public class ServiceRequestManager {
         assignedRequests.setVisible(false);
         completedRequests.setVisible(false);
         currVisible = "unassigned";
-        updateUnassignedView();
+//        updateUnassignedView();
     }
 
     public void assignedRequestButtonHandler() {
@@ -116,21 +116,21 @@ public class ServiceRequestManager {
 
     }
 
-    public String createServiceRequestListString(ServiceRequest sr) {
-        if (sr.getLocation2() == null) {
-            return sr.getServiceType() + " - " + sr.getLocation1().getLongName();
-        }
-        else return sr.getServiceType() + " - Hallway between " + sr.getLocation1().getShortName() +
-                " and " + sr.getLocation2().getShortName();
-    }
-
-    public String createEmployeeListString(Employee e) {
-        return e.getUsername() + " - " + e.getFirstName() + " " + e.getLastName();
-    }
+//    public String createServiceRequestListString(ServiceRequest sr) {
+//        if (sr.getLocation2() == null) {
+//            return sr.getServiceType() + " - " + sr.getLocation1().getLongName();
+//        }
+//        else return sr.getServiceType() + " - Hallway between " + sr.getLocation1().getShortName() +
+//                " and " + sr.getLocation2().getShortName();
+//    }
+//
+//    public String createEmployeeListString(Employee e) {
+//        return e.getUsername() + " - " + e.getFirstName() + " " + e.getLastName();
+//    }
 
     public void updateCurrentView() {
         if (currVisible == "unassigned") {
-            updateUnassignedView();
+//            updateUnassignedView();
         }
         else if (currVisible == "assigned") {
             updateAssignedRequests();
@@ -140,21 +140,21 @@ public class ServiceRequestManager {
         }
     }
 
-    public void updateUnassignedView() {
-        listUnassigned = new JFXListView<String>();
-        listEmployees = new JFXListView<String>();
-        currUnassigned = manager.getUnassignedRequests();
-        currEmployees = manager.getAllEmployees();
-
-        for(ServiceRequest sr: currUnassigned) {
-            String requestDisplay = createServiceRequestListString(sr);
-            listUnassigned.getItems().add(requestDisplay);
-        }
-        for(Employee emp: currEmployees) {
-            String employeeDisplay = createEmployeeListString(emp);
-            listEmployees.getItems().add(employeeDisplay);
-        }
-    }
+//    public void updateUnassignedView() {
+//        listUnassigned = new JFXListView<String>();
+//        listEmployees = new JFXListView<String>();
+//        currUnassigned = manager.getUnassignedRequests();
+//        currEmployees = manager.getAllEmployees();
+//
+//        for(ServiceRequest sr: currUnassigned) {
+//            String requestDisplay = createServiceRequestListString(sr);
+//            listUnassigned.getItems().add(requestDisplay);
+//        }
+//        for(Employee emp: currEmployees) {
+//            String employeeDisplay = createEmployeeListString(emp);
+//            listEmployees.getItems().add(employeeDisplay);
+//        }
+//    }
 
     public void updateAssignedRequests() {
         listAssigned = new JFXListView<String>();

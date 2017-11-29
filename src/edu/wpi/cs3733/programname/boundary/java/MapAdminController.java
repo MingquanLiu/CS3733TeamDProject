@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.boundary.java;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
@@ -93,6 +94,11 @@ public class MapAdminController implements Initializable {
     @FXML
     private JFXButton btnZoomOut;
 
+    @FXML
+    private AnchorPane paneControls;
+    @FXML
+    private JFXHamburger burger;
+
     ManageController manager = new ManageController();
     private List<Shape> drawings = new ArrayList<>();
 
@@ -101,7 +107,10 @@ public class MapAdminController implements Initializable {
 
     private int prevClickX;
     private int prevClickY;
-
+    //hamburger transitions
+    private HamburgerSlideCloseTransition burgerTransition;
+    private boolean controlsVisible = false;
+    private FadeTransition controlsTransition;
     //zooming/panning
     private double currentScale;
     final double minWidth = 1500;
@@ -134,6 +143,13 @@ public class MapAdminController implements Initializable {
         mapRatio.add(0.48);
         mapRatio.add(0.55);
         mapRatio.add(0.60);
+        burgerTransition = new HamburgerSlideCloseTransition(burger);
+        burgerTransition.setRate(-1);
+
+        controlsTransition = new FadeTransition(new Duration(500), paneControls);
+        controlsTransition.setFromValue(0);
+        controlsTransition.setToValue(1);
+        paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
         System.out.println("Scale: " + currentScale);
         imgMap.setFitWidth(maxWidth*currentScale);
@@ -430,6 +446,18 @@ public class MapAdminController implements Initializable {
         nodeToEdit.setShortName(textNodeShortName.getText());
 
         manager.addNode(nodeToEdit);
+    }
+
+    public void openMenuHandler(){
+        burgerTransition.setRate(burgerTransition.getRate()*-1);
+        burgerTransition.play();
+
+        controlsVisible = !controlsVisible;
+        controlsTransition.play();
+        paneControls.setVisible(controlsVisible);
+
+        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
+        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
     }
 
 
