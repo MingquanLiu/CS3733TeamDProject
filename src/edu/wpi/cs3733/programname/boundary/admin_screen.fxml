@@ -104,9 +104,9 @@
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                  <JFXButton text="Add a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                  <JFXButton text="Add an Edge" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-                  <JFXButton text="Switch Algorithm" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                  <JFXButton fx:id="btnAddNode" onAction="#addHandler" text="Add a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <JFXButton fx:id="btnAddEdge" onAction="#addEdgeHandler" text="Add an Edge" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                  <JFXButton  text="Switch Algorithm" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></JFXButton>
@@ -154,8 +154,8 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <JFXButton text="Delete a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
-                  <JFXButton text="Delete an Edge" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
+                  <JFXButton fx:id="btnDeleteNode" onAction="#deleteHandler" text="Delete a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+                  <JFXButton fx:id="btnDeleteEdge" onAction="#deleteHandler" text="Delete an Edge" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
                   <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="9" GridPane.valignment="BOTTOM" />
                   <Label text="Edit" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="13">
                      <font>
@@ -163,7 +163,7 @@
                      </font>
                   </Label>
                   <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="13" GridPane.valignment="BOTTOM" />
-                  <JFXButton text="Edit a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="14" />
+                  <JFXButton fx:id="btnEditNode" onAction="#editHandler" text="Edit a Node" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="14" />
                     </children>
                 </GridPane>
             <Line endX="100.0" layoutX="92.0" layoutY="100.0" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
@@ -222,24 +222,24 @@
                   <JFXTextField fx:id="textNodeTeamAssigned" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <JFXButton fx:id="nodeInfoSetLocation" layoutX="14.0" layoutY="203.0" style="-fx-background-color: #d2d2d2;" text="Set Location">
+            <JFXButton fx:id="nodeInfoSetLocation" onAction="#nodeInfoHandler" layoutX="14.0" layoutY="203.0" style="-fx-background-color: #d2d2d2;" text="Set Location">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </JFXButton>
             <StackPane layoutX="389.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="100.0">
                <children>
-                  <JFXButton fx:id="nodeInfoAdd" onAction="#addNodeHandler" style="-fx-background-color: #d2d2d2;" text="Add">
+                  <JFXButton fx:id="nodeInfoAdd" onAction="#nodeInfoHandler" style="-fx-background-color: #d2d2d2;" text="Add">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="nodeInfoDelete" onAction="#removeNodeHandler" style="-fx-background-color: #d2d2d2;" text="Delete">
+                  <JFXButton fx:id="nodeInfoDelete" onAction="#nodeInfoHandler" style="-fx-background-color: #d2d2d2;" text="Delete">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="nodeInfoEdit" onAction="#editNodeHandler" style="-fx-background-color: #d2d2d2;" text="Edit">
+                  <JFXButton fx:id="nodeInfoEdit" onAction="#nodeInfoHandler" style="-fx-background-color: #d2d2d2;" text="Edit">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

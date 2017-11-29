@@ -437,6 +437,17 @@ public class TestingController implements Initializable{
         controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
         controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
     }
+    private void setBurgerFalse(){
+        burgerTransition.setRate(burgerTransition.getRate()*-1);
+        burgerTransition.play();
+
+        controlsVisible = false;
+        controlsTransition.play();
+        paneControls.setVisible(controlsVisible);
+
+        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
+        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
+    }
 
     //Locate Bathroom/ Service desk/ VendingMachine JFXButton Handler
     public void locateHandler(ActionEvent event){
