@@ -231,14 +231,14 @@
             <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenu" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-          <AnchorPane fx:id="serviceRequester" layoutX="528.0" layoutY="156.0" prefHeight="247.0" prefWidth="486.0" style="-fx-background-color: white;">
+          <AnchorPane fx:id="serviceRequester" layoutX="528.0" layoutY="156.0" prefHeight="247.0" prefWidth="486.0" style="-fx-background-color: white;" visible="false">
               <children>
                   <TextArea fx:id="requestDescription" layoutX="14.0" layoutY="81.0" prefHeight="145.0" prefWidth="313.0" AnchorPane.leftAnchor="14.0" />
                   <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="352.0" layoutY="128.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Select Location(s)" />
                   <JFXButton fx:id="btnCancelRequestAttempt" layoutX="340.0" layoutY="196.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Cancel" />
                   <JFXButton fx:id="btnSubmitRequest" layoutX="412.0" layoutY="196.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Submit" />
             <Label fx:id="lblServiceX" layoutX="384.0" layoutY="71.0" AnchorPane.bottomAnchor="168.0" />
-            <Label fx:id="lblServiceY" layoutX="384.0" layoutY="93.0" AnchorPane.rightAnchor="74.0" />
+            <Label fx:id="lblServiceY" layoutX="384.0" layoutY="93.0" />
             <Label layoutX="366.0" layoutY="67.0" text="X: " AnchorPane.bottomAnchor="164.0">
                <font>
                   <Font size="16.0" />
