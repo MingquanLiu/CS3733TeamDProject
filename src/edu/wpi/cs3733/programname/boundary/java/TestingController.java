@@ -14,6 +14,7 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -160,6 +161,9 @@ public class TestingController implements Initializable{
 
     @FXML
     private JFXTextField txtUser;
+
+    @FXML
+    private Button helpButton;
 
     //global variables, not FXML tied
     private ManageController manager;
@@ -660,6 +664,21 @@ public class TestingController implements Initializable{
         lblNodeX.setText("");
         lblNodeY.setText("");
         clearMain();
+    }
+
+    public void helpButtonHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/edu/wpi/cs3733/programname/boundary/FAQ_Popup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
     }
 
 }
