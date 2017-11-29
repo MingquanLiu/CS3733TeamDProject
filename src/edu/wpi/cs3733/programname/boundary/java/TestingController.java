@@ -111,6 +111,8 @@ public class TestingController implements Initializable{
     private Label lblServiceLovation;
     @FXML
     private Label lblServiceType;
+    @FXML
+    private Label lblReqType;
 
     //hamburger pane and transitions
     @FXML

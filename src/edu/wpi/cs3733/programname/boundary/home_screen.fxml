@@ -27,7 +27,7 @@
                         <Image url="@Resources/Floor_2.png" />
                      </image>
                   </ImageView>
-                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;">
+                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="150.0" style="-fx-background-color: white;" visible="false">
                         <content>
                             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="100.0">
                                 <children>
@@ -131,12 +131,12 @@
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
                      </GridPane.margin></Label>
-                  <JFXTextField fx:id="txtStartLocation" promptText="Start Location" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtStartLocation" onMouseClicked="#selectStartField" promptText="Start Location" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtEndLocation" promptText="End Location" style="-fx-border-color: #000000;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtEndLocation" onMouseClicked="#selectEndField" promptText="End Location" style="-fx-border-color: #000000;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="2.0" />
                      </GridPane.margin>
@@ -210,7 +210,7 @@
             <JFXButton fx:id="btnLogin" layoutX="-4.0" onAction="#loginButtonHandler" text="Login" />
             </children>
         </AnchorPane>
-        <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="600.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white;">
+        <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="600.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: white;" visible="false">
             <content>
                 <AnchorPane prefHeight="178.0" prefWidth="350.0">
                     <children>
@@ -222,6 +222,7 @@
                   <Label fx:id="lblServiceLocation" layoutX="109.0" layoutY="110.0" text="Label" AnchorPane.rightAnchor="214.0" />
                   <Label layoutX="14.0" layoutY="111.0" text="X: " />
                   <Label layoutX="80.0" layoutY="111.0" text="Y: " />
+                  <Label fx:id="lblReqType" layoutX="305.0" layoutY="111.0" text="Label" />
                     </children>
                 </AnchorPane>
             </content>
