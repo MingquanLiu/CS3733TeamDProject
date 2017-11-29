@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.RED;
 
@@ -160,7 +161,7 @@ public class MapAdminController implements Initializable {
         System.out.println("Scale: " + currentScale);
         imgMap.setFitWidth(maxWidth*currentScale);
 
-        List<NodeData> nodes = manager.queryNodeByFloor(""+floor);
+        List<NodeData> nodes = manager.queryNodeByFloor(lblCurrentFloor.getText());
         floorNodes = nodes;
         List<EdgeData> edges = manager.getAllEdgeData();
         displayEdges(edges);
@@ -335,7 +336,7 @@ public class MapAdminController implements Initializable {
                 resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,""+floor,null,null,null,null);
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),lblCurrentFloor.getText(),null,null,null,null,null);
     }
 
 
@@ -386,8 +387,7 @@ public class MapAdminController implements Initializable {
         System.out.println("current map: " + file.toString());
         Image newImg = new Image(file.toString());
         imgMap.setImage(newImg);
-
-        lblCurrentFloor.setText("" + floor);
+        lblCurrentFloor.setText(convertFloor(floor));
     }
 
 
