@@ -151,8 +151,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton fx:id="btnGo" onAction="#goButtonHandler" style="-fx-background-color: green;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                        <JFXButton fx:id="btnClear" onAction="#clearPathFindLoc" style="-fx-background-color: RED;" text="Clear" GridPane.halignment="RIGHT" />
+                        <JFXButton fx:id="btnGo" buttonType="RAISED" onAction="#goButtonHandler" style="-fx-background-color: #ccffda;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+                        <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearPathFindLoc" style="-fx-background-color: #ffb3bb;" text="Clear" GridPane.halignment="RIGHT" />
                      </children>
                   </GridPane>
                     </children>

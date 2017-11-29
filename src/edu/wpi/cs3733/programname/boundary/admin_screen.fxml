@@ -7,6 +7,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -191,19 +192,22 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXRadioButton text="DFS">
+                        <JFXRadioButton selected="true" text="DFS">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="pathfinding" />
+                           </toggleGroup></JFXRadioButton>
+                        <JFXRadioButton selected="true" text="BFS" toggleGroup="$pathfinding" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="50.0" />
                            </GridPane.margin></JFXRadioButton>
-                        <JFXRadioButton text="BFS" GridPane.rowIndex="1">
+                        <JFXRadioButton selected="true" text="Dijkstra" toggleGroup="$pathfinding" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="50.0" />
                            </GridPane.margin></JFXRadioButton>
-                        <JFXRadioButton text="Dijkstra" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets left="50.0" />
-                           </GridPane.margin></JFXRadioButton>
-                        <JFXRadioButton text="Astar" GridPane.rowIndex="3">
+                        <JFXRadioButton selected="true" text="Astar" toggleGroup="$pathfinding" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="50.0" />
                            </GridPane.margin></JFXRadioButton>
