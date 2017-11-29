@@ -162,8 +162,13 @@ public class TestingController implements Initializable{
     @FXML
     private JFXTextField txtUser;
 
+    //FAQ
     @FXML
     private Button helpButton;
+
+    //Email
+    @FXML
+    private JFXButton emailDirections;
 
     //global variables, not FXML tied
     private ManageController manager;

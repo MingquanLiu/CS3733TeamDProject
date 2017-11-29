@@ -170,6 +170,7 @@
                      <children>
                         <JFXButton fx:id="btnGo" buttonType="RAISED" onAction="#goButtonHandler" style="-fx-background-color: #ccffda;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
                         <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearPathFindLoc" style="-fx-background-color: #ffb3bb;" text="Clear" GridPane.halignment="RIGHT" />
+                        <JFXButton fx:id="emailDirections" buttonType="RAISED" prefHeight="27.0" prefWidth="171.0" style="-fx-background-color: lightgrey;" text="Email Directions" />
                      </children>
                   </GridPane>
                     </children>
@@ -240,7 +241,7 @@
             </GridPane>
             <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
               <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
-            <Button fx:id="helpButton" layoutX="54.0" layoutY="638.0" mnemonicParsing="false" onAction="#helpButtonHandler" text="HELP" />
+            <Button fx:id="helpButton" layoutX="57.0" layoutY="611.0" mnemonicParsing="false" onAction="#helpButtonHandler" text="HELP" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="50.0" prefWidth="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">

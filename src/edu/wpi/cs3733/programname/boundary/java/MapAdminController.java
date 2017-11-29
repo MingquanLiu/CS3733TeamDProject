@@ -132,6 +132,13 @@ public class MapAdminController implements Initializable {
     @FXML
     private JFXButton nodeInfoX;
 
+    @FXML
+    private AnchorPane editEdgePane;
+    @FXML
+    private JFXButton confirmEditEdge;
+    @FXML
+    private JFXButton cancleEditEdge;
+
     ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
     private String nodeAction = "";
