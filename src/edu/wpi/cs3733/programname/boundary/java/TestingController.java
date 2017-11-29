@@ -694,6 +694,7 @@ public class TestingController implements Initializable{
 
     public void closeNodeInfoHandler(){
         clearNodes();
+        clearMain();
         nodeInfoPane.setVisible(false);
 //        nodeInfoLongName.setText("");
 //        nodeInfoShortName.setText("");
