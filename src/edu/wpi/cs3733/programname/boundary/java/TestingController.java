@@ -166,6 +166,7 @@ public class TestingController implements Initializable{
     private String selectingLocation = "";
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
+
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -227,7 +228,6 @@ public class TestingController implements Initializable{
 
     //displaying node info on click
 
-
     private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
         int dbX = UICToDBC(mouseX,currentScale);
         int dbY =UICToDBC(mouseY,currentScale);
@@ -249,8 +249,6 @@ public class TestingController implements Initializable{
         }
         return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null);
     }
-
-
 
     private void displayPath(List<NodeData> path){
         clearMain();
@@ -336,16 +334,16 @@ public class TestingController implements Initializable{
         return (int)(value*scale);
     }
     public void mouseClickHandler(MouseEvent e){
-        clearMain();
+        //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
+        List<NodeData> nodes = manager.getAllNodeData();
+        NodeData mClickedNode= getClosestNode(nodes,x,y);
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected
             case "":
                 System.out.println("Get in findNodeData X:"+x+" Y:"+y);
 
-                List<NodeData> nodes = manager.getAllNodeData();
-                NodeData mClickedNode= getClosestNode(nodes,x,y);
                 mClickedNode = manager.getNodeData(mClickedNode.getId());
                 showNode(mClickedNode);
                 showNodeInfo(mClickedNode);
@@ -355,6 +353,14 @@ public class TestingController implements Initializable{
                 requestDescription.setText(mCoordinate.getX()+","+mCoordinate.getY());
                 serviceRequester.setVisible(true);
                 selectingLocation = "";
+                break;
+            case "selectStart":
+                String startId = mClickedNode.getId();
+                txtStartLocation.setText(startId);
+                break;
+            case "selectEnd":
+                String endId = mClickedNode.getId();
+                txtEndLocation.setText(endId);
                 break;
             // the rest of the situations when you click on the map
 //            case "maintenance":
@@ -377,23 +383,6 @@ public class TestingController implements Initializable{
 
         controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
         controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
-    }
-
-    //popup methods
-    public void loginButtonHandler(){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml")));
-            Scene newScene;
-            try {
-                newScene = new Scene(loader.load());
-            } catch(IOException ex){
-                //Todo add some sort of error handling
-                return;
-            }
-            Stage loginStage = new Stage();
-            loginStage.setScene(newScene);
-            loginStage.showAndWait();
-            boolean loggedIn = loader.<LoginPopup>getController().getLoggedIn();
-            lblLoginStatus.setText("logged in");
     }
 
     //Locate Bathroom/ Service desk/ VendingMachine JFXButton Handler
@@ -455,8 +444,9 @@ public class TestingController implements Initializable{
             clearNodes();
             showNodeList(mNodes);
             System.out.println(currentScale);
+            relocateNodeInfo();
         }
-        relocateNodeInfo();
+
     }
 
     //relocate the node info panel
@@ -475,6 +465,14 @@ public class TestingController implements Initializable{
         displayPath(currentPath);
     }
 
+    //select location when clicking on the text field
+    public void selectStartField(){
+        selectingLocation = "selectStart";
+    }
+    public void selectEndField(){
+        selectingLocation = "selectEnd";
+    }
+
     public void SRHandler(ActionEvent e){
         Object mEvent = e.getSource();
         serviceRequester.setVisible(true);
@@ -490,19 +488,31 @@ public class TestingController implements Initializable{
         }
         requestDescription.setText(SRType);
     }
-    private void showScene(String url){
+
+    //popup methods
+    private FXMLLoader showScene(String url){
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Scene newScene;
         try {
             newScene = new Scene(loader.load());
         } catch(IOException ex){
             //Todo add some sort of error handling
-            return;
+            return loader;
         }
         Stage newStage = new Stage();
         newStage.setScene(newScene);
         newStage.showAndWait();
+        return loader;
     }
+
+    public void loginButtonHandler(){
+        FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
+        boolean loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        if(loggedIn) {
+            lblLoginStatus.setText("logged in");
+        }
+    }
+
     public void mapEditHandler(){
         System.out.println("In map Edit handler");
         showScene("/edu/wpi/cs3733/programname/boundary/admin_screen.fxml");
@@ -529,6 +539,7 @@ public class TestingController implements Initializable{
             manager.sendServiceRequest(requestDescription.getText());
         }
     }
+
     public void closeNodeInfoHandler(){
         nodeInfoPane.setVisible(false);
         nodeInfoLongName.setText("");

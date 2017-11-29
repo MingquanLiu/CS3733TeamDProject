@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.programname.boundary.java;
 
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +12,10 @@ public class LoginPopup {
     private Button btnSubmit;
     @FXML
     private Button btnCancel;
+    @FXML
+    private JFXTextField txtUser;
+    @FXML
+    private JFXPasswordField txtPass;
 
     private ManageController manager;
     boolean succesfulLogin;
@@ -18,12 +24,20 @@ public class LoginPopup {
         System.out.println("a button was clicked");
         if(e.getSource() == btnSubmit){
             succesfulLogin = true;
-            //succesfulLogin = manager.Login();
-            System.out.println("logging in");
-            btnSubmit.getScene().getWindow().hide();
+            //succesfulLogin = manager.login(txtUser.getText(), txtPass.getText());
+            if(succesfulLogin) {
+                System.out.println("logging in");
+                btnSubmit.getScene().getWindow().hide();
+            }
+            else{
+                System.out.println("login failed");
+                txtPass.setText("");
+                txtUser.setText("");
+            }
         }
         else{
-
+            btnSubmit.getScene().getWindow().hide();
+            succesfulLogin = false;
         }
     }
     public boolean getLoggedIn(){

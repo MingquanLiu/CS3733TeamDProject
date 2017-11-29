@@ -131,12 +131,12 @@
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
                      </GridPane.margin></Label>
-                  <JFXTextField fx:id="txtStartLocation" promptText="Start Location" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtStartLocation" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtEndLocation" promptText="End Location" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <JFXTextField fx:id="txtEndLocation" onMouseClicked="#selectEndField" promptText="End Location" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="2.0" />
                      </GridPane.margin>
