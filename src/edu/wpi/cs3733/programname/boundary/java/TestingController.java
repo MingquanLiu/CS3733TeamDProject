@@ -351,6 +351,7 @@ public class TestingController implements Initializable{
             clearMain();
             clearNodes();
             clearPath();
+            nodeInfoPane.setVisible(false);
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
             floor --;
@@ -359,6 +360,7 @@ public class TestingController implements Initializable{
             clearMain();
             clearNodes();
             clearPath();
+            nodeInfoPane.setVisible(false);
         }
     }
     private void setFloor(){
@@ -661,7 +663,8 @@ public class TestingController implements Initializable{
         if(mEvent == btnCancelRequestAttempt){
             //TODO clear the text
             requestDescription.setText("");
-
+            lblServiceX.setText("");
+            lblServiceY.setText("");
         }
         if(mEvent == btnSubmitRequest){
             //TODO clear the text and submit the SR
@@ -682,6 +685,8 @@ public class TestingController implements Initializable{
             String description = requestDescription.getText();
          //   String senderUsername = employeeLoggedIn.getUsername();
             manager.createServiceRequest("admin", type, locationId, null, description);
+            lblServiceX.setText("");
+            lblServiceY.setText("");
         }
     }
 
