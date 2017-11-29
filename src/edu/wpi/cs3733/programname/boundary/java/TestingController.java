@@ -350,7 +350,7 @@ public class TestingController implements Initializable{
             setFloor();
             clearMain();
             clearNodes();
-            clearPath();
+            displayPath(currentPath);
             nodeInfoPane.setVisible(false);
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
@@ -359,7 +359,7 @@ public class TestingController implements Initializable{
             setFloor();
             clearMain();
             clearNodes();
-            clearPath();
+            displayPath(currentPath);
             nodeInfoPane.setVisible(false);
         }
     }
