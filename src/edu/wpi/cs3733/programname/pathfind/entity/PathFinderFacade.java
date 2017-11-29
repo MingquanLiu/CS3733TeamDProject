@@ -19,7 +19,22 @@ public class PathFinderFacade {
      * @param startID the text ID of the starting node
      * @param goalID the text ID of the goal or target node
      */
-    public PathFinderFacade(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
+    public PathFinderFacade(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID)
+            throws NoPathException, InvalidNodeException {
+        boolean startFound = false;
+        boolean goalFound = false;
+        for(NodeData n: nodes) {
+            if(n.getNodeID().equals(startID)){
+                startFound = true;
+            }
+            else if (n.getNodeID().equals(goalID)) {
+                goalFound = true;
+            }
+        }
+
+        if (!startFound || !goalFound) {
+            throw new InvalidNodeException("Invalid Parameters: NodeID does not exist!");
+        }
         this.dfs = new DFS(nodes, edges, startID, goalID);
         this.bfs = new BFS(nodes, edges, startID, goalID);
         this.astar = new AStar(nodes, edges, startID, goalID);
