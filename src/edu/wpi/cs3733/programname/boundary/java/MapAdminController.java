@@ -5,8 +5,9 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.Edge;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.RED;
 
@@ -99,7 +101,7 @@ public class MapAdminController implements Initializable {
     @FXML
     private JFXHamburger burger;
 
-    ManageController manager = new ManageController();
+    ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
 
     private String addEdgeN1 = "";
@@ -130,12 +132,17 @@ public class MapAdminController implements Initializable {
 
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
-
+    private DBConnection dbConnection;
     @Override
     public void initialize(URL url, ResourceBundle rb){
+
+
+    }
+
+    public void initData(DBConnection dbConnection){
         currentMapRatioIndex =originalMapRatioIndex;
 //        mapRatio.add(0.24);
-
+        manager = new ManageController(dbConnection);
         mapRatio.add(0.318);
         mapRatio.add(0.35);
         mapRatio.add(0.39);
@@ -153,14 +160,12 @@ public class MapAdminController implements Initializable {
         currentScale = mapRatio.get(currentMapRatioIndex);
         System.out.println("Scale: " + currentScale);
         imgMap.setFitWidth(maxWidth*currentScale);
-        manager = new ManageController();
 
-        List<NodeData> nodes = manager.getAllNodeData();
+        List<NodeData> nodes = manager.queryNodeByFloor(lblCurrentFloor.getText());
         floorNodes = nodes;
-        List<Edge> edges = manager.getAllEdgeData();
+        List<EdgeData> edges = manager.getAllEdgeData();
         displayEdges(edges);
         showNodeList(nodes);
-
     }
 
 
@@ -171,9 +176,9 @@ public class MapAdminController implements Initializable {
     }
     private void showNode(NodeData n){
         currentNodes.add(n);
-        System.out.println("x:"+DBCToUIC(n.getX(),currentScale) +" y:"+DBCToUIC(n.getY(),currentScale));
-        System.out.println("X:"+n.getX()+" Y:"+n.getY());
-        drawCircle(DBCToUIC(n.getX(),currentScale),DBCToUIC(n.getY(),currentScale));
+        System.out.println("x:"+DBCToUIC(n.getXCoord(),currentScale) +" y:"+DBCToUIC(n.getYCoord(),currentScale));
+        System.out.println("X:"+n.getXCoord()+" Y:"+n.getYCoord());
+        drawCircle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
     }
 
     @SuppressWarnings("Duplicates")
@@ -181,8 +186,8 @@ public class MapAdminController implements Initializable {
         clearMain();
         System.out.println("drawing path");
         NodeData prev = path.get(0);
-        int x = (int) (prev.getX()*currentScale);
-        int y = (int) (prev.getY()*currentScale);
+        int x = (int) (prev.getXCoord()*currentScale);
+        int y = (int) (prev.getYCoord()*currentScale);
         System.out.println(x + ", " + y);
         ArrayList<Line> lines = new ArrayList<>();
         for(int i = 1; i < path.size(); i++){
@@ -190,10 +195,10 @@ public class MapAdminController implements Initializable {
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0*currentScale);
-            l.setStartX(prev.getX()*currentScale);
-            l.setStartY(prev.getY()*currentScale);
-            l.setEndX(n.getX()*currentScale);
-            l.setEndY(n.getY()*currentScale);
+            l.setStartX(prev.getXCoord()*currentScale);
+            l.setStartY(prev.getYCoord()*currentScale);
+            l.setEndX(n.getXCoord()*currentScale);
+            l.setEndY(n.getYCoord()*currentScale);
             lines.add(l);
             prev = n;
         }
@@ -210,23 +215,32 @@ public class MapAdminController implements Initializable {
     }
 
     private void displayEdge(NodeData n1, NodeData n2){
-        Line line = new Line(n1.getX()*currentScale,n1.getY()*currentScale,n2.getX()*currentScale,n2.getY()*currentScale);
+        Line line = new Line(n1.getXCoord()*currentScale,n1.getYCoord()*currentScale,n2.getXCoord()*currentScale,n2.getYCoord()*currentScale);
         line.setStrokeWidth(8*currentScale);
         line.setStroke(BLUE);
         panningPane.getChildren().add(line);
         drawings.add(line);
     }
 
-    private void displayEdges(List<Edge> edges){
-        for(Edge edge:edges){
-            displayEdge(getNode(edge.getFirstNodeId()),getNode(edge.getSecondNodeId()));
+    private void displayEdges(List<EdgeData> edges){
+        for(EdgeData edge:edges){
+            NodeData node1=getNode(edge.getStartNode());
+            NodeData node2 = getNode(edge.getEndNode());
+            if(node1!=null&&node2!=null){
+                displayEdge(node1,node2);
+            }
+
         }
     }
 
     private NodeData getNode(String nodeID){
         for(NodeData nodeData:floorNodes){
-            if(nodeData.getId().equals(nodeID)){
-                return nodeData;
+            if(nodeData.getNodeID().equals(nodeID)){
+                if(nodeData.getFloor().equals(Integer.toString(floor))){
+                    return nodeData;
+                }else{
+                    return null;
+                }
             }
         }
         return null;
@@ -248,7 +262,7 @@ public class MapAdminController implements Initializable {
             case "":
                 System.out.println("Get in findNodeData");
                 NodeData mClickedNode= getClosestNode(nodes,x,y);
-                mClickedNode = manager.getNodeData(mClickedNode.getId());
+                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 break;
             case "nodeAdd":
@@ -266,9 +280,9 @@ public class MapAdminController implements Initializable {
                     mClickedNode = getClosestNode(nodes,x,y);
                     showNode(mClickedNode);
                     if (addEdgeN1.equals("")) {
-                        addEdgeN1 = mClickedNode.getId();
+                        addEdgeN1 = mClickedNode.getNodeID();
                     } else if (addEdgeN2.equals("")) {
-                        addEdgeN2 = mClickedNode.getId();
+                        addEdgeN2 = mClickedNode.getNodeID();
                     }
                     if (!addEdgeN1.equals("") && !addEdgeN2.equals("")) {
                         clearMain();
@@ -285,10 +299,10 @@ public class MapAdminController implements Initializable {
                 int editX = x;
                 int editY = y;
                 nodeToEdit = getClosestNode(nodes, editX, editY);
-                textNodeId.setText(nodeToEdit.getId());
+                textNodeId.setText(nodeToEdit.getNodeID());
                 textNodeLocation.setText(nodeToEdit.getLocation().toString());
                 textNodeFloor.setText(nodeToEdit.getFloor());
-                textNodeType.setText(nodeToEdit.getType());
+                textNodeType.setText(nodeToEdit.getNodeType());
                 textNodeFullName.setText(nodeToEdit.getLongName());
                 textNodeShortName.setText(nodeToEdit.getShortName());
                 
@@ -312,20 +326,18 @@ public class MapAdminController implements Initializable {
         String resultNodeId = "";
         double d = 0;
         for (NodeData node : nodeDataList) {
-            int nodeX = node.getX();
-            int nodeY = node.getY();
+            int nodeX = node.getXCoord();
+            int nodeY = node.getYCoord();
             double temp = Math.sqrt(Math.pow(dbX - nodeX, 2) + Math.pow(dbY - nodeY, 2));
             if (temp < d||d==0) {
                 d = temp;
                 resultX = nodeX;
                 resultY = nodeY;
-                resultNodeId = node.getId();
+                resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null);
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),lblCurrentFloor.getText(),null,null,null,null,null);
     }
-
-
 
     @SuppressWarnings("Duplicates")
     public void clearMain(){
@@ -373,8 +385,7 @@ public class MapAdminController implements Initializable {
         System.out.println("current map: " + file.toString());
         Image newImg = new Image(file.toString());
         imgMap.setImage(newImg);
-
-        lblCurrentFloor.setText("" + floor);
+        lblCurrentFloor.setText(convertFloor(floor));
     }
 
 
@@ -398,7 +409,7 @@ public class MapAdminController implements Initializable {
         String building = "";               //figure out building based on Coordinate
         String teamAssigned = "";           //figure out what to do with this field for new nodes
 
-        NodeData newNode = new NodeData(id, loc, floor, nodeType, longName, shortName);
+        NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
         manager.addNode(newNode);
         displayAddNodeConfirmation(id, longName, loc);
     }
@@ -438,10 +449,10 @@ public class MapAdminController implements Initializable {
         String[] locXY = location.split(",");
         Coordinate loc = new Coordinate(Integer.parseInt(locXY[0]), Integer.parseInt(locXY[0]));
 
-        nodeToEdit.setId(textNodeId.getText());
+        nodeToEdit.setNodeID(textNodeId.getText());
         nodeToEdit.setLocation(loc);
         nodeToEdit.setFloor(textNodeFloor.getText());
-        nodeToEdit.setType(textNodeType.getText());
+        nodeToEdit.setNodeType(textNodeType.getText());
         nodeToEdit.setLongName(textNodeFullName.getText());
         nodeToEdit.setShortName(textNodeShortName.getText());
 

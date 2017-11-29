@@ -53,7 +53,9 @@ public class DatabaseQueryController {
         return edgesQuery.getAllEdgeInfo();
     }
 
-
+    public List<EdgeData> queryEdgeDataByFloor(String floor) {
+        return edgesQuery.queryEdgeByFloor(floor);
+    }
 //    public List<EmployeeInfo> getAllEmployeeInfo() {
 //        return EmployeeQuery.getAllEmployeeInfo(dbConnection);
 //    }
@@ -70,6 +72,10 @@ public class DatabaseQueryController {
     public List<NodeData> queryNodeByType(String nType) {
         return nodesQuery.queryNodeByType(nType);
     }
+
+    public List<NodeData> queryNodeByFloor(String floor) { return nodesQuery.queryNodeByFloor(floor);}
+
+    public List<NodeData> queryNodeByTypeFloor(String type, String floor) { return nodesQuery.getNodeByTypeAndFloor(type, floor);}
 
 //    public List<ServiceRequestInfo> queryServiceRequesByType(DBConnection dbConnection, String type) {
 //        return ServiceRequestQuery.queryByType(dbConnection, type);
@@ -122,6 +128,5 @@ public class DatabaseQueryController {
     public ServiceRequest queryServiceRequestsByID(int serviceID){
         return serviceRequestsQuery.queryServiceRequestsByID(serviceID);
     }
-
 
 }

@@ -98,7 +98,7 @@ public class BFS implements PathfindingFacadeIF {
                 neighbors.remove(current.getPreviousNode());
                 for (StarNode newnode : neighbors) {
                     if (!newnode.isVisited() && !newnode.isonlist()) {
-                        //System.out.println("add to frontier: " + newnode.getId());
+                        //System.out.println("add to frontier: " + newnode.getNodeID());
                         newnode.addtolist();
                         newnode.setPreviousNode(current);
                         frontier.add(newnode);

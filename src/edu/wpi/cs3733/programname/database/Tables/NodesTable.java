@@ -16,7 +16,7 @@ public class NodesTable {
             }
 
             String newTable = "CREATE TABLE Nodes(nodeID VARCHAR(20), xcoord INTEGER, ycoord INTEGER, floor VARCHAR(4), building VARCHAR(20), " +
-                    "nodeType VARCHAR(4), longName VARCHAR(100), shortName VARCHAR(100), teamAssigned VARCHAR(6)," +
+                    "nodeType VARCHAR(4), longName VARCHAR(200), shortName VARCHAR(100), teamAssigned VARCHAR(6)," +
                     "CONSTRAINT Nodes_PK PRIMARY KEY (nodeID)," +
                     "CONSTRAINT Nodes_nodeType CHECK (nodeType IN " +
                     "('HALL', 'ELEV', 'REST', 'STAI', 'DEPT', 'LABS', 'INFO', 'CONF', 'EXIT', 'RETL', 'SERV', 'BATH'))," +

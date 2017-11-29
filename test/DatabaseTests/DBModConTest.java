@@ -47,7 +47,7 @@ public class DBModConTest {
 
     @Test
     public void checkAddNode(){
-        ManageController manager = new ManageController();
+        ManageController manager = new ManageController(conn);
         theDBModControl.addNode(aBathroom);
         //TODO: Change getNodeData to queryByNodeID???
         NodeData TREST = manager.getNodeData("TREST00102");
@@ -57,7 +57,7 @@ public class DBModConTest {
 
     @Test
     public void checkEditNode(){
-        ManageController manager = new ManageController();
+        ManageController manager = new ManageController(conn);
         theDBModControl.addNode(newBathroom);
         theDBModControl.editNode(newBathroom2);
         NodeData CREST = manager.getNodeData("CREST00102");

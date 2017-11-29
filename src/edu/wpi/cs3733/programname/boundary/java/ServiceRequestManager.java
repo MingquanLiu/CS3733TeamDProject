@@ -4,7 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
+import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -60,15 +62,18 @@ public class ServiceRequestManager {
     @FXML
     JFXButton btnDeleteCompleted;
 
-    ManageController manager = new ManageController();
-
+    ManageController manager;
+    private DBConnection dbConnection;
     List<ServiceRequest> currUnassigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currAssigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currCompleted = new ArrayList<ServiceRequest>();
     List<Employee> currEmployees = new ArrayList<Employee>();
 
     String currVisible = "unassigned";
-
+    public void initData(DBConnection dbConnection){
+        dbConnection = dbConnection;
+        manager = new ManageController(dbConnection);
+    }
 
     public void unassignedRequestButtonHandler() {
         unassignedRequests.setVisible(true);
@@ -116,17 +121,21 @@ public class ServiceRequestManager {
 
     }
 
-//    public String createServiceRequestListString(ServiceRequest sr) {
-//        if (sr.getLocation2() == null) {
-//            return sr.getServiceType() + " - " + sr.getLocation1().getLongName();
-//        }
-//        else return sr.getServiceType() + " - Hallway between " + sr.getLocation1().getShortName() +
-//                " and " + sr.getLocation2().getShortName();
-//    }
-//
-//    public String createEmployeeListString(Employee e) {
-//        return e.getUsername() + " - " + e.getFirstName() + " " + e.getLastName();
-//    }
+    public String createServiceRequestListString(ServiceRequest sr) {
+        NodeData loc1 = manager.getNodeData(sr.getLocation1());
+        if (sr.getLocation2() == null) {
+            return sr.getServiceType() + " - " + loc1.getLongName();
+        }
+        else {
+            NodeData loc2 = manager.getNodeData(sr.getLocation2());
+            return sr.getServiceType() + " - Hallway between " + loc1.getShortName() +
+                    " and " + loc2.getShortName();
+        }
+    }
+
+    public String createEmployeeListString(Employee e) {
+        return e.getUsername() + " - " + e.getFirstName() + " " + e.getLastName();
+    }
 
     public void updateCurrentView() {
         if (currVisible == "unassigned") {
@@ -147,12 +156,12 @@ public class ServiceRequestManager {
         currEmployees = manager.getAllEmployees();
 
         for(ServiceRequest sr: currUnassigned) {
-         //   String requestDisplay = createServiceRequestListString(sr);
-            listUnassigned.getItems().add("unassigned req");
+            String requestDisplay = createServiceRequestListString(sr);
+            listUnassigned.getItems().add(requestDisplay);
         }
         for(Employee emp: currEmployees) {
-         //   String employeeDisplay = createEmployeeListString(emp);
-            listEmployees.getItems().add("employee");
+            String employeeDisplay = createEmployeeListString(emp);
+            listEmployees.getItems().add(employeeDisplay);
         }
     }
 
@@ -160,8 +169,7 @@ public class ServiceRequestManager {
         listAssigned = new JFXListView<String>();
         currAssigned = manager.getAssignedRequests();
         for(ServiceRequest sr: currAssigned) {
-      //      String requestDisplay = createServiceRequestListString(sr);
-            String requestDisplay = "test passed!!!!!!!!";
+            String requestDisplay = createServiceRequestListString(sr);
             listAssigned.getItems().add(requestDisplay);
         }
     }
@@ -171,8 +179,7 @@ public class ServiceRequestManager {
         currCompleted = manager.getCompletedRequests();
 
         for(ServiceRequest sr: currCompleted) {
-         //   String requestDisplay = createServiceRequestListString(sr);
-            String requestDisplay = "test passed!!!!!!!!";
+            String requestDisplay = createServiceRequestListString(sr);
             listCompleted.getItems().add(requestDisplay);
         }
     }

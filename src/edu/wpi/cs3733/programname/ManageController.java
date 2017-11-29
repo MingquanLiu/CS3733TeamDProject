@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 
-import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.Employee;
-import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
@@ -12,15 +9,14 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
-import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
+import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
 import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
 
 
@@ -36,26 +32,21 @@ public class ManageController {
     private EmployeesQuery employeesQuery;
     private ServiceRequestsQuery serviceRequestsQuery;
 
-    public ManageController() {
+    public ManageController(DBConnection dbConnection) {
         this.dbConnection = new DBConnection();
-        dbConnection.setDBConnection();
+
 
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
         this.serviceController = new ServiceRequestController(dbConnection, employeesQuery, serviceRequestsQuery);
-        CsvReader mCsvReader = new CsvReader();
-        createAllTables(dbConnection);
-        mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.getListOfNodes(dbConnection.getConnection()));
-        mCsvReader.insertEdges(dbConnection.getConnection(),mCsvReader.getListOfEdges(dbConnection.getConnection()));
-
 
     }
 
     public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
-        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, ASTAR);
+        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, pathfindType);
         System.out.println(finalPath.get(0).getNodeID() + " to " + finalPath.get(finalPath.size() -1));
         return finalPath;
     }
@@ -75,19 +66,21 @@ public class ManageController {
     public List<EdgeData> getAllEdgeData() {
         return this.dbQueryController.getAllEdgeData();
     }
-
+    public List<EdgeData> getEdgeDataByFloor(String floor){
+        return dbQueryController.queryEdgeDataByFloor(floor);
+    }
     public List<NodeData> queryNodeByType(String nodeType) {
         return this.dbQueryController.queryNodeByType(nodeType);
     }
 
-    public List<NodeData> queryNodeByTypeFloor(String nodeType,String Floor) {
-        return this.dbQueryController.queryNodeByType(nodeType);
+    public List<NodeData> queryNodeByFloor(String floor) {
+        return this.dbQueryController.queryNodeByFloor(floor);
     }
 
-    public boolean login(String username, String password) {
-        return false;
+    public List<NodeData> queryNodeByTypeFloor(String type, String floor) {
+        return this.dbQueryController.queryNodeByTypeFloor(type, floor);
     }
-
+    
     public void addNode(NodeData data) {
         this.dbModController.addNode(data);
     }
@@ -98,12 +91,6 @@ public class ManageController {
 
     public void editNode(NodeData data) {
         this.dbModController.editNode(data);
-    }
-
-
-    public void sendServiceRequest(String type) {
-        Employee emp = new Employee("me", 1, false);
-        this.serviceController.createServiceRequest(emp, type);
     }
 
     public List<Employee> getAllEmployees() {
@@ -147,7 +134,6 @@ public class ManageController {
 //        serviceController.assignRequest(request, recipients);
 //    }
 
-
     public void addEdge(String nodeId1, String nodeId2){
         this.dbModController.addEdge(nodeId1,nodeId2);
     }
@@ -163,8 +149,12 @@ public class ManageController {
         Random randomID = new Random();
         int id = randomID.nextInt(1000) + 1;
         ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description);
-        //queryServiceRequest.addServiceRequest(newServiceRequest);
+        dbModController.addServiceRequest(newServiceRequest);
         return newServiceRequest;
+    }
+
+    public Employee queryEmployeeByUsername(String username) {
+        return dbQueryController.queryEmployeeByUsername(username);
     }
 
     public ArrayList<Employee> getInterpreterEmployees(){
@@ -173,5 +163,7 @@ public class ManageController {
     public ArrayList<ServiceRequest> getInterpreterRequest(){
         return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }
+
+
 }
 

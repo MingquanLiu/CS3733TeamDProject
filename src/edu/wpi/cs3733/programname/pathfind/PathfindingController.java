@@ -29,7 +29,7 @@ public class PathfindingController {
     public List<NodeData> initializePathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
                                              String endNode, Boolean handicapped, searchType type) {
         // ManageController manager = new ManageController();
-        // List<Edge> allEdges = manager.getAllEdgeData();
+        // List<EdgeData> allEdges = manager.getAllEdgeData();
         //something about getEdges()
         try {
 
