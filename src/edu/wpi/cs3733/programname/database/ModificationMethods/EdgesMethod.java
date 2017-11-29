@@ -59,5 +59,6 @@ public class EdgesMethod {
             System.out.println("Delete EdgeData Failed!");
             e.printStackTrace();
         }
+
     }
 }
