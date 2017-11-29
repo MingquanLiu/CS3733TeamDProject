@@ -35,7 +35,7 @@ public class StarNode extends edu.wpi.cs3733.programname.commondata.NodeData imp
     }
 
     public void addNeighbor(StarNode neighbor) {
-        neighbors.add(neighbor);
+        if(!neighbors.contains(neighbor)) neighbors.add(neighbor);
     }
 
     public StarNode getPreviousNode() {
