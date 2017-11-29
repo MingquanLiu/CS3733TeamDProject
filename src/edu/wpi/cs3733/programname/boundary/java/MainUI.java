@@ -25,7 +25,7 @@ import static javafx.scene.paint.Color.*;
 import static javax.print.attribute.standard.Chromaticity.COLOR;
 
 public class MainUI {
-    //locatiosn search
+    //location search
     @FXML
     private Button go;
     @FXML
@@ -148,6 +148,7 @@ public class MainUI {
     private Button addEdge;
 
     @FXML
+    private Button btnCallPop;
     private Button btnSendPath;
 
     private boolean addingEdge = false;
@@ -387,6 +388,7 @@ public class MainUI {
      * @param e the instance of a mouse click
      */
     public void displayNodeInfo(MouseEvent e){
+        System.out.println("Mouse Clicked");
         clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
@@ -467,8 +469,8 @@ public class MainUI {
                 resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null,null,null);
 
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null,null,null);
     }
 
     private void showNodeInfo(NodeData nodeData){
@@ -525,10 +527,14 @@ public class MainUI {
         ArrayList<Line> lines = new ArrayList<Line>();
         NodeData prev = path.get(0);
         for(int i = 1; i < path.size(); i++){
-            Line l = new Line();        //how do I get the start/end coords of an edge
+            Line l = new Line();
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0);
+            l.setStartX(DBCoordinateToUICoordinate(prev.getX(),initX));
+            l.setStartY(DBCoordinateToUICoordinate(prev.getY(),initY));
+            l.setEndX(DBCoordinateToUICoordinate(n.getX(),initX));
+            l.setEndY(DBCoordinateToUICoordinate(n.getY(),initY));
             l.setStartX(DBCoordinateToUICoordinate(prev.getXCoord(),initX));
             l.setStartY(DBCoordinateToUICoordinate(prev.getYCoord(),initY));
             l.setEndX(DBCoordinateToUICoordinate(n.getXCoord(),initX));
@@ -576,4 +582,7 @@ public class MainUI {
         return "Not Found";
     }
 
+    public void examplePopup(ActionEvent e){
+
+    }
 }

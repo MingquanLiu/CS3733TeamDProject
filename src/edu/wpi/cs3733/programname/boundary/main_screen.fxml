@@ -55,6 +55,7 @@
                         <Button fx:id="btnSendPath" layoutX="60.0" layoutY="333.0" mnemonicParsing="false" onAction="#pathSendHandler" text="email path" />
                      </children>
                   </AnchorPane>
+                  <Button fx:id="btnCallPop" layoutX="74.0" layoutY="350.0" mnemonicParsing="false" onAction="#examplePopup" text="Button" />
                </children></AnchorPane>
         </content>
       </TitledPane>
@@ -103,7 +104,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="290.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0" visible="false">
+      <DialogPane fx:id="serviceRequester" headerText="New Request" layoutX="290.0" layoutY="188.0" minHeight="-Infinity" prefHeight="200.0" prefWidth="350.0">
          <content>
             <AnchorPane prefHeight="178.0" prefWidth="350.0">
                <children>

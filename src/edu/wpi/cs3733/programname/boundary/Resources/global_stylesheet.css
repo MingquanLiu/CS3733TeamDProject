@@ -1,0 +1,10 @@
+/*
+ * Button classes
+ */
+.zoom {
+
+}
+.searchPane{
+    -fx-background-color: white;
+    -fx-opacity: 70%;
+}
