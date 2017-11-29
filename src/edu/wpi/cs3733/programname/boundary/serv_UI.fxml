@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.ServiceRequestManager">
    <children>
-      <JFXButton fx:id="btnUnassigned" blendMode="DARKEN" buttonType="RAISED" layoutX="53.0" layoutY="56.0" style="-fx-background-color: #d2d2d2;" text="Unassigned Requests" />
-      <JFXButton fx:id="btnAssigned" blendMode="DARKEN" buttonType="RAISED" layoutX="249.0" layoutY="56.0" style="-fx-background-color: #d2d2d2;" text="Assigned Requests" />
-      <JFXButton fx:id="btnCompleted" blendMode="DARKEN" buttonType="RAISED" layoutX="427.0" layoutY="56.0" style="-fx-background-color: #d2d2d2;" text="Completed Requests" />
+      <JFXButton fx:id="btnUnassigned" blendMode="DARKEN" buttonType="RAISED" layoutX="53.0" layoutY="56.0" onAction="#unassignedRequestButtonHandler" style="-fx-background-color: #d2d2d2;" text="Unassigned Requests" />
+      <JFXButton fx:id="btnAssigned" blendMode="DARKEN" buttonType="RAISED" layoutX="249.0" layoutY="56.0" onAction="#assignedRequestButtonHandler" style="-fx-background-color: #d2d2d2;" text="Assigned Requests" />
+      <JFXButton fx:id="btnCompleted" blendMode="DARKEN" buttonType="RAISED" layoutX="427.0" layoutY="56.0" onAction="#completedRequestButtonHandler" style="-fx-background-color: #d2d2d2;" text="Completed Requests" />
       <Label layoutX="14.0" layoutY="14.0" text="Service Request Manager">
          <font>
             <Font size="18.0" />
@@ -66,14 +66,14 @@
                <children>
                   <Label text="Requests" />
                   <Label text="Employees" GridPane.columnIndex="1" />
-                  <JFXButton buttonType="RAISED" style="-fx-background-color: #d2d2d2;" text="Assign" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <JFXButton fx:id="btnAssignRequest" buttonType="RAISED" onDragDetected="#assignButtonHandler" style="-fx-background-color: #d2d2d2;" text="Assign" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </JFXButton>
                   <JFXListView fx:id="listUnassigned" GridPane.rowIndex="1" />
                   <JFXListView fx:id="listEmployees" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXButton fx:id="btnDeleteUnassigned" buttonType="RAISED" style="-fx-background-color: #d2d2d2;" text="Delete Request" GridPane.rowIndex="2" />
+                  <JFXButton fx:id="btnDeleteUnassigned" buttonType="RAISED" onAction="#deleteRequestButtonHandler" style="-fx-background-color: #d2d2d2;" text="Delete Request" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
