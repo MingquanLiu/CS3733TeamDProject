@@ -562,7 +562,7 @@ public class TestingController implements Initializable{
         newStage.showAndWait();
         return loader;
     }
-    
+
     public void loginButtonHandler() throws IOException {
         String username = "";
         FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");

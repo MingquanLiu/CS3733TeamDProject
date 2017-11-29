@@ -432,6 +432,21 @@ public class MapAdminController implements Initializable {
         locationsSelected = false;
         gridMapEdit.setVisible(false);
     }
+
+    private void clearNodeInfoText(){
+        textNodeId.setText("");
+        textNodeBuilding.setText("");
+        textNodeFloor.setText("");
+        textNodeFullName.setText("");
+        textNodeLocation.setText("");
+        textNodeShortName.setText("");
+        textNodeTeamAssigned.setText("");
+        textNodeType.setText("");
+    }
+    public void nodeInfoXHandler(){
+        nodeInfoPane.setVisible(false);
+        clearNodeInfoText();
+    }
     public void addNodeHandler() {
         String id = textNodeId.getText();
         String nodeType = textNodeType.getText();
@@ -444,8 +459,8 @@ public class MapAdminController implements Initializable {
         String floor = textNodeFloor.getText();
         String shortName = textNodeShortName.getText();
 
-        String building = "";               //figure out building based on Coordinate
-        String teamAssigned = "";           //figure out what to do with this field for new nodes
+        String building = textNodeBuilding.getText();               //figure out building based on Coordinate
+        String teamAssigned = textNodeTeamAssigned.getText();           //figure out what to do with this field for new nodes
 
         NodeData newNode = new NodeData(id,loc,floor,building,nodeType,longName,shortName,teamAssigned);
         manager.addNode(newNode);
