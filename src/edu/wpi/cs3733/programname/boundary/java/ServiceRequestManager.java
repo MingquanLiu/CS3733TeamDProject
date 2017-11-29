@@ -3,8 +3,8 @@ package edu.wpi.cs3733.programname.boundary.java;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.Employee;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -75,7 +75,7 @@ public class ServiceRequestManager {
         assignedRequests.setVisible(false);
         completedRequests.setVisible(false);
         currVisible = "unassigned";
-//        updateUnassignedView();
+        updateUnassignedView();
     }
 
     public void assignedRequestButtonHandler() {
@@ -130,7 +130,7 @@ public class ServiceRequestManager {
 
     public void updateCurrentView() {
         if (currVisible == "unassigned") {
-//            updateUnassignedView();
+            updateUnassignedView();
         }
         else if (currVisible == "assigned") {
             updateAssignedRequests();
@@ -140,21 +140,21 @@ public class ServiceRequestManager {
         }
     }
 
-//    public void updateUnassignedView() {
-//        listUnassigned = new JFXListView<String>();
-//        listEmployees = new JFXListView<String>();
-//        currUnassigned = manager.getUnassignedRequests();
-//        currEmployees = manager.getAllEmployees();
-//
-//        for(ServiceRequest sr: currUnassigned) {
-//            String requestDisplay = createServiceRequestListString(sr);
-//            listUnassigned.getItems().add(requestDisplay);
-//        }
-//        for(Employee emp: currEmployees) {
-//            String employeeDisplay = createEmployeeListString(emp);
-//            listEmployees.getItems().add(employeeDisplay);
-//        }
-//    }
+    public void updateUnassignedView() {
+        listUnassigned = new JFXListView<String>();
+        listEmployees = new JFXListView<String>();
+        currUnassigned = manager.getUnassignedRequests();
+        currEmployees = manager.getAllEmployees();
+
+        for(ServiceRequest sr: currUnassigned) {
+         //   String requestDisplay = createServiceRequestListString(sr);
+            listUnassigned.getItems().add("unassigned req");
+        }
+        for(Employee emp: currEmployees) {
+         //   String employeeDisplay = createEmployeeListString(emp);
+            listEmployees.getItems().add("employee");
+        }
+    }
 
     public void updateAssignedRequests() {
         listAssigned = new JFXListView<String>();
