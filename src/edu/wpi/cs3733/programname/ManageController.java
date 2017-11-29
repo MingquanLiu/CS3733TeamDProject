@@ -12,8 +12,7 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
-import edu.wpi.cs3733.programname.servicerequest.entity.Employee;
-import edu.wpi.cs3733.programname.servicerequest.entity.ServiceRequest;
+
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
 
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
 import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
 
 
@@ -102,8 +102,8 @@ public class ManageController {
 
 
     public void sendServiceRequest(String type) {
-        Employee emp = new Employee("me", 1, false);
-        this.serviceController.createServiceRequest(emp, type);
+        Employee emp = new Employee("me", "1","","Mike","Liu",false,INTERPRETER_REQUEST,"mikelmq99@gmail.com");
+//        createServiceRequest(emp, type);
     }
 
     public List<Employee> getAllEmployees() {

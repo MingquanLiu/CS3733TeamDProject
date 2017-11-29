@@ -72,7 +72,7 @@ public class DBPathfindIntegrationTest {
 //        List<NodeData> expected = new ArrayList<>();
 //        expected.add(hallwayTwo);
 //        expected.add(hallwayOne);
-//        List<NodeData> result = manager.startPathfind(hallwayOne.getId(), hallwayTwo.getId());
+//        List<NodeData> result = manager.startPathfind(hallwayOne.getNodeID(), hallwayTwo.getNodeID());
 //
 //        int i = 0;
 //        for (NodeData data: result) {

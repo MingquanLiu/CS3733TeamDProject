@@ -17,10 +17,10 @@ public class HandicappedPath implements PathStrategyIF {
     @Override
     public LinkedList<EdgeData> getEdges(LinkedList<EdgeData> allEdges) {
 //
-//        LinkedList<Edge> currentList = new LinkedList<Edge>();
+//        LinkedList<EdgeData> currentList = new LinkedList<EdgeData>();
 //
-//        for (Edge e : allEdges) {
-//            if (e.getRestrictions().contains(Edge.Restriction.HANDICAPPED)) {
+//        for (EdgeData e : allEdges) {
+//            if (e.getRestrictions().contains(EdgeData.Restriction.HANDICAPPED)) {
 //                currentList.add(e);
 //            }
 //        }

@@ -76,8 +76,8 @@
 //        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star2, star1));
 //        List<NodeData> DFSReturn = Path.getFinalList();
 //        Assert.assertTrue(isValidPath(DFSReturn));
-////        for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-////                DFSReturn.get(i).getId());
+////        for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+////                DFSReturn.get(i).getNodeID());
 //    }
 //
 //    @Test
@@ -87,8 +87,8 @@
 //        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
 //        List<NodeData> DFSReturn = Path.getFinalList();
 //        Assert.assertTrue(isValidPath(DFSReturn));
-////        for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-////                DFSReturn.get(i).getId());
+////        for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+////                DFSReturn.get(i).getNodeID());
 //    }
 //
 //    @Test
@@ -98,8 +98,8 @@
 //        LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star6));
 //        List<NodeData> DFSReturn = Path.getFinalList();
 //        Assert.assertTrue(isValidPath(DFSReturn));
-////        for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getId(),
-////                DFSReturn.get(i).getId());
+////        for(int i = 0; i < DFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+////                DFSReturn.get(i).getNodeID());
 //    }
 //
 //    @Test
@@ -110,6 +110,6 @@
 //        List<NodeData> DFSReturn = Path.getFinalList();
 //        Assert.assertTrue(isValidPath(DFSReturn));
 ////        for(int i = 0; i < DFSReturn.size(); i++)
-////            Assert.assertEquals(finalOrder.get(i).getId(), DFSReturn.get(i).getId());
+////            Assert.assertEquals(finalOrder.get(i).getNodeID(), DFSReturn.get(i).getNodeID());
 //    }
 //}

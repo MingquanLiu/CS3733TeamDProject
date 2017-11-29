@@ -7,6 +7,7 @@ import com.sun.org.apache.xalan.internal.lib.NodeInfo;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 import static javafx.scene.paint.Color.RED;
 
 
@@ -212,12 +214,12 @@ public class TestingController implements Initializable{
     }
     private void showNode(NodeData n){
         currentNodes.add(n);
-        drawCycle(DBCToUIC(n.getX(),currentScale),DBCToUIC(n.getY(),currentScale));
+        drawCycle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
     }
 
     private void showNodeInfo(NodeData nodeData){
-        int dbX = nodeData.getX();
-        int dbY = nodeData.getY();
+        int dbX = nodeData.getXCoord();
+        int dbY = nodeData.getYCoord();
         System.out.println("Node Coordinate: "+dbX+","+dbY+" Node Name: "+nodeData.getLongName());
         nodeInfoPane.setVisible(true);
         nodeInfoPane.setLayoutX(DBCToUIC(dbX,currentScale) + 3);
@@ -226,7 +228,7 @@ public class TestingController implements Initializable{
         //nodeInfoLocation.setText(dbX + ", " + dbY);
         lblNodeX.setText(dbX + "");
         lblNodeY.setText(dbY + "");
-        nodeInfoType.setText("" + nodeData.getType());
+        nodeInfoType.setText("" + nodeData.getNodeType());
         nodeInfoLongName.setText("" + nodeData.getLongName());
         nodeInfoShortName.setText("" + nodeData.getShortName());
     }
@@ -241,26 +243,26 @@ public class TestingController implements Initializable{
         String resultNodeId = "";
         double d = 0;
         for (NodeData node : nodeDataList) {
-            int nodeX = node.getX();
-            int nodeY = node.getY();
+            int nodeX = node.getXCoord();
+            int nodeY = node.getYCoord();
 //                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
             double temp = Math.sqrt(Math.pow(dbX - nodeX, 2) + Math.pow(dbY - nodeY, 2));
             if (temp < d||d==0) {
                 d = temp;
                 resultX = nodeX;
                 resultY = nodeY;
-                resultNodeId = node.getId();
+                resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,null,null,null);
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),null,""+floor,null,null,null,null);
     }
 
     private void displayPath(List<NodeData> path){
         clearMain();
         System.out.println("drawing path");
         NodeData prev = path.get(0);
-        int x = (int) (prev.getX()*currentScale);
-        int y = (int) (prev.getY()*currentScale);
+        int x = (int) (prev.getXCoord()*currentScale);
+        int y = (int) (prev.getYCoord()*currentScale);
         System.out.println(x + ", " + y);
         ArrayList<Line> lines = new ArrayList<>();
         for(int i = 1; i < path.size(); i++){
@@ -268,10 +270,10 @@ public class TestingController implements Initializable{
             NodeData n = path.get(i);
             l.setStroke(Color.BLUE);
             l.setStrokeWidth(5.0*currentScale);
-            l.setStartX(prev.getX()*currentScale);
-            l.setStartY(prev.getY()*currentScale);
-            l.setEndX(n.getX()*currentScale);
-            l.setEndY(n.getY()*currentScale);
+            l.setStartX(prev.getXCoord()*currentScale);
+            l.setStartY(prev.getYCoord()*currentScale);
+            l.setEndX(n.getXCoord()*currentScale);
+            l.setEndY(n.getYCoord()*currentScale);
             lines.add(l);
             prev = n;
         }
@@ -349,23 +351,23 @@ public class TestingController implements Initializable{
             case "":
                 System.out.println("Get in findNodeData X:"+x+" Y:"+y);
 
-                mClickedNode = manager.getNodeData(mClickedNode.getId());
+                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 showNodeInfo(mClickedNode);
                 break;
             case "selectLocation":
                 Coordinate mCoordinate = new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale));
-                lblServiceX.setText(""+mCoordinate.getX());
-                lblServiceY.setText(""+mCoordinate.getY());
+                lblServiceX.setText(""+mCoordinate.getXCoord());
+                lblServiceY.setText(""+mCoordinate.getYCoord());
                 serviceRequester.setVisible(true);
                 selectingLocation = "";
                 break;
             case "selectStart":
-                String startId = mClickedNode.getId();
+                String startId = mClickedNode.getNodeID();
                 txtStartLocation.setText(startId);
                 break;
             case "selectEnd":
-                String endId = mClickedNode.getId();
+                String endId = mClickedNode.getNodeID();
                 txtEndLocation.setText(endId);
                 break;
             // the rest of the situations when you click on the map
@@ -467,7 +469,7 @@ public class TestingController implements Initializable{
 
     public void goButtonHandler(){
         System.out.println("drawing path");
-        currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText());
+        currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), ASTAR);
         displayPath(currentPath);
     }
 
