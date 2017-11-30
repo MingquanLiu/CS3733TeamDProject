@@ -12,10 +12,14 @@ import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
+import javafx.animation.StrokeTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,9 +32,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -303,18 +305,31 @@ public class TestingController implements Initializable{
             Line l = new Line();
             NodeData n = path.get(i);
             if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
+
                 l.setStroke(Color.BLUE);
                 l.setStrokeWidth(5.0*currentScale);
                 l.setStartX(prev.getXCoord()*currentScale);
                 l.setStartY(prev.getYCoord()*currentScale);
                 l.setEndX(n.getXCoord()*currentScale);
                 l.setEndY(n.getYCoord()*currentScale);
+
                 lines.add(l);
             }
             prev = n;
         }
+
+
+
+
         pathDrawings.addAll(lines);
         panningPane.getChildren().addAll(lines);
+
+
+
+
+
+
+
         emailDirections.setVisible(true);
     }
 

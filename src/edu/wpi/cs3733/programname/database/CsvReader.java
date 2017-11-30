@@ -147,29 +147,71 @@ public class CsvReader {
     public ArrayList<NodeData> getListOfNodes(Connection conn) throws IOException{
         ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
 
-        InputStream in = new FileInputStream(new File("/Users/haiauduong/IdeaProjects/CS3733TeamDProject/CS3733TeamDProject/CsvNodes/AllMapNodes.csv"));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder out = new StringBuilder();
-        String line;
-        reader.readLine();
-        // Reads all lines in the file
-        while ((line = reader.readLine()) != null) {
-            // Reads current row and converts to a string
+        try {
+            InputStream in = new FileInputStream(new File("/Users/haiauduong/IdeaProjects/CS3733TeamDProject/CS3733TeamDProject/CsvNodes/AllMapNodes.csv"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            StringBuilder out = new StringBuilder();
+            String line;
+            reader.readLine();
+            // Reads all lines in the file
+            while ((line = reader.readLine()) != null) {
+                // Reads current row and converts to a string
 
 
-            // Seperates the string into fields and stores into an array
-            String[] values = line.split(",");
+                // Seperates the string into fields and stores into an array
+                String[] values = line.split(",");
 
-            // Converts int fields from strings to integers
-            int x = Integer.parseInt(values[1]);
-            int y = Integer.parseInt(values[2]);
-            Coordinate location = new Coordinate(x, y);
-            NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
-            nodeList.add(nodeObject);
+                // Converts int fields from strings to integers
+                int x = Integer.parseInt(values[1]);
+                int y = Integer.parseInt(values[2]);
+                Coordinate location = new Coordinate(x, y);
+                NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
+                nodeList.add(nodeObject);
 
 
-        } // end while
+            } // end while
 
+        }
+        catch (IOException e) {
+
+
+            String[] csvNodes = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "W"};
+
+            try {
+                for (String letter : csvNodes) {
+                    InputStream csv = new FileInputStream(new File("/Users/haiauduong/IdeaProjects/CS3733TeamDProject/CS3733TeamDProject/CsvNodes/AllMapNodes.csv"));
+                    Scanner inputStream = new Scanner(csv);
+
+                    // Ignores first line in csv file i.e. header row
+                    inputStream.nextLine();
+
+                    // Reads all lines in the file
+                    while (inputStream.hasNextLine()) {
+                        // Reads current row and converts to a string
+                        String data = inputStream.nextLine();
+
+                        // Seperates the string into fields and stores into an array
+                        String[] values = data.split(",");
+
+                        // Converts int fields from strings to integers
+                        int x = Integer.parseInt(values[1]);
+                        int y = Integer.parseInt(values[2]);
+                        Coordinate location = new Coordinate(x, y);
+                        NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
+                        nodeList.add(nodeObject);
+
+
+                    } // end while
+
+
+                }
+
+            } catch (FileNotFoundException w) {
+                w.printStackTrace();
+
+            }
+
+        }
 
         return nodeList;
     }// end readNodes
@@ -296,23 +338,24 @@ public class CsvReader {
 
 
     // EDGES
-    public ArrayList<EdgeData> getListOfEdges(Connection conn) throws IOException{
+    public ArrayList<EdgeData> getListOfEdges(Connection conn){
         // ArrayLists stores data values is proper columns
         ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
 
 
-        InputStream in = new FileInputStream(new File("/Users/haiauduong/IdeaProjects/CS3733TeamDProject/CS3733TeamDProject/CsvEdges/AllMapEdges.csv"));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder out = new StringBuilder();
-        String line;
-        reader.readLine();
-        // Reads all lines in the file
-        while ((line = reader.readLine()) != null) {
-            // Reads current row and converts to a string
+        try {
+            InputStream in = new FileInputStream(new File("/Users/haiauduong/IdeaProjects/CS3733TeamDProject/CS3733TeamDProject/CsvEdges/AllMapEdges.csv"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            StringBuilder out = new StringBuilder();
+            String line;
+            reader.readLine();
+            // Reads all lines in the file
+            while ((line = reader.readLine()) != null) {
+                // Reads current row and converts to a string
 
 
-            // Seperates the string into fields and stores into an array
-            String[] values = line.split(",");
+                // Seperates the string into fields and stores into an array
+                String[] values = line.split(",");
 
                 EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
                 edgeList.add(edgeObject);
@@ -320,7 +363,40 @@ public class CsvReader {
             } // end while
 
 
+        }
+        catch (IOException e) {
+            String[] csvEdges = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
 
+            try {
+                    for (String letter: csvEdges) {
+                        InputStream csv = new FileInputStream(new File("/Users/haiauduong/IdeaProjects/CS3733TeamDProject/CS3733TeamDProject/CsvEdges/" + "Map" + letter + "edges.csv"));
+                        Scanner inputStream = new Scanner(csv);
+
+                        // Ignores first line in csv file i.e. header row
+                        inputStream.nextLine();
+
+                        // Reads all lines in the file
+                        while (inputStream.hasNextLine()) {
+                            // Reads current row and converts to a string
+                            String data = inputStream.nextLine();
+
+                            // Seperates the string into fields and stores into an array
+                            String[] values = data.split(",");
+
+                            EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
+                            edgeList.add(edgeObject);
+
+                        } // end while
+
+                    }
+
+            } catch (FileNotFoundException w) {
+                w.printStackTrace();
+
+            }
+
+
+        }
 
         return edgeList;
     } // end readEdges

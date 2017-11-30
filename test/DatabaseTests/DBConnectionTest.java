@@ -75,7 +75,7 @@ public class DBConnectionTest {
 
 
         printTables.printNodesTable(conn);
-          printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
+        printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
 
 
         mCsvWriter.writeNodes(conn);
