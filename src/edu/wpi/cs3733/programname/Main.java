@@ -56,6 +56,7 @@ public class Main extends Application{
         mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.getListOfNodes(dbConnection.getConnection()));
         mCsvReader.insertEdges(dbConnection.getConnection(),mCsvReader.getListOfEdges(dbConnection.getConnection()));
         mCsvReader.insertEmployees(dbConnection.getConnection(),mCsvReader.getListOfEmployees(dbConnection.getConnection()));
+        mCsvReader.insertServiceRequests(dbConnection.getConnection(),mCsvReader.getListOfServiceRequests(dbConnection.getConnection()));
         return dbConnection;
     }
 
