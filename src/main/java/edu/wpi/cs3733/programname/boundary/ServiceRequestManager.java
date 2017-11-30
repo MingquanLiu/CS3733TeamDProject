@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.boundary.java;
+package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
