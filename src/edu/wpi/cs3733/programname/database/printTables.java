@@ -84,4 +84,61 @@ public class printTables{
         catch (SQLException e) {
         }
     }
+
+    public static void printServiceRequestsTable(Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM ServiceRequests");
+            int count = 0;
+
+            // Initialize table fields
+            String nodeID = "";
+            int xcoord = 0;
+            int ycoord = 0;
+            String floor = "";
+            String building = "";
+            String nodeType = "";
+            String longName = "";
+            String shortName = "";
+            String teamAssigned = "";
+
+            int serviceID;
+            String senderUsername;
+            String serviceType;
+            String node1ID;
+            String node2ID;
+            String description;
+            String requestTime;
+            String handleTime;
+            String completionTime;
+            String status;
+            String receiverUsername;
+
+            System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", "serviceID","senderUsername","receiverUsername","serviceType","node1ID","node2ID","description","requestTime","handleTime","completionTime","status");
+
+            // Gets all data in the table
+            while (result.next()) {
+
+                serviceID = result.getInt("serviceID");
+                senderUsername = result.getString("sender");
+                serviceType = result.getString("serviceType");
+                node1ID = result.getString("location1");
+                node2ID = result.getString("location2");
+                description = result.getString("description");
+                requestTime = result.getString("requestTime");
+                handleTime = result.getString("handleTime");
+                completionTime = result.getString("completionTime");
+                status = result.getString("status");
+                receiverUsername = result.getString("receiver");
+
+
+                System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s %-15s\n", serviceID,senderUsername,receiverUsername,serviceType,node1ID,node2ID,description,requestTime,handleTime,completionTime,status);
+                count++;
+            }
+            // Confirms the number of updated rows
+            System.out.println("\nInserted Into ServiceRequest Table Successfully! Rows Effected: " + count + "\n\n");
+        }
+        catch (SQLException e) {
+        }
+    }
 }
