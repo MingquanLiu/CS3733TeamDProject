@@ -7,6 +7,8 @@ import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.database.*;
 
 import org.junit.Test;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,7 +53,7 @@ public class DBConnectionTest {
 
 
     @Test
-    public void testEdgeQueryDatabase() {
+    public void testEdgeQueryDatabase() throws IOException{
         DBConnection TestDB = new DBConnection();   // Creates new instance of connection
         TestDB.setDBConnection();                   // Sets up the connection
         DBTables mDbTable = new DBTables();

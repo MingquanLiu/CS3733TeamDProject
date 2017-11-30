@@ -48,7 +48,7 @@ public class Main extends Application{
         return stage;
     }
 
-    public DBConnection setupDB(){
+    public DBConnection setupDB() throws IOException{
         DBConnection dbConnection = new DBConnection();
         dbConnection.setDBConnection();
         CsvReader mCsvReader = new CsvReader();
