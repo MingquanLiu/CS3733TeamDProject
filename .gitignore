@@ -3,3 +3,5 @@
 TestDB
 /out/*
 *.log
+build
+.gradle
