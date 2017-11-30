@@ -1,14 +1,12 @@
 
 import DatabaseTests.DBConnectionTest;
+import com.sun.xml.internal.fastinfoset.tools.PrintTable;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
-import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.database.DBTables;
-import edu.wpi.cs3733.programname.database.DatabaseModificationController;
-import edu.wpi.cs3733.programname.database.DatabaseQueryController;
+import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
@@ -16,6 +14,7 @@ import org.apache.derby.shared.common.error.DerbySQLIntegrityConstraintViolation
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
@@ -47,6 +46,7 @@ public class ServiceRequestControllerTest {
     DatabaseModificationController dbModControl;
     DatabaseQueryController databaseQueryController;
     ManageController controller;
+    Connection connection;
 
     //CHANGE TARGET EMAIL IF YOU RUN THIS TEST PLEASE
 //    @Test
@@ -76,7 +76,9 @@ public class ServiceRequestControllerTest {
         queryEmployee = new EmployeesQuery(dbConnection);
         dbModControl = new DatabaseModificationController(dbConnection);
         databaseQueryController = new DatabaseQueryController(dbConnection);
-//        controller = new ManageController();
+        controller = new ManageController(dbConnection);
+        DBTables.createAllTables(dbConnection);           // Makes all table
+        connection = dbConnection.getConnection();
         //queryEmployee.addEmployee(john);
     }
 
@@ -134,12 +136,15 @@ public class ServiceRequestControllerTest {
     }
 
 
-//    @Test
-//    public void testCreateServiceRequestQuery(){
-//        // test insert service request
-//        controller.createServiceRequest("userjohn", "transportation", "DELEV00A02", "DELEV00B02", "need a wheelchair");
-//        assertEquals(0,0);
-//    }
+    @Test
+    public void testCreateServiceRequestQuery(){
+        dbModControl.addEmployee(wong);
+        dbModControl.addNode(teamDnode1);
+        // test insert service request
+        printTables.printServiceRequestsTable(connection);
+        controller.createServiceRequest("wwong2", "transportation", "DELEV00A02", "DELEV00B02", "need a wheelchair");
+        assertEquals(0,0);
+    }
 //
 //    @Test
 //    public void testGetInterpreterRequest(){

@@ -239,7 +239,7 @@ public class CsvWriter {
     public void writeServiceRequests(Connection conn) {
         try {
             Statement statement = conn.createStatement();
-            ResultSet rset = statement.executeQuery("SELECT * FROM Employees");
+            ResultSet rset = statement.executeQuery("SELECT * FROM ServiceRequests");
             String outFileName = "AllEmployees.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
