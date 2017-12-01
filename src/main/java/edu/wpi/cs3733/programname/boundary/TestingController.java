@@ -622,6 +622,7 @@ public class TestingController implements Initializable {
             System.out.println("logging out");
             return;
         }
+
         String username = "admin";
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
