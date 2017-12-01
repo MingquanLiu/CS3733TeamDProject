@@ -45,6 +45,7 @@ public class LoginPopup {
     public boolean getLoggedIn(){
         return succesfulLogin;
     }
+    public String getUsername() { return txtUser.getText(); }
     public void initData(DBConnection dbConnection){
         System.out.println("init For Login");
         manager = new ManageController(dbConnection);

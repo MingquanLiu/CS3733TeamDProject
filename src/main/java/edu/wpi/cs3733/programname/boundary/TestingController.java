@@ -203,6 +203,7 @@ public class TestingController implements Initializable {
 
     private DBConnection dbConnection;
     private PathfindingController.searchType mSearchType= ASTAR;
+    private boolean logOffNext = false;
 
     //this runs on startup
     @Override
@@ -613,6 +614,14 @@ public class TestingController implements Initializable {
     }
 
     public void loginButtonHandler() throws IOException {
+        if(logOffNext){
+            logOffNext = false;
+            loggedIn = false;
+            btnLogin.setText("Log in");
+            showAdminControls();
+            System.out.println("logging out");
+            return;
+        }
         String username = "admin";
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -625,18 +634,19 @@ public class TestingController implements Initializable {
                 )
         );
         loader.<LoginPopup>getController().initData(dbConnection);
-//        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        stage.show();
+        //loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         loggedIn = true;
-//        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
-//            username = txtUser.getText();
-//        }
         if(loggedIn) {
+            logOffNext = true;
+            //username = loader.<LoginPopup>getController().getUsername();
+            username = "admin";
             employeeLoggedIn = manager.queryEmployeeByUsername(username);
-//            lblLoginStatus.setText("logged in");
             loggedIn = true;
+            btnLogin.setText("Logout");
             showAdminControls();
         }
-        stage.show();
+        //stage.show();
     }
     private void showAdminControls(){
         paneAdminFeatures.setVisible(loggedIn);
