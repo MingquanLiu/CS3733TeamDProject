@@ -190,6 +190,10 @@ public class TestingController implements Initializable {
     @FXML
     private Label txtAreaDirections;
 
+    // Handicapped checkbox
+    @FXML
+    private CheckBox handicap;
+
     //global variables, not FXML tied
     private ManageController manager;
 
@@ -263,11 +267,13 @@ public class TestingController implements Initializable {
         ObservableList locations = FXCollections.observableArrayList(
                 "Bathrooms",
                 "Service Desks",
-                "Vending Machines",
+                "Retail Services",
                 "Waiting Rooms",
                 "Elevators",
                 "Exits",
-                "Staircases");
+                "Staircases",
+                "Labs",
+                "Additional Services");
         comboLocations.setItems(locations);
         comboLocations.setValue("Bathrooms");
     }
@@ -573,7 +579,7 @@ public class TestingController implements Initializable {
                 case "Service Desks":
                     nodeType = "INFO";
                     break;
-                case "Vending Machines":
+                case "Retail Services":
                     nodeType = "RETL";
                     break;
                 case "Waiting Rooms":
@@ -585,8 +591,14 @@ public class TestingController implements Initializable {
                 case "Exits":
                     nodeType = "EXIT";
                     break;
-                case "Stairs":
+                case "Staircases":
                     nodeType = "STAI";
+                    break;
+                case "Labs":
+                    nodeType = "LABS";
+                    break;
+                case "Additional Services":
+                    nodeType = "SERV";
                     break;
             }
         }
@@ -655,7 +667,7 @@ public class TestingController implements Initializable {
         System.out.println("drawing path");
         try {
             System.out.println(mSearchType);
-            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType);
+            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType, this.handicap.isSelected());
         }
         catch(InvalidNodeException ine) {
             currentPath = new ArrayList<>();
@@ -865,6 +877,11 @@ public class TestingController implements Initializable {
         loader.<Email_Direction>getController().initialize(manager, currentPath);
         stage.show();
         emailDirections.setVisible(false);
+    }
+
+    // Turn the handicapped path restriction on or off
+    public void toggleHandicap() {
+        this.goButtonHandler();
     }
 
 }

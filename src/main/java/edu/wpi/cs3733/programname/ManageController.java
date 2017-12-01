@@ -46,10 +46,10 @@ public class ManageController {
         this.wrt = new CsvWriter();
     }
 
-    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType) throws InvalidNodeException{
+    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType, boolean handicapped) throws InvalidNodeException{
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
-        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, false, pathfindType);
+        List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, handicapped, pathfindType);
         System.out.println(finalPath.get(0).getNodeID() + " to " + finalPath.get(finalPath.size() -1));
         return finalPath;
     }
