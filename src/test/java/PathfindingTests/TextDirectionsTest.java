@@ -122,6 +122,14 @@ public class TextDirectionsTest {
         System.out.println(d.getTextDirections());
     }
 
+    @Test
+    public void StraightHall() throws NoPathException {
+        AStar Path = new AStar(allNodes, allEdges,"8", "4");
+        List<NodeData> astarReturn = Path.getFinalList();
+        TextDirections d = new TextDirections(astarReturn);
+        System.out.println(d.getTextDirections());
+    }
+
     // TextDirections.getDirectionAngle() must be public in order to run this test
 //    @Test
 //    public void testDirections() {

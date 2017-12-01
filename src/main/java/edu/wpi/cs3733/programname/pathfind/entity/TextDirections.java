@@ -69,13 +69,14 @@ public class TextDirections {
                     else if(Math.abs(directionChange) > 25) {
                         directions += "\nTake the next " + face + " to continue down the hall";
                     }
+                    else directions += "\nContinue straight down the hall";
                     break;
                 default:
                     directions += "\nContinue " + face + " past " + name;
                     break;
             }
         }
-        directions += "\nYou have arrived at " + nodeList.get(nodeList.size()-1).getLongName();
+        directions += "\nContinue until you arrive at " + nodeList.get(nodeList.size()-1).getLongName();
     }
 
     /**
