@@ -1,3 +1,4 @@
 serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status
-900,admin,null,null,interpreter,ADEPT00201,null,null,null,null,null
-46,admin,null,maintenance,ADEPT00201,null,Maintenance type: Chewiwn Maintenance urgency(1-5): 1,2017-11-29 23:46:56,,,unhandled
+900,admin,null,null,null,interpreter,ADEPT00201,null,null,null,null
+46,admin,null,null,maintenance,ADEPT00201,null,null,null,null,null
+250,admin,ygao6,maintenance,DHALL00102,null,Maintenance type:	fuck  Maintenance urgency(1-5): fuck,2017-11-30 21:00:31,2017-11-30 21:00:43,2017-11-30 21:00:46,completed
