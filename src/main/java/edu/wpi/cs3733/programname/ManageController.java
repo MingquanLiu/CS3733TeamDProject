@@ -7,6 +7,7 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.PathfindingMessage;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
@@ -46,7 +47,7 @@ public class ManageController {
         this.wrt = new CsvWriter();
     }
 
-    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType, boolean handicapped) throws InvalidNodeException{
+    public List<NodeData> startPathfind(String startId, String goalId, searchType pathfindType, boolean handicapped) throws InvalidNodeException, NoPathException {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
         List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId, handicapped, pathfindType);
