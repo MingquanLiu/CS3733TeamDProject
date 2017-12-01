@@ -86,7 +86,7 @@ public class AStar implements PathfindingStrategy {
             frontier.removeFirst(); // pop the priority queue
             if(current.getXCoord() == goal.getXCoord() && current.getYCoord() == goal.getYCoord()) {
                 // If we are at the goal, we need to backtrack through the shortest path
-//                System.out.println("At target!");
+                System.out.println("At target!");
                 finalPath.add(current); // we have to add the goal to the path before we start backtracking
                 while(!(current.getXCoord() == start.getXCoord() && current.getYCoord() == start.getYCoord())) {
                     finalPath.add(current.getPreviousNode());
