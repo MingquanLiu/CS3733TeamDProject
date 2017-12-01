@@ -30,7 +30,7 @@
                         <Image url="@../img/Floor_2.png" />
                      </image>
                   </ImageView>
-                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: black;">
+                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
                         <content>
                             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="150.0">
                                 <children>
@@ -196,7 +196,7 @@
                         <JFXButton fx:id="btnOpenAdmin" buttonType="RAISED" maxWidth="200.0" onAction="#openAdminHandler" text="Service Request Manager" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <JFXButton fx:id="btnInterpreterReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Interpreter Request" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                         <JFXButton fx:id="btnMaintenanceReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Maintenance Request" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                        <JFXButton fx:id="btnTansportationReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Transportation Request" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <JFXButton fx:id="btnTransportationReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Transportation Request" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                         <JFXButton fx:id="btnMapEdit" buttonType="RAISED" maxWidth="150.0" onAction="#mapEditHandler" text="Map Edit" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                         <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="1" />
                         <Line endX="100.0" opacity="0.1" startX="-100.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
