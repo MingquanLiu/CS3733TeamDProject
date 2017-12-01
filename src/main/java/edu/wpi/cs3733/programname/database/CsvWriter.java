@@ -5,8 +5,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import edu.wpi.cs3733.programname.commondata.*;
 
 public class CsvWriter {
     public DBConnection dbConnection;
@@ -63,7 +61,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM NODES");
-            String outFileName = "AllMapNodes.csv";
+            String outFileName = "CsvNodes/AllMapNodes.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -96,14 +94,14 @@ public class CsvWriter {
                 teamAssigned = rset.getString("teamAssigned");
 
                 prt.println(nodeID + "," +
-                            xcoord + "," +
-                            ycoord + "," +
-                            floor + "," +
-                            building + "," +
-                            nodeType + "," +
-                            longName + "," +
-                            shortName + "," +
-                            teamAssigned);
+                        xcoord + "," +
+                        ycoord + "," +
+                        floor + "," +
+                        building + "," +
+                        nodeType + "," +
+                        longName + "," +
+                        shortName + "," +
+                        teamAssigned);
 
 
             }
@@ -137,7 +135,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM EDGES");
-            String outFileName = "AllMapEdges.csv";
+            String outFileName = "CsvEdges/AllMapEdges.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -160,9 +158,8 @@ public class CsvWriter {
 
 
                 prt.println(edgeID + "," +
-                            startNode + "," +
-                            endNode);
-
+                        startNode + "," +
+                        endNode);
             }
             prt.flush();
             prt.close();
@@ -181,7 +178,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM Employees");
-            String outFileName = "AllEmployees.csv";
+            String outFileName = "CsvTables/AllEmployees.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -240,7 +237,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM ServiceRequests");
-            String outFileName = "AllEmployees.csv";
+            String outFileName = "CsvTables/AllServiceRequests.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -302,5 +299,4 @@ public class CsvWriter {
 
         }
     }
-
 }
