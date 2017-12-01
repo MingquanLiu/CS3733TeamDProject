@@ -14,6 +14,7 @@ import org.apache.derby.shared.common.error.DerbySQLIntegrityConstraintViolation
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -68,16 +69,16 @@ public class ServiceRequestControllerTest {
 
 
     @Before
-    public void setupDbTables() {
+    public void setupDbTables() throws IOException{
         dbConnection.setDBConnection();
-        DBTables.createAllTables(dbConnection);           // Makes all table
+        RunScript run = new RunScript();
+        run.runScript(dbConnection.getConnection());
         queryServiceRequest = new ServiceRequestsQuery(dbConnection);
         srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
         queryEmployee = new EmployeesQuery(dbConnection);
         dbModControl = new DatabaseModificationController(dbConnection);
         databaseQueryController = new DatabaseQueryController(dbConnection);
         controller = new ManageController(dbConnection);
-        DBTables.createAllTables(dbConnection);           // Makes all table
         connection = dbConnection.getConnection();
         //queryEmployee.addEmployee(john);
     }

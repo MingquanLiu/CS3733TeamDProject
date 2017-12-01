@@ -55,12 +55,12 @@ public class DBConnectionTest {
     public void testEdgeQueryDatabase() throws IOException{
         DBConnection TestDB = new DBConnection();   // Creates new instance of connection
         TestDB.setDBConnection();                   // Sets up the connection
-        DBTables mDbTable = new DBTables();
+        RunScript run = new RunScript();
         CsvReader mCsvReader = new CsvReader();
         CsvWriter mCsvWriter = new CsvWriter();
         Connection conn = TestDB.getConnection();   // Initializes the connection to be passed through other methods
 
-        mDbTable.createAllTables(TestDB);           // Makes nodes table
+        run.runScript(TestDB.getConnection());           // Makes nodes table
 
         ArrayList<EdgeData> edgeList = mCsvReader.getListOfEdges(conn);
         ArrayList<NodeData> nodeList = mCsvReader.getListOfNodes(conn);
