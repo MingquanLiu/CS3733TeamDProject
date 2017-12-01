@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestManager">
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.java.ServiceRequestManager">
    <children>
       <JFXButton fx:id="btnUnassigned" blendMode="DARKEN" buttonType="RAISED" layoutX="53.0" layoutY="56.0" onAction="#unassignedRequestButtonHandler" style="-fx-background-color: #d2d2d2;" text="Unassigned Requests" />
       <JFXButton fx:id="btnAssigned" blendMode="DARKEN" buttonType="RAISED" layoutX="249.0" layoutY="56.0" onAction="#assignedRequestButtonHandler" style="-fx-background-color: #d2d2d2;" text="Assigned Requests" />

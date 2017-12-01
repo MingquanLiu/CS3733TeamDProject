@@ -5,6 +5,7 @@ import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -47,7 +48,7 @@ public class Main extends Application{
         return stage;
     }
 
-    public DBConnection setupDB(){
+    public DBConnection setupDB() throws IOException{
         DBConnection dbConnection = new DBConnection();
         dbConnection.setDBConnection();
         CsvReader mCsvReader = new CsvReader();
@@ -55,6 +56,7 @@ public class Main extends Application{
         mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.getListOfNodes(dbConnection.getConnection()));
         mCsvReader.insertEdges(dbConnection.getConnection(),mCsvReader.getListOfEdges(dbConnection.getConnection()));
         mCsvReader.insertEmployees(dbConnection.getConnection(),mCsvReader.getListOfEmployees(dbConnection.getConnection()));
+        mCsvReader.insertServiceRequests(dbConnection.getConnection(),mCsvReader.getListOfServiceRequests(dbConnection.getConnection()));
         return dbConnection;
     }
 

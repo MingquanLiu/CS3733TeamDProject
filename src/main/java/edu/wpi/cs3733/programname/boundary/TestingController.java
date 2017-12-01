@@ -12,10 +12,14 @@ import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
+import javafx.animation.StrokeTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,6 +32,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
@@ -50,7 +55,7 @@ import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchTy
 import static javafx.scene.paint.Color.RED;
 
 
-public class TestingController implements Initializable{
+public class TestingController implements Initializable {
 
 
     //FXML objects
@@ -609,8 +614,19 @@ public class TestingController implements Initializable{
 
     public void loginButtonHandler() throws IOException {
         String username = "admin";
-        FXMLLoader loader = showScene("/fxml/Login_Popup.fxml");
-        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Login_Popup.fxml"
+                ));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<LoginPopup>getController().initData(dbConnection);
+//        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        loggedIn = true;
 //        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
 //            username = txtUser.getText();
 //        }
@@ -620,6 +636,7 @@ public class TestingController implements Initializable{
             loggedIn = true;
             showAdminControls();
         }
+        stage.show();
     }
     private void showAdminControls(){
         paneAdminFeatures.setVisible(loggedIn);
@@ -690,7 +707,7 @@ public class TestingController implements Initializable{
             int locX = Integer.parseInt(lblServiceX.getText());
             int locY = Integer.parseInt(lblServiceX.getText());
             String locationId = getClosestNode(manager.getAllNodeData(), locX, locY).getNodeID();
-            String description = requestDescription.getText();
+            String description = requestDescription.getText().replaceAll("\n", " ");
          //   String senderUsername = employeeLoggedIn.getUsername();
             manager.createServiceRequest("admin", type, locationId, null, description);
             lblServiceX.setText("");

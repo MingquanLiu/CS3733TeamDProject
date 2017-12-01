@@ -9,7 +9,7 @@ version = '3.2'
 
 task makeJar(type: Jar) {
     manifest {
-        attributes 'Implementation-Title': "HospitalProject-Iteration2",
+        attributes 'Implementation-Title': "CS3733TeamDProject-Iteration2",
                 'Implementation-Version': version,
                 'Main-Class': 'edu.wpi.cs3733.programname.Main'
     }
@@ -28,6 +28,8 @@ dependencies {
             [group: 'org.apache.derby', name: 'derbyclient', version: '10.14.1.0'],
             [group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'],
             [group: 'com.jfoenix', name: 'jfoenix', version: '1.4.0'],
+            [group: 'javax.mail', name: 'mail', version:'1.4'],
+            [group: 'javax.activation', name: 'activation' , version:'1.1.1']
             [group: 'javax.mail', name: 'mail', version: '1.4'],
             [group: 'javax.activation', name: 'activation', version: '1.1.1']
     )
@@ -37,6 +39,8 @@ dependencies {
             [group: 'org.apache.derby', name: 'derbyclient', version: '10.14.1.0'],
             [group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'],
             [group: 'com.jfoenix', name: 'jfoenix', version: '1.4.0'],
+            [group: 'javax.mail', name: 'mail', version:'1.4'],
+            [group: 'javax.activation', name: 'activation' , version:'1.1.1']
             [group: 'javax.mail', name: 'mail', version: '1.4'],
             [group: 'javax.activation', name: 'activation', version: '1.1.1']
     )

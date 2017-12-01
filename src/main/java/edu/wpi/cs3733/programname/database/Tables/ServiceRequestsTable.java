@@ -14,9 +14,9 @@ public class ServiceRequestsTable {
                     "description VARCHAR(500), requestTime VARCHAR(30), " +
                     "handleTime VARCHAR(30), completionTime VARCHAR(30), status VARCHAR(10)," +
                     "CONSTRAINT ServiceRequests_PK PRIMARY KEY (serviceID)," +
-                    "CONSTRAINT ServiceRequests_FK1 FOREIGN KEY (sender) REFERENCES Employees (username) ON DELETE CASCADE,"+
+                    "CONSTRAINT ServiceRequests_FK1 FOREIGN KEY (sender) REFERENCES Employees (username) ON DELETE CASCADE)";
                     //"CONSTRAINT ServiceRequests_FK2 FOREIGN KEY (receiver) REFERENCES Employees (username)," +
-                    "CONSTRAINT ServiceRequests_FK3 FOREIGN KEY (location1) REFERENCES Nodes (nodeID) ON DELETE CASCADE)";
+//                    "CONSTRAINT ServiceRequests_FK3 FOREIGN KEY (location1) REFERENCES Nodes (nodeID) ON DELETE CASCADE)";
                     //"CONSTRAINT ServiceRequests_FK4 FOREIGN KEY (location2) REFERENCES Nodes (nodeID) ON DELETE CASCADE)";
 
             // Creates new StaffTitles table
