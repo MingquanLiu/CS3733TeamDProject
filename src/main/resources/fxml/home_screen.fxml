@@ -166,20 +166,13 @@
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="84.79998779296875" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton fx:id="btnLocateBR" buttonType="RAISED" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Bathrooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="btnLocateVM" buttonType="RAISED" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Vending Machines" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="btnLocateSD" buttonType="RAISED" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Service Desks" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="btnLocateWR" buttonType="RAISED" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Waiting Rooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                  <GridPane fx:id="paneAdminFeatures" minHeight="-Infinity" prefHeight="155.0" prefWidth="166.0" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                  <GridPane fx:id="paneAdminFeatures" minHeight="-Infinity" prefHeight="155.0" prefWidth="166.0" GridPane.rowIndex="4" GridPane.valignment="TOP">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -209,14 +202,15 @@
                      </font>
                   </Label>
                   <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.valignment="BOTTOM" />
-                  <Label text="Admin Privileges" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                  <Label text="Admin Privileges" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Line endX="100.0" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="5" GridPane.valignment="TOP" />
-                  <JFXButton fx:id="btnLogin" buttonType="RAISED" onAction="#loginButtonHandler" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-                  <Line endX="100.0" opacity="0.3" startX="-100.0" GridPane.rowIndex="5" GridPane.valignment="BOTTOM" />
+                  <Line endX="100.0" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                  <JFXButton fx:id="btnLogin" buttonType="RAISED" onAction="#loginButtonHandler" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <Line endX="100.0" opacity="0.3" startX="-100.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                  <JFXComboBox fx:id="comboLocations" onAction="#locateHandler" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />

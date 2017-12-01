@@ -103,6 +103,10 @@ public class TestingController implements Initializable {
     @FXML
     private JFXButton btnTransportationReq;
 
+    //buttons for key locations
+    @FXML
+    private ComboBox comboLocations;
+
     @FXML
     private JFXButton btnLocateBR;
     @FXML
@@ -111,6 +115,12 @@ public class TestingController implements Initializable {
     private JFXButton btnLocateSD;
     @FXML
     private JFXButton btnLocateWR;
+    @FXML
+    private JFXButton btnLocateEV;
+    @FXML
+    private JFXButton btnLocateEX;
+    @FXML
+    private JFXButton btnLocateST;
     @FXML
     private JFXButton btnMapEdit;
 
@@ -243,6 +253,16 @@ public class TestingController implements Initializable {
         comboFloors.setItems(floors);
         comboFloors.setValue("Floor 2");
 
+        ObservableList locations = FXCollections.observableArrayList(
+                "Bathrooms",
+                "Service Desks",
+                "Vending Machines",
+                "Waiting Rooms",
+                "Elevators",
+                "Exits",
+                "Staircases");
+        comboLocations.setItems(locations);
+        comboLocations.setValue("Bathrooms");
     }
     public void setSearchType(PathfindingController.searchType searchType){
         System.out.println(currentMapRatioIndex);
@@ -536,17 +556,32 @@ public class TestingController implements Initializable {
     public void locateHandler(ActionEvent event){
         Object mEvent = event.getSource();
         String nodeType = "";
-        if(mEvent.equals(btnLocateBR)){
-            nodeType = "REST";
-        }
-        if(mEvent.equals(btnLocateSD)){
-            nodeType = "INFO";
-        }
-        if(mEvent.equals(btnLocateVM)){
-            nodeType = "RETL";
-        }
-        if(mEvent.equals(btnLocateWR)){
-            nodeType = "DEPT";
+
+        if(mEvent == comboLocations){
+            String keyLocationString = comboLocations.getValue().toString();
+            switch(keyLocationString){
+                case "Bathrooms":
+                    nodeType = "REST";
+                    break;
+                case "Service Desks":
+                    nodeType = "INFO";
+                    break;
+                case "Vending Machines":
+                    nodeType = "RETL";
+                    break;
+                case "Waiting Rooms":
+                    nodeType = "DEPT";
+                    break;
+                case "Elevators":
+                    nodeType = "ELEV";
+                    break;
+                case "Exits":
+                    nodeType = "EXIT";
+                    break;
+                case "Stairs":
+                    nodeType = "STAI";
+                    break;
+            }
         }
         clearNodes();
         clearMain();
