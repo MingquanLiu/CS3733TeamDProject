@@ -2,9 +2,7 @@ package edu.wpi.cs3733.programname.pathfind;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.pathfind.PathStrategies.HandicappedPath;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
-import edu.wpi.cs3733.programname.pathfind.PathStrategies.StandardPath;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.PathFinderFacade;

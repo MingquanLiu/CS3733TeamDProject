@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AStar implements PathfindingFacadeIF {
+public class AStar implements PathfindingStrategy {
     List<NodeData> allNodes;
     List<EdgeData> allEdges;
 
