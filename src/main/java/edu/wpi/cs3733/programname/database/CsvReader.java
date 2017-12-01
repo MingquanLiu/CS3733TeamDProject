@@ -364,8 +364,9 @@ public class CsvReader {
                 String[] values = line.split(",");
 
                 int serviceID = Integer.parseInt(values[0]);
+                int severity = Integer.parseInt(values[12]);
 
-                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11], severity);
                 srList.add(srObject);
 
             } // end while
@@ -386,8 +387,9 @@ public class CsvReader {
                     String[] values = line.split(",");
 
                     int serviceID = Integer.parseInt(values[0]);
+                    int severity = Integer.parseInt(values[12]);
 
-                    ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                    ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11], severity);
                     srList.add(srObject);
 
                 } // end while

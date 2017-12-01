@@ -39,7 +39,7 @@ public class ServiceRequest {
     }
 
     public ServiceRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2, String description,
-                          String requestTime, String handleTime, String completionTime, String status, String reservationTime, int severity) {
+                          String requestTime, String handleTime, String completionTime, String reservationTime, String status, int severity) {
         this.serviceID = serviceID;
         this.sender = sender;
         this.receiver = receiver;
@@ -151,6 +151,14 @@ public class ServiceRequest {
         this.reservationTime = reservationTime;
     }
 
+    public int getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(int severity) {
+        this.severity = severity;
+    }
+
     @Override
     public String toString() {
     return "" +System.lineSeparator()+
@@ -166,6 +174,7 @@ public class ServiceRequest {
                     "CompletionTime: " + completionTime + System.lineSeparator() +
                     "ReservationTime: " + reservationTime + System.lineSeparator() +
                     "Status: " + status + System.lineSeparator() +
+                    "Severity: " + severity + System.lineSeparator() +
                     "Receiver: " + receiver + System.lineSeparator();
     }
 
@@ -178,6 +187,7 @@ public class ServiceRequest {
         ServiceRequest that = (ServiceRequest) o;
 
         if (getServiceID() != that.getServiceID()) return false;
+        if (getSeverity() != that.getSeverity()) return false;
         if (getSender() != null ? !getSender().equals(that.getSender()) : that.getSender() != null) return false;
         if (getServiceType() != null ? !getServiceType().equals(that.getServiceType()) : that.getServiceType() != null)
             return false;
@@ -213,6 +223,7 @@ public class ServiceRequest {
         result = 31 * result + (getReservationTime() != null ? getReservationTime().hashCode() : 0);
         result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
         result = 31 * result + (getReceiver() != null ? getReceiver().hashCode() : 0);
+        result = 31 * result + getSeverity();
         return result;
     }
 }

@@ -709,7 +709,7 @@ public class TestingController implements Initializable {
             String locationId = getClosestNode(manager.getAllNodeData(), locX, locY).getNodeID();
             String description = requestDescription.getText().replaceAll("\n", " ");
          //   String senderUsername = employeeLoggedIn.getUsername();
-            manager.createServiceRequest("admin", type, locationId, null, description);
+            manager.createServiceRequest("admin", type, locationId, null, description, "",1);
             lblServiceX.setText("");
             lblServiceY.setText("");
         }
