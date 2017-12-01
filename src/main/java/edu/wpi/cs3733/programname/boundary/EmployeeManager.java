@@ -82,8 +82,25 @@ public class EmployeeManager {
         } else {
             passerror.setVisible(false);
             String username = newusername.getText();
+            String firstname = newfirstname.getText();
+            String lastname = newlastname.getText();
+            String email = newemail.getText();
+            String newpassword = password1.getText();
+            String job = servicegroup.getSelectedToggle().toString();
+            Boolean adminAccess = admin.isSelected();
+
+            // Do some stuff to add the user to the database and update the table
+
+            newusername.clear();
+            newfirstname.clear();
+            newlastname.clear();
+            newemail.clear();
+            password.clear();
+            password1.clear();
+            servicegroup.selectToggle(null);
+            admin.setSelected(false);
         }
-        
+
     }
 
     @FXML
