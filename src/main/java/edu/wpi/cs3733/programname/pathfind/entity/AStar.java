@@ -42,14 +42,13 @@ public class AStar implements PathfindingStrategy {
      */
     private void init() {
         System.out.println("Initializing A*");
+
         for(NodeData node: allNodes) {
             // Creates the StarNodes
             allStarNodes.put(node.getNodeID(), new StarNode(node));
         }
 
-
         for(EdgeData edge: allEdges) {
-            System.out.println("Starting A*");
 
             StarNode node1 = allStarNodes.get(edge.getStartNode());
             StarNode node2 = allStarNodes.get(edge.getEndNode());
@@ -87,7 +86,7 @@ public class AStar implements PathfindingStrategy {
             frontier.removeFirst(); // pop the priority queue
             if(current.getXCoord() == goal.getXCoord() && current.getYCoord() == goal.getYCoord()) {
                 // If we are at the goal, we need to backtrack through the shortest path
-                System.out.println("At target!");
+//                System.out.println("At target!");
                 finalPath.add(current); // we have to add the goal to the path before we start backtracking
                 while(!(current.getXCoord() == start.getXCoord() && current.getYCoord() == start.getYCoord())) {
                     finalPath.add(current.getPreviousNode());
@@ -118,6 +117,11 @@ public class AStar implements PathfindingStrategy {
                         newnode.setPreviousNode(current);
                         frontier.add(newnode);
                         newnode.setF(actionCost(newnode) + distanceToGo(newnode, goal));
+                    }
+
+                    if(current.getNodeType().equals("ELEV") && newnode.getNodeType().equals("ELEV") &&
+                            !newnode.getFloor().equals(goal.getFloor())) {
+                        frontier.remove(newnode);
                     }
                     // this is where the node is put in the right place in the queue
                     Collections.sort(frontier);

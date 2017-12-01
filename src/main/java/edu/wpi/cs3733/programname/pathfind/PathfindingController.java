@@ -32,58 +32,70 @@ public class PathfindingController {
         // List<EdgeData> allEdges = manager.getAllEdgeData();
         //something about getEdges()
         try {
+            PathFinderFacade pathFind = new PathFinderFacade(allNodes, allEdges, startNode, endNode);
+
             List<NodeData> finalPath = new LinkedList<NodeData>();
             List<EdgeData> currentList = allEdges;
-            // if start and end are on same floor, filter out elevators
-            // and proceed with search
-            if (issamefloor(allNodes, startNode, endNode)) {
-                currentList = sameFloorPath(currentList);
-                PathFinderFacade onefloorpath = new PathFinderFacade(allNodes, currentList, startNode, endNode);
-                if (type == searchType.ASTAR) {
-                    finalPath.addAll(onefloorpath.findAstarPath());
-                } else if (type == searchType.DFS) {
-                    finalPath.addAll(onefloorpath.findDfsPath());
-                } else if (type == searchType.BFS) {
-                    finalPath.addAll(onefloorpath.findBfsPath());
-                } else if (type == searchType.DIJKSTRA) {
-                    finalPath.addAll(onefloorpath.findDijkstraPath());
-                }
-                return finalPath;
+            if (type == searchType.ASTAR) {
+                finalPath.addAll(pathFind.findAstarPath());
+            } else if (type == searchType.DFS) {
+                finalPath.addAll(pathFind.findDfsPath());
+            } else if (type == searchType.BFS) {
+                finalPath.addAll(pathFind.findBfsPath());
+            } else if (type == searchType.DIJKSTRA) {
+                finalPath.addAll(pathFind.findDijkstraPath());
             }
-
-            // else check to see if handicap  (because it is a multifloor search)
-            // then create 2 seperate pathfinding entitys
-            // one from start node to nearest elevator
-            // one from that elevator to goal node
-            else {
-                if (handicapped) currentList = filterPath(allEdges);
-                EdgeData intermediateEdge = (findIntermediateNodes(allNodes, currentList, startNode, endNode));
-                String intermediateNode1 = intermediateEdge.getStartNode();
-                String intermediateNode2 = intermediateEdge.getEndNode();
-                PathFinderFacade startpath = new PathFinderFacade(allNodes, currentList, startNode, intermediateNode1);
-                PathFinderFacade endpath = new PathFinderFacade(allNodes, currentList, intermediateNode2, endNode);
-
-                if (type == searchType.ASTAR) {
-                    finalPath.addAll(startpath.findAstarPath());
-                    finalPath.addAll(endpath.findAstarPath());
-                } else if (type == searchType.DFS) {
-                    finalPath.addAll(startpath.findDfsPath());
-                    finalPath.addAll(endpath.findDfsPath());
-                } else if (type == searchType.BFS) {
-                    finalPath.addAll(startpath.findBfsPath());
-                    finalPath.addAll(endpath.findBfsPath());
-                } else if (type == searchType.DIJKSTRA) {
-                    finalPath.addAll(startpath.findDijkstraPath());
-                    finalPath.addAll(endpath.findDijkstraPath());
-                }
-                return finalPath;
-            }
-
-
+            return finalPath;
         } catch (NoPathException npe) {
-            // Add exception later
+            System.out.println(npe.fillInStackTrace());
         }
         return null;
+            // if start and end are on same floor, filter out elevators
+            // and proceed with search
+//            if (issamefloor(allNodes, startNode, endNode)) {
+//                currentList = sameFloorPath(currentList);
+//                PathFinderFacade onefloorpath = new PathFinderFacade(allNodes, currentList, startNode, endNode);
+//                if (type == searchType.ASTAR) {
+//                    finalPath.addAll(onefloorpath.findAstarPath());
+//                } else if (type == searchType.DFS) {
+//                    finalPath.addAll(onefloorpath.findDfsPath());
+//                } else if (type == searchType.BFS) {
+//                    finalPath.addAll(onefloorpath.findBfsPath());
+//                } else if (type == searchType.DIJKSTRA) {
+//                    finalPath.addAll(onefloorpath.findDijkstraPath());
+//                }
+//                return finalPath;
+//            }
+//
+//            // else check to see if handicap  (because it is a multifloor search)
+//            // then create 2 seperate pathfinding entitys
+//            // one from start node to nearest elevator
+//            // one from that elevator to goal node
+//            else {
+//                if (handicapped) currentList = filterPath(allEdges);
+//                EdgeData intermediateEdge = (findIntermediateNodes(allNodes, currentList, startNode, endNode));
+//                String intermediateNode1 = intermediateEdge.getStartNode();
+//                String intermediateNode2 = intermediateEdge.getEndNode();
+//                PathFinderFacade startpath = new PathFinderFacade(allNodes, currentList, startNode, intermediateNode1);
+//                PathFinderFacade endpath = new PathFinderFacade(allNodes, currentList, intermediateNode2, endNode);
+//
+//                if (type == searchType.ASTAR) {
+//                    finalPath.addAll(startpath.findAstarPath());
+//                    finalPath.addAll(endpath.findAstarPath());
+//                } else if (type == searchType.DFS) {
+//                    finalPath.addAll(startpath.findDfsPath());
+//                    finalPath.addAll(endpath.findDfsPath());
+//                } else if (type == searchType.BFS) {
+//                    finalPath.addAll(startpath.findBfsPath());
+//                    finalPath.addAll(endpath.findBfsPath());
+//                } else if (type == searchType.DIJKSTRA) {
+//                    finalPath.addAll(startpath.findDijkstraPath());
+//                    finalPath.addAll(endpath.findDijkstraPath());
+//                }
+//                return finalPath;
+//            }
+
+
     }
 
     // if the pathfinding needs to make handicapped path, remove all the stairs
