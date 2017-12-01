@@ -29,25 +29,27 @@
             <TableColumn fx:id="email" prefWidth="204.0" text="Email" />
         </columns>
       </TableView>
-      <TextField fx:id="newusername" layoutX="106.0" layoutY="384.0" prefHeight="25.0" prefWidth="87.0" promptText="Username" />
-      <TextField fx:id="newlastname" layoutX="106.0" layoutY="448.0" prefHeight="25.0" prefWidth="87.0" promptText="Last name" />
-      <TextField fx:id="newfirstname" layoutX="106.0" layoutY="417.0" prefHeight="25.0" prefWidth="87.0" promptText="First name" />
-      <TextField fx:id="newemail" layoutX="202.0" layoutY="384.0" prefHeight="25.0" prefWidth="175.0" promptText="Email" />
-      <MenuButton fx:id="newservicetype" layoutX="403.0" layoutY="384.0" mnemonicParsing="false" text="Service type">
+      <TextField fx:id="newusername" layoutX="14.0" layoutY="384.0" prefHeight="25.0" prefWidth="87.0" promptText="Username" />
+      <TextField fx:id="newlastname" layoutX="14.0" layoutY="448.0" prefHeight="25.0" prefWidth="87.0" promptText="Last name" />
+      <TextField fx:id="newfirstname" layoutX="14.0" layoutY="417.0" prefHeight="25.0" prefWidth="87.0" promptText="First name" />
+      <TextField fx:id="newemail" layoutX="110.0" layoutY="384.0" prefHeight="25.0" prefWidth="175.0" promptText="Email" />
+      <MenuButton fx:id="newservicetype" layoutX="294.0" layoutY="384.0" mnemonicParsing="false" text="Service type">
         <items>
           <MenuItem mnemonicParsing="false" text="Interpreter" />
           <MenuItem mnemonicParsing="false" text="Maintenance" />
             <MenuItem mnemonicParsing="false" text="Transport" />
         </items>
       </MenuButton>
-      <CheckBox fx:id="newadmin" layoutX="403.0" layoutY="421.0" mnemonicParsing="false" text="Admin?" />
-      <Button fx:id="addnew" layoutX="403.0" layoutY="448.0" mnemonicParsing="false" onAction="#addNewEmployee" text="Add" />
-      <PasswordField fx:id="password" layoutX="202.0" layoutY="417.0" promptText="Password" />
-      <PasswordField fx:id="password1" layoutX="202.0" layoutY="448.0" promptText="Confirm Password" />
+      <CheckBox fx:id="newadmin" layoutX="294.0" layoutY="421.0" mnemonicParsing="false" text="Admin?" />
+      <Button fx:id="addnew" layoutX="316.0" layoutY="448.0" mnemonicParsing="false" onAction="#addNewEmployee" text="Add" />
+      <PasswordField fx:id="password" layoutX="110.0" layoutY="417.0" prefHeight="25.0" prefWidth="175.0" promptText="Password" />
+      <PasswordField fx:id="password1" layoutX="110.0" layoutY="448.0" prefHeight="25.0" prefWidth="175.0" promptText="Confirm Password" />
       <Label layoutX="14.0" layoutY="355.0" text="Add a new employee">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
+      <Button fx:id="remove" layoutX="472.0" layoutY="436.0" mnemonicParsing="false" onAction="#removeEmployee" text="Remove Employee" />
+      <Label fx:id="passerror" layoutX="189.0" layoutY="360.0" text="Passwords do not match!" textFill="RED" visible="false" />
    </children>
 </AnchorPane>

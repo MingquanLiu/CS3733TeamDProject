@@ -3,14 +3,9 @@ package edu.wpi.cs3733.programname.boundary;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 public class EmployeeManager {
 
@@ -66,8 +61,19 @@ public class EmployeeManager {
     private PasswordField password1;
 
     @FXML
+    private Label passerror;
+
+    @FXML
+    private Button remove;
+
+    @FXML
     void addNewEmployee(ActionEvent event) {
-        
+        if(!password.getText().equals(password1.getText())) {
+            passerror.setVisible(true);
+        } else {
+            passerror.setVisible(false);
+            String username = newusername.
+        }
     }
 
     @FXML
@@ -75,4 +81,8 @@ public class EmployeeManager {
 
     }
 
+    @FXML
+    void removeEmployee(ActionEvent event) {
+
+    }
 }
