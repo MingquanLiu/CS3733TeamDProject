@@ -61,7 +61,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM NODES");
-            String outFileName = "CsvNodes/AllMapNodes.csv";
+            String outFileName = "csv/CsvNodes/AllMapNodes.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -135,7 +135,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM EDGES");
-            String outFileName = "CsvEdges/AllMapEdges.csv";
+            String outFileName = "csv/CsvEdges/AllMapEdges.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -178,7 +178,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM Employees");
-            String outFileName = "CsvTables/AllEmployees.csv";
+            String outFileName = "csv/CsvTables/AllEmployees.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -237,7 +237,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM ServiceRequests");
-            String outFileName = "CsvTables/AllServiceRequests.csv";
+            String outFileName = "csv/CsvTables/AllServiceRequests.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
