@@ -160,7 +160,6 @@ public class CsvWriter {
                 prt.println(edgeID + "," +
                         startNode + "," +
                         endNode);
-
             }
             prt.flush();
             prt.close();
@@ -300,7 +299,4 @@ public class CsvWriter {
 
         }
     }
-
-    
-
 }

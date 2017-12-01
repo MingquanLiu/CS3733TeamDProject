@@ -1,5 +1,9 @@
 package edu.wpi.cs3733.programname.database;
 
+import edu.wpi.cs3733.programname.database.Tables.EdgesTable;
+import edu.wpi.cs3733.programname.database.Tables.EmployeesTable;
+import edu.wpi.cs3733.programname.database.Tables.NodesTable;
+
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,7 +87,4 @@ public class DBTables {
         }
         System.out.println("\nAll Tables Created Successfully!");
     }
-
-
-
 }

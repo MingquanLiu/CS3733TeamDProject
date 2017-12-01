@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.programname.database;
 
 import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -212,10 +214,8 @@ public class CsvReader {
 //            }
 
         }
-
         return nodeList;
     }// end readNodes
-
 
 
 
@@ -259,8 +259,6 @@ public class CsvReader {
 //        }
 //        return nodeList;
 //    }// end readNodes
-
-
 
 
     // Insert Nodes into DB
@@ -332,13 +330,6 @@ public class CsvReader {
 //        return edgeList;
 //    } // end readEdges
 
-
-
-
-
-
-
-
     // EDGES
     public ArrayList<EdgeData> getListOfEdges(Connection conn){
         // ArrayLists stores data values is proper columns
@@ -399,15 +390,8 @@ public class CsvReader {
 
 
         }
-
         return edgeList;
     } // end readEdges
-
-
-
-
-
-
 
 
 
@@ -443,7 +427,6 @@ public class CsvReader {
 //        }
 //        return edgeList;
 //    } // end readEdges
-
 
     public void insertEdges(Connection conn, ArrayList<EdgeData> edgesList) {
         // edgeID is unique and used to count the number of lines read in the file minus the header
@@ -502,9 +485,6 @@ public class CsvReader {
                 employeeList.add(employeeObject);
 
             } // end while
-
-
-
         return employeeList;
     }
 
@@ -570,10 +550,6 @@ public class CsvReader {
                 srList.add(srObject);
 
             } // end while
-
-
-
-
         return srList;
     }
 

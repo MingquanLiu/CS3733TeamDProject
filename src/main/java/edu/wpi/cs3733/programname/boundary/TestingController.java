@@ -33,6 +33,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -305,31 +308,18 @@ public class TestingController implements Initializable {
             Line l = new Line();
             NodeData n = path.get(i);
             if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
-
                 l.setStroke(Color.BLUE);
                 l.setStrokeWidth(5.0*currentScale);
                 l.setStartX(prev.getXCoord()*currentScale);
                 l.setStartY(prev.getYCoord()*currentScale);
                 l.setEndX(n.getXCoord()*currentScale);
                 l.setEndY(n.getYCoord()*currentScale);
-
                 lines.add(l);
             }
             prev = n;
         }
-
-
-
-
         pathDrawings.addAll(lines);
         panningPane.getChildren().addAll(lines);
-
-
-
-
-
-
-
         emailDirections.setVisible(true);
     }
 
