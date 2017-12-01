@@ -359,14 +359,18 @@ public class CsvReader {
             while ((line = buf.readLine()) != null) {
                 // Reads current row and converts to a string
 
-
+                System.out.println(line);
                 // Seperates the string into fields and stores into an array
                 String[] values = line.split(",");
+                for (int i = 0; i<values.length;i++ ){
+                    System.out.println(i + "  "+values[i]);
+                }
+
 
                 int serviceID = Integer.parseInt(values[0]);
-                int severity = Integer.parseInt(values[12]);
-
-                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11], severity);
+                //int severity = Integer.parseInt(values[12]);
+                System.out.println("length"+values.length);
+                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11],1);
                 srList.add(srObject);
 
             } // end while

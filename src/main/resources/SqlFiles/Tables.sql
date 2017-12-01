@@ -1,3 +1,5 @@
+DROP TABLE Senders;
+DROP TABLE Receivers;
 DROP TABLE MaintenanceRequests;
 DROP TABLE InterpreterRequests;
 DROP TABLE TransportationRequests;
