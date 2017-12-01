@@ -60,8 +60,8 @@ public class PathfindingController {
                 EdgeData intermediateEdge = (findIntermediateNodes(allNodes, currentList, startNode, endNode));
                 String intermediateNode1 = intermediateEdge.getStartNode();
                 String intermediateNode2 = intermediateEdge.getEndNode();
-                PathFinderFacade startpath = new PathFinderFacade(allNodes, currentList, startNode, intermediateNode2);
-                PathFinderFacade endpath = new PathFinderFacade(allNodes, currentList, intermediateNode1, endNode);
+                PathFinderFacade startpath = new PathFinderFacade(allNodes, currentList, startNode, intermediateNode1);
+                PathFinderFacade endpath = new PathFinderFacade(allNodes, currentList, intermediateNode2, endNode);
 
                 if (type == searchType.ASTAR) {
                     finalPath.addAll(startpath.findAstarPath());
