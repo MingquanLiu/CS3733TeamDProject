@@ -661,8 +661,9 @@ public class TestingController implements Initializable {
         }
         displayPath(currentPath);
         clearPathFindLoc();
-        txtAreaDirections.setText("hello \n world \n this\n should \n expand");
-        paneDirections.setPrefHeight(txtAreaDirections.getHeight());
+        txtAreaDirections.setText("hello \n world \n this\n should \n expand"); //Todo: replace with actual path directions
+        paneDirections.setExpanded(true);
+        //paneDirections.setPrefHeight(txtAreaDirections.getHeight());
     }
 
     //select location when clicking on the text field
