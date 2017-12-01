@@ -5,13 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.EmployeeManager">
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.EmployeeManager">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Employee Manager">
          <font>
@@ -28,18 +29,25 @@
             <TableColumn fx:id="email" prefWidth="204.0" text="Email" />
         </columns>
       </TableView>
-      <TextField fx:id="newusername" layoutX="8.0" layoutY="361.0" prefHeight="25.0" prefWidth="87.0" promptText="Username" />
-      <TextField fx:id="newlastname" layoutX="104.0" layoutY="361.0" prefHeight="25.0" prefWidth="87.0" promptText="Last name" />
-      <TextField fx:id="newfirstname" layoutX="202.0" layoutY="361.0" prefHeight="25.0" prefWidth="87.0" promptText="First name" />
-      <TextField fx:id="newemail" layoutX="298.0" layoutY="361.0" prefHeight="25.0" prefWidth="87.0" promptText="Email" />
-      <MenuButton fx:id="newservicetype" layoutX="394.0" layoutY="361.0" mnemonicParsing="false" text="Service type">
+      <TextField fx:id="newusername" layoutX="106.0" layoutY="384.0" prefHeight="25.0" prefWidth="87.0" promptText="Username" />
+      <TextField fx:id="newlastname" layoutX="106.0" layoutY="448.0" prefHeight="25.0" prefWidth="87.0" promptText="Last name" />
+      <TextField fx:id="newfirstname" layoutX="106.0" layoutY="417.0" prefHeight="25.0" prefWidth="87.0" promptText="First name" />
+      <TextField fx:id="newemail" layoutX="202.0" layoutY="384.0" prefHeight="25.0" prefWidth="175.0" promptText="Email" />
+      <MenuButton fx:id="newservicetype" layoutX="403.0" layoutY="384.0" mnemonicParsing="false" text="Service type">
         <items>
           <MenuItem mnemonicParsing="false" text="Interpreter" />
           <MenuItem mnemonicParsing="false" text="Maintenance" />
             <MenuItem mnemonicParsing="false" text="Transport" />
         </items>
       </MenuButton>
-      <CheckBox fx:id="newadmin" layoutX="496.0" layoutY="365.0" mnemonicParsing="false" text="Admin?" />
-      <Button fx:id="addnew" layoutX="564.0" layoutY="361.0" mnemonicParsing="false" onAction="#addNewEmployee" text="Add" />
+      <CheckBox fx:id="newadmin" layoutX="403.0" layoutY="421.0" mnemonicParsing="false" text="Admin?" />
+      <Button fx:id="addnew" layoutX="403.0" layoutY="448.0" mnemonicParsing="false" onAction="#addNewEmployee" text="Add" />
+      <PasswordField fx:id="password" layoutX="202.0" layoutY="417.0" promptText="Password" />
+      <PasswordField fx:id="password1" layoutX="202.0" layoutY="448.0" promptText="Confirm Password" />
+      <Label layoutX="14.0" layoutY="355.0" text="Add a new employee">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
