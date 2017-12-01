@@ -332,7 +332,7 @@ public class TestingController implements Initializable {
                 resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),lblCurrentFloor.getText(),null,null,null,null,null);
+        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),floor + "" ,null,null,null,null,null);
     }
 
     private void displayPath(List<NodeData> path){
@@ -477,7 +477,7 @@ public class TestingController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloor(lblCurrentFloor.getText());
+        List<NodeData> nodes = manager.queryNodeByFloor(floor + "");
         NodeData mClickedNode= getClosestNode(nodes,x,y);
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected
