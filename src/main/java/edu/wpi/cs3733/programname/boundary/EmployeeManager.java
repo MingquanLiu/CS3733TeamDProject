@@ -79,7 +79,7 @@ public class EmployeeManager {
     @FXML
     private JFXButton remove;
 
-    private ManageContoller manager;
+    private ManageController manageController;
 
     @FXML
     void addNewEmployee(ActionEvent event) {
@@ -124,5 +124,7 @@ public class EmployeeManager {
     void closeWindow(ActionEvent event) {
 
     }
-
+    public void initManager(ManageController manageController){
+        this.manageController = manageController;
+    }
 }
