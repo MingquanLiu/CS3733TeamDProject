@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
@@ -57,8 +58,6 @@
             <JFXTextField fx:id="newfirstname" promptText="First name" GridPane.rowIndex="2" />
             <JFXTextField fx:id="newlastname" promptText="Last name" GridPane.rowIndex="3" />
             <JFXTextField fx:id="newemail" prefHeight="25.0" prefWidth="161.0" promptText="Email" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="password" prefHeight="25.0" prefWidth="161.0" promptText="Password" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <JFXTextField fx:id="password1" prefHeight="25.0" prefWidth="161.0" promptText="Re-enter password" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <JFXButton fx:id="add" onAction="#addNewEmployee" text="Add employee" GridPane.columnIndex="5" GridPane.rowIndex="2" />
             <JFXCheckBox fx:id="admin" text="Admin?" GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <JFXRadioButton fx:id="interpreterBtn" text="Interpreter" GridPane.columnIndex="4" GridPane.rowIndex="1">
@@ -69,6 +68,8 @@
             <JFXRadioButton fx:id="maintenanceBtn" text="Maintenance" toggleGroup="$servicegroup" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <JFXRadioButton fx:id="transportBtn" text="Transport" toggleGroup="$servicegroup" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <JFXButton fx:id="remove" onAction="#removeEmployee" text="Remove employee" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <JFXPasswordField fx:id="password" promptText="Password" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXPasswordField fx:id="password1" promptText="Re-enter password" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>

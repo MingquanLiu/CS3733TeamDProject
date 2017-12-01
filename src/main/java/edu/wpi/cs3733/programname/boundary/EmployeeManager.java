@@ -1,9 +1,6 @@
 package edu.wpi.cs3733.programname.boundary;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,10 +52,10 @@ public class EmployeeManager {
     private JFXTextField newemail;
 
     @FXML
-    private JFXTextField password;
+    private JFXPasswordField password;
 
     @FXML
-    private JFXTextField password1;
+    private JFXPasswordField password1;
 
     @FXML
     private JFXButton add;
@@ -86,6 +83,7 @@ public class EmployeeManager {
             passerror.setVisible(false);
             String username = newusername.getText();
         }
+        
     }
 
     @FXML
