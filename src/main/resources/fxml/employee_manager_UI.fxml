@@ -28,7 +28,7 @@
           <TableColumn fx:id="lastname" prefWidth="75.0" text="Last name" />
             <TableColumn fx:id="firstname" prefWidth="75.0" text="First name" />
             <TableColumn fx:id="service" prefWidth="75.0" text="Service type" />
-            <TableColumn fx:id="admin" prefWidth="51.0" text="Admin?" />
+            <TableColumn fx:id="administrator" prefWidth="51.0" text="Admin?" />
             <TableColumn fx:id="email" prefWidth="204.0" text="Email" />
         </columns>
       </TableView>

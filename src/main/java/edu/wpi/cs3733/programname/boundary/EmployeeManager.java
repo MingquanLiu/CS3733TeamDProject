@@ -30,6 +30,8 @@ public class EmployeeManager {
 
     @FXML
     private TableColumn<Employee, String> service;
+    @FXML
+    private TableColumn<Employee, String> administrator;
 
     @FXML
     private JFXCheckBox admin;
