@@ -371,7 +371,9 @@ public class TestingController implements Initializable {
             System.out.println("up to floor" + floor);
             setFloor();
             clearNodes();
-            displayPath(currentPath);
+            if(!currentPath.isEmpty()) {
+                displayPath(currentPath);
+            }
             nodeInfoPane.setVisible(false);
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
@@ -379,7 +381,9 @@ public class TestingController implements Initializable {
             System.out.println("down to floor" + floor);
             setFloor();
             clearNodes();
-            displayPath(currentPath);
+            if(!currentPath.isEmpty()) {
+                displayPath(currentPath);
+            }
             nodeInfoPane.setVisible(false);
         }
     }

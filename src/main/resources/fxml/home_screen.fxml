@@ -30,7 +30,7 @@
                         <Image url="@../img/Floor_2.png" />
                      </image>
                   </ImageView>
-                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
+                    <DialogPane fx:id="nodeInfoPane" layoutX="200.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="175.0" style="-fx-background-color: white; -fx-border-color: black;">
                         <content>
                             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="150.0">
                                 <children>
@@ -52,19 +52,19 @@
                                     <Label text="Y:" GridPane.columnIndex="2" />
                                  </children>
                               </GridPane>
-                              <GridPane layoutX="3.0" layoutY="5.0">
+                              <GridPane layoutX="20.0" layoutY="20.0" prefHeight="75.0" prefWidth="153.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-10.0">
                                 <columnConstraints>
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="175.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
                                 </columnConstraints>
                                 <rowConstraints>
-                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                          <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" textAlignment="CENTER" GridPane.halignment="CENTER" />
-                                          <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                          <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" text="Label" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                          <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" />
+                                          <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Label" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                          <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Label" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                                 </children>
