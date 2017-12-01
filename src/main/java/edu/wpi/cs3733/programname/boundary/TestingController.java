@@ -11,6 +11,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
+import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -661,9 +662,10 @@ public class TestingController implements Initializable {
         }
         displayPath(currentPath);
         clearPathFindLoc();
-        txtAreaDirections.setText("hello \n world \n this\n should \n expand"); //Todo: replace with actual path directions
+        TextDirections textDirections = new TextDirections(currentPath);
+        String directions = textDirections.getTextDirections();
+        txtAreaDirections.setText(directions);
         paneDirections.setExpanded(true);
-        //paneDirections.setPrefHeight(txtAreaDirections.getHeight());
     }
 
     //select location when clicking on the text field
