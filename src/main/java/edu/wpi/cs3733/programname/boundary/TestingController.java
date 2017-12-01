@@ -376,6 +376,7 @@ public class TestingController implements Initializable {
     }
     private void setFloor(){
         Image oldImg = imgMap.getImage();
+
         String oldUrl = oldImg.impl_getUrl();  //using a deprecated method for lack of a better solution currently
         System.out.println("old image: " + oldUrl);
 
