@@ -1,9 +1,7 @@
 package DatabaseTests;
 
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.EdgeData;
+import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.database.*;
 
 import org.junit.Test;
@@ -64,6 +62,8 @@ public class DBConnectionTest {
 
         ArrayList<EdgeData> edgeList = mCsvReader.getListOfEdges(conn);
         ArrayList<NodeData> nodeList = mCsvReader.getListOfNodes(conn);
+        ArrayList<Employee> employeeList = mCsvReader.getListOfEmployees(conn);
+        ArrayList<ServiceRequest> srList = mCsvReader.getListOfServiceRequests(conn);
 
 
 
@@ -71,7 +71,8 @@ public class DBConnectionTest {
 
         mCsvReader.insertNodes(conn, nodeList);
         mCsvReader.insertEdges(conn, edgeList);
-
+        mCsvReader.insertEmployees(conn, employeeList);
+        mCsvReader.insertServiceRequests(conn, srList);
 
         printTables.printNodesTable(conn);
         printTables.printEdgesTable(conn);          // Pulls data in nodes table from the database and print it
@@ -79,6 +80,8 @@ public class DBConnectionTest {
 
         mCsvWriter.writeNodes(conn);
         mCsvWriter.writeEdges(conn);
+        mCsvWriter.writeEmployees(conn);
+        mCsvWriter.writeServiceRequests(conn);
 
 
         ManageController manager = new ManageController(TestDB);
