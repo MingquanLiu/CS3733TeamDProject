@@ -27,29 +27,24 @@ public class PathfindingController {
      * @return - result is the list of nodes efficiently connecting startNode to endNode
      */
     public List<NodeData> initializePathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
-                                             String endNode, Boolean handicapped, searchType type) throws InvalidNodeException {
+                                             String endNode, Boolean handicapped, searchType type) throws InvalidNodeException, NoPathException {
         // ManageController manager = new ManageController();
         // List<EdgeData> allEdges = manager.getAllEdgeData();
         //something about getEdges()
-        try {
-            PathFinderFacade pathFind = new PathFinderFacade(allNodes, allEdges, startNode, endNode);
+        PathFinderFacade pathFind = new PathFinderFacade(allNodes, allEdges, startNode, endNode);
 
-            List<NodeData> finalPath = new LinkedList<NodeData>();
-            List<EdgeData> currentList = allEdges;
-            if (type == searchType.ASTAR) {
-                finalPath.addAll(pathFind.findAstarPath());
-            } else if (type == searchType.DFS) {
-                finalPath.addAll(pathFind.findDfsPath());
-            } else if (type == searchType.BFS) {
-                finalPath.addAll(pathFind.findBfsPath());
-            } else if (type == searchType.DIJKSTRA) {
-                finalPath.addAll(pathFind.findDijkstraPath());
-            }
-            return finalPath;
-        } catch (NoPathException npe) {
-            System.out.println(npe.fillInStackTrace());
+        List<NodeData> finalPath = new LinkedList<NodeData>();
+        List<EdgeData> currentList = allEdges;
+        if (type == searchType.ASTAR) {
+            finalPath.addAll(pathFind.findAstarPath());
+        } else if (type == searchType.DFS) {
+            finalPath.addAll(pathFind.findDfsPath());
+        } else if (type == searchType.BFS) {
+            finalPath.addAll(pathFind.findBfsPath());
+        } else if (type == searchType.DIJKSTRA) {
+            finalPath.addAll(pathFind.findDijkstraPath());
         }
-        return null;
+        return finalPath;
             // if start and end are on same floor, filter out elevators
             // and proceed with search
 //            if (issamefloor(allNodes, startNode, endNode)) {
