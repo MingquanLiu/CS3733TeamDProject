@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.boundary.java;
+package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
@@ -52,7 +52,7 @@ import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchTy
 import static javafx.scene.paint.Color.RED;
 
 
-public class TestingController implements Initializable{
+public class TestingController implements Initializable {
 
 
     //FXML objects
@@ -624,8 +624,19 @@ public class TestingController implements Initializable{
 
     public void loginButtonHandler() throws IOException {
         String username = "admin";
-        FXMLLoader loader = showScene("/edu/wpi/cs3733/programname/boundary/Login_Popup.fxml");
-        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Login_Popup.fxml"
+                ));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<LoginPopup>getController().initData(dbConnection);
+//        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        loggedIn = true;
 //        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
 //            username = txtUser.getText();
 //        }
@@ -635,6 +646,7 @@ public class TestingController implements Initializable{
             loggedIn = true;
             showAdminControls();
         }
+        stage.show();
     }
     private void showAdminControls(){
         paneAdminFeatures.setVisible(loggedIn);
@@ -645,7 +657,7 @@ public class TestingController implements Initializable{
 //        showScene("/edu/wpi/cs3733/programname/boundary/admin_screen.fxml");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/edu/wpi/cs3733/programname/boundary/admin_screen.fxml"
+                        "/fxml/admin_screen.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -663,7 +675,7 @@ public class TestingController implements Initializable{
         //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/edu/wpi/cs3733/programname/boundary/serv_UI.fxml"
+                        "/fxml/serv_UI.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -726,7 +738,7 @@ public class TestingController implements Initializable{
     public void helpButtonHandler()throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/edu/wpi/cs3733/programname/boundary/FAQ_Popup.fxml"
+                        "/fxml/FAQ_Popup.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -741,7 +753,7 @@ public class TestingController implements Initializable{
     public void handleEmailButton() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/edu/wpi/cs3733/programname/boundary/email_Direction.fxml"
+                        "/fxml/email_Direction.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);

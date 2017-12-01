@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.programname;
 
-import edu.wpi.cs3733.programname.boundary.java.TestingController;
+import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.application.Application;
@@ -34,7 +34,7 @@ public class Main extends Application{
     public Stage showDialog(DBConnection dbConnection) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "boundary/home_screen.fxml"
+                        "/fxml/home_screen.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);

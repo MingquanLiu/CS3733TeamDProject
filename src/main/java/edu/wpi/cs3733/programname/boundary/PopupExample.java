@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.boundary.java;
+package edu.wpi.cs3733.programname.boundary;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
