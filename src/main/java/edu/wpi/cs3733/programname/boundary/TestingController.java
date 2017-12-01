@@ -12,14 +12,10 @@ import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
-import javafx.animation.PathTransition;
-import javafx.animation.StrokeTransition;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -32,7 +28,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
@@ -52,6 +47,7 @@ import static edu.wpi.cs3733.programname.commondata.Constants.MAINTENANCE_REQUES
 import static edu.wpi.cs3733.programname.commondata.Constants.TRANSPORTATION_REQUEST;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
+import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
 
@@ -239,9 +235,9 @@ public class TestingController implements Initializable {
         this.mSearchType = searchType;
     }
     //topmost methods are newest
-    private void drawCycle(int x, int y){
+    private void drawCycle(int x, int y, Color col){
         double radius = 10*currentScale;
-        Circle c = new Circle(x, y, radius, RED);
+        Circle c = new Circle(x, y, radius, col);
         panningPane.getChildren().add(c);
         shownNodes.add(c);
     }
@@ -253,7 +249,16 @@ public class TestingController implements Initializable {
     }
     private void showNode(NodeData n){
         currentNodes.add(n);
-        drawCycle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
+        drawCycle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale), RED);
+    }
+    private void showNode(NodeData n, String type){
+        currentNodes.add(n);
+        if(type.equals("start")) {
+            drawCycle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale), GREEN);
+        }
+        else if(type.equals("end")){
+            drawCycle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale), RED);
+        }
     }
 
     private void showNodeInfo(NodeData nodeData){
@@ -301,6 +306,9 @@ public class TestingController implements Initializable {
         clearMain();
         System.out.println("drawing path");
         NodeData prev = path.get(0);
+        NodeData last = path.get(path.size()-1);
+        showNode(prev, "end");
+        showNode(last, "start");
         int x = (int) (prev.getXCoord()*currentScale);
         int y = (int) (prev.getYCoord()*currentScale);
         System.out.println(x + ", " + y);
