@@ -28,7 +28,7 @@ public class AStar implements PathfindingStrategy {
      * @param startID starting location
      * @param goalID destination location
      */
-    public AStar(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) {
+    public AStar(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
         this.allEdges = edges;
         this.allNodes = nodes;
         this.init();
@@ -67,8 +67,7 @@ public class AStar implements PathfindingStrategy {
      * @param goalID end location
      * @return list of nodes that make up the path
      */
-    private List<NodeData> pathFind(String startID, String goalID) {
-        // TODO: Throw a "No such node" exception
+    private List<NodeData> pathFind(String startID, String goalID) throws NoPathException {
 
         System.out.println("Starting A*");
         StarNode start = allStarNodes.get(startID);
@@ -125,7 +124,7 @@ public class AStar implements PathfindingStrategy {
                 }
             }
         }
-        return null; // TODO: throw a "Path not found" exception
+        throw new NoPathException(start.getLongName(), goal.getLongName());
     }
 
     /**
