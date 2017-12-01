@@ -218,7 +218,7 @@
                   <JFXButton fx:id="btnLogin" buttonType="RAISED" onAction="#loginButtonHandler" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                   <Line endX="100.0" opacity="0.3" startX="-100.0" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
                   <JFXComboBox fx:id="comboLocations" maxWidth="-Infinity" minWidth="-Infinity" onAction="#locateHandler" prefWidth="170.0" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-                   <JFXCheckBox fx:id="handicap" onAction="#toggleHandicap" text="Handicap Path" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                   <JFXCheckBox fx:id="handicap" onAction="#toggleHandicap" text="Handicap Path" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                    <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
