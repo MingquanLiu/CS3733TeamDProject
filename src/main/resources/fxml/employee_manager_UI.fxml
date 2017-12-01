@@ -17,7 +17,7 @@
 
 <AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.EmployeeManager">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Employee Manager">
+      <Label layoutX="14.0" layoutY="11.0" text="Employee Manager">
          <font>
             <Font size="18.0" />
          </font>
@@ -72,5 +72,6 @@
             <JFXPasswordField fx:id="password1" promptText="Re-enter password" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
       </GridPane>
+      <JFXButton fx:id="close" layoutX="551.0" layoutY="11.0" onAction="#closeWindow" text="Close" />
    </children>
 </AnchorPane>

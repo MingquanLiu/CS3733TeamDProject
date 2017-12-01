@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.*;
+import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,13 +74,19 @@ public class EmployeeManager {
     private JFXRadioButton transportBtn;
 
     @FXML
+    private JFXButton close;
+
+    @FXML
     private JFXButton remove;
+
+    private ManageContoller manager;
 
     @FXML
     void addNewEmployee(ActionEvent event) {
         if(!password.getText().equals(password1.getText())) {
             passerror.setVisible(true);
         } else {
+            // Add validation for all fields, none of them can be empty!!!
             passerror.setVisible(false);
             String username = newusername.getText();
             String firstname = newfirstname.getText();
@@ -110,6 +117,11 @@ public class EmployeeManager {
 
     @FXML
     void sortByService(ActionEvent event) {
+
+    }
+
+    @FXML
+    void closeWindow(ActionEvent event) {
 
     }
 
