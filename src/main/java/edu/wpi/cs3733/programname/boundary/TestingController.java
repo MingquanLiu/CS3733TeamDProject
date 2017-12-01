@@ -183,6 +183,12 @@ public class TestingController implements Initializable {
     @FXML
     private JFXButton emailDirections;
 
+    //text directions
+    @FXML
+    private TitledPane paneDirections;
+    @FXML
+    private Label txtAreaDirections;
+
     //global variables, not FXML tied
     private ManageController manager;
 
@@ -655,6 +661,8 @@ public class TestingController implements Initializable {
         }
         displayPath(currentPath);
         clearPathFindLoc();
+        txtAreaDirections.setText("hello \n world \n this\n should \n expand");
+        paneDirections.setPrefHeight(txtAreaDirections.getHeight());
     }
 
     //select location when clicking on the text field
