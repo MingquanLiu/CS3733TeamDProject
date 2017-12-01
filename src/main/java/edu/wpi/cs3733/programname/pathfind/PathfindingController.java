@@ -15,6 +15,7 @@ public class PathfindingController {
     public enum searchType {
         ASTAR, DFS, BFS, DIJKSTRA
     }
+
     /**
      * Takes in the starting and ending locations, and calls PathFinderFacade to find the path between them
      * currently also takes linkedlists for nodedata and edges
@@ -35,19 +36,16 @@ public class PathfindingController {
             List<EdgeData> currentList = allEdges;
             // if start and end are on same floor, filter out elevators
             // and proceed with search
-            if (issamefloor(allNodes, startNode, endNode)){
+            if (issamefloor(allNodes, startNode, endNode)) {
                 currentList = sameFloorPath(currentList);
                 PathFinderFacade onefloorpath = new PathFinderFacade(allNodes, currentList, startNode, endNode);
                 if (type == searchType.ASTAR) {
                     finalPath.addAll(onefloorpath.findAstarPath());
-                }
-                else if (type == searchType.DFS) {
+                } else if (type == searchType.DFS) {
                     finalPath.addAll(onefloorpath.findDfsPath());
-                }
-                else if (type == searchType.BFS) {
+                } else if (type == searchType.BFS) {
                     finalPath.addAll(onefloorpath.findBfsPath());
-                }
-                else if (type == searchType.DIJKSTRA) {
+                } else if (type == searchType.DIJKSTRA) {
                     finalPath.addAll(onefloorpath.findDijkstraPath());
                 }
                 return finalPath;
@@ -58,33 +56,28 @@ public class PathfindingController {
             // one from start node to nearest elevator
             // one from that elevator to goal node
             else {
-            if(handicapped) currentList = filterPath(allEdges);
-            EdgeData intermediateEdge = (findIntermediateNodes(allNodes, currentList,  startNode , endNode));
-            String intermediateNode1 = intermediateEdge.getStartNode();
-            String intermediateNode2 = intermediateEdge.getEndNode();
-            PathFinderFacade startpath = new PathFinderFacade(allNodes, currentList, startNode, intermediateNode1);
-            PathFinderFacade endpath = new PathFinderFacade(allNodes, currentList, intermediateNode2, endNode);
+                if (handicapped) currentList = filterPath(allEdges);
+                EdgeData intermediateEdge = (findIntermediateNodes(allNodes, currentList, startNode, endNode));
+                String intermediateNode1 = intermediateEdge.getStartNode();
+                String intermediateNode2 = intermediateEdge.getEndNode();
+                PathFinderFacade startpath = new PathFinderFacade(allNodes, currentList, startNode, intermediateNode2);
+                PathFinderFacade endpath = new PathFinderFacade(allNodes, currentList, intermediateNode1, endNode);
 
-            if (type == searchType.ASTAR) {
-                finalPath.addAll(startpath.findAstarPath());
-                finalPath.addAll(endpath.findAstarPath());
+                if (type == searchType.ASTAR) {
+                    finalPath.addAll(startpath.findAstarPath());
+                    finalPath.addAll(endpath.findAstarPath());
+                } else if (type == searchType.DFS) {
+                    finalPath.addAll(startpath.findDfsPath());
+                    finalPath.addAll(endpath.findDfsPath());
+                } else if (type == searchType.BFS) {
+                    finalPath.addAll(startpath.findBfsPath());
+                    finalPath.addAll(endpath.findBfsPath());
+                } else if (type == searchType.DIJKSTRA) {
+                    finalPath.addAll(startpath.findDijkstraPath());
+                    finalPath.addAll(endpath.findDijkstraPath());
+                }
+                return finalPath;
             }
-            else if (type == searchType.DFS) {
-                finalPath.addAll(startpath.findDfsPath());
-                finalPath.addAll(endpath.findDfsPath());
-            }
-            else if (type == searchType.BFS) {
-                finalPath.addAll(startpath.findBfsPath());
-                finalPath.addAll(endpath.findBfsPath());
-            }
-            else if (type == searchType.DIJKSTRA) {
-                finalPath.addAll(startpath.findDijkstraPath());
-                finalPath.addAll(endpath.findDijkstraPath());
-            }
-            return finalPath;
-        }
-
-
 
 
         } catch (NoPathException npe) {
@@ -96,8 +89,8 @@ public class PathfindingController {
     // if the pathfinding needs to make handicapped path, remove all the stairs
     private List<EdgeData> filterPath(List<EdgeData> edges) {
         List<EdgeData> handicappedPath = new LinkedList<EdgeData>();
-        for(EdgeData e: edges) {
-            if(!e.getStartNode().contains("STAI") && !e.getEndNode().contains("STAI")) {
+        for (EdgeData e : edges) {
+            if (!e.getStartNode().contains("STAI") && !e.getEndNode().contains("STAI")) {
                 handicappedPath.add(e);
             }
         }
@@ -109,11 +102,11 @@ public class PathfindingController {
     // of the list of edges
     private List<EdgeData> sameFloorPath(List<EdgeData> edges) {
         List<EdgeData> handicappedPath = new LinkedList<EdgeData>();
-        for(EdgeData e: edges) {
-            if(!e.getStartNode().contains("STAI") && !e.getEndNode().contains("STAI")) {
+        for (EdgeData e : edges) {
+            if (!e.getStartNode().contains("STAI") && !e.getEndNode().contains("STAI")) {
                 handicappedPath.add(e);
             }
-            if(!e.getStartNode().contains("ELEV") && !e.getEndNode().contains("ELEV")) {
+            if (!e.getStartNode().contains("ELEV") && !e.getEndNode().contains("ELEV")) {
                 handicappedPath.add(e);
             }
         }
@@ -121,13 +114,13 @@ public class PathfindingController {
     }
 
     // returns true if the startnode and endnode are on the same floor
-    private Boolean issamefloor (List<NodeData> allNodes, String StartNode, String Endnode){
-        return (pullNode(allNodes , StartNode).getFloor().equals(pullNode(allNodes , Endnode).getFloor()));
+    private Boolean issamefloor(List<NodeData> allNodes, String StartNode, String Endnode) {
+        return (pullNode(allNodes, StartNode).getFloor().equals(pullNode(allNodes, Endnode).getFloor()));
     }
 
     // returns the node with the given id from the list of nodes
-    private NodeData pullNode (List<NodeData> allNodes, String nodeID){
-        for (NodeData N : allNodes){
+    private NodeData pullNode(List<NodeData> allNodes, String nodeID) {
+        for (NodeData N : allNodes) {
             if (N.getNodeID().equals(nodeID)) return N;
         }
         return null;  //if node doesnt exist return nothing
@@ -135,9 +128,9 @@ public class PathfindingController {
 
 
     // returns a list of all nodes that are elevators from the provided list of nodes
-    private List<NodeData> listofElevators(List<NodeData> allNodes){
+    private List<NodeData> listofElevators(List<NodeData> allNodes) {
         List<NodeData> Elevators = new LinkedList<NodeData>();
-        for(NodeData N : allNodes){
+        for (NodeData N : allNodes) {
             if (N.getNodeID().contains("ELEV")) Elevators.add(N);
         }
         return Elevators;
@@ -146,25 +139,25 @@ public class PathfindingController {
     //@TODO FINISH THIS METHOD BECAUSE YOU DONT UNDERSTAND CODING EVEN A LITTLE BIT
     //@TODO YOU NEED A COMPARATOR FOR NODEDATA THAT RETURNS THE RAW DISTANCE VALUE OR SOMETHING LIKE THAT
     // Returns a linked list of all the providedNodes, sorted by nearest to startNode
-    private List<NodeData> sortByNearestNode(List<NodeData> providedNodes, NodeData startNode){
+    private List<NodeData> sortByNearestNode(List<NodeData> providedNodes, NodeData startNode) {
         ArrayList<NodeData> Sorted = new ArrayList<NodeData>();
         ArrayList<Double> distances = new ArrayList<>();
-        HashMap<Double, NodeData> fuck = new HashMap<Double,NodeData>();
+        HashMap<Double, NodeData> fuck = new HashMap<Double, NodeData>();
         int initialX = startNode.getXCoord();
         int initialY = startNode.getYCoord();
         int index = 0;
-        for (NodeData NodeIterator: providedNodes){
+        for (NodeData NodeIterator : providedNodes) {
             int IteratorX = NodeIterator.getXCoord();
             int IteratorY = NodeIterator.getYCoord();
             double XDist = initialX - IteratorX;
             double YDist = initialY - IteratorY;
-            double distToGo = Math.sqrt(XDist*XDist + YDist*YDist);
+            double distToGo = Math.sqrt(XDist * XDist + YDist * YDist);
             fuck.put(distToGo, NodeIterator);
             distances.add(distToGo);
             index++;
         }
         Collections.sort(distances);
-        for(Double distanceIterator: distances){
+        for (Double distanceIterator : distances) {
             Sorted.add(fuck.get(distanceIterator));
         }
 
@@ -172,38 +165,39 @@ public class PathfindingController {
     }
 
     // returns a list off all edges that contain the provided nodeID
-    private  List<EdgeData> relevantedges(List<EdgeData> providededges, String searchNodeID){
+    private List<EdgeData> relevantedges(List<EdgeData> providededges, String searchNodeID) {
         List<EdgeData> listofEdges = new LinkedList<EdgeData>();
-        for (EdgeData edgeN: providededges){
-            if ((edgeN.getStartNode().equals(searchNodeID)) || (edgeN.getEndNode().equals(searchNodeID)) )listofEdges.add(edgeN);
+        for (EdgeData edgeN : providededges) {
+            if ((edgeN.getStartNode().equals(searchNodeID)) || (edgeN.getEndNode().equals(searchNodeID)))
+                listofEdges.add(edgeN);
         }
         return listofEdges;
     }
 
 
     // the intermediate nodes are the startnode and endnode in the elevator edge with the same floor
-    private EdgeData findIntermediateNodes(List<NodeData> allNodes, List<EdgeData> allEdges, String startnodeID , String endnodeID){
+    private EdgeData findIntermediateNodes(List<NodeData> allNodes, List<EdgeData> allEdges, String startnodeID, String endnodeID) {
         NodeData StartNode = pullNode(allNodes, startnodeID);
 
         // GET A LIST OF ALL ELEVATORS ON THE SAME FLOOR AS THE START NODE, sorted by proximity
-        List<NodeData> SortedElevators = sortByNearestNode(listofElevators(allNodes) , StartNode);
+        List<NodeData> SortedElevators = sortByNearestNode(listofElevators(allNodes), StartNode);
 
         // Iterate through the list of elevators
-        for (NodeData ElevatorIterator: SortedElevators){
+        for (NodeData ElevatorIterator : SortedElevators) {
 
-        // create a list of all edges that the elevator has
+            // create a list of all edges that the elevator has
             List<EdgeData> ElevatorEdges = relevantedges(allEdges, ElevatorIterator.getNodeID());
 
-        // iterate through the edges
-            for (EdgeData EdgeIterator: ElevatorEdges ) {
+            // iterate through the edges
+            for (EdgeData EdgeIterator : ElevatorEdges) {
 
-        // if one of the edges is on the same floor as the start node
+                // if one of the edges is on the same floor as the start node
                 if ((issamefloor(allNodes, EdgeIterator.getStartNode(), startnodeID)) || (issamefloor(allNodes, EdgeIterator.getEndNode(), startnodeID))) {
 
-        // and one of the edges is on the same floor as the end node
+                    // and one of the edges is on the same floor as the end node
                     if ((issamefloor(allNodes, EdgeIterator.getStartNode(), endnodeID)) || (issamefloor(allNodes, EdgeIterator.getEndNode(), endnodeID))) {
 
-        // return that edge
+                        // return that edge
                         return EdgeIterator;
                     }
                 }
