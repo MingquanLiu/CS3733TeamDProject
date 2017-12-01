@@ -189,6 +189,10 @@ public class TestingController implements Initializable {
     @FXML
     private Label txtAreaDirections;
 
+    // Handicapped checkbox
+    @FXML
+    private CheckBox handicap;
+
     //global variables, not FXML tied
     private ManageController manager;
 
@@ -662,7 +666,7 @@ public class TestingController implements Initializable {
         System.out.println("drawing path");
         try {
             System.out.println(mSearchType);
-            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType);
+            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType, this.handicap.isSelected());
         }
         catch(InvalidNodeException ine) {
             currentPath = new ArrayList<>();
@@ -870,6 +874,11 @@ public class TestingController implements Initializable {
         loader.<Email_Direction>getController().initialize(manager, currentPath);
         stage.show();
         emailDirections.setVisible(false);
+    }
+
+    // Turn the handicapped path restriction on or off
+    public void toggleHandicap() {
+        this.goButtonHandler();
     }
 
 }
