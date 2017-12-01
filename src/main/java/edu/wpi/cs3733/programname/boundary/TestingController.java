@@ -377,7 +377,7 @@ public class TestingController implements Initializable {
     }
 
     private void clearPath(){
-        currentPath = new ArrayList<>();
+        //currentPath = new ArrayList<>();
         if(pathDrawings.size() > 0){
             for(Shape shape: pathDrawings){
                 System.out.println("success remove");

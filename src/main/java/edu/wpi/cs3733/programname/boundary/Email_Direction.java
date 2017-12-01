@@ -31,6 +31,7 @@ public class Email_Direction {
     }
 
     public void sendButtonHandler() {
+        System.out.println("sending email");
         if (validEmail()) {
             this.manager.sendTextDirectionsEmail(path,emailAddress.getText());
             lblBadEmail.setVisible(false);
