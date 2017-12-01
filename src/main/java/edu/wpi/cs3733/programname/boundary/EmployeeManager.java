@@ -1,11 +1,17 @@
 package edu.wpi.cs3733.programname.boundary;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 public class EmployeeManager {
 
@@ -28,43 +34,49 @@ public class EmployeeManager {
     private TableColumn<Employee, String> service;
 
     @FXML
-    private TableColumn<Employee, String> admin;
+    private JFXCheckBox admin;
 
     @FXML
     private TableColumn<Employee, String> email;
 
     @FXML
-    private TextField newusername;
-
-    @FXML
-    private TextField newlastname;
-
-    @FXML
-    private TextField newfirstname;
-
-    @FXML
-    private TextField newemail;
-
-    @FXML
-    private MenuButton newservicetype;
-
-    @FXML
-    private CheckBox newadmin;
-
-    @FXML
-    private Button addnew;
-
-    @FXML
-    private PasswordField password;
-
-    @FXML
-    private PasswordField password1;
-
-    @FXML
     private Label passerror;
 
     @FXML
-    private Button remove;
+    private JFXTextField newusername;
+
+    @FXML
+    private JFXTextField newfirstname;
+
+    @FXML
+    private JFXTextField newlastname;
+
+    @FXML
+    private JFXTextField newemail;
+
+    @FXML
+    private JFXTextField password;
+
+    @FXML
+    private JFXTextField password1;
+
+    @FXML
+    private JFXButton add;
+
+    @FXML
+    private JFXRadioButton interpreterBtn;
+
+    @FXML
+    private ToggleGroup servicegroup;
+
+    @FXML
+    private JFXRadioButton maintenanceBtn;
+
+    @FXML
+    private JFXRadioButton transportBtn;
+
+    @FXML
+    private JFXButton remove;
 
     @FXML
     void addNewEmployee(ActionEvent event) {
@@ -72,8 +84,13 @@ public class EmployeeManager {
             passerror.setVisible(true);
         } else {
             passerror.setVisible(false);
-            String username = newusername.
+            String username = newusername.getText();
         }
+    }
+
+    @FXML
+    void removeEmployee(ActionEvent event) {
+
     }
 
     @FXML
@@ -81,8 +98,4 @@ public class EmployeeManager {
 
     }
 
-    @FXML
-    void removeEmployee(ActionEvent event) {
-
-    }
 }
