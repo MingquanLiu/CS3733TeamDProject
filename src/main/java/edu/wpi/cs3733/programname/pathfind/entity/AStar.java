@@ -8,10 +8,7 @@ package edu.wpi.cs3733.programname.pathfind.entity;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class AStar implements PathfindingStrategy {
     List<NodeData> allNodes;
@@ -119,9 +116,15 @@ public class AStar implements PathfindingStrategy {
                         newnode.setF(actionCost(newnode) + distanceToGo(newnode, goal));
                     }
 
-                    if(current.getNodeType().equals("ELEV") && newnode.getNodeType().equals("ELEV") &&
-                            !newnode.getFloor().equals(goal.getFloor())) {
-                        frontier.remove(newnode);
+                    // This fixes the problem with infinitely looping elevators (I hope)
+                    if(current.getNodeType().equals("ELEV") && newnode.getNodeType().equals("ELEV")) {
+                        for (Iterator<StarNode> iterator = newnode.neighbors.iterator(); iterator.hasNext();) {
+                            StarNode newneighbor = iterator.next();
+                            if (newneighbor.getNodeType().equals("ELEV")) {
+                                // Remove the current element from the iterator and the list.
+                                iterator.remove();
+                            }
+                        }
                     }
                     // this is where the node is put in the right place in the queue
                     Collections.sort(frontier);
