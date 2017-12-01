@@ -256,11 +256,13 @@ public class TestingController implements Initializable {
         ObservableList locations = FXCollections.observableArrayList(
                 "Bathrooms",
                 "Service Desks",
-                "Vending Machines",
+                "Retail Services",
                 "Waiting Rooms",
                 "Elevators",
                 "Exits",
-                "Staircases");
+                "Staircases",
+                "Labs",
+                "Additional Services");
         comboLocations.setItems(locations);
         comboLocations.setValue("Bathrooms");
     }
@@ -566,7 +568,7 @@ public class TestingController implements Initializable {
                 case "Service Desks":
                     nodeType = "INFO";
                     break;
-                case "Vending Machines":
+                case "Retail Services":
                     nodeType = "RETL";
                     break;
                 case "Waiting Rooms":
@@ -578,8 +580,14 @@ public class TestingController implements Initializable {
                 case "Exits":
                     nodeType = "EXIT";
                     break;
-                case "Stairs":
+                case "Staircases":
                     nodeType = "STAI";
+                    break;
+                case "Labs":
+                    nodeType = "LABS";
+                    break;
+                case "Additional Services":
+                    nodeType = "SERV";
                     break;
             }
         }
