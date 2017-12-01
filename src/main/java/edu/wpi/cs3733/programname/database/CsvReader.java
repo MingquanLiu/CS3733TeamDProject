@@ -28,17 +28,19 @@ public class CsvReader {
      */
 
 
-    public ArrayList<NodeData> getListOfNodes(Connection conn) {
+    public ArrayList<NodeData> getListOfNodes(Connection conn) throws IOException{
         ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
 
+
         try {
-            InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvNodes/AllMapNodes.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuilder out = new StringBuilder();
+            String csv = "csv/CsvNodes/AllMapNodes.csv";
+            FileReader read = new FileReader(csv);
+            BufferedReader buf = new BufferedReader(read);
+
             String line;
-            reader.readLine();
+            buf.readLine();
             // Reads all lines in the file
-            while ((line = reader.readLine()) != null) {
+            while ((line = buf.readLine()) != null) {
                 // Reads current row and converts to a string
 
 
@@ -151,13 +153,16 @@ public class CsvReader {
 
 
         try {
-            InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvEdges/AllMapEdges.csv");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuilder out = new StringBuilder();
+            String csv = "csv/CsvEdges/AllMapEdges.csv";
+            FileReader read = new FileReader(csv);
+            BufferedReader buf = new BufferedReader(read);
+
+
             String line;
-            reader.readLine();
+            buf.readLine();
+
             // Reads all lines in the file
-            while ((line = reader.readLine()) != null) {
+            while ((line = buf.readLine()) != null) {
                 // Reads current row and converts to a string
 
 
@@ -234,42 +239,71 @@ public class CsvReader {
 
 
     // EMPLOYEES
-    public ArrayList<Employee> getListOfEmployees(Connection conn) throws IOException{
+    public ArrayList<Employee> getListOfEmployees(Connection conn) {
 
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
 
+        try {
+            String csv = "csv/CsvTables/AllEmployees.csv";
+            FileReader read = new FileReader(csv);
+            BufferedReader buf = new BufferedReader(read);
 
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvTables/AllEmployees.csv");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder out = new StringBuilder();
-        String line;
-        reader.readLine();
-        // Reads all lines in the file
-        while ((line = reader.readLine()) != null) {
-            // Reads current row and converts to a string
+            String line;
+            buf.readLine();
+
+            buf.readLine();
+            // Reads all lines in the file
+            while ((line = buf.readLine()) != null) {
+                // Reads current row and converts to a string
 
 
-            // Seperates the string into fields and stores into an array
-            String[] values = line.split(",");
+                // Seperates the string into fields and stores into an array
+                String[] values = line.split(",");
 
-            boolean sysAdmin;
-            if(Integer.parseInt(values[5]) == 1) {
-                sysAdmin = true;
+                boolean sysAdmin;
+                if (Integer.parseInt(values[5]) == 1) {
+                    sysAdmin = true;
+                } else {
+                    sysAdmin = false;
+                }
+
+                Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
+                employeeList.add(employeeObject);
+
+            } // end while
+        } catch (IOException e) {
+            try {
+                InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvTables/AllEmployees.csv");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+                String line;
+                reader.readLine();
+                // Reads all lines in the file
+                while ((line = reader.readLine()) != null) {
+                    // Reads current row and converts to a string
+
+
+                    // Seperates the string into fields and stores into an array
+                    String[] values = line.split(",");
+
+                    boolean sysAdmin;
+                    if (Integer.parseInt(values[5]) == 1) {
+                        sysAdmin = true;
+                    } else {
+                        sysAdmin = false;
+                    }
+
+                    Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
+                    employeeList.add(employeeObject);
+
+                } // end while
+
+            } catch (IOException w) {
             }
-            else {
-                sysAdmin = false;
-            }
 
-            Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
-            employeeList.add(employeeObject);
-
-        } // end while
-
-
-
+        }
         return employeeList;
     }
-
 
 
 
@@ -308,32 +342,58 @@ public class CsvReader {
 
 
     // SERVICEREQUESTS
-    public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) throws IOException{
+    public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) {
 
         ArrayList<ServiceRequest> srList = new ArrayList<ServiceRequest>();
 
+        try {
 
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvTables/AllServiceRequests.csv");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder out = new StringBuilder();
-        String line;
-        reader.readLine();
-        // Reads all lines in the file
-        while ((line = reader.readLine()) != null) {
-            // Reads current row and converts to a string
+            String csv = "csv/CsvTables/AllServiceRequests.csv";
+            FileReader read = new FileReader(csv);
+            BufferedReader buf = new BufferedReader(read);
 
+            String line;
+            buf.readLine();
 
-            // Seperates the string into fields and stores into an array
-            String[] values = line.split(",");
-
-            int serviceID = Integer.parseInt(values[0]);
-
-            ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6],values[7],values[8], values[9], values[10]);
-            srList.add(srObject);
-
-        } // end while
+            buf.readLine();
+            while ((line = buf.readLine()) != null) {
+                // Reads current row and converts to a string
 
 
+                // Seperates the string into fields and stores into an array
+                String[] values = line.split(",");
+
+                int serviceID = Integer.parseInt(values[0]);
+
+                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                srList.add(srObject);
+
+            } // end while
+
+        }catch (IOException e) {
+            try {
+                InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvTables/AllServiceRequests.csv");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+                String line;
+                reader.readLine();
+                // Reads all lines in the file
+                while ((line = reader.readLine()) != null) {
+                    // Reads current row and converts to a string
+
+
+                    // Seperates the string into fields and stores into an array
+                    String[] values = line.split(",");
+
+                    int serviceID = Integer.parseInt(values[0]);
+
+                    ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                    srList.add(srObject);
+
+                } // end while
+            } catch (IOException w) {
+            }
+        }
 
 
         return srList;
