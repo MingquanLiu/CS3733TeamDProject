@@ -293,7 +293,7 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <TitledPane fx:id="paneDirections" animated="false" layoutY="80.0" prefWidth="202.0" text="Directions">
+      <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="80.0" prefWidth="202.0" text="Directions">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
                <children>

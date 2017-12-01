@@ -11,6 +11,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
+import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -322,6 +323,7 @@ public class TestingController implements Initializable {
         nodeInfoType.setText("" + nodeData.getNodeType());
         nodeInfoLongName.setText("" + nodeData.getLongName());
         nodeInfoShortName.setText("" + nodeData.getShortName());
+
     }
 
     //displaying node info on click
@@ -670,6 +672,9 @@ public class TestingController implements Initializable {
             currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType, this.handicap.isSelected());
         }
         catch(InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        }
+        catch(NoPathException np){
             currentPath = new ArrayList<>();
         }
         displayPath(currentPath);
