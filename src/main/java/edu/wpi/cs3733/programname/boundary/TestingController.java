@@ -12,6 +12,8 @@ import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,6 +77,8 @@ public class TestingController implements Initializable {
     private JFXButton btnMapDwn;
     @FXML
     private Label lblCurrentFloor;
+    @FXML
+    private ComboBox comboFloors;
     private int floor = 2;
 
     //zoom and pan objects
@@ -229,6 +233,16 @@ public class TestingController implements Initializable {
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(maxWidth*currentScale);
 
+        ObservableList floors = FXCollections.observableArrayList(
+                "Basement 1",
+                "Basement 2",
+                "Ground",
+                "Floor 1",
+                "Floor 2",
+                "Floor 3");
+        comboFloors.setItems(floors);
+        comboFloors.setValue("Floor 2");
+
     }
     public void setSearchType(PathfindingController.searchType searchType){
         System.out.println(currentMapRatioIndex);
@@ -366,7 +380,33 @@ public class TestingController implements Initializable {
 
     //map switching methods
     public void mapChange(ActionEvent e){
-        if(e.getSource() == btnMapUp && floor < 3){
+        System.out.println("switching floor");
+        if(e.getSource() == comboFloors) {
+            String floorString = comboFloors.getValue().toString();
+            String newFloorString = floorString;
+            switch (floorString) {
+                case "Basement 2":
+                    floor = -2;
+                    break;
+                case "Basement 1":
+                    floor = -1;
+                    break;
+                case "Ground":
+                    floor = 0;
+                    break;
+                case "Floor 1":
+                    floor = 1;
+                    break;
+                case "Floor 2":
+                    floor = 2;
+                    break;
+                case "Floor 3":
+                    floor = 3;
+                    break;
+            }
+            comboFloors.setValue(newFloorString);
+        }
+        else if(e.getSource() == btnMapUp && floor < 3){
             floor ++;
             System.out.println("up to floor" + floor);
             setFloor();
@@ -386,6 +426,7 @@ public class TestingController implements Initializable {
             }
             nodeInfoPane.setVisible(false);
         }
+        setFloor();
     }
     private void setFloor(){
         Image oldImg = imgMap.getImage();
