@@ -5,6 +5,7 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -91,6 +92,9 @@ public class EmployeeManager {
     private final ObservableList<Employee> data = FXCollections.observableArrayList();
 
     @FXML
+    private SortedList<Employee> sortedEmployee;
+
+    @FXML
     void addNewEmployee(ActionEvent event) {
         try {
             if (!password.getText().equals(password1.getText())) {
@@ -147,11 +151,6 @@ public class EmployeeManager {
     }
 
     @FXML
-    void sortByService(ActionEvent event) {
-
-    }
-
-    @FXML
     void closeWindow(ActionEvent event) {
 
     }
@@ -164,12 +163,15 @@ public class EmployeeManager {
     public void initManager(ManageController manageController){
         this.manageController = manageController;
         this.data.addAll(manageController.getAllEmployees());
-        employeetable.setItems(this.data);
+        sortedEmployee = new SortedList<Employee>(this.data);
+        employeetable.setItems(this.sortedEmployee);
+        sortedEmployee.comparatorProperty().bind(employeetable.comparatorProperty());
         firstname.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
         lastname.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
         username.setCellValueFactory(cellData -> cellData.getValue().usernameProperty());
         email.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
         service.setCellValueFactory(cellData -> cellData.getValue().serviceTypeProperty());
         administrator.setCellValueFactory(cellData -> cellData.getValue().sysAdminProperty());
+
     }
 }
