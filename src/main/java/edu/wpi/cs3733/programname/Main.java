@@ -3,6 +3,7 @@ package edu.wpi.cs3733.programname;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.database.RunScript;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +15,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
+
 
 
 public class Main extends Application{
@@ -52,7 +53,8 @@ public class Main extends Application{
         DBConnection dbConnection = new DBConnection();
         dbConnection.setDBConnection();
         CsvReader mCsvReader = new CsvReader();
-        createAllTables(dbConnection);
+        RunScript run = new RunScript();
+        run.runScript(dbConnection.getConnection());
         mCsvReader.insertNodes(dbConnection.getConnection(),mCsvReader.getListOfNodes(dbConnection.getConnection()));
         mCsvReader.insertEdges(dbConnection.getConnection(),mCsvReader.getListOfEdges(dbConnection.getConnection()));
         mCsvReader.insertEmployees(dbConnection.getConnection(),mCsvReader.getListOfEmployees(dbConnection.getConnection()));
