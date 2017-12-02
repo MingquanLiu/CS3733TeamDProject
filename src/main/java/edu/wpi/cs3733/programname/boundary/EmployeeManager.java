@@ -9,6 +9,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -90,6 +91,9 @@ public class EmployeeManager {
     @FXML
     private Label removeerror;
 
+    @FXML
+    private Label changessaved;
+
     private ManageController manageController;
 
     private final ObservableList<Employee> data = FXCollections.observableArrayList();
@@ -127,6 +131,7 @@ public class EmployeeManager {
                         serviceType, email);
 
                 manageController.addEmployee(newuser);
+                changessaved.setVisible(true);
 
                 newusername.clear();
                 newfirstname.clear();
@@ -148,16 +153,22 @@ public class EmployeeManager {
             removeerror.setVisible(false);
             Employee employee = employeetable.getSelectionModel().getSelectedItem();
             // TODO: Remove the employee from DB
+            changessaved.setVisible(true);
         } catch (NullPointerException nullpointer) {
             removeerror.setVisible(true);
         }
     }
 
     @FXML
+    private void hideChangesSaved(MouseEvent event) {
+        changessaved.setVisible(false);
+    }
+
+    @FXML
     private void closeWindow(ActionEvent event){
         // get a handle to the stage
         Stage stage = (Stage) close.getScene().getWindow();
-        // do what you have to do
+        changessaved.setVisible(false);
         stage.close();
     }
 

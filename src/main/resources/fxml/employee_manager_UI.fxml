@@ -22,7 +22,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="employeetable" editable="true" layoutX="8.0" layoutY="41.0" prefHeight="308.0" prefWidth="594.0">
+      <TableView fx:id="employeetable" editable="true" layoutX="8.0" layoutY="41.0" onMouseClicked="#hideChangesSaved" prefHeight="308.0" prefWidth="594.0">
         <columns>
           <TableColumn fx:id="username" onEditCommit="#updateUsername" prefWidth="75.0" text="Username" />
           <TableColumn fx:id="lastname" prefWidth="75.0" text="Last name" />
@@ -53,20 +53,20 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <JFXTextField fx:id="newusername" promptText="Username" />
-            <JFXTextField fx:id="newfirstname" promptText="First name" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="newlastname" promptText="Last name" GridPane.rowIndex="2" />
-            <JFXTextField fx:id="newemail" prefHeight="25.0" prefWidth="161.0" promptText="Email" GridPane.columnIndex="2" />
-            <JFXPasswordField fx:id="password" promptText="Password" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <JFXPasswordField fx:id="password1" promptText="Re-enter password" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <JFXRadioButton fx:id="interpreterBtn" text="Interpreter" GridPane.columnIndex="4">
+            <JFXTextField fx:id="newusername" onMouseClicked="#hideChangesSaved" promptText="Username" />
+            <JFXTextField fx:id="newfirstname" onMouseClicked="#hideChangesSaved" promptText="First name" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="newlastname" onMouseClicked="#hideChangesSaved" promptText="Last name" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="newemail" onMouseClicked="#hideChangesSaved" prefHeight="25.0" prefWidth="161.0" promptText="Email" GridPane.columnIndex="2" />
+            <JFXPasswordField fx:id="password" onMouseClicked="#hideChangesSaved" promptText="Password" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXPasswordField fx:id="password1" onMouseClicked="#hideChangesSaved" promptText="Re-enter password" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXRadioButton fx:id="interpreterBtn" onMouseClicked="#hideChangesSaved" text="Interpreter" GridPane.columnIndex="4">
                <toggleGroup>
                   <ToggleGroup fx:id="servicegroup" />
                </toggleGroup>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="transportBtn" text="Transport" toggleGroup="$servicegroup" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <JFXRadioButton fx:id="maintenanceBtn" text="Maintenance" toggleGroup="$servicegroup" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <JFXCheckBox fx:id="admin" text="Admin?" GridPane.columnIndex="5" />
+            <JFXRadioButton fx:id="transportBtn" onMouseClicked="#hideChangesSaved" text="Transport" toggleGroup="$servicegroup" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <JFXRadioButton fx:id="maintenanceBtn" onMouseClicked="#hideChangesSaved" text="Maintenance" toggleGroup="$servicegroup" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <JFXCheckBox fx:id="admin" onMouseClicked="#hideChangesSaved" text="Admin?" GridPane.columnIndex="5" />
             <JFXButton fx:id="add" onAction="#addNewEmployee" text="Add employee" GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <JFXButton fx:id="remove" onAction="#removeEmployee" text="Remove employee" GridPane.columnIndex="5" GridPane.rowIndex="2" />
          </children>
@@ -74,5 +74,6 @@
       <JFXButton fx:id="close" layoutX="551.0" layoutY="11.0" onAction="#closeWindow" text="Close" />
       <Label fx:id="dataerror" layoutX="388.0" layoutY="356.0" text="Missing employee data fields!" textFill="RED" visible="false" />
       <Label fx:id="removeerror" layoutX="200.0" layoutY="16.0" text="Please select an employee to remove!" textFill="RED" visible="false" />
+      <Label fx:id="changessaved" layoutX="435.0" layoutY="15.0" prefHeight="17.0" prefWidth="90.0" text="Changes saved" textFill="RED" visible="false" />
    </children>
 </AnchorPane>
