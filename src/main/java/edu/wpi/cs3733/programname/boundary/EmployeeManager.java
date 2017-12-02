@@ -10,6 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import javax.swing.*;
 
 public class EmployeeManager {
 
@@ -151,8 +154,11 @@ public class EmployeeManager {
     }
 
     @FXML
-    void closeWindow(ActionEvent event) {
-
+    private void closeWindow(ActionEvent event){
+        // get a handle to the stage
+        Stage stage = (Stage) close.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
     @FXML
