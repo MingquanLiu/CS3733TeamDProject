@@ -141,6 +141,9 @@ public class EmployeeManager {
                 password1.clear();
                 servicegroup.selectToggle(null);
                 admin.setSelected(false);
+
+                data.removeAll(data);
+                data.addAll(manageController.getAllEmployees()); 
             }
         } catch (NullPointerException nullpointer) {
             dataerror.setVisible(true);
@@ -174,7 +177,7 @@ public class EmployeeManager {
 
     @FXML
     void updateUsername(ActionEvent event) {
-
+        // TODO: Verify that this is the right way to do this
     }
 
     public void initManager(ManageController manageController){
