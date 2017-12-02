@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Random;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
-import static edu.wpi.cs3733.programname.database.DBTables.createAllTables;
+import edu.wpi.cs3733.programname.database.QueryMethods.*;
 
 
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
@@ -162,11 +162,11 @@ public class ManageController {
         msg.sendMessage();
     }
 
-    public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description) {
+    public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description, String reservationTime, int severity) {
         //generate random id
         Random randomID = new Random();
         int id = randomID.nextInt(1000) + 1;
-        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description);
+        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description, reservationTime ,severity);
         dbModController.addServiceRequest(newServiceRequest);
         return newServiceRequest;
     }

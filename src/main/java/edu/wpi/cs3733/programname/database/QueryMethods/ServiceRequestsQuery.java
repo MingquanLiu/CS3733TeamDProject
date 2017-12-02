@@ -30,8 +30,10 @@ public class ServiceRequestsQuery {
             String requestTime;
             String handleTime;
             String completionTime;
+            String reservationTime;
             String status;
             String receiverUsername;
+            int severity;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
@@ -43,9 +45,11 @@ public class ServiceRequestsQuery {
                 requestTime = result.getString("requestTime");
                 handleTime = result.getString("handleTime");
                 completionTime = result.getString("completionTime");
+                reservationTime = result.getString("reservationTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
-                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status);
+                severity = result.getInt("severity");
+                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, reservationTime, status, severity);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -71,7 +75,9 @@ public class ServiceRequestsQuery {
             String requestTime;
             String handleTime;
             String completionTime;
+            String reservationTime;
             String receiverUsername;
+            int severity;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
@@ -83,8 +89,10 @@ public class ServiceRequestsQuery {
                 requestTime = result.getString("requestTime");
                 handleTime = result.getString("handleTime");
                 completionTime = result.getString("completionTime");
+                reservationTime = result.getString("reservationTime");
                 receiverUsername = result.getString("receiver");
-                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status);
+                severity = result.getInt("severity");
+                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, reservationTime, status, severity);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -110,8 +118,10 @@ public class ServiceRequestsQuery {
             String requestTime;
             String handleTime;
             String completionTime;
+            String reservationTime;
             String status;
             String receiverUsername;
+            int severity;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
@@ -123,9 +133,11 @@ public class ServiceRequestsQuery {
                 requestTime = result.getString("requestTime");
                 handleTime = result.getString("handleTime");
                 completionTime = result.getString("completionTime");
+                reservationTime = result.getString("reservationTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
-                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status);
+                severity = result.getInt("severity");
+                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, reservationTime, status, severity);
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -149,8 +161,10 @@ public class ServiceRequestsQuery {
             String requestTime;
             String handleTime;
             String completionTime;
+            String reservationTime;
             String status;
             String receiverUsername;
+            int severity;
 
             while(result.next()) {
                 senderUsername = result.getString("sender");
@@ -161,9 +175,11 @@ public class ServiceRequestsQuery {
                 requestTime = result.getString("requestTime");
                 handleTime = result.getString("handleTime");
                 completionTime = result.getString("completionTime");
+                reservationTime = result.getString("reservationTime");
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
-                queryResult = new ServiceRequest(serviceID, senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status);
+                severity = result.getInt("severity");
+                queryResult = new ServiceRequest(serviceID, senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, reservationTime, status, severity);
             }
         } catch (SQLException e) {
             System.out.println("Select Service Request Failed!");

@@ -1,2 +1,0 @@
-serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status
-894,wwong2,null,transportation,DELEV00A02,DELEV00B02,need a wheelchair,2017-11-30 17:40:23,,,unhandled

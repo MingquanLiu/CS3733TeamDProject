@@ -14,6 +14,7 @@ import org.apache.derby.shared.common.error.DerbySQLIntegrityConstraintViolation
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -40,9 +41,9 @@ public class ServiceRequestControllerTest {
     NodeData teamDnode2 = new NodeData("DELEV00B02",coord2,"2","15 Francis","ELEV","Elevator B Floor 2","Elevator B2","Team D");
     NodeData bBathroom = new NodeData ("TREST00101", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
     NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
-    ServiceRequest wongServiceRequest = new ServiceRequest(1, "wwong2","interpreter","TREST00102","TREST00101","Need someone speaks Spanish");
-    ServiceRequest newWongRequest = new ServiceRequest(1, "wwong2", "userjohn","interpreter","TREST00102","TREST00101","Need someone speaks Spanish","","","","handled");
-    ServiceRequest johnServiceRequest = new ServiceRequest(1, "userjohn","transportation","DELEV00A02", "DELEV00B02","need a wheelchair");
+    ServiceRequest wongServiceRequest = new ServiceRequest(1, "wwong2","interpreter","TREST00102","TREST00101","Need someone speaks Spanish", "",1);
+    ServiceRequest newWongRequest = new ServiceRequest(1, "wwong2", "userjohn","interpreter","TREST00102","TREST00101","Need someone speaks Spanish","","","","","handled", 1);
+    ServiceRequest johnServiceRequest = new ServiceRequest(1, "userjohn","transportation","DELEV00A02", "DELEV00B02","need a wheelchair", "", 1);
     DatabaseModificationController dbModControl;
     DatabaseQueryController databaseQueryController;
     ManageController controller;
@@ -68,16 +69,16 @@ public class ServiceRequestControllerTest {
 
 
     @Before
-    public void setupDbTables() {
+    public void setupDbTables() throws IOException{
         dbConnection.setDBConnection();
-        DBTables.createAllTables(dbConnection);           // Makes all table
+        RunScript run = new RunScript();
+        run.runScript(dbConnection.getConnection());
         queryServiceRequest = new ServiceRequestsQuery(dbConnection);
         srController = new ServiceRequestController(dbConnection, queryEmployee, queryServiceRequest);
         queryEmployee = new EmployeesQuery(dbConnection);
         dbModControl = new DatabaseModificationController(dbConnection);
         databaseQueryController = new DatabaseQueryController(dbConnection);
         controller = new ManageController(dbConnection);
-        DBTables.createAllTables(dbConnection);           // Makes all table
         connection = dbConnection.getConnection();
         //queryEmployee.addEmployee(john);
     }
@@ -142,7 +143,7 @@ public class ServiceRequestControllerTest {
         dbModControl.addNode(teamDnode1);
         // test insert service request
         printTables.printServiceRequestsTable(connection);
-        controller.createServiceRequest("wwong2", "transportation", "DELEV00A02", "DELEV00B02", "need a wheelchair");
+        controller.createServiceRequest("wwong2", "transportation", "DELEV00A02", "DELEV00B02", "need a wheelchair", "",1);
         assertEquals(0,0);
     }
 //
