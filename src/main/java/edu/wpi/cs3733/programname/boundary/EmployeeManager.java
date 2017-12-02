@@ -3,6 +3,8 @@ package edu.wpi.cs3733.programname.boundary;
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -86,6 +88,8 @@ public class EmployeeManager {
 
     private ManageController manageController;
 
+    private final ObservableList<Employee> data = FXCollections.observableArrayList();
+
     @FXML
     void addNewEmployee(ActionEvent event) {
         try {
@@ -122,7 +126,6 @@ public class EmployeeManager {
         } catch (NullPointerException nullpointer) {
             dataerror.setVisible(true);
         }
-
     }
 
     @FXML
@@ -141,5 +144,13 @@ public class EmployeeManager {
     }
     public void initManager(ManageController manageController){
         this.manageController = manageController;
+        this.data.addAll(manageController.getAllEmployees());
+        employeetable.setItems(this.data);
+        firstname.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+        lastname.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        username.setCellValueFactory(cellData -> cellData.getValue().usernameProperty());
+        email.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+        service.setCellValueFactory(cellData -> cellData.getValue().serviceTypeProperty());
+        administrator.setCellValueFactory(cellData -> cellData.getValue().sysAdminProperty());
     }
 }
