@@ -86,6 +86,9 @@ public class EmployeeManager {
     @FXML
     private Label dataerror;
 
+    @FXML
+    private Label removeerror;
+
     private ManageController manageController;
 
     private final ObservableList<Employee> data = FXCollections.observableArrayList();
@@ -112,7 +115,10 @@ public class EmployeeManager {
                 Boolean adminAccess = admin.isSelected();
                 dataerror.setVisible(false);
 
-                // Do some stuff to add the user to the database and update the table
+                Employee newuser = new Employee(username, newpassword, firstname, "", lastname, adminAccess,
+                        job, email);
+
+                manageController.addEmployee(newuser);
 
                 newusername.clear();
                 newfirstname.clear();
@@ -130,7 +136,13 @@ public class EmployeeManager {
 
     @FXML
     void removeEmployee(ActionEvent event) {
-
+        try {
+            removeerror.setVisible(false);
+            Employee employee = employeetable.getSelectionModel().getSelectedItem();
+            // TODO: Remove the employee from DB
+        } catch (NullPointerException nullpointer) {
+            removeerror.setVisible(true);
+        }
     }
 
     @FXML
@@ -142,6 +154,12 @@ public class EmployeeManager {
     void closeWindow(ActionEvent event) {
 
     }
+
+    @FXML
+    void updateUsername(ActionEvent event) {
+
+    }
+
     public void initManager(ManageController manageController){
         this.manageController = manageController;
         this.data.addAll(manageController.getAllEmployees());

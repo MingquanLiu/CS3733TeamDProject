@@ -104,6 +104,10 @@ public class ManageController {
         return this.dbQueryController.queryAllEmployees();
     }
 
+    public void addEmployee(Employee employee) {
+        this.dbModController.addEmployee(employee);
+    }
+
     public List<ServiceRequest> getUnassignedRequests() {
         return this.dbQueryController.queryServiceRequestsByStatus("unhandled");
     }
