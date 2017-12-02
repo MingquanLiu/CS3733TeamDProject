@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 public class EmployeeManager {
@@ -106,17 +103,21 @@ public class EmployeeManager {
                 String lastname = newlastname.getText();
                 String email = newemail.getText();
                 String newpassword = password1.getText();
-                String job = servicegroup.getSelectedToggle().toString();
+                Toggle job = servicegroup.getSelectedToggle();
+                String serviceType;
+                if(job.equals(maintenanceBtn)) serviceType = "maintenance";
+                else if(job.equals(transportBtn)) serviceType = "transportation";
+                else serviceType = "interpreter";
 
                 // I know this is ugly and I hate it but it was the most convenient way of doing things
                 if(username.isEmpty() || firstname.isEmpty() || lastname.isEmpty() || email.isEmpty()
-                        || newpassword.isEmpty() || job.isEmpty()) throw new NullPointerException();
+                        || newpassword.isEmpty() || serviceType.isEmpty()) throw new NullPointerException();
 
                 Boolean adminAccess = admin.isSelected();
                 dataerror.setVisible(false);
 
                 Employee newuser = new Employee(username, newpassword, firstname, "", lastname, adminAccess,
-                        job, email);
+                        serviceType, email);
 
                 manageController.addEmployee(newuser);
 

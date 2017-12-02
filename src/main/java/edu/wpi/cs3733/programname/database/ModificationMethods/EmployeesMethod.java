@@ -28,7 +28,7 @@ public class EmployeesMethod {
         String str;
         try {
             str = "insert into Employees values('" + username + "', '" + password + "', '" + firstName + "', '" + middleName + "', '" + lastName + "'," + sysAdminInt + ", '" + serviceType + "','" + email + "')";
-            //System.out.println(str);
+//            System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeEmployees(dbConnection.getConnection());
         } catch (SQLException e) {
