@@ -81,33 +81,46 @@ public class EmployeeManager {
     @FXML
     private JFXButton remove;
 
+    @FXML
+    private Label dataerror;
+
     private ManageController manageController;
 
     @FXML
     void addNewEmployee(ActionEvent event) {
-        if(!password.getText().equals(password1.getText())) {
-            passerror.setVisible(true);
-        } else {
-            // Add validation for all fields, none of them can be empty!!!
-            passerror.setVisible(false);
-            String username = newusername.getText();
-            String firstname = newfirstname.getText();
-            String lastname = newlastname.getText();
-            String email = newemail.getText();
-            String newpassword = password1.getText();
-            String job = servicegroup.getSelectedToggle().toString();
-            Boolean adminAccess = admin.isSelected();
+        try {
+            if (!password.getText().equals(password1.getText())) {
+                passerror.setVisible(true);
+            }
+            else {
+                passerror.setVisible(false);
+                String username = newusername.getText();
+                String firstname = newfirstname.getText();
+                String lastname = newlastname.getText();
+                String email = newemail.getText();
+                String newpassword = password1.getText();
+                String job = servicegroup.getSelectedToggle().toString();
 
-            // Do some stuff to add the user to the database and update the table
+                // I know this is ugly and I hate it but it was the most convenient way of doing things
+                if(username.isEmpty() || firstname.isEmpty() || lastname.isEmpty() || email.isEmpty()
+                        || newpassword.isEmpty() || job.isEmpty()) throw new NullPointerException();
 
-            newusername.clear();
-            newfirstname.clear();
-            newlastname.clear();
-            newemail.clear();
-            password.clear();
-            password1.clear();
-            servicegroup.selectToggle(null);
-            admin.setSelected(false);
+                Boolean adminAccess = admin.isSelected();
+                dataerror.setVisible(false);
+
+                // Do some stuff to add the user to the database and update the table
+
+                newusername.clear();
+                newfirstname.clear();
+                newlastname.clear();
+                newemail.clear();
+                password.clear();
+                password1.clear();
+                servicegroup.selectToggle(null);
+                admin.setSelected(false);
+            }
+        } catch (NullPointerException nullpointer) {
+            dataerror.setVisible(true);
         }
 
     }
