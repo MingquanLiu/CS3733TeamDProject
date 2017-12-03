@@ -1,20 +1,9 @@
-username, password, firstName, middleName, lastName, sysAdmin, serviceType, email
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-kaquartuccio,password1,Ken,,Quartuccio,1,maintenance,kaquartuccio@wpi.edu
-sbhattacharjee,cryingTears,Shreeja,,Bhattacharjee,0,transportation,sbhattacharjee@wpi.edu
-admin,admin,admin,a,admin,1,none,cs3733teamD@gmail.com
-dpwivagg,password,Daniel,,Wivagg,1,maintenance,dpwivagg@wpi.edu
-=======
-dpwivagg,password,Daniel,,Wivagg,1,maintenance,dpwivagg@wpi.edu
-kaquartuccio,password1,Ken,,Quartuccio,1,maintenance,kaquartuccio@wpi.edu
-sbhattacharjee,cryingTears,Shreeja,,Bhattacharjee,0,transportation,sbhattacharjee@wpi.edu
-admin,admin,admin,a,admin,1,none,cs3733teamD@gmail.com
-test,test,test,,test,1,interpreter,test
-test2,test,test2,,test2,0,transportation,test2@test.test
-test3,tes,test4,,tew2,0,interpreter,tes3
->>>>>>> 16cec69050420bfd8450d9d651980e7d0e5ce98e
-=======
-wwong2,professor,Wilson,,Wong,1,interpreter,wwong2@wpi.edu
+username,password,firstName,middleName,lastName,sysAdmin,serviceType,email
+wwong2,professor,Wilson,,Wong,1,interpreter,wwong2@wpi.du
 ygao6,yufeigao,Yufei,,Gao,1,interpreter,ygao6@wpi.edu
->>>>>>> Stashed changes
+hkduong,1234,Haiau,Kieu,Duong,1,transportation,hkduong@wpi.edu
+mliu,123123,Mingquan,,Liu,1,maintenance,mliu@wpi.edu
+dpwivagg,password,Daniel,,Wivagg,1,maintenance,dpwivagg@wpi.edu
+kaquartuccio,password1,Ken,,Quartuccio,1,maintenance,kaquartuccio@wpi.edu
+sbhattacharjee,cryingTears,Shreeja,,Bhattacharjee,0,transportation,sbhattacharjee@wpi.edu
+admin,admin,admin,a,admin,1,none,cs3733teamD@gmail.com
