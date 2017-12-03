@@ -178,8 +178,8 @@ public class EmployeeManager {
     }
 
     @FXML
-    void updateUsername(ActionEvent event) {
-        // TODO: Verify that this is the right way to do this
+    void updateLastName(ActionEvent event) {
+
     }
 
     public void initManager(ManageController manageController){

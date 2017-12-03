@@ -24,8 +24,8 @@
       </Label>
       <TableView fx:id="employeetable" editable="true" layoutX="8.0" layoutY="41.0" onMouseClicked="#hideChangesSaved" prefHeight="308.0" prefWidth="594.0">
         <columns>
-          <TableColumn fx:id="username" onEditCommit="#updateUsername" prefWidth="75.0" text="Username" />
-          <TableColumn fx:id="lastname" prefWidth="75.0" text="Last name" />
+          <TableColumn fx:id="username" editable="false" prefWidth="75.0" text="Username" />
+          <TableColumn fx:id="lastname" onEditCommit="#updateLastName" prefWidth="75.0" text="Last name" />
             <TableColumn fx:id="firstname" prefWidth="75.0" text="First name" />
             <TableColumn fx:id="service" prefWidth="91.0" resizable="false" text="Service type" />
             <TableColumn fx:id="administrator" prefWidth="55.0" resizable="false" text="Admin?" />
