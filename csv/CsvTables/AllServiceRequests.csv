@@ -1,1 +1,1 @@
-serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status
+serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity

@@ -72,7 +72,6 @@ CREATE TABLE ServiceRequests(
     requestTime VARCHAR(30),
     handleTime VARCHAR(30),
     completionTime VARCHAR(30),
-    reservationTime VARCHAR(30),
     status VARCHAR(10),
     severity INTEGER,
     CONSTRAINT ServiceRequests_PK PRIMARY KEY (serviceID),
@@ -107,6 +106,7 @@ CREATE TABLE TransportationRequests(
     serviceID INTEGER,
     transportType VARCHAR(15),
     destination VARCHAR(20),
+    reservationTime VARCHAR(30),
     CONSTRAINT TransportationRequests_PK PRIMARY KEY (serviceID),
     CONSTRAINT TransportationRequests_FK1 FOREIGN KEY (serviceID)
           REFERENCES ServiceRequests (serviceID) ON DELETE CASCADE,
@@ -118,6 +118,7 @@ CREATE TABLE TransportationRequests(
 CREATE TABLE InterpreterRequests(
     serviceID INTEGER,
     language VARCHAR(15),
+    reservationTime VARCHAR(30),
     CONSTRAINT InterpreterRequests_PK PRIMARY KEY (serviceID),
     CONSTRAINT InterpreterRequests_FK1 FOREIGN KEY (serviceID)
           REFERENCES ServiceRequests (serviceID) ON DELETE CASCADE,

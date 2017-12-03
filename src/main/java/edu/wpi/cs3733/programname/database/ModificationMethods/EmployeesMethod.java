@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname.database.ModificationMethods;
 
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
+import edu.wpi.cs3733.programname.commondata.Interpreter;
 import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 
@@ -33,6 +34,20 @@ public class EmployeesMethod {
             this.wrt.writeEmployees(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Insert Employee Failed!");
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteEmployee(Employee employee){
+        String username = employee.getUsername();
+        String str;
+        try {
+            str = "DELETE FROM Employees WHERE username = '" + username + "'";
+            System.out.println(str);
+            dbConnection.executeUpdate(str);
+            this.wrt.writeNodes(dbConnection.getConnection());
+        } catch (SQLException e) {
+            System.out.println("Delete Employee Failed!");
             e.printStackTrace();
         }
     }

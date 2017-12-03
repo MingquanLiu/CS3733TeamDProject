@@ -158,11 +158,11 @@ public class ManageController {
         msg.sendMessage();
     }
 
-    public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description, String reservationTime, int severity) {
+    public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description, int severity) {
         //generate random id
         Random randomID = new Random();
         int id = randomID.nextInt(1000) + 1;
-        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description, reservationTime ,severity);
+        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description,severity);
         dbModController.addServiceRequest(newServiceRequest);
         return newServiceRequest;
     }

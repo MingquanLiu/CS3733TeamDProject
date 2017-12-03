@@ -31,14 +31,13 @@ public class ServiceRequestsMethod {
         String requestTime = serviceRequest.getRequestTime();
         String handleTime = serviceRequest.getHandleTime();
         String completionTime = serviceRequest.getCompletionTime();
-        String reservationTime = serviceRequest.getReservationTime();
         String status = serviceRequest.getStatus();
         String receiverUsername = serviceRequest.getReceiver();
         int severity = serviceRequest.getSeverity();
         String str;
         try {
             str = "INSERT INTO ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + receiverUsername + "','" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
-                    "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','" + reservationTime + "','"+ status + "'," + severity + ")";
+                    "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','"+ status + "'," + severity + ")";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeServiceRequests(dbConnection.getConnection());
