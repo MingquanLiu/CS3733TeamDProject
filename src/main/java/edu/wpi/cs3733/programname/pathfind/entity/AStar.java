@@ -8,12 +8,9 @@ package edu.wpi.cs3733.programname.pathfind.entity;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-public class AStar implements PathfindingFacadeIF {
+public class AStar implements PathfindingStrategy {
     List<NodeData> allNodes;
     List<EdgeData> allEdges;
 
@@ -28,7 +25,7 @@ public class AStar implements PathfindingFacadeIF {
      * @param startID starting location
      * @param goalID destination location
      */
-    public AStar(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) {
+    public AStar(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
         this.allEdges = edges;
         this.allNodes = nodes;
         this.init();
@@ -42,14 +39,13 @@ public class AStar implements PathfindingFacadeIF {
      */
     private void init() {
         System.out.println("Initializing A*");
+
         for(NodeData node: allNodes) {
             // Creates the StarNodes
             allStarNodes.put(node.getNodeID(), new StarNode(node));
         }
 
-
         for(EdgeData edge: allEdges) {
-            System.out.println("Starting A*");
 
             StarNode node1 = allStarNodes.get(edge.getStartNode());
             StarNode node2 = allStarNodes.get(edge.getEndNode());
@@ -67,8 +63,7 @@ public class AStar implements PathfindingFacadeIF {
      * @param goalID end location
      * @return list of nodes that make up the path
      */
-    private List<NodeData> pathFind(String startID, String goalID) {
-        // TODO: Throw a "No such node" exception
+    private List<NodeData> pathFind(String startID, String goalID) throws NoPathException {
 
         System.out.println("Starting A*");
         StarNode start = allStarNodes.get(startID);
@@ -120,12 +115,23 @@ public class AStar implements PathfindingFacadeIF {
                         frontier.add(newnode);
                         newnode.setF(actionCost(newnode) + distanceToGo(newnode, goal));
                     }
+
+                    // This fixes the problem with infinitely looping elevators (I hope)
+                    if(current.getNodeType().equals("ELEV") && newnode.getNodeType().equals("ELEV")) {
+                        for (Iterator<StarNode> iterator = newnode.neighbors.iterator(); iterator.hasNext();) {
+                            StarNode newneighbor = iterator.next();
+                            if (newneighbor.getNodeType().equals("ELEV")) {
+                                // Remove the current element from the iterator and the list.
+                                iterator.remove();
+                            }
+                        }
+                    }
                     // this is where the node is put in the right place in the queue
                     Collections.sort(frontier);
                 }
             }
         }
-        return null; // TODO: throw a "Path not found" exception
+        throw new NoPathException(start.getLongName(), goal.getLongName());
     }
 
     /**
