@@ -181,6 +181,14 @@ public class ManageController {
         return dbQueryController.queryEmployeeByUsername(username);
     }
 
+    public void editEmployee(Employee emp) {
+        dbModController.editEmployee(emp);
+    }
+
+    public void deleteEmployee(String username) {
+        dbModController.deleteEmployee(username);
+    }
+
     public ArrayList<ServiceRequest> getInterpreterRequest(){
         return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
     }
