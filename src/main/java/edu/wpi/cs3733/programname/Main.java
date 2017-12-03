@@ -34,7 +34,7 @@ public class Main extends Application{
     public Stage showDialog(DBConnection dbConnection) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/home_screen.fxml"
+                        "/fxml/newBuilding.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -43,7 +43,7 @@ public class Main extends Application{
                         (Pane) loader.load()
                 )
         );
-        loader.<TestingController>getController().initData(dbConnection);
+        //loader.<TestingController>getController().initData(dbConnection);
         stage.show();
         return stage;
     }
