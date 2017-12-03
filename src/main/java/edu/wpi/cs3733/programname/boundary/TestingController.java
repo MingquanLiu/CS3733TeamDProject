@@ -446,8 +446,10 @@ public class TestingController implements Initializable {
             System.out.println("up to floor" + floor);
             setFloor();
             clearNodes();
-            if(!currentPath.isEmpty()) {
-                displayPath(currentPath);
+            if(currentPath != null) {
+                if(!currentPath.isEmpty()) {
+                    displayPath(currentPath);
+                }
             }
             nodeInfoPane.setVisible(false);
         }
@@ -456,8 +458,10 @@ public class TestingController implements Initializable {
             System.out.println("down to floor" + floor);
             setFloor();
             clearNodes();
-            if(!currentPath.isEmpty()) {
-                displayPath(currentPath);
+            if(currentPath != null) {
+                if(!currentPath.isEmpty()) {
+                    displayPath(currentPath);
+                }
             }
             nodeInfoPane.setVisible(false);
         }
@@ -476,7 +480,27 @@ public class TestingController implements Initializable {
         Image newImg = new Image(file.toString());
         imgMap.setImage(newImg);
 
-        lblCurrentFloor.setText(convertFloor(floor));
+        String floorName = comboFloors.getValue().toString();
+        switch(floor){
+            case -2:
+                floorName = "Basement 2";
+                break;
+            case -1:
+                floorName = "Basement 1";
+                break;
+            case 0:
+                floorName = "Ground";
+                break;
+            case 1:
+                floorName = "Floor 1";
+                break;
+            case 2:
+                floorName = "Floor 2";
+                break;
+            case 3:
+                floorName = "Floor 3";
+        }
+        comboFloors.setValue(floorName);
     }
     public void showMouseCoords(MouseEvent e){
         System.out.println(e.getX() + ", " + e.getY());

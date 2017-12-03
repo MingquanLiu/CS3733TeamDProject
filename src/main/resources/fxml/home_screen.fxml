@@ -273,7 +273,7 @@
             </Pane>
               </children>
           </AnchorPane>
-      <AnchorPane layoutX="620.0" prefHeight="111.0" prefWidth="100.0">
+      <AnchorPane layoutX="620.0" prefHeight="111.0" prefWidth="123.0">
          <children>
             <GridPane prefHeight="150.0" prefWidth="100.0" style="-fx-border-color: black; -fx-background-color: rgba(255,255,255,0.8);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
