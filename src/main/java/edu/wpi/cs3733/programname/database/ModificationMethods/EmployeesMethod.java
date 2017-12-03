@@ -50,8 +50,8 @@ public class EmployeesMethod {
         String str;
 
         try {
-            str = "UPDATE Employees SET password = " + password + ", firstName = " + firstName + ", middleName = '" + middleName +
-                    "', lastName = '" + lastName + "', sysAdmin = '" + sysAdminInt + "', serviceType = '" + serviceType + "', email = '"
+            str = "UPDATE Employees SET password = '" + password + "', firstName = '" + firstName + "', middleName = '" + middleName +
+                    "', lastName = '" + lastName + "', sysAdmin = " + sysAdminInt + ", serviceType = '" + serviceType + "', email = '"
                     + email +  "' WHERE username = '" + username + "'";
             dbConnection.executeUpdate(str);
             this.wrt.writeEmployees(dbConnection.getConnection());
