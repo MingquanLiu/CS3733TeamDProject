@@ -155,8 +155,10 @@ public class EmployeeManager {
         try {
             removeerror.setVisible(false);
             Employee employee = employeetable.getSelectionModel().getSelectedItem();
-            // TODO: Remove the employee from DB
+            manageController.deleteEmployee(employee.getUsername());
             changessaved.setVisible(true);
+            data.removeAll(data);
+            data.addAll(manageController.getAllEmployees());
         } catch (NullPointerException nullpointer) {
             removeerror.setVisible(true);
         }
