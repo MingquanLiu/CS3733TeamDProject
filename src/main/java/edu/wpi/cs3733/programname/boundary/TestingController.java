@@ -323,7 +323,7 @@ public class TestingController implements Initializable {
         nodeInfoType.setText("" + nodeData.getNodeType());
         nodeInfoLongName.setText("" + nodeData.getLongName());
         nodeInfoShortName.setText("" + nodeData.getShortName());
-
+        nodeInfoPane.toFront();
     }
 
     //displaying node info on click
@@ -675,6 +675,7 @@ public class TestingController implements Initializable {
             currentPath = new ArrayList<>();
         }
         catch(NoPathException np){
+            String id = np.startID;
             currentPath = new ArrayList<>();
         }
         displayPath(currentPath);
