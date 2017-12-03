@@ -178,6 +178,7 @@ public class TestingController implements Initializable {
 
     //locations search
     private List<Shape> pathDrawings = new ArrayList<>();
+    private List<Shape> nodeDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
     private List<NodeData> currentNodes = new ArrayList<>();
@@ -296,31 +297,33 @@ public class TestingController implements Initializable {
     }
 
     private void displayPath(List<NodeData> path){
-        currentPath= path;
-        clearMain();
-        System.out.println("drawing path");
-        NodeData prev = path.get(0);
-        int x = (int) (prev.getXCoord()*currentScale);
-        int y = (int) (prev.getYCoord()*currentScale);
-        System.out.println(x + ", " + y);
-        ArrayList<Line> lines = new ArrayList<>();
-        for(int i = 1; i < path.size(); i++){
-            Line l = new Line();
-            NodeData n = path.get(i);
-            if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
-                l.setStroke(Color.BLUE);
-                l.setStrokeWidth(5.0*currentScale);
-                l.setStartX(prev.getXCoord()*currentScale);
-                l.setStartY(prev.getYCoord()*currentScale);
-                l.setEndX(n.getXCoord()*currentScale);
-                l.setEndY(n.getYCoord()*currentScale);
-                lines.add(l);
+        if(path!=null&&!path.isEmpty()){
+            currentPath= path;
+            clearMain();
+            System.out.println("drawing path");
+            NodeData prev = path.get(0);
+            int x = (int) (prev.getXCoord()*currentScale);
+            int y = (int) (prev.getYCoord()*currentScale);
+            System.out.println(x + ", " + y);
+            ArrayList<Line> lines = new ArrayList<>();
+            for(int i = 1; i < path.size(); i++){
+                Line l = new Line();
+                NodeData n = path.get(i);
+                if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
+                    l.setStroke(Color.BLUE);
+                    l.setStrokeWidth(5.0*currentScale);
+                    l.setStartX(prev.getXCoord()*currentScale);
+                    l.setStartY(prev.getYCoord()*currentScale);
+                    l.setEndX(n.getXCoord()*currentScale);
+                    l.setEndY(n.getYCoord()*currentScale);
+                    lines.add(l);
+                }
+                prev = n;
             }
-            prev = n;
+            pathDrawings.addAll(lines);
+            panningPane.getChildren().addAll(lines);
+            emailDirections.setVisible(true);
         }
-        pathDrawings.addAll(lines);
-        panningPane.getChildren().addAll(lines);
-        emailDirections.setVisible(true);
     }
 
     public void clearMain(){
@@ -709,7 +712,7 @@ public class TestingController implements Initializable {
             String locationId = getClosestNode(manager.getAllNodeData(), locX, locY).getNodeID();
             String description = requestDescription.getText().replaceAll("\n", " ");
          //   String senderUsername = employeeLoggedIn.getUsername();
-            manager.createServiceRequest("admin", type, locationId, null, description);
+            manager.createServiceRequest("admin", type, locationId, null, description, "",1);
             lblServiceX.setText("");
             lblServiceY.setText("");
         }

@@ -1,4 +1,7 @@
 package edu.wpi.cs3733.programname.database;
+import jdk.nashorn.internal.scripts.JD;
+import org.apache.derby.jdbc.EmbeddedDriver;
+
 import java.sql.*;
 
 public class DBConnection {
@@ -19,6 +22,8 @@ public class DBConnection {
     public void setDBConnection() {
         try {
             Class.forName(DRIVER);
+            Driver emDriver = new EmbeddedDriver();
+            DriverManager.registerDriver(emDriver);
             conn = DriverManager.getConnection(JDBC_URL);
 
             // Check Connection
