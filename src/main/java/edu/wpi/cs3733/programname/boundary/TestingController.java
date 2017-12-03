@@ -82,6 +82,8 @@ public class TestingController implements Initializable {
     @FXML
     private ComboBox comboFloors;
     private int floor = 2;
+    private ArrayList<Floor> floors = new ArrayList<>();
+    private Floor currentFloor;
 
     //zoom and pan objects
     @FXML
@@ -255,16 +257,6 @@ public class TestingController implements Initializable {
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(maxWidth*currentScale);
 
-        ObservableList floors = FXCollections.observableArrayList(
-                "Basement 1",
-                "Basement 2",
-                "Ground",
-                "Floor 1",
-                "Floor 2",
-                "Floor 3");
-        comboFloors.setItems(floors);
-        comboFloors.setValue("Floor 2");
-
         ObservableList locations = FXCollections.observableArrayList(
                 "Bathrooms",
                 "Service Desks",
@@ -277,7 +269,34 @@ public class TestingController implements Initializable {
                 "Additional Services");
         comboLocations.setItems(locations);
         comboLocations.setValue("Bathrooms");
+
+        Floor basement2 = new Floor("Basement 2", "main", "img/Floor_-2.png");
+        Floor basement1 = new Floor("Basement 1", "main", "img/Floor_-1.png");
+        Floor ground = new Floor("Ground", "main", "img/Floor_0.png");
+        Floor floor1 = new Floor("Floor 1", "main", "img/Floor_1.png");
+        Floor floor2 = new Floor("Floor 2", "main", "img/Floor_2.png");
+        Floor floor3 = new Floor("Floor 3", "Shapiro", "img/Floor_3.png");
+
+        ArrayList<Floor> basicFloors = new ArrayList<>();
+        basicFloors.add(basement2);
+        basicFloors.add(basement1);
+        basicFloors.add(ground);
+        basicFloors.add(floor1);
+        basicFloors.add(floor2);
+        basicFloors.add(floor3);
+
+        addFloors(basicFloors);
     }
+
+    private void addFloors(ArrayList<Floor> floorsToAdd) {
+        floors.addAll(floorsToAdd);
+        ObservableList floors = FXCollections.observableArrayList();
+        for(Floor fl:floorsToAdd){
+            floors.add(fl.getFloorName());
+        }
+        comboFloors.setItems(floors);
+    }
+
     public void setSearchType(PathfindingController.searchType searchType){
         System.out.println(currentMapRatioIndex);
         this.mSearchType = searchType;
@@ -469,10 +488,9 @@ public class TestingController implements Initializable {
     }
     private void setFloor(){
         Image oldImg = imgMap.getImage();
-        String oldUrl = oldImg.impl_getUrl();  //using a deprecated method for lack of a better solution currently
-        System.out.println("old image: " + oldUrl);
 
-        String newUrl = oldUrl.substring(0,oldUrl.indexOf("Floor_")) + "Floor_" + floor + ".png";
+        //String newUrl = oldUrl.substring(0,oldUrl.indexOf("Floor_")) + "Floor_" + floor + ".png";
+        String newUrl = "img/" + "Floor_" + floor + ".png";
         System.out.println("new image: " + newUrl);
 
         File file = new File(newUrl);
