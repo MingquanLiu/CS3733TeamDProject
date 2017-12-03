@@ -251,7 +251,6 @@ public class CsvReader {
             String line;
             buf.readLine();
 
-            buf.readLine();
             // Reads all lines in the file
             while ((line = buf.readLine()) != null) {
                 // Reads current row and converts to a string
