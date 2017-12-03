@@ -14,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -232,5 +233,10 @@ public class ServiceRequestManager {
             String requestDisplay = createServiceRequestListString(sr);
             listCompleted.getItems().add(requestDisplay);
         }
+    }
+
+    public void backButtonHandler() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
     }
 }

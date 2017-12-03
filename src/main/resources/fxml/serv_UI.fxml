@@ -21,7 +21,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="27.0" layoutY="351.0" style="-fx-background-color: #d2d2d2;" text="Back" />
+      <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="27.0" layoutY="351.0" onAction="#backButtonHandler" style="-fx-background-color: #d2d2d2;" text="Back" />
       <StackPane fx:id="stackLists" layoutX="90.0" layoutY="105.0" prefHeight="274.0" prefWidth="486.0">
          <children>
             <GridPane fx:id="completedRequests" layoutX="10.0" layoutY="10.0">
