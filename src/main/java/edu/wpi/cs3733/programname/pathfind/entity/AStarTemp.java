@@ -87,6 +87,15 @@ public class AStarTemp extends PathfindingStrategyTemplate {
                             }
                         }
                     }
+                    if(current.getNodeType().equals("STAI") && newnode.getNodeType().equals("STAI")) {
+                        for (Iterator<StarNode> iterator = newnode.neighbors.iterator(); iterator.hasNext();) {
+                            StarNode newneighbor = iterator.next();
+                            if (newneighbor.getNodeType().equals("STAI")) {
+                                // Remove the current element from the iterator and the list.
+                                iterator.remove();
+                            }
+                        }
+                    }
                     // this is where the node is put in the right place in the queue
                     Collections.sort(frontier);
                 }
