@@ -2,7 +2,10 @@
 import DatabaseTests.DBConnectionTest;
 import com.sun.xml.internal.fastinfoset.tools.PrintTable;
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
+import edu.wpi.cs3733.programname.commondata.Employee;
+import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
@@ -29,7 +32,6 @@ public class ServiceRequestControllerTest {
     ServiceRequestsQuery queryServiceRequest;
     ServiceRequestController srController;
     Employee wong = new Employee("wwong2", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com");
-    Interpreter iwong = new Interpreter("wwong2", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com", "Spanish");
     Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", false, "transportation","john@test.com");
     Employee yufei = new Employee("ygao6", "pass", "Yufei", "", "Gao", true, "transportation","ygao6@wpi.edu");
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
@@ -97,11 +99,6 @@ public class ServiceRequestControllerTest {
 
 
     @Test
-    public void testAddInterpreter(){
-        dbModControl.addEmployee(iwong);
-    }
-
-    @Test()
     public void testAddEmployee(){
         dbModControl.addEmployee(wong);
     }
