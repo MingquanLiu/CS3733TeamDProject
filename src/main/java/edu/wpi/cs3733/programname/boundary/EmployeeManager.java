@@ -116,13 +116,14 @@ public class EmployeeManager {
     @FXML
     void addNewEmployee(ActionEvent event) {
         boolean flag = false;
-        canceledit.setVisible(false);
-        add.setText("Add employee");
         try {
             if (!password.getText().equals(password1.getText())) {
                 passerror.setVisible(true);
             }
             else {
+                newusername.setDisable(false);
+                canceledit.setVisible(false);
+                add.setText("Add employee");
                 passerror.setVisible(false);
                 String username = newusername.getText();
                 String firstname = newfirstname.getText();
@@ -204,6 +205,7 @@ public class EmployeeManager {
         canceledit.setVisible(true);
         Employee employee = employeetable.getSelectionModel().getSelectedItem();
         newusername.setText(employee.getUsername());
+        newusername.setDisable(true);
         newfirstname.setText(employee.getFirstName());
         newlastname.setText(employee.getLastName());
         newemail.setText(employee.getEmail());
@@ -224,6 +226,7 @@ public class EmployeeManager {
         addlabel.setText("Add a new employee");
         add.setText("Add employee");
         newusername.clear();
+        newusername.setDisable(false);
         newfirstname.clear();
         newlastname.clear();
         newemail.clear();
