@@ -10,7 +10,7 @@ import java.util.*;
 public class PathfindingController {
 
     public enum searchType {
-        ASTAR, DFS, BFS, DIJKSTRA
+        ASTAR, DFS, BFS, DIJKSTRA, BEST, BEAM
     }
     private PathfindingStrategyTemplate pathFinder;
 
@@ -29,23 +29,27 @@ public class PathfindingController {
             throws InvalidNodeException {
 
         try {
-
-            List<NodeData> finalPath = new LinkedList<NodeData>();
-
-            if (type == searchType.ASTAR) {
-                pathFinder = new AStar(allNodes, allEdges, startNode, endNode);
-                finalPath.addAll(pathFinder.getFinalList());
-            } else if (type == searchType.DFS) {
-                pathFinder = new DFS(allNodes, allEdges, startNode, endNode);
-                finalPath.addAll(pathFinder.getFinalList());
-            } else if (type == searchType.BFS) {
-                pathFinder = new BFS(allNodes, allEdges, startNode, endNode);
-                finalPath.addAll(pathFinder.getFinalList());
-            } else if (type == searchType.DIJKSTRA) {
-                pathFinder = new Dijkstra(allNodes, allEdges, startNode, endNode);
-                finalPath.addAll(pathFinder.getFinalList());
+            switch(type) {
+                case ASTAR:
+                    pathFinder = new AStar(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+                case DFS:
+                    pathFinder = new DFS(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+                case BFS:
+                    pathFinder = new BFS(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+                case DIJKSTRA:
+                    pathFinder = new Dijkstra(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+                case BEAM:
+                    pathFinder = new Beam(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+                case BEST:
+                    pathFinder = new Best(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+                default: return null;
             }
-            return finalPath;
         } catch (NoPathException npe) {
             System.out.println(npe.fillInStackTrace());
             return null;
