@@ -135,6 +135,17 @@ public class DatabaseQueryController {
         return serviceRequestsQuery.queryServiceRequestsByID(serviceID);
     }
 
+    public ArrayList<ServiceRequest>  queryRequestsByHandler(Employee emp) {
+        ArrayList<ServiceRequest> allReqs = serviceRequestsQuery.queryAllServiceRequests();
+        ArrayList<ServiceRequest> output = new ArrayList<>();
+        for (ServiceRequest request: allReqs) {
+            if(request.getReceiver() == emp.getUsername()) {
+                output.add(request);
+            }
+        }
+        return output;
+    }
+
 
 
 

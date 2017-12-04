@@ -22,6 +22,8 @@ import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUES
 import edu.wpi.cs3733.programname.database.QueryMethods.*;
 
 
+import javax.xml.ws.Service;
+
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 
 public class ManageController {
@@ -173,6 +175,21 @@ public class ManageController {
 
     public void deleteServiceRequest(ServiceRequest request) {
         dbModController.deleteServiceRequest(request);
+    }
+
+    public List<ServiceRequest> queryRequestsByEmployee(Employee emp) {
+        return dbQueryController.queryRequestsByHandler(emp);
+    }
+
+    public List<ServiceRequest> queryUnassignedRequestsByType(String type) {
+        List<ServiceRequest> allUnassignedReqs =  dbQueryController.queryServiceRequestsByStatus(Constants.UNASSIGNED_REQUEST);
+        List<ServiceRequest> output = new ArrayList<>();
+        for (ServiceRequest req: allUnassignedReqs) {
+            if(req.getServiceType() == type) {
+                output.add(req);
+            }
+        }
+        return output;
     }
 
 
