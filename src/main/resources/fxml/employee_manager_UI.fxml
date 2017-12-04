@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,37 +16,39 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.EmployeeManager">
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.EmployeeManager">
    <children>
       <Label layoutX="14.0" layoutY="11.0" text="Employee Manager">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="employeetable" editable="true" layoutX="8.0" layoutY="41.0" onMouseClicked="#hideChangesSaved" prefHeight="308.0" prefWidth="594.0">
+      <TableView fx:id="employeetable" editable="true" layoutX="8.0" layoutY="41.0" onMouseClicked="#updateRow" prefHeight="308.0" prefWidth="594.0">
         <columns>
-          <TableColumn fx:id="username" editable="false" prefWidth="75.0" text="Username" />
-          <TableColumn fx:id="lastname" onEditCommit="#updateLastName" prefWidth="75.0" text="Last name" />
+          <TableColumn fx:id="username" prefWidth="75.0" text="Username" />
+          <TableColumn fx:id="lastname" prefWidth="75.0" text="Last name" />
             <TableColumn fx:id="firstname" prefWidth="75.0" text="First name" />
             <TableColumn fx:id="service" prefWidth="91.0" resizable="false" text="Service type" />
             <TableColumn fx:id="administrator" prefWidth="55.0" resizable="false" text="Admin?" />
             <TableColumn fx:id="email" prefWidth="222.0" text="Email" />
         </columns>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </TableView>
-      <Label layoutX="14.0" layoutY="353.0" text="Add a new employee">
+      <Label fx:id="addlabel" layoutX="14.0" layoutY="363.0" text="Add a new employee">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
       <Label fx:id="passerror" layoutX="189.0" layoutY="356.0" text="Passwords do not match!" textFill="RED" visible="false" />
-      <GridPane layoutX="8.0" layoutY="369.0" prefHeight="85.0" prefWidth="594.0">
+      <GridPane layoutX="8.0" layoutY="407.0" prefHeight="87.0" prefWidth="594.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="0.0" prefWidth="11.999969482421875" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="215.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="6.0" prefWidth="9.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.0" minWidth="10.0" prefWidth="119.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="126.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="0.0" prefWidth="8.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="190.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="418.0" minWidth="10.0" prefWidth="112.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="135.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -59,21 +62,40 @@
             <JFXTextField fx:id="newemail" onMouseClicked="#hideChangesSaved" prefHeight="25.0" prefWidth="161.0" promptText="Email" GridPane.columnIndex="2" />
             <JFXPasswordField fx:id="password" onMouseClicked="#hideChangesSaved" promptText="Password" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <JFXPasswordField fx:id="password1" onMouseClicked="#hideChangesSaved" promptText="Re-enter password" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <JFXRadioButton fx:id="interpreterBtn" onMouseClicked="#hideChangesSaved" text="Interpreter" GridPane.columnIndex="4">
+            <JFXRadioButton fx:id="interpreterBtn" onMouseClicked="#hideChangesSaved" text="Interpreter" GridPane.columnIndex="3">
                <toggleGroup>
                   <ToggleGroup fx:id="servicegroup" />
                </toggleGroup>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="transportBtn" onMouseClicked="#hideChangesSaved" text="Transport" toggleGroup="$servicegroup" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <JFXRadioButton fx:id="maintenanceBtn" onMouseClicked="#hideChangesSaved" text="Maintenance" toggleGroup="$servicegroup" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <JFXCheckBox fx:id="admin" onMouseClicked="#hideChangesSaved" text="Admin?" GridPane.columnIndex="5" />
-            <JFXButton fx:id="add" onAction="#addNewEmployee" text="Add employee" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <JFXButton fx:id="remove" onAction="#removeEmployee" text="Remove employee" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <JFXRadioButton fx:id="transportBtn" onMouseClicked="#hideChangesSaved" prefHeight="17.0" prefWidth="88.0" text="Transport" toggleGroup="$servicegroup" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <JFXRadioButton fx:id="maintenanceBtn" onMouseClicked="#hideChangesSaved" prefHeight="17.0" prefWidth="82.0" text="Maintenance" toggleGroup="$servicegroup" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <JFXCheckBox fx:id="admin" onMouseClicked="#hideChangesSaved" text="Admin?" GridPane.columnIndex="4" />
+            <JFXButton fx:id="add" onAction="#addNewEmployee" text="Add employee" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
+            <JFXButton fx:id="remove" onAction="#removeEmployee" text="Remove employee" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
          </children>
       </GridPane>
-      <JFXButton fx:id="close" layoutX="551.0" layoutY="11.0" onAction="#closeWindow" text="Close" />
+      <JFXButton fx:id="close" layoutX="551.0" layoutY="11.0" onAction="#closeWindow" text="Close">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXButton>
       <Label fx:id="dataerror" layoutX="388.0" layoutY="356.0" text="Missing employee data fields!" textFill="RED" visible="false" />
       <Label fx:id="removeerror" layoutX="200.0" layoutY="16.0" text="Please select an employee to remove!" textFill="RED" visible="false" />
       <Label fx:id="changessaved" layoutX="435.0" layoutY="15.0" prefHeight="17.0" prefWidth="90.0" text="Changes saved" textFill="RED" visible="false" />
+      <JFXButton fx:id="edit" layoutX="505.0" layoutY="361.0" onAction="#showedit" text="Edit employee" visible="false">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="canceledit" layoutX="430.0" layoutY="361.0" onAction="#cancelEdit" text="Cancel edit" visible="false">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>
