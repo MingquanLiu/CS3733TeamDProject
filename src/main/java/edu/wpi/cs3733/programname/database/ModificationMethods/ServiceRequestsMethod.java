@@ -25,9 +25,6 @@ public class ServiceRequestsMethod {
         String node1ID = serviceRequest.getLocation1();
         String node2ID = serviceRequest.getLocation2();
         String description = serviceRequest.getDescription();
-//        Timestamp requestTime = serviceRequest.getRequestTime();
-//        Timestamp handleTime = serviceRequest.getHandleTime();
-//        Timestamp completionTime = serviceRequest.getCompletionTime();
         String requestTime = serviceRequest.getRequestTime();
         String handleTime = serviceRequest.getHandleTime();
         String completionTime = serviceRequest.getCompletionTime();

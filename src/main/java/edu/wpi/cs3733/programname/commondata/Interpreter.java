@@ -16,6 +16,19 @@ public class Interpreter extends Employee{
         this.language = language;
     }
 
+    public Employee toEmployee(){
+        String username = this.getUsername();
+        String password = this.getPassword();
+        String firstName = this.getFirstName();
+        String middleName = this.getMiddleName();
+        String lastName = this.getLastName();
+        boolean sysAdmin = this.getSysAdmin();
+        String serviceType = "interpreter";
+        String email = this.getEmail();
+        Employee employee = new Employee(username,password,firstName,middleName,lastName,sysAdmin,serviceType,email);
+        return employee;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

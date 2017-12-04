@@ -1,12 +1,6 @@
 package edu.wpi.cs3733.programname.database;
-import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.Employee;
-import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
-import edu.wpi.cs3733.programname.database.ModificationMethods.EdgesMethod;
-import edu.wpi.cs3733.programname.database.ModificationMethods.EmployeesMethod;
-import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
-import edu.wpi.cs3733.programname.database.ModificationMethods.ServiceRequestsMethod;
+import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.database.ModificationMethods.*;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
@@ -17,7 +11,9 @@ public class DatabaseModificationController {
     private NodesMethod nodesMethod;
     private EdgesMethod edgesMethod;
     private EmployeesMethod employeesMethod;
+    private InterpreterMethod interpreterMethod;
     private ServiceRequestsMethod serviceRequestsMethod;
+    private InterpreterRequestsMethod interpreterRequestsMethod;
     /**
      *
      * @param conn the connection to the database
@@ -26,7 +22,9 @@ public class DatabaseModificationController {
         nodesMethod = new NodesMethod(conn);
         edgesMethod = new EdgesMethod(conn);
         employeesMethod = new EmployeesMethod(conn);
+        interpreterMethod = new InterpreterMethod(conn);
         serviceRequestsMethod = new ServiceRequestsMethod(conn);
+        interpreterRequestsMethod = new InterpreterRequestsMethod(conn);
     }
 
     //Node Modification
@@ -68,10 +66,37 @@ public class DatabaseModificationController {
         employeesMethod.addEmployee(employee);
     }
 
+    // add interpreter employee
+    public void addEmployee(Interpreter interpreter){
+        Employee employee = interpreter.toEmployee();
+        interpreterMethod.addInterpreter(interpreter);
+        employeesMethod.addEmployee(employee);
+    }
+
+    // delete interpreter employee
+    public void deleteEmployee(Interpreter interpreter){
+        Employee employee = interpreter.toEmployee();
+        interpreterMethod.deleteInterpreter(interpreter);
+        employeesMethod.deleteEmployee(employee);
+    }
+
     //Service Request Modification
     public void addServiceRequest(ServiceRequest serviceRequest){
         serviceRequestsMethod.addServiceRequest(serviceRequest);
     }
+
+    public void addInterpreterRequest(InterpreterRequest interpreterRequest){
+        ServiceRequest serviceRequest = interpreterRequest.toServiceRequest();
+        interpreterRequestsMethod.addInterpreterRequest(interpreterRequest);
+        serviceRequestsMethod.addServiceRequest(serviceRequest);
+    }
+
+    public void deleteInterpreterRequest(InterpreterRequest interpreterRequest){
+        ServiceRequest serviceRequest = interpreterRequest.toServiceRequest();
+        interpreterRequestsMethod.deleteInterpreterRequest(interpreterRequest);
+        serviceRequestsMethod.deleteServiceRequest(serviceRequest);
+    }
+
     public void handleServiceRequest(ServiceRequest serviceRequest, String receiver){
         serviceRequestsMethod.handleServiceRequest(serviceRequest,receiver);
     }

@@ -35,6 +35,24 @@ public class InterpreterRequest extends ServiceRequest{
         this.reservationTime = reservationTime;
     }
 
+    public ServiceRequest toServiceRequest(){
+        int serviceID = this.getServiceID();
+        String senderUsername = this.getSender();
+        String receiverUsername = this.getReceiver();
+        String serviceType = this.getServiceType();
+        String node1ID = this.getLocation1();
+        String node2ID = this.getLocation2();
+        String description = this.getDescription();
+        String requestTime = this.getRequestTime();
+        String handleTime = this.getHandleTime();
+        String completionTime = this.getCompletionTime();
+        String status = this.getStatus();
+        int severity = this.getSeverity();
+        ServiceRequest serviceRequest = new ServiceRequest(serviceID,senderUsername,receiverUsername,serviceType,node1ID,
+                node2ID,description,requestTime,handleTime,completionTime,status,severity);
+        return serviceRequest;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
