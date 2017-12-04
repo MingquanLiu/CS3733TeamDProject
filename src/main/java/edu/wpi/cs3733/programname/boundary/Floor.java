@@ -34,4 +34,8 @@ public class Floor {
     public void setBuilding(String building) {
         this.building = building;
     }
+
+    public String toString(){
+        return floorName;
+    }
 }

@@ -63,7 +63,11 @@ public class NewBuilding {
     @FXML
     private JFXButton btnCancel;
 
+    @FXML
+    private TextField txtFloorName;
+
     File selectedFile;
+    String filepath;
 
     private static void configureFileChooser(final FileChooser fileChooser) {
         fileChooser.getExtensionFilters().addAll(
@@ -95,7 +99,8 @@ public class NewBuilding {
                     try {
                         String relPath = "src\\main\\resources\\img\\";
                         String buildName = buildingName.getText() + "." + extension;
-                        File file = new File(relPath + buildName);
+                        filepath = relPath+buildName;
+                        File file = new File(filepath);
                         copyFile(selectedFile, file);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -139,6 +144,13 @@ public class NewBuilding {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public Building getBldg(){
+        Building bldg = new Building(buildingName.getText());
+        Floor fl = new Floor(txtFloorName.getText(), bldg.getName(), filepath);
+        bldg.addFloor(fl);
+
+        return bldg;
     }
 
 }

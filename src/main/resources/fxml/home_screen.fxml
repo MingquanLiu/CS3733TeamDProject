@@ -162,6 +162,75 @@
                 </GridPane>
             </children>
         </AnchorPane>
+      <AnchorPane prefHeight="50.0" prefWidth="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenu" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+          <AnchorPane fx:id="serviceRequester" layoutX="528.0" layoutY="156.0" prefHeight="247.0" prefWidth="486.0" style="-fx-background-color: white;" visible="false">
+              <children>
+                  <TextArea fx:id="requestDescription" layoutX="14.0" layoutY="81.0" prefHeight="145.0" prefWidth="313.0" AnchorPane.leftAnchor="14.0" />
+                  <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="352.0" layoutY="128.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Select Location(s)" />
+                  <JFXButton fx:id="btnCancelRequestAttempt" layoutX="340.0" layoutY="196.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Cancel" />
+                  <JFXButton fx:id="btnSubmitRequest" layoutX="412.0" layoutY="196.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Submit" />
+            <Label fx:id="lblServiceX" layoutX="384.0" layoutY="71.0" AnchorPane.bottomAnchor="168.0" />
+            <Label fx:id="lblServiceY" layoutX="384.0" layoutY="93.0" />
+            <Label layoutX="366.0" layoutY="67.0" text="X: " AnchorPane.bottomAnchor="164.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="366.0" layoutY="98.0" text="Y: " AnchorPane.bottomAnchor="133.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblReqType" layoutX="14.0" layoutY="50.0" AnchorPane.bottomAnchor="180.0" />
+            <Pane layoutX="-1.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="486.0" style="-fx-background-color: #c0c0c0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Label layoutX="140.0" layoutY="10.0" text="New Service Request" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+              </children>
+          </AnchorPane>
+      <AnchorPane layoutX="620.0" prefHeight="111.0" prefWidth="123.0">
+         <children>
+            <GridPane prefHeight="150.0" prefWidth="100.0" style="-fx-border-color: black; -fx-background-color: rgba(255,255,255,0.8);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <JFXButton fx:id="btnMapUp" buttonType="RAISED" onAction="#mapChange" styleClass="buttonn" stylesheets="@../css/general_button.css" text="go up" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <JFXButton fx:id="btnMapDwn" buttonType="RAISED" onAction="#mapChange" styleClass="buttonn" stylesheets="@../css/general_button.css" text="go down" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <JFXComboBox fx:id="comboFloors" onAction="#mapChange" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+      <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="80.0" prefWidth="202.0" text="Directions">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+      <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0">
+         <children>
+            <JFXComboBox fx:id="comboBuilding" layoutX="32.0" layoutY="43.0" onAction="#setBuilding" />
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="166.0" style="-fx-background-color: rgba(255,255,255,0.9); -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane layoutX="2.0" layoutY="72.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" prefWidth="150.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0">
@@ -236,75 +305,7 @@
             <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
               <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
             <Button fx:id="helpButton" layoutX="57.0" layoutY="611.0" mnemonicParsing="false" onAction="#helpButtonHandler" text="HELP" />
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="50.0" prefWidth="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-         <children>
-            <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenu" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
-          <AnchorPane fx:id="serviceRequester" layoutX="528.0" layoutY="156.0" prefHeight="247.0" prefWidth="486.0" style="-fx-background-color: white;" visible="false">
-              <children>
-                  <TextArea fx:id="requestDescription" layoutX="14.0" layoutY="81.0" prefHeight="145.0" prefWidth="313.0" AnchorPane.leftAnchor="14.0" />
-                  <JFXButton fx:id="btnSelectMaintenanceLocation" layoutX="352.0" layoutY="128.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Select Location(s)" />
-                  <JFXButton fx:id="btnCancelRequestAttempt" layoutX="340.0" layoutY="196.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Cancel" />
-                  <JFXButton fx:id="btnSubmitRequest" layoutX="412.0" layoutY="196.0" mnemonicParsing="false" onAction="#SRWindowHandler" style="-fx-background-color: #DADADA;" text="Submit" />
-            <Label fx:id="lblServiceX" layoutX="384.0" layoutY="71.0" AnchorPane.bottomAnchor="168.0" />
-            <Label fx:id="lblServiceY" layoutX="384.0" layoutY="93.0" />
-            <Label layoutX="366.0" layoutY="67.0" text="X: " AnchorPane.bottomAnchor="164.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="366.0" layoutY="98.0" text="Y: " AnchorPane.bottomAnchor="133.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblReqType" layoutX="14.0" layoutY="50.0" AnchorPane.bottomAnchor="180.0" />
-            <Pane layoutX="-1.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="486.0" style="-fx-background-color: #c0c0c0;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Label layoutX="140.0" layoutY="10.0" text="New Service Request" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-              </children>
-          </AnchorPane>
-      <AnchorPane layoutX="620.0" prefHeight="111.0" prefWidth="123.0">
-         <children>
-            <GridPane prefHeight="150.0" prefWidth="100.0" style="-fx-border-color: black; -fx-background-color: rgba(255,255,255,0.8);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <JFXButton fx:id="btnMapUp" buttonType="RAISED" onAction="#mapChange" styleClass="buttonn" stylesheets="@../css/general_button.css" text="go up" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <JFXButton fx:id="btnMapDwn" buttonType="RAISED" onAction="#mapChange" styleClass="buttonn" stylesheets="@../css/general_button.css" text="go down" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <JFXComboBox fx:id="comboFloors" onAction="#mapChange" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
-         </children>
-      </AnchorPane>
-      <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="80.0" prefWidth="202.0" text="Directions">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
-      <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0">
-         <children>
-            <JFXComboBox fx:id="comboBuilding" layoutX="32.0" layoutY="43.0" />
+            <JFXButton fx:id="btnBldg" layoutX="50.0" layoutY="426.0" onAction="#addBuilding" text="Add building" />
          </children>
       </AnchorPane>
 

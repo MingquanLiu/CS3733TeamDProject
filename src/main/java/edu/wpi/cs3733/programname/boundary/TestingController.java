@@ -59,6 +59,7 @@ public class TestingController implements Initializable {
 
 
     //FXML objects
+    //<editor-fold dsec="main panes">
     @FXML
     private StackPane drawingStack;
     @FXML
@@ -66,13 +67,12 @@ public class TestingController implements Initializable {
     @FXML
     private Canvas drawingCanvas;
     @FXML
-    private ImageView imgMap;
-    @FXML
     private AnchorPane panningPane;
     @FXML
     private AnchorPane serviceRequester;
+    //</editor-fold>
 
-    //map switching objects
+    //<editor-fold desc="map changing">
     @FXML
     private JFXButton btnMapUp;
     @FXML
@@ -81,17 +81,18 @@ public class TestingController implements Initializable {
     private ComboBox comboFloors;
     @FXML
     private ComboBox comboBuilding;
-    private int floor = 2;
-    private ArrayList<Floor> floors = new ArrayList<>();
-    private Floor currentFloor;
+    @FXML
+    private ImageView imgMap;
+    //</editor-fold>
 
-    //zoom and pan objects
+    //<editor-fold desc="zoom and pan objects">
     @FXML
     private JFXButton btnZoomIn;
     @FXML
     private JFXButton btnZoomOut;
+    //</editor-fold>
 
-    //Admin features
+    //<editor-fold desc="Admin features">
     @FXML
     private GridPane paneAdminFeatures;
     @FXML
@@ -106,11 +107,13 @@ public class TestingController implements Initializable {
     private JFXButton btnMaintenanceReq;
     @FXML
     private JFXButton btnTransportationReq;
+    @FXML
+    private JFXButton btnMapEdit;
+    //</editor-fold>
 
-    //buttons for key locations
+    //<editor-fold desc="key locations buttons">
     @FXML
     private ComboBox comboLocations;
-
     @FXML
     private JFXButton btnLocateBR;
     @FXML
@@ -125,10 +128,9 @@ public class TestingController implements Initializable {
     private JFXButton btnLocateEX;
     @FXML
     private JFXButton btnLocateST;
-    @FXML
-    private JFXButton btnMapEdit;
+    //</editor-fold>
 
-    //service request dialog
+    //<editor-fold desc="service request popup">
     @FXML
     private TextArea requestDescription;
     @FXML
@@ -145,14 +147,16 @@ public class TestingController implements Initializable {
     private Label lblServiceX;
     @FXML
     private Label lblReqType;
+    //</editor-fold>
 
-    //hamburger pane and transitions
+    //<editor-fold desc="hamburger and pane">
     @FXML
     private JFXHamburger burger;
     @FXML
     private AnchorPane paneControls;
+    //</editor-fold>
 
-    //location search
+    //<editor-fold desc="search box">
     @FXML
     private JFXButton btnGo;
     @FXML
@@ -161,8 +165,9 @@ public class TestingController implements Initializable {
     private TextField txtStartLocation;
     @FXML
     private TextField txtEndLocation;
+    //</editor-fold>
 
-    //Node info panel
+    //<editor-fold desc="node info pane">
     @FXML
     private DialogPane nodeInfoPane;
     @FXML
@@ -175,58 +180,82 @@ public class TestingController implements Initializable {
     private Label lblNodeX;
     @FXML
     private Label lblNodeY;
+    //</editor-fold>
 
+    //<editor-fold desc="username">
     @FXML
     private JFXTextField txtUser;
+    //</editor-fold>
 
-    //FAQ
+    //<editor-fold desc="FAQ">
     @FXML
     private Button helpButton;
+    //</editor-fold>
 
-    //Email
+    //<editor-fold desc="email">
     @FXML
     private JFXButton emailDirections;
+    //</editor-fold>
 
-    //text directions
+    //<editor-fold desc="directions pane">
     @FXML
     private TitledPane paneDirections;
     @FXML
     private Label txtAreaDirections;
+    //</editor-fold>
 
-    // Handicapped checkbox
+    //<editor-fold desc="handicapped">
     @FXML
     private CheckBox handicap;
+    //</editor-fold>
 
-    //global variables, not FXML tied
+    /*
+    *global variables, not FXML tied
+    */
+
     private ManageController manager;
 
-    //locations search
+    //<editor-fold desc="locations search">
     private List<Shape> pathDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
     private List<NodeData> currentNodes = new ArrayList<>();
+    //</editor-fold>
 
-    //hamburger transitions
+    //<editor-fold desc="hamburger transition">
     private HamburgerSlideCloseTransition burgerTransition;
     private boolean controlsVisible = false;
     private FadeTransition controlsTransition;
+    //</editor-fold>
 
-    //zooming/panning
+    //<editor-fold desc="zooming/panning">
     private double currentScale;
     final double minWidth = 1500;
     final double maxWidth = 5000;
     final private int originalMapRatioIndex = 3;
+    //</editor-fold>
 
-    //showing nodes
+    //<editor-fold desc="map change">
+    private int floor = 2;
+    private ArrayList<Floor> floors = new ArrayList<>();
+    private Floor currentFloor;
+    private ArrayList<Building> buildings = new ArrayList<>();
+    //</editor-fold>
+
+    //<editor-fold desc="node info">
     private String selectingLocation = "";
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
     private boolean loggedIn;
     private Employee employeeLoggedIn;
     private List<Shape> shownNodes = new ArrayList<>();
+    //</editor-fold>
 
+    //<editor-fold desc="DP connectton">
     private DBConnection dbConnection;
     private PathfindingController.searchType mSearchType= ASTAR;
+    //</editor-fold>
+
     private boolean logOffNext = false;
 
     //this runs on startup
@@ -285,20 +314,24 @@ public class TestingController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
-        currentFloor = floor2;
+        Building hospital = new Building("hospial");
+        hospital.addAllFloors(basicFloors);
+
+        floors.addAll(hospital.getFloors());
+        buildings.add(hospital);
+
         floor = 2;
 
-        addFloors(basicFloors);
-        setFloor();
-    }
+        ObservableList floorList = FXCollections.observableList(new ArrayList<>());
+        floorList.addAll(floors);
+        comboFloors.setItems(floorList);
 
-    private void addFloors(ArrayList<Floor> floorsToAdd) {
-        floors.addAll(floorsToAdd);
-        ObservableList floors = FXCollections.observableArrayList();
-        for(Floor fl:floorsToAdd){
-            floors.add(fl.getFloorName());
-        }
-        comboFloors.setItems(floors);
+        ObservableList buildingList = FXCollections.observableList(new ArrayList<>());
+        buildingList.addAll(buildings);
+        comboBuilding.setItems(buildingList);
+
+        setBuilding(hospital);
+        setFloor(ground);
     }
 
     public void setSearchType(PathfindingController.searchType searchType){
@@ -350,7 +383,6 @@ public class TestingController implements Initializable {
     }
 
     //displaying node info on click
-
     private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
         int dbX = UICToDBC(mouseX,currentScale);
         int dbY =UICToDBC(mouseY,currentScale);
@@ -437,6 +469,21 @@ public class TestingController implements Initializable {
     }
 
     //map switching methods
+    public void addBuilding() throws IOException{
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/newBuilding.fxml"
+                ));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+
+        stage.showAndWait();
+        loader.<NewBuilding>getController().getBldg();
+    }
     public void mapChange(ActionEvent e){
         String newFloorString = currentFloor.getFloorName();
         if(e.getSource() == comboFloors){
@@ -455,9 +502,28 @@ public class TestingController implements Initializable {
         }
         setFloor();
     }
+
+    public void setBuilding(Building newBld){
+        comboBuilding.setValue(newBld);
+        setBuilding();
+    }
+    public void setBuilding(){
+        Building newBld = (Building)(comboBuilding.getValue());
+        floors = newBld.getFloors();
+        ObservableList floorList = FXCollections.observableList(new ArrayList<>());
+        floorList.addAll(floors);
+        comboFloors.setItems(floorList);
+        comboFloors.setValue(floorList.get(0));
+    }
+
+    public void setFloor(Floor newFloor){
+        comboFloors.setValue(newFloor);
+        currentFloor = newFloor;
+
+        setFloor();
+    }
     public void setFloor(){
-        currentFloor = floors.get(floor);
-        comboFloors.setValue(currentFloor.getFloorName());
+        currentFloor = (Floor)(comboFloors.getValue());
 
         String newUrl = currentFloor.getImgUrl();
         System.out.println("new image: " + newUrl);
