@@ -10,13 +10,11 @@ public class Constants {
     public static String MAINTENANCE_REQUEST = "maintenance";
     public static String TRANSPORTATION_REQUEST = "transportation";
     public static String NONE = "none";
-t
+
     public static String UNASSIGNED_REQUEST = "unhandled";
     public static String ASSIGNED_REQUEST = "handled";
     public static String COMPLETED_REQUEST = "completed";
     public static String REMOVED_REQUEST = "removed";
 
-    public static String TEST_CONSTANT_PLEASE_IGNORE = "test";
-    public static String TEST_CONSTANT_PLEASE_IGNORE_2 = "test";
 
 }

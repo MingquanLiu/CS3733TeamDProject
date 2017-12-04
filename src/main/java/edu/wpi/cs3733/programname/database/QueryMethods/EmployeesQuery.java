@@ -148,8 +148,11 @@ public class EmployeesQuery {
         } catch (SQLException e) {
             System.out.println("Get Employee Failed!");
             e.printStackTrace();
+            return false;
         }
-
+        if(queryResult == null) {
+            return false;
+        }
         if (queryResult.getPassword().equals(passwordAttempt) ) {
             return true;
         }
