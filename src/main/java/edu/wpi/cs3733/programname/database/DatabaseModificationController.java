@@ -69,8 +69,8 @@ public class DatabaseModificationController {
     // add interpreter employee
     public void addEmployee(Interpreter interpreter){
         Employee employee = interpreter.toEmployee();
-        interpreterMethod.addInterpreter(interpreter);
         employeesMethod.addEmployee(employee);
+        interpreterMethod.addInterpreter(interpreter);
     }
 
     // delete interpreter employee
@@ -87,8 +87,8 @@ public class DatabaseModificationController {
 
     public void addInterpreterRequest(InterpreterRequest interpreterRequest){
         ServiceRequest serviceRequest = interpreterRequest.toServiceRequest();
-        interpreterRequestsMethod.addInterpreterRequest(interpreterRequest);
         serviceRequestsMethod.addServiceRequest(serviceRequest);
+        interpreterRequestsMethod.addInterpreterRequest(interpreterRequest);
     }
 
     public void deleteInterpreterRequest(InterpreterRequest interpreterRequest){
