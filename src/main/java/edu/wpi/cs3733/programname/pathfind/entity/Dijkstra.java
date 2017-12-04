@@ -28,6 +28,8 @@ public class Dijkstra extends PathfindingStrategyTemplate {
     List<NodeData> pathFind() throws NoPathException {
         System.out.println("Starting Dijkstra's Algorithm");
 
+        for(NodeData node: allNodes) allStarNodes.get(node.getNodeID()).setF(10000);
+
         start.setF(0);
 
         frontier.add(start);
