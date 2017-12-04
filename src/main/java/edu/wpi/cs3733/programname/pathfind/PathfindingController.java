@@ -32,9 +32,10 @@ public class PathfindingController {
             PathFinderFacade pathFind = new PathFinderFacade(allNodes, allEdges, startNode, endNode);
 
             List<NodeData> finalPath = new LinkedList<NodeData>();
-            List<EdgeData> currentList = allEdges;
+
             if (type == searchType.ASTAR) {
-                finalPath.addAll(pathFind.findAstarPath());
+                pathFinder = new AStarTemp(allNodes, allEdges, startNode, endNode);
+                finalPath.addAll(pathFinder.getFinalList());
             } else if (type == searchType.DFS) {
                 finalPath.addAll(pathFind.findDfsPath());
             } else if (type == searchType.BFS) {
@@ -47,7 +48,6 @@ public class PathfindingController {
             System.out.println(npe.fillInStackTrace());
         }
         return null;
-
     }
 
     // if the pathfinding needs to make handicapped path, remove all the stairs

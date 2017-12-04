@@ -34,7 +34,7 @@ public abstract class PathfindingStrategyTemplate {
 
     public List<NodeData> getFinalList() throws NoPathException {
         this.init();
-        this.pathFind();
+        finalList = this.pathFind();
 
         return finalList;
     }
