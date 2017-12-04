@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.NewBuilding">
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.NewBuilding">
     <children>
-        <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="322.0" layoutY="244.0" style="-fx-background-color: #d2d2d2;" text="Cancel" />
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="322.0" layoutY="244.0" onAction="#onCancelButton" style="-fx-background-color: #d2d2d2;" text="Cancel" />
         <Label fx:id="imageName" layoutX="214.0" layoutY="44.0" text="Upload Image..." textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
@@ -20,7 +20,6 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <JFXTextField fx:id="buildingName" layoutX="276.0" layoutY="151.0" prefHeight="35.0" prefWidth="200.0" promptText="..." />
       <JFXButton fx:id="uploadImage" buttonType="RAISED" layoutX="235.0" layoutY="91.0" onAction="#setPath" style="-fx-background-color: #d2d2d2;" text="Upload" />
       <Label layoutX="14.0" layoutY="14.0" text="Add a Building">
          <font>
@@ -32,6 +31,7 @@
             <Font size="13.0" />
          </font></Label>
       <JFXTextField fx:id="txtFloorName" layoutX="271.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0" />
+        <JFXTextField fx:id="buildingName" layoutX="276.0" layoutY="151.0" prefHeight="35.0" prefWidth="200.0" promptText="..." />
       <Label layoutX="142.0" layoutY="126.0" prefHeight="27.0" prefWidth="122.0" text="Floor Name:">
          <font>
             <Font size="18.0" />
