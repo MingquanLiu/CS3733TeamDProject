@@ -285,7 +285,11 @@ public class TestingController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
+        currentFloor = floor2;
+        floor = 2;
+
         addFloors(basicFloors);
+        setFloor();
     }
 
     private void addFloors(ArrayList<Floor> floorsToAdd) {
@@ -434,6 +438,37 @@ public class TestingController implements Initializable {
 
     //map switching methods
     public void mapChange(ActionEvent e){
+        String newFloorString = currentFloor.getFloorName();
+        if(e.getSource() == comboFloors){
+            newFloorString = comboFloors.getValue().toString();
+            for(Floor fl:floors){
+                if(fl.getFloorName().equals(newFloorString)){
+                    floor = floors.indexOf(fl);
+                }
+            }
+        }
+        else if(e.getSource() == btnMapUp && floor < floors.size()){
+            floor ++;
+        }
+        else if(e.getSource() == btnMapDwn && floor > 0){
+            floor --;
+        }
+        setFloor();
+    }
+    public void setFloor(){
+        currentFloor = floors.get(floor);
+        comboFloors.setValue(currentFloor.getFloorName());
+
+        String newUrl = currentFloor.getImgUrl();
+        System.out.println("new image: " + newUrl);
+
+        File file = new File(newUrl);
+        System.out.println("current map: " + file.toString());
+        Image newImg = new Image(file.toString());
+        imgMap.setImage(newImg);
+    }
+    /*
+    public void mapChange(ActionEvent e){
         System.out.println("switching floor");
         if(e.getSource() == comboFloors) {
             String floorString = comboFloors.getValue().toString();
@@ -487,9 +522,9 @@ public class TestingController implements Initializable {
         setFloor();
     }
     private void setFloor(){
-        Image oldImg = imgMap.getImage();
 
-        //String newUrl = oldUrl.substring(0,oldUrl.indexOf("Floor_")) + "Floor_" + floor + ".png";
+
+
         String newUrl = "img/" + "Floor_" + floor + ".png";
         System.out.println("new image: " + newUrl);
 
@@ -519,7 +554,9 @@ public class TestingController implements Initializable {
                 floorName = "Floor 3";
         }
         comboFloors.setValue(floorName);
+
     }
+    */
     public void showMouseCoords(MouseEvent e){
         System.out.println(e.getX() + ", " + e.getY());
     }
