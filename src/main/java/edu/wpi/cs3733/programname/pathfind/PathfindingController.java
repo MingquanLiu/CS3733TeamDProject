@@ -2,10 +2,7 @@ package edu.wpi.cs3733.programname.pathfind;
 
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.pathfind.entity.AStar;
-import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
-import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
-import edu.wpi.cs3733.programname.pathfind.entity.PathFinderFacade;
+import edu.wpi.cs3733.programname.pathfind.entity.*;
 
 import javax.xml.soap.Node;
 import java.util.*;
@@ -15,6 +12,7 @@ public class PathfindingController {
     public enum searchType {
         ASTAR, DFS, BFS, DIJKSTRA
     }
+    private PathfindingStrategyTemplate pathFinder;
 
     /**
      * Takes in the starting and ending locations, and calls PathFinderFacade to find the path between them

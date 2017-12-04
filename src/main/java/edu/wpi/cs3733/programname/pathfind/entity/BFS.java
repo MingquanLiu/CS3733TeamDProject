@@ -104,8 +104,7 @@ public class BFS implements PathfindingStrategy {
                 }
             }
         }
-//        return null;
-        throw new NoPathException(startID, goalID);
+        throw new NoPathException(start.getLongName(), goal.getLongName());
     }
 
     public List<NodeData> getFinalList() {

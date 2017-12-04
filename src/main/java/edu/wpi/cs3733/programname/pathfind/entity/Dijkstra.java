@@ -98,7 +98,7 @@ public class Dijkstra implements PathfindingStrategy {
                 }
             }
         }
-        throw new NoPathException(startID, goalID);
+        throw new NoPathException(start.getLongName(), goal.getLongName());
     }
 
     // returns the pixel distance from the provided node to the destination node
