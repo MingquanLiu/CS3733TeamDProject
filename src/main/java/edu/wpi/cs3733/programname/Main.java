@@ -32,25 +32,9 @@ public class Main extends Application{
 //        primaryStage.show();
 //        showDialog(dbConnection);
         ManageController manageController = new ManageController(dbConnection);
-        showEmployeeManager(manageController);
+        showDialog(dbConnection);
     }
 
-    public Stage showEmployeeManager(ManageController manageController) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/employee_manager_UI.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        loader.<EmployeeManager>getController().initManager(manageController);
-        stage.show();
-        return stage;
-    }
 
     public Stage showDialog(DBConnection dbConnection) throws IOException {
         FXMLLoader loader = new FXMLLoader(

@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -102,6 +103,8 @@ public class TestingController implements Initializable {
     private JFXButton btnMaintenanceReq;
     @FXML
     private JFXButton btnTransportationReq;
+    @FXML
+    private JFXButton btnEditEmployees;
 
     @FXML
     private JFXButton btnLocateBR;
@@ -570,6 +573,22 @@ public class TestingController implements Initializable {
         }
         displayPath(currentPath);
         clearPathFindLoc();
+    }
+
+    public void employeeButtonHandler(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employee_manager_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<EmployeeManager>getController().initManager(this.manager);
+        stage.show();
     }
 
     //select location when clicking on the text field
