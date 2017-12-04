@@ -8,6 +8,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,6 +47,8 @@ public class Main extends Application{
                         (Pane) loader.load()
                 )
         );
+
+
         loader.<TestingController>getController().initData(dbConnection);
         stage.show();
         return stage;

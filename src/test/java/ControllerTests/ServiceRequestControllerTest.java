@@ -6,7 +6,7 @@
 //import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
 //import edu.wpi.cs3733.programname.servicerequest.ServiceRequestsQuery;
 //import edu.wpi.cs3733.programname.commondata.Employee;
-//import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+//import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
 //import org.junit.Test;
 //
 //import static org.junit.Assert.assertEquals;

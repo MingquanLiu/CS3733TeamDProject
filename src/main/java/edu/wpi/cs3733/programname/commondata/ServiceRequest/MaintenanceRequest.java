@@ -1,6 +1,6 @@
-package edu.wpi.cs3733.programname.commondata;
+package edu.wpi.cs3733.programname.commondata.ServiceRequest;
 
-public class MaintenanceRequest extends ServiceRequest{
+public class MaintenanceRequest extends ServiceRequest {
     String maintenanceType;
 
     MaintenanceRequest(int serviceID, String sender, String serviceType, String location1, String location2,

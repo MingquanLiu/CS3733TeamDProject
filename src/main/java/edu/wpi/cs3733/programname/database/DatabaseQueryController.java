@@ -3,13 +3,12 @@ package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
 import edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 

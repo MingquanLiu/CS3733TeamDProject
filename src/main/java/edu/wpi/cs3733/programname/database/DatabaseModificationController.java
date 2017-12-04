@@ -2,15 +2,11 @@ package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
 import edu.wpi.cs3733.programname.database.ModificationMethods.EdgesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.EmployeesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.ServiceRequestsMethod;
-import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
-import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
-
-import java.sql.Connection;
 
 
 public class DatabaseModificationController {

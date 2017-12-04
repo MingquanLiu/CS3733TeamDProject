@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import edu.wpi.cs3733.programname.Main;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
@@ -16,6 +17,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.StrokeTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,10 +29,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Circle;
@@ -232,6 +231,26 @@ public class TestingController implements Initializable {
         paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(maxWidth*currentScale);
+
+
+        final ImageView imv = new ImageView();
+        final Image image2 = new Image("img/Location-Button.png");
+        imv.setImage(image2);
+
+        final HBox pictureRegion = new HBox();
+        pictureRegion.getChildren().add(imv);
+        imv.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Image get clicked");
+            }
+        });
+        System.out.println("fit width: "+imv.getFitWidth());
+        imv.setFitWidth(30);
+        imv.setFitHeight(30);
+        imv.setX(200);
+        imv.setY(200);
+        panningPane.getChildren().add(imv);
 
     }
     public void setSearchType(PathfindingController.searchType searchType){
