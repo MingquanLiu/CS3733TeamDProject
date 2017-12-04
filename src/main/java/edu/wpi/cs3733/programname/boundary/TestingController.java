@@ -205,7 +205,6 @@ public class TestingController implements Initializable {
     private Employee employeeLoggedIn;
     private List<Shape> shownNodes = new ArrayList<>();
 
-    private DBConnection dbConnection;
     private PathfindingController.searchType mSearchType= ASTAR;
 
     //this runs on startup
@@ -213,10 +212,9 @@ public class TestingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
     }
 
-    public void initData(DBConnection dbConnection){
+    public void initManager(ManageController manageController){
         currentMapRatioIndex =originalMapRatioIndex;
-        manager = new ManageController(dbConnection);
-        this.dbConnection = dbConnection;
+        manager = manageController;
 //        mapRatio.add(0.24);
         paneAdminFeatures.setVisible(false);
         mapRatio.add(0.318);
@@ -628,7 +626,7 @@ public class TestingController implements Initializable {
             //Todo add some sort of error handling
             return loader;
         }
-        loader.<LoginPopup>getController().initData(dbConnection);
+        loader.<LoginPopup>getController().initManager(manager);
         Stage newStage = new Stage();
         newStage.setScene(newScene);
         newStage.showAndWait();
@@ -647,7 +645,7 @@ public class TestingController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<LoginPopup>getController().initData(dbConnection);
+        loader.<LoginPopup>getController().initManager(manager);
 //        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         loggedIn = true;
 //        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
@@ -679,7 +677,7 @@ public class TestingController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<MapAdminController>getController().initData(dbConnection);
+        loader.<MapAdminController>getController().initManager(manager);
         loader.<MapAdminController>getController().setmTestController(this);
         stage.show();
     }
@@ -697,7 +695,7 @@ public class TestingController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<ServiceRequestManager>getController().initData(dbConnection);
+        loader.<ServiceRequestManager>getController().initManager(manager);
         stage.show();
     }
 

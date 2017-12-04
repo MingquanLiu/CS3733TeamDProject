@@ -32,11 +32,11 @@ public class Main extends Application{
 //        primaryStage.show();
 //        showDialog(dbConnection);
         ManageController manageController = new ManageController(dbConnection);
-        showDialog(dbConnection);
+        showDialog(manageController);
     }
 
 
-    public Stage showDialog(DBConnection dbConnection) throws IOException {
+    public Stage showDialog(ManageController manageController) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/home_screen.fxml"
@@ -48,7 +48,7 @@ public class Main extends Application{
                         (Pane) loader.load()
                 )
         );
-        loader.<TestingController>getController().initData(dbConnection);
+        loader.<TestingController>getController().initManager(manageController);
         stage.show();
         return stage;
     }
