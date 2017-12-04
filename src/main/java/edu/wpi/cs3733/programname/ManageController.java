@@ -193,6 +193,10 @@ public class ManageController {
         wrt.writeEmployees(conn);
     }
 
+    public void updateCsvInterpreterSkills(Connection conn){
+        wrt.writeInterpreterSkills(conn);
+    }
+
     public void updateCsvServiceRequests(Connection conn){
         wrt.writeServiceRequests(conn);
     }

@@ -23,7 +23,7 @@ public class InterpreterMethod {
             str = "insert into InterpreterSkills values('" + username + "','" + language + "')";
             //System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.wrt.writeEmployees(dbConnection.getConnection());
+            this.wrt.writeInterpreterSkills(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Insert Interpreter Employee Failed!");
             e.printStackTrace();

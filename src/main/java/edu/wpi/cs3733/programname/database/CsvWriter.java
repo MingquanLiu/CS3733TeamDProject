@@ -119,18 +119,6 @@ public class CsvWriter {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     public void writeEdges(Connection conn) {
         try {
             Statement statement = conn.createStatement();
@@ -232,6 +220,45 @@ public class CsvWriter {
     }
 
 
+    public void writeInterpreterSkills(Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rset = statement.executeQuery("SELECT * FROM InterpreterSkills");
+            String outFileName = "csv/CsvTables/AllInterpreterSkills.csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+
+
+            // Initialize table fields
+            String username = "";
+            String language = "";
+
+
+            // Prints header fields
+            prt.println("username, language");
+            while (rset.next()) {
+                username = rset.getString("username");
+                language = rset.getString("language");
+
+
+                prt.println(username + "," + language);
+            }
+
+
+            prt.flush();
+            prt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
 
     public void writeServiceRequests(Connection conn) {
         try {
@@ -256,11 +283,12 @@ public class CsvWriter {
             String handleTime = "";
             String completionTime = "";
             String status = "";
+            int severity = 0;
 
 
 
             // Prints header fields
-            prt.println("serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status");
+            prt.println("serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity");
             while (rset.next()) {
                 serviceID = rset.getInt("serviceID");
                 sender = rset.getString("sender");
@@ -273,6 +301,7 @@ public class CsvWriter {
                 handleTime = rset.getString("handleTime");
                 completionTime = rset.getString("completionTime");
                 status = rset.getString("status");
+                severity = rset.getInt("severity");
 
 
                 prt.println(serviceID + "," +
@@ -285,7 +314,8 @@ public class CsvWriter {
                         requestTime + "," +
                         handleTime + "," +
                         completionTime + "," +
-                        status);
+                        status+ "," +
+                        severity);
             }
 
 

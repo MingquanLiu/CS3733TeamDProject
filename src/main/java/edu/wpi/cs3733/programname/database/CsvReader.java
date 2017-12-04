@@ -338,9 +338,6 @@ public class CsvReader {
 
 
 
-
-
-
     // SERVICEREQUESTS
     public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) {
 
