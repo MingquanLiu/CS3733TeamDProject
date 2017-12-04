@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Beam extends PathfindingStrategyTemplate {
+    int beamWidth = 3;
 
     public Beam(List<NodeData> allNodes, List<EdgeData> allEdges, String startID, String goalID) {
         this.allNodes = allNodes;
@@ -17,7 +18,7 @@ public class Beam extends PathfindingStrategyTemplate {
     }
 
     List<NodeData> pathFind() throws NoPathException {
-        System.out.println("Starting BFS");
+        System.out.println("Starting Beam Search, beam width " + beamWidth);
 
         start.setF(distanceToGo(start));
         frontier.add(start);
@@ -54,9 +55,8 @@ public class Beam extends PathfindingStrategyTemplate {
                 LinkedList<StarNode> sortList = new LinkedList<>(frontier);
                 Collections.sort(sortList);
                 if(frontier.size() > 3) {
-                    sortList.removeFirst();
-                    sortList.removeFirst();
-                    sortList.removeFirst();
+                    // To change the beam width, change local beamWidth variable at the top of this file
+                    for(int i = 0; i < beamWidth; i++) sortList.removeFirst();
                     for(StarNode node: sortList) frontier.remove(node);
                 }
 
