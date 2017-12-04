@@ -44,7 +44,7 @@ public class EmployeesQuery {
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                if(serviceType=="interpreter"){
+                if(serviceType.equals("interpreter")){
                     ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
                     queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
                 }
@@ -61,11 +61,11 @@ public class EmployeesQuery {
         return group;
     }
 
-    public ArrayList<Employee> queryEmployeesByType(String type){
+    public ArrayList<Employee> queryEmployeesByType(String serviceType){
         Employee queryResult = null;
         ArrayList<Employee> group = new ArrayList<Employee>();
         try {
-            String sql = "SELECT * FROM Employees WHERE serviceType = '" + type + "'";
+            String sql = "SELECT * FROM Employees WHERE serviceType = '" + serviceType + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String username;
@@ -87,7 +87,13 @@ public class EmployeesQuery {
                 //serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, type, email);
+                if(serviceType.equals("interpreter")){
+                    ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
+                    queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
+                }
+                else{
+                    queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                }
                 group.add(queryResult);
             }
         } catch (SQLException e) {
@@ -121,7 +127,15 @@ public class EmployeesQuery {
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                if(serviceType.equals("interpreter")){
+                    ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
+                    queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
+                    System.out.println("Is an Interpreter");
+                }
+                else{
+                    System.out.println("Is a Employee");
+                    queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                }
             }
         } catch (SQLException e) {
             System.out.println("Get Employee Failed!");

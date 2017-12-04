@@ -67,9 +67,8 @@ public class DatabaseModificationController {
     }
 
     // add interpreter employee
-    public void addEmployee(Interpreter interpreter){
-        Employee employee = interpreter.toEmployee();
-        employeesMethod.addEmployee(employee);
+    public void addInterpreter(Interpreter interpreter){
+        employeesMethod.addEmployee(interpreter);
         interpreterMethod.addInterpreter(interpreter);
     }
 

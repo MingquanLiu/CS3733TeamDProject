@@ -42,7 +42,6 @@ public class DBModConTest {
     public void setupDbTables() throws IOException {
         RunScript run = new RunScript();
         run.runScript(conn.getConnection());
-
     }
 
 

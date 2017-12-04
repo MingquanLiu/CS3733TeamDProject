@@ -16,7 +16,7 @@ public class InterpreterRequestQuery {
     public ArrayList<String> queryInterpreterRequestByID(int serviceID){
         ArrayList<String> queryResult = new ArrayList<String>();
         try {
-            String sql = "SELECT * FROM InterpreterRequest WHERE serviceID = " + serviceID;
+            String sql = "SELECT * FROM InterpreterRequests WHERE serviceID = " + serviceID;
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String language;

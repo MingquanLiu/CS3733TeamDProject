@@ -53,7 +53,7 @@ public class ServiceRequestsQuery {
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
 
-                if(serviceType=="interpreter"){
+                if(serviceType.equals("interpreter")){
                     ArrayList<String> interpreterRequest = this.interpreterRequestQuery.queryInterpreterRequestByID(serviceID);
                     language = interpreterRequest.get(0);
                     reservationTime = interpreterRequest.get(1);
@@ -90,6 +90,8 @@ public class ServiceRequestsQuery {
             String completionTime;
             String receiverUsername;
             int severity;
+            String language;
+            String reservationTime;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
@@ -103,7 +105,15 @@ public class ServiceRequestsQuery {
                 completionTime = result.getString("completionTime");
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
-                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
+                if(serviceType.equals("interpreter")){
+                    ArrayList<String> interpreterRequest = this.interpreterRequestQuery.queryInterpreterRequestByID(serviceID);
+                    language = interpreterRequest.get(0);
+                    reservationTime = interpreterRequest.get(1);
+                    queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
+                }
+                else{
+                    queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
+                }
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
@@ -129,16 +139,16 @@ public class ServiceRequestsQuery {
             String requestTime;
             String handleTime;
             String completionTime;
-            String reservationTime;
             String status;
             String receiverUsername;
             int severity;
+            String language;
+            String reservationTime;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
                 senderUsername = result.getString("sender");
                 node1ID = result.getString("location1");
-
                 node2ID = result.getString("location2");
                 description = result.getString("description");
                 requestTime = result.getString("requestTime");
@@ -147,11 +157,19 @@ public class ServiceRequestsQuery {
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
-                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
+                if(serviceType.equals("interpreter")){
+                    ArrayList<String> interpreterRequest = this.interpreterRequestQuery.queryInterpreterRequestByID(serviceID);
+                    language = interpreterRequest.get(0);
+                    reservationTime = interpreterRequest.get(1);
+                    queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
+                }
+                else{
+                    queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
+                }
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Get Service Request Failed!");
+            System.out.println("Query Service Request Failed!");
             e.printStackTrace();
         }
         return resultList;
@@ -174,6 +192,8 @@ public class ServiceRequestsQuery {
             String status;
             String receiverUsername;
             int severity;
+            String language;
+            String reservationTime;
 
             while(result.next()) {
                 senderUsername = result.getString("sender");
@@ -187,7 +207,15 @@ public class ServiceRequestsQuery {
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
-                queryResult = new ServiceRequest(serviceID, senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
+                if(serviceType.equals("interpreter")){
+                    ArrayList<String> interpreterRequest = this.interpreterRequestQuery.queryInterpreterRequestByID(serviceID);
+                    language = interpreterRequest.get(0);
+                    reservationTime = interpreterRequest.get(1);
+                    queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
+                }
+                else{
+                    queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
+                }
             }
         } catch (SQLException e) {
             System.out.println("Select Service Request Failed!");

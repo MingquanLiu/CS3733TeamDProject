@@ -21,12 +21,12 @@ public class InterpreterRequestsMethod {
 
         String str;
         try {
-            str = "INSERT INTO ServiceRequests values(" + serviceID + ",'" + language + "','"+ reservationTime +"')";
+            str = "INSERT INTO InterpreterRequests values(" + serviceID + ",'" + language + "','"+ reservationTime +"')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeServiceRequests(dbConnection.getConnection());
         } catch (SQLException e) {
-            System.out.println("Insert Interpreter Request Failed!");
+            System.out.println("Insert Interpreter Request Failed! Caused by addInterpreterRequest(InterpreterRequest interpreterRequest)");
             e.printStackTrace();
         }
     }
