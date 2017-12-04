@@ -99,6 +99,10 @@ public class ManageController {
         return this.dbQueryController.queryAllEmployees();
     }
 
+    public void addEmployee(Employee employee) {
+        this.dbModController.addEmployee(employee);
+    }
+
     public List<ServiceRequest> getUnassignedRequests() {
         return this.dbQueryController.queryServiceRequestsByStatus("unhandled");
     }
@@ -166,8 +170,18 @@ public class ManageController {
         dbModController.deleteServiceRequest(request);
     }
 
+
+
     public Employee queryEmployeeByUsername(String username) {
         return dbQueryController.queryEmployeeByUsername(username);
+    }
+
+    public void editEmployee(Employee emp) {
+        dbModController.editEmployee(emp);
+    }
+
+    public void deleteEmployee(String username) {
+        dbModController.deleteEmployee(username);
     }
 
     public ArrayList<ServiceRequest> getInterpreterRequest(){

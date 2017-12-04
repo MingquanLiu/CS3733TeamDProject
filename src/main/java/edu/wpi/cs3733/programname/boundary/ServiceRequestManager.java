@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,6 @@ public class ServiceRequestManager {
     JFXButton btnDeleteCompleted;
 
     ManageController manager;
-    private DBConnection dbConnection;
     List<ServiceRequest> currUnassigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currAssigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currCompleted = new ArrayList<ServiceRequest>();
@@ -70,9 +70,8 @@ public class ServiceRequestManager {
     int requestIndex = -1;
     int employeeIndex = -1;
 
-    public void initData(DBConnection dbConnection){
-        dbConnection = dbConnection;
-        manager = new ManageController(dbConnection);
+    public void initManager(ManageController manageController){
+        manager = manageController;
         unassignedRequestButtonHandler();
         btnMarkCompleted.setVisible(false);
         btnAssignRequest.toFront();
@@ -229,5 +228,10 @@ public class ServiceRequestManager {
             String requestDisplay = createServiceRequestListString(sr);
             listCompleted.getItems().add(requestDisplay);
         }
+    }
+
+    public void backButtonHandler() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
     }
 }

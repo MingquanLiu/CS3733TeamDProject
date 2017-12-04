@@ -1,4 +1,4 @@
-username, password, firstName, middleName, lastName, sysAdmin, serviceType, email
+username,password,firstName,middleName,lastName,sysAdmin,serviceType,email
 wwong2,professor,Wilson,,Wong,1,interpreter,wwong2@wpi.du
 ygao6,yufeigao,Yufei,,Gao,1,interpreter,ygao6@wpi.edu
 hkduong,1234,Haiau,Kieu,Duong,1,transportation,hkduong@wpi.edu

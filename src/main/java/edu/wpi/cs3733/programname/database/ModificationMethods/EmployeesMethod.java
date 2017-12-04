@@ -28,7 +28,7 @@ public class EmployeesMethod {
         String str;
         try {
             str = "insert into Employees values('" + username + "', '" + password + "', '" + firstName + "', '" + middleName + "', '" + lastName + "'," + sysAdminInt + ", '" + serviceType + "','" + email + "')";
-            //System.out.println(str);
+//            System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeEmployees(dbConnection.getConnection());
         } catch (SQLException e) {
@@ -37,4 +37,39 @@ public class EmployeesMethod {
         }
     }
 
+    public void editEmployee(Employee employee) {
+        String username = employee.getUsername();
+        String password = employee.getPassword();
+        String firstName = employee.getFirstName();
+        String middleName = employee.getMiddleName();
+        String lastName = employee.getLastName();
+        boolean sysAdmin = employee.getSysAdmin();
+        int sysAdminInt = sysAdmin? 1: 0;
+        String serviceType = employee.getServiceType();
+        String email = employee.getEmail();
+        String str;
+
+        try {
+            str = "UPDATE Employees SET password = '" + password + "', firstName = '" + firstName + "', middleName = '" + middleName +
+                    "', lastName = '" + lastName + "', sysAdmin = " + sysAdminInt + ", serviceType = '" + serviceType + "', email = '"
+                    + email +  "' WHERE username = '" + username + "'";
+            dbConnection.executeUpdate(str);
+            this.wrt.writeEmployees(dbConnection.getConnection());
+        } catch (SQLException e) {
+            System.out.println("Edit Employee Failed!");
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteEmployee(String username) {
+        String str;
+        try {
+            str = "DELETE FROM Employees WHERE username = '" + username + "'";
+            dbConnection.executeUpdate(str);
+            this.wrt.writeEmployees(dbConnection.getConnection());
+        } catch (SQLException e) {
+            System.out.println("Delete Employee Failed!");
+            e.printStackTrace();
+        }
+    }
 }

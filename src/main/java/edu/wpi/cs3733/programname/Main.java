@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.programname;
 
+import edu.wpi.cs3733.programname.boundary.EmployeeManager;
+import edu.wpi.cs3733.programname.boundary.ServiceRequestManager;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
@@ -31,11 +33,13 @@ public class Main extends Application{
 //        primaryStage.setTitle("The best application");
 //        primaryStage.setScene(new Scene(root, 1500, 750));
 //        primaryStage.show();
-        showDialog(dbConnection);
-
+//        showDialog(dbConnection);
+        ManageController manageController = new ManageController(dbConnection);
+        showDialog(manageController);
     }
 
-    public Stage showDialog(DBConnection dbConnection) throws IOException {
+
+    public Stage showDialog(ManageController manageController) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/home_screen.fxml"
@@ -47,14 +51,12 @@ public class Main extends Application{
                         (Pane) loader.load()
                 )
         );
-
-
-        loader.<TestingController>getController().initData(dbConnection);
+        loader.<TestingController>getController().initManager(manageController);
         stage.show();
         return stage;
     }
 
-    public DBConnection setupDB() throws IOException{
+    private DBConnection setupDB() throws IOException{
         DBConnection dbConnection = new DBConnection();
         dbConnection.setDBConnection();
         CsvReader mCsvReader = new CsvReader();
