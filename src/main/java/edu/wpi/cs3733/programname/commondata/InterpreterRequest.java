@@ -4,16 +4,16 @@ public class InterpreterRequest extends ServiceRequest{
     String language;
     String reservationTime;
 
-    InterpreterRequest(int serviceID, String sender, String serviceType, String location1, String location2,
-                           String description, String reservationTime, int severity, String language){
+    public InterpreterRequest(int serviceID, String sender, String serviceType, String location1, String location2,
+                           String description, int severity, String language, String reservationTime){
         super(serviceID, sender, serviceType, location1, location2, description, severity);
         this.language = language;
         this.reservationTime = reservationTime;
     }
 
-    InterpreterRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2,
+    public InterpreterRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2,
                            String description, String requestTime, String handleTime, String completionTime, String status,
-                           String reservationTime, int severity, String language){
+                           int severity, String language, String reservationTime){
         super(serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime,status, severity);
         this.language = language;
         this.reservationTime = reservationTime;

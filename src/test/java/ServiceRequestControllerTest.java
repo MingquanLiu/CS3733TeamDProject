@@ -29,7 +29,8 @@ public class ServiceRequestControllerTest {
     ServiceRequestsQuery queryServiceRequest;
     ServiceRequestController srController;
     Employee wong = new Employee("wwong2", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com");
-    Employee iwong = new Interpreter("wwong2", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com", "Spanish");
+    ArrayList<String> wongLanguage = new ArrayList<String>();
+    Employee iwong = new Interpreter("wwong2", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com", wongLanguage);
     Employee john = new Employee("userjohn", "passjohn", "John", "J", "John", false, "transportation","john@test.com");
     Employee yufei = new Employee("ygao6", "pass", "Yufei", "", "Gao", true, "transportation","ygao6@wpi.edu");
     Coordinate aBathroomCoord = new Coordinate(4125, 625);

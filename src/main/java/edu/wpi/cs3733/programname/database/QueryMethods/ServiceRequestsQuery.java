@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
+import edu.wpi.cs3733.programname.commondata.InterpreterRequest;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 
@@ -10,8 +11,10 @@ import java.util.ArrayList;
 
 public class ServiceRequestsQuery {
     private DBConnection dbConnection;
+    private InterpreterRequestQuery interpreterRequestQuery;
     public ServiceRequestsQuery(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
+        this.interpreterRequestQuery = new InterpreterRequestQuery(dbConnection);
     }
 
     public ArrayList<ServiceRequest> queryAllServiceRequests(){
@@ -33,6 +36,8 @@ public class ServiceRequestsQuery {
             String status;
             String receiverUsername;
             int severity;
+            String language;
+            String reservationTime;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
@@ -47,7 +52,17 @@ public class ServiceRequestsQuery {
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
-                queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
+
+                if(serviceType=="interpreter"){
+                    ArrayList<String> interpreterRequest = this.interpreterRequestQuery.queryInterpreterRequestByID(serviceID);
+                    language = interpreterRequest.get(0);
+                    reservationTime = interpreterRequest.get(1);
+                    queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
+                }
+                else{
+                    queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
+                }
+
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {

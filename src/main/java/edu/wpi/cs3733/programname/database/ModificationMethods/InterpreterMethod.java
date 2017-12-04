@@ -39,6 +39,20 @@ public class InterpreterMethod {
         }
     }
 
+    public void removeInterpreterLanguage(Interpreter employee, String language){
+        String username = employee.getUsername();
+        String str;
+        try {
+            str = "DELETE FROM InterpreterSkills WHERE username = '" + username + "' and language ='" +language+ "'";
+            //System.out.println(str);
+            dbConnection.executeUpdate(str);
+            this.wrt.writeInterpreterSkills(dbConnection.getConnection());
+        } catch (SQLException e) {
+            System.out.println("Remove Interpreter Skill Failed!");
+            e.printStackTrace();
+        }
+    }
+
     public void deleteInterpreter(Interpreter employee){
         String username = employee.getUsername();
         ArrayList<String> languages = employee.getLanguages();
