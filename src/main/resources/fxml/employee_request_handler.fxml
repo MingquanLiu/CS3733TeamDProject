@@ -27,8 +27,8 @@
           <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXListView GridPane.rowIndex="2" />
-            <JFXListView prefHeight="305.0" prefWidth="243.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <JFXListView fx:id="listUnassigned" GridPane.rowIndex="2" />
+            <JFXListView fx:id="listEmployeeRequests" prefHeight="305.0" prefWidth="243.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label text="Unassigned Service Requests" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
@@ -39,17 +39,17 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Label" GridPane.halignment="CENTER">
+            <Label fx:id="employeeName" GridPane.halignment="CENTER">
                <font>
                   <Font size="38.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnMove" disable="true" text="Move to My Requests" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <JFXButton fx:id="btnAccept" disable="true" onAction="#acceptButtonHandler" text="Accept Request" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="btnComplete" disable="true" text="Mark as Complete" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <JFXButton fx:id="btnComplete" disable="true" onAction="#markCompleteButtonHandler" text="Mark as Complete" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -57,7 +57,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="btnRemove" disable="true" text="Remove from My Requests" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+            <JFXButton fx:id="btnRemove" disable="true" onAction="#unhandleRequestButtonHandler" text="Remove from My Requests" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
