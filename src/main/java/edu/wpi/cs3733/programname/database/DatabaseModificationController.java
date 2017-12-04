@@ -68,6 +68,14 @@ public class DatabaseModificationController {
         employeesMethod.addEmployee(employee);
     }
 
+    public void editEmployee(Employee employee) {
+        employeesMethod.editEmployee(employee);
+    }
+
+    public void deleteEmployee(String username) {
+        employeesMethod.deleteEmployee(username);
+    }
+
     //Service Request Modification
     public void addServiceRequest(ServiceRequest serviceRequest){
         serviceRequestsMethod.addServiceRequest(serviceRequest);
