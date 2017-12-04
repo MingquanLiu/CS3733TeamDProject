@@ -314,7 +314,7 @@ public class TestingController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
-        Building hospital = new Building("hospial");
+        Building hospital = new Building("hospital");
         hospital.addAllFloors(basicFloors);
 
         floors.addAll(hospital.getFloors());
@@ -480,26 +480,15 @@ public class TestingController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-
         stage.showAndWait();
-        loader.<NewBuilding>getController().getBldg();
+        Building newBld  = loader.<NewBuilding>getController().getBldg();
+        buildings.add(newBld);
+        ObservableList bldgs = comboBuilding.getItems();
+        bldgs.add(newBld);
+        comboBuilding.setItems(bldgs);
+        setBuilding(newBld);
     }
     public void mapChange(ActionEvent e){
-        String newFloorString = currentFloor.getFloorName();
-        if(e.getSource() == comboFloors){
-            newFloorString = comboFloors.getValue().toString();
-            for(Floor fl:floors){
-                if(fl.getFloorName().equals(newFloorString)){
-                    floor = floors.indexOf(fl);
-                }
-            }
-        }
-        else if(e.getSource() == btnMapUp && floor < floors.size()){
-            floor ++;
-        }
-        else if(e.getSource() == btnMapDwn && floor > 0){
-            floor --;
-        }
         setFloor();
     }
 
@@ -514,6 +503,7 @@ public class TestingController implements Initializable {
         floorList.addAll(floors);
         comboFloors.setItems(floorList);
         comboFloors.setValue(floorList.get(0));
+        setFloor(newBld.getFloors().get(0));
     }
 
     public void setFloor(Floor newFloor){
@@ -524,7 +514,7 @@ public class TestingController implements Initializable {
     }
     public void setFloor(){
         currentFloor = (Floor)(comboFloors.getValue());
-
+        floor = floors.indexOf(currentFloor) - 2;
         String newUrl = currentFloor.getImgUrl();
         System.out.println("new image: " + newUrl);
 
@@ -548,7 +538,7 @@ public class TestingController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloor(floor + "");
+        List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor));
         NodeData mClickedNode= getClosestNode(nodes,x,y);
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected
@@ -608,8 +598,8 @@ public class TestingController implements Initializable {
         controlsTransition.play();
         paneControls.setVisible(controlsVisible);
 
-        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
-        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
+        //controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
+        //controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
     }
     private void setBurgerFalse(){
         burgerTransition.setRate(burgerTransition.getRate()*-1);

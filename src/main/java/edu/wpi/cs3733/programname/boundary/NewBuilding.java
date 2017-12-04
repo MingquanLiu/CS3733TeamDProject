@@ -98,9 +98,10 @@ public class NewBuilding {
                 if (!buildingName.getText().equals("")) {
                     try {
                         String relPath = "src\\main\\resources\\img\\";
+                        //String relPath = "/img/";
                         String buildName = buildingName.getText() + "." + extension;
-                        filepath = relPath+buildName;
-                        File file = new File(filepath);
+                        filepath = "\\img\\"+buildName;
+                        File file = new File(relPath+buildName);
                         copyFile(selectedFile, file);
                     } catch (Exception e) {
                         e.printStackTrace();
