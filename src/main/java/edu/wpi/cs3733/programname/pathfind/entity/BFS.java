@@ -11,14 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BFS implements PathfindingStrategy {
-    List<NodeData> allNodes;
-    List<EdgeData> allEdges;
-
-    // We need a HashMap so we can access StarNodes via the corresponding nodeID
-    HashMap<String, StarNode> allStarNodes = new HashMap<>();
-    List<NodeData> finalList;
-
+public class BFS extends PathfindingStrategyTemplate {
     /**
      * constructor for AStar
      * @param nodes list of nodes
@@ -29,40 +22,15 @@ public class BFS implements PathfindingStrategy {
     public BFS(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
         this.allEdges = edges;
         this.allNodes = nodes;
-        this.init();
-        this.finalList = this.pathFind(startID, goalID);
-    }
-
-    // Call to update the whole list of StarNodes
-
-    /**
-     * initializes A*
-     */
-    private void init() {
-        System.out.println("Initializing A*");
-        for (NodeData node : allNodes) {
-            // Creates the StarNodes
-            allStarNodes.put(node.getNodeID(), new StarNode(node));
-        }
-
-        for (EdgeData edge : allEdges) {
-            StarNode node1 = allStarNodes.get(edge.getStartNode());
-            StarNode node2 = allStarNodes.get(edge.getEndNode());
-
-            node1.addNeighbor(node2);
-            node2.addNeighbor(node1);
-        }
-
+        this.startID = startID;
+        this.goalID = goalID;
     }
 
     /**
      * calculates path from start to finish
-     * @param startID starting location
-     * @param goalID end location
      * @return list of nodes that make up the path
      */
-    private List<NodeData> pathFind(String startID, String goalID) throws NoPathException {
-        // TODO: Throw a "No such node" exception
+    List<NodeData> pathFind() throws NoPathException {
         StarNode start = allStarNodes.get(startID);
         StarNode goal = allStarNodes.get(goalID);
 
@@ -106,9 +74,4 @@ public class BFS implements PathfindingStrategy {
         }
         throw new NoPathException(start.getLongName(), goal.getLongName());
     }
-
-    public List<NodeData> getFinalList() {
-        return finalList;
-    }
-
 }

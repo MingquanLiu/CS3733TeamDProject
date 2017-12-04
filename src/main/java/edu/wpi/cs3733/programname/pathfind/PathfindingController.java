@@ -15,7 +15,7 @@ public class PathfindingController {
     private PathfindingStrategyTemplate pathFinder;
 
     /**
-     * Takes in the starting and ending locations, and calls PathFinderFacade to find the path between them
+     * Takes in the starting and ending locations, and calls PathFindingStrategyTemplate to find the path between them
      * currently also takes linkedlists for nodedata and edges
      *
      * @param allNodes  - the list of all nodes
@@ -29,25 +29,27 @@ public class PathfindingController {
             throws InvalidNodeException {
 
         try {
-            PathFinderFacade pathFind = new PathFinderFacade(allNodes, allEdges, startNode, endNode);
 
             List<NodeData> finalPath = new LinkedList<NodeData>();
 
             if (type == searchType.ASTAR) {
-                pathFinder = new AStarTemp(allNodes, allEdges, startNode, endNode);
+                pathFinder = new AStar(allNodes, allEdges, startNode, endNode);
                 finalPath.addAll(pathFinder.getFinalList());
             } else if (type == searchType.DFS) {
-                finalPath.addAll(pathFind.findDfsPath());
+                pathFinder = new DFS(allNodes, allEdges, startNode, endNode);
+                finalPath.addAll(pathFinder.getFinalList());
             } else if (type == searchType.BFS) {
-                finalPath.addAll(pathFind.findBfsPath());
+                pathFinder = new BFS(allNodes, allEdges, startNode, endNode);
+                finalPath.addAll(pathFinder.getFinalList());
             } else if (type == searchType.DIJKSTRA) {
-                finalPath.addAll(pathFind.findDijkstraPath());
+                pathFinder = new Dijkstra(allNodes, allEdges, startNode, endNode);
+                finalPath.addAll(pathFinder.getFinalList());
             }
             return finalPath;
         } catch (NoPathException npe) {
             System.out.println(npe.fillInStackTrace());
+            return null;
         }
-        return null;
     }
 
     // if the pathfinding needs to make handicapped path, remove all the stairs

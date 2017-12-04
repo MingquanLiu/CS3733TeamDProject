@@ -10,64 +10,25 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.*;
 
-public class AStar implements PathfindingStrategy {
-    List<NodeData> allNodes;
-    List<EdgeData> allEdges;
+public class AStar extends PathfindingStrategyTemplate {
 
-    // We need a HashMap so we can access StarNodes via the corresponding nodeID
-    HashMap<String, StarNode> allStarNodes = new HashMap<>();
-    List<NodeData> finalList;
-
-    /**
-     * constructor for AStar
-     * @param nodes list of nodes
-     * @param edges list of edges
-     * @param startID starting location
-     * @param goalID destination location
-     */
-    public AStar(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
-        this.allEdges = edges;
-        this.allNodes = nodes;
-        this.init();
-        this.finalList = this.pathFind(startID, goalID);
+    public AStar(List<NodeData> allNodes, List<EdgeData> allEdges, String startID, String goalID) {
+        this.allNodes = allNodes;
+        this.allEdges = allEdges;
+        this.startID = startID;
+        this.goalID = goalID;
     }
-
-    // Call to update the whole list of StarNodes
-
-    /**
-     * initializes A*
-     */
-    private void init() {
-        System.out.println("Initializing A*");
-
-        for(NodeData node: allNodes) {
-            // Creates the StarNodes
-            allStarNodes.put(node.getNodeID(), new StarNode(node));
-        }
-
-        for(EdgeData edge: allEdges) {
-
-            StarNode node1 = allStarNodes.get(edge.getStartNode());
-            StarNode node2 = allStarNodes.get(edge.getEndNode());
-
-            node1.addNeighbor(node2);
-            node2.addNeighbor(node1);
-        }
-
-    }
-
 
     /**
      * calculates path from start to finish
-     * @param startID starting location
-     * @param goalID end location
      * @return list of nodes that make up the path
      */
-    private List<NodeData> pathFind(String startID, String goalID) throws NoPathException {
+    @Override
+    List<NodeData> pathFind() throws NoPathException {
 
         System.out.println("Starting A*");
-        StarNode start = allStarNodes.get(startID);
-        StarNode goal = allStarNodes.get(goalID);
+        StarNode start = allStarNodes.get(this.startID);
+        StarNode goal = allStarNodes.get(this.goalID);
 
         //list of all the nodes that are adjacent to nodes already explored
         LinkedList<StarNode> frontier = new LinkedList<StarNode>();
@@ -182,9 +143,6 @@ public class AStar implements PathfindingStrategy {
         return distToGo;
     }
 
-    public List<NodeData> getFinalList() {
-        return finalList;
-    }
 
     private int listContainsId(LinkedList<StarNode> listOfNodes, StarNode node) {
         for(int i = 0; i < listOfNodes.size(); i++) {

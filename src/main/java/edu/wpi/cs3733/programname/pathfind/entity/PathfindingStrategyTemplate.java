@@ -1,11 +1,9 @@
 package edu.wpi.cs3733.programname.pathfind.entity;
 
-import com.sun.org.apache.bcel.internal.generic.NOP;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class PathfindingStrategyTemplate {

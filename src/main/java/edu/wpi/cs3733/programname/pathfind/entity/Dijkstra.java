@@ -5,13 +5,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.*;
 
-public class Dijkstra implements PathfindingStrategy {
-    List<NodeData> allNodes;
-    List<EdgeData> allEdges;
-
-    // We need a HashMap so we can access StarNodes via the corresponding nodeID
-    HashMap<String, StarNode> allStarNodes = new HashMap<>();
-    List<NodeData> finalList;
+public class Dijkstra extends PathfindingStrategyTemplate {
 
     /**
      * constructor for Dijkstra's algorithm
@@ -23,39 +17,17 @@ public class Dijkstra implements PathfindingStrategy {
     public Dijkstra(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
         this.allEdges = edges;
         this.allNodes = nodes;
-        this.init();
-        this.finalList = this.pathFind(startID, goalID);
-    }
-
-    /**
-     * initializes Dijkstra's algorithm
-     */
-    private void init() {
-        System.out.println("Initializing A*");
-        for (NodeData node : allNodes) {
-            // Creates the StarNodes
-            allStarNodes.put(node.getNodeID(), new StarNode(node));
-            allStarNodes.get(node.getNodeID()).setF(10000);
-        }
-
-        for (EdgeData edge : allEdges) {
-            StarNode node1 = allStarNodes.get(edge.getStartNode());
-            StarNode node2 = allStarNodes.get(edge.getEndNode());
-
-            node1.addNeighbor(node2);
-            node2.addNeighbor(node1);
-        }
+        this.startID = startID;
+        this.goalID = goalID;
     }
 
     /**
      * calculates path from start to finish
-     * @param startID starting location
-     * @param goalID end location
      * @return list of nodes that make up the path
      */
-    private List<NodeData> pathFind(String startID, String goalID) throws NoPathException {
-        StarNode start = allStarNodes.get(startID);
-        StarNode goal = allStarNodes.get(goalID);
+    List<NodeData> pathFind() throws NoPathException {
+        StarNode start = allStarNodes.get(this.startID);
+        StarNode goal = allStarNodes.get(this.goalID);
 
         //list of all the nodes that are adjacent to nodes already explored
         LinkedList<StarNode> queue = new LinkedList<StarNode>();
@@ -114,10 +86,6 @@ public class Dijkstra implements PathfindingStrategy {
         double yDist = goal.getYCoord() - node.getYCoord();
         double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
         return distToGo;
-    }
-
-    public List<NodeData> getFinalList() {
-        return finalList;
     }
 
 }
