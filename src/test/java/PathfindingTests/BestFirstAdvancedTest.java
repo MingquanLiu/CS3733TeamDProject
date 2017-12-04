@@ -3,7 +3,7 @@ package PathfindingTests;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.pathfind.entity.BFS;
+import edu.wpi.cs3733.programname.pathfind.entity.Best;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
 import org.junit.Assert;
@@ -58,41 +58,41 @@ public class BestFirstAdvancedTest {
     @Test
     // This is a basic test to get from point 1 to point 2 along one edge
     public void StraightPath() throws NoPathException {
-        BFS Path = new BFS(allNodes, allEdges,"1", "2");
+        Best Path = new Best(allNodes, allEdges,"1", "2");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star2, star1));
-        List<NodeData> BFSReturn = Path.getFinalList();
-        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
-                BFSReturn.get(i).getNodeID());
+        List<NodeData> BestReturn = Path.getFinalList();
+        for(int i = 0; i < BestReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+                BestReturn.get(i).getNodeID());
     }
 
     @Test
     // Now let's try to get from Node 3 to Node 1. There are 3 legal paths but only one ideal path
     public void IntermedPath() throws NoPathException {
-        BFS Path = new BFS(allNodes, allEdges,"3", "1");
+        Best Path = new Best(allNodes, allEdges,"3", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3));
-        List<NodeData> BFSReturn = Path.getFinalList();
-        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
-                BFSReturn.get(i).getNodeID());
+        List<NodeData> BestReturn = Path.getFinalList();
+        for(int i = 0; i < BestReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+                BestReturn.get(i).getNodeID());
     }
 
     @Test
     // Let's start at the far end of the tree and try to get to the first node
     public void LongPath() throws NoPathException {
-        BFS Path = new BFS(allNodes, allEdges,"6", "1");
+        Best Path = new Best(allNodes, allEdges,"6", "1");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star1, star2, star3, star6));
-        List<NodeData> BFSReturn = Path.getFinalList();
-        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
-                BFSReturn.get(i).getNodeID());
+        List<NodeData> BestReturn = Path.getFinalList();
+        for(int i = 0; i < BestReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+                BestReturn.get(i).getNodeID());
     }
 
     @Test
     // Trying to travel around the C part of the hallway
     public void CPath() throws NoPathException {
-        BFS Path = new BFS(allNodes, allEdges,"1", "7");
+        Best Path = new Best(allNodes, allEdges,"1", "7");
         LinkedList<StarNode> finalOrder = new LinkedList<StarNode>(Arrays.asList(star7, star4, star2, star1));
-        List<NodeData> BFSReturn = Path.getFinalList();
-        for(int i = 0; i < BFSReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
-                BFSReturn.get(i).getNodeID());
+        List<NodeData> BestReturn = Path.getFinalList();
+        for(int i = 0; i < BestReturn.size(); i++) Assert.assertEquals(finalOrder.get(i).getNodeID(),
+                BestReturn.get(i).getNodeID());
     }
 }
 
