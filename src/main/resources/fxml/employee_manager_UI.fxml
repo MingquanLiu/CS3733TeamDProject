@@ -92,7 +92,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="canceledit" layoutX="430.0" layoutY="361.0" onAction="#cancelEdit" text="Cancel edit" visible="false">
+      <JFXButton fx:id="canceledit" layoutX="507.0" layoutY="361.0" onAction="#cancelEdit" text="Cancel edit" visible="false">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
