@@ -257,6 +257,8 @@ public class EmployeeManager {
 
     @FXML
     private void openSkillsWindow(ActionEvent Event) throws IOException {
+        Employee employee = employeetable.getSelectionModel().getSelectedItem();
+        String username = employee.getUsername();
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/employeeSkillsPopup.fxml"
