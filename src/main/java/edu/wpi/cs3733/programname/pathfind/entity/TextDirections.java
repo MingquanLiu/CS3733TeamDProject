@@ -8,7 +8,7 @@ import java.util.List;
 public class TextDirections {
 
     List<NodeData> nodeList;
-    String directions;
+    String directions, prettyDirections;
 
     /**
      * The constructor for this class generates the text directions--call getTextDirections() to return them
@@ -69,13 +69,18 @@ public class TextDirections {
                     else if(Math.abs(directionChange) > 25) {
                         directions += "\nTake the next " + face + " to continue down the hall";
                     }
+                    else directions += "\nContinue straight down the hall";
                     break;
                 default:
                     directions += "\nContinue " + face + " past " + name;
                     break;
             }
         }
-        directions += "\nYou have arrived at " + nodeList.get(nodeList.size()-1).getLongName();
+        directions += "\nContinue until you arrive at " + nodeList.get(nodeList.size()-1).getLongName();
+        String[] lines = this.directions.split("\\r?\\n");
+        for(int i = 0; i < lines.length; i++) {
+            prettyDirections += "\n" + (i + 1) + ". " + lines[i];
+        }
     }
 
     /**
@@ -108,7 +113,7 @@ public class TextDirections {
      * @return: a block of text in a String with the directions from the start to the goal
      */
     public String getTextDirections() {
-        return this.directions;
+        return this.prettyDirections;
     }
 
     /**
