@@ -8,7 +8,6 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import javafx.animation.FadeTransition;
@@ -173,7 +172,6 @@ public class MapAdminController implements Initializable {
 
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
-    private DBConnection dbConnection;
     private EdgeData mEdge;
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -182,10 +180,10 @@ public class MapAdminController implements Initializable {
         this.mTestController = testController;
     }
 
-    public void initData(DBConnection dbConnection){
+    public void initManager(ManageController manageController){
         currentMapRatioIndex =originalMapRatioIndex;
 //        mapRatio.add(0.24);
-        manager = new ManageController(dbConnection);
+        manager = manageController;
         mapRatio.add(0.318);
         mapRatio.add(0.35);
         mapRatio.add(0.39);
