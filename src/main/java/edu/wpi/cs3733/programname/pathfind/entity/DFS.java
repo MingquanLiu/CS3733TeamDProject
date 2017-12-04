@@ -33,15 +33,8 @@ public class DFS extends PathfindingStrategyTemplate {
      * @return list of nodes that make up the path
      */
     List<NodeData> pathFind() throws NoPathException {
-        StarNode start = allStarNodes.get(this.startID);
-        StarNode goal = allStarNodes.get(this.goalID);
-
-        //list of all the nodes that are adjacent to nodes already explored
-        LinkedList<StarNode> frontier = new LinkedList<StarNode>();
-
-        //list of all the nodes in the path from start to finish
-        LinkedList<NodeData> finalPath = new LinkedList<NodeData>();
-
+        System.out.println("Starting DFS");
+        
         frontier.add(start);
 
         while (!frontier.isEmpty()) {
@@ -52,13 +45,13 @@ public class DFS extends PathfindingStrategyTemplate {
                 // If we are at the goal, we need to backtrack through the shortest path
                 System.out.println("At target!");
                 System.out.println(current.getNodeID());
-                finalPath.add(current); // we have to add the goal to the path before we start backtracking
+                finalList.add(current); // we have to add the goal to the path before we start backtracking
                 while (!(current.getXCoord() == start.getXCoord() && current.getYCoord() == start.getYCoord())) {
-                    finalPath.add(current.getPreviousNode());
+                    finalList.add(current.getPreviousNode());
                     current = current.getPreviousNode();
                     System.out.println(current.getNodeID());
                 }
-                return finalPath;
+                return finalList;
             } else {
                 // we need to get all the neighbor nodes, identify their costs, and put them into the queue
                 LinkedList<StarNode> neighbors = current.getNeighbors();

@@ -4,14 +4,17 @@ import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class PathfindingStrategyTemplate {
     List<NodeData> allNodes;
     List<EdgeData> allEdges;
-    List<NodeData> finalList;
+    List<NodeData> finalList = new LinkedList<>();
+    LinkedList<StarNode> frontier = new LinkedList<StarNode>();
     HashMap<String, StarNode> allStarNodes = new HashMap<>();
     String startID, goalID;
+    StarNode start, goal;
 
     void init() {
         System.out.println("Initializing Path Finder");
@@ -26,6 +29,9 @@ public abstract class PathfindingStrategyTemplate {
             node1.addNeighbor(node2);
             node2.addNeighbor(node1);
         }
+
+        this.start = allStarNodes.get(this.startID);
+        this.goal = allStarNodes.get(this.goalID);
     }
 
     abstract List<NodeData> pathFind() throws NoPathException;
