@@ -52,6 +52,7 @@ public class Beam extends PathfindingStrategyTemplate {
                         frontier.add(newnode);
                     }
                 }
+                // this list will be sorted to figure out which nodes to remove
                 LinkedList<StarNode> sortList = new LinkedList<>(frontier);
                 Collections.sort(sortList);
                 if(frontier.size() > 3) {
