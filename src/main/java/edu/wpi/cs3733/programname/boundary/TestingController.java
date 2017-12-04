@@ -78,9 +78,9 @@ public class TestingController implements Initializable {
     @FXML
     private JFXButton btnMapDwn;
     @FXML
-    private Label lblCurrentFloor;
-    @FXML
     private ComboBox comboFloors;
+    @FXML
+    private ComboBox comboBuilding;
     private int floor = 2;
     private ArrayList<Floor> floors = new ArrayList<>();
     private Floor currentFloor;
@@ -467,96 +467,7 @@ public class TestingController implements Initializable {
         Image newImg = new Image(file.toString());
         imgMap.setImage(newImg);
     }
-    /*
-    public void mapChange(ActionEvent e){
-        System.out.println("switching floor");
-        if(e.getSource() == comboFloors) {
-            String floorString = comboFloors.getValue().toString();
-            String newFloorString = floorString;
-            switch (floorString) {
-                case "Basement 2":
-                    floor = -2;
-                    break;
-                case "Basement 1":
-                    floor = -1;
-                    break;
-                case "Ground":
-                    floor = 0;
-                    break;
-                case "Floor 1":
-                    floor = 1;
-                    break;
-                case "Floor 2":
-                    floor = 2;
-                    break;
-                case "Floor 3":
-                    floor = 3;
-                    break;
-            }
-            comboFloors.setValue(newFloorString);
-        }
-        else if(e.getSource() == btnMapUp && floor < 3){
-            floor ++;
-            System.out.println("up to floor" + floor);
-            setFloor();
-            clearNodes();
-            if(currentPath != null) {
-                if(!currentPath.isEmpty()) {
-                    displayPath(currentPath);
-                }
-            }
-            nodeInfoPane.setVisible(false);
-        }
-        else if (e.getSource() == btnMapDwn && floor > -2){
-            floor --;
-            System.out.println("down to floor" + floor);
-            setFloor();
-            clearNodes();
-            if(currentPath != null) {
-                if(!currentPath.isEmpty()) {
-                    displayPath(currentPath);
-                }
-            }
-            nodeInfoPane.setVisible(false);
-        }
-        setFloor();
-    }
-    private void setFloor(){
 
-
-
-        String newUrl = "img/" + "Floor_" + floor + ".png";
-        System.out.println("new image: " + newUrl);
-
-        File file = new File(newUrl);
-        System.out.println("current map: " + file.toString());
-        Image newImg = new Image(file.toString());
-        imgMap.setImage(newImg);
-
-        String floorName = comboFloors.getValue().toString();
-        switch(floor){
-            case -2:
-                floorName = "Basement 2";
-                break;
-            case -1:
-                floorName = "Basement 1";
-                break;
-            case 0:
-                floorName = "Ground";
-                break;
-            case 1:
-                floorName = "Floor 1";
-                break;
-            case 2:
-                floorName = "Floor 2";
-                break;
-            case 3:
-                floorName = "Floor 3";
-        }
-        comboFloors.setValue(floorName);
-
-    }
-    */
     public void showMouseCoords(MouseEvent e){
         System.out.println(e.getX() + ", " + e.getY());
     }

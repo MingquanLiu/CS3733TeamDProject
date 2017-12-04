@@ -302,6 +302,11 @@
             </AnchorPane>
         </content>
       </TitledPane>
+      <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0">
+         <children>
+            <JFXComboBox fx:id="comboBuilding" layoutX="32.0" layoutY="43.0" />
+         </children>
+      </AnchorPane>
 
     </children>
 </AnchorPane>
