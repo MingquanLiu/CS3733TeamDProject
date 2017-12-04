@@ -9,13 +9,18 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class EmployeeManager {
 
@@ -91,6 +96,9 @@ public class EmployeeManager {
     private JFXButton edit;
 
     @FXML
+    private JFXButton btnSkills;
+
+    @FXML
     private JFXButton canceledit;
 
     @FXML
@@ -123,6 +131,7 @@ public class EmployeeManager {
             else {
                 newusername.setDisable(false);
                 canceledit.setVisible(false);
+                btnSkills.setVisible(false);
                 add.setText("Add employee");
                 passerror.setVisible(false);
                 String username = newusername.getText();
@@ -203,6 +212,7 @@ public class EmployeeManager {
     private void showedit(ActionEvent event) {
         edit.setVisible(false);
         canceledit.setVisible(true);
+        btnSkills.setVisible(true);
         Employee employee = employeetable.getSelectionModel().getSelectedItem();
         newusername.setText(employee.getUsername());
         newusername.setDisable(true);
@@ -222,6 +232,7 @@ public class EmployeeManager {
     @FXML
     private void cancelEdit(ActionEvent event) {
         canceledit.setVisible(false);
+        btnSkills.setVisible(false);
         employeetable.getSelectionModel().clearSelection();
         addlabel.setText("Add a new employee");
         add.setText("Add employee");
@@ -242,6 +253,22 @@ public class EmployeeManager {
         Stage stage = (Stage) close.getScene().getWindow();
         changessaved.setVisible(false);
         stage.close();
+    }
+
+    @FXML
+    private void openSkillsWindow(ActionEvent Event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employeeSkillsPopup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
     }
 
     public void initManager(ManageController manageController){

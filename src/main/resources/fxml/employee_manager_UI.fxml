@@ -97,5 +97,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <JFXButton fx:id="btnSkills" layoutX="400.0" layoutY="361.0" onAction="#openSkillsWindow" text="Edit skills" visible="false">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>
