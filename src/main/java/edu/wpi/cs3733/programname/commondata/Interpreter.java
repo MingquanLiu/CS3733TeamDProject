@@ -1,19 +1,25 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import java.util.ArrayList;
+
 public class Interpreter extends Employee{
-    String language;
+    ArrayList<String> languages;
 
-    public Interpreter(String username, String password, String firstName, String middleName, String lastName, boolean sysAdmin, String serviceType, String email, String language) {
+    public Interpreter(String username, String password, String firstName, String middleName, String lastName,
+                       boolean sysAdmin, String serviceType, String email, ArrayList<String> languages) {
         super(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
-        this.language = language;
+        this.languages = languages;
     }
 
-    public String getLanguage() {
-        return language;
+    public ArrayList<String> getLanguages() {
+        return languages;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setLanguages(ArrayList<String> languages) {
+        this.languages = languages;
+    }
+    public void addLanguage(String language){
+        this.languages.add(language);
     }
 
     public Employee toEmployee(){
@@ -37,13 +43,13 @@ public class Interpreter extends Employee{
 
         Interpreter that = (Interpreter) o;
 
-        return getLanguage() != null ? getLanguage().equals(that.getLanguage()) : that.getLanguage() == null;
+        return getLanguages() != null ? getLanguages().equals(that.getLanguages()) : that.getLanguages() == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (getLanguage() != null ? getLanguage().hashCode() : 0);
+        result = 31 * result + (getLanguages() != null ? getLanguages().hashCode() : 0);
         return result;
     }
 }

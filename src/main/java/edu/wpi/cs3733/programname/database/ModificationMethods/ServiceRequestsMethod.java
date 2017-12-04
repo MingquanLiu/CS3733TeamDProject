@@ -44,6 +44,23 @@ public class ServiceRequestsMethod {
         }
     }
 
+    // mark a service request as unhandled
+    public void unhandleServiceRequest(ServiceRequest serviceRequest) {
+        int serviceID = serviceRequest.getServiceID();
+        String str;
+        try {
+            str = "update ServiceRequests set handleTime = '', status = 'unhandled', receiver = '' where serviceID = " + serviceID ;
+            System.out.println(str);
+            dbConnection.executeUpdate(str);
+            this.wrt.writeServiceRequests(dbConnection.getConnection());
+
+        } catch (SQLException e) {
+            System.out.println("Unhandle Service Request Failed!");
+            e.printStackTrace();
+        }
+    }
+
+
     // mark a service request as handled
     public void handleServiceRequest(ServiceRequest serviceRequest, String receiver) {
         int serviceID = serviceRequest.getServiceID();

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
+import edu.wpi.cs3733.programname.commondata.Interpreter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.commondata.Employee;
 
@@ -10,8 +11,10 @@ import java.util.ArrayList;
 
 public class EmployeesQuery {
     private DBConnection dbConnection;
+    private InterpreterQuery interpreterQuery;
     public EmployeesQuery(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
+        this.interpreterQuery = new InterpreterQuery(dbConnection);
     }
 
     public ArrayList<Employee> queryAllEmployees(){
@@ -19,6 +22,7 @@ public class EmployeesQuery {
         ArrayList<Employee> group = new ArrayList<Employee>();
         try {
             String sql = "SELECT * FROM Employees";
+
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String username;
@@ -40,7 +44,14 @@ public class EmployeesQuery {
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                if(serviceType=="interpreter"){
+                    ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
+                    queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
+                }
+                else{
+                    queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                }
+                //queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
                 group.add(queryResult);
             }
         } catch (SQLException e) {

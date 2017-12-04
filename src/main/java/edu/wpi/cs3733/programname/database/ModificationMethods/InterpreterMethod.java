@@ -5,6 +5,7 @@ import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class InterpreterMethod {
     private DBConnection dbConnection;
@@ -17,7 +18,15 @@ public class InterpreterMethod {
 
     public void addInterpreter(Interpreter employee){
         String username = employee.getUsername();
-        String language = employee.getLanguage();
+        ArrayList<String> languages = employee.getLanguages();
+        String str;
+        for(String language: languages){
+            this.addInterpreterLanguage(employee,language);
+        }
+    }
+
+    public void addInterpreterLanguage(Interpreter employee, String language){
+        String username = employee.getUsername();
         String str;
         try {
             str = "insert into InterpreterSkills values('" + username + "','" + language + "')";
@@ -25,23 +34,25 @@ public class InterpreterMethod {
             dbConnection.executeUpdate(str);
             this.wrt.writeInterpreterSkills(dbConnection.getConnection());
         } catch (SQLException e) {
-            System.out.println("Insert Interpreter Employee Failed!");
+            System.out.println("Insert Interpreter Skill Failed!");
             e.printStackTrace();
         }
     }
 
     public void deleteInterpreter(Interpreter employee){
         String username = employee.getUsername();
-        String language = employee.getLanguage();
+        ArrayList<String> languages = employee.getLanguages();
         String str;
-        try {
-            str = "DELETE FROM InterpreterSkills WHERE username = '" + username + "' and language ='" +language+ "'";
-            System.out.println(str);
-            dbConnection.executeUpdate(str);
-            this.wrt.writeNodes(dbConnection.getConnection());
-        } catch (SQLException e) {
-            System.out.println("Delete InterpreterSkills Failed!");
-            e.printStackTrace();
+        for(String language: languages){
+            try {
+                str = "DELETE FROM InterpreterSkills WHERE username = '" + username + "' and language ='" +language+ "'";
+                System.out.println(str);
+                dbConnection.executeUpdate(str);
+                this.wrt.writeNodes(dbConnection.getConnection());
+            } catch (SQLException e) {
+                System.out.println("Delete Interpreter Skills Failed!");
+                e.printStackTrace();
+            }
         }
     }
 }
