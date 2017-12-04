@@ -1,4 +1,4 @@
-group 'HospitalProject'
+group 'CS3733TeamD'
 
 apply plugin: 'java'
 apply plugin: 'idea'
