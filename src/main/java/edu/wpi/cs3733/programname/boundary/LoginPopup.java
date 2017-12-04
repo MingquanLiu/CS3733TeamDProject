@@ -4,8 +4,10 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import edu.wpi.cs3733.programname.ManageController;
+import javafx.stage.Stage;
 
 public class LoginPopup {
     @FXML
@@ -34,6 +36,12 @@ public class LoginPopup {
                 System.out.println("login failed");
                 txtPass.setText("");
                 txtUser.setText("");
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Login Failed");
+                alert.setContentText("Incorrect username or password");
+                alert.showAndWait();
             }
         }
         else{
@@ -48,4 +56,12 @@ public class LoginPopup {
         System.out.println("init For Login");
         manager = manageController;
     }
+
+    @FXML
+    private void closeButtonAction(){
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
+        stage.close();
+    }
+
+
 }
