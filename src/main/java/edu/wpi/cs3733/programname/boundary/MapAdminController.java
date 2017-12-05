@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -130,6 +131,10 @@ public class MapAdminController implements Initializable {
     private JFXButton nodeInfoDelete;
     @FXML
     private JFXButton nodeInfoX;
+
+    //button to return to main
+    @FXML
+    JFXButton returnMain;
 
     @FXML
     private AnchorPane editEdgePane;
@@ -653,6 +658,16 @@ public class MapAdminController implements Initializable {
             clearNodes2();
             showNodeList2(mNodes);
             System.out.println(currentScale);
+        }
+    }
+
+    public void returnToMain (ActionEvent event){
+        Object mEvent = event.getSource();
+        if(mEvent == returnMain){
+            // get a handle to the stage
+            Stage stage = (Stage) returnMain.getScene().getWindow();
+            // do what you have to do
+            stage.close();
         }
     }
     private int UICToDBC(int value, double scale){
