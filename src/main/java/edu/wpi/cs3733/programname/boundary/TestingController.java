@@ -83,6 +83,8 @@ public class TestingController implements Initializable {
     private ComboBox comboBuilding;
     @FXML
     private ImageView imgMap;
+    @FXML
+    private  Button btnFloorAdd;
     //</editor-fold>
 
     //<editor-fold desc="zoom and pan objects">
@@ -472,6 +474,24 @@ public class TestingController implements Initializable {
     }
 
     //map switching methods
+    public void addFloor()throws IOException{
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/newFloor.fxml"
+                ));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.showAndWait();
+        Floor newFloor = loader.<NewFloor>getController().getFloor();
+        floors.add(newFloor);
+        ObservableList fls = comboFloors.getItems();
+        fls.add(newFloor);
+        comboFloors.setItems(fls);
+    }
     public void addBuilding() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(

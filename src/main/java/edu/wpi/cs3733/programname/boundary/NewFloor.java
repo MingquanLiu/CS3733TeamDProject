@@ -16,7 +16,7 @@ public class NewFloor {
     @FXML
     private TextField buildingName;
     @FXML
-    private TextField floorNum;
+    private TextField floorName;
 
     @FXML
     private Label imageName;
@@ -31,6 +31,8 @@ public class NewFloor {
     private JFXButton btnCancel;
 
     File selectedFile;
+
+    private Floor floor;
 
     private static void configureFileChooser(final FileChooser fileChooser) {
         fileChooser.getExtensionFilters().addAll(
@@ -61,10 +63,11 @@ public class NewFloor {
                 if (!buildingName.getText().equals("")) {
                     try {
                         String relPath = "src\\main\\resources\\img\\";
-                        String buildName = buildingName.getText() + floorNum.getText() + "." + extension;
+                        String buildName = buildingName.getText() + floorName.getText() + "." + extension;
                         File file = new File(relPath + buildName);
                         copyFile(selectedFile, file);
                         System.out.println("");
+                        floor = new Floor(floorName.getText(), buildingName.getText(), "img/"+buildName);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -109,4 +112,7 @@ public class NewFloor {
         }
     }
 
+    public Floor getFloor(){
+        return floor;
+    }
 }
