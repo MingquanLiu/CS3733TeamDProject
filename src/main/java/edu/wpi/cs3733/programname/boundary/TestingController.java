@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
@@ -14,12 +15,15 @@ import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import javafx.animation.FadeTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,10 +31,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -206,6 +207,31 @@ public class TestingController implements Initializable {
     private Label txtAreaDirections;
     //</editor-fold>
 
+    //items for key locations fancy feature
+    @FXML
+    private TitledPane keyLocation;
+    @FXML
+    private JFXCheckBox locateBathrooms;
+    @FXML
+    private JFXCheckBox locateServiceDesks;
+    @FXML
+    private JFXCheckBox locateRetailServices;
+    @FXML
+    private JFXCheckBox locateWaitingRooms;
+    @FXML
+    private JFXCheckBox locateElevators;
+    @FXML
+    private JFXCheckBox locateExits;
+    @FXML
+    private JFXCheckBox locateStaircases;
+    @FXML
+    private JFXCheckBox locateLabs;
+    @FXML
+    private JFXCheckBox locateAdditionalServices;
+
+
+
+    // Handicapped checkbox
     //<editor-fold desc="handicapped">
     @FXML
     private CheckBox handicap;
@@ -334,6 +360,55 @@ public class TestingController implements Initializable {
 
         setBuilding(hospital);
         setFloor(ground);
+
+
+        //create big grid
+        GridPane bigGrid = new GridPane();
+
+
+        //create titled pane
+        VBox content = new VBox();
+
+        bigGrid.add(content, 0, 0);
+
+        //create grid
+        GridPane grid = new GridPane();
+        grid.setVgap(4);
+        grid.setPadding(new Insets(5, 5, 5, 5));
+
+
+
+
+        //add checkboxes to grid
+        grid.add(locateBathrooms, 0, 0);
+        grid.add(locateServiceDesks, 0, 1);
+        grid.add(locateRetailServices, 0, 2);
+        grid.add(locateWaitingRooms, 0, 3);
+        grid.add(locateElevators, 0, 4);
+        grid.add(locateExits, 0, 5);
+        grid.add(locateStaircases, 0, 6);
+        grid.add(locateLabs, 0, 7);
+        grid.add(locateAdditionalServices, 0, 8);
+        keyLocation.setContent(content);
+        keyLocation.setText("TRIALTRIAL");
+        keyLocation.setCollapsible(true);
+        keyLocation.setExpanded(true);
+        System.out.println("Expandable:"+keyLocation.isExpanded());
+        System.out.println("Animated:"+keyLocation.isAnimated());
+        System.out.println("Collapse:"+keyLocation.isCollapsible());
+        keyLocation.expandedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                keyLocation.setLayoutY(1000);
+                System.out.println("Clicked");            }
+        });
+        //add grid to titled pane
+        grid.setLayoutX(10);
+        grid.setLayoutY(10);
+        content.getChildren().add(grid);
+
+        paneControls.setPickOnBounds(false);
+
     }
 
     public void setSearchType(PathfindingController.searchType searchType) {
@@ -835,9 +910,9 @@ public class TestingController implements Initializable {
                 )
         );
         loader.<LoginPopup>getController().initData(dbConnection);
-        stage.show();
-        //loggedIn = loader.<LoginPopup>getController().getLoggedIn();
-        loggedIn = true;
+        stage.showAndWait();
+        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        //loggedIn = true;
         if (loggedIn) {
             logOffNext = true;
             //username = loader.<LoginPopup>getController().getUsername();
