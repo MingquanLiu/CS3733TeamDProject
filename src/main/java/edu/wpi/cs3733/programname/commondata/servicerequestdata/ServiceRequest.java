@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.commondata.ServiceRequest;
+package edu.wpi.cs3733.programname.commondata.servicerequestdata;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;

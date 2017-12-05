@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import edu.wpi.cs3733.programname.commondata.*;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
 
 
 public class CsvReader {

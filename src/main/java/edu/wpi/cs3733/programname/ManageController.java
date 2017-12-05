@@ -2,7 +2,10 @@ package edu.wpi.cs3733.programname;
 
 
 import edu.wpi.cs3733.programname.commondata.*;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
@@ -192,19 +195,21 @@ public class ManageController {
         return transportationRequests;
     }
 
-    public ArrayList<MaintenanceRequest> getMaintenanceRequest(){
+    public ArrayList<MaintenanceRequest> getMaintenanceRequest() {
         ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("maintenance");
         ArrayList<MaintenanceRequest> maintenanceRequests = new ArrayList<MaintenanceRequest>();
-        for(ServiceRequest request: serviceRequests){
+        for (ServiceRequest request : serviceRequests) {
             maintenanceRequests.add((MaintenanceRequest) request);
         }
         return maintenanceRequests;
+    }
+
     public void editEmployee(Employee emp) {
         dbModController.editEmployee(emp);
     }
 
-    public void deleteEmployee(String username) {
-        dbModController.deleteEmployee(username);
+    public void deleteEmployee(Employee emp) {
+        dbModController.deleteEmployee(emp);
     }
 
 

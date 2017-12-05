@@ -1,20 +1,16 @@
 
-import DatabaseTests.DBConnectionTest;
-import com.sun.xml.internal.fastinfoset.tools.PrintTable;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.servicerequest.ServiceRequestController;
-import org.apache.derby.shared.common.error.DerbySQLIntegrityConstraintViolationException;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;

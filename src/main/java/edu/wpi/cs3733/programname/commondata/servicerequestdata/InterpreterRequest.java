@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.commondata.ServiceRequest;
+package edu.wpi.cs3733.programname.commondata.servicerequestdata;
 
 public class InterpreterRequest extends ServiceRequest {
     String language;

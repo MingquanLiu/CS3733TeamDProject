@@ -1,6 +1,6 @@
-package edu.wpi.cs3733.programname.commondata;
+package edu.wpi.cs3733.programname.commondata.servicerequestdata;
 
-public class TransportationRequest extends ServiceRequest{
+public class TransportationRequest extends ServiceRequest {
     String transportType;
     String destination;
     String reservationTime;

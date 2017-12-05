@@ -1,14 +1,13 @@
 package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
 import edu.wpi.cs3733.programname.database.ModificationMethods.*;
-import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
-import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 
-import java.sql.Connection;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.ModificationMethods.EdgesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.EmployeesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
@@ -99,10 +98,6 @@ public class DatabaseModificationController {
 
     public void editEmployee(Employee employee) {
         employeesMethod.editEmployee(employee);
-    }
-
-    public void deleteEmployee(String username) {
-        employeesMethod.deleteEmployee(username);
     }
 
     //Service Request Modification

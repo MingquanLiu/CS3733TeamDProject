@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.programname.database.ModificationMethods;
 
-import edu.wpi.cs3733.programname.commondata.TransportationRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
 import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 
