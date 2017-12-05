@@ -31,7 +31,7 @@
             <Font size="13.0" />
          </font></Label>
       <JFXTextField fx:id="floorName" layoutX="271.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0" />
-        <JFXTextField fx:id="buildingName" layoutX="276.0" layoutY="151.0" prefHeight="35.0" prefWidth="200.0" promptText="..." />
+        <JFXTextField fx:id="buildingName" layoutX="276.0" layoutY="151.0" prefHeight="35.0" prefWidth="200.0" />
       <Label layoutX="142.0" layoutY="126.0" prefHeight="27.0" prefWidth="122.0" text="Floor Name:">
          <font>
             <Font size="18.0" />

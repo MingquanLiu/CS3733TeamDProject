@@ -84,6 +84,8 @@ public class TestingController implements Initializable {
     private ComboBox comboBuilding;
     @FXML
     private ImageView imgMap;
+    @FXML
+    private  Button btnFloorAdd;
     //</editor-fold>
 
     //<editor-fold desc="zoom and pan objects">
@@ -547,6 +549,24 @@ public class TestingController implements Initializable {
     }
 
     //map switching methods
+    public void addFloor()throws IOException{
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/newFloor.fxml"
+                ));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.showAndWait();
+        Floor newFloor = loader.<NewFloor>getController().getFloor();
+        floors.add(newFloor);
+        ObservableList fls = comboFloors.getItems();
+        fls.add(newFloor);
+        comboFloors.setItems(fls);
+    }
     public void addBuilding() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -580,17 +600,13 @@ public class TestingController implements Initializable {
     public void setBuilding() {
         Building newBld = (Building) (comboBuilding.getValue());
         floors = newBld.getFloors();
-        System.out.println("floors: " + floors);
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
         floorList.addAll(floors);
-        System.out.println("floorslist: " + floorList);
+
 //        try {
-            System.out.println("setting items");
-            //comboFloors.setItems(floorList);
-            System.out.println("just set items: " + comboFloors.getItems() + "\nand about to set value");
+            comboFloors.setItems(floorList);
             comboFloors.setValue(floorList.get(0));
-            System.out.println("just set value: " + comboFloors.getValue());
-            //setFloor(newBld.getFloors().get(0));
+            setFloor(newBld.getFloors().get(0));
             setFloor((Floor) floorList.get(0));
 //        } catch (Exception e) {
 //            System.out.println("SCREAM");
@@ -898,9 +914,9 @@ public class TestingController implements Initializable {
                 )
         );
         loader.<LoginPopup>getController().initData(dbConnection);
-        stage.show();
-        //loggedIn = loader.<LoginPopup>getController().getLoggedIn();
-        loggedIn = true;
+        stage.showAndWait();
+        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        //loggedIn = true;
         if (loggedIn) {
             logOffNext = true;
             //username = loader.<LoginPopup>getController().getUsername();

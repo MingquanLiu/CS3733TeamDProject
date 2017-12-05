@@ -12,16 +12,16 @@ import java.io.FileOutputStream;
 
 public class NewFloor {
 
-
-    @FXML
-    private TextField buildingName;
-    @FXML
-    private TextField floorNum;
+    private Floor floor;
 
     @FXML
     private Label imageName;
     @FXML
-    private Label errorMessage;
+    private Label errUpload;
+    @FXML
+    private Label errFloor;
+    @FXML
+    private Label errBuilding;
 
     @FXML
     private JFXButton btnUpload;
@@ -30,7 +30,13 @@ public class NewFloor {
     @FXML
     private JFXButton btnCancel;
 
+    @FXML
+    private TextField buildingName;
+    @FXML
+    private TextField floorName;
+
     File selectedFile;
+    String filepath;
 
     private static void configureFileChooser(final FileChooser fileChooser) {
         fileChooser.getExtensionFilters().addAll(
@@ -54,30 +60,59 @@ public class NewFloor {
     }
 
     public void onSubmit() {
-        errorMessage.setText("");
+        boolean haveFile = false, haveFloor = false, haveBuilding = false;
+        String extension = "";
+        errUpload.setText("");
+        errBuilding.setText("");
+        errFloor.setText("");
+        if (selectedFile == null) {
+
+        }
         if (selectedFile != null) {
-            String extension = getFileExtension(selectedFile);
+            extension = getFileExtension(selectedFile);
             if (extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg")) {
-                if (!buildingName.getText().equals("")) {
-                    try {
-                        String relPath = "src\\main\\resources\\img\\";
-                        String buildName = buildingName.getText() + floorNum.getText() + "." + extension;
-                        File file = new File(relPath + buildName);
-                        copyFile(selectedFile, file);
-                        System.out.println("");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                else
-                    errorMessage.setText("You need to select the building.");
+                haveFile = true;
+            } else
+                errUpload.setText("You need to upload a valid image (.png or .jpg).");
+        } else
+            errUpload.setText("You need to upload an image.");
+
+
+        if (!buildingName.getText().equals("")) {
+            //ADD FORMATTING GUIDELINES
+            haveBuilding = true;
+        }
+        else
+            errBuilding.setText("You need to set a building name.");
+
+        if (!floorName.getText().equals("")) {
+            //ADD FORMATTING GUIDELINES
+            haveFloor = true;
+        }
+        else
+            errFloor.setText("You need to set a floor name.");
+
+        if (haveFile && haveBuilding && haveFloor){
+            try {
+                //relative path from main folder to the images folder where we store the floors
+                String relPathLater = "src\\main\\resources\\img\\";
+                String relPathNow = "out\\production\\resources\\img\\";
+                //naming the new file based on the name given
+                String fileName = floorName.getText() + "." + extension;
+                //for later use pulling up the floor
+                filepath = "img/" + fileName;
+                File file = new File(relPathNow + fileName);
+                copyFile(selectedFile, file);
+                File fileStored = new File(relPathLater + fileName);
+                copyFile(selectedFile, fileStored);
+                floor = new Floor(floorName.getText(), buildingName.getText(), "img/"+fileName);
+                System.out.println("\n\n\nCreated new floor in out, stored in src");
+                onCancelButton();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("some error happened");
             }
-        } else {
-            if (buildingName.getText().equals("")) {
-                errorMessage.setText("You need to upload an image and select the building.");
-            }
-            else
-                errorMessage.setText("You need to upload an image.");
+
         }
 
     }
@@ -109,4 +144,12 @@ public class NewFloor {
         }
     }
 
+
+    public Floor getFloor(){
+        return floor;
+    }
+
+    public void onCancelButton() {
+        btnCancel.getScene().getWindow().hide();
+    }
 }

@@ -96,6 +96,15 @@
                   <JFXCheckBox fx:id="locateStaircases" layoutX="652.0" layoutY="449.0" text="Staircases" />
                   <JFXCheckBox fx:id="locateLabs" layoutX="479.0" layoutY="339.0" text="Labs" />
                   <JFXCheckBox fx:id="locateAdditionalServices" layoutX="528.0" layoutY="406.0" text="Additional Services" />
+                  <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="109.0" prefWidth="202.0" text="Directions" AnchorPane.leftAnchor="0.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
                </children>
             </AnchorPane>
          </content>
@@ -124,7 +133,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane opacity="0.58" prefHeight="80.0" prefWidth="619.0" styleClass="searchPane" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane opacity="0.58" prefHeight="110.0" prefWidth="620.0" styleClass="searchPane" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane prefHeight="60.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -136,9 +145,9 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Location Direction Search">
+                        <Label prefHeight="57.0" prefWidth="280.0" text="Location Direction Search" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="22.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
@@ -221,15 +230,6 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="80.0" prefWidth="202.0" text="Directions">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
       <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0">
          <children>
             <JFXComboBox fx:id="comboBuilding" layoutX="32.0" layoutY="43.0" onAction="#setBuilding" />
@@ -310,6 +310,7 @@
               <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
             <Button fx:id="helpButton" layoutX="57.0" layoutY="611.0" mnemonicParsing="false" onAction="#helpButtonHandler" text="HELP" />
             <JFXButton fx:id="btnBldg" layoutX="50.0" layoutY="426.0" onAction="#addBuilding" text="Add building" />
+            <JFXButton fx:id="btnFloorAdd" layoutX="59.0" layoutY="451.0" onAction="#addFloor" text="Add floor" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="50.0" prefWidth="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
