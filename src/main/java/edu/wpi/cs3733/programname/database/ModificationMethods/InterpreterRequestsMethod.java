@@ -24,7 +24,7 @@ public class InterpreterRequestsMethod {
             str = "INSERT INTO InterpreterRequests values(" + serviceID + ",'" + language + "','"+ reservationTime +"')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.wrt.writeServiceRequests(dbConnection.getConnection());
+            this.wrt.writeInterpreterRequests(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Insert Interpreter Request Failed! Caused by addInterpreterRequest(InterpreterRequest interpreterRequest)");
             e.printStackTrace();
@@ -38,7 +38,7 @@ public class InterpreterRequestsMethod {
             str ="delete from InterpreterRequests where serviceID = " + serviceID ;
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.wrt.writeServiceRequests(dbConnection.getConnection());
+            this.wrt.writeInterpreterRequests(dbConnection.getConnection());
 
         } catch (SQLException e) {
             System.out.println("Delete Interpreter Request Failed!");

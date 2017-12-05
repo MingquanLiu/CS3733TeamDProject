@@ -58,4 +58,14 @@ public class NewServiceRequestTest {
         InterpreterRequest actual = (InterpreterRequest)databaseQueryController.queryAllServiceRequests().get(0);
     }
 
+    @Test
+    public void checkAddLanguage(){
+        dbModControl.addInterpreter(wong);
+        dbModControl.addLanguageToInterpreter(wong,"Mandarin");
+        ArrayList<String> updatedWongL = wongLanguage;
+        wongLanguage.add("Mandarin");
+        Interpreter updatedWong = new Interpreter("wwong", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com", updatedWongL);
+        assertEquals(updatedWong,wong);
+    }
+
 }

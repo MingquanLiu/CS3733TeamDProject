@@ -329,4 +329,45 @@ public class CsvWriter {
 
         }
     }
+
+    public void writeInterpreterRequests(Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rset = statement.executeQuery("SELECT * FROM InterpreterRequests");
+            String outFileName = "csv/CsvTables/AllInterpreterRequests.csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+
+
+            // Initialize table fields
+            int serviceID = 0;
+            String language = "";
+            String reservationTime = "";
+
+
+            // Prints header fields
+            prt.println("serviceID, language, reservationTime");
+            while (rset.next()) {
+                serviceID = rset.getInt("serviceID");
+                language = rset.getString("language");
+                reservationTime = rset.getString("reservationTime");
+
+
+                prt.println(serviceID + "," +
+                        language + "," +
+                        reservationTime);
+            }
+
+
+            prt.flush();
+            prt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
 }
