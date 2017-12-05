@@ -68,6 +68,10 @@ public class DatabaseModificationController {
         employeesMethod.addEmployee(employee);
     }
 
+    public void deleteEmployee(Employee employee){
+        employeesMethod.deleteEmployee(employee);
+    }
+
     // add interpreter employee
     public void addInterpreter(Interpreter interpreter){
         employeesMethod.addEmployee(interpreter);
@@ -80,10 +84,9 @@ public class DatabaseModificationController {
     }
 
     // delete interpreter employee
-    public void deleteEmployee(Interpreter interpreter){
-        Employee employee = interpreter.toEmployee();
+    public void deleteInterpreter(Interpreter interpreter){
         interpreterMethod.deleteInterpreter(interpreter);
-        employeesMethod.deleteEmployee(employee);
+        employeesMethod.deleteEmployee(interpreter);
     }
 
     //Service Request Modification

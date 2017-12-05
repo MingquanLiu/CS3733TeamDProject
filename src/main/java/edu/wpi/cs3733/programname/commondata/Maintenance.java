@@ -1,19 +1,25 @@
 package edu.wpi.cs3733.programname.commondata;
 
-public class Maintenance extends Employee{
-    String maintenanceType;
+import java.util.ArrayList;
 
-    public Maintenance(String username, String password, String firstName, String middleName, String lastName, boolean sysAdmin, String serviceType, String email, String maintenanceType) {
+public class Maintenance extends Employee{
+    ArrayList<String> maintenanceType;
+
+    public Maintenance(String username, String password, String firstName, String middleName, String lastName, boolean sysAdmin, String serviceType, String email, ArrayList<String> maintenanceType) {
         super(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
         this.maintenanceType = maintenanceType;
     }
 
-    public String getMaintenanceType() {
+    public ArrayList<String> getMaintenanceType() {
         return maintenanceType;
     }
 
-    public void setMaintenanceType(String maintenanceType) {
+    public void setMaintenanceType(ArrayList<String> maintenanceType) {
         this.maintenanceType = maintenanceType;
+    }
+
+    public void addMaintenanceType(String skill){
+        this.maintenanceType.add(skill);
     }
 
     @Override
