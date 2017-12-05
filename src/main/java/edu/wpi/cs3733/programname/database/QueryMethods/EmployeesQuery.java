@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
 import edu.wpi.cs3733.programname.commondata.Interpreter;
+import edu.wpi.cs3733.programname.commondata.Maintenance;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.commondata.Employee;
 
@@ -12,9 +13,11 @@ import java.util.ArrayList;
 public class EmployeesQuery {
     private DBConnection dbConnection;
     private InterpreterQuery interpreterQuery;
+    private MaintenanceQuery maintenanceQuery;
     public EmployeesQuery(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
         this.interpreterQuery = new InterpreterQuery(dbConnection);
+        this.maintenanceQuery = new MaintenanceQuery(dbConnection);
     }
 
     public ArrayList<Employee> queryAllEmployees(){
@@ -48,10 +51,13 @@ public class EmployeesQuery {
                     ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
                     queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
                 }
+                else if(serviceType.equals("maintenance")){
+                    ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
+                    queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
+                }
                 else{
                     queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
                 }
-                //queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
                 group.add(queryResult);
             }
         } catch (SQLException e) {
@@ -90,6 +96,10 @@ public class EmployeesQuery {
                 if(serviceType.equals("interpreter")){
                     ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
                     queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
+                }
+                else if(serviceType.equals("maintenance")){
+                    ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
+                    queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
                 }
                 else{
                     queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
@@ -130,10 +140,14 @@ public class EmployeesQuery {
                 if(serviceType.equals("interpreter")){
                     ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
                     queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
-                    System.out.println("Is an Interpreter");
+                    //System.out.println("Is an Interpreter");
+                }
+                else if(serviceType.equals("maintenance")){
+                    ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
+                    queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
                 }
                 else{
-                    System.out.println("Is a Employee");
+                    //System.out.println("Is a Employee");
                     queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
                 }
             }

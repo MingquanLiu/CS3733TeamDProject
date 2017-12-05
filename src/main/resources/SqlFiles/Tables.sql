@@ -133,5 +133,5 @@ CREATE TABLE MaintenanceRequests(
     CONSTRAINT MaintenanceRequests_FK1 FOREIGN KEY (serviceID)
           REFERENCES ServiceRequests (serviceID) ON DELETE CASCADE,
     CONSTRAINT MaintenanceRequests_typeVal CHECK (maintenanceType IN
-    ('clean', 'elevator', 'electricity', 'network','other'))
+    ('cleaning', 'elevator', 'electricity', 'network','other'))
 );

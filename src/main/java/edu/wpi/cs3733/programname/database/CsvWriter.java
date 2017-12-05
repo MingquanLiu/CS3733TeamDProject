@@ -259,6 +259,45 @@ public class CsvWriter {
     }
 
 
+    public void writeMaintenanceSkills(Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rset = statement.executeQuery("SELECT * FROM MaintenanceSkills");
+            String outFileName = "csv/CsvTables/AllMaintenanceSkills.csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+
+
+            // Initialize table fields
+            String username = "";
+            String skill = "";
+
+
+            // Prints header fields
+            prt.println("username, skill");
+            while (rset.next()) {
+                username = rset.getString("username");
+                skill = rset.getString("skill");
+
+
+                prt.println(username + "," + skill);
+            }
+
+
+            prt.flush();
+            prt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
 
     public void writeServiceRequests(Connection conn) {
         try {
@@ -357,6 +396,45 @@ public class CsvWriter {
                 prt.println(serviceID + "," +
                         language + "," +
                         reservationTime);
+            }
+
+
+            prt.flush();
+            prt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
+    public void writeMaintenanceRequests(Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rset = statement.executeQuery("SELECT * FROM MaintenanceRequests");
+            String outFileName = "csv/CsvTables/AllMaintenanceRequests.csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+
+
+            // Initialize table fields
+            int serviceID = 0;
+            String skill = "";
+
+
+            // Prints header fields
+            prt.println("serviceID, skill");
+            while (rset.next()) {
+                serviceID = rset.getInt("serviceID");
+                skill = rset.getString("skill");
+
+
+                prt.println(serviceID + "," +
+                        skill);
             }
 
 

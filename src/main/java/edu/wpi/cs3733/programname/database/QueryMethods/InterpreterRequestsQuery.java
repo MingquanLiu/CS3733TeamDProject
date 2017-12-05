@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class InterpreterRequestQuery {
+public class InterpreterRequestsQuery {
     private DBConnection dbConnection;
-    public InterpreterRequestQuery(DBConnection dbConnection) {
+    public InterpreterRequestsQuery(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
 
