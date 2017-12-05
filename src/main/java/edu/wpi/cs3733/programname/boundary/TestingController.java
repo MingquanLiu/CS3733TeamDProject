@@ -705,6 +705,7 @@ public class TestingController implements Initializable {
                 type = TRANSPORTATION_REQUEST;
             } else if (typeText == "Maintenance Request") {
                 type = MAINTENANCE_REQUEST;
+
             }
 
             int locX = Integer.parseInt(lblServiceX.getText());
@@ -747,6 +748,51 @@ public class TestingController implements Initializable {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/About_Popup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void TransportRequestHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Transportation_Request_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void InterpreterRequestHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Interpreter_Request_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void MaintenanceRequestHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Maintenance_Request_UI.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);

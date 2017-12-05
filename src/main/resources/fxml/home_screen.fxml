@@ -194,9 +194,9 @@
                     </rowConstraints>
                      <children>
                         <JFXButton fx:id="btnOpenAdmin" buttonType="RAISED" maxWidth="200.0" onAction="#openAdminHandler" text="Service Request Manager" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <JFXButton fx:id="btnInterpreterReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Interpreter Request" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                        <JFXButton fx:id="btnMaintenanceReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Maintenance Request" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                        <JFXButton fx:id="btnTansportationReq" buttonType="RAISED" maxWidth="200.0" onAction="#SRHandler" text="Transportation Request" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <JFXButton fx:id="btnInterpreterReq" buttonType="RAISED" maxWidth="200.0" onAction="#InterpreterRequestHandler" text="Interpreter Request" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <JFXButton fx:id="btnMaintenanceReq" buttonType="RAISED" maxWidth="200.0" onAction="#MaintenanceRequestHandler" text="Maintenance Request" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <JFXButton fx:id="btnTansportationReq" buttonType="RAISED" maxWidth="200.0" onAction="#TransportRequestHandler" text="Transportation Request" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                         <JFXButton fx:id="btnMapEdit" buttonType="RAISED" maxWidth="150.0" onAction="#mapEditHandler" text="Map Edit" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                         <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="1" />
                         <Line endX="100.0" opacity="0.1" startX="-100.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
