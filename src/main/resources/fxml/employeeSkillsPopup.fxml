@@ -13,18 +13,14 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="labelUsername" layoutX="319.0" layoutY="10.0" prefHeight="31.0" prefWidth="129.0" textAlignment="CENTER">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Label>
-      <JFXListView fx:id="listAllSkills" layoutX="14.0" layoutY="54.0" onMouseClicked="#enableAddSkill" prefHeight="262.0" prefWidth="202.0" />
-      <JFXListView fx:id="listMySkills" layoutX="282.0" layoutY="54.0" onMouseClicked="#enableRmSkill" prefHeight="262.0" prefWidth="202.0" />
+      <JFXListView fx:id="listAllSkills" layoutX="14.0" layoutY="58.0" onMouseClicked="#enableAddSkill" prefHeight="262.0" prefWidth="202.0" />
+      <JFXListView fx:id="listMySkills" layoutX="282.0" layoutY="58.0" onMouseClicked="#enableRmSkill" prefHeight="262.0" prefWidth="202.0" />
       <JFXButton fx:id="btnAddSkill" disable="true" layoutX="224.0" layoutY="169.0" onAction="#addSkill" text="Add &gt;" />
       <JFXButton fx:id="btnRmSkill" disable="true" layoutX="342.0" layoutY="323.0" onAction="#rmSkill" text="Remove skill" />
       <JFXButton fx:id="btnNewSkill" layoutX="72.0" layoutY="323.0" onAction="#newSkill" text="Add new skill" />
       <Label fx:id="labelSkillsSaved" layoutX="209.0" layoutY="327.0" text="Changes saved" textFill="RED" visible="false" />
       <Label layoutX="69.0" layoutY="40.0" text="All available skills" />
       <Label layoutX="340.0" layoutY="40.0" text="Employee's skills" />
+      <Label fx:id="labelUsername" layoutX="369.0" layoutY="17.0" />
    </children>
 </AnchorPane>

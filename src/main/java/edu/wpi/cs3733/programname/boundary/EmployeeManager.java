@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -27,6 +28,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public class EmployeeManager {
+
+    String skillsUsernameString;
 
     @FXML
     private AnchorPane mainServicePane;
@@ -257,6 +260,7 @@ public class EmployeeManager {
         btnSkills.setVisible(true);
         Employee employee = employeetable.getSelectionModel().getSelectedItem();
         newusername.setText(employee.getUsername());
+        skillsUsernameString = employee.getUsername();
         newusername.setDisable(true);
         newfirstname.setText(employee.getFirstName());
         newlastname.setText(employee.getLastName());
@@ -299,6 +303,7 @@ public class EmployeeManager {
 
     @FXML
     private void openSkillsWindow(ActionEvent Event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/employeeSkillsPopup.fxml"
@@ -311,14 +316,19 @@ public class EmployeeManager {
                 )
         );
         stage.show();
-        // TODO: List out their skills
+        try {
+            mySkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(newusername.getText()));
+            listMySkills.getItems().addAll(mySkills);
+        } catch (NullPointerException npe) {
+            System.out.println("Hah, this employee has no skills. Not the end of the world. Add some here.");
+        }
     }
 
     //****************************************Skills methods******************************************//
     @FXML
     void addSkill(ActionEvent event) {
         String skill = listAllSkills.getSelectionModel().getSelectedItem();
-
+        this.manageController.addLanguageToInterpreter(newusername.getText(), skill);
         listMySkills.getItems().add(skill);
         labelSkillsSaved.setVisible(true);
 
@@ -351,6 +361,7 @@ public class EmployeeManager {
         if (result.isPresent()){
             String newSkill = result.get();
             listAllSkills.getItems().add(newSkill);
+
             // TODO: Add the new skill to the database list of all skills???
         }
     }
@@ -360,7 +371,7 @@ public class EmployeeManager {
         String skill = listMySkills.getSelectionModel().getSelectedItem();
         btnRmSkill.setDisable(true);
         listMySkills.getItems().remove(skill);
-        // TODO: Remove the skill from employee's DB list
+        this.manageController.removeLanguageFromInterpreter(newusername.getText(), skill);
         labelSkillsSaved.setVisible(true);
     }
 

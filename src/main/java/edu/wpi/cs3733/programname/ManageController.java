@@ -270,8 +270,12 @@ public class ManageController {
         return dbQueryController.queryInterpreterSkillsbyUsername(username);
     }
 
-    public void addLanguageToInterpreter(Interpreter interpreter, String language) {
+    public void addLanguageToInterpreter(String interpreter, String language) {
         dbModController.addLanguageToInterpreter(interpreter, language);
+    }
+
+    public void removeLanguageFromInterpreter(String interpreter, String language) {
+        dbModController.removeLanguageFromInterpreter(interpreter, language);
     }
 
 }
