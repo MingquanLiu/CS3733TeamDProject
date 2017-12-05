@@ -37,9 +37,10 @@ public class CsvReader {
 
 
         try {
+            System.out.println("About to read nodes table");
             String csv = "csv/CsvNodes/AllMapNodes.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
             String line;
             buf.readLine();
@@ -158,8 +159,8 @@ public class CsvReader {
 
         try {
             String csv = "csv/CsvEdges/AllMapEdges.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
 
             String line;
@@ -249,8 +250,8 @@ public class CsvReader {
 
         try {
             String csv = "csv/CsvTables/AllEmployees.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
             String line;
             buf.readLine();
@@ -342,8 +343,8 @@ public class CsvReader {
         interpreterInfo = new ArrayList<>();
         try {
             String csv = "csv/CsvTables/AllInterpreterRequests.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
             String line;
             buf.readLine();
@@ -362,8 +363,8 @@ public class CsvReader {
         maintenanceInfo = new ArrayList<>();
         try {
             String csv = "csv/CsvTables/AllMaintenanceRequests.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
             String line;
             buf.readLine();
 
@@ -381,8 +382,8 @@ public class CsvReader {
         transportationInfo = new ArrayList<>();
         try {
             String csv = "csv/CsvTables/AllTransportationRequests.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
             String line;
             buf.readLine();
 
@@ -408,8 +409,8 @@ public class CsvReader {
         try {
 
             String csv = "csv/CsvTables/AllServiceRequests.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
             String line;
             buf.readLine();
