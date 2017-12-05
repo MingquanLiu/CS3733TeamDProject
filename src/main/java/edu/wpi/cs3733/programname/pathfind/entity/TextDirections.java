@@ -37,7 +37,7 @@ public class TextDirections {
             String type = node.getNodeType();
             String name = node.getLongName();
             String face; // This is the direction the node is facing relative to the last
-
+            double hallDistance = 0;
             double directionChange = getDirectionAngle(lastNode, node, nextNode);
             if(directionChange <= -45 && directionChange >= -135) face = "right";
             else if(directionChange <= 135 && directionChange >= 45) face = "left";
@@ -48,12 +48,16 @@ public class TextDirections {
             else face = "straight";
             switch (type) {
                 case "ELEV":
+                    directions += hallDistance + " feet";
+                    hallDistance = 0;
                     if(lastNode.getNodeType().equals("ELEV"))
                         directions += "\nGet off the elevator on floor " + node.getFloor();
                     else
                         directions += "\nGet on " + name;
                     break;
                 case "STAI":
+                    directions += hallDistance + " feet";
+                    hallDistance = 0;
                     if(lastNode.getNodeType().equals("STAI"))
                         directions += "\nExit the stairs on floor " + node.getFloor();
                     else
@@ -64,14 +68,20 @@ public class TextDirections {
                         if (Math.abs(directionChange) > 25) {
                             directions += "\nTake the next " + face + " turn down the hall";
                         }
-                        else directions += "\nGo straight down the hall for " + distanceBetween(node, nextNode) + " feet";
+                        else {
+                            directions += "\nGo straight down the hall for ";
+                            hallDistance += distanceBetween(node, nextNode);
+                        }
                     }
                     else if(Math.abs(directionChange) > 25) {
-                        directions += "\nTake the next " + face + " to continue down the hall";
+                        directions += "\nTake the next " + face + " to continue down the hall for ";
+                        hallDistance += distanceBetween(node, nextNode);
                     }
-                    else directions += "\nContinue straight down the hall for " + distanceBetween(node, nextNode) + " feet";
+                    else hallDistance += distanceBetween(node, nextNode);
                     break;
                 default:
+                    directions += hallDistance + " feet";
+                    hallDistance = 0;
                     directions += "\nContinue " + face + " past " + name;
                     break;
             }
