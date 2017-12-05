@@ -134,7 +134,7 @@ public class NewBuilding {
                 //naming the new file based on the name given
                 String buildName = buildingName.getText() + "." + extension;
                 //for later use pulling up the floor
-                filepath = "img\\" + buildName;
+                filepath = "img/" + buildName;
                 File file = new File(relPath + buildName);
                 copyFile(selectedFile, file);
                 System.out.println("\n\n\nCreated new building");

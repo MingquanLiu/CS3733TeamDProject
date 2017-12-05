@@ -509,7 +509,7 @@ public class TestingController implements Initializable {
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
         floorList.addAll(floors);
         System.out.println("floorslist: " + floorList);
-        try {
+//        try {
             System.out.println("setting items");
             //comboFloors.setItems(floorList);
             System.out.println("just set items: " + comboFloors.getItems() + "\nand about to set value");
@@ -517,15 +517,13 @@ public class TestingController implements Initializable {
             System.out.println("just set value: " + comboFloors.getValue());
             //setFloor(newBld.getFloors().get(0));
             setFloor((Floor) floorList.get(0));
-        } catch (Exception e) {
-            System.out.println("SCREAM");
-        }
+//        } catch (Exception e) {
+//            System.out.println("SCREAM");
+//        }
     }
 
     public void setFloor(Floor newFloor) {
         comboFloors.setValue(newFloor);
-        currentFloor = newFloor;
-
         setFloor();
     }
 
@@ -540,9 +538,9 @@ public class TestingController implements Initializable {
         String newUrl = currentFloor.getImgUrl();
         System.out.println("new image: " + newUrl);
 
-        File file = new File(newUrl);
-        System.out.println("current map: " + file.toString());
-        Image newImg = new Image(file.toString());
+        //File file = new File(newUrl);
+        //System.out.println("current map: " + file.toString());
+        Image newImg = new Image(newUrl);
         System.out.println("about to be: " + newImg.getWidth());
         imgMap.setImage(newImg);
     }
