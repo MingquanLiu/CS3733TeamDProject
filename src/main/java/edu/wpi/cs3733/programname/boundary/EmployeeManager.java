@@ -143,6 +143,8 @@ public class EmployeeManager {
 
     private final ObservableList<Employee> data = FXCollections.observableArrayList();
 
+    private ObservableList<String> allSkills;
+
     @FXML
     private SortedList<Employee> sortedEmployee;
 
@@ -294,9 +296,7 @@ public class EmployeeManager {
 
     @FXML
     private void openSkillsWindow(ActionEvent Event) throws IOException {
-        Employee employee = employeetable.getSelectionModel().getSelectedItem();
-        String username = employee.getUsername();
-        labelUsername.setText(username + "'s Skills");
+//        labelUsername.setText(newusername.getText() + "'s Skills");
         // TODO: List out their skills
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -337,6 +337,8 @@ public class EmployeeManager {
 
     @FXML
     void newSkill(ActionEvent event) {
+        btnRmSkill.setDisable(true);
+        btnAddSkill.setDisable(true);
         labelSkillsSaved.setVisible(false);
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("New skill");
@@ -345,6 +347,8 @@ public class EmployeeManager {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             String newSkill = result.get();
+            allSkills.add(newSkill);
+
             // TODO: Add the new skill to the list
         }
     }
@@ -370,5 +374,8 @@ public class EmployeeManager {
         service.setCellValueFactory(cellData -> cellData.getValue().serviceTypeProperty());
         administrator.setCellValueFactory(cellData -> cellData.getValue().sysAdminProperty());
         // TODO: Populate ListView of all skills
+        allSkills = FXCollections.observableArrayList("First skill");
+        listAllSkills = new JFXListView<String>();
+        listAllSkills.setItems(allSkills);
     }
 }
