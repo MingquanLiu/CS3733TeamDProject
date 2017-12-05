@@ -87,6 +87,15 @@
                     </DialogPane>
                   <Accordion layoutX="355.0" layoutY="221.0" />
                   <Accordion layoutX="748.0" layoutY="348.0" />
+                  <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="109.0" prefWidth="202.0" text="Directions" AnchorPane.leftAnchor="0.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
                </children>
             </AnchorPane>
          </content>
@@ -115,7 +124,7 @@
                 </GridPane>
             </children>
         </AnchorPane>
-        <AnchorPane opacity="0.58" prefHeight="80.0" prefWidth="619.0" styleClass="searchPane" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane opacity="0.58" prefHeight="110.0" prefWidth="620.0" styleClass="searchPane" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane prefHeight="60.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -127,9 +136,9 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Location Direction Search">
+                        <Label prefHeight="57.0" prefWidth="280.0" text="Location Direction Search" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="22.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
@@ -212,15 +221,6 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="80.0" prefWidth="202.0" text="Directions">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
       <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0">
          <children>
             <JFXComboBox fx:id="comboBuilding" layoutX="32.0" layoutY="43.0" onAction="#setBuilding" />

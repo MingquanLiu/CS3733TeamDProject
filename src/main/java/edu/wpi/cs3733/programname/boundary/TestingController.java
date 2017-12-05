@@ -839,9 +839,9 @@ public class TestingController implements Initializable {
                 )
         );
         loader.<LoginPopup>getController().initData(dbConnection);
-        stage.show();
-        //loggedIn = loader.<LoginPopup>getController().getLoggedIn();
-        loggedIn = true;
+        stage.showAndWait();
+        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        //loggedIn = true;
         if (loggedIn) {
             logOffNext = true;
             //username = loader.<LoginPopup>getController().getUsername();
