@@ -577,7 +577,7 @@ public class CsvReader {
 
         try {
             // SQL Insert
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO ServiceRequests(serviceID, sender, serviceType, location1, location2, description)" +
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO ServiceRequests(serviceID, sender, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity)" +
                     "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
 
