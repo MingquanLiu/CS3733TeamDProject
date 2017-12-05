@@ -17,6 +17,9 @@ public class CsvReader {
     ArrayList<String[]> maintenanceInfo;        //Array Size = 3
     ArrayList<String[]> transportationInfo;     //Array Size = 4
 
+    ArrayList<String[]> interpreterEmployeeInfo;        //Array Size = 2
+    ArrayList<String[]> maintenanceEmployeeInfo;        //Array Size = 2
+
     /**
      * empty constructor for CsvReader
      */
@@ -242,11 +245,13 @@ public class CsvReader {
 
 
 
-
     // EMPLOYEES
     public ArrayList<Employee> getListOfEmployees(Connection conn) {
 
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
+
+        getInterpreterEmployeeInfo();
+        getMaintenanceEmployeeInfo();
 
         try {
             String csv = "csv/CsvTables/AllEmployees.csv";
@@ -308,6 +313,43 @@ public class CsvReader {
         return employeeList;
     }
 
+    public void getInterpreterEmployeeInfo() {
+        interpreterEmployeeInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllInterpreterSkills.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterEmployeeInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getMaintenanceEmployeeInfo() {
+        maintenanceEmployeeInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllMaintenanceSkills.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterEmployeeInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
 
     public void insertEmployees(Connection conn, ArrayList<Employee> employeeList) {
@@ -339,6 +381,7 @@ public class CsvReader {
         }
     }
 
+    // SERVICEREQUESTS
     public void getInterpreterTableInfo() {
         interpreterInfo = new ArrayList<>();
         try {
@@ -397,8 +440,6 @@ public class CsvReader {
         }
     }
 
-
-    // SERVICEREQUESTS
     public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) {
 
         ArrayList<ServiceRequest> srList = new ArrayList<ServiceRequest>();
@@ -516,7 +557,7 @@ public class CsvReader {
         try {
             // SQL Insert
             PreparedStatement pst = conn.prepareStatement("INSERT INTO ServiceRequests(serviceID, sender, serviceType, location1, location2, description)" +
-                    "VALUES (?,?,?,?,?,?)");
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
 
             for (i = 0; i < count; i++) {
@@ -526,7 +567,39 @@ public class CsvReader {
                 pst.setString(4, srList.get(i).getLocation1());
                 pst.setString(5, srList.get(i).getLocation2());
                 pst.setString(6, srList.get(i).getDescription());
+                pst.setString(7, srList.get(i).getRequestTime());
+                pst.setString(8, srList.get(i).getHandleTime());
+                pst.setString(9, srList.get(i).getCompletionTime());
+                pst.setString(10, srList.get(i).getStatus());
+                pst.setInt(11, srList.get(i).getSeverity());
                 pst.executeUpdate();
+
+                PreparedStatement detailInsert;
+                if (srList.get(i).getServiceType() == Constants.INTERPRETER_REQUEST) {
+                    InterpreterRequest interpreterRequest = (InterpreterRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO InterpreterRequests(serviceID, language, reservationTime)" +
+                    " VALUES (?,?,?)");
+                    detailInsert.setInt(1, interpreterRequest.getServiceID());
+                    detailInsert.setString(2, interpreterRequest.getLanguage());
+                    detailInsert.setString(3, interpreterRequest.getReservationTime());
+                    detailInsert.executeUpdate();
+                } else if (srList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
+                    MaintenanceRequest maintenanceRequest = (MaintenanceRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO MaintenanceRequests(serviceID, maintenanceType)" +
+                    " VALUES (?,?)");
+                    detailInsert.setInt(1, maintenanceRequest.getServiceID());
+                    detailInsert.setString(2, maintenanceRequest.getMaintenanceType());
+                    detailInsert.executeUpdate();
+                } else if (srList.get(i).getServiceType() == Constants.TRANSPORTATION_REQUEST) {
+                    TransportationRequest transportationRequest = (TransportationRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO TransportationRequests(serviceID, transportType, destination, reservationTime)" +
+                    " VALUES (?,?,?,?)");
+                    detailInsert.setInt(1, transportationRequest.getServiceID());
+                    detailInsert.setString(2, transportationRequest.getTransportType());
+                    detailInsert.setString(3, transportationRequest.getDestination());
+                    detailInsert.setString(4, transportationRequest.getReservationTime());
+                    detailInsert.executeUpdate();
+                }
             }
 
         } catch (SQLException e) {
