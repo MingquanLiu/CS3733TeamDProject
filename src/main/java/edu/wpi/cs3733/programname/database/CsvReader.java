@@ -13,6 +13,10 @@ import edu.wpi.cs3733.programname.commondata.*;
 
 public class CsvReader {
 
+    ArrayList<String[]> interpreterInfo;        //Array Size = 3
+    ArrayList<String[]> maintenanceInfo;        //Array Size = 3
+    ArrayList<String[]> transportationInfo;     //Array Size = 4
+
     /**
      * empty constructor for CsvReader
      */
@@ -256,7 +260,6 @@ public class CsvReader {
             while ((line = buf.readLine()) != null) {
                 // Reads current row and converts to a string
 
-
                 // Seperates the string into fields and stores into an array
                 String[] values = line.split(",");
 
@@ -275,7 +278,6 @@ public class CsvReader {
             try {
                 InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvTables/AllEmployees.csv");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                StringBuilder out = new StringBuilder();
                 String line;
                 reader.readLine();
                 // Reads all lines in the file
@@ -336,12 +338,72 @@ public class CsvReader {
         }
     }
 
+    public void getInterpreterTableInfo() {
+        interpreterInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllInterpreterRequests.csv";
+            FileReader read = new FileReader(csv);
+            BufferedReader buf = new BufferedReader(read);
+
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getMaintenanceTableInfo() {
+        maintenanceInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllMaintenanceRequests.csv";
+            FileReader read = new FileReader(csv);
+            BufferedReader buf = new BufferedReader(read);
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                maintenanceInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getTransportationTableInfo() {
+        transportationInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllTransportationRequests.csv";
+            FileReader read = new FileReader(csv);
+            BufferedReader buf = new BufferedReader(read);
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                transportationInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
 
     // SERVICEREQUESTS
     public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) {
 
         ArrayList<ServiceRequest> srList = new ArrayList<ServiceRequest>();
+        getInterpreterTableInfo();
+        getMaintenanceTableInfo();
+        getTransportationTableInfo();
 
         try {
 
@@ -367,9 +429,47 @@ public class CsvReader {
                 int serviceID = Integer.parseInt(values[0]);
                 int severity = Integer.parseInt(values[11]);
                 System.out.println("length"+values.length);
-                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10],severity);
-                srList.add(srObject);
 
+                ServiceRequest srObject = null;
+                ArrayList<String[]> subtable;
+                if (values[3] == Constants.INTERPRETER_REQUEST) {
+                    subtable = interpreterInfo;
+                    String[] data;
+                    for (String[] info: subtable) {
+                        if(values[0].equals(info[0])){
+                            data = info;
+                            srObject = new InterpreterRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity, data[1], data[2]);
+                            break;
+                        }
+                    }
+                } else if (values[3] == Constants.MAINTENANCE_REQUEST) {
+                    subtable = maintenanceInfo;
+                    String[] data;
+                    for(String[] info: subtable) {
+                        if(values[0].equals(info[0])) {
+                            data = info;
+                            srObject = new MaintenanceRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity, data[1], data[2]);
+                            break;
+                        }
+                    }
+                } else {
+                    subtable = transportationInfo;
+                    String[] data;
+                    for(String[] info: subtable) {
+                        if(values[0].equals(info[0])) {
+                            data = info;
+                            srObject = new TransportationRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity, data[1], data[2], data[3]);
+                            break;
+                        }
+                    }
+                }
+                srList.add(srObject);
             } // end while
 
         }catch (IOException e) {
