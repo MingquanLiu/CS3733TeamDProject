@@ -1,8 +1,13 @@
 package edu.wpi.cs3733.programname.database;
+import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
+import edu.wpi.cs3733.programname.database.ModificationMethods.*;
+
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.ModificationMethods.EdgesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.EmployeesMethod;
 import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
@@ -13,7 +18,10 @@ public class DatabaseModificationController {
     private NodesMethod nodesMethod;
     private EdgesMethod edgesMethod;
     private EmployeesMethod employeesMethod;
+    private InterpreterMethod interpreterMethod;
     private ServiceRequestsMethod serviceRequestsMethod;
+    private InterpreterRequestsMethod interpreterRequestsMethod;
+    private TransportationRequestMethod transportationRequestMethod;
     /**
      *
      * @param conn the connection to the database
@@ -22,7 +30,10 @@ public class DatabaseModificationController {
         nodesMethod = new NodesMethod(conn);
         edgesMethod = new EdgesMethod(conn);
         employeesMethod = new EmployeesMethod(conn);
+        interpreterMethod = new InterpreterMethod(conn);
         serviceRequestsMethod = new ServiceRequestsMethod(conn);
+        interpreterRequestsMethod = new InterpreterRequestsMethod(conn);
+        transportationRequestMethod = new TransportationRequestMethod(conn);
     }
 
     //Node Modification
@@ -64,18 +75,56 @@ public class DatabaseModificationController {
         employeesMethod.addEmployee(employee);
     }
 
-    public void editEmployee(Employee employee) {
-        employeesMethod.editEmployee(employee);
+    public void deleteEmployee(Employee employee){
+        employeesMethod.deleteEmployee(employee);
     }
 
-    public void deleteEmployee(String username) {
-        employeesMethod.deleteEmployee(username);
+    // add interpreter employee
+    public void addInterpreter(Interpreter interpreter){
+        employeesMethod.addEmployee(interpreter);
+        interpreterMethod.addInterpreter(interpreter);
+    }
+
+    // add interpreter skill(language) to an employee
+    public void addLanguageToInterpreter(Interpreter interpreter, String language){
+        interpreterMethod.addInterpreterLanguage(interpreter,language);
+    }
+
+    // delete interpreter employee
+    public void deleteInterpreter(Interpreter interpreter){
+        interpreterMethod.deleteInterpreter(interpreter);
+        employeesMethod.deleteEmployee(interpreter);
+    }
+
+    public void editEmployee(Employee employee) {
+        employeesMethod.editEmployee(employee);
     }
 
     //Service Request Modification
     public void addServiceRequest(ServiceRequest serviceRequest){
         serviceRequestsMethod.addServiceRequest(serviceRequest);
     }
+
+    public void addInterpreterRequest(InterpreterRequest interpreterRequest){
+        serviceRequestsMethod.addServiceRequest(interpreterRequest);
+        interpreterRequestsMethod.addInterpreterRequest(interpreterRequest);
+    }
+
+    public void deleteInterpreterRequest(InterpreterRequest interpreterRequest){
+        interpreterRequestsMethod.deleteInterpreterRequest(interpreterRequest);
+        serviceRequestsMethod.deleteServiceRequest(interpreterRequest);
+    }
+
+    public void addTransportationRequest(TransportationRequest transportationRequest){
+        serviceRequestsMethod.addServiceRequest(transportationRequest);
+        transportationRequestMethod.addTransportationRequest(transportationRequest);
+    }
+
+    public void deleteTransportationRequest(TransportationRequest transportationRequest){
+        transportationRequestMethod.deleteTransportationRequest(transportationRequest);
+        serviceRequestsMethod.deleteServiceRequest(transportationRequest);
+    }
+
     public void handleServiceRequest(ServiceRequest serviceRequest, String receiver){
         serviceRequestsMethod.handleServiceRequest(serviceRequest,receiver);
     }

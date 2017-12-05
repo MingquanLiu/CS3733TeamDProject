@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.programname.commondata.ServiceRequest;
+package edu.wpi.cs3733.programname.commondata.servicerequestdata;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -14,13 +14,31 @@ public class ServiceRequest {
     private String requestTime;
     private String handleTime;
     private String completionTime;
-    private String reservationTime;
     private String status;
     private String receiver;
     private int severity;
 
+
+    // constructor using all the fields
+    public ServiceRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2, String description,
+                          String requestTime, String handleTime, String completionTime, String status, int severity) {
+        this.serviceID = serviceID;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.serviceType = serviceType;
+        this.location1 = location1;
+        this.location2 = location2;
+        this.description = description;
+        this.requestTime = requestTime;
+        this.handleTime = handleTime;
+        this.completionTime = completionTime;
+        this.status = status;
+        this.severity = severity;
+    }
+
+    // short constructor
     public ServiceRequest(int serviceID, String sender, String serviceType, String location1,
-                          String location2, String description, String reservationTime, int severity) {
+                          String location2, String description, int severity) {
         this.serviceID = serviceID;
         this.sender = sender;
         this.serviceType = serviceType;
@@ -33,26 +51,9 @@ public class ServiceRequest {
         this.completionTime = "";
         this.status = "unhandled";
         this.receiver = "";
-        this.reservationTime = reservationTime;
         this.severity = severity;
     }
 
-    public ServiceRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2, String description,
-                          String requestTime, String handleTime, String completionTime, String reservationTime, String status, int severity) {
-        this.serviceID = serviceID;
-        this.sender = sender;
-        this.receiver = receiver;
-        this.serviceType = serviceType;
-        this.location1 = location1;
-        this.location2 = location2;
-        this.description = description;
-        this.requestTime = requestTime;
-        this.handleTime = handleTime;
-        this.completionTime = completionTime;
-        this.reservationTime = reservationTime;
-        this.status = status;
-        this.severity = severity;
-    }
 
     public int getServiceID() {
         return serviceID;
@@ -142,13 +143,6 @@ public class ServiceRequest {
         this.receiver = receiver;
     }
 
-    public String getReservationTime() {
-        return reservationTime;
-    }
-
-    public void setReservationTime(String reservationTime) {
-        this.reservationTime = reservationTime;
-    }
 
     public int getSeverity() {
         return severity;
@@ -171,7 +165,6 @@ public class ServiceRequest {
                     "RequestTime: " + requestTime + System.lineSeparator() +
                     "HandleTime: " + handleTime + System.lineSeparator() +
                     "CompletionTime: " + completionTime + System.lineSeparator() +
-                    "ReservationTime: " + reservationTime + System.lineSeparator() +
                     "Status: " + status + System.lineSeparator() +
                     "Severity: " + severity + System.lineSeparator() +
                     "Receiver: " + receiver + System.lineSeparator();
@@ -202,8 +195,6 @@ public class ServiceRequest {
             return false;
         if (getCompletionTime() != null ? !getCompletionTime().equals(that.getCompletionTime()) : that.getCompletionTime() != null)
             return false;
-        if (getReservationTime() != null ? !getReservationTime().equals(that.getReservationTime()) : that.getReservationTime() != null)
-            return false;
         if (getStatus() != null ? !getStatus().equals(that.getStatus()) : that.getStatus() != null) return false;
         return getReceiver() != null ? getReceiver().equals(that.getReceiver()) : that.getReceiver() == null;
     }
@@ -219,7 +210,6 @@ public class ServiceRequest {
         result = 31 * result + (getRequestTime() != null ? getRequestTime().hashCode() : 0);
         result = 31 * result + (getHandleTime() != null ? getHandleTime().hashCode() : 0);
         result = 31 * result + (getCompletionTime() != null ? getCompletionTime().hashCode() : 0);
-        result = 31 * result + (getReservationTime() != null ? getReservationTime().hashCode() : 0);
         result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
         result = 31 * result + (getReceiver() != null ? getReceiver().hashCode() : 0);
         result = 31 * result + getSeverity();

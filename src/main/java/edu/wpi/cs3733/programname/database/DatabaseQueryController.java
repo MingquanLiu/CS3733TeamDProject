@@ -3,7 +3,8 @@ package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
+import edu.wpi.cs3733.programname.database.QueryMethods.*;
 import edu.wpi.cs3733.programname.database.QueryMethods.EdgesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.NodesQuery;
@@ -19,12 +20,16 @@ public class DatabaseQueryController {
     private EdgesQuery edgesQuery;
     private EmployeesQuery employeesQuery;
     private ServiceRequestsQuery serviceRequestsQuery;
+    private InterpreterQuery interpreterQuery;
+    private MaintenanceQuery maintenanceQuery;
 
     public DatabaseQueryController(DBConnection dbConnection) {
         nodesQuery = new NodesQuery(dbConnection);
         edgesQuery = new EdgesQuery(dbConnection);
         employeesQuery = new EmployeesQuery(dbConnection);
         serviceRequestsQuery = new ServiceRequestsQuery(dbConnection);
+        interpreterQuery = new InterpreterQuery(dbConnection);
+        maintenanceQuery = new MaintenanceQuery(dbConnection);
     }
 
 
@@ -115,6 +120,16 @@ public class DatabaseQueryController {
 
     public boolean login(String username, String password) {
         return employeesQuery.validateLogin(username, password);
+    }
+
+    // Interpreter Query
+    public ArrayList<String> queryInterpreterSkillsbyUsername(String username){
+        return interpreterQuery.queryInterpreterSkills(username);
+    }
+
+    // Maintenance Query
+    public ArrayList<String> queryMaintenanceSkillsbyUsername(String username) {
+        return maintenanceQuery.queryMaintenanceSkills(username);
     }
 
     //Service Request Query

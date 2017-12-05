@@ -227,12 +227,10 @@ public class EmployeeManager {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
                 removeerror.setVisible(false);
-                manageController.deleteEmployee(employee.getUsername());
+                manageController.deleteEmployee(employee);
                 changessaved.setVisible(true);
                 data.removeAll(data);
                 data.addAll(manageController.getAllEmployees());
-            } else {
-                // do nothing. Employee lives to work another day.
             }
         } catch (NullPointerException nullpointer) {
             removeerror.setVisible(true);

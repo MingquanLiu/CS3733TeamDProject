@@ -2,7 +2,10 @@ package edu.wpi.cs3733.programname;
 
 
 import edu.wpi.cs3733.programname.commondata.*;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
@@ -157,11 +160,11 @@ public class ManageController {
         msg.sendMessage();
     }
 
-    public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description, String reservationTime, int severity) {
+    public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description, int severity) {
         //generate random id
         Random randomID = new Random();
         int id = randomID.nextInt(1000) + 1;
-        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description, reservationTime ,severity);
+        ServiceRequest newServiceRequest = new ServiceRequest(id, requester, type, location1, location2, description,severity);
         dbModController.addServiceRequest(newServiceRequest);
         return newServiceRequest;
     }
@@ -170,23 +173,45 @@ public class ManageController {
         dbModController.deleteServiceRequest(request);
     }
 
-
-
     public Employee queryEmployeeByUsername(String username) {
         return dbQueryController.queryEmployeeByUsername(username);
+    }
+
+    public ArrayList<InterpreterRequest> getInterpreterRequest(){
+        ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("interpreter");
+        ArrayList<InterpreterRequest> interpreterRequests = new ArrayList<InterpreterRequest>();
+        for(ServiceRequest request: serviceRequests){
+            interpreterRequests.add((InterpreterRequest) request);
+        }
+        return interpreterRequests;
+    }
+
+    public ArrayList<TransportationRequest> getTransportationRequest(){
+        ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("transportation");
+        ArrayList<TransportationRequest> transportationRequests = new ArrayList<TransportationRequest>();
+        for(ServiceRequest request: serviceRequests){
+            transportationRequests.add((TransportationRequest) request);
+        }
+        return transportationRequests;
+    }
+
+    public ArrayList<MaintenanceRequest> getMaintenanceRequest() {
+        ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("maintenance");
+        ArrayList<MaintenanceRequest> maintenanceRequests = new ArrayList<MaintenanceRequest>();
+        for (ServiceRequest request : serviceRequests) {
+            maintenanceRequests.add((MaintenanceRequest) request);
+        }
+        return maintenanceRequests;
     }
 
     public void editEmployee(Employee emp) {
         dbModController.editEmployee(emp);
     }
 
-    public void deleteEmployee(String username) {
-        dbModController.deleteEmployee(username);
+    public void deleteEmployee(Employee emp) {
+        dbModController.deleteEmployee(emp);
     }
 
-    public ArrayList<ServiceRequest> getInterpreterRequest(){
-        return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
-    }
 
         // Reader Methods
 
@@ -200,6 +225,10 @@ public class ManageController {
 
     public void updateCsvEmployees(Connection conn){
         wrt.writeEmployees(conn);
+    }
+
+    public void updateCsvInterpreterSkills(Connection conn){
+        wrt.writeInterpreterSkills(conn);
     }
 
     public void updateCsvServiceRequests(Connection conn){

@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.programname.database.ModificationMethods;
 
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
 
@@ -24,20 +24,16 @@ public class ServiceRequestsMethod {
         String node1ID = serviceRequest.getLocation1();
         String node2ID = serviceRequest.getLocation2();
         String description = serviceRequest.getDescription();
-//        Timestamp requestTime = serviceRequest.getRequestTime();
-//        Timestamp handleTime = serviceRequest.getHandleTime();
-//        Timestamp completionTime = serviceRequest.getCompletionTime();
         String requestTime = serviceRequest.getRequestTime();
         String handleTime = serviceRequest.getHandleTime();
         String completionTime = serviceRequest.getCompletionTime();
-        String reservationTime = serviceRequest.getReservationTime();
         String status = serviceRequest.getStatus();
         String receiverUsername = serviceRequest.getReceiver();
         int severity = serviceRequest.getSeverity();
         String str;
         try {
             str = "INSERT INTO ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + receiverUsername + "','" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
-                    "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','" + reservationTime + "','"+ status + "'," + severity + ")";
+                    "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','"+ status + "'," + severity + ")";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeServiceRequests(dbConnection.getConnection());
@@ -46,6 +42,23 @@ public class ServiceRequestsMethod {
             e.printStackTrace();
         }
     }
+
+    // mark a service request as unhandled
+    public void unhandleServiceRequest(ServiceRequest serviceRequest) {
+        int serviceID = serviceRequest.getServiceID();
+        String str;
+        try {
+            str = "update ServiceRequests set handleTime = '', status = 'unhandled', receiver = '' where serviceID = " + serviceID ;
+            System.out.println(str);
+            dbConnection.executeUpdate(str);
+            this.wrt.writeServiceRequests(dbConnection.getConnection());
+
+        } catch (SQLException e) {
+            System.out.println("Unhandle Service Request Failed!");
+            e.printStackTrace();
+        }
+    }
+
 
     // mark a service request as handled
     public void handleServiceRequest(ServiceRequest serviceRequest, String receiver) {
