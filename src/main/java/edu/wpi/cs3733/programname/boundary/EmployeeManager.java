@@ -21,6 +21,7 @@ import javafx.stage.StageStyle;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.Optional;
 
 public class EmployeeManager {
 
@@ -133,6 +134,7 @@ public class EmployeeManager {
                 canceledit.setVisible(false);
                 btnSkills.setVisible(false);
                 add.setText("Add employee");
+                addlabel.setText("Add a new employee");
                 passerror.setVisible(false);
                 String username = newusername.getText();
                 String firstname = newfirstname.getText();
@@ -186,12 +188,22 @@ public class EmployeeManager {
     @FXML
     void removeEmployee(ActionEvent event) {
         try {
-            removeerror.setVisible(false);
             Employee employee = employeetable.getSelectionModel().getSelectedItem();
-            manageController.deleteEmployee(employee.getUsername());
-            changessaved.setVisible(true);
-            data.removeAll(data);
-            data.addAll(manageController.getAllEmployees());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm deletion");
+            alert.setHeaderText("Confirm action: delete employee");
+            alert.setContentText("You are about to delete the employee " + employee.getUsername() +
+                    " from the database. This cannot be undone. Are you sure you would like to proceed?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                removeerror.setVisible(false);
+                manageController.deleteEmployee(employee.getUsername());
+                changessaved.setVisible(true);
+                data.removeAll(data);
+                data.addAll(manageController.getAllEmployees());
+            } else {
+                // do nothing. Employee lives to work another day.
+            }
         } catch (NullPointerException nullpointer) {
             removeerror.setVisible(true);
         }
