@@ -235,5 +235,13 @@ public class ManageController {
         wrt.writeServiceRequests(conn);
     }
 
+    public ArrayList<String> queryInterpreterSkillsbyUsername(String username){
+        return dbQueryController.queryInterpreterSkillsbyUsername(username);
+    }
+
+    public void addLanguageToInterpreter(Interpreter interpreter, String language) {
+        dbModController.addLanguageToInterpreter(interpreter, language);
+    }
+
 }
 
