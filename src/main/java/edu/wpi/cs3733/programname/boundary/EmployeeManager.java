@@ -114,6 +114,31 @@ public class EmployeeManager {
     @FXML
     private Label addlabel;
 
+    //**************************************Skills window fields below***************************************//
+
+    @FXML
+    private Label labelUsername;
+
+    @FXML
+    private JFXListView<String> listAllSkills;
+
+    @FXML
+    private JFXListView<String> listMySkills;
+
+    @FXML
+    private JFXButton btnAddSkill;
+
+    @FXML
+    private JFXButton btnRmSkill;
+
+    @FXML
+    private JFXButton btnNewSkill;
+
+    @FXML
+    private Label labelSkillsSaved;
+
+    //********************************************Additional vars*******************************************//
+
     private ManageController manageController;
 
     private final ObservableList<Employee> data = FXCollections.observableArrayList();
@@ -271,6 +296,8 @@ public class EmployeeManager {
     private void openSkillsWindow(ActionEvent Event) throws IOException {
         Employee employee = employeetable.getSelectionModel().getSelectedItem();
         String username = employee.getUsername();
+        labelUsername.setText(username + "'s Skills");
+        // TODO: List out their skills
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/employeeSkillsPopup.fxml"
@@ -285,6 +312,51 @@ public class EmployeeManager {
         stage.show();
     }
 
+    //****************************************Skills methods******************************************//
+    @FXML
+    void addSkill(ActionEvent event) {
+        String skill = listAllSkills.getSelectionModel().getSelectedItem();
+        // TODO: Add the skill to the employee's skill list in DB and refresh list view
+        labelSkillsSaved.setVisible(true);
+
+    }
+
+    @FXML
+    void enableAddSkill(MouseEvent event) {
+        btnAddSkill.setDisable(false);
+        btnRmSkill.setDisable(true);
+        labelSkillsSaved.setVisible(false);
+    }
+
+    @FXML
+    void enableRmSkill(MouseEvent event) {
+        btnRmSkill.setDisable(false);
+        btnAddSkill.setDisable(true);
+        labelSkillsSaved.setVisible(false);
+    }
+
+    @FXML
+    void newSkill(ActionEvent event) {
+        labelSkillsSaved.setVisible(false);
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("New skill");
+        dialog.setHeaderText("Add a new skill");
+        dialog.setContentText("Please enter the name of the new skill:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String newSkill = result.get();
+            // TODO: Add the new skill to the list
+        }
+    }
+
+    @FXML
+    void rmSkill(ActionEvent event) {
+        btnRmSkill.setDisable(true);
+        // TODO: Remove the skill
+        labelSkillsSaved.setVisible(true);
+    }
+
+
     public void initManager(ManageController manageController){
         this.manageController = manageController;
         this.data.addAll(manageController.getAllEmployees());
@@ -297,6 +369,6 @@ public class EmployeeManager {
         email.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
         service.setCellValueFactory(cellData -> cellData.getValue().serviceTypeProperty());
         administrator.setCellValueFactory(cellData -> cellData.getValue().sysAdminProperty());
-
+        // TODO: Populate ListView of all skills
     }
 }
