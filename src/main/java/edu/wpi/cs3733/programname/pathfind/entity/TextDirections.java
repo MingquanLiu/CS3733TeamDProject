@@ -64,23 +64,26 @@ public class TextDirections {
                         if (Math.abs(directionChange) > 25) {
                             directions += "\nTake the next " + face + " turn down the hall";
                         }
-                        else directions += "\nGo straight down the hall";
+                        else directions += "\nGo straight down the hall for " + distanceBetween(node, nextNode) + " feet";
                     }
                     else if(Math.abs(directionChange) > 25) {
                         directions += "\nTake the next " + face + " to continue down the hall";
                     }
-                    else directions += "\nContinue straight down the hall";
+                    else directions += "\nContinue straight down the hall for " + distanceBetween(node, nextNode) + "feet";
                     break;
                 default:
                     directions += "\nContinue " + face + " past " + name;
                     break;
             }
         }
-        directions += "\nContinue until you arrive at " + nodeList.get(nodeList.size()-1).getLongName();
+        NodeData secondToLast = nodeList.get(nodeList.size() - 2);
+        NodeData last = nodeList.get(nodeList.size() - 1);
+        directions += "\nContinue until you arrive at " + last.getLongName() + " in " + distanceBetween(secondToLast, last) + " feet";
         String[] lines = this.directions.split("\\r?\\n");
         for(int i = 0; i < lines.length; i++) {
             prettyDirections += "\n" + (i + 1) + ". " + lines[i];
         }
+        System.out.println(prettyDirections);
     }
 
     /**
@@ -131,5 +134,18 @@ public class TextDirections {
         }
         emailDirections += "\nRegards,\nKiosk Devs\n\n(Note: This inbox is not monitored. Please do not reply.)";
         return emailDirections;
+    }
+
+    /**
+     *
+     * @param node1 the first node
+     * @param node2 the second node
+     * @return the distance in feet between the two nodes
+     */
+    private double distanceBetween(NodeData node1, NodeData node2) {
+        double xDist = node1.getXCoord() - node2.getXCoord();
+        double yDist = node1.getYCoord() - node2.getYCoord();
+        double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
+        return distToGo;
     }
 }
