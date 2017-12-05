@@ -21,6 +21,7 @@ import javafx.stage.StageStyle;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class EmployeeManager {
@@ -143,7 +144,9 @@ public class EmployeeManager {
 
     private final ObservableList<Employee> data = FXCollections.observableArrayList();
 
-    private ObservableList<String> allSkills;
+    private List<String> allSkills;
+
+    private List<String> mySkills;
 
     @FXML
     private SortedList<Employee> sortedEmployee;
@@ -296,8 +299,6 @@ public class EmployeeManager {
 
     @FXML
     private void openSkillsWindow(ActionEvent Event) throws IOException {
-//        labelUsername.setText(newusername.getText() + "'s Skills");
-        // TODO: List out their skills
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/employeeSkillsPopup.fxml"
@@ -310,13 +311,15 @@ public class EmployeeManager {
                 )
         );
         stage.show();
+        // TODO: List out their skills
     }
 
     //****************************************Skills methods******************************************//
     @FXML
     void addSkill(ActionEvent event) {
         String skill = listAllSkills.getSelectionModel().getSelectedItem();
-        // TODO: Add the skill to the employee's skill list in DB and refresh list view
+        // TODO: Add the skill to the employee's skill list in DB
+        listMySkills.getItems().add(skill);
         labelSkillsSaved.setVisible(true);
 
     }
@@ -347,16 +350,17 @@ public class EmployeeManager {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             String newSkill = result.get();
-            allSkills.add(newSkill);
-
-            // TODO: Add the new skill to the list
+            listAllSkills.getItems().add(newSkill);
+            // TODO: Add the new skill to the database list of all skills???
         }
     }
 
     @FXML
     void rmSkill(ActionEvent event) {
+        String skill = listMySkills.getSelectionModel().getSelectedItem();
         btnRmSkill.setDisable(true);
-        // TODO: Remove the skill
+        listMySkills.getItems().remove(skill);
+        // TODO: Remove the skill from employee's DB list
         labelSkillsSaved.setVisible(true);
     }
 
@@ -374,8 +378,10 @@ public class EmployeeManager {
         service.setCellValueFactory(cellData -> cellData.getValue().serviceTypeProperty());
         administrator.setCellValueFactory(cellData -> cellData.getValue().sysAdminProperty());
         // TODO: Populate ListView of all skills
-        allSkills = FXCollections.observableArrayList("First skill");
+        for(Employee e: data) {
+            // get their skills and add them to the list of possible skills
+        }
         listAllSkills = new JFXListView<String>();
-        listAllSkills.setItems(allSkills);
+//        listAllSkills.getItems().addAll();
     }
 }
