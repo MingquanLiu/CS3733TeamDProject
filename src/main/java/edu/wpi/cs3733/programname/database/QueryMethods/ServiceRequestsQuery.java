@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
 import edu.wpi.cs3733.programname.commondata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.TransportationRequest;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.commondata.ServiceRequest;
 
@@ -12,9 +13,11 @@ import java.util.ArrayList;
 public class ServiceRequestsQuery {
     private DBConnection dbConnection;
     private InterpreterRequestQuery interpreterRequestQuery;
+    private TransportationRequestQuery transportationRequestQuery;
     public ServiceRequestsQuery(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
         this.interpreterRequestQuery = new InterpreterRequestQuery(dbConnection);
+        this.transportationRequestQuery = new TransportationRequestQuery(dbConnection);
     }
 
     public ArrayList<ServiceRequest> queryAllServiceRequests(){
@@ -38,6 +41,8 @@ public class ServiceRequestsQuery {
             int severity;
             String language;
             String reservationTime;
+            String transportationType;
+            String destination;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
@@ -59,6 +64,13 @@ public class ServiceRequestsQuery {
                     reservationTime = interpreterRequest.get(1);
                     queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
                 }
+                else if(serviceType.equals("transportation")){
+                    ArrayList<String> transportationRequest = this.transportationRequestQuery.queryTransportationRequestByID(serviceID);
+                    transportationType = transportationRequest.get(0);
+                    destination = transportationRequest.get(1);
+                    reservationTime = transportationRequest.get(2);
+                    queryResult = new TransportationRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, transportationType, destination, reservationTime);
+                }
                 else{
                     queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
                 }
@@ -66,7 +78,7 @@ public class ServiceRequestsQuery {
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Get Service Request Failed!");
+            System.out.println("Query Service Request Failed!");
             e.printStackTrace();
         }
         return resultList;
@@ -92,6 +104,8 @@ public class ServiceRequestsQuery {
             int severity;
             String language;
             String reservationTime;
+            String transportationType;
+            String destination;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
@@ -111,13 +125,20 @@ public class ServiceRequestsQuery {
                     reservationTime = interpreterRequest.get(1);
                     queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
                 }
+                else if(serviceType.equals("transportation")){
+                    ArrayList<String> transportationRequest = this.transportationRequestQuery.queryTransportationRequestByID(serviceID);
+                    transportationType = transportationRequest.get(0);
+                    destination = transportationRequest.get(1);
+                    reservationTime = transportationRequest.get(2);
+                    queryResult = new TransportationRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, transportationType, destination, reservationTime);
+                }
                 else{
                     queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
                 }
                 resultList.add(queryResult);
             }
         } catch (SQLException e) {
-            System.out.println("Get Service Request Failed!");
+            System.out.println("Query Service Request Failed!");
             e.printStackTrace();
         }
         return resultList;
@@ -144,6 +165,8 @@ public class ServiceRequestsQuery {
             int severity;
             String language;
             String reservationTime;
+            String transportationType;
+            String destination;
 
             while(result.next()) {
                 serviceID = result.getInt("serviceID");
@@ -162,6 +185,13 @@ public class ServiceRequestsQuery {
                     language = interpreterRequest.get(0);
                     reservationTime = interpreterRequest.get(1);
                     queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
+                }
+                else if(serviceType.equals("transportation")){
+                    ArrayList<String> transportationRequest = this.transportationRequestQuery.queryTransportationRequestByID(serviceID);
+                    transportationType = transportationRequest.get(0);
+                    destination = transportationRequest.get(1);
+                    reservationTime = transportationRequest.get(2);
+                    queryResult = new TransportationRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, transportationType, destination, reservationTime);
                 }
                 else{
                     queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
@@ -194,6 +224,8 @@ public class ServiceRequestsQuery {
             int severity;
             String language;
             String reservationTime;
+            String transportationType;
+            String destination;
 
             while(result.next()) {
                 senderUsername = result.getString("sender");
@@ -213,12 +245,19 @@ public class ServiceRequestsQuery {
                     reservationTime = interpreterRequest.get(1);
                     queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
                 }
+                else if(serviceType.equals("transportation")){
+                    ArrayList<String> transportationRequest = this.transportationRequestQuery.queryTransportationRequestByID(serviceID);
+                    transportationType = transportationRequest.get(0);
+                    destination = transportationRequest.get(1);
+                    reservationTime = transportationRequest.get(2);
+                    queryResult = new TransportationRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, transportationType, destination, reservationTime);
+                }
                 else{
                     queryResult = new ServiceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity);
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Select Service Request Failed!");
+            System.out.println("Query Service Request Failed!");
             e.printStackTrace();
         }
         return queryResult;

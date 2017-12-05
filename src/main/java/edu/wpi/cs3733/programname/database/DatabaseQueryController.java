@@ -135,12 +135,4 @@ public class DatabaseQueryController {
         return serviceRequestsQuery.queryServiceRequestsByID(serviceID);
     }
 
-
-
-
-
-
-
-    // Writer Methods
-
 }

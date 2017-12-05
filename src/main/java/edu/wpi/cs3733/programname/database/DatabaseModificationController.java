@@ -14,6 +14,7 @@ public class DatabaseModificationController {
     private InterpreterMethod interpreterMethod;
     private ServiceRequestsMethod serviceRequestsMethod;
     private InterpreterRequestsMethod interpreterRequestsMethod;
+    private TransportationRequestMethod transportationRequestMethod;
     /**
      *
      * @param conn the connection to the database
@@ -25,6 +26,7 @@ public class DatabaseModificationController {
         interpreterMethod = new InterpreterMethod(conn);
         serviceRequestsMethod = new ServiceRequestsMethod(conn);
         interpreterRequestsMethod = new InterpreterRequestsMethod(conn);
+        transportationRequestMethod = new TransportationRequestMethod(conn);
     }
 
     //Node Modification
@@ -90,15 +92,23 @@ public class DatabaseModificationController {
     }
 
     public void addInterpreterRequest(InterpreterRequest interpreterRequest){
-        ServiceRequest serviceRequest = interpreterRequest.toServiceRequest();
-        serviceRequestsMethod.addServiceRequest(serviceRequest);
+        serviceRequestsMethod.addServiceRequest(interpreterRequest);
         interpreterRequestsMethod.addInterpreterRequest(interpreterRequest);
     }
 
     public void deleteInterpreterRequest(InterpreterRequest interpreterRequest){
-        ServiceRequest serviceRequest = interpreterRequest.toServiceRequest();
         interpreterRequestsMethod.deleteInterpreterRequest(interpreterRequest);
-        serviceRequestsMethod.deleteServiceRequest(serviceRequest);
+        serviceRequestsMethod.deleteServiceRequest(interpreterRequest);
+    }
+
+    public void addTransportationRequest(TransportationRequest transportationRequest){
+        serviceRequestsMethod.addServiceRequest(transportationRequest);
+        transportationRequestMethod.addTransportationRequest(transportationRequest);
+    }
+
+    public void deleteTransportationRequest(TransportationRequest transportationRequest){
+        transportationRequestMethod.deleteTransportationRequest(transportationRequest);
+        serviceRequestsMethod.deleteServiceRequest(transportationRequest);
     }
 
     public void handleServiceRequest(ServiceRequest serviceRequest, String receiver){
