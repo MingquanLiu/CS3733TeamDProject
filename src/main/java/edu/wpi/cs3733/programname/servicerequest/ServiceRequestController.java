@@ -1,11 +1,10 @@
 package edu.wpi.cs3733.programname.servicerequest;
 
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.*;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.commondata.Employee;
-import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
-import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequestMessage;
 
 public class ServiceRequestController {
     private DBConnection dbConnection;
@@ -28,11 +27,23 @@ public class ServiceRequestController {
         email.sendMessage();
     }
 
-//    public void sendEmailByUsername(ServiceRequest request, String receiver){
-//        String content = this.requestReport(request);
-//        ServiceRequestMessage email = new ServiceRequestMessage(receiver,content);
-//        email.sendMessage();
-//    }
+    public void sendInterpreterRequest(InterpreterRequest request, String receiver){
+        String content = this.requestReport(request) + request.toString();
+        ServiceRequestMessage email = new ServiceRequestMessage(receiver,content);
+        email.sendMessage();
+    }
+
+    public void sendMaintenanceRequest(MaintenanceRequest request, String receiver){
+        String content = this.requestReport(request) + request.toString();
+        ServiceRequestMessage email = new ServiceRequestMessage(receiver,content);
+        email.sendMessage();
+    }
+
+    public void sendTransportationRequest(TransportationRequest request, String receiver){
+        String content = this.requestReport(request) + request.toString();
+        ServiceRequestMessage email = new ServiceRequestMessage(receiver,content);
+        email.sendMessage();
+    }
 
 
     public void sendEmailByType(ServiceRequest request){
