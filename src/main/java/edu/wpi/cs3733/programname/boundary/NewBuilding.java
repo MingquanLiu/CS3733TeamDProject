@@ -133,12 +133,12 @@ public class NewBuilding {
                 String relPathLater = "src\\main\\resources\\img\\";
                 String relPathNow = "out\\production\\resources\\img\\";
                 //naming the new file based on the name given
-                String buildName = buildingName.getText() + "." + extension;
+                String fileName = floorName.getText() + "." + extension;
                 //for later use pulling up the floor
-                filepath = "img/" + buildName;
-                File file = new File(relPathNow + buildName);
+                filepath = "img/" + fileName;
+                File file = new File(relPathNow + fileName);
                 copyFile(selectedFile, file);
-                File fileStored = new File(relPathLater + buildName);
+                File fileStored = new File(relPathLater + fileName);
                 copyFile(selectedFile, fileStored);
                 System.out.println("\n\n\nCreated new building in out, stored in src");
                 onCancelButton();

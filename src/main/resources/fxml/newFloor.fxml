@@ -6,32 +6,46 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.newFloor">
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.NewFloor">
     <children>
-        <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="322.0" layoutY="244.0" style="-fx-background-color: #d2d2d2;" text="Cancel" />
-        <Label layoutX="214.0" layoutY="44.0" text="Upload Image..." textAlignment="CENTER">
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="322.0" layoutY="244.0" onAction="#onCancelButton" style="-fx-background-color: #d2d2d2;" text="Cancel" />
+        <Label fx:id="imageName" layoutX="224.0" layoutY="41.0" text="Upload Image..." textAlignment="CENTER">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="195.0" layoutY="244.0" onAction="#onSubmit" style="-fx-background-color: #d2d2d2;" text="Submit" />
+        <Label layoutX="142.0" layoutY="154.0" text="Building Name:">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="195.0" layoutY="244.0" style="-fx-background-color: #d2d2d2;" text="Submit" />
-        <Label layoutX="134.0" layoutY="155.0" text="Building Name:">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Label>
-        <JFXTextField layoutX="276.0" layoutY="151.0" prefHeight="35.0" prefWidth="143.0" promptText="Hospital, etc" />
-        <JFXButton fx:id="btnBack11" buttonType="RAISED" layoutX="235.0" layoutY="91.0" style="-fx-background-color: #d2d2d2;" text="Upload" />
+        <JFXButton fx:id="uploadImage" buttonType="RAISED" layoutX="235.0" layoutY="91.0" onAction="#setPath" style="-fx-background-color: #d2d2d2;" text="Upload" />
         <Label layoutX="14.0" layoutY="14.0" text="Add a Floor">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-      <Label layoutX="162.0" layoutY="197.0" text="Floor name:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <JFXTextField layoutX="276.0" layoutY="193.0" prefHeight="35.0" prefWidth="57.0" promptText="#" />
+        <Label fx:id="errUpload" layoutX="113.0" layoutY="205.0" prefHeight="19.0" prefWidth="356.0" textAlignment="CENTER" textFill="#e14545">
+            <font>
+                <Font size="13.0" />
+            </font></Label>
+        <JFXTextField fx:id="floorName" layoutX="271.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0" />
+        <JFXTextField fx:id="buildingName" layoutX="276.0" layoutY="151.0" prefHeight="35.0" prefWidth="200.0" />
+        <Label layoutX="142.0" layoutY="126.0" prefHeight="27.0" prefWidth="122.0" text="Floor Name:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="errFloor" layoutX="476.0" layoutY="130.0" prefHeight="35.0" prefWidth="106.0" textFill="#e12121" wrapText="true">
+            <font>
+                <Font size="9.0" />
+            </font>
+        </Label>
+        <Label fx:id="errBuilding" layoutX="480.0" layoutY="164.0" prefHeight="35.0" prefWidth="106.0" textFill="#e12121" wrapText="true">
+            <font>
+                <Font size="9.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>
