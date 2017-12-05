@@ -407,7 +407,7 @@ public class TestingController implements Initializable {
         grid.setLayoutY(10);
         content.getChildren().add(grid);
 
-
+        paneControls.setPickOnBounds(false);
 
     }
 
