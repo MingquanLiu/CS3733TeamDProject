@@ -160,6 +160,37 @@ public class ManageController {
         msg.sendMessage();
     }
 
+    public InterpreterRequest createInterpreterRequest(String requester, String type, String location1, String location2, String description, int severity, String language, String reservationTime){
+        //generate random id
+        Random randomID = new Random();
+        int id = randomID.nextInt(1000) + 1;
+        InterpreterRequest newServiceRequest = new InterpreterRequest(id, requester, type, location1, location2, description,severity, language,reservationTime);
+        dbModController.addServiceRequest(newServiceRequest);
+        dbModController.addInterpreterRequest(newServiceRequest);
+        return newServiceRequest;
+    }
+
+    public MaintenanceRequest createInterpreterRequest(String requester, String type, String location1, String location2, String description, int severity, String maintenanceType){
+        //generate random id
+        Random randomID = new Random();
+        int id = randomID.nextInt(1000) + 1;
+        MaintenanceRequest newServiceRequest = new MaintenanceRequest(id, requester, type, location1, location2, description, severity, maintenanceType);
+        dbModController.addServiceRequest(newServiceRequest);
+        dbModController.addMaintenanceRequest(newServiceRequest);
+        return newServiceRequest;
+    }
+
+    public TransportationRequest createTransportationRequest(String requester, String type, String location1, String location2, String description, int severity, String transportationType, String destination, String reservationTime){
+        //generate random id
+        Random randomID = new Random();
+        int id = randomID.nextInt(1000) + 1;
+        TransportationRequest newServiceRequest = new TransportationRequest(id, requester, type, location1, location2, description,severity, transportationType,destination,reservationTime);
+        dbModController.addServiceRequest(newServiceRequest);
+        dbModController.addTransportationRequest(newServiceRequest);
+        return newServiceRequest;
+    }
+
+
     public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description, int severity) {
         //generate random id
         Random randomID = new Random();
