@@ -19,6 +19,25 @@ public class ServiceRequest {
     private String receiver;
     private int severity;
 
+
+    // constructor using all the fields
+    public ServiceRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2, String description,
+                          String requestTime, String handleTime, String completionTime, String status, int severity) {
+        this.serviceID = serviceID;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.serviceType = serviceType;
+        this.location1 = location1;
+        this.location2 = location2;
+        this.description = description;
+        this.requestTime = requestTime;
+        this.handleTime = handleTime;
+        this.completionTime = completionTime;
+        this.status = status;
+        this.severity = severity;
+    }
+
+    // short constructor
     public ServiceRequest(int serviceID, String sender, String serviceType, String location1,
                           String location2, String description, int severity) {
         this.serviceID = serviceID;
@@ -36,21 +55,6 @@ public class ServiceRequest {
         this.severity = severity;
     }
 
-    public ServiceRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2, String description,
-                          String requestTime, String handleTime, String completionTime, String status, int severity) {
-        this.serviceID = serviceID;
-        this.sender = sender;
-        this.receiver = receiver;
-        this.serviceType = serviceType;
-        this.location1 = location1;
-        this.location2 = location2;
-        this.description = description;
-        this.requestTime = requestTime;
-        this.handleTime = handleTime;
-        this.completionTime = completionTime;
-        this.status = status;
-        this.severity = severity;
-    }
 
     public int getServiceID() {
         return serviceID;
