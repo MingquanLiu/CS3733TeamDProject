@@ -41,7 +41,7 @@ public class InterpreterRequestsMethod {
             this.wrt.writeServiceRequests(dbConnection.getConnection());
 
         } catch (SQLException e) {
-            System.out.println("Delete InterpreterRequests Request Failed!");
+            System.out.println("Delete Interpreter Request Failed!");
             e.printStackTrace();
         }
     }

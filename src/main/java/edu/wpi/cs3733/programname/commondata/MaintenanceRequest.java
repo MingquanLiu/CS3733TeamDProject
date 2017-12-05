@@ -4,14 +4,14 @@ public class MaintenanceRequest extends ServiceRequest{
     String maintenanceType;
 
     MaintenanceRequest(int serviceID, String sender, String serviceType, String location1, String location2,
-                       String description, String reservationTime, int severity, String maintenanceType){
+                       String description, int severity, String maintenanceType, String reservationTime){
         super(serviceID, sender, serviceType, location1, location2, description, severity);
         this.maintenanceType = maintenanceType;
     }
 
     MaintenanceRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2,
                        String description, String requestTime, String handleTime, String completionTime, String status,
-                       String reservationTime, int severity, String maintenanceType){
+                        int severity, String maintenanceType, String reservationTime){
         super(serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity);
         this.maintenanceType = maintenanceType;
     }

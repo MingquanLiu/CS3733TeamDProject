@@ -72,6 +72,11 @@ public class DatabaseModificationController {
         interpreterMethod.addInterpreter(interpreter);
     }
 
+    // add interpreter skill(language) to an employee
+    public void addLanguage(Interpreter interpreter, String language){
+        interpreter.addLanguage(language);
+    }
+
     // delete interpreter employee
     public void deleteEmployee(Interpreter interpreter){
         Employee employee = interpreter.toEmployee();
