@@ -21,8 +21,10 @@ import javafx.stage.StageStyle;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class EmployeeManager {
 
@@ -316,7 +318,7 @@ public class EmployeeManager {
     @FXML
     void addSkill(ActionEvent event) {
         String skill = listAllSkills.getSelectionModel().getSelectedItem();
-        // TODO: Add the skill to the employee's skill list in DB
+
         listMySkills.getItems().add(skill);
         labelSkillsSaved.setVisible(true);
 
@@ -375,11 +377,21 @@ public class EmployeeManager {
         email.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
         service.setCellValueFactory(cellData -> cellData.getValue().serviceTypeProperty());
         administrator.setCellValueFactory(cellData -> cellData.getValue().sysAdminProperty());
-        // TODO: Populate ListView of all skills
-        for(Employee e: data) {
-            // get their skills and add them to the list of possible skills
-        }
         listAllSkills = new JFXListView<String>();
-//        listAllSkills.getItems().addAll();
+        try {
+            for(Employee e: data) {
+                allSkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(e.getUsername()));
+                // get their skills and add them to the list of possible skills
+            }
+
+            // This piece of kludgey code removes all the duplicates (in theory)
+            Set<String> hs = new HashSet<>();
+            hs.addAll(allSkills);
+            allSkills.clear();
+            allSkills.addAll(hs);
+            listAllSkills.getItems().addAll(allSkills);
+        } catch (NullPointerException npe) {
+            System.out.println("Hah, your employees have no skills. Add some with the skills editor.");
+        }
     }
 }
