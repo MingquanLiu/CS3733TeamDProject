@@ -84,7 +84,7 @@ public class TestingController implements Initializable {
     @FXML
     private ImageView imgMap;
     @FXML
-    private  Button btnFloorAdd;
+    private Button btnFloorAdd;
     //</editor-fold>
 
     //<editor-fold desc="zoom and pan objects">
@@ -301,12 +301,12 @@ public class TestingController implements Initializable {
         comboLocations.setItems(locations);
         comboLocations.setValue("Bathrooms");
 
-        Floor basement2 = new Floor("Basement 2", "main", "img/Floor_-2.png");
-        Floor basement1 = new Floor("Basement 1", "main", "img/Floor_-1.png");
-        Floor ground = new Floor("Ground", "main", "img/Floor_0.png");
-        Floor floor1 = new Floor("Floor 1", "main", "img/Floor_1.png");
-        Floor floor2 = new Floor("Floor 2", "main", "img/Floor_2.png");
-        Floor floor3 = new Floor("Floor 3", "Shapiro", "img/Floor_3.png");
+        Floor basement2 = new Floor("Basement 2", "main", "file:floorMaps/Floor_-2.png");
+        Floor basement1 = new Floor("Basement 1", "main", "file:floorMaps/Floor_-1.png");
+        Floor ground = new Floor("Ground", "main", "file:floorMaps/Floor_0.png");
+        Floor floor1 = new Floor("Floor 1", "main", "file:floorMaps/Floor_1.png");
+        Floor floor2 = new Floor("Floor 2", "main", "file:floorMaps/Floor_2.png");
+        Floor floor3 = new Floor("Floor 3", "Shapiro", "file:floorMaps/Floor_3.png");
 
         ArrayList<Floor> basicFloors = new ArrayList<>();
         basicFloors.add(basement2);
@@ -474,7 +474,7 @@ public class TestingController implements Initializable {
     }
 
     //map switching methods
-    public void addFloor()throws IOException{
+    public void addFloor() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/newFloor.fxml"
@@ -492,6 +492,7 @@ public class TestingController implements Initializable {
         fls.add(newFloor);
         comboFloors.setItems(fls);
     }
+
     public void addBuilding() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -529,10 +530,10 @@ public class TestingController implements Initializable {
         floorList.addAll(floors);
 
 //        try {
-            comboFloors.setItems(floorList);
-            comboFloors.setValue(floorList.get(0));
-            setFloor(newBld.getFloors().get(0));
-            setFloor((Floor) floorList.get(0));
+        comboFloors.setItems(floorList);
+        comboFloors.setValue(floorList.get(0));
+        setFloor(newBld.getFloors().get(0));
+        setFloor((Floor) floorList.get(0));
 //        } catch (Exception e) {
 //            System.out.println("SCREAM");
 //        }
@@ -544,18 +545,13 @@ public class TestingController implements Initializable {
     }
 
     public void setFloor() {
-        System.out.println("setFloor() started, comboFloors value: " + comboFloors.getValue());
         currentFloor = (Floor) (comboFloors.getValue());
-        System.out.println("currentFloor: " + currentFloor);
         floor = floors.indexOf(currentFloor) - 2;
         System.out.println("floor: " + floor);
-        System.out.println("about to get URL");
 
         String newUrl = currentFloor.getImgUrl();
         System.out.println("new image: " + newUrl);
 
-        //File file = new File(newUrl);
-        //System.out.println("current map: " + file.toString());
         Image newImg = new Image(newUrl);
         System.out.println("about to be: " + newImg.getWidth());
         imgMap.setImage(newImg);

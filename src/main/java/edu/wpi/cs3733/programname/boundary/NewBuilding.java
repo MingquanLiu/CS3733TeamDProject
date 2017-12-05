@@ -114,32 +114,34 @@ public class NewBuilding {
 
 
         if (!buildingName.getText().equals("")) {
-           //ADD FORMATTING GUIDELINES
+            //ADD FORMATTING GUIDELINES
             haveBuilding = true;
-        }
-        else
+        } else
             errBuilding.setText("You need to set a building name.");
 
         if (!floorName.getText().equals("")) {
             //ADD FORMATTING GUIDELINES
             haveFloor = true;
-        }
-        else
+        } else
             errFloor.setText("You need to set a floor name.");
 
-        if (haveFile && haveBuilding && haveFloor){
+        if (haveFile && haveBuilding && haveFloor) {
             try {
                 //relative path from main folder to the images folder where we store the floors
-                String relPathLater = "src\\main\\resources\\img\\";
-                String relPathNow = "out\\production\\resources\\img\\";
+                String relPathMaps = "floorMaps/";
+
                 //naming the new file based on the name given
                 String fileName = floorName.getText() + "." + extension;
                 //for later use pulling up the floor
-                filepath = "img/" + fileName;
-                File file = new File(relPathNow + fileName);
-                copyFile(selectedFile, file);
-                File fileStored = new File(relPathLater + fileName);
-                copyFile(selectedFile, fileStored);
+                filepath = "file:floorMaps/" + fileName;
+
+                //creating the two new files
+                File fileMap = new File(relPathMaps + fileName);
+
+                //copying them to the right locations
+                copyFile(selectedFile, fileMap);
+
+                //print to make sure, then hide the menu
                 System.out.println("\n\n\nCreated new building in out, stored in src");
                 onCancelButton();
             } catch (Exception e) {

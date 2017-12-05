@@ -35,8 +35,8 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <JFXPasswordField fx:id="txtPass" maxWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <JFXTextField fx:id="txtUser" maxWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="1" />
+            <JFXPasswordField fx:id="txtPass" maxWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
