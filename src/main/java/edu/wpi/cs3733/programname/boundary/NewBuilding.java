@@ -50,12 +50,13 @@ public class NewBuilding {
 
 
     @FXML
-    private TextField buildingName;
-
-    @FXML
     private Label imageName;
     @FXML
-    private Label errorMessage;
+    private Label errUpload;
+    @FXML
+    private Label errFloor;
+    @FXML
+    private Label errBuilding;
 
     @FXML
     private JFXButton btnUpload;
@@ -65,7 +66,9 @@ public class NewBuilding {
     private JFXButton btnCancel;
 
     @FXML
-    private TextField txtFloorName;
+    private TextField buildingName;
+    @FXML
+    private TextField floorName;
 
     File selectedFile;
     String filepath;
@@ -92,34 +95,55 @@ public class NewBuilding {
     }
 
     public void onSubmit() {
-        errorMessage.setText("");
+        boolean haveFile = false, haveFloor = false, haveBuilding = false;
+        String extension = "";
+        errUpload.setText("");
+        errBuilding.setText("");
+        errFloor.setText("");
+        if (selectedFile == null) {
+
+        }
         if (selectedFile != null) {
-            String extension = getFileExtension(selectedFile);
+            extension = getFileExtension(selectedFile);
             if (extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg")) {
-                if (!buildingName.getText().equals("")) {
-                    try {
-                        //relative path from main folder to the images folder where we store the floors
-                        String relPath = "src\\main\\resources\\img\\";
-                        //naming the new file based on the name given
-                        String buildName = buildingName.getText() + "." + extension;
-                        //for later using pulling up the floor
-                        filepath = "\\img\\"+buildName;
-                        File file = new File(relPath+buildName);
-                        copyFile(selectedFile, file);
-                        onCancelButton();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                else
-                    errorMessage.setText("You need to give the building a name.");
+                haveFile = true;
+            } else
+                errUpload.setText("You need to upload a valid image (.png or .jpg).");
+        } else
+            errUpload.setText("You need to upload an image.");
+
+
+        if (!buildingName.getText().equals("")) {
+           //ADD FORMATTING GUIDELINES
+            haveBuilding = true;
+        }
+        else
+            errBuilding.setText("You need to set a building name.");
+
+        if (!floorName.getText().equals("")) {
+            //ADD FORMATTING GUIDELINES
+            haveFloor = true;
+        }
+        else
+            errFloor.setText("You need to set a floor name.");
+
+        if (haveFile && haveBuilding && haveFloor){
+            try {
+                //relative path from main folder to the images folder where we store the floors
+                String relPath = "src\\main\\resources\\img\\";
+                //naming the new file based on the name given
+                String buildName = buildingName.getText() + "." + extension;
+                //for later use pulling up the floor
+                filepath = "img\\" + buildName;
+                File file = new File(relPath + buildName);
+                copyFile(selectedFile, file);
+                System.out.println("\n\n\nCreated new building");
+                onCancelButton();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("some error happened");
             }
-        } else {
-            if (buildingName.getText().equals("")) {
-                errorMessage.setText("You need to upload an image and give the building a name.");
-            }
-            else
-                errorMessage.setText("You need to upload an image.");
+
         }
 
     }
@@ -150,9 +174,10 @@ public class NewBuilding {
             e.printStackTrace();
         }
     }
-    public Building getBldg(){
+
+    public Building getBldg() {
         Building bldg = new Building(buildingName.getText());
-        Floor fl = new Floor(txtFloorName.getText(), bldg.getName(), filepath);
+        Floor fl = new Floor(floorName.getText(), bldg.getName(), filepath);
         bldg.addFloor(fl);
 
         return bldg;

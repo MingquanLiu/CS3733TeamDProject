@@ -253,18 +253,18 @@ public class TestingController implements Initializable {
 
     //<editor-fold desc="DP connectton">
     private DBConnection dbConnection;
-    private PathfindingController.searchType mSearchType= ASTAR;
+    private PathfindingController.searchType mSearchType = ASTAR;
     //</editor-fold>
 
     private boolean logOffNext = false;
 
     //this runs on startup
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void initData(DBConnection dbConnection){
-        currentMapRatioIndex =originalMapRatioIndex;
+    public void initData(DBConnection dbConnection) {
+        currentMapRatioIndex = originalMapRatioIndex;
         manager = new ManageController(dbConnection);
         this.dbConnection = dbConnection;
 //        mapRatio.add(0.24);
@@ -284,7 +284,7 @@ public class TestingController implements Initializable {
         controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
-        imgMap.setFitWidth(maxWidth*currentScale);
+        imgMap.setFitWidth(maxWidth * currentScale);
 
         ObservableList locations = FXCollections.observableArrayList(
                 "Bathrooms",
@@ -334,44 +334,46 @@ public class TestingController implements Initializable {
         setFloor(ground);
     }
 
-    public void setSearchType(PathfindingController.searchType searchType){
+    public void setSearchType(PathfindingController.searchType searchType) {
         System.out.println(currentMapRatioIndex);
         this.mSearchType = searchType;
     }
+
     //topmost methods are newest
-    private void drawCycle(int x, int y, Color col){
-        double radius = 10*currentScale;
+    private void drawCycle(int x, int y, Color col) {
+        double radius = 10 * currentScale;
         Circle c = new Circle(x, y, radius, col);
         panningPane.getChildren().add(c);
         shownNodes.add(c);
     }
 
-    private void showNodeList (List<NodeData> nodeDataList){
-        for(int i = 0;i <nodeDataList.size();i++){
+    private void showNodeList(List<NodeData> nodeDataList) {
+        for (int i = 0; i < nodeDataList.size(); i++) {
             showNode(nodeDataList.get(i));
         }
     }
-    private void showNode(NodeData n){
+
+    private void showNode(NodeData n) {
         currentNodes.add(n);
-        drawCycle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale), RED);
+        drawCycle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale), RED);
     }
-    private void showNode(NodeData n, String type){
+
+    private void showNode(NodeData n, String type) {
         currentNodes.add(n);
-        if(type.equals("start")) {
+        if (type.equals("start")) {
             drawCycle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale), GREEN);
-        }
-        else if(type.equals("end")){
+        } else if (type.equals("end")) {
             drawCycle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale), RED);
         }
     }
 
-    private void showNodeInfo(NodeData nodeData){
+    private void showNodeInfo(NodeData nodeData) {
         int dbX = nodeData.getXCoord();
         int dbY = nodeData.getYCoord();
-        System.out.println("Node Coordinate: "+dbX+","+dbY+" Node Name: "+nodeData.getLongName());
+        System.out.println("Node Coordinate: " + dbX + "," + dbY + " Node Name: " + nodeData.getLongName());
         nodeInfoPane.setVisible(true);
-        nodeInfoPane.setLayoutX(DBCToUIC(dbX,currentScale) + 3);
-        nodeInfoPane.setLayoutY(DBCToUIC(dbY,currentScale) + 3);
+        nodeInfoPane.setLayoutX(DBCToUIC(dbX, currentScale) + 3);
+        nodeInfoPane.setLayoutY(DBCToUIC(dbY, currentScale) + 3);
         nodeInfoPane.setVisible(true);
         //nodeInfoLocation.setText(dbX + ", " + dbY);
         lblNodeX.setText(dbX + "");
@@ -383,9 +385,9 @@ public class TestingController implements Initializable {
     }
 
     //displaying node info on click
-    private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
-        int dbX = UICToDBC(mouseX,currentScale);
-        int dbY =UICToDBC(mouseY,currentScale);
+    private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY) {
+        int dbX = UICToDBC(mouseX, currentScale);
+        int dbY = UICToDBC(mouseY, currentScale);
         int resultX = 0;
         int resultY = 0;
         String resultNodeId = "";
@@ -395,38 +397,38 @@ public class TestingController implements Initializable {
             int nodeY = node.getYCoord();
 //                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
             double temp = Math.sqrt(Math.pow(dbX - nodeX, 2) + Math.pow(dbY - nodeY, 2));
-            if (temp < d||d==0) {
+            if (temp < d || d == 0) {
                 d = temp;
                 resultX = nodeX;
                 resultY = nodeY;
                 resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),floor + "" ,null,null,null,null,null);
+        return new NodeData(resultNodeId, new Coordinate(resultX, resultY), floor + "", null, null, null, null, null);
     }
 
-    private void displayPath(List<NodeData> path){
-        currentPath= path;
+    private void displayPath(List<NodeData> path) {
+        currentPath = path;
         clearMain();
         System.out.println("drawing path");
         NodeData prev = path.get(0);
-        NodeData last = path.get(path.size()-1);
+        NodeData last = path.get(path.size() - 1);
         showNode(prev, "end");
         showNode(last, "start");
-        int x = (int) (prev.getXCoord()*currentScale);
-        int y = (int) (prev.getYCoord()*currentScale);
+        int x = (int) (prev.getXCoord() * currentScale);
+        int y = (int) (prev.getYCoord() * currentScale);
         System.out.println(x + ", " + y);
         ArrayList<Line> lines = new ArrayList<>();
-        for(int i = 1; i < path.size(); i++){
+        for (int i = 1; i < path.size(); i++) {
             Line l = new Line();
             NodeData n = path.get(i);
-            if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
+            if (n.getFloor().equals(convertFloor(floor)) && prev.getFloor().equals(convertFloor(floor))) {
                 l.setStroke(Color.BLUE);
-                l.setStrokeWidth(5.0*currentScale);
-                l.setStartX(prev.getXCoord()*currentScale);
-                l.setStartY(prev.getYCoord()*currentScale);
-                l.setEndX(n.getXCoord()*currentScale);
-                l.setEndY(n.getYCoord()*currentScale);
+                l.setStrokeWidth(5.0 * currentScale);
+                l.setStartX(prev.getXCoord() * currentScale);
+                l.setStartY(prev.getYCoord() * currentScale);
+                l.setEndX(n.getXCoord() * currentScale);
+                l.setEndY(n.getYCoord() * currentScale);
                 lines.add(l);
             }
             prev = n;
@@ -436,20 +438,21 @@ public class TestingController implements Initializable {
         emailDirections.setVisible(true);
     }
 
-    public void clearMain(){
+    public void clearMain() {
         clearPath();
         closeNodeInfoHandler();
         clearPathFindLoc();
     }
-    public void clearPathFindLoc(){
+
+    public void clearPathFindLoc() {
         txtEndLocation.setText("");
         txtStartLocation.setText("");
     }
 
-    private void clearPath(){
+    private void clearPath() {
         //currentPath = new ArrayList<>();
-        if(pathDrawings.size() > 0){
-            for(Shape shape: pathDrawings){
+        if (pathDrawings.size() > 0) {
+            for (Shape shape : pathDrawings) {
                 System.out.println("success remove");
                 panningPane.getChildren().remove(shape);
             }
@@ -457,10 +460,10 @@ public class TestingController implements Initializable {
         }
     }
 
-    private void clearNodes(){
+    private void clearNodes() {
         currentNodes = new ArrayList<>();
-        if(shownNodes.size() > 0){
-            for(Shape shape:shownNodes){
+        if (shownNodes.size() > 0) {
+            for (Shape shape : shownNodes) {
                 System.out.println("success remove");
                 panningPane.getChildren().remove(shape);
             }
@@ -469,7 +472,7 @@ public class TestingController implements Initializable {
     }
 
     //map switching methods
-    public void addBuilding() throws IOException{
+    public void addBuilding() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/newBuilding.fxml"
@@ -481,80 +484,102 @@ public class TestingController implements Initializable {
                 )
         );
         stage.showAndWait();
-        Building newBld  = loader.<NewBuilding>getController().getBldg();
+        Building newBld = loader.<NewBuilding>getController().getBldg();
         buildings.add(newBld);
         ObservableList bldgs = comboBuilding.getItems();
         bldgs.add(newBld);
         comboBuilding.setItems(bldgs);
         setBuilding(newBld);
     }
-    public void mapChange(ActionEvent e){
+
+    public void mapChange(ActionEvent e) {
         setFloor();
     }
 
-    public void setBuilding(Building newBld){
+    public void setBuilding(Building newBld) {
+        System.out.println("building: " + newBld);
         comboBuilding.setValue(newBld);
         setBuilding();
     }
-    public void setBuilding(){
-        Building newBld = (Building)(comboBuilding.getValue());
+
+    public void setBuilding() {
+        Building newBld = (Building) (comboBuilding.getValue());
         floors = newBld.getFloors();
+        System.out.println("floors: " + floors);
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
         floorList.addAll(floors);
-        comboFloors.setItems(floorList);
-        comboFloors.setValue(floorList.get(0));
-        setFloor(newBld.getFloors().get(0));
+        System.out.println("floorslist: " + floorList);
+        try {
+            System.out.println("setting items");
+            //comboFloors.setItems(floorList);
+            System.out.println("just set items: " + comboFloors.getItems() + "\nand about to set value");
+            comboFloors.setValue(floorList.get(0));
+            System.out.println("just set value: " + comboFloors.getValue());
+            //setFloor(newBld.getFloors().get(0));
+            setFloor((Floor) floorList.get(0));
+        } catch (Exception e) {
+            System.out.println("SCREAM");
+        }
     }
 
-    public void setFloor(Floor newFloor){
+    public void setFloor(Floor newFloor) {
         comboFloors.setValue(newFloor);
         currentFloor = newFloor;
 
         setFloor();
     }
-    public void setFloor(){
-        currentFloor = (Floor)(comboFloors.getValue());
+
+    public void setFloor() {
+        System.out.println("setFloor() started, comboFloors value: " + comboFloors.getValue());
+        currentFloor = (Floor) (comboFloors.getValue());
+        System.out.println("currentFloor: " + currentFloor);
         floor = floors.indexOf(currentFloor) - 2;
+        System.out.println("floor: " + floor);
+        System.out.println("about to get URL");
+
         String newUrl = currentFloor.getImgUrl();
         System.out.println("new image: " + newUrl);
 
         File file = new File(newUrl);
         System.out.println("current map: " + file.toString());
         Image newImg = new Image(file.toString());
+        System.out.println("about to be: " + newImg.getWidth());
         imgMap.setImage(newImg);
     }
 
-    public void showMouseCoords(MouseEvent e){
+    public void showMouseCoords(MouseEvent e) {
         System.out.println(e.getX() + ", " + e.getY());
     }
 
-    private int UICToDBC(int value, double scale){
-        return (int)(value/scale);
+    private int UICToDBC(int value, double scale) {
+        return (int) (value / scale);
     }
-    private int DBCToUIC(int value, double scale){
-        return (int)(value*scale);
+
+    private int DBCToUIC(int value, double scale) {
+        return (int) (value * scale);
     }
-    public void mouseClickHandler(MouseEvent e){
+
+    public void mouseClickHandler(MouseEvent e) {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
         List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor));
-        NodeData mClickedNode= getClosestNode(nodes,x,y);
+        NodeData mClickedNode = getClosestNode(nodes, x, y);
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected
             case "":
                 //clearMain();
                 clearNodes();
-                System.out.println("Get in findNodeData X:"+x+" Y:"+y);
+                System.out.println("Get in findNodeData X:" + x + " Y:" + y);
                 mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
                 showNode(mClickedNode);
                 showNodeInfo(mClickedNode);
                 break;
             case "selectLocation":
                 System.out.println("In selectLocation");
-                Coordinate mCoordinate = new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale));
-                lblServiceX.setText(""+mCoordinate.getXCoord());
-                lblServiceY.setText(""+mCoordinate.getYCoord());
+                Coordinate mCoordinate = new Coordinate(UICToDBC(x, currentScale), UICToDBC(y, currentScale));
+                lblServiceX.setText("" + mCoordinate.getXCoord());
+                lblServiceY.setText("" + mCoordinate.getYCoord());
                 serviceRequester.setVisible(true);
                 selectingLocation = "";
                 break;
@@ -586,12 +611,14 @@ public class TestingController implements Initializable {
 
         }
     }
+
     //hamburger handling
-    public void openMenu(MouseEvent e){
+    public void openMenu(MouseEvent e) {
         setBurger();
     }
-    public void setBurger(){
-        burgerTransition.setRate(burgerTransition.getRate()*-1);
+
+    public void setBurger() {
+        burgerTransition.setRate(burgerTransition.getRate() * -1);
         burgerTransition.play();
 
         controlsVisible = !controlsVisible;
@@ -601,26 +628,27 @@ public class TestingController implements Initializable {
         //controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
         //controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
     }
-    private void setBurgerFalse(){
-        burgerTransition.setRate(burgerTransition.getRate()*-1);
+
+    private void setBurgerFalse() {
+        burgerTransition.setRate(burgerTransition.getRate() * -1);
         burgerTransition.play();
 
         controlsVisible = false;
         controlsTransition.play();
         paneControls.setVisible(controlsVisible);
 
-        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue()-1));         //these two lines should make it fade out the next time you click
-        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue()-1));     // but they doent work the way I want them to for some reason
+        controlsTransition.setToValue(Math.abs(controlsTransition.getToValue() - 1));         //these two lines should make it fade out the next time you click
+        controlsTransition.setFromValue(Math.abs(controlsTransition.getFromValue() - 1));     // but they doent work the way I want them to for some reason
     }
 
     //Locate Bathroom/ Service desk/ VendingMachine JFXButton Handler
-    public void locateHandler(ActionEvent event){
+    public void locateHandler(ActionEvent event) {
         Object mEvent = event.getSource();
         String nodeType = "";
 
-        if(mEvent == comboLocations){
+        if (mEvent == comboLocations) {
             String keyLocationString = comboLocations.getValue().toString();
-            switch(keyLocationString){
+            switch (keyLocationString) {
                 case "Bathrooms":
                     nodeType = "REST";
                     break;
@@ -652,13 +680,13 @@ public class TestingController implements Initializable {
         }
         clearNodes();
         clearMain();
-        if(!nodeType.equals("")){
+        if (!nodeType.equals("")) {
             List<NodeData> mList = manager.queryNodeByTypeFloor(nodeType, Integer.toString(floor));
-            if(mList!=null&&!mList.isEmpty())
-            showNodeList(mList);
+            if (mList != null && !mList.isEmpty())
+                showNodeList(mList);
         }
     }
-    
+
     //map zooming method
     public void zoomHandler(ActionEvent e) {
 //        clearMain();
@@ -702,25 +730,23 @@ public class TestingController implements Initializable {
     }
 
     //relocate the node info panel
-    public void relocateNodeInfo(){
-        if(nodeInfoPane.isVisible()){
+    public void relocateNodeInfo() {
+        if (nodeInfoPane.isVisible()) {
             int x = Integer.parseInt(lblNodeX.getText());
             int y = Integer.parseInt(lblNodeY.getText());
-            nodeInfoPane.setLayoutX(x*currentScale);
-            nodeInfoPane.setLayoutY(y*currentScale);
+            nodeInfoPane.setLayoutX(x * currentScale);
+            nodeInfoPane.setLayoutY(y * currentScale);
         }
     }
 
-    public void goButtonHandler(){
+    public void goButtonHandler() {
         System.out.println("drawing path");
         try {
             System.out.println(mSearchType);
             currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType, this.handicap.isSelected());
-        }
-        catch(InvalidNodeException ine) {
+        } catch (InvalidNodeException ine) {
             currentPath = new ArrayList<>();
-        }
-        catch(NoPathException np){
+        } catch (NoPathException np) {
             String id = np.startID;
             currentPath = new ArrayList<>();
         }
@@ -733,39 +759,40 @@ public class TestingController implements Initializable {
     }
 
     //select location when clicking on the text field
-    public void selectStartField(){
+    public void selectStartField() {
         selectingLocation = "selectStart";
     }
-    public void selectEndField(){
+
+    public void selectEndField() {
         selectingLocation = "selectEnd";
     }
 
-    public void SRHandler(ActionEvent e){
+    public void SRHandler(ActionEvent e) {
         Object mEvent = e.getSource();
         serviceRequester.setVisible(true);
         String SRType = "";
-        if(mEvent == btnInterpreterReq){
+        if (mEvent == btnInterpreterReq) {
             lblReqType.setText("Interpreter Request");
             SRType = "Language to: \nLanguage from:";
         }
-        if(mEvent == btnMaintenanceReq){
+        if (mEvent == btnMaintenanceReq) {
             lblReqType.setText("Maintenance Request");
             SRType = "Maintenance type: \nMaintenance urgency(1-5): ";
         }
-        if(mEvent == btnTransportationReq){
+        if (mEvent == btnTransportationReq) {
             lblReqType.setText("Transportation Request");
             SRType = "Transportation type: \nTransportation urgency: ";
         }
         requestDescription.setText(SRType);
     }
 
-//    //popup methods
-    private FXMLLoader showScene(String url){
+    //    //popup methods
+    private FXMLLoader showScene(String url) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(url));
         Scene newScene;
         try {
             newScene = new Scene(loader.load());
-        } catch(IOException ex){
+        } catch (IOException ex) {
             //Todo add some sort of error handling
             return loader;
         }
@@ -777,7 +804,7 @@ public class TestingController implements Initializable {
     }
 
     public void loginButtonHandler() throws IOException {
-        if(logOffNext){
+        if (logOffNext) {
             logOffNext = false;
             loggedIn = false;
             btnLogin.setText("Log in");
@@ -801,7 +828,7 @@ public class TestingController implements Initializable {
         stage.show();
         //loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         loggedIn = true;
-        if(loggedIn) {
+        if (loggedIn) {
             logOffNext = true;
             //username = loader.<LoginPopup>getController().getUsername();
             username = "admin";
@@ -812,7 +839,8 @@ public class TestingController implements Initializable {
         }
         //stage.show();
     }
-    private void showAdminControls(){
+
+    private void showAdminControls() {
         paneAdminFeatures.setVisible(loggedIn);
     }
 
@@ -834,6 +862,7 @@ public class TestingController implements Initializable {
         loader.<MapAdminController>getController().setmTestController(this);
         stage.show();
     }
+
     public void openAdminHandler() throws IOException {
         System.out.println("In open admin handler");
         //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
@@ -852,20 +881,20 @@ public class TestingController implements Initializable {
         stage.show();
     }
 
-    public void SRWindowHandler(ActionEvent e){
+    public void SRWindowHandler(ActionEvent e) {
         Object mEvent = e.getSource();
         serviceRequester.setVisible(false);
-        if(mEvent == btnSelectMaintenanceLocation){
+        if (mEvent == btnSelectMaintenanceLocation) {
             selectingLocation = "selectLocation";
             setBurger();
         }
-        if(mEvent == btnCancelRequestAttempt){
+        if (mEvent == btnCancelRequestAttempt) {
             //TODO clear the text
             requestDescription.setText("");
             lblServiceX.setText("");
             lblServiceY.setText("");
         }
-        if(mEvent == btnSubmitRequest){
+        if (mEvent == btnSubmitRequest) {
             //TODO clear the text and submit the SR
             String typeText = lblReqType.getText();
             String type = "";
@@ -882,14 +911,14 @@ public class TestingController implements Initializable {
             int locY = Integer.parseInt(lblServiceX.getText());
             String locationId = getClosestNode(manager.getAllNodeData(), locX, locY).getNodeID();
             String description = requestDescription.getText().replaceAll("\n", " ");
-         //   String senderUsername = employeeLoggedIn.getUsername();
+            //   String senderUsername = employeeLoggedIn.getUsername();
             manager.createServiceRequest("admin", type, locationId, null, description);
             lblServiceX.setText("");
             lblServiceY.setText("");
         }
     }
 
-    public void closeNodeInfoHandler(){
+    public void closeNodeInfoHandler() {
         clearNodes();
         nodeInfoPane.setVisible(false);
 //        nodeInfoLongName.setText("");
@@ -899,7 +928,7 @@ public class TestingController implements Initializable {
 //        lblNodeY.setText("");
     }
 
-    public void helpButtonHandler()throws IOException {
+    public void helpButtonHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/FAQ_Popup.fxml"

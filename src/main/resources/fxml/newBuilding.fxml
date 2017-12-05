@@ -9,9 +9,9 @@
 <AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.NewBuilding">
     <children>
         <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="322.0" layoutY="244.0" onAction="#onCancelButton" style="-fx-background-color: #d2d2d2;" text="Cancel" />
-        <Label fx:id="imageName" layoutX="214.0" layoutY="44.0" text="Upload Image..." textAlignment="CENTER">
+        <Label fx:id="imageName" layoutX="224.0" layoutY="41.0" text="Upload Image..." textAlignment="CENTER">
             <font>
-                <Font size="18.0" />
+                <Font size="15.0" />
             </font>
         </Label>
         <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="195.0" layoutY="244.0" onAction="#onSubmit" style="-fx-background-color: #d2d2d2;" text="Submit" />
@@ -26,15 +26,25 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="errorMessage" layoutX="113.0" layoutY="205.0" prefHeight="19.0" prefWidth="356.0" textAlignment="CENTER" textFill="#e14545">
+      <Label fx:id="errUpload" layoutX="113.0" layoutY="205.0" prefHeight="19.0" prefWidth="356.0" textAlignment="CENTER" textFill="#e14545">
          <font>
             <Font size="13.0" />
          </font></Label>
-      <JFXTextField fx:id="txtFloorName" layoutX="271.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0" />
+      <JFXTextField fx:id="floorName" layoutX="271.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0" />
         <JFXTextField fx:id="buildingName" layoutX="276.0" layoutY="151.0" prefHeight="35.0" prefWidth="200.0" promptText="..." />
       <Label layoutX="142.0" layoutY="126.0" prefHeight="27.0" prefWidth="122.0" text="Floor Name:">
          <font>
             <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="errFloor" layoutX="476.0" layoutY="130.0" prefHeight="35.0" prefWidth="106.0" textFill="#e12121" wrapText="true">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="errBuilding" layoutX="480.0" layoutY="164.0" prefHeight="35.0" prefWidth="106.0" textFill="#e12121" wrapText="true">
+         <font>
+            <Font size="9.0" />
          </font>
       </Label>
     </children>
