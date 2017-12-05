@@ -24,5 +24,7 @@
       <JFXButton fx:id="btnRmSkill" disable="true" layoutX="342.0" layoutY="323.0" onAction="#rmSkill" text="Remove skill" />
       <JFXButton fx:id="btnNewSkill" layoutX="72.0" layoutY="323.0" onAction="#newSkill" text="Add new skill" />
       <Label fx:id="labelSkillsSaved" layoutX="209.0" layoutY="327.0" text="Changes saved" textFill="RED" visible="false" />
+      <Label layoutX="69.0" layoutY="40.0" text="All available skills" />
+      <Label layoutX="340.0" layoutY="40.0" text="Employee's skills" />
    </children>
 </AnchorPane>
