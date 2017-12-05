@@ -41,4 +41,10 @@ public class MaintenanceRequest extends ServiceRequest {
         result = 31 * result + (getMaintenanceType() != null ? getMaintenanceType().hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return System.lineSeparator() + "Maintenance Type:" + maintenanceType + System.lineSeparator();
+    }
+
 }

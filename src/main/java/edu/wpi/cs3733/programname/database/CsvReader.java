@@ -278,7 +278,7 @@ public class CsvReader {
                 }
 
                 Employee employeeObject;
-                if (values[6] == Constants.INTERPRETER_REQUEST) {
+                if (values[6].equals(Constants.INTERPRETER_REQUEST)) {
                     ArrayList<String> languages = new ArrayList<>();
 
                     //for each entry in the interpreter db for this employee,
@@ -290,7 +290,7 @@ public class CsvReader {
                     }
                     employeeObject = new Interpreter(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], languages);
                     employeeList.add(employeeObject);
-                } else if (values[6] == Constants.MAINTENANCE_REQUEST) {
+                } else if (values[6].equals(Constants.MAINTENANCE_REQUEST)) {
                     ArrayList<String> skills = new ArrayList<>();
 
                     for(String[] data: maintenanceInfo) {
@@ -376,7 +376,7 @@ public class CsvReader {
                 pst.executeUpdate();
 
                 PreparedStatement skillsInsert;
-                if (employeeList.get(i).getServiceType() == Constants.INTERPRETER_REQUEST) {
+                if (employeeList.get(i).getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
                     Interpreter interpreter = (Interpreter) employeeList.get(i);
                     for(String language: interpreter.getLanguages()) {
                         skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
@@ -385,7 +385,7 @@ public class CsvReader {
                         skillsInsert.setString(2, language);
                         skillsInsert.executeUpdate();
                     }
-                } else if (employeeList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
+                } else if (employeeList.get(i).getServiceType().equals(Constants.MAINTENANCE_REQUEST)) {
                     Maintenance maintenanceEmployee = (Maintenance) employeeList.get(i);
                     for (String skill: maintenanceEmployee.getMaintenanceType()) {
                         skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
@@ -496,7 +496,7 @@ public class CsvReader {
 
                 ServiceRequest srObject = null;
                 ArrayList<String[]> subtable;
-                if (values[3] == Constants.INTERPRETER_REQUEST) {
+                if (values[3].equals(Constants.INTERPRETER_REQUEST)) {
                     subtable = interpreterInfo;
                     String[] data;
                     for (String[] info: subtable) {
@@ -508,7 +508,7 @@ public class CsvReader {
                             break;
                         }
                     }
-                } else if (values[3] == Constants.MAINTENANCE_REQUEST) {
+                } else if (values[3].equals(Constants.MAINTENANCE_REQUEST)) {
                     subtable = maintenanceInfo;
                     String[] data;
                     for(String[] info: subtable) {
@@ -597,7 +597,7 @@ public class CsvReader {
                 pst.executeUpdate();
 
                 PreparedStatement detailInsert;
-                if (srList.get(i).getServiceType() == Constants.INTERPRETER_REQUEST) {
+                if (srList.get(i).getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
                     InterpreterRequest interpreterRequest = (InterpreterRequest) srList.get(i);
                     detailInsert = conn.prepareStatement("INSERT INTO InterpreterRequests(serviceID, language, reservationTime)" +
                     " VALUES (?,?,?)");
@@ -605,14 +605,14 @@ public class CsvReader {
                     detailInsert.setString(2, interpreterRequest.getLanguage());
                     detailInsert.setString(3, interpreterRequest.getReservationTime());
                     detailInsert.executeUpdate();
-                } else if (srList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
+                } else if (srList.get(i).getServiceType().equals(Constants.MAINTENANCE_REQUEST)) {
                     MaintenanceRequest maintenanceRequest = (MaintenanceRequest) srList.get(i);
                     detailInsert = conn.prepareStatement("INSERT INTO MaintenanceRequests(serviceID, maintenanceType)" +
                     " VALUES (?,?)");
                     detailInsert.setInt(1, maintenanceRequest.getServiceID());
                     detailInsert.setString(2, maintenanceRequest.getMaintenanceType());
                     detailInsert.executeUpdate();
-                } else if (srList.get(i).getServiceType() == Constants.TRANSPORTATION_REQUEST) {
+                } else if (srList.get(i).getServiceType().equals(Constants.TRANSPORTATION_REQUEST)) {
                     TransportationRequest transportationRequest = (TransportationRequest) srList.get(i);
                     detailInsert = conn.prepareStatement("INSERT INTO TransportationRequests(serviceID, transportType, destination, reservationTime)" +
                     " VALUES (?,?,?,?)");

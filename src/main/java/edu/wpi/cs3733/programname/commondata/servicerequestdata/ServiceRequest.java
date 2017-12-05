@@ -158,7 +158,7 @@ public class ServiceRequest {
                     "ID: " + serviceID + System.lineSeparator() +
                     "sender: " + sender + System.lineSeparator() +
                     "serviceType: " + serviceType + System.lineSeparator() +
-                    "Location: between Location1 and Location2"+System.lineSeparator() +
+                    "Location: Near Location1 (If Location2 exists: between Location1 and Location2)"+System.lineSeparator() +
                     "Location1: " + location1 + System.lineSeparator() +
                     "Location2: " + location2 + System.lineSeparator() +
                     "Description: " + description + System.lineSeparator() +

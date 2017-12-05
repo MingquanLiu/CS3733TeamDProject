@@ -73,4 +73,10 @@ public class InterpreterRequest extends ServiceRequest {
         result = 31 * result + (getReservationTime() != null ? getReservationTime().hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return System.lineSeparator()+ "Language Requested:" + language + System.lineSeparator()+
+                "Reservation Time:" + reservationTime + System.lineSeparator();
+    }
 }
