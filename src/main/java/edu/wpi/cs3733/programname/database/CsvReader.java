@@ -290,15 +290,15 @@ public class CsvReader {
                     employeeObject = new Interpreter(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], languages);
                     employeeList.add(employeeObject);
                 } else if (values[6] == Constants.MAINTENANCE_REQUEST) {
-                    String skill = "other";
+                    ArrayList<String> skills = new ArrayList<>();
 
                     for(String[] data: maintenanceInfo) {
                         if(data[0].equals(values[0])) {
-                            skill = data[1];
+                            skills.add(data[1]);
                             break;
                         }
                     }
-                    employeeObject = new Maintenance(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], skill);
+                    employeeObject = new Maintenance(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], skills);
                     employeeList.add(employeeObject);
                 }
                 else {
@@ -386,11 +386,13 @@ public class CsvReader {
                     }
                 } else if (employeeList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
                     Maintenance maintenanceEmployee = (Maintenance) employeeList.get(i);
-                    skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
-                            " VALUES (?,?)");
-                    skillsInsert.setString(1, maintenanceEmployee.getUsername());
-                    skillsInsert.setString(2, maintenanceEmployee.getMaintenanceType());
-                    skillsInsert.executeUpdate();
+                    for (String skill: maintenanceEmployee.getMaintenanceType()) {
+                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                                " VALUES (?,?)");
+                        skillsInsert.setString(1, maintenanceEmployee.getUsername());
+                        skillsInsert.setString(2, skill);
+                        skillsInsert.executeUpdate();
+                    }
                 }
 
             }
@@ -513,7 +515,7 @@ public class CsvReader {
                             data = info;
                             srObject = new MaintenanceRequest(serviceID, values[1], values[2], values[3],
                                     values[4], values[5], values[6], values[7], values[8], values[9],
-                                    values[10],severity, data[1], data[2]);
+                                    values[10],severity,data[1]);
                             break;
                         }
                     }
