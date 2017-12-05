@@ -1,3 +1,4 @@
+package PathfindingTests;
 
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
