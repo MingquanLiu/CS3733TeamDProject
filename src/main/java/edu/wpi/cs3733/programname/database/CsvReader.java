@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
 
 
 public class CsvReader {
@@ -259,8 +259,6 @@ public class CsvReader {
             BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
             String line;
-            buf.readLine();
-
             buf.readLine();
             // Reads all lines in the file
             while ((line = buf.readLine()) != null) {

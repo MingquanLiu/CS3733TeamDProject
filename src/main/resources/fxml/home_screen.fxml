@@ -127,7 +127,8 @@
                      </font>
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
-                     </GridPane.margin></Label>
+                     </GridPane.margin>
+                  </Label>
                   <JFXTextField fx:id="txtStartLocation" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" />
@@ -178,7 +179,7 @@
                   <JFXButton fx:id="btnLocateVM" buttonType="RAISED" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Vending Machines" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="btnLocateSD" buttonType="RAISED" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Service Desks" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                   <JFXButton fx:id="btnLocateWR" buttonType="RAISED" onAction="#locateHandler" prefHeight="100.0" prefWidth="200.0" text="Waiting Rooms" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                  <GridPane fx:id="paneAdminFeatures" minHeight="-Infinity" prefHeight="155.0" prefWidth="166.0" GridPane.rowIndex="7" GridPane.valignment="TOP">
+                  <GridPane fx:id="paneAdminFeatures" minHeight="-Infinity" prefHeight="199.0" prefWidth="148.0" GridPane.rowIndex="7" GridPane.valignment="TOP">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -190,7 +191,8 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="24.0" minHeight="-Infinity" prefHeight="14.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <JFXButton fx:id="btnOpenAdmin" buttonType="RAISED" maxWidth="200.0" onAction="#openAdminHandler" text="Service Request Manager" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -200,6 +202,7 @@
                         <JFXButton fx:id="btnMapEdit" buttonType="RAISED" maxWidth="150.0" onAction="#mapEditHandler" text="Map Edit" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                         <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="1" />
                         <Line endX="100.0" opacity="0.1" startX="-100.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <JFXButton fx:id="btnEditEmployees" onAction="#employeeButtonHandler" text="Edit Employees" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>
                   <Label text="Key Locations" textAlignment="CENTER" GridPane.halignment="CENTER">
@@ -221,6 +224,7 @@
             <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
               <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
             <Button fx:id="helpButton" layoutX="57.0" layoutY="611.0" mnemonicParsing="false" onAction="#helpButtonHandler" text="HELP" />
+            <Button fx:id="aboutButton" layoutX="51.0" layoutY="646.0" mnemonicParsing="false" onAction="#aboutButtonHandler" text="ABOUT" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="50.0" prefWidth="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">

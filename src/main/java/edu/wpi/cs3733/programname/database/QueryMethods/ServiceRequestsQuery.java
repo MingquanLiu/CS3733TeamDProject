@@ -4,7 +4,7 @@ import edu.wpi.cs3733.programname.commondata.InterpreterRequest;
 import edu.wpi.cs3733.programname.commondata.MaintenanceRequest;
 import edu.wpi.cs3733.programname.commondata.TransportationRequest;
 import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

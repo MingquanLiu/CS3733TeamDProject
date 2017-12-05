@@ -1,15 +1,11 @@
 package edu.wpi.cs3733.programname.servicerequest;
 
-import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
 import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import edu.wpi.cs3733.programname.commondata.Employee;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
-import edu.wpi.cs3733.programname.commondata.ServiceRequestMessage;
-
-import java.util.ArrayList;
-import java.util.Random;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequestMessage;
 
 public class ServiceRequestController {
     private DBConnection dbConnection;

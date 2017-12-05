@@ -1,7 +1,7 @@
-package edu.wpi.cs3733.programname.commondata;
+package edu.wpi.cs3733.programname.commondata.ServiceRequest;
 
 import com.sun.mail.smtp.SMTPMessage;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

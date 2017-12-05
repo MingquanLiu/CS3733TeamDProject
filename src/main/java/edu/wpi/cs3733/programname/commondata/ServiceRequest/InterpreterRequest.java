@@ -1,6 +1,6 @@
-package edu.wpi.cs3733.programname.commondata;
+package edu.wpi.cs3733.programname.commondata.ServiceRequest;
 
-public class InterpreterRequest extends ServiceRequest{
+public class InterpreterRequest extends ServiceRequest {
     String language;
     String reservationTime;
 

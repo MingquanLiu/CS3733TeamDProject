@@ -2,12 +2,12 @@ package DatabaseTests;
 
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
 import edu.wpi.cs3733.programname.database.*;
 
 import org.junit.Test;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;

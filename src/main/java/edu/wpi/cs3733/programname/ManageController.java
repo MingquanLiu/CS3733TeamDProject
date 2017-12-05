@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname;
 
 
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
 import edu.wpi.cs3733.programname.database.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.database.QueryMethods.EmployeesQuery;
@@ -17,12 +18,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
-import edu.wpi.cs3733.programname.database.QueryMethods.*;
-
-
-import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 
 public class ManageController {
 
@@ -102,6 +97,10 @@ public class ManageController {
 
     public List<Employee> getAllEmployees() {
         return this.dbQueryController.queryAllEmployees();
+    }
+
+    public void addEmployee(Employee employee) {
+        this.dbModController.addEmployee(employee);
     }
 
     public List<ServiceRequest> getUnassignedRequests() {
@@ -200,7 +199,14 @@ public class ManageController {
             maintenanceRequests.add((MaintenanceRequest) request);
         }
         return maintenanceRequests;
+    public void editEmployee(Employee emp) {
+        dbModController.editEmployee(emp);
     }
+
+    public void deleteEmployee(String username) {
+        dbModController.deleteEmployee(username);
+    }
+
 
         // Reader Methods
 

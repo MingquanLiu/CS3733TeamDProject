@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import edu.wpi.cs3733.programname.Main;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
@@ -16,6 +17,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.StrokeTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,10 +29,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Circle;
@@ -40,6 +39,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -102,6 +102,8 @@ public class TestingController implements Initializable {
     private JFXButton btnMaintenanceReq;
     @FXML
     private JFXButton btnTransportationReq;
+    @FXML
+    private JFXButton btnEditEmployees;
 
     @FXML
     private JFXButton btnLocateBR;
@@ -178,6 +180,7 @@ public class TestingController implements Initializable {
 
     //locations search
     private List<Shape> pathDrawings = new ArrayList<>();
+    private List<Shape> nodeDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
     private List<NodeData> currentNodes = new ArrayList<>();
@@ -201,7 +204,6 @@ public class TestingController implements Initializable {
     private Employee employeeLoggedIn;
     private List<Shape> shownNodes = new ArrayList<>();
 
-    private DBConnection dbConnection;
     private PathfindingController.searchType mSearchType= ASTAR;
 
     //this runs on startup
@@ -209,10 +211,9 @@ public class TestingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
     }
 
-    public void initData(DBConnection dbConnection){
+    public void initManager(ManageController manageController){
         currentMapRatioIndex =originalMapRatioIndex;
-        manager = new ManageController(dbConnection);
-        this.dbConnection = dbConnection;
+        manager = manageController;
 //        mapRatio.add(0.24);
         paneAdminFeatures.setVisible(false);
         mapRatio.add(0.318);
@@ -231,6 +232,26 @@ public class TestingController implements Initializable {
         paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(maxWidth*currentScale);
+
+
+        final ImageView imv = new ImageView();
+        final Image image2 = new Image("img/Location-Button.png");
+        imv.setImage(image2);
+
+        final HBox pictureRegion = new HBox();
+        pictureRegion.getChildren().add(imv);
+        imv.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Image get clicked");
+            }
+        });
+        System.out.println("fit width: "+imv.getFitWidth());
+        imv.setFitWidth(30);
+        imv.setFitHeight(30);
+        imv.setX(200);
+        imv.setY(200);
+        panningPane.getChildren().add(imv);
 
     }
     public void setSearchType(PathfindingController.searchType searchType){
@@ -296,31 +317,33 @@ public class TestingController implements Initializable {
     }
 
     private void displayPath(List<NodeData> path){
-        currentPath= path;
-        clearMain();
-        System.out.println("drawing path");
-        NodeData prev = path.get(0);
-        int x = (int) (prev.getXCoord()*currentScale);
-        int y = (int) (prev.getYCoord()*currentScale);
-        System.out.println(x + ", " + y);
-        ArrayList<Line> lines = new ArrayList<>();
-        for(int i = 1; i < path.size(); i++){
-            Line l = new Line();
-            NodeData n = path.get(i);
-            if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
-                l.setStroke(Color.BLUE);
-                l.setStrokeWidth(5.0*currentScale);
-                l.setStartX(prev.getXCoord()*currentScale);
-                l.setStartY(prev.getYCoord()*currentScale);
-                l.setEndX(n.getXCoord()*currentScale);
-                l.setEndY(n.getYCoord()*currentScale);
-                lines.add(l);
+        if(path!=null&&!path.isEmpty()){
+            currentPath= path;
+            clearMain();
+            System.out.println("drawing path");
+            NodeData prev = path.get(0);
+            int x = (int) (prev.getXCoord()*currentScale);
+            int y = (int) (prev.getYCoord()*currentScale);
+            System.out.println(x + ", " + y);
+            ArrayList<Line> lines = new ArrayList<>();
+            for(int i = 1; i < path.size(); i++){
+                Line l = new Line();
+                NodeData n = path.get(i);
+                if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
+                    l.setStroke(Color.BLUE);
+                    l.setStrokeWidth(5.0*currentScale);
+                    l.setStartX(prev.getXCoord()*currentScale);
+                    l.setStartY(prev.getYCoord()*currentScale);
+                    l.setEndX(n.getXCoord()*currentScale);
+                    l.setEndY(n.getYCoord()*currentScale);
+                    lines.add(l);
+                }
+                prev = n;
             }
-            prev = n;
+            pathDrawings.addAll(lines);
+            panningPane.getChildren().addAll(lines);
+            emailDirections.setVisible(true);
         }
-        pathDrawings.addAll(lines);
-        panningPane.getChildren().addAll(lines);
-        emailDirections.setVisible(true);
     }
 
     public void clearMain(){
@@ -376,6 +399,7 @@ public class TestingController implements Initializable {
     }
     private void setFloor(){
         Image oldImg = imgMap.getImage();
+
         String oldUrl = oldImg.impl_getUrl();  //using a deprecated method for lack of a better solution currently
         System.out.println("old image: " + oldUrl);
 
@@ -568,6 +592,22 @@ public class TestingController implements Initializable {
         clearPathFindLoc();
     }
 
+    public void employeeButtonHandler(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employee_manager_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<EmployeeManager>getController().initManager(this.manager);
+        stage.show();
+    }
+
     //select location when clicking on the text field
     public void selectStartField(){
         selectingLocation = "selectStart";
@@ -605,7 +645,7 @@ public class TestingController implements Initializable {
             //Todo add some sort of error handling
             return loader;
         }
-        loader.<LoginPopup>getController().initData(dbConnection);
+        loader.<LoginPopup>getController().initManager(manager);
         Stage newStage = new Stage();
         newStage.setScene(newScene);
         newStage.showAndWait();
@@ -624,7 +664,7 @@ public class TestingController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<LoginPopup>getController().initData(dbConnection);
+        loader.<LoginPopup>getController().initManager(manager);
 //        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         loggedIn = true;
 //        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
@@ -656,7 +696,7 @@ public class TestingController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<MapAdminController>getController().initData(dbConnection);
+        loader.<MapAdminController>getController().initManager(manager);
         loader.<MapAdminController>getController().setmTestController(this);
         stage.show();
     }
@@ -674,7 +714,7 @@ public class TestingController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<ServiceRequestManager>getController().initData(dbConnection);
+        loader.<ServiceRequestManager>getController().initManager(manager);
         stage.show();
     }
 
@@ -729,6 +769,21 @@ public class TestingController implements Initializable {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/FAQ_Popup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void aboutButtonHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/About_Popup.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
