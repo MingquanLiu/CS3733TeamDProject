@@ -276,39 +276,39 @@ public class CsvReader {
                     sysAdmin = false;
                 }
 
-                Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
-                employeeList.add(employeeObject);
+                Employee employeeObject;
+                if (values[6] == Constants.INTERPRETER_REQUEST) {
+                    ArrayList<String> languages = new ArrayList<>();
+
+                    //for each entry in the interpreter db for this employee,
+                    //add that entry's language to this employee
+                    for (String[] data: interpreterInfo) {
+                        if(data[0].equals(values[0])){
+                            languages.add(data[1]);
+                        }
+                    }
+                    employeeObject = new Interpreter(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], languages);
+                    employeeList.add(employeeObject);
+                } else if (values[6] == Constants.MAINTENANCE_REQUEST) {
+                    String skill = "other";
+
+                    for(String[] data: maintenanceInfo) {
+                        if(data[0].equals(values[0])) {
+                            skill = data[1];
+                            break;
+                        }
+                    }
+                    employeeObject = new Maintenance(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], skill);
+                    employeeList.add(employeeObject);
+                }
+                else {
+                    employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
+                    employeeList.add(employeeObject);
+                }
 
             } // end while
         } catch (IOException e) {
-            try {
-                InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvTables/AllEmployees.csv");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                String line;
-                reader.readLine();
-                // Reads all lines in the file
-                while ((line = reader.readLine()) != null) {
-                    // Reads current row and converts to a string
-
-
-                    // Seperates the string into fields and stores into an array
-                    String[] values = line.split(",");
-
-                    boolean sysAdmin;
-                    if (Integer.parseInt(values[5]) == 1) {
-                        sysAdmin = true;
-                    } else {
-                        sysAdmin = false;
-                    }
-
-                    Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
-                    employeeList.add(employeeObject);
-
-                } // end while
-
-            } catch (IOException w) {
-            }
-
+            e.printStackTrace();
         }
         return employeeList;
     }
@@ -373,6 +373,25 @@ public class CsvReader {
                 pst.setString(7, employeeList.get(i).getServiceType());
                 pst.setString(8, employeeList.get(i).getEmail());
                 pst.executeUpdate();
+
+                PreparedStatement skillsInsert;
+                if (employeeList.get(i).getServiceType() == Constants.INTERPRETER_REQUEST) {
+                    Interpreter interpreter = (Interpreter) employeeList.get(i);
+                    for(String language: interpreter.getLanguages()) {
+                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                                " VALUES (?,?)");
+                        skillsInsert.setString(1, interpreter.getUsername());
+                        skillsInsert.setString(2, language);
+                        skillsInsert.executeUpdate();
+                    }
+                } else if (employeeList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
+                    Maintenance maintenanceEmployee = (Maintenance) employeeList.get(i);
+                    skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                            " VALUES (?,?)");
+                    skillsInsert.setString(1, maintenanceEmployee.getUsername());
+                    skillsInsert.setString(2, maintenanceEmployee.getMaintenanceType());
+                    skillsInsert.executeUpdate();
+                }
 
             }
 
