@@ -505,17 +505,13 @@ public class TestingController implements Initializable {
     public void setBuilding() {
         Building newBld = (Building) (comboBuilding.getValue());
         floors = newBld.getFloors();
-        System.out.println("floors: " + floors);
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
         floorList.addAll(floors);
-        System.out.println("floorslist: " + floorList);
+
 //        try {
-            System.out.println("setting items");
-            //comboFloors.setItems(floorList);
-            System.out.println("just set items: " + comboFloors.getItems() + "\nand about to set value");
+            comboFloors.setItems(floorList);
             comboFloors.setValue(floorList.get(0));
-            System.out.println("just set value: " + comboFloors.getValue());
-            //setFloor(newBld.getFloors().get(0));
+            setFloor(newBld.getFloors().get(0));
             setFloor((Floor) floorList.get(0));
 //        } catch (Exception e) {
 //            System.out.println("SCREAM");

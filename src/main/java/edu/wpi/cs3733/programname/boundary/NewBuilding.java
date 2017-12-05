@@ -130,14 +130,17 @@ public class NewBuilding {
         if (haveFile && haveBuilding && haveFloor){
             try {
                 //relative path from main folder to the images folder where we store the floors
-                String relPath = "src\\main\\resources\\img\\";
+                String relPathLater = "src\\main\\resources\\img\\";
+                String relPathNow = "out\\production\\resources\\img\\";
                 //naming the new file based on the name given
                 String buildName = buildingName.getText() + "." + extension;
                 //for later use pulling up the floor
                 filepath = "img/" + buildName;
-                File file = new File(relPath + buildName);
+                File file = new File(relPathNow + buildName);
                 copyFile(selectedFile, file);
-                System.out.println("\n\n\nCreated new building");
+                File fileStored = new File(relPathLater + buildName);
+                copyFile(selectedFile, fileStored);
+                System.out.println("\n\n\nCreated new building in out, stored in src");
                 onCancelButton();
             } catch (Exception e) {
                 e.printStackTrace();
