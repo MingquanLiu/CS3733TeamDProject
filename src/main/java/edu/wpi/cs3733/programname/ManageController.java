@@ -175,8 +175,31 @@ public class ManageController {
         return dbQueryController.queryEmployeeByUsername(username);
     }
 
-    public ArrayList<ServiceRequest> getInterpreterRequest(){
-        return serviceRequestsQuery.queryServiceRequestsByType("interpreter");
+    public ArrayList<InterpreterRequest> getInterpreterRequest(){
+        ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("interpreter");
+        ArrayList<InterpreterRequest> interpreterRequests = new ArrayList<InterpreterRequest>();
+        for(ServiceRequest request: serviceRequests){
+            interpreterRequests.add((InterpreterRequest) request);
+        }
+        return interpreterRequests;
+    }
+
+    public ArrayList<TransportationRequest> getTransportationRequest(){
+        ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("transportation");
+        ArrayList<TransportationRequest> transportationRequests = new ArrayList<TransportationRequest>();
+        for(ServiceRequest request: serviceRequests){
+            transportationRequests.add((TransportationRequest) request);
+        }
+        return transportationRequests;
+    }
+
+    public ArrayList<MaintenanceRequest> getMaintenanceRequest(){
+        ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("maintenance");
+        ArrayList<MaintenanceRequest> maintenanceRequests = new ArrayList<MaintenanceRequest>();
+        for(ServiceRequest request: serviceRequests){
+            maintenanceRequests.add((MaintenanceRequest) request);
+        }
+        return maintenanceRequests;
     }
 
         // Reader Methods
