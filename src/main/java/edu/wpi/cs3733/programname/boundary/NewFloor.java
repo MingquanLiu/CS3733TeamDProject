@@ -1,56 +1,22 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.pathfind.PathfindingController;
-import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
-import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.apache.derby.iapi.services.io.FileUtil;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
-import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
-import static javafx.scene.paint.Color.*;
-
-public class NewBuilding {
+public class NewFloor {
 
 
     @FXML
     private TextField buildingName;
+    @FXML
+    private TextField floorNum;
 
     @FXML
     private Label imageName;
@@ -64,11 +30,7 @@ public class NewBuilding {
     @FXML
     private JFXButton btnCancel;
 
-    @FXML
-    private TextField txtFloorName;
-
     File selectedFile;
-    String filepath;
 
     private static void configureFileChooser(final FileChooser fileChooser) {
         fileChooser.getExtensionFilters().addAll(
@@ -98,25 +60,21 @@ public class NewBuilding {
             if (extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg")) {
                 if (!buildingName.getText().equals("")) {
                     try {
-                        //relative path from main folder to the images folder where we store the floors
                         String relPath = "src\\main\\resources\\img\\";
-                        //naming the new file based on the name given
-                        String buildName = buildingName.getText() + "." + extension;
-                        //for later using pulling up the floor
-                        filepath = "\\img\\"+buildName;
-                        File file = new File(relPath+buildName);
+                        String buildName = buildingName.getText() + floorNum.getText() + "." + extension;
+                        File file = new File(relPath + buildName);
                         copyFile(selectedFile, file);
-                        onCancelButton();
+                        System.out.println("");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 else
-                    errorMessage.setText("You need to give the building a name.");
+                    errorMessage.setText("You need to select the building.");
             }
         } else {
             if (buildingName.getText().equals("")) {
-                errorMessage.setText("You need to upload an image and give the building a name.");
+                errorMessage.setText("You need to upload an image and select the building.");
             }
             else
                 errorMessage.setText("You need to upload an image.");
@@ -149,17 +107,6 @@ public class NewBuilding {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    public Building getBldg(){
-        Building bldg = new Building(buildingName.getText());
-        Floor fl = new Floor(txtFloorName.getText(), bldg.getName(), filepath);
-        bldg.addFloor(fl);
-
-        return bldg;
-    }
-
-    public void onCancelButton() {
-        btnCancel.getScene().getWindow().hide();
     }
 
 }

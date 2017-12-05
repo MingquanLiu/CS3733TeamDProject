@@ -520,7 +520,7 @@ public class TestingController implements Initializable {
 
         File file = new File(newUrl);
         System.out.println("current map: " + file.toString());
-        Image newImg = new Image(file.toString());
+        Image newImg = new Image(newUrl);
         imgMap.setImage(newImg);
     }
 
