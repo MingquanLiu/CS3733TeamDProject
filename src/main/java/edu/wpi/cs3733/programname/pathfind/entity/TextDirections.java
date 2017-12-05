@@ -69,7 +69,7 @@ public class TextDirections {
                     else if(Math.abs(directionChange) > 25) {
                         directions += "\nTake the next " + face + " to continue down the hall";
                     }
-                    else directions += "\nContinue straight down the hall for " + distanceBetween(node, nextNode) + "feet";
+                    else directions += "\nContinue straight down the hall for " + distanceBetween(node, nextNode) + " feet";
                     break;
                 default:
                     directions += "\nContinue " + face + " past " + name;

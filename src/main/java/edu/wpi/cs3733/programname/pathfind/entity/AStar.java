@@ -52,7 +52,6 @@ public class AStar extends PathfindingStrategyTemplate {
                 for (StarNode newnode : neighbors) {
                     int nodePlace = this.listContainsId(frontier, newnode);
                     if(nodePlace > -1) {
-                        System.out.println("The new node costs " + (actionCost(newnode) + distanceToGo(newnode, goal)));
                         if (frontier.get(nodePlace).getF() > actionCost(newnode) + distanceToGo(newnode, goal)) {
                             System.out.println("Here");
                             frontier.remove(frontier.get(nodePlace));
