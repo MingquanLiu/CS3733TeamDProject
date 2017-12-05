@@ -129,6 +129,10 @@ public class DatabaseModificationController {
         serviceRequestsMethod.handleServiceRequest(serviceRequest,receiver);
     }
 
+    public void unhandleServiceRequest(ServiceRequest request) {
+        serviceRequestsMethod.unhandleServiceRequest(request);
+    }
+
     public void completeServiceRequest(ServiceRequest serviceRequest){
         serviceRequestsMethod.completeServiceRequest(serviceRequest);
     }

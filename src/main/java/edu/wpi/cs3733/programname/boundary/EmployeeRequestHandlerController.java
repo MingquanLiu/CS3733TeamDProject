@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXListView;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -61,27 +61,29 @@ public class EmployeeRequestHandlerController {
 
         @FXML
         public void unhandleRequestButtonHandler(ActionEvent event) {
-                
+            int reqIndex = listEmployeeRequests.getSelectionModel().getSelectedIndex();
+            ServiceRequest selected = assignedToMe.get(reqIndex);
+            manager.unhandleServiceRequest(selected);
+            updateView();
 
         }
 
         public void updateView() {
-                this.unassigned = manager.queryUnassignedRequestsByType(loggedIn.getServiceType());
-                this.assignedToMe = manager.queryRequestsByEmployee(loggedIn);
-                listEmployeeRequests.getItems().clear();
-                listUnassigned.getItems().clear();
+            this.unassigned = manager.queryUnassignedRequestsByType(loggedIn.getServiceType());
+            this.assignedToMe = manager.queryRequestsByEmployee(loggedIn);
+            listEmployeeRequests.getItems().clear();
+            listUnassigned.getItems().clear();
 
-                for(ServiceRequest req: this.unassigned) {
-                        NodeData loc1 = manager.getNodeData(req.getLocation1());
-                        String display = req.getServiceType() + " - " + loc1.getLongName();
-                        listUnassigned.getItems().add(display);
-                }
+            for(ServiceRequest req: this.unassigned) {
+                NodeData loc1 = manager.getNodeData(req.getLocation1());
+                String display = req.getServiceType() + " - " + loc1.getLongName();
+                listUnassigned.getItems().add(display);
+            }
 
-                for(ServiceRequest req: this.assignedToMe) {
-                        NodeData loc1 = manager.getNodeData(req.getLocation1());
-                        String display = req.getServiceType() + " - " + loc1.getLongName();
-                        listEmployeeRequests.getItems().add(display);
-                }
+            for(ServiceRequest req: this.assignedToMe) {
+                NodeData loc1 = manager.getNodeData(req.getLocation1());
+                String display = req.getServiceType() + " - " + loc1.getLongName();
+                listEmployeeRequests.getItems().add(display);
+            }
         }
-
 }

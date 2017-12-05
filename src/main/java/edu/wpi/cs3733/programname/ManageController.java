@@ -44,7 +44,6 @@ public class ManageController {
     public ManageController(DBConnection dbConnection) {
         this.dbConnection = new DBConnection();
 
-
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
         this.dbModController = new DatabaseModificationController(this.dbConnection);
@@ -132,6 +131,10 @@ public class ManageController {
 
     public void completeServiceRequest(ServiceRequest request) {
         this.dbModController.completeServiceRequest(request);
+    }
+
+    public void unhandleServiceRequest(ServiceRequest request) {
+        this.dbModController.unhandleServiceRequest(request);
     }
 
 //    public List<Employee> queryEmployeeByRequestType(String requestType) {
