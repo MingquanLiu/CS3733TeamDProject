@@ -309,6 +309,7 @@ public class EmployeeManager {
                         "/fxml/employeeSkillsPopup.fxml"
                 )
         );
+        loader.setController(this);
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
                 new Scene(
@@ -319,6 +320,7 @@ public class EmployeeManager {
         try {
             mySkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(newusername.getText()));
             listMySkills.getItems().addAll(mySkills);
+            labelUsername.setText(skillsUsernameString);
         } catch (NullPointerException npe) {
             System.out.println("Hah, this employee has no skills. Not the end of the world. Add some here.");
         }
@@ -328,7 +330,7 @@ public class EmployeeManager {
     @FXML
     void addSkill(ActionEvent event) {
         String skill = listAllSkills.getSelectionModel().getSelectedItem();
-        this.manageController.addLanguageToInterpreter(newusername.getText(), skill);
+        this.manageController.addLanguageToInterpreter(skillsUsernameString, skill);
         listMySkills.getItems().add(skill);
         labelSkillsSaved.setVisible(true);
 
@@ -371,7 +373,7 @@ public class EmployeeManager {
         String skill = listMySkills.getSelectionModel().getSelectedItem();
         btnRmSkill.setDisable(true);
         listMySkills.getItems().remove(skill);
-        this.manageController.removeLanguageFromInterpreter(newusername.getText(), skill);
+        this.manageController.removeLanguageFromInterpreter(skillsUsernameString, skill);
         labelSkillsSaved.setVisible(true);
     }
 
