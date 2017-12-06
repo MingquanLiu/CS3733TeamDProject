@@ -20,7 +20,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.MapAdminController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.MapAdminController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
@@ -115,7 +115,8 @@
                      </font></JFXButton>
                   <GridPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -124,26 +125,29 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXRadioButton fx:id="DFS" onAction="#selectPFAlgorithm" selected="true" text="DFS">
+                        <JFXRadioButton fx:id="DFS" onAction="#selectPFAlgorithm" prefHeight="17.0" prefWidth="91.0" text="DFS" GridPane.halignment="LEFT">
                            <GridPane.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </GridPane.margin>
                            <toggleGroup>
                               <ToggleGroup fx:id="pathfinding" />
-                           </toggleGroup></JFXRadioButton>
-                        <JFXRadioButton fx:id="BFS" onAction="#selectPFAlgorithm" selected="true" text="BFS" toggleGroup="$pathfinding" GridPane.rowIndex="1">
+                           </toggleGroup>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="BFS" onAction="#selectPFAlgorithm" text="BFS" toggleGroup="$pathfinding" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                            <GridPane.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </GridPane.margin></JFXRadioButton>
-                        <JFXRadioButton fx:id="Dijkstra" onAction="#selectPFAlgorithm" selected="true" text="Dijkstra" toggleGroup="$pathfinding" GridPane.rowIndex="2">
+                        <JFXRadioButton fx:id="Dijkstra" onAction="#selectPFAlgorithm" text="Dijkstra" toggleGroup="$pathfinding" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                            <GridPane.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </GridPane.margin></JFXRadioButton>
-                        <JFXRadioButton fx:id="ASTAR" onAction="#selectPFAlgorithm" selected="true" text="Astar" toggleGroup="$pathfinding" GridPane.rowIndex="3">
+                        <JFXRadioButton fx:id="ASTAR" onAction="#selectPFAlgorithm" selected="true" text="Astar" toggleGroup="$pathfinding" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                            <GridPane.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </GridPane.margin></JFXRadioButton>
                         <Line endX="100.0" opacity="0.3" startX="-100.0" GridPane.valignment="TOP" />
+                        <JFXRadioButton fx:id="BestFirst" onAction="#selectPFAlgorithm" text="Best First" toggleGroup="$pathfinding" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                        <JFXRadioButton fx:id="Beam" onAction="#selectPFAlgorithm" text="Beam" toggleGroup="$pathfinding" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <Label text="Addition" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
