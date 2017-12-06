@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.programname.pathfind.entity;
 
 public class NoPathException extends Exception {
-    String startID;
-    String goalID;
+    public String startID;
+    public String goalID;
 
     public NoPathException(String startID, String goalID) {
         this.startID = startID;

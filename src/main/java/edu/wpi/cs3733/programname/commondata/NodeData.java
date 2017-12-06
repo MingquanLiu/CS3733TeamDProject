@@ -265,6 +265,8 @@ public class NodeData {
         if (!nodeID.equals(nodeData.nodeID)) return false;
         if (!location.equals(nodeData.location)) return false;
         if (!floor.equals(nodeData.floor)) return false;
+        if (!building.equals(nodeData.building)) return false;
+
         return shortName.equals(nodeData.shortName);
     }
 
