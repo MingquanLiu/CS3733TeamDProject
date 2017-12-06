@@ -278,11 +278,15 @@
             </children>
         </AnchorPane>
         <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0" />
-            <TitledPane fx:id="paneDirections" animated="false" expanded="false" prefWidth="202.0" text="Directions" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
+            <TitledPane fx:id="paneDirections" animated="false" expanded="false" prefHeight="175.0" prefWidth="742.0" text="Directions" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
                 <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                         <children>
-                            <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
+                  <ScrollPane prefHeight="150.0" prefWidth="742.0">
+                     <content>
+                                  <Label fx:id="txtAreaDirections" prefWidth="742.0" wrapText="true" />
+                     </content>
+                  </ScrollPane>
                         </children>
                     </AnchorPane>
                 </content>
