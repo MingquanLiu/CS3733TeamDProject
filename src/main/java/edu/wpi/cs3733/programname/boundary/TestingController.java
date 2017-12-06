@@ -6,7 +6,11 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.boundary.observers.AbsObserver;
+import edu.wpi.cs3733.programname.boundary.observers.MapObserver;
+import edu.wpi.cs3733.programname.boundary.observers.RequestObserver;
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.database.DbObservable;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
@@ -301,6 +305,9 @@ public class TestingController extends UIController implements Initializable {
 
     private PathfindingController.searchType mSearchType = ASTAR;
 
+    private MapObserver mapObserver;
+    private RequestObserver requestObserver;
+
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -429,10 +436,16 @@ public class TestingController extends UIController implements Initializable {
         grid.setLayoutY(10);
         content.getChildren().add(grid);
 
+        ArrayList<AbsObserver> observerList = new ArrayList<>();
+        requestObserver = new RequestObserver(this);
+        observerList.add(requestObserver);
+        mapObserver = new MapObserver(this);
+        observerList.add(mapObserver);
+        manager.initializeObservable(observerList);
+
         lblCrossFloor.setVisible(false);
 
         paneControls.setPickOnBounds(false);
-
     }
 
     public void setSearchType(PathfindingController.searchType searchType) {
