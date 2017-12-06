@@ -18,5 +18,5 @@ public class Constants {
 
     public final static double MAX_UI_WIDTH = 5000;
 
-    public final static double CIRCILE_RADIUS = 14;
+    public final static double CIRCILE_RADIUS = 10;
 }
