@@ -1,6 +1,7 @@
 package DatabaseTests;
 
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.DatabaseModificationController;
 import edu.wpi.cs3733.programname.database.DatabaseQueryController;
@@ -61,7 +62,7 @@ public class NewServiceRequestTest {
     @Test
     public void checkAddLanguage(){
         dbModControl.addInterpreter(wong);
-        dbModControl.addLanguageToInterpreter(wong,"Mandarin");
+        dbModControl.addLanguageToInterpreter("wong","Mandarin");
         ArrayList<String> updatedWongL = wongLanguage;
         wongLanguage.add("Mandarin");
         Interpreter updatedWong = new Interpreter("wwong", "pass", "Wilson", "", "Wong", true, "interpreter", "interpreterbwhospital@gmail.com", updatedWongL);
