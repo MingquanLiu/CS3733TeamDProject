@@ -113,6 +113,7 @@ public class HelperFunction {
             MapAdminNodeDataObserver mapAdminNodeDataObserver = new MapAdminNodeDataObserver(mapAdminController
                     ,nodeData);
             nodeData.setCircleOnDragged(mapAdminNodeDataObserver);
+            nodeData.setCircleOnDraggedExit(mapAdminNodeDataObserver);
         }
         return mList;
     }
