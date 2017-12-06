@@ -348,7 +348,7 @@ public class TestingController implements Initializable {
         floors.addAll(hospital.getFloors());
         buildings.add(hospital);
 
-        floor = 2;
+        floor = 4;
 
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
         floorList.addAll(floors);
@@ -359,7 +359,7 @@ public class TestingController implements Initializable {
         comboBuilding.setItems(buildingList);
 
         setBuilding(hospital);
-        setFloor(ground);
+        setFloor(floor2);
 
 
         //create big grid
