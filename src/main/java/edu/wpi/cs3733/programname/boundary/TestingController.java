@@ -517,7 +517,7 @@ public class TestingController extends UIController implements Initializable {
     private void displayPath(List<NodeData> path) {
         if (path != null && !path.isEmpty()) {
             currentPath = path;
-            clearMain();
+            clearPath();
             System.out.println("drawing path");
             NodeData prev = path.get(0);
             int x = (int) (prev.getXCoord() * currentScale);
@@ -652,8 +652,9 @@ public class TestingController extends UIController implements Initializable {
         currentNodes = manager.queryNodeByFloor(convertFloor(floor));
         setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));
         showNodeList(currentNodes);
-        clearPath();
+//        clearPath();
         displayPath(currentPath);
+
         nodeInfoPane.setVisible(false);
         if (currentPathStartFloor.equals("") || !currentPathGoalFloor.equals(currentFloor.getFloorName()) ||
                 currentPathGoalFloor.equals(currentFloor.getFloorName())) {
