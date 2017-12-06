@@ -15,12 +15,12 @@ public class MaintenanceRequestsMethod {
     }
 
     public void addMaintenanceRequest(MaintenanceRequest MaintenanceRequest){
-        int serviceID = MaintenanceRequest.getServiceID();
+        String serviceID = MaintenanceRequest.getServiceID();
         String skill = MaintenanceRequest.getMaintenanceType();
 
         String str;
         try {
-            str = "INSERT INTO MaintenanceRequests values(" + serviceID + ",'" + skill + "')";
+            str = "INSERT INTO MaintenanceRequests values('" + serviceID + "','" + skill + "')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeMaintenanceRequests(dbConnection.getConnection());
@@ -31,10 +31,10 @@ public class MaintenanceRequestsMethod {
     }
 
     public void deleteMaintenanceRequest(MaintenanceRequest MaintenanceRequest){
-        int serviceID = MaintenanceRequest.getServiceID();
+        String serviceID = MaintenanceRequest.getServiceID();
         String str;
         try {
-            str ="delete from MaintenanceRequests where serviceID = " + serviceID ;
+            str ="delete from MaintenanceRequests where serviceID = '" + serviceID + "'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeMaintenanceRequests(dbConnection.getConnection());

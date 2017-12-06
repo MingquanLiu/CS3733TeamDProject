@@ -62,7 +62,7 @@ CREATE TABLE Employees(
 
 
 CREATE TABLE ServiceRequests(
-    serviceID INTEGER,
+    serviceID VARCHAR(30),
     sender VARCHAR(15),
     receiver VARCHAR(15),
     serviceType VARCHAR(25),
@@ -103,7 +103,7 @@ CREATE TABLE MaintenanceSkills(
 );
 
 CREATE TABLE TransportationRequests(
-    serviceID INTEGER,
+    serviceID VARCHAR(30),
     transportType VARCHAR(15),
     destination VARCHAR(20),
     reservationTime VARCHAR(30),
@@ -116,7 +116,7 @@ CREATE TABLE TransportationRequests(
 );
 
 CREATE TABLE InterpreterRequests(
-    serviceID INTEGER,
+    serviceID VARCHAR(30),
     language VARCHAR(15),
     reservationTime VARCHAR(30),
     CONSTRAINT InterpreterRequests_PK PRIMARY KEY (serviceID),
@@ -127,7 +127,7 @@ CREATE TABLE InterpreterRequests(
 );
 
 CREATE TABLE MaintenanceRequests(
-    serviceID INTEGER,
+    serviceID VARCHAR(30),
     maintenanceType VARCHAR(15),
     CONSTRAINT MaintenanceRequests_PK PRIMARY KEY (serviceID),
     CONSTRAINT MaintenanceRequests_FK1 FOREIGN KEY (serviceID)

@@ -21,7 +21,7 @@ public class NewServiceRequestTest {
     DatabaseQueryController databaseQueryController;
     ArrayList<String> wongLanguage = new ArrayList<String>();
     Interpreter wong;
-    InterpreterRequest interpreterRequest = new InterpreterRequest(1, "wwong", "","interpreter","TREST00102","TREST00101","Need someone speaks Spanish","","","","", 1, "Spanish", "");
+    InterpreterRequest interpreterRequest = new InterpreterRequest("1", "wwong", "","interpreter","TREST00102","TREST00101","Need someone speaks Spanish","","","","", 1, "Spanish", "");
     Coordinate aBathroomCoord = new Coordinate(4125, 625);
     NodeData bBathroom = new NodeData ("TREST00101", aBathroomCoord, "1","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
     NodeData aBathroom = new NodeData ("TREST00102", aBathroomCoord, "2","BTM","REST","Restroom B elevator Floor 2", "Restroom B", "Team D");
