@@ -40,40 +40,62 @@ public class TextDirections {
             if(lastNode.getNodeType().equals("HALL")) hallDistance += distanceBetween(lastNode, node);
             String type = node.getNodeType();
             String name = node.getLongName();
-            String face; // This is the direction the node is facing relative to the last
-            double directionChange = 0 - getDirectionAngle(lastNode, node, nextNode);
-            if(directionChange <= -45 && directionChange >= -135) face = "right";
-            else if(directionChange <= 135 && directionChange >= 45) face = "left";
-            else if(directionChange > 25 && directionChange < 45) face = "slight left";
-            else if(directionChange < -25 && directionChange > -45) face = "slight right";
-            else if(directionChange > -180 && directionChange < -135) face = "sharp right";
-            else if(directionChange < 180 && directionChange > 135) face = "sharp left";
-            else face = "straight";
+            String face, faceSymbol; // This is the direction the node is facing relative to the last
+
+            double directionChange = getDirectionAngle(lastNode, node, nextNode);
+            if(directionChange <= -45 && directionChange >= -135) {
+                face = "right";
+                faceSymbol = "⇒";
+            }
+            else if(directionChange <= 135 && directionChange >= 45) {
+                face = "left";
+                faceSymbol = "⇐";
+            }
+            else if(directionChange > 25 && directionChange < 45) {
+                face = "slight left";
+                faceSymbol = "⇖";
+            }
+            else if(directionChange < -25 && directionChange > -45) {
+                face = "slight right";
+                faceSymbol = "⇗";
+            }
+            else if(directionChange > -180 && directionChange < -135) {
+                face = "sharp right";
+                faceSymbol = "⇘";
+            }
+            else if(directionChange < 180 && directionChange > 135) {
+                face = "sharp left";
+                faceSymbol = "⇙";
+            }
+            else {
+                face = "straight";
+                faceSymbol = "⇑";
+            }
             switch (type) {
                 case "ELEV":
                     if(lastNode.getNodeType().equals("ELEV"))
                         directions += "\nGet off the elevator on floor " + node.getFloor();
                     else if(lastNode.getNodeType().equals("HALL")) {
-                        directions += "\nGo straight down the hall for about " + hallDistance + " feet";
+                        directions += "\n⇑ Go straight down the hall for about " + hallDistance + " feet";
                         hallDistance = 0;
-                        directions += "\nGet on " + name;
+                        directions += "\n" + faceSymbol + " Get on " + name;
                     }
-                    else directions += "\nGet on " + name;
+                    else directions += "\n" + faceSymbol + " Get on " + name;
                     break;
                 case "STAI":
                     if(lastNode.getNodeType().equals("STAI"))
                         directions += "\nExit the stairs on floor " + node.getFloor();
                     else if(lastNode.getNodeType().equals("HALL") && nextNode.getNodeType().equals("STAI")) {
-                        directions += "\nGo straight down the hall for about " + hallDistance + " feet";
+                        directions += "\n⇑ Go straight down the hall for about " + hallDistance + " feet";
                         hallDistance = 0;
-                        directions += "\nEnter " + name;
+                        directions += "\n" + faceSymbol + " Enter " + name;
                     }
                     else hallDistance += distanceBetween(node, nextNode);
                     break;
                 case "HALL":
                     if(!lastNode.getNodeType().equals("HALL")) {
                         if (Math.abs(directionChange) > 55) {
-                            directions += "\nTake the next " + face + " turn down the hall";
+                            directions += "\n" + faceSymbol + " Take the next " + face + " turn down the hall";
                             hallDistance += distanceBetween(node, nextNode);
                         }
                         else {
@@ -81,20 +103,19 @@ public class TextDirections {
                         }
                     }
                     else if(Math.abs(directionChange) > 55) {
-                        directions += "\nGo down the hall for about " + hallDistance + " feet";
+                        directions += "\n⇑ Go down the hall for about " + hallDistance + " feet";
                         hallDistance = 0;
-                        directions += "\nTake the next " + face + " and continue down the hall";
+                        directions += "\n" + faceSymbol + " Take the next " + face + " and continue down the hall";
                         hallDistance += distanceBetween(node, nextNode);
-                        System.out.println("\nTake the next " + face + " and continue down the hall " + hallDistance);
                     }
                     else hallDistance += distanceBetween(node, nextNode);
                     break;
                 default:
                     if(lastNode.getNodeType().equals("HALL")) {
-                        directions += "\nTravel down the hall about " + hallDistance + " feet, then continue " + face + " past " + name;
+                        directions += "\n" + faceSymbol + " Travel down the hall about " + hallDistance + " feet, then continue " + face + " past " + name;
                         hallDistance = 0;
                     }
-                    else directions += "\nContinue " + face + " past " + name;
+                    else directions += "\n" + faceSymbol + " Continue " + face + " past " + name;
                     break;
             }
         }
