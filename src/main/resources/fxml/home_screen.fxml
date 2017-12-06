@@ -93,15 +93,6 @@
                         <JFXCheckBox fx:id="locateStaircases" layoutX="652.0" layoutY="449.0" text="Staircases" />
                         <JFXCheckBox fx:id="locateLabs" layoutX="479.0" layoutY="339.0" text="Labs" />
                         <JFXCheckBox fx:id="locateAdditionalServices" layoutX="528.0" layoutY="406.0" text="Additional Services" />
-                        <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="109.0" prefWidth="202.0" text="Directions" AnchorPane.leftAnchor="0.0">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
-                                    <children>
-                                        <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
-                                    </children>
-                                </AnchorPane>
-                            </content>
-                        </TitledPane>
                         <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
                     </children>
                 </AnchorPane>
@@ -215,7 +206,7 @@
                 <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenu" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
-        <AnchorPane opacity="0.58" prefHeight="110.0" prefWidth="620.0" styleClass="searchPane" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane opacity="0.58" prefHeight="120.0" prefWidth="620.0" styleClass="searchPane" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane prefHeight="60.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -286,6 +277,15 @@
             </children>
         </AnchorPane>
         <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0" />
+            <TitledPane fx:id="paneDirections" animated="false" expanded="false" prefWidth="202.0" text="Directions" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                        <children>
+                            <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </TitledPane>
 
     </children>
 </AnchorPane>
