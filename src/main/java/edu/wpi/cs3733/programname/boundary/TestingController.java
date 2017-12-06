@@ -342,7 +342,7 @@ public class TestingController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
-        Building hospital = new Building("hospital");
+        Building hospital = new Building("45 Francis");
         hospital.addAllFloors(basicFloors);
 
         floors.addAll(hospital.getFloors());
@@ -649,7 +649,7 @@ public class TestingController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor), currentFloor.getBuilding());
+        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
         NodeData mClickedNode = getClosestNode(nodes, x, y);
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected
