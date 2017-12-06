@@ -64,5 +64,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <JFXButton fx:id="btnSelectLocation" buttonType="RAISED" layoutX="441.0" layoutY="106.0" style="-fx-background-color: #d2d2d2;" text="Select Location" />
    </children>
 </AnchorPane>

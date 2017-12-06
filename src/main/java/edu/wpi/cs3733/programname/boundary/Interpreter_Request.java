@@ -30,9 +30,11 @@ public class Interpreter_Request {
     private JFXComboBox SeverityDropDown;
     @FXML
     private JFXTextField DestinationField;
+    @FXML
+    private Button btnSelectLocation;
 
     private ManageController manager;
-
+    private TestingController testingController;
 
 
 //    public void buttonHandler(ActionEvent e){
@@ -74,6 +76,10 @@ public class Interpreter_Request {
     public void backButtonHandler() {
         Stage stage = (Stage) CancelBtn.getScene().getWindow();
         stage.close();
+    }
+
+    public void initController(TestingController testingController){
+        this.testingController = testingController;
     }
     // End of class
 }
