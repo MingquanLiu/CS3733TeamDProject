@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
+import edu.wpi.cs3733.programname.commondata.Interpreter;
+import edu.wpi.cs3733.programname.commondata.Maintenance;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.commondata.Employee;
 
@@ -10,8 +12,12 @@ import java.util.ArrayList;
 
 public class EmployeesQuery {
     private DBConnection dbConnection;
+    private InterpreterQuery interpreterQuery;
+    private MaintenanceQuery maintenanceQuery;
     public EmployeesQuery(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
+        this.interpreterQuery = new InterpreterQuery(dbConnection);
+        this.maintenanceQuery = new MaintenanceQuery(dbConnection);
     }
 
     public ArrayList<Employee> queryAllEmployees(){
@@ -19,6 +25,7 @@ public class EmployeesQuery {
         ArrayList<Employee> group = new ArrayList<Employee>();
         try {
             String sql = "SELECT * FROM Employees";
+
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String username;
@@ -40,7 +47,17 @@ public class EmployeesQuery {
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                if(serviceType.equals("interpreter")){
+                    ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
+                    queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
+                }
+                else if(serviceType.equals("maintenance")){
+                    ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
+                    queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
+                }
+                else{
+                    queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                }
                 group.add(queryResult);
             }
         } catch (SQLException e) {
@@ -50,11 +67,11 @@ public class EmployeesQuery {
         return group;
     }
 
-    public ArrayList<Employee> queryEmployeesByType(String type){
+    public ArrayList<Employee> queryEmployeesByType(String serviceType){
         Employee queryResult = null;
         ArrayList<Employee> group = new ArrayList<Employee>();
         try {
-            String sql = "SELECT * FROM Employees WHERE serviceType = '" + type + "'";
+            String sql = "SELECT * FROM Employees WHERE serviceType = '" + serviceType + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String username;
@@ -76,7 +93,17 @@ public class EmployeesQuery {
                 //serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, type, email);
+                if(serviceType.equals("interpreter")){
+                    ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
+                    queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
+                }
+                else if(serviceType.equals("maintenance")){
+                    ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
+                    queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
+                }
+                else{
+                    queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                }
                 group.add(queryResult);
             }
         } catch (SQLException e) {
@@ -110,7 +137,19 @@ public class EmployeesQuery {
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                if(serviceType.equals("interpreter")){
+                    ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
+                    queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
+                    //System.out.println("Is an Interpreter");
+                }
+                else if(serviceType.equals("maintenance")){
+                    ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
+                    queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
+                }
+                else{
+                    //System.out.println("Is a Employee");
+                    queryResult = new Employee(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
+                }
             }
         } catch (SQLException e) {
             System.out.println("Get Employee Failed!");
@@ -148,8 +187,11 @@ public class EmployeesQuery {
         } catch (SQLException e) {
             System.out.println("Get Employee Failed!");
             e.printStackTrace();
+            return false;
         }
-
+        if(queryResult == null) {
+            return false;
+        }
         if (queryResult.getPassword().equals(passwordAttempt) ) {
             return true;
         }

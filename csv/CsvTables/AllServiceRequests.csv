@@ -1,4 +1,2 @@
-serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status
-900,admin,null,null,null,interpreter,ADEPT00201,null,null,null,null
-46,admin,null,null,maintenance,ADEPT00201,null,null,null,null,null
-250,admin,ygao6,maintenance,DHALL00102,null,Maintenance type:	fuck  Maintenance urgency(1-5): fuck,2017-11-30 21:00:31,2017-11-30 21:00:43,2017-11-30 21:00:46,completed
+serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity
+27,admin,,interpreter,DHALL00102,null,Language to: fuck Language from: fuck,2017-12-05 17:28:44,,,unhandled,1

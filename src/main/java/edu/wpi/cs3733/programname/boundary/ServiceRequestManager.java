@@ -5,15 +5,12 @@ import com.jfoenix.controls.JFXListView;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest;
-import edu.wpi.cs3733.programname.database.DBConnection;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +41,7 @@ public class ServiceRequestManager {
     @FXML
     JFXListView<String> listUnassigned = new JFXListView<String>();
     @FXML
-    JFXListView<String> listEmployees;
+    JFXListView<String> listEmployees = new JFXListView<String>();
     @FXML
     JFXButton btnAssignRequest;
     @FXML
@@ -63,7 +60,6 @@ public class ServiceRequestManager {
     JFXButton btnDeleteCompleted;
 
     ManageController manager;
-    private DBConnection dbConnection;
     List<ServiceRequest> currUnassigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currAssigned = new ArrayList<ServiceRequest>();
     List<ServiceRequest> currCompleted = new ArrayList<ServiceRequest>();
@@ -73,9 +69,8 @@ public class ServiceRequestManager {
     int requestIndex = -1;
     int employeeIndex = -1;
 
-    public void initData(DBConnection dbConnection){
-        dbConnection = dbConnection;
-        manager = new ManageController(dbConnection);
+    public void initManager(ManageController manageController){
+        manager = manageController;
         unassignedRequestButtonHandler();
         btnMarkCompleted.setVisible(false);
         btnAssignRequest.toFront();
@@ -166,9 +161,6 @@ public class ServiceRequestManager {
 
     public String createServiceRequestListString(ServiceRequest sr) {
         NodeData loc1 = manager.getNodeData(sr.getLocation1());
-        System.out.println("Service Request String == " + sr.getLocation2());
-        System.out.println("Char test = " + sr.getLocation2().charAt(0));
-        System.out.println("String length = " + sr.getLocation2().length());
         return sr.getServiceType() + " - " + loc1.getLongName();
 //        if (sr.getLocation2() == null || sr.getLocation2() == "null") {
 //            return sr.getServiceType() + " - " + loc1.getLongName();
@@ -232,5 +224,10 @@ public class ServiceRequestManager {
             String requestDisplay = createServiceRequestListString(sr);
             listCompleted.getItems().add(requestDisplay);
         }
+    }
+
+    public void backButtonHandler() {
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        stage.close();
     }
 }

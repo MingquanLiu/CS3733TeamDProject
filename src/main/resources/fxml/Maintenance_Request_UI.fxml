@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.Integer?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="255.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.Maintenance_Request">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Request Maintenance">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="CancelBtn" buttonType="RAISED" layoutX="319.0" layoutY="215.0" onAction="#backButtonHandler" style="-fx-background-color: #d2d2d2;" text="Cancel" />
+      <JFXButton fx:id="SubmitBtn" buttonType="RAISED" layoutX="227.0" layoutY="215.0" onAction="#SubmitHandler" style="-fx-background-color: #d2d2d2;" text="Submit" />
+      <Label layoutX="39.0" layoutY="93.0" text="Type:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="TypeDropDown" layoutX="87.0" layoutY="91.0" onAction="#TypeDropDownHandler" prefHeight="27.0" prefWidth="165.0" promptText="                    -Select-">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="everyone is dying" />
+               <String fx:value="ebola on the loose" />
+               <String fx:value="require more Vespen gas" />
+            </FXCollections>
+         </items>
+      </JFXComboBox>
+      <JFXTextArea fx:id="DescriptionField" layoutX="39.0" layoutY="131.0" prefHeight="67.0" prefWidth="522.0" promptText="Enter description..." wrapText="true" />
+      <Label layoutX="292.0" layoutY="58.0" text="Destination:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="DestinationField" layoutX="402.0" layoutY="56.0" onAction="#DestinationHandler" promptText="Where are you located?" />
+      <JFXComboBox fx:id="SeverityDropDown" layoutX="147.0" layoutY="56.0" onAction="#SeverityDropDownHandler" prefHeight="27.0" prefWidth="103.0" promptText="       -Select-">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Integer fx:value="1" />
+               <Integer fx:value="2" />
+               <Integer fx:value="3" />
+               <Integer fx:value="4" />
+               <Integer fx:value="5" />
+            </FXCollections>
+         </items>
+      </JFXComboBox>
+      <Label layoutX="63.0" layoutY="58.0" text="Severity:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnSelectLocation" buttonType="RAISED" layoutX="444.0" layoutY="92.0" style="-fx-background-color: #d2d2d2;" />
+   </children>
+</AnchorPane>

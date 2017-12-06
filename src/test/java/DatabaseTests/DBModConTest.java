@@ -11,6 +11,7 @@ import edu.wpi.cs3733.programname.database.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.sql.Connection;
 
 import static org.junit.Assert.assertEquals;
@@ -38,10 +39,9 @@ public class DBModConTest {
     public DBModConTest(){};
 
     @Before
-    public void setupDbTables() {
-        // MapDnodes.csv
-        DBTables.createAllTables(conn);           // Makes nodes table
-
+    public void setupDbTables() throws IOException {
+        RunScript run = new RunScript();
+        run.runScript(conn.getConnection());
     }
 
 

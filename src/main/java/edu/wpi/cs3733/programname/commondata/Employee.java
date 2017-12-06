@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Employee {
     private String username;
     private String password;
@@ -9,6 +12,14 @@ public class Employee {
     private boolean sysAdmin;
     private String serviceType;
     private String email;
+
+    private final StringProperty firstNameProperty;
+    private final StringProperty lastNameProperty;
+    private final StringProperty usernameProperty;
+    private final StringProperty passwordProperty;
+    private final StringProperty serviceTypeProperty;
+    private final StringProperty emailProperty;
+    private final StringProperty sysAdminProperty;
 
 
     /**
@@ -30,8 +41,100 @@ public class Employee {
         this.sysAdmin = sysAdmin;
         this.serviceType = serviceType;
         this.email = email;
+
+        this.firstNameProperty = new SimpleStringProperty(firstName);
+        this.lastNameProperty = new SimpleStringProperty(lastName);
+        this.usernameProperty = new SimpleStringProperty(username);
+        this.passwordProperty = new SimpleStringProperty(password);
+        this.serviceTypeProperty = new SimpleStringProperty(serviceType);
+        this.emailProperty = new SimpleStringProperty(email);
+        if(sysAdmin) this.sysAdminProperty = new SimpleStringProperty("Yes");
+        else this.sysAdminProperty = new SimpleStringProperty("No");
     }
 
+    public String getFirstNameProperty() {
+        return firstNameProperty.get();
+    }
+
+    public StringProperty firstNameProperty() {
+        return firstNameProperty;
+    }
+
+    public void setFirstNameProperty(String firstNameProperty) {
+        this.firstNameProperty.set(firstNameProperty);
+    }
+
+    public String getLastNameProperty() {
+        return lastNameProperty.get();
+    }
+
+    public StringProperty lastNameProperty() {
+        return lastNameProperty;
+    }
+
+    public void setLastNameProperty(String lastNameProperty) {
+        this.lastNameProperty.set(lastNameProperty);
+    }
+
+    public String getUsernameProperty() {
+        return usernameProperty.get();
+    }
+
+    public StringProperty usernameProperty() {
+        return usernameProperty;
+    }
+
+    public void setUsernameProperty(String usernameProperty) {
+        this.usernameProperty.set(usernameProperty);
+    }
+
+    public String getPasswordProperty() {
+        return passwordProperty.get();
+    }
+
+    public StringProperty passwordProperty() {
+        return passwordProperty;
+    }
+
+    public void setPasswordProperty(String passwordProperty) {
+        this.passwordProperty.set(passwordProperty);
+    }
+
+    public String getServiceTypeProperty() {
+        return serviceTypeProperty.get();
+    }
+
+    public StringProperty serviceTypeProperty() {
+        return serviceTypeProperty;
+    }
+
+    public void setServiceTypeProperty(String serviceTypeProperty) {
+        this.serviceTypeProperty.set(serviceTypeProperty);
+    }
+
+    public String getEmailProperty() {
+        return emailProperty.get();
+    }
+
+    public StringProperty emailProperty() {
+        return emailProperty;
+    }
+
+    public void setEmailProperty(String emailProperty) {
+        this.emailProperty.set(emailProperty);
+    }
+
+    public String getSysAdminProperty() {
+        return sysAdminProperty.get();
+    }
+
+    public StringProperty sysAdminProperty() {
+        return sysAdminProperty;
+    }
+
+    public void setSysAdminProperty(String sysAdminProperty) {
+        this.sysAdminProperty.set(sysAdminProperty);
+    }
 
     public String getUsername() {
         return username;

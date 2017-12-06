@@ -11,16 +11,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DFS implements PathfindingStrategy {
-    List<NodeData> allNodes;
-    List<EdgeData> allEdges;
-
-    // We need a HashMap so we can access StarNodes via the corresponding nodeID
-    HashMap<String, StarNode> allStarNodes = new HashMap<>();
-    List<NodeData> finalList;
-
+public class DFS extends PathfindingStrategyTemplate {
     /**
-     * constructor for AStar
+     * constructor for DFS
      *
      * @param nodes   list of nodes
      * @param edges   list of edges
@@ -30,50 +23,18 @@ public class DFS implements PathfindingStrategy {
     public DFS(List<NodeData> nodes, List<EdgeData> edges, String startID, String goalID) throws NoPathException {
         this.allEdges = edges;
         this.allNodes = nodes;
-        this.init();
-        this.finalList = this.pathFind(startID, goalID);
-    }
-
-    // Call to update the whole list of StarNodes
-
-    /**
-     * initializes A*
-     */
-    private void init() {
-        System.out.println("Initializing A*");
-        for (NodeData node : allNodes) {
-            // Creates the StarNodes
-            allStarNodes.put(node.getNodeID(), new StarNode(node));
-        }
-
-        for (EdgeData edge : allEdges) {
-            StarNode node1 = allStarNodes.get(edge.getStartNode());
-            StarNode node2 = allStarNodes.get(edge.getEndNode());
-
-            node1.addNeighbor(node2);
-            node2.addNeighbor(node1);
-        }
-
+        this.startID = startID;
+        this.goalID = goalID;
     }
 
     /**
      * calculates path from start to finish
      *
-     * @param startID starting location
-     * @param goalID  end location
      * @return list of nodes that make up the path
      */
-    private List<NodeData> pathFind(String startID, String goalID) throws NoPathException {
-        // TODO: Throw a "No such node" exception
-        StarNode start = allStarNodes.get(startID);
-        StarNode goal = allStarNodes.get(goalID);
-
-        //list of all the nodes that are adjacent to nodes already explored
-        LinkedList<StarNode> frontier = new LinkedList<StarNode>();
-
-        //list of all the nodes in the path from start to finish
-        LinkedList<NodeData> finalPath = new LinkedList<NodeData>();
-
+    List<NodeData> pathFind() throws NoPathException {
+        System.out.println("Starting DFS");
+        
         frontier.add(start);
 
         while (!frontier.isEmpty()) {
@@ -84,13 +45,13 @@ public class DFS implements PathfindingStrategy {
                 // If we are at the goal, we need to backtrack through the shortest path
                 System.out.println("At target!");
                 System.out.println(current.getNodeID());
-                finalPath.add(current); // we have to add the goal to the path before we start backtracking
+                finalList.add(current); // we have to add the goal to the path before we start backtracking
                 while (!(current.getXCoord() == start.getXCoord() && current.getYCoord() == start.getYCoord())) {
-                    finalPath.add(current.getPreviousNode());
+                    finalList.add(current.getPreviousNode());
                     current = current.getPreviousNode();
                     System.out.println(current.getNodeID());
                 }
-                return finalPath;
+                return finalList;
             } else {
                 // we need to get all the neighbor nodes, identify their costs, and put them into the queue
                 LinkedList<StarNode> neighbors = current.getNeighbors();
@@ -105,22 +66,6 @@ public class DFS implements PathfindingStrategy {
                 }
             }
         }
-//        return null;
-        throw new NoPathException(startID, goalID);
-    }
-
-    public List<NodeData> getFinalList() {
-        return finalList;
-    }
-
-    private int listContainsId(LinkedList<StarNode> listOfNodes, StarNode node) {
-        for (int i = 0; i < listOfNodes.size(); i++) {
-            if (node.getNodeID().equals(listOfNodes.get(i).getNodeID())) {
-                System.out.println("The list contains node " + listOfNodes.get(i).getNodeID());
-                System.out.println("Node " + listOfNodes.get(i).getNodeID() + " costs " + listOfNodes.get(i).getF());
-                return i;
-            }
-        }
-        return -1;
+        throw new NoPathException(start.getLongName(), goal.getLongName());
     }
 }

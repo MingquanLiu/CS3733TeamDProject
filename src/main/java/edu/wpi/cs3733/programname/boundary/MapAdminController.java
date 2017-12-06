@@ -9,7 +9,6 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import javafx.animation.FadeTransition;
@@ -196,7 +195,6 @@ public class MapAdminController implements Initializable {
 
     ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
-    private DBConnection dbConnection;
     private EdgeData mEdge;
 
     @Override
@@ -207,10 +205,10 @@ public class MapAdminController implements Initializable {
         this.mTestController = testController;
     }
 
-    public void initData(DBConnection dbConnection) {
-        currentMapRatioIndex = originalMapRatioIndex;
+    public void initManager(ManageController manageController){
+        currentMapRatioIndex =originalMapRatioIndex;
 //        mapRatio.add(0.24);
-        manager = new ManageController(dbConnection);
+        manager = manageController;
         mapRatio.add(0.318);
         mapRatio.add(0.35);
         mapRatio.add(0.39);
@@ -279,9 +277,8 @@ public class MapAdminController implements Initializable {
         displayEdges(edges);
         showNodeList(nodes);
     }
-
-    private void showNodeList(List<NodeData> nodeDataList) {
-        for (int i = 0; i < nodeDataList.size(); i++) {
+    private void showNodeList (List<NodeData> nodeDataList){
+        for(int i = 0;i <nodeDataList.size();i++){
             showNode(nodeDataList.get(i));
         }
     }
@@ -795,7 +792,7 @@ public class MapAdminController implements Initializable {
             currentScale = mapRatio.get(currentMapRatioIndex);
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
-//            if(imgMap.getFitWidth() >= maxWidth){
+//            if(imgMap.getFitWidth() >= MAX_UI_WIDTH){
 //                return;
 //            }
             if (currentMapRatioIndex == (mapRatio.size() - 1)) {

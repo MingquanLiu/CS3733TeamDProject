@@ -1,19 +1,27 @@
 package edu.wpi.cs3733.programname.database;
 
 import java.io.*;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
 
 
 public class CsvReader {
+
+    ArrayList<String[]> interpreterInfo;        //Array Size = 3
+    ArrayList<String[]> maintenanceInfo;        //Array Size = 3
+    ArrayList<String[]> transportationInfo;     //Array Size = 4
+
+    ArrayList<String[]> interpreterEmployeeInfo;        //Array Size = 2
+    ArrayList<String[]> maintenanceEmployeeInfo;        //Array Size = 2
 
     /**
      * empty constructor for CsvReader
@@ -29,134 +37,21 @@ public class CsvReader {
      * @return
      */
 
-//    public ArrayList<NodeData> getListOfNodes(Connection conn) {
-//        ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
-//        String[] csvNodes = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
-//
-//        try {
-//            for (String letter: csvNodes) {
-//                File csv = new File("Map" + letter + "Nodes.csv");
-//                Scanner inputStream = new Scanner(csv);
-//
-//                // Ignores first line in csv file i.e. header row
-//                inputStream.nextLine();
-//
-//                // Reads all lines in the file
-//                while (inputStream.hasNextLine()) {
-//                    // Reads current row and converts to a string
-//                    String data = inputStream.nextLine();
-//
-//                    // Seperates the string into fields and stores into an array
-//                    String[] values = data.split(",");
-//
-//                    // Converts int fields from strings to integers
-//                    int x = Integer.parseInt(values[1]);
-//                    int y = Integer.parseInt(values[2]);
-//                    Coordinate location = new Coordinate(x, y);
-//                    NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
-//                    nodeList.add(nodeObject);
-//
-//
-//                } // end while
-//
-//
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//
-//        }
-//        return nodeList;
-//    }// end readNodes
-
-
-
-// READS ALL TEAM FILES AND ALL FILES
-//    public ArrayList<NodeData> getListOfNodes(Connection conn) {
-//        ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
-//
-//
-//        try {
-//            File File = new File("CsvNodes/AllMapNodes.csv");
-//
-//            Scanner inputStream = new Scanner(File);
-//
-//            // Ignores first line in csv file i.e. header row
-//            inputStream.nextLine();
-//
-//            // Reads all lines in the file
-//            while (inputStream.hasNextLine()) {
-//                // Reads current row and converts to a string
-//                String data = inputStream.nextLine();
-//
-//                // Seperates the string into fields and stores into an array
-//                String[] values = data.split(",");
-//
-//                // Converts int fields from strings to integers
-//                int x = Integer.parseInt(values[1]);
-//                int y = Integer.parseInt(values[2]);
-//                Coordinate location = new Coordinate(x, y);
-//                NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
-//                nodeList.add(nodeObject);
-//
-//
-//            } // end while
-//
-//
-//
-//
-//        } catch (FileNotFoundException e) {
-//            try {
-//                File[] csvNodes = new File("CsvNodes/").listFiles();
-//                for (File csv : csvNodes) {
-//                    Scanner inputStream = new Scanner(csv);
-//
-//                    // Ignores first line in csv file i.e. header row
-//                    inputStream.nextLine();
-//
-//                    // Reads all lines in the file
-//                    while (inputStream.hasNextLine()) {
-//                        // Reads current row and converts to a string
-//                        String data = inputStream.nextLine();
-//
-//                        // Seperates the string into fields and stores into an array
-//                        String[] values = data.split(",");
-//
-//                        // Converts int fields from strings to integers
-//                        int x = Integer.parseInt(values[1]);
-//                        int y = Integer.parseInt(values[2]);
-//                        Coordinate location = new Coordinate(x, y);
-//                        NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
-//                        nodeList.add(nodeObject);
-//
-//
-//                    } // end while
-//
-//                }
-//
-//            } catch (FileNotFoundException w) {
-//                w.printStackTrace();
-//            }
-//
-//        }
-//        return nodeList;
-//    }// end readNodes
-
-
-
-
 
     public ArrayList<NodeData> getListOfNodes(Connection conn) throws IOException{
         ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
 
+
         try {
-            InputStream in = new FileInputStream(new File("csv/CsvNodes/AllMapNodes.csv").getPath());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuilder out = new StringBuilder();
+            System.out.println("About to read nodes table");
+            String csv = "csv/CsvNodes/AllMapNodes.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+
             String line;
-            reader.readLine();
+            buf.readLine();
             // Reads all lines in the file
-            while ((line = reader.readLine()) != null) {
+            while ((line = buf.readLine()) != null) {
                 // Reads current row and converts to a string
 
 
@@ -177,88 +72,50 @@ public class CsvReader {
         catch (IOException e) {
 
 
-//            String[] csvNodes = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "W"};
-//
-//            try {
-//                for (String letter : csvNodes) {
-//                    InputStream csv = new FileInputStream(new File(this.getClass().getClassLoader().getResource("csv/CsvNodes/Map" + letter + "nodes.csv").getPath()));
-//                    Scanner inputStream = new Scanner(csv);
-//
-//                    // Ignores first line in csv file i.e. header row
-//                    inputStream.nextLine();
-//
-//                    // Reads all lines in the file
-//                    while (inputStream.hasNextLine()) {
-//                        // Reads current row and converts to a string
-//                        String data = inputStream.nextLine();
-//
-//                        // Seperates the string into fields and stores into an array
-//                        String[] values = data.split(",");
-//
-//                        // Converts int fields from strings to integers
-//                        int x = Integer.parseInt(values[1]);
-//                        int y = Integer.parseInt(values[2]);
-//                        Coordinate location = new Coordinate(x, y);
-//                        NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
-//                        nodeList.add(nodeObject);
-//
-//
-//                    } // end while
-//
-//
-//                }
-//
-//            } catch (FileNotFoundException w) {
-//                w.printStackTrace();
-//
-//            }
+            String[] csvNodes = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "W"};
+
+            try {
+                for (String letter : csvNodes) {
+                    InputStream csv = this.getClass().getClassLoader().getResourceAsStream("csv/CsvNodes/Map" + letter + "Nodes.csv");
+                    Scanner inputStream = new Scanner(csv);
+
+                    // Ignores first line in csv file i.e. header row
+                    inputStream.nextLine();
+
+                    // Reads all lines in the file
+                    while (inputStream.hasNextLine()) {
+                        // Reads current row and converts to a string
+                        String data = inputStream.nextLine();
+
+                        // Seperates the string into fields and stores into an array
+                        String[] values = data.split(",");
+
+                        // Converts int fields from strings to integers
+                        int x = Integer.parseInt(values[1]);
+                        int y = Integer.parseInt(values[2]);
+                        Coordinate location = new Coordinate(x, y);
+                        NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
+                        nodeList.add(nodeObject);
+
+
+                    } // end while
+
+
+                }
+
+            } catch (NumberFormatException w) {
+                w.printStackTrace();
+
+            }
 
         }
+
         return nodeList;
     }// end readNodes
 
 
 
 
-
-
-
-//    public ArrayList<NodeData> getListOfNodes(Connection conn) {
-//        ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
-//
-//        try {
-//
-//                File csv = new File("AllMapNodes.csv");
-//                Scanner inputStream = new Scanner(csv);
-//
-//                // Ignores first line in csv file i.e. header row
-//                inputStream.nextLine();
-//
-//                // Reads all lines in the file
-//                while (inputStream.hasNextLine()) {
-//                    // Reads current row and converts to a string
-//                    String data = inputStream.nextLine();
-//
-//                    // Seperates the string into fields and stores into an array
-//                    String[] values = data.split(",");
-//
-//                    // Converts int fields from strings to integers
-//                    int x = Integer.parseInt(values[1]);
-//                    int y = Integer.parseInt(values[2]);
-//                    Coordinate location = new Coordinate(x, y);
-//                    NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
-//                    nodeList.add(nodeObject);
-//
-//
-//                } // end while
-//
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//
-//        }
-//        return nodeList;
-//    }// end readNodes
 
 
     // Insert Nodes into DB
@@ -291,59 +148,32 @@ public class CsvReader {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    } // end insertNodes
+    }
 
 
-//    // EDGES
-//    public ArrayList<EdgeData> getListOfEdges(Connection conn) {
-//        // ArrayLists stores data values is proper columns
-//        ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
-//        String[] csvEdges = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
-//
-//        try {
-//                for (String letter: csvEdges) {
-//                    File csv = new File("Map" + letter + "edges.csv");
-//                    Scanner inputStream = new Scanner(csv);
-//
-//                    // Ignores first line in csv file i.e. header row
-//                    inputStream.nextLine();
-//
-//                    // Reads all lines in the file
-//                    while (inputStream.hasNextLine()) {
-//                        // Reads current row and converts to a string
-//                        String data = inputStream.nextLine();
-//
-//                        // Seperates the string into fields and stores into an array
-//                        String[] values = data.split(",");
-//
-//                        EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
-//                        edgeList.add(edgeObject);
-//
-//                    } // end while
-//
-//                }
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//
-//        }
-//        return edgeList;
-//    } // end readEdges
+
+
+
+
+
 
     // EDGES
-    public ArrayList<EdgeData> getListOfEdges(Connection conn){
+    public ArrayList<EdgeData> getListOfEdges(Connection conn) {
         // ArrayLists stores data values is proper columns
         ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
 
 
         try {
-            InputStream in = new FileInputStream(new File("csv/CsvEdges/AllMapEdges.csv").getPath());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuilder out = new StringBuilder();
+            String csv = "csv/CsvEdges/AllMapEdges.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+
+
             String line;
-            reader.readLine();
+            buf.readLine();
+
             // Reads all lines in the file
-            while ((line = reader.readLine()) != null) {
+            while ((line = buf.readLine()) != null) {
                 // Reads current row and converts to a string
 
 
@@ -356,77 +186,42 @@ public class CsvReader {
             } // end while
 
 
-        }
-        catch (IOException e) {
-//            String[] csvEdges = {"A", "B", "C", "D", "E", "F","G", "H", "I", "W"};
-//
-//            try {
-//                    for (String letter: csvEdges) {
-//                        InputStream csv = new FileInputStream(new File("/csv/CsvEdges/" + "Map" + letter + "edges.csv"));
-//                        Scanner inputStream = new Scanner(csv);
-//
-//                        // Ignores first line in csv file i.e. header row
-//                        inputStream.nextLine();
-//
-//                        // Reads all lines in the file
-//                        while (inputStream.hasNextLine()) {
-//                            // Reads current row and converts to a string
-//                            String data = inputStream.nextLine();
-//
-//                            // Seperates the string into fields and stores into an array
-//                            String[] values = data.split(",");
-//
-//                            EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
-//                            edgeList.add(edgeObject);
-//
-//                        } // end while
-//
-//                    }
-//
-//            } catch (FileNotFoundException w) {
-//                w.printStackTrace();
-//
-//            }
+        } catch (IOException e) {
+            String[] csvEdges = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "W"};
+
+            try {
+                for (String letter : csvEdges) {
+                    InputStream csv = this.getClass().getClassLoader().getResourceAsStream("csv/CsvEdges/Map" + letter + "Edges.csv");
+                    Scanner inputStream = new Scanner(csv);
+
+                    // Ignores first line in csv file i.e. header row
+                    inputStream.nextLine();
+
+                    // Reads all lines in the file
+                    while (inputStream.hasNextLine()) {
+                        // Reads current row and converts to a string
+                        String data = inputStream.nextLine();
+
+                        // Seperates the string into fields and stores into an array
+                        String[] values = data.split(",");
+
+                        EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
+                        edgeList.add(edgeObject);
+
+                    } // end while
 
 
-        }
+                }
+            } catch (NumberFormatException w) {
+            }
+
+
+        } // end readEdges
         return edgeList;
-    } // end readEdges
+
+    }
 
 
-
-//    // EDGES
-//    public ArrayList<EdgeData> getListOfEdges(Connection conn) {
-//        // ArrayLists stores data values is proper columns
-//        ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
-//
-//        try {
-//                File csv = new File("AllMapEdges.csv");
-//                Scanner inputStream = new Scanner(csv);
-//
-//                // Ignores first line in csv file i.e. header row
-//                inputStream.nextLine();
-//
-//                // Reads all lines in the file
-//                while (inputStream.hasNextLine()) {
-//                    // Reads current row and converts to a string
-//                    String data = inputStream.nextLine();
-//
-//                    // Seperates the string into fields and stores into an array
-//                    String[] values = data.split(",");
-//
-//                    EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
-//                    edgeList.add(edgeObject);
-//
-//                } // end while
-//
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//
-//        }
-//        return edgeList;
-//    } // end readEdges
 
     public void insertEdges(Connection conn, ArrayList<EdgeData> edgesList) {
         // edgeID is unique and used to count the number of lines read in the file minus the header
@@ -453,42 +248,109 @@ public class CsvReader {
 
 
 
-
     // EMPLOYEES
-    public ArrayList<Employee> getListOfEmployees(Connection conn) throws IOException{
+    public ArrayList<Employee> getListOfEmployees(Connection conn) {
 
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
 
+        getInterpreterEmployeeInfo();
+        getMaintenanceEmployeeInfo();
 
-        InputStream in = new FileInputStream(new File("csv/CsvTables/Employees.csv").getPath());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder out = new StringBuilder();
-        String line;
-        reader.readLine();
-        // Reads all lines in the file
-        while ((line = reader.readLine()) != null) {
-            // Reads current row and converts to a string
+        try {
+            String csv = "csv/CsvTables/AllEmployees.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
+            String line;
+            buf.readLine();
+            // Reads all lines in the file
+            while ((line = buf.readLine()) != null) {
+                // Reads current row and converts to a string
 
-            // Seperates the string into fields and stores into an array
-            String[] values = line.split(",");
+                // Seperates the string into fields and stores into an array
+                String[] values = line.split(",");
 
                 boolean sysAdmin;
-                if(Integer.parseInt(values[5]) == 1) {
+                if (Integer.parseInt(values[5]) == 1) {
                     sysAdmin = true;
-                }
-                else {
+                } else {
                     sysAdmin = false;
                 }
 
-                Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
-                employeeList.add(employeeObject);
+                Employee employeeObject;
+                if (values[6] == Constants.INTERPRETER_REQUEST) {
+                    ArrayList<String> languages = new ArrayList<>();
+
+                    //for each entry in the interpreter db for this employee,
+                    //add that entry's language to this employee
+                    for (String[] data: interpreterInfo) {
+                        if(data[0].equals(values[0])){
+                            languages.add(data[1]);
+                        }
+                    }
+                    employeeObject = new Interpreter(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], languages);
+                    employeeList.add(employeeObject);
+                } else if (values[6] == Constants.MAINTENANCE_REQUEST) {
+                    ArrayList<String> skills = new ArrayList<>();
+
+                    for(String[] data: maintenanceInfo) {
+                        if(data[0].equals(values[0])) {
+                            skills.add(data[1]);
+                            break;
+                        }
+                    }
+                    employeeObject = new Maintenance(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], skills);
+                    employeeList.add(employeeObject);
+                }
+                else {
+                    employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
+                    employeeList.add(employeeObject);
+                }
 
             } // end while
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return employeeList;
     }
 
+    public void getInterpreterEmployeeInfo() {
+        interpreterEmployeeInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllInterpreterSkills.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
 
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterEmployeeInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getMaintenanceEmployeeInfo() {
+        maintenanceEmployeeInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllMaintenanceSkills.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterEmployeeInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
 
     public void insertEmployees(Connection conn, ArrayList<Employee> employeeList) {
@@ -512,7 +374,28 @@ public class CsvReader {
                 pst.setString(7, employeeList.get(i).getServiceType());
                 pst.setString(8, employeeList.get(i).getEmail());
                 pst.executeUpdate();
-                System.out.println(employeeList.get(i).getUsername() + " added*******");
+
+                PreparedStatement skillsInsert;
+                if (employeeList.get(i).getServiceType() == Constants.INTERPRETER_REQUEST) {
+                    Interpreter interpreter = (Interpreter) employeeList.get(i);
+                    for(String language: interpreter.getLanguages()) {
+                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                                " VALUES (?,?)");
+                        skillsInsert.setString(1, interpreter.getUsername());
+                        skillsInsert.setString(2, language);
+                        skillsInsert.executeUpdate();
+                    }
+                } else if (employeeList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
+                    Maintenance maintenanceEmployee = (Maintenance) employeeList.get(i);
+                    for (String skill: maintenanceEmployee.getMaintenanceType()) {
+                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                                " VALUES (?,?)");
+                        skillsInsert.setString(1, maintenanceEmployee.getUsername());
+                        skillsInsert.setString(2, skill);
+                        skillsInsert.executeUpdate();
+                    }
+                }
+
             }
 
         } catch (SQLException e) {
@@ -520,36 +403,166 @@ public class CsvReader {
         }
     }
 
-
-
-
-
-
     // SERVICEREQUESTS
-    public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) throws IOException{
+    public void getInterpreterTableInfo() {
+        interpreterInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllInterpreterRequests.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getMaintenanceTableInfo() {
+        maintenanceInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllMaintenanceRequests.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                maintenanceInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getTransportationTableInfo() {
+        transportationInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllTransportationRequests.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                transportationInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) {
 
         ArrayList<ServiceRequest> srList = new ArrayList<ServiceRequest>();
+        getInterpreterTableInfo();
+        getMaintenanceTableInfo();
+        getTransportationTableInfo();
 
+        try {
 
-        InputStream in = new FileInputStream(new File("csv/CsvTables/AllServiceRequests.csv").getPath());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder out = new StringBuilder();
-        String line;
-        reader.readLine();
-        // Reads all lines in the file
-        while ((line = reader.readLine()) != null) {
-            // Reads current row and converts to a string
+            String csv = "csv/CsvTables/AllServiceRequests.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
+            String line;
+            buf.readLine();
 
-            // Seperates the string into fields and stores into an array
-            String[] values = line.split(",");
+            buf.readLine();
+            while ((line = buf.readLine()) != null) {
+                // Reads current row and converts to a string
+
+                System.out.println(line);
+                // Seperates the string into fields and stores into an array
+                String[] values = line.split(",");
+                for (int i = 0; i<values.length;i++ ){
+                    System.out.println(i + "  "+values[i]);
+                }
+
 
                 int serviceID = Integer.parseInt(values[0]);
+                int severity = Integer.parseInt(values[11]);
+                System.out.println("length"+values.length);
 
-                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5]);
+                ServiceRequest srObject = null;
+                ArrayList<String[]> subtable;
+                if (values[3] == Constants.INTERPRETER_REQUEST) {
+                    subtable = interpreterInfo;
+                    String[] data;
+                    for (String[] info: subtable) {
+                        if(values[0].equals(info[0])){
+                            data = info;
+                            srObject = new InterpreterRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity, data[1], data[2]);
+                            break;
+                        }
+                    }
+                } else if (values[3] == Constants.MAINTENANCE_REQUEST) {
+                    subtable = maintenanceInfo;
+                    String[] data;
+                    for(String[] info: subtable) {
+                        if(values[0].equals(info[0])) {
+                            data = info;
+                            srObject = new MaintenanceRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity,data[1]);
+                            break;
+                        }
+                    }
+                } else {
+                    subtable = transportationInfo;
+                    String[] data;
+                    for(String[] info: subtable) {
+                        if(values[0].equals(info[0])) {
+                            data = info;
+                            srObject = new TransportationRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity, data[1], data[2], data[3]);
+                            break;
+                        }
+                    }
+                }
                 srList.add(srObject);
-
             } // end while
+
+        }catch (IOException e) {
+            try {
+                InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvTables/AllServiceRequests.csv");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+                String line;
+                reader.readLine();
+                // Reads all lines in the file
+                while ((line = reader.readLine()) != null) {
+                    // Reads current row and converts to a string
+
+
+                    // Seperates the string into fields and stores into an array
+                    String[] values = line.split(",");
+
+                    int serviceID = Integer.parseInt(values[0]);
+                    int severity = Integer.parseInt(values[11]);
+
+                    ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], severity);
+                    srList.add(srObject);
+
+                } // end while
+            } catch (IOException w) {
+            }
+        }
+
+
         return srList;
     }
 
@@ -565,8 +578,8 @@ public class CsvReader {
 
         try {
             // SQL Insert
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO ServiceRequests(serviceID, sender, serviceType, location1, location2, description)" +
-                    "VALUES (?,?,?,?,?,?)");
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO ServiceRequests(serviceID, sender, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity)" +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
 
             for (i = 0; i < count; i++) {
@@ -576,7 +589,39 @@ public class CsvReader {
                 pst.setString(4, srList.get(i).getLocation1());
                 pst.setString(5, srList.get(i).getLocation2());
                 pst.setString(6, srList.get(i).getDescription());
+                pst.setString(7, srList.get(i).getRequestTime());
+                pst.setString(8, srList.get(i).getHandleTime());
+                pst.setString(9, srList.get(i).getCompletionTime());
+                pst.setString(10, srList.get(i).getStatus());
+                pst.setInt(11, srList.get(i).getSeverity());
                 pst.executeUpdate();
+
+                PreparedStatement detailInsert;
+                if (srList.get(i).getServiceType() == Constants.INTERPRETER_REQUEST) {
+                    InterpreterRequest interpreterRequest = (InterpreterRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO InterpreterRequests(serviceID, language, reservationTime)" +
+                    " VALUES (?,?,?)");
+                    detailInsert.setInt(1, interpreterRequest.getServiceID());
+                    detailInsert.setString(2, interpreterRequest.getLanguage());
+                    detailInsert.setString(3, interpreterRequest.getReservationTime());
+                    detailInsert.executeUpdate();
+                } else if (srList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
+                    MaintenanceRequest maintenanceRequest = (MaintenanceRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO MaintenanceRequests(serviceID, maintenanceType)" +
+                    " VALUES (?,?)");
+                    detailInsert.setInt(1, maintenanceRequest.getServiceID());
+                    detailInsert.setString(2, maintenanceRequest.getMaintenanceType());
+                    detailInsert.executeUpdate();
+                } else if (srList.get(i).getServiceType() == Constants.TRANSPORTATION_REQUEST) {
+                    TransportationRequest transportationRequest = (TransportationRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO TransportationRequests(serviceID, transportType, destination, reservationTime)" +
+                    " VALUES (?,?,?,?)");
+                    detailInsert.setInt(1, transportationRequest.getServiceID());
+                    detailInsert.setString(2, transportationRequest.getTransportType());
+                    detailInsert.setString(3, transportationRequest.getDestination());
+                    detailInsert.setString(4, transportationRequest.getReservationTime());
+                    detailInsert.executeUpdate();
+                }
             }
 
         } catch (SQLException e) {
