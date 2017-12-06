@@ -544,49 +544,7 @@ public class TestingController extends UIController implements Initializable {
                         lblCrossFloor.toFront();
                     }
                 }
-                /*
-                //prints correct floor on elevator edges
-                if (n.getNodeType().equals("ELEV")) {
-                    if (i != path.size() -1) {
-                        String printFloor = "";
-                        NodeData nextNode = path.get(i+1);
-                        if (nextNode.getNodeType().equals("ELEV")) {
-                            for(int j = 1; j < path.size() - i; j++) {
-                                nextNode = path.get(i+j);
-                                if (!nextNode.getNodeType().equals("ELEV")){
-                                    printFloor = nextNode.getFloor();
-                                } else if (nextNode.equals(n)) {
-                                    printFloor = nextNode.getFloor();
-                                }
-                            }
-                        }
-                        lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
-                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
-                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
-                        lblCrossFloor.setVisible(true);
-                        }
-                    }
-                //prints correct floor on stair edges
-                if (n.getNodeType().equals("STAI")) {
-                    if (i != path.size() -1) {
-                        String printFloor = "";
-                        NodeData nextNode = path.get(i+1);
-                        if (nextNode.getNodeType().equals("STAI")) {
-                            for(int j = 1; j < path.size() - i; j++) {
-                                nextNode = path.get(i+j);
-                                if (!nextNode.getNodeType().equals("STAI")){
-                                    printFloor = nextNode.getFloor();
-                                } else if (nextNode.equals(n)) {
-                                    printFloor = nextNode.getFloor();
-                                }
-                            }
-                        }
-                            lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
-                            lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
-                            lblCrossFloor.setVisible(true);
-                        }
-                    }
-                */
+
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
                     l.setStrokeWidth(5.0 * currentScale);
