@@ -29,9 +29,20 @@ public abstract class PathfindingStrategyTemplate {
             node1.addNeighbor(node2);
             node2.addNeighbor(node1);
         }
-
-        this.start = allStarNodes.get(this.startID);
-        this.goal = allStarNodes.get(this.goalID);
+        for(NodeData inode: allNodes){
+ //           System.out.println("iterating through node: " + inode.getNodeID());
+//            System.out.println(startID );
+            if (startID.equals(inode.getLongName()) || startID.equals(inode.getNodeID())){
+                System.out.println(inode.getLongName());
+                this.start = allStarNodes.get(inode.getNodeID());
+            }
+            if (goalID.equals(inode.getLongName()) || goalID.equals(inode.getNodeID())){
+                System.out.println(inode.getLongName());
+                this.goal = allStarNodes.get(inode.getNodeID());
+            }
+        }
+//        this.start = allStarNodes.get(this.startID);
+//        this.goal = allStarNodes.get(this.goalID);
     }
 
     abstract List<NodeData> pathFind() throws NoPathException;

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
+import edu.wpi.cs3733.programname.commondata.Constants;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
@@ -61,20 +62,20 @@ public class ServiceRequestsQuery {
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
 
-                if(serviceType.equals("interpreter")){
+                if(serviceType.equals(Constants.INTERPRETER_REQUEST)){
                     ArrayList<String> interpreterRequest = this.interpreterRequestsQuery.queryInterpreterRequestByID(serviceID);
                     language = interpreterRequest.get(0);
                     reservationTime = interpreterRequest.get(1);
                     queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
                 }
-                else if(serviceType.equals("transportation")){
+                else if(serviceType.equals(Constants.TRANSPORTATION_REQUEST)){
                     ArrayList<String> transportationRequest = this.transportationRequestQuery.queryTransportationRequestByID(serviceID);
                     transportationType = transportationRequest.get(0);
                     destination = transportationRequest.get(1);
                     reservationTime = transportationRequest.get(2);
                     queryResult = new TransportationRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, transportationType, destination, reservationTime);
                 }
-                else if(serviceType.equals("maintenance")){
+                else if(serviceType.equals(Constants.MAINTENANCE_REQUEST)){
                     String maintenanceType = this.maintenanceRequestsQuery.queryMaintenanceRequestByID(serviceID);
                     queryResult = new MaintenanceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, maintenanceType);
                 }
@@ -126,20 +127,20 @@ public class ServiceRequestsQuery {
                 completionTime = result.getString("completionTime");
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
-                if(serviceType.equals("interpreter")){
+                if(serviceType.equals(Constants.INTERPRETER_REQUEST)){
                     ArrayList<String> interpreterRequest = this.interpreterRequestsQuery.queryInterpreterRequestByID(serviceID);
                     language = interpreterRequest.get(0);
                     reservationTime = interpreterRequest.get(1);
                     queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
                 }
-                else if(serviceType.equals("transportation")){
+                else if(serviceType.equals(Constants.TRANSPORTATION_REQUEST)){
                     ArrayList<String> transportationRequest = this.transportationRequestQuery.queryTransportationRequestByID(serviceID);
                     transportationType = transportationRequest.get(0);
                     destination = transportationRequest.get(1);
                     reservationTime = transportationRequest.get(2);
                     queryResult = new TransportationRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, transportationType, destination, reservationTime);
                 }
-                else if(serviceType.equals("maintenance")){
+                else if(serviceType.equals(Constants.MAINTENANCE_REQUEST)){
                     String maintenanceType = this.maintenanceRequestsQuery.queryMaintenanceRequestByID(serviceID);
                     queryResult = new MaintenanceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, maintenanceType);
                 }
@@ -191,20 +192,20 @@ public class ServiceRequestsQuery {
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
-                if(serviceType.equals("interpreter")){
+                if(serviceType.equals(Constants.INTERPRETER_REQUEST)){
                     ArrayList<String> interpreterRequest = this.interpreterRequestsQuery.queryInterpreterRequestByID(serviceID);
                     language = interpreterRequest.get(0);
                     reservationTime = interpreterRequest.get(1);
                     queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
                 }
-                else if(serviceType.equals("transportation")){
+                else if(serviceType.equals(Constants.TRANSPORTATION_REQUEST)){
                     ArrayList<String> transportationRequest = this.transportationRequestQuery.queryTransportationRequestByID(serviceID);
                     transportationType = transportationRequest.get(0);
                     destination = transportationRequest.get(1);
                     reservationTime = transportationRequest.get(2);
                     queryResult = new TransportationRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, transportationType, destination, reservationTime);
                 }
-                else if(serviceType.equals("maintenance")){
+                else if(serviceType.equals(Constants.MAINTENANCE_REQUEST)){
                     String maintenanceType = this.maintenanceRequestsQuery.queryMaintenanceRequestByID(serviceID);
                     queryResult = new MaintenanceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, maintenanceType);
                 }
@@ -254,20 +255,20 @@ public class ServiceRequestsQuery {
                 status = result.getString("status");
                 receiverUsername = result.getString("receiver");
                 severity = result.getInt("severity");
-                if(serviceType.equals("interpreter")){
+                if(serviceType.equals(Constants.INTERPRETER_REQUEST)){
                     ArrayList<String> interpreterRequest = this.interpreterRequestsQuery.queryInterpreterRequestByID(serviceID);
                     language = interpreterRequest.get(0);
                     reservationTime = interpreterRequest.get(1);
                     queryResult = new InterpreterRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, language, reservationTime);
                 }
-                else if(serviceType.equals("transportation")){
+                else if(serviceType.equals(Constants.TRANSPORTATION_REQUEST)){
                     ArrayList<String> transportationRequest = this.transportationRequestQuery.queryTransportationRequestByID(serviceID);
                     transportationType = transportationRequest.get(0);
                     destination = transportationRequest.get(1);
                     reservationTime = transportationRequest.get(2);
                     queryResult = new TransportationRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, transportationType, destination, reservationTime);
                 }
-                else if(serviceType.equals("maintenance")){
+                else if(serviceType.equals(Constants.MAINTENANCE_REQUEST)){
                     String maintenanceType = this.maintenanceRequestsQuery.queryMaintenanceRequestByID(serviceID);
                     queryResult = new MaintenanceRequest(serviceID,senderUsername, receiverUsername, serviceType, node1ID, node2ID, description, requestTime, handleTime, completionTime, status, severity, maintenanceType);
                 }

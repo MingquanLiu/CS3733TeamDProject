@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.database.QueryMethods;
 
+import edu.wpi.cs3733.programname.commondata.Constants;
 import edu.wpi.cs3733.programname.commondata.Interpreter;
 import edu.wpi.cs3733.programname.commondata.Maintenance;
 import edu.wpi.cs3733.programname.database.DBConnection;
@@ -47,11 +48,11 @@ public class EmployeesQuery {
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                if(serviceType.equals("interpreter")){
+                if(serviceType.equals(Constants.INTERPRETER_REQUEST)){
                     ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
                     queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
                 }
-                else if(serviceType.equals("maintenance")){
+                else if(serviceType.equals(Constants.MAINTENANCE_REQUEST)){
                     ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
                     queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
                 }
@@ -93,11 +94,11 @@ public class EmployeesQuery {
                 //serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                if(serviceType.equals("interpreter")){
+                if(serviceType.equals(Constants.INTERPRETER_REQUEST)){
                     ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
                     queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
                 }
-                else if(serviceType.equals("maintenance")){
+                else if(serviceType.equals(Constants.MAINTENANCE_REQUEST)){
                     ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
                     queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
                 }
@@ -137,12 +138,12 @@ public class EmployeesQuery {
                 serviceType = result.getString("serviceType");
                 sysAdmin = (sysAdminInt == 1)? true : false;
                 email = result.getString("email");
-                if(serviceType.equals("interpreter")){
+                if(serviceType.equals(Constants.INTERPRETER_REQUEST)){
                     ArrayList<String> languages = this.interpreterQuery.queryInterpreterSkills(username);
                     queryResult = new Interpreter(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,languages);
                     //System.out.println("Is an Interpreter");
                 }
-                else if(serviceType.equals("maintenance")){
+                else if(serviceType.equals(Constants.MAINTENANCE_REQUEST)){
                     ArrayList<String> skills = this.maintenanceQuery.queryMaintenanceSkills(username);
                     queryResult = new Maintenance(username, password, firstName, middleName, lastName, sysAdmin, serviceType, email,skills);
                 }
@@ -152,7 +153,7 @@ public class EmployeesQuery {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Get Employee Failed!");
+            System.out.println("Query Employee Failed!");
             e.printStackTrace();
         }
         return queryResult;
@@ -185,7 +186,7 @@ public class EmployeesQuery {
                 queryResult = new Employee(usernameAttempt, password, firstName, middleName, lastName, sysAdmin, serviceType, email);
             }
         } catch (SQLException e) {
-            System.out.println("Get Employee Failed!");
+            System.out.println("Login Failed!");
             e.printStackTrace();
             return false;
         }
