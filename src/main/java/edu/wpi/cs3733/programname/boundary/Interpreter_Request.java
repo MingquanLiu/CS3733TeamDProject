@@ -32,7 +32,7 @@ public class Interpreter_Request {
     private JFXTextField DestinationField;
 
     private ManageController manager;
-
+    private TestingController testingController;
 
 
 //    public void buttonHandler(ActionEvent e){
@@ -74,6 +74,10 @@ public class Interpreter_Request {
     public void backButtonHandler() {
         Stage stage = (Stage) CancelBtn.getScene().getWindow();
         stage.close();
+    }
+
+    public void initController(TestingController testingController){
+        this.testingController = testingController;
     }
     // End of class
 }
