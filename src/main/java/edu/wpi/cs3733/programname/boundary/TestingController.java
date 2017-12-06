@@ -681,7 +681,7 @@ public class TestingController extends UIController implements Initializable {
     public void locateHandler(ActionEvent event) {
         Object mEvent = event.getSource();
         String nodeType = "";
-
+        setNodeListImageVisibility(false,currentNodes);
         if (mEvent == comboLocations) {
             String keyLocationString = comboLocations.getValue().toString();
             switch (keyLocationString) {
@@ -720,7 +720,10 @@ public class TestingController extends UIController implements Initializable {
         }
         if (nodeType.equals("ALL")){
             //ADD CODE HERE THANK YOU MINGQUANNNNNN
-
+            for(NodeData nodeData:currentNodes){
+                nodeData.changeImageView(nodeType);
+            }
+            setNodeListImageVisibility(true,currentNodes);
         }
         if((!nodeType.equals("")) && (!nodeType.equals("ALL"))){
             List<NodeData> mList = getTypeNode(currentNodes,nodeType);
@@ -1065,7 +1068,7 @@ public class TestingController extends UIController implements Initializable {
 
     // Turn the handicapped path restriction on or off
     public void toggleHandicap() {
-        this.goButtonHandler();
+//        this.goButtonHandler();
     }
 
     @Override
