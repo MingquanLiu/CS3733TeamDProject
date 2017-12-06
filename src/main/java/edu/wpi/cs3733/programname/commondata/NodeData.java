@@ -303,6 +303,7 @@ public class NodeData {
     }
 
     public void changeImageView(String type){
+
         Image image2 = new Image("img/NodeIcon/NodeIcon.png");
         switch (type){
             case "REST":
@@ -317,20 +318,22 @@ public class NodeData {
             case "DEPT":
                 image2 = new Image("img/NodeIcon/WaitRoomIcon.png");
                 break;
-            case "Exit":
+            case "EXIT":
                 image2 = new Image("img/NodeIcon/ExitIcon.png");
                 break;
             case "STAI":
                 image2 = new Image("img/NodeIcon/StairsIcon.png");
                 break;
-            case "Labs":
+            case "LABS":
                 image2 = new Image("img/NodeIcon/LabIcon.png");
                 break;
             case "SERV":
                 image2 = new Image("img/NodeIcon/AddIcon.png");
                 break;
         }
-        nodeImageView.setImage(image2);
+        if(!nodeImageView.getImage().impl_getUrl().equals(image2.impl_getUrl())) {
+            nodeImageView.setImage(image2);
+        }
     }
     public void setImageViewSizeAndLocation(double currentScale){
         nodeImageView.setFitWidth(ORIGINAL_NODE_WIDTH*currentScale);
@@ -359,6 +362,7 @@ public class NodeData {
     public void setImageVisible(Boolean imageVisible){
         nodeImageView.setVisible(imageVisible);
     }
+
 
     /******************************************************************************************************************************************************
      * Doing with Shape

@@ -109,6 +109,10 @@ public class TestingController extends UIController implements Initializable {
     private JFXButton btnTransportationReq;
     @FXML
     private JFXButton btnMapEdit;
+    @FXML
+    private JFXButton viewMyTasks;
+    @FXML
+    private JFXButton manageEmployees;
     //</editor-fold>
 
     //<editor-fold desc="key locations buttons">
@@ -238,6 +242,7 @@ public class TestingController extends UIController implements Initializable {
     private Label lblCrossFloor;
 
 
+    private String previousDropDownState = "";
     // Handicapped checkbox
     //<editor-fold desc="handicapped">
     @FXML
@@ -286,6 +291,7 @@ public class TestingController extends UIController implements Initializable {
     private ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
     private boolean loggedIn;
+    private String userName = null;
     private Employee employeeLoggedIn;
     private List<Shape> shownNodes = new ArrayList<>();
     //</editor-fold>
@@ -329,6 +335,7 @@ public class TestingController extends UIController implements Initializable {
 //        panningPane.getChildren().add(imv);
 
         ObservableList locations = FXCollections.observableArrayList(
+                "None",
                 "Bathrooms",
                 "Service Desks",
                 "Retail Services",
@@ -340,7 +347,7 @@ public class TestingController extends UIController implements Initializable {
                 "Additional Services",
                 "All Locations");
         comboLocations.setItems(locations);
-        comboLocations.setValue("Bathrooms");
+        comboLocations.setValue("None");
 
         Floor basement2 = new Floor("Basement 2", "45 Francis", "file:floorMaps/Floor_-2.png");
         Floor basement1 = new Floor("Basement 1", "45 Francis", "file:floorMaps/Floor_-1.png");
@@ -501,32 +508,49 @@ public class TestingController extends UIController implements Initializable {
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
+
+                //prints correct floor on elevator edges
                 if (n.getNodeType().equals("ELEV")) {
                     if (i != path.size() -1) {
-                        NodeData nextNode = path.get(i + 1);
+                        String printFloor = "";
+                        NodeData nextNode = path.get(i+1);
                         if (nextNode.getNodeType().equals("ELEV")) {
-                            if (currentFloor.getFloorName().equals(n.getFloor())) {
-                                lblCrossFloor.setText("Proceed to Floor " + nextNode.getFloor() + "!");
-                            } else lblCrossFloor.setText("Proceed to Floor " + n.getFloor() + "!");
-                            lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
-                            lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
-                            lblCrossFloor.setVisible(true);
+                            for(int j = 1; j < path.size() - i; j++) {
+                                nextNode = path.get(i+j);
+                                if (!nextNode.getNodeType().equals("ELEV")){
+                                    printFloor = nextNode.getFloor();
+                                } else if (nextNode.equals(n)) {
+                                    printFloor = nextNode.getFloor();
+                                }
+                            }
+                        }
+                        lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
+                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
+                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
+                        lblCrossFloor.setVisible(true);
                         }
                     }
-                }
+                //prints correct floor on stair edges
                 if (n.getNodeType().equals("STAI")) {
                     if (i != path.size() -1) {
-                        NodeData nextNode = path.get(i + 1);
+                        String printFloor = "";
+                        NodeData nextNode = path.get(i+1);
                         if (nextNode.getNodeType().equals("STAI")) {
-                            if (currentFloor.getFloorName().equals(n.getFloor())) {
-                                lblCrossFloor.setText("Proceed to Floor " + nextNode.getFloor() + "!");
-                            } else lblCrossFloor.setText("Proceed to Floor " + n.getFloor() + "!");
+                            for(int j = 1; j < path.size() - i; j++) {
+                                nextNode = path.get(i+j);
+                                if (!nextNode.getNodeType().equals("STAI")){
+                                    printFloor = nextNode.getFloor();
+                                } else if (nextNode.equals(n)) {
+                                    printFloor = nextNode.getFloor();
+                                }
+                            }
+                        }
                             lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
                             lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
                             lblCrossFloor.setVisible(true);
                         }
                     }
-                }
+
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
                     l.setStrokeWidth(5.0 * currentScale);
@@ -571,45 +595,6 @@ public class TestingController extends UIController implements Initializable {
     private void clearNodes() {
     }
 
-    //map switching methods
-    public void addFloor() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/newFloor.fxml"
-                ));
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        stage.showAndWait();
-        Floor newFloor = loader.<NewFloor>getController().getFloor();
-        floors.add(newFloor);
-        ObservableList fls = comboFloors.getItems();
-        fls.add(newFloor);
-        comboFloors.setItems(fls);
-    }
-
-    public void addBuilding() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/newBuilding.fxml"
-                ));
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        stage.showAndWait();
-        Building newBld = loader.<NewBuilding>getController().getBldg();
-        buildings.add(newBld);
-        ObservableList bldgs = comboBuilding.getItems();
-        bldgs.add(newBld);
-        comboBuilding.setItems(bldgs);
-        setBuilding(newBld);
-    }
 
     public void mapChange(ActionEvent e) {
         setFloor();
@@ -660,6 +645,10 @@ public class TestingController extends UIController implements Initializable {
         currentNodes = manager.queryNodeByFloor(convertFloor(floor));
         setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));
         showNodeList(currentNodes);
+        clearPath();
+        displayPath(currentPath);
+        comboLocations.setValue("None");
+        previousDropDownState = "";
     }
 
     private int UICToDBC(int value, double scale) {
@@ -721,7 +710,7 @@ public class TestingController extends UIController implements Initializable {
     public void locateHandler(ActionEvent event) {
         Object mEvent = event.getSource();
         String nodeType = "";
-        setNodeListImageVisibility(false,currentNodes);
+
         if (mEvent == comboLocations) {
             String keyLocationString = comboLocations.getValue().toString();
             switch (keyLocationString) {
@@ -756,26 +745,45 @@ public class TestingController extends UIController implements Initializable {
                     //THIS IS NOT A REAL NODE TYPE ITS JUST TO ALLOW IT WORK
                     nodeType = "ALL";
                     break;
+                case "None":
+                    nodeType = "None";
+                    break;
             }
+        }
+
+        if(!previousDropDownState.equals("All")){
+            List<NodeData> ListA = getNodeByVisibility(currentNodes,true);
+            for(NodeData nodeData:ListA){
+                nodeData.setImageVisible(false);
+                nodeData.changeImageView("");
+            }
+        }else{
+            setNodeListImageVisibility(false,currentNodes);
+        }
+        if(nodeType.equals("None")){
+            List<NodeData> mList = getNodeByVisibility(currentNodes,true);
+            setNodeListImageVisibility(false,mList);
         }
         if (nodeType.equals("ALL")) {
             //ADD CODE HERE THANK YOU MINGQUANNNNNN
-            for(NodeData nodeData:currentNodes){
-                nodeData.changeImageView(nodeType);
-            }
+//            for(NodeData nodeData:currentNodes){
+//                nodeData.changeImageView(nodeType);
+//            }
             setNodeListImageVisibility(true,currentNodes);
         }
         if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
+
             List<NodeData> mList = getTypeNode(currentNodes, nodeType);
             for (NodeData nodeData : mList) {
                 nodeData.changeImageView(nodeType);
             }
             setNodeListImageVisibility(true, mList);
         }
+        previousDropDownState = nodeType;
     }
 
 
-    //THIs doesnt link its not EVEN THE DROP DOWN ITS THE TITLED PANE BUT YEA GL MING-MING
+//    //THIs doesnt link its not EVEN THE DROP DOWN ITS THE TITLED PANE BUT YEA GL MING-MING
     public void locateDropdownHandler(ActionEvent event) {
         Object mEvent = event.getSource();
         String nodeType = "";
@@ -879,8 +887,11 @@ public class TestingController extends UIController implements Initializable {
         }
         displayPath(currentPath);
         clearPathFindLoc();
+        //
         TextDirections textDirections = new TextDirections(currentPath);
         String directions = textDirections.getTextDirections();
+        //shitty fix for null problem
+        directions = directions.replaceAll("null", "");
         txtAreaDirections.setText(directions);
         paneDirections.setExpanded(true);
     }
@@ -898,6 +909,22 @@ public class TestingController extends UIController implements Initializable {
                 )
         );
         loader.<EmployeeManager>getController().initManager(this.manager);
+        stage.show();
+    }
+
+    public void employeeRequestHandler(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employee_request_handler.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<EmployeeRequestHandlerController>getController().initialize(this.manager,employeeLoggedIn);
         stage.show();
     }
 
@@ -921,7 +948,7 @@ public class TestingController extends UIController implements Initializable {
             //Todo add some sort of error handling
             return loader;
         }
-        loader.<LoginPopup>getController().initManager(manager);
+        loader.<LoginPopup>getController().initManager(manager,this);
         Stage newStage = new Stage();
         newStage.setScene(newScene);
         newStage.showAndWait();
@@ -948,12 +975,13 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<LoginPopup>getController().initManager(manager);
+        loader.<LoginPopup>getController().initManager(manager,this);
         stage.showAndWait();
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         //loggedIn = true;
         if (loggedIn) {
-            employeeLoggedIn = manager.queryEmployeeByUsername(username);
+            System.out.println("user name "+userName);
+            employeeLoggedIn = manager.queryEmployeeByUsername(userName);
             logOffNext = true;
             btnLogin.setText("Logout");
             showAdminControls();
@@ -1239,11 +1267,15 @@ public class TestingController extends UIController implements Initializable {
                 break;
         }
     }
-    public void clearCurrentNodeIMV(List<NodeData> mList){
+    private void clearCurrentNodeIMV(List<NodeData> mList){
         for(NodeData nodeData:mList){
             panningPane.getChildren().remove(nodeData.getNodeImageView());
         }
 
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
     }
 
 }

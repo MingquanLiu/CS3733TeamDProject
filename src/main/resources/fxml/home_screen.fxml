@@ -7,7 +7,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -94,15 +93,6 @@
                         <JFXCheckBox fx:id="locateStaircases" layoutX="652.0" layoutY="449.0" text="Staircases" />
                         <JFXCheckBox fx:id="locateLabs" layoutX="479.0" layoutY="339.0" text="Labs" />
                         <JFXCheckBox fx:id="locateAdditionalServices" layoutX="528.0" layoutY="406.0" text="Additional Services" />
-                        <TitledPane fx:id="paneDirections" animated="false" expanded="false" layoutY="109.0" prefWidth="202.0" text="Directions" AnchorPane.leftAnchor="0.0">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
-                                    <children>
-                                        <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
-                                    </children>
-                                </AnchorPane>
-                            </content>
-                        </TitledPane>
                         <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
                   <Label fx:id="lblCrossFloor" layoutX="560.0" layoutY="244.0" style="-fx-background-color: #afeeee; -fx-border-color: #d3d3d3;" styleClass="roundCorners" stylesheets="@../css/general_button.css" text="Proceed to Floor X" />
                     </children>
@@ -122,11 +112,10 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="84.79998779296875" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <GridPane fx:id="paneAdminFeatures" minHeight="-Infinity" prefHeight="155.0" prefWidth="166.0" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                        <GridPane fx:id="paneAdminFeatures" minHeight="-Infinity" prefHeight="155.0" prefWidth="166.0" GridPane.rowIndex="5" GridPane.valignment="TOP">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
@@ -137,12 +126,9 @@
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="51.0" minHeight="-Infinity" prefHeight="29.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="60.0" minHeight="-Infinity" prefHeight="34.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="60.0" minHeight="-Infinity" prefHeight="34.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="27.0" minHeight="-Infinity" prefHeight="27.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="5.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <JFXButton fx:id="btnOpenAdmin" buttonType="RAISED" maxWidth="200.0" onAction="#openAdminHandler" text="Service Request Manager" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -162,21 +148,21 @@
                             </font>
                         </Label>
                         <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.valignment="BOTTOM" />
-                        <Label text="Admin Privileges" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                        <Label text="Admin Privileges" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <Line endX="100.0" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="4" GridPane.valignment="TOP" />
-                        <JFXButton fx:id="btnLogin" buttonType="RAISED" onAction="#loginButtonHandler" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-                        <Line endX="100.0" opacity="0.3" startX="-100.0" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-                        <JFXComboBox fx:id="comboLocations" maxWidth="-Infinity" minWidth="-Infinity" onAction="#locateHandler" prefWidth="170.0" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-                        <JFXCheckBox fx:id="handicap" onAction="#toggleHandicap" text="Handicap Path" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <Line endX="100.0" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+                        <JFXButton fx:id="btnLogin" buttonType="RAISED" onAction="#loginButtonHandler" text="Login" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <Line endX="100.0" opacity="0.3" startX="-100.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <JFXComboBox fx:id="comboLocations" maxWidth="-Infinity" minWidth="-Infinity" onAction="#locateHandler" prefWidth="170.0" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                        <JFXCheckBox fx:id="handicap" onAction="#toggleHandicap" text="Handicap Path" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </JFXCheckBox>
-                        <TitledPane fx:id="keyLocation" animated="false" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#locateDropdownHandler" prefWidth="165.0" style="-fx-background-color: white white white;" text="Key Locations" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                        <TitledPane fx:id="keyLocation" animated="false" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#locateDropdownHandler" prefWidth="165.0" style="-fx-background-color: white white white;" text="Key Locations" textAlignment="CENTER" visible="false" GridPane.halignment="LEFT">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                             </content>
@@ -188,8 +174,8 @@
                 </GridPane>
                 <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                 <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
-                <Button fx:id="helpButton" layoutX="62.0" layoutY="613.0" mnemonicParsing="false" onAction="#helpButtonHandler" text="Help" />
-            <JFXButton fx:id="aboutBtn" layoutX="57.0" layoutY="653.0" onAction="#aboutButtonHandler" prefHeight="27.0" prefWidth="60.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
+            <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
+            <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
@@ -221,7 +207,7 @@
                 <JFXHamburger fx:id="burger" layoutX="10.0" layoutY="15.0" onMouseClicked="#openMenu" prefHeight="50.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
-        <AnchorPane opacity="0.58" prefHeight="110.0" prefWidth="620.0" styleClass="searchPane" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane opacity="0.58" prefHeight="120.0" prefWidth="620.0" styleClass="searchPane" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane prefHeight="60.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -292,6 +278,15 @@
             </children>
         </AnchorPane>
         <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0" />
+            <TitledPane fx:id="paneDirections" animated="false" expanded="false" prefWidth="202.0" text="Directions" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                        <children>
+                            <Label fx:id="txtAreaDirections" layoutX="10.0" prefWidth="180.0" wrapText="true" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </TitledPane>
 
     </children>
 </AnchorPane>
