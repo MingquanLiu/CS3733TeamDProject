@@ -156,7 +156,7 @@ public class DatabaseQueryController {
         ArrayList<ServiceRequest> allReqs = serviceRequestsQuery.queryAllServiceRequests();
         ArrayList<ServiceRequest> output = new ArrayList<>();
         for (ServiceRequest request: allReqs) {
-            if(request.getReceiver() == emp.getUsername()) {
+            if(request.getReceiver().equals(emp.getUsername())) {
                 output.add(request);
             }
         }

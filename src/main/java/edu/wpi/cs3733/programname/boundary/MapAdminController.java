@@ -270,12 +270,9 @@ public class MapAdminController extends UIController implements Initializable {
         buildingList.addAll(buildings);
         comboBuilding.setItems(buildingList);
 
-        setBuilding(hospital);
-        setFloor(floor2);
-
-//        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
-//        currentEdge = manager.getAllEdgeData();
-//        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);;
+        currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
+        currentEdge = manager.getAllEdgeData();
+        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);;
         showNodeAndPath();
     }
 
@@ -439,7 +436,7 @@ public class MapAdminController extends UIController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "45 Francis");
+        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
@@ -652,7 +649,6 @@ public class MapAdminController extends UIController implements Initializable {
 //        try {
         comboFloors.setItems(floorList);
         comboFloors.setValue(floorList.get(0));
-        setFloor(newBld.getFloors().get(0));
         setFloor((Floor) floorList.get(0));
 //        } catch (Exception e) {
 //            System.out.println("SCREAM");
