@@ -5,7 +5,6 @@ import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.entity.*;
 
-import javax.xml.soap.Node;
 import java.util.*;
 
 public class PathfindingController {
@@ -13,7 +12,7 @@ public class PathfindingController {
     public enum searchType {
         ASTAR, DFS, BFS, DIJKSTRA, BEST, BEAM
     }
-    private PathfindingStrategyTemplate pathFinder;
+    private PathfindingTemplate pathFinder;
 
     /**
      * Takes in the starting and ending locations, and calls PathFindingStrategyTemplate to find the path between them

@@ -7,11 +7,10 @@ package edu.wpi.cs3733.programname.pathfind.entity;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DFS extends PathfindingStrategyTemplate {
+public class DFS extends PathfindingTemplate {
     /**
      * constructor for DFS
      *

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class PathfindingStrategyTemplate {
+public abstract class PathfindingTemplate {
     List<NodeData> allNodes;
     List<EdgeData> allEdges;
     List<NodeData> finalList = new LinkedList<>();

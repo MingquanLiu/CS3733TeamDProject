@@ -10,7 +10,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.*;
 
-public class AStar extends PathfindingStrategyTemplate {
+public class AStar extends PathfindingTemplate {
 
     public AStar(List<NodeData> allNodes, List<EdgeData> allEdges, String startID, String goalID) {
         this.allNodes = allNodes;
