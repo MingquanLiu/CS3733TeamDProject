@@ -17,11 +17,13 @@ public class Transportation_Request {
     @FXML
     private Button CancelBtn;
     @FXML
-    private JFXTextField DestinationField;
-    @FXML
     private JFXTextArea DescriptionField;
     @FXML
     private JFXComboBox TransportTypeDropdown;
+    @FXML
+    private JFXComboBox SeverityDropDown;
+    @FXML
+    private JFXTextField DestinationField;
 
     private ManageController manager;
 
@@ -45,16 +47,28 @@ public class Transportation_Request {
 //            SubmitBtn.getScene().getWindow().hide();
 //        }
 //    }
-
+    public void SeverityDropDownHandler(){}
+    public void DestinationHandler(){}
     public void TransportationTypeHandler(){}
-    public void SubmitHandler(){}
+
+
+
+    public void SubmitHandler(){
+        System.out.println("Transportation Request:");
+        System.out.println("Type: " + TransportTypeDropdown.getSelectionModel().getSelectedItem() );
+        System.out.println("Severity: " + SeverityDropDown.getSelectionModel().getSelectedItem() );
+        System.out.println("Location: " + DestinationField.getText() );
+        System.out.println("Description: "     + DescriptionField.getText());
+        Stage stage = (Stage) SubmitBtn.getScene().getWindow();
+        stage.close();
+    }
+
+
 
 
     public void backButtonHandler() {
         Stage stage = (Stage) CancelBtn.getScene().getWindow();
         stage.close();
     }
-
-
     // End of class
 }

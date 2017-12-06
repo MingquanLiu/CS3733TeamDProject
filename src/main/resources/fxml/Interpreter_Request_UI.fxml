@@ -2,7 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import java.lang.Integer?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -15,8 +19,17 @@
          </font>
       </Label>
       <JFXButton fx:id="CancelBtn" buttonType="RAISED" layoutX="325.0" layoutY="215.0" onAction="#backButtonHandler" style="-fx-background-color: #d2d2d2;" text="Cancel" />
-      <JFXComboBox fx:id="LanguageDropdown" layoutX="209.0" layoutY="79.0" onAction="#LanguageDropDownHandler" prefHeight="27.0" prefWidth="192.0" promptText="                    -Select-" />
-      <Label layoutX="110.0" layoutY="81.0" text="Language:">
+       <JFXComboBox fx:id="LanguageDropDown" layoutX="87.0" layoutY="91.0" onAction="#LanguageDropDownHandler" prefHeight="27.0" prefWidth="165.0" promptText="                    -Select-">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="French" />
+                   <String fx:value="Spanish" />
+                   <String fx:value="Russian" />
+                   <String fx:value="Elbonian" />
+               </FXCollections>
+           </items>
+       </JFXComboBox>
+       <Label layoutX="6.0" layoutY="93.0" text="Language:">
          <font>
             <Font size="18.0" />
          </font>
@@ -28,6 +41,28 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="CurrentTimeBtn" buttonType="RAISED" layoutX="446.0" layoutY="144.0" style="-fx-background-color: #d2d2d2;" text="Current Time" />
+      <JFXButton fx:id="CurrentTimeBtn" buttonType="RAISED" layoutX="446.0" layoutY="144.0" onAction="#SetCurrentTime" style="-fx-background-color: #d2d2d2;" text="Current Time" />
+      <Label layoutX="303.0" layoutY="66.0" text="Destination:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="DestinationField" layoutX="413.0" layoutY="64.0" onAction="#DestinationHandler" promptText="Where are you located?" />
+       <JFXComboBox fx:id="SeverityDropDown" layoutX="147.0" layoutY="56.0" onAction="#SeverityDropDownHandler" prefHeight="27.0" prefWidth="103.0" promptText="       -Select-">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <Integer fx:value="1" />
+                   <Integer fx:value="2" />
+                   <Integer fx:value="3" />
+                   <Integer fx:value="4" />
+                   <Integer fx:value="5" />
+               </FXCollections>
+           </items>
+       </JFXComboBox>
+      <Label layoutX="74.0" layoutY="66.0" text="Severity:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

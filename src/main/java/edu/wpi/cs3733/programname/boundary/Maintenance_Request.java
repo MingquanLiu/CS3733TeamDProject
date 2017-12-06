@@ -16,9 +16,11 @@ public class Maintenance_Request {
     @FXML
     private JFXTextArea DescriptionField;
     @FXML
-    private JFXComboBox  SeverityDropDown;
-    @FXML
     private JFXComboBox  TypeDropDown;
+    @FXML
+    private JFXComboBox SeverityDropDown;
+    @FXML
+    private JFXTextField DestinationField;
 
     private ManageController manager;
 
@@ -45,15 +47,23 @@ public class Maintenance_Request {
 
 
    public void SeverityDropDownHandler(){}
-   public void    TypeDropDownHandler(){}
-   public void SubmitHandler(){}
+   public void TypeDropDownHandler(){}
 
+   public void DestinationHandler(){}
+
+    public void SubmitHandler(){
+        System.out.println("Maintenance Request:");
+        System.out.println("Type: " + TypeDropDown.getSelectionModel().getSelectedItem() );
+        System.out.println("Severity: " + SeverityDropDown.getSelectionModel().getSelectedItem() );
+        System.out.println("Location: " + DestinationField.getText() );
+        System.out.println("Description: "     + DescriptionField.getText());
+        Stage stage = (Stage) SubmitBtn.getScene().getWindow();
+        stage.close();
+    }
 
     public void backButtonHandler() {
         Stage stage = (Stage) CancelBtn.getScene().getWindow();
         stage.close();
     }
-
-
     // End of class
 }

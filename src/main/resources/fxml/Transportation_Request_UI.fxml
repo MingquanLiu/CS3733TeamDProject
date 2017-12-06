@@ -4,6 +4,9 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.Integer?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -16,8 +19,19 @@
          </font>
       </Label>
       <JFXButton fx:id="CancelBtn" buttonType="RAISED" layoutX="324.0" layoutY="215.0" onAction="#backButtonHandler" style="-fx-background-color: #d2d2d2;" text="Cancel" />
-      <JFXComboBox fx:id="TransportTypeDropdown" layoutX="179.0" layoutY="54.0" onAction="#TransportationTypeHandler" prefHeight="27.0" prefWidth="103.0" promptText="       -Select-" />
-      <Label layoutX="1.0" layoutY="56.0" text="Transportation type:">
+      <JFXComboBox fx:id="TransportTypeDropdown" layoutX="88.0" layoutY="89.0" onAction="#TransportationTypeHandler" prefHeight="27.0" prefWidth="165.0" promptText="             -Select-">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Police Car" />
+               <String fx:value="Ambulance" />
+               <String fx:value="Helicopter" />
+               <String fx:value="WheelChair" />
+               <String fx:value="Crutches" />
+               <String fx:value="Time Machine" />
+            </FXCollections>
+         </items>
+      </JFXComboBox>
+      <Label layoutX="39.0" layoutY="91.0" text="Type:">
          <font>
             <Font size="18.0" />
          </font>
@@ -28,7 +42,23 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="DescriptionField" layoutX="39.0" layoutY="89.0" prefHeight="109.0" prefWidth="522.0" promptText="Enter description..." wrapText="true" />
-      <JFXTextField fx:id="DestinationField" layoutX="403.0" layoutY="54.0" promptText="Where are you headed?" />
+      <JFXTextArea fx:id="DescriptionField" layoutX="39.0" layoutY="130.0" prefHeight="68.0" prefWidth="523.0" promptText="Enter description..." wrapText="true" />
+      <JFXTextField fx:id="DestinationField" layoutX="403.0" layoutY="54.0" onAction="#DestinationHandler" promptText="Where are you located?" />
+      <JFXComboBox fx:id="SeverityDropDown" layoutX="147.0" layoutY="56.0" onAction="#SeverityDropDownHandler" prefHeight="27.0" prefWidth="103.0" promptText="       -Select-">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Integer fx:value="1" />
+               <Integer fx:value="2" />
+               <Integer fx:value="3" />
+               <Integer fx:value="4" />
+               <Integer fx:value="5" />
+            </FXCollections>
+         </items>
+      </JFXComboBox>
+      <Label layoutX="64.0" layoutY="56.0" text="Severity:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
