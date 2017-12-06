@@ -303,6 +303,7 @@ public class NodeData {
     }
 
     public void changeImageView(String type){
+
         Image image2 = new Image("img/NodeIcon/NodeIcon.png");
         switch (type){
             case "REST":
@@ -330,7 +331,9 @@ public class NodeData {
                 image2 = new Image("img/NodeIcon/AddIcon.png");
                 break;
         }
-        nodeImageView.setImage(image2);
+        if(!nodeImageView.getImage().impl_getUrl().equals(image2.impl_getUrl())) {
+            nodeImageView.setImage(image2);
+        }
     }
     public void setImageViewSizeAndLocation(double currentScale){
         nodeImageView.setFitWidth(ORIGINAL_NODE_WIDTH*currentScale);
@@ -359,6 +362,7 @@ public class NodeData {
     public void setImageVisible(Boolean imageVisible){
         nodeImageView.setVisible(imageVisible);
     }
+
 
     /******************************************************************************************************************************************************
      * Doing with Shape

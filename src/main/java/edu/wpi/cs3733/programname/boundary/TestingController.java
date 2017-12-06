@@ -603,6 +603,8 @@ public class TestingController extends UIController implements Initializable {
         currentNodes = manager.queryNodeByFloor(convertFloor(floor));
         setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));
         showNodeList(currentNodes);
+        clearPath();
+        displayPath(currentPath);
         comboLocations.setValue("None");
     }
 
@@ -711,9 +713,9 @@ public class TestingController extends UIController implements Initializable {
         }
         if (nodeType.equals("ALL")) {
             //ADD CODE HERE THANK YOU MINGQUANNNNNN
-            for(NodeData nodeData:currentNodes){
-                nodeData.changeImageView(nodeType);
-            }
+//            for(NodeData nodeData:currentNodes){
+//                nodeData.changeImageView(nodeType);
+//            }
             setNodeListImageVisibility(true,currentNodes);
         }
         if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
