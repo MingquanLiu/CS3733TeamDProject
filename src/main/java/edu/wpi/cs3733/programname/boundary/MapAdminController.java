@@ -273,7 +273,28 @@ public class MapAdminController extends UIController implements Initializable {
         currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
         currentEdge = manager.getAllEdgeData();
         setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);;
-        showNodeAndPath();
+        showNodeAndPathStart();
+    }
+
+    public void showNodeAndPathStart() {
+        clearMain();
+        clearEdge();
+        clearNodes();
+        System.out.println("In show node Path");
+          currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
+
+        if(allEdgeBox.isSelected()){
+            currentEdge = manager.getAllEdgeData();
+            //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
+            displayEdges(currentEdge);
+        }
+        if(allNodeBox.isSelected()){
+            setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);
+            showNodeList(currentNodes);
+        }
+//        setNodeListImageVisibility(true,setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale));
+//        showNodeList(currentNodes);
+
     }
 
     public void showNodeAndPath() {
@@ -281,7 +302,8 @@ public class MapAdminController extends UIController implements Initializable {
         clearEdge();
         clearNodes();
         System.out.println("In show node Path");
-        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+            currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
+
         if(allEdgeBox.isSelected()){
             currentEdge = manager.getAllEdgeData();
             //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
@@ -638,8 +660,6 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     public void setBuilding() {
-        clearNodes();
-        clearEdge();
         Building newBld = (Building) (comboBuilding.getValue());
         floors = newBld.getFloors();
 
