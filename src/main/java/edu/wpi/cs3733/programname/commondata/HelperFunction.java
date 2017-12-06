@@ -2,6 +2,9 @@ package edu.wpi.cs3733.programname.commondata;
 
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
+import javafx.event.EventHandler;
+import javafx.scene.image.ImageView;
+
 
 import javax.xml.soap.Node;
 import java.util.ArrayList;
@@ -72,6 +75,15 @@ public class HelperFunction {
         for(NodeData nodeData:mList){
             nodeData.setImageVisible(visibility);
         }
+    }
+    public static void setNodeDragHandler(NodeData n, EventHandler e){
+        ImageView img = n.getNodeImageView();
+        img.setOnMouseDragged(e);
+
+    }
+    public static void setNodePressHandler(NodeData n, EventHandler e){
+        ImageView img = n.getNodeImageView();
+        img.setOnMousePressed(e);
     }
 
     public static void setNodeListScaleAndLocation(List<NodeData> mList,double currentScale){

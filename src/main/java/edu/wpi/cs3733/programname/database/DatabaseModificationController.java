@@ -56,6 +56,8 @@ public class DatabaseModificationController {
         nodesMethod.removeNode(data);
     }
 
+    public void updateBuilding(String building){nodesMethod.updateBuilding(building);}
+
     //EdgeData Modification
 
     public void addEdge(String node1ID, String node2ID){

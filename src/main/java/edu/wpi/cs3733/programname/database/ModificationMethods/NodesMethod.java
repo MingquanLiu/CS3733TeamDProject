@@ -85,4 +85,19 @@ public class NodesMethod {
         }
     }
 
+    public void updateBuilding(String building) {
+
+        try {
+            String str = "alter table Nodes " +
+                    "ADD CONSTRAINT Nodes_building FOREIGN KEY " + building + "";
+
+            System.out.println(str);
+            dbConnection.executeUpdate(str);
+            this.wrt.writeNodes(dbConnection.getConnection());
+        } catch (SQLException e) {
+            System.out.println("adding building constraint failed");
+            e.printStackTrace();
+        }
+    }
+
 }

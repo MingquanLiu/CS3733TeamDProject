@@ -15,6 +15,7 @@ import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,7 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
+import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
+import static edu.wpi.cs3733.programname.commondata.HelperFunction.initNodeListImage;
 import static javafx.scene.paint.Color.*;
 
 public class MapAdminController implements Initializable {
@@ -278,13 +280,22 @@ public class MapAdminController implements Initializable {
         floorNodes = nodes;
         List<EdgeData> edges = manager.getAllEdgeData();
 
+        //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
+
         displayEdges(edges);
         showNodeList(nodes);
     }
+
+
+    private double mouseX;
+    private double mouseY;
+    private double imgX;
+    private double imgY;
     private void showNodeList (List<NodeData> nodeDataList){
         for(int i = 0;i <nodeDataList.size();i++){
             showNode(nodeDataList.get(i));
         }
+        setNodeListImageVisibility(true, nodeDataList);
     }
 
     private void showNodeList2(List<NodeData> nodeDataList) {
@@ -292,10 +303,39 @@ public class MapAdminController implements Initializable {
             showNode2(nodeDataList.get(i));
         }
     }
+    EventHandler<MouseEvent> nodePressedEventHanlder =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    mouseX = event.getX();
+                    mouseY = event.getY();
+                    imgX = ((ImageView)(event.getSource())).getX();
+                    imgY = ((ImageView)(event.getSource())).getY();
+                }
+            };
+    EventHandler<MouseEvent> nodeDraggedEventHandler =
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    double offsetX = event.getSceneX() - mouseX;
+                    double offsetY = event.getSceneY() - mouseY;
+                    double newTranslateX = imgX + offsetX;
+                    double newTranslateY = imgY + offsetY;
 
+                    ((ImageView)(event.getSource())).setTranslateX(newTranslateX);
+                    ((ImageView)(event.getSource())).setTranslateY(newTranslateY);
+                }
+            };
     private void showNode(NodeData n) {
         currentNodes.add(n);
-        drawCircle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale));
+        //drawCircle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale));
+        n.initializeImageView();
+        ImageView img = n.getNodeImageView();
+
+        setNodeDragHandler(n, nodeDraggedEventHandler);
+        setNodePressHandler(n, nodePressedEventHanlder);
+        n.setImageViewSizeAndLocation(currentScale);
+        panningPane.getChildren().add(img);
     }
 
 
@@ -531,6 +571,7 @@ public class MapAdminController implements Initializable {
         );
         stage.showAndWait();
         Floor newFloor = loader.<NewFloor>getController().getFloor();
+
         floors.add(newFloor);
         ObservableList fls = comboFloors.getItems();
         fls.add(newFloor);
@@ -548,6 +589,7 @@ public class MapAdminController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        loader.<NewBuilding>getController().initManager(manager);
         stage.showAndWait();
         Building newBld = loader.<NewBuilding>getController().getBldg();
         buildings.add(newBld);
@@ -851,6 +893,21 @@ public class MapAdminController implements Initializable {
         }
     }
 
+    public ArrayList<Building> getBuildings(){
+       return buildings;
+    }
+
+    public void sendBuildings(ArrayList<Building> curBuildings){
+        System.out.println(buildings);
+        buildings = curBuildings;
+        System.out.println(buildings);
+        ObservableList bldgs = comboBuilding.getItems();
+        for (Building b : buildings) {
+            if (!bldgs.contains(b))
+                bldgs.add(b);
+        }
+        comboBuilding.setItems(bldgs);
+    }
     private int UICToDBC(int value, double scale) {
         return (int) ((double) value / scale);
     }
