@@ -441,7 +441,6 @@ public class TestingController extends UIController implements Initializable {
     private void showNode(NodeData n) {
         n.setImageViewSizeAndLocation(currentScale);
         panningPane.getChildren().add(n.getNodeImageView());
-//        drawCycle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
     }
 
     private void showNodeInfo(NodeData nodeData) {
@@ -527,7 +526,7 @@ public class TestingController extends UIController implements Initializable {
         //lastShowNodeData.setImageVisible(false);
     }
 
-    public void clearPathFindLoc() {
+    private void clearPathFindLoc() {
         txtEndLocation.setText("");
         txtStartLocation.setText("");
     }
@@ -629,6 +628,11 @@ public class TestingController extends UIController implements Initializable {
         Image newImg = new Image(newUrl);
         System.out.println("about to be: " + newImg.getWidth());
         imgMap.setImage(newImg);
+        //For changing the node
+        clearCurrentNodeIMV(currentNodes);
+        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));  ;
+        showNodeList(currentNodes);
     }
 
     private int UICToDBC(int value, double scale) {
@@ -1187,6 +1191,11 @@ public class TestingController extends UIController implements Initializable {
                 break;
         }
     }
+    public void clearCurrentNodeIMV(List<NodeData> mList){
+        for(NodeData nodeData:mList){
+            panningPane.getChildren().remove(nodeData.getNodeImageView());
+        }
 
+    }
 
 }
