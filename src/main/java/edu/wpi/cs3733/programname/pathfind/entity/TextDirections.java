@@ -5,6 +5,8 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 import java.util.Collections;
 import java.util.List;
 
+import static sun.security.krb5.Confounder.intValue;
+
 public class TextDirections {
 
     List<NodeData> nodeList;
@@ -31,14 +33,15 @@ public class TextDirections {
         NodeData nextNode;
 
         for(int i = 1; i < nodeList.size() - 1; i++) {
+            int hallDistance = 0;
             node = nodeList.get(i);
             lastNode = nodeList.get(i-1);
             nextNode = nodeList.get(i+1);
+            if(lastNode.getNodeType().equals("HALL")) hallDistance += distanceBetween(lastNode, node);
             String type = node.getNodeType();
             String name = node.getLongName();
             String face; // This is the direction the node is facing relative to the last
-            double hallDistance = 0;
-            double directionChange = getDirectionAngle(lastNode, node, nextNode);
+            double directionChange = 0 - getDirectionAngle(lastNode, node, nextNode);
             if(directionChange <= -45 && directionChange >= -135) face = "right";
             else if(directionChange <= 135 && directionChange >= 45) face = "left";
             else if(directionChange > 0 && directionChange < 45) face = "slight left";
@@ -48,18 +51,23 @@ public class TextDirections {
             else face = "straight";
             switch (type) {
                 case "ELEV":
-                    directions += hallDistance + " feet";
-                    hallDistance = 0;
                     if(lastNode.getNodeType().equals("ELEV"))
                         directions += "\nGet off the elevator on floor " + node.getFloor();
-                    else
+                    else if(lastNode.getNodeType().equals("HALL")) {
+                        directions += "\nGo straight down the hall for about " + hallDistance + " feet";
+                        hallDistance = 0;
                         directions += "\nGet on " + name;
+                    }
+                    else directions += "\nGet on " + name;
                     break;
                 case "STAI":
-                    directions += hallDistance + " feet";
-                    hallDistance = 0;
                     if(lastNode.getNodeType().equals("STAI"))
                         directions += "\nExit the stairs on floor " + node.getFloor();
+                    else if(lastNode.getNodeType().equals("HALL")) {
+                        directions += "\nGo straight down the hall for about " + hallDistance + " feet";
+                        hallDistance = 0;
+                        directions += "\nEnter " + name;
+                    }
                     else
                         directions += "\nEnter " + name;
                     break;
@@ -67,22 +75,27 @@ public class TextDirections {
                     if(!lastNode.getNodeType().equals("HALL")) {
                         if (Math.abs(directionChange) > 25) {
                             directions += "\nTake the next " + face + " turn down the hall";
+                            hallDistance += distanceBetween(node, nextNode);
                         }
                         else {
-                            directions += "\nGo straight down the hall for ";
                             hallDistance += distanceBetween(node, nextNode);
                         }
                     }
                     else if(Math.abs(directionChange) > 25) {
-                        directions += "\nTake the next " + face + " to continue down the hall for ";
+                        directions += "\nGo down the hall for about " + hallDistance + " feet";
+                        hallDistance = 0;
+                        directions += "\nTake the next " + face + " and continue down the hall";
                         hallDistance += distanceBetween(node, nextNode);
+                        System.out.println("\nTake the next " + face + " and continue down the hall " + hallDistance);
                     }
                     else hallDistance += distanceBetween(node, nextNode);
                     break;
                 default:
-                    directions += hallDistance + " feet";
-                    hallDistance = 0;
-                    directions += "\nContinue " + face + " past " + name;
+                    if(lastNode.getNodeType().equals("HALL")) {
+                        directions += "\nTravel down the hall " + hallDistance + " feet, then continue " + face + " past " + name;
+                        hallDistance = 0;
+                    }
+                    else directions += "\nContinue " + face + " past " + name;
                     break;
             }
         }
@@ -152,10 +165,10 @@ public class TextDirections {
      * @param node2 the second node
      * @return the distance in feet between the two nodes
      */
-    private double distanceBetween(NodeData node1, NodeData node2) {
+    private int distanceBetween(NodeData node1, NodeData node2) {
         double xDist = node1.getXCoord() - node2.getXCoord();
         double yDist = node1.getYCoord() - node2.getYCoord();
-        double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
-        return distToGo;
+        Double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
+        return distToGo.intValue();
     }
 }
