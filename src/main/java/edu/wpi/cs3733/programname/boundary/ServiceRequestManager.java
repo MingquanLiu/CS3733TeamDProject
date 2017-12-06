@@ -41,7 +41,7 @@ public class ServiceRequestManager {
     @FXML
     JFXListView<String> listUnassigned = new JFXListView<String>();
     @FXML
-    JFXListView<String> listEmployees;
+    JFXListView<String> listEmployees = new JFXListView<String>();
     @FXML
     JFXButton btnAssignRequest;
     @FXML
@@ -161,9 +161,6 @@ public class ServiceRequestManager {
 
     public String createServiceRequestListString(ServiceRequest sr) {
         NodeData loc1 = manager.getNodeData(sr.getLocation1());
-        System.out.println("Service Request String == " + sr.getLocation2());
-        System.out.println("Char test = " + sr.getLocation2().charAt(0));
-        System.out.println("String length = " + sr.getLocation2().length());
         return sr.getServiceType() + " - " + loc1.getLongName();
 //        if (sr.getLocation2() == null || sr.getLocation2() == "null") {
 //            return sr.getServiceType() + " - " + loc1.getLongName();

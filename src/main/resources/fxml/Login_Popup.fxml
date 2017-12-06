@@ -21,7 +21,7 @@
                <children>
                   <ImageView fitHeight="169.0" fitWidth="318.0" layoutX="1.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.13165283203125" AnchorPane.topAnchor="14.0">
                      <image>
-                        <Image url="@../img/LoginLogo/Brighams-Womens-Hospital-Logo.jpg" />
+                        <Image url="@../img/LoginLogo/BrighamandWomensHospital.jpg" />
                      </image>
                   </ImageView>
                </children>
