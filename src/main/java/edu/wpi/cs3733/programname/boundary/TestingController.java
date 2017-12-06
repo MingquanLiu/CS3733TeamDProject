@@ -238,7 +238,7 @@ public class TestingController extends UIController implements Initializable {
     @FXML
     private JFXCheckBox locateAllLocations;
 
-
+    private String previousDropDownState = "";
     // Handicapped checkbox
     //<editor-fold desc="handicapped">
     @FXML
@@ -587,7 +587,7 @@ public class TestingController extends UIController implements Initializable {
     }
 
     public void setFloor() {
-        //TODO add changing of displayed nodes
+
         currentFloor = (Floor) (comboFloors.getValue());
         floor = floors.indexOf(currentFloor) - 2;
         System.out.println("floor: " + floor);
@@ -606,6 +606,7 @@ public class TestingController extends UIController implements Initializable {
         clearPath();
         displayPath(currentPath);
         comboLocations.setValue("None");
+        previousDropDownState = "";
     }
 
     private int UICToDBC(int value, double scale) {
@@ -667,7 +668,7 @@ public class TestingController extends UIController implements Initializable {
     public void locateHandler(ActionEvent event) {
         Object mEvent = event.getSource();
         String nodeType = "";
-        setNodeListImageVisibility(false,currentNodes);
+
         if (mEvent == comboLocations) {
             String keyLocationString = comboLocations.getValue().toString();
             switch (keyLocationString) {
@@ -707,6 +708,16 @@ public class TestingController extends UIController implements Initializable {
                     break;
             }
         }
+
+        if(!previousDropDownState.equals("All")){
+            List<NodeData> ListA = getNodeByVisibility(currentNodes,true);
+            for(NodeData nodeData:ListA){
+                nodeData.setImageVisible(false);
+                nodeData.changeImageView("");
+            }
+        }else{
+            setNodeListImageVisibility(false,currentNodes);
+        }
         if(nodeType.equals("None")){
             List<NodeData> mList = getNodeByVisibility(currentNodes,true);
             setNodeListImageVisibility(false,mList);
@@ -719,12 +730,14 @@ public class TestingController extends UIController implements Initializable {
             setNodeListImageVisibility(true,currentNodes);
         }
         if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
+
             List<NodeData> mList = getTypeNode(currentNodes, nodeType);
             for (NodeData nodeData : mList) {
                 nodeData.changeImageView(nodeType);
             }
             setNodeListImageVisibility(true, mList);
         }
+        previousDropDownState = nodeType;
     }
 
 

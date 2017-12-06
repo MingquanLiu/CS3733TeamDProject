@@ -318,13 +318,13 @@ public class NodeData {
             case "DEPT":
                 image2 = new Image("img/NodeIcon/WaitRoomIcon.png");
                 break;
-            case "Exit":
+            case "EXIT":
                 image2 = new Image("img/NodeIcon/ExitIcon.png");
                 break;
             case "STAI":
                 image2 = new Image("img/NodeIcon/StairsIcon.png");
                 break;
-            case "Labs":
+            case "LABS":
                 image2 = new Image("img/NodeIcon/LabIcon.png");
                 break;
             case "SERV":
