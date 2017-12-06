@@ -4,24 +4,19 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import edu.wpi.cs3733.programname.Main;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
+import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
-import javafx.animation.PathTransition;
-import javafx.animation.StrokeTransition;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -29,17 +24,17 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -47,15 +42,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
-import static edu.wpi.cs3733.programname.commondata.Constants.MAINTENANCE_REQUEST;
-import static edu.wpi.cs3733.programname.commondata.Constants.TRANSPORTATION_REQUEST;
+import static edu.wpi.cs3733.programname.commondata.Constants.*;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
+import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
-import static javafx.scene.paint.Color.RED;
 
 
-public class TestingController implements Initializable {
+public class TestingController extends UIController implements Initializable {
 
 
     //FXML objects
@@ -183,9 +176,10 @@ public class TestingController implements Initializable {
 
     //locations search
     private List<Shape> pathDrawings = new ArrayList<>();
-    private List<Shape> nodeDrawings = new ArrayList<>();
+    private List<Shape> shownNodes = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
+    private List<NodeData> allNodes = new ArrayList<>();
     private List<NodeData> currentNodes = new ArrayList<>();
 
     //hamburger transitions
@@ -195,17 +189,17 @@ public class TestingController implements Initializable {
 
     //zooming/panning
     private double currentScale;
-    final double minWidth = 1500;
-    final double maxWidth = 5000;
+    private final double MAX_UI_WIDTH = 5000;
     final private int originalMapRatioIndex = 3;
 
     //showing nodes
     private String selectingLocation = "";
-    ArrayList<Double> mapRatio = new ArrayList<>();
+    private ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
     private boolean loggedIn;
     private Employee employeeLoggedIn;
-    private List<Shape> shownNodes = new ArrayList<>();
+    private NodeData lastShowNodeData = null;
+
 
     private PathfindingController.searchType mSearchType= ASTAR;
 
@@ -234,27 +228,13 @@ public class TestingController implements Initializable {
         controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
-        imgMap.setFitWidth(maxWidth*currentScale);
-
-
-        final ImageView imv = new ImageView();
-        final Image image2 = new Image("img/Location-Button.png");
-        imv.setImage(image2);
-
-        final HBox pictureRegion = new HBox();
-        pictureRegion.getChildren().add(imv);
-        imv.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("Image get clicked");
-            }
-        });
-        System.out.println("fit width: "+imv.getFitWidth());
-        imv.setFitWidth(30);
-        imv.setFitHeight(30);
-        imv.setX(200);
-        imv.setY(200);
-        panningPane.getChildren().add(imv);
+        imgMap.setFitWidth(MAX_UI_WIDTH *currentScale);
+//        allNodes = manageController.queryNodeByFloor(convertFloor(floor));
+        allNodes = manageController.getAllNodeData();
+        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(allNodes),currentScale),this));  ;
+        currentNodes = getNodeByFloor(allNodes,convertFloor(floor));
+        showNodeList(allNodes);
+//        panningPane.getChildren().add(imv);
 
     }
     public void setSearchType(PathfindingController.searchType searchType){
@@ -262,12 +242,12 @@ public class TestingController implements Initializable {
         this.mSearchType = searchType;
     }
     //topmost methods are newest
-    private void drawCycle(int x, int y){
-        double radius = 10*currentScale;
-        Circle c = new Circle(x, y, radius, RED);
-        panningPane.getChildren().add(c);
-        shownNodes.add(c);
-    }
+//    private void drawCycle(int x, int y){
+//        double radius = 10*currentScale;
+//        Circle c = new Circle(x, y, radius, RED);
+//        panningPane.getChildren().add(c);
+//        shownNodes.add(c);
+//    }
 
     private void showNodeList (List<NodeData> nodeDataList){
         for(int i = 0;i <nodeDataList.size();i++){
@@ -275,8 +255,9 @@ public class TestingController implements Initializable {
         }
     }
     private void showNode(NodeData n){
-        currentNodes.add(n);
-        drawCycle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
+        n.setImageViewSizeAndLocation(currentScale);
+        panningPane.getChildren().add(n.getNodeImageView());
+//        drawCycle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
     }
 
     private void showNodeInfo(NodeData nodeData){
@@ -300,23 +281,18 @@ public class TestingController implements Initializable {
     private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
         int dbX = UICToDBC(mouseX,currentScale);
         int dbY =UICToDBC(mouseY,currentScale);
-        int resultX = 0;
-        int resultY = 0;
-        String resultNodeId = "";
+        NodeData mNodeData = null;
         double d = 0;
         for (NodeData node : nodeDataList) {
             int nodeX = node.getXCoord();
             int nodeY = node.getYCoord();
-//                System.out.println("node x,y: " + nodeX + ", " + nodeY + "  real x,y: " +realX + ", " +realY);
             double temp = Math.sqrt(Math.pow(dbX - nodeX, 2) + Math.pow(dbY - nodeY, 2));
             if (temp < d||d==0) {
                 d = temp;
-                resultX = nodeX;
-                resultY = nodeY;
-                resultNodeId = node.getNodeID();
+                mNodeData = node;
             }
         }
-        return new NodeData(resultNodeId,new Coordinate(resultX,resultY),lblCurrentFloor.getText(),null,null,null,null,null);
+        return mNodeData;
     }
 
     private void displayPath(List<NodeData> path){
@@ -353,6 +329,7 @@ public class TestingController implements Initializable {
         clearPath();
         closeNodeInfoHandler();
         clearPathFindLoc();
+        lastShowNodeData.setImageVisible(false);
     }
     public void clearPathFindLoc(){
         txtEndLocation.setText("");
@@ -371,32 +348,27 @@ public class TestingController implements Initializable {
     }
 
     private void clearNodes(){
-        currentNodes = new ArrayList<>();
-        if(shownNodes.size() > 0){
-            for(Shape shape:shownNodes){
-                System.out.println("success remove");
-                panningPane.getChildren().remove(shape);
-            }
-            shownNodes = new ArrayList<>();
-        }
     }
 
     //map switching methods
     public void mapChange(ActionEvent e){
+        clearMain();
         if(e.getSource() == btnMapUp && floor < 3){
             floor ++;
             System.out.println("up to floor" + floor);
             setFloor();
-            clearNodes();
             displayPath(currentPath);
+            setNodeListImageVisibility(false,currentNodes);
+            currentNodes = getNodeByFloor(allNodes,convertFloor(floor));
             nodeInfoPane.setVisible(false);
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
             floor --;
             System.out.println("down to floor" + floor);
             setFloor();
-            clearNodes();
             displayPath(currentPath);
+            setNodeListImageVisibility(false,currentNodes);
+            currentNodes = getNodeByFloor(allNodes,convertFloor(floor));
             nodeInfoPane.setVisible(false);
         }
     }
@@ -416,9 +388,6 @@ public class TestingController implements Initializable {
 
         lblCurrentFloor.setText(convertFloor(floor));
     }
-    public void showMouseCoords(MouseEvent e){
-        System.out.println(e.getX() + ", " + e.getY());
-    }
 
     private int UICToDBC(int value, double scale){
         return (int)(value/scale);
@@ -427,56 +396,14 @@ public class TestingController implements Initializable {
         return (int)(value*scale);
     }
     public void mouseClickHandler(MouseEvent e){
-        //clearMain();
-        int x = (int) e.getX();
-        int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloor(lblCurrentFloor.getText());
-        NodeData mClickedNode= getClosestNode(nodes,x,y);
-        switch (selectingLocation) {
-            //case for displaying nearest node info when nothing is selected
-            case "":
-                //clearMain();
-                clearNodes();
-                System.out.println("Get in findNodeData X:"+x+" Y:"+y);
-                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
-                showNode(mClickedNode);
-                showNodeInfo(mClickedNode);
-                break;
-            case "selectLocation":
-                System.out.println("In selectLocation");
-                Coordinate mCoordinate = new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale));
-                lblServiceX.setText(""+mCoordinate.getXCoord());
-                lblServiceY.setText(""+mCoordinate.getYCoord());
-                serviceRequester.setVisible(true);
-                selectingLocation = "";
-                break;
-            case "selectStart":
-                clearNodes();
-                String startId = mClickedNode.getNodeID();
-                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
-                showNode(mClickedNode);
-                showNodeInfo(mClickedNode);
-                txtStartLocation.setText(startId);
-                selectingLocation = "";
-                break;
-            case "selectEnd":
-                clearNodes();
-                String endId = mClickedNode.getNodeID();
-                mClickedNode = manager.getNodeData(mClickedNode.getNodeID());
-                showNode(mClickedNode);
-                showNodeInfo(mClickedNode);
-                txtEndLocation.setText(endId);
-                selectingLocation = "";
-                break;
-            // the rest of the situations when you click on the map
-//            case "maintenance":
-//                locationsSelected = true;
-//                requestDescription.setText(requestDescription.getText() + "\n at " + x + ", " + y);
-//                serviceRequester.setVisible(true);
-//                selectingLocation = "";
-//                break;
-
-        }
+        int x = (int)e.getX();
+        int y =(int)e.getY();
+        List<NodeData> mList = getNodeByVisibility(currentNodes,true);
+        NodeData mNode=getClosestNode(mList,x,y);
+//        if(lastShowNodeData!=null)lastShowNodeData.setImageVisible(false);
+//        mNode.setImageVisible(true);
+//        lastShowNodeData = mNode;
+        showNodeInfo(mNode);
     }
     //hamburger handling
     public void openMenu(MouseEvent e){
@@ -517,59 +444,45 @@ public class TestingController implements Initializable {
         }
         if(mEvent.equals(btnLocateVM)){
             nodeType = "RETL";
+            setNodeListImageVisibility(true, currentNodes);
         }
         if(mEvent.equals(btnLocateWR)){
             nodeType = "DEPT";
         }
-        clearNodes();
-        clearMain();
         if(!nodeType.equals("")){
-            List<NodeData> mList = manager.queryNodeByTypeFloor(nodeType, Integer.toString(floor));
-            if(mList!=null&&!mList.isEmpty())
-            showNodeList(mList);
+            List<NodeData> mList = getTypeNode(currentNodes,nodeType);
+            for(NodeData nodeData:mList){
+                nodeData.changeImageView(nodeType);
+            }
+            setNodeListImageVisibility(true,mList);
         }
     }
     
     //map zooming method
     public void zoomHandler(ActionEvent e) {
-//        clearMain();
-
         if (e.getSource() == btnZoomOut) {
-//            if(imgMap.getFitWidth() <= minWidth){
-//                return;
-//            }
             if (currentMapRatioIndex == 0) {
                 return;
             }
             currentMapRatioIndex -= 1;
             currentScale = mapRatio.get(currentMapRatioIndex);
-            imgMap.setFitWidth(maxWidth * currentScale);
+            imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         } else {
-//            if(imgMap.getFitWidth() >= maxWidth){
-//                return;
-//            }
             if (currentMapRatioIndex == (mapRatio.size() - 1)) {
                 return;
             }
             currentMapRatioIndex += 1;
             currentScale = mapRatio.get(currentMapRatioIndex);
-            imgMap.setFitWidth(maxWidth * currentScale);
+            imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         }
-        clearMain();
 
         if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
             clearPath();
             displayPath(mPath);
         }
-        if (!(currentNodes == null) && !currentNodes.isEmpty()) {
-            List<NodeData> mNodes = currentNodes;
-            clearNodes();
-            showNodeList(mNodes);
-            System.out.println(currentScale);
-            relocateNodeInfo();
-        }
-
+        setNodeListSizeAndLocation(currentNodes,currentScale);
+        relocateNodeInfo();
     }
 
     //relocate the node info panel
@@ -670,9 +583,6 @@ public class TestingController implements Initializable {
         loader.<LoginPopup>getController().initManager(manager);
 //        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         loggedIn = true;
-//        if(txtUser.getText() != null && txtUser.getText().length() != 0) {
-//            username = txtUser.getText();
-//        }
         if(loggedIn) {
             employeeLoggedIn = manager.queryEmployeeByUsername(username);
 //            lblLoginStatus.setText("logged in");
@@ -759,13 +669,12 @@ public class TestingController implements Initializable {
     }
 
     public void closeNodeInfoHandler(){
-        clearNodes();
         nodeInfoPane.setVisible(false);
-//        nodeInfoLongName.setText("");
-//        nodeInfoShortName.setText("");
-//        nodeInfoType.setText("");
-//        lblNodeX.setText("");
-//        lblNodeY.setText("");
+        nodeInfoLongName.setText("");
+        nodeInfoShortName.setText("");
+        nodeInfoType.setText("");
+        lblNodeX.setText("");
+        lblNodeY.setText("");
     }
 
     public void helpButtonHandler()throws IOException {
@@ -814,5 +723,43 @@ public class TestingController implements Initializable {
         stage.show();
         emailDirections.setVisible(false);
     }
+
+    @Override
+    public void passNodeData(NodeData nodeData) {
+        switch (selectingLocation){
+            case "":
+                clearNodes();
+//                showNode(nodeData);
+                showNodeInfo(nodeData);
+                break;
+            case "selectLocation":
+                System.out.println("In selectLocation");
+                lblServiceX.setText(""+nodeData.getXCoord());
+                lblServiceY.setText(""+nodeData.getYCoord());
+                serviceRequester.setVisible(true);
+                selectingLocation = "";
+                break;
+            case "selectStart":
+                clearNodes();
+//                showNode(nodeData);
+                showNodeInfo(nodeData);
+                txtStartLocation.setText(nodeData.getNodeID());
+                selectingLocation = "";
+                break;
+            case "selectEnd":
+                clearNodes();
+//                showNode(nodeData);
+                showNodeInfo(nodeData);
+                txtEndLocation.setText(nodeData.getNodeID());
+                selectingLocation = "";
+                break;
+        }
+    }
+
+    @Override
+    public void passEdgeData(EdgeData edgeData) {
+
+    }
+
 
 }
