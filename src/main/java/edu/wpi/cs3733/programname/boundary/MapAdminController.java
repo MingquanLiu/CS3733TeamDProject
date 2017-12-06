@@ -272,10 +272,9 @@ public class MapAdminController implements Initializable {
     }
 
     private void showNodeAndPath() {
-        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "45 Francis");
+        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
         floorNodes = nodes;
         List<EdgeData> edges = manager.getAllEdgeData();
-        System.out.println("shownodeandpath size: " + floors.size() + " and contents: " + floors);
 
         displayEdges(edges);
         showNodeList(nodes);
@@ -361,7 +360,7 @@ public class MapAdminController implements Initializable {
     private NodeData getNode(String nodeID) {
         for (NodeData nodeData : floorNodes) {
             if (nodeData.getNodeID().equals(nodeID)) {
-                if (floors.get(floor+2).getFloorName().equals(currentFloor.getFloorName())) {
+                if (floors.get(floor + 2).getFloorName().equals(currentFloor.getFloorName()) && currentFloor.getBuilding().equals(floors.get(floor + 2).getBuilding())) {
                     return nodeData;
                 } else {
                     return null;
@@ -591,6 +590,8 @@ public class MapAdminController implements Initializable {
     }
 
     public void setBuilding() {
+        clearNodes();
+        clearEdge();
         Building newBld = (Building) (comboBuilding.getValue());
         floors = newBld.getFloors();
 
