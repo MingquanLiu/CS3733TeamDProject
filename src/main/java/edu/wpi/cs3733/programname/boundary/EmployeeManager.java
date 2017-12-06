@@ -178,7 +178,7 @@ public class EmployeeManager {
         try {
             removeerror.setVisible(false);
             Employee employee = employeetable.getSelectionModel().getSelectedItem();
-            manageController.deleteEmployee(employee.getUsername());
+            manageController.deleteEmployee(employee);
             changessaved.setVisible(true);
             data.removeAll(data);
             data.addAll(manageController.getAllEmployees());

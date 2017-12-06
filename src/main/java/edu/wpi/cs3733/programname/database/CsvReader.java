@@ -8,10 +8,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import edu.wpi.cs3733.programname.commondata.*;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
 
 
 public class CsvReader {
+
+    ArrayList<String[]> interpreterInfo;        //Array Size = 3
+    ArrayList<String[]> maintenanceInfo;        //Array Size = 3
+    ArrayList<String[]> transportationInfo;     //Array Size = 4
+
+    ArrayList<String[]> interpreterEmployeeInfo;        //Array Size = 2
+    ArrayList<String[]> maintenanceEmployeeInfo;        //Array Size = 2
 
     /**
      * empty constructor for CsvReader
@@ -33,9 +43,10 @@ public class CsvReader {
 
 
         try {
+            System.out.println("About to read nodes table");
             String csv = "csv/CsvNodes/AllMapNodes.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
             String line;
             buf.readLine();
@@ -154,8 +165,8 @@ public class CsvReader {
 
         try {
             String csv = "csv/CsvEdges/AllMapEdges.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
 
             String line;
@@ -237,23 +248,24 @@ public class CsvReader {
 
 
 
-
     // EMPLOYEES
     public ArrayList<Employee> getListOfEmployees(Connection conn) {
 
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
 
+        getInterpreterEmployeeInfo();
+        getMaintenanceEmployeeInfo();
+
         try {
             String csv = "csv/CsvTables/AllEmployees.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
             String line;
             buf.readLine();
             // Reads all lines in the file
             while ((line = buf.readLine()) != null) {
                 // Reads current row and converts to a string
-
 
                 // Seperates the string into fields and stores into an array
                 String[] values = line.split(",");
@@ -265,44 +277,80 @@ public class CsvReader {
                     sysAdmin = false;
                 }
 
-                Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
-                employeeList.add(employeeObject);
+                Employee employeeObject;
+                if (values[6] == Constants.INTERPRETER_REQUEST) {
+                    ArrayList<String> languages = new ArrayList<>();
+
+                    //for each entry in the interpreter db for this employee,
+                    //add that entry's language to this employee
+                    for (String[] data: interpreterInfo) {
+                        if(data[0].equals(values[0])){
+                            languages.add(data[1]);
+                        }
+                    }
+                    employeeObject = new Interpreter(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], languages);
+                    employeeList.add(employeeObject);
+                } else if (values[6] == Constants.MAINTENANCE_REQUEST) {
+                    ArrayList<String> skills = new ArrayList<>();
+
+                    for(String[] data: maintenanceInfo) {
+                        if(data[0].equals(values[0])) {
+                            skills.add(data[1]);
+                            break;
+                        }
+                    }
+                    employeeObject = new Maintenance(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7], skills);
+                    employeeList.add(employeeObject);
+                }
+                else {
+                    employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
+                    employeeList.add(employeeObject);
+                }
 
             } // end while
         } catch (IOException e) {
-            try {
-                InputStream in = this.getClass().getClassLoader().getResourceAsStream("csv/CsvTables/AllEmployees.csv");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                StringBuilder out = new StringBuilder();
-                String line;
-                reader.readLine();
-                // Reads all lines in the file
-                while ((line = reader.readLine()) != null) {
-                    // Reads current row and converts to a string
-
-
-                    // Seperates the string into fields and stores into an array
-                    String[] values = line.split(",");
-
-                    boolean sysAdmin;
-                    if (Integer.parseInt(values[5]) == 1) {
-                        sysAdmin = true;
-                    } else {
-                        sysAdmin = false;
-                    }
-
-                    Employee employeeObject = new Employee(values[0], values[1], values[2], values[3], values[4], sysAdmin, values[6], values[7]);
-                    employeeList.add(employeeObject);
-
-                } // end while
-
-            } catch (IOException w) {
-            }
-
+            e.printStackTrace();
         }
         return employeeList;
     }
 
+    public void getInterpreterEmployeeInfo() {
+        interpreterEmployeeInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllInterpreterSkills.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterEmployeeInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getMaintenanceEmployeeInfo() {
+        maintenanceEmployeeInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllMaintenanceSkills.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterEmployeeInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
 
     public void insertEmployees(Connection conn, ArrayList<Employee> employeeList) {
@@ -327,6 +375,27 @@ public class CsvReader {
                 pst.setString(8, employeeList.get(i).getEmail());
                 pst.executeUpdate();
 
+                PreparedStatement skillsInsert;
+                if (employeeList.get(i).getServiceType() == Constants.INTERPRETER_REQUEST) {
+                    Interpreter interpreter = (Interpreter) employeeList.get(i);
+                    for(String language: interpreter.getLanguages()) {
+                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                                " VALUES (?,?)");
+                        skillsInsert.setString(1, interpreter.getUsername());
+                        skillsInsert.setString(2, language);
+                        skillsInsert.executeUpdate();
+                    }
+                } else if (employeeList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
+                    Maintenance maintenanceEmployee = (Maintenance) employeeList.get(i);
+                    for (String skill: maintenanceEmployee.getMaintenanceType()) {
+                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                                " VALUES (?,?)");
+                        skillsInsert.setString(1, maintenanceEmployee.getUsername());
+                        skillsInsert.setString(2, skill);
+                        skillsInsert.executeUpdate();
+                    }
+                }
+
             }
 
         } catch (SQLException e) {
@@ -334,21 +403,77 @@ public class CsvReader {
         }
     }
 
-
-
-
-
-
     // SERVICEREQUESTS
+    public void getInterpreterTableInfo() {
+        interpreterInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllInterpreterRequests.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                interpreterInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getMaintenanceTableInfo() {
+        maintenanceInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllMaintenanceRequests.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                maintenanceInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void getTransportationTableInfo() {
+        transportationInfo = new ArrayList<>();
+        try {
+            String csv = "csv/CsvTables/AllTransportationRequests.csv";
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            String line;
+            buf.readLine();
+
+            while((line = buf.readLine()) != null) {
+                System.out.println(line);
+                String[] values = line.split(",");
+                transportationInfo.add(values);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
     public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) {
 
         ArrayList<ServiceRequest> srList = new ArrayList<ServiceRequest>();
+        getInterpreterTableInfo();
+        getMaintenanceTableInfo();
+        getTransportationTableInfo();
 
         try {
 
             String csv = "csv/CsvTables/AllServiceRequests.csv";
-            FileReader read = new FileReader(csv);
-            BufferedReader buf = new BufferedReader(read);
+            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
 
             String line;
             buf.readLine();
@@ -366,11 +491,49 @@ public class CsvReader {
 
 
                 int serviceID = Integer.parseInt(values[0]);
-                //int severity = Integer.parseInt(values[12]);
+                int severity = Integer.parseInt(values[11]);
                 System.out.println("length"+values.length);
-                ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11],1);
-                srList.add(srObject);
 
+                ServiceRequest srObject = null;
+                ArrayList<String[]> subtable;
+                if (values[3] == Constants.INTERPRETER_REQUEST) {
+                    subtable = interpreterInfo;
+                    String[] data;
+                    for (String[] info: subtable) {
+                        if(values[0].equals(info[0])){
+                            data = info;
+                            srObject = new InterpreterRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity, data[1], data[2]);
+                            break;
+                        }
+                    }
+                } else if (values[3] == Constants.MAINTENANCE_REQUEST) {
+                    subtable = maintenanceInfo;
+                    String[] data;
+                    for(String[] info: subtable) {
+                        if(values[0].equals(info[0])) {
+                            data = info;
+                            srObject = new MaintenanceRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity,data[1]);
+                            break;
+                        }
+                    }
+                } else {
+                    subtable = transportationInfo;
+                    String[] data;
+                    for(String[] info: subtable) {
+                        if(values[0].equals(info[0])) {
+                            data = info;
+                            srObject = new TransportationRequest(serviceID, values[1], values[2], values[3],
+                                    values[4], values[5], values[6], values[7], values[8], values[9],
+                                    values[10],severity, data[1], data[2], data[3]);
+                            break;
+                        }
+                    }
+                }
+                srList.add(srObject);
             } // end while
 
         }catch (IOException e) {
@@ -389,9 +552,9 @@ public class CsvReader {
                     String[] values = line.split(",");
 
                     int serviceID = Integer.parseInt(values[0]);
-                    int severity = Integer.parseInt(values[12]);
+                    int severity = Integer.parseInt(values[11]);
 
-                    ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11], severity);
+                    ServiceRequest srObject = new ServiceRequest(serviceID, values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], severity);
                     srList.add(srObject);
 
                 } // end while
@@ -415,8 +578,8 @@ public class CsvReader {
 
         try {
             // SQL Insert
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO ServiceRequests(serviceID, sender, serviceType, location1, location2, description)" +
-                    "VALUES (?,?,?,?,?,?)");
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO ServiceRequests(serviceID, sender, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity)" +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
 
             for (i = 0; i < count; i++) {
@@ -426,7 +589,39 @@ public class CsvReader {
                 pst.setString(4, srList.get(i).getLocation1());
                 pst.setString(5, srList.get(i).getLocation2());
                 pst.setString(6, srList.get(i).getDescription());
+                pst.setString(7, srList.get(i).getRequestTime());
+                pst.setString(8, srList.get(i).getHandleTime());
+                pst.setString(9, srList.get(i).getCompletionTime());
+                pst.setString(10, srList.get(i).getStatus());
+                pst.setInt(11, srList.get(i).getSeverity());
                 pst.executeUpdate();
+
+                PreparedStatement detailInsert;
+                if (srList.get(i).getServiceType() == Constants.INTERPRETER_REQUEST) {
+                    InterpreterRequest interpreterRequest = (InterpreterRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO InterpreterRequests(serviceID, language, reservationTime)" +
+                    " VALUES (?,?,?)");
+                    detailInsert.setInt(1, interpreterRequest.getServiceID());
+                    detailInsert.setString(2, interpreterRequest.getLanguage());
+                    detailInsert.setString(3, interpreterRequest.getReservationTime());
+                    detailInsert.executeUpdate();
+                } else if (srList.get(i).getServiceType() == Constants.MAINTENANCE_REQUEST) {
+                    MaintenanceRequest maintenanceRequest = (MaintenanceRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO MaintenanceRequests(serviceID, maintenanceType)" +
+                    " VALUES (?,?)");
+                    detailInsert.setInt(1, maintenanceRequest.getServiceID());
+                    detailInsert.setString(2, maintenanceRequest.getMaintenanceType());
+                    detailInsert.executeUpdate();
+                } else if (srList.get(i).getServiceType() == Constants.TRANSPORTATION_REQUEST) {
+                    TransportationRequest transportationRequest = (TransportationRequest) srList.get(i);
+                    detailInsert = conn.prepareStatement("INSERT INTO TransportationRequests(serviceID, transportType, destination, reservationTime)" +
+                    " VALUES (?,?,?,?)");
+                    detailInsert.setInt(1, transportationRequest.getServiceID());
+                    detailInsert.setString(2, transportationRequest.getTransportType());
+                    detailInsert.setString(3, transportationRequest.getDestination());
+                    detailInsert.setString(4, transportationRequest.getReservationTime());
+                    detailInsert.executeUpdate();
+                }
             }
 
         } catch (SQLException e) {

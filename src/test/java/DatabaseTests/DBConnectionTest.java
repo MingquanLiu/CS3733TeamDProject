@@ -2,7 +2,7 @@ package DatabaseTests;
 
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.*;
-import edu.wpi.cs3733.programname.commondata.ServiceRequest.ServiceRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
 import edu.wpi.cs3733.programname.database.*;
 
 import org.junit.Test;
