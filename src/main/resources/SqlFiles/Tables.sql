@@ -1,3 +1,7 @@
+-- noinspection SqlDialectInspectionForFile
+
+-- noinspection SqlNoDataSourceInspectionForFile
+
 DROP TABLE Senders;
 DROP TABLE Receivers;
 DROP TABLE MaintenanceRequests;

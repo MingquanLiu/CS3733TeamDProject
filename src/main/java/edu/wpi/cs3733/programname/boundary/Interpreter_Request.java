@@ -68,6 +68,8 @@ public class Interpreter_Request {
         System.out.println("Severity: " + SeverityDropDown.getSelectionModel().getSelectedItem());
         System.out.println("Location: " + DestinationField.getText() );
         System.out.println("Time: "     + TimeTextField.getValue());
+
+        nodeData = manager.getNodeData(DestinationField.getText());
         manager.createInterpreterRequest(userName,type,nodeData.getNodeID(),null,"",Integer.parseInt(SeverityDropDown.getSelectionModel().getSelectedItem().toString())
                 ,LanguageDropDown.getSelectionModel().getSelectedItem().toString(),TimeTextField.getValue().toString());
         Stage stage = (Stage) SubmitBtn.getScene().getWindow();

@@ -20,6 +20,7 @@ public class DatabaseModificationController {
     private EdgesMethod edgesMethod;
     private EmployeesMethod employeesMethod;
     private InterpreterMethod interpreterMethod;
+    private MaintenanceMethod maintenanceMethod;
     private ServiceRequestsMethod serviceRequestsMethod;
     private InterpreterRequestsMethod interpreterRequestsMethod;
     private MaintenanceRequestsMethod maintenanceRequestMethod;
@@ -33,6 +34,7 @@ public class DatabaseModificationController {
         edgesMethod = new EdgesMethod(conn);
         employeesMethod = new EmployeesMethod(conn);
         interpreterMethod = new InterpreterMethod(conn);
+        maintenanceMethod = new MaintenanceMethod(conn);
         serviceRequestsMethod = new ServiceRequestsMethod(conn);
         interpreterRequestsMethod = new InterpreterRequestsMethod(conn);
         maintenanceRequestMethod = new MaintenanceRequestsMethod(conn);
@@ -95,6 +97,10 @@ public class DatabaseModificationController {
 
     public void removeLanguageFromInterpreter(String interpreter, String language) {
         interpreterMethod.removeInterpreterLanguage(interpreter, language);
+    }
+
+    public void addMaintenanceSkill(String maintenance, String skill) {
+        maintenanceMethod.addMaintenanceSkill(maintenance, skill);
     }
 
     // delete interpreter employee
