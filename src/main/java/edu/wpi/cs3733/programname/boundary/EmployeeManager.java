@@ -167,6 +167,7 @@ public class EmployeeManager {
                 passerror.setVisible(true);
             }
             else {
+                btnSkills.setDisable(false);
                 employeetable.setMouseTransparent(false);
                 btnSkills.setDisable(false);
                 newusername.setDisable(false);
@@ -280,6 +281,8 @@ public class EmployeeManager {
         password1.setText(employee.getPassword());
         admin.setSelected(employee.getSysAdmin());
         employeeTypeString = employee.getServiceType();
+        if(employeeTypeString.equals("transportation")) btnSkills.setDisable(true);
+        else btnSkills.setDisable(false);
         if(employee.getServiceType().equals("transportation")) servicegroup.selectToggle(transportBtn);
         else if(employee.getServiceType().equals("maintenance")) servicegroup.selectToggle(maintenanceBtn);
         else servicegroup.selectToggle(interpreterBtn);
@@ -289,6 +292,7 @@ public class EmployeeManager {
 
     @FXML
     private void cancelEdit(ActionEvent event) {
+        btnSkills.setDisable(false);
         employeetable.setMouseTransparent(false);
         btnSkills.setDisable(false);
         canceledit.setVisible(false);

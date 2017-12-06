@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
+
 import static edu.wpi.cs3733.programname.commondata.Constants.ORIGINAL_NODE_HEIGHT;
 import static edu.wpi.cs3733.programname.commondata.Constants.ORIGINAL_NODE_WIDTH;
 
@@ -324,7 +326,11 @@ public class NodeData {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Image get clicked");
-                mainUINodeDataObserver.update();
+                try {
+                    mainUINodeDataObserver.update();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
