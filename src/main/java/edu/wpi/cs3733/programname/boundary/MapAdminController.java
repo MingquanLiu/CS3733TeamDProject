@@ -620,7 +620,7 @@ public class MapAdminController implements Initializable {
             currentScale = mapRatio.get(currentMapRatioIndex);
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
-//            if(imgMap.getFitWidth() >= maxWidth){
+//            if(imgMap.getFitWidth() >= MAX_UI_WIDTH){
 //                return;
 //            }
             if (currentMapRatioIndex == (mapRatio.size() - 1)) {
