@@ -706,10 +706,8 @@ public class TestingController extends UIController implements Initializable {
             }
         }
         if(nodeType.equals("None")){
-            for(NodeData nodeData:currentNodes){
-                nodeData.changeImageView(nodeType);
-            }
-            setNodeListImageVisibility(false,currentNodes);
+            List<NodeData> mList = getNodeByVisibility(currentNodes,true);
+            setNodeListImageVisibility(false,mList);
         }
         if (nodeType.equals("ALL")) {
             //ADD CODE HERE THANK YOU MINGQUANNNNNN
@@ -729,58 +727,58 @@ public class TestingController extends UIController implements Initializable {
 
 
 //    //THIs doesnt link its not EVEN THE DROP DOWN ITS THE TITLED PANE BUT YEA GL MING-MING
-//    public void locateDropdownHandler(ActionEvent event) {
-//        Object mEvent = event.getSource();
-//        String nodeType = "";
-//
-//        if (mEvent == keyLocation) {
-//            String keyLocationString = keyLocation.getChildrenUnmodifiable().toString();
-//            switch (keyLocationString) {
-//                case "Bathrooms":
-//                    nodeType = "REST";
-//                    break;
-//                case "Service Desks":
-//                    nodeType = "INFO";
-//                    break;
-//                case "Retail Services":
-//                    nodeType = "RETL";
-//                    break;
-//                case "Waiting Rooms":
-//                    nodeType = "DEPT";
-//                    break;
-//                case "Elevators":
-//                    nodeType = "ELEV";
-//                    break;
-//                case "Exits":
-//                    nodeType = "EXIT";
-//                    break;
-//                case "Staircases":
-//                    nodeType = "STAI";
-//                    break;
-//                case "Labs":
-//                    nodeType = "LABS";
-//                    break;
-//                case "Additional Services":
-//                    nodeType = "SERV";
-//                    break;
-//                case "All Locations":
-//                    //THIS IS NOT A REAL NODE TYPE ITS JUST TO ALLOW IT WORK
-//                    nodeType = "ALL";
-//                    break;
-//            }
-//        }
-//        if (nodeType.equals("ALL")) {
-//            //ADD CODE HERE THANK YOU MINGQUANNNNNN
-//
-//        }
-//        if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
-//            List<NodeData> mList = getTypeNode(currentNodes, nodeType);
-//            for (NodeData nodeData : mList) {
-//                nodeData.changeImageView(nodeType);
-//            }
-//            setNodeListImageVisibility(true, mList);
-//        }
-//    }
+    public void locateDropdownHandler(ActionEvent event) {
+        Object mEvent = event.getSource();
+        String nodeType = "";
+
+        if (mEvent == keyLocation) {
+            String keyLocationString = keyLocation.getChildrenUnmodifiable().toString();
+            switch (keyLocationString) {
+                case "Bathrooms":
+                    nodeType = "REST";
+                    break;
+                case "Service Desks":
+                    nodeType = "INFO";
+                    break;
+                case "Retail Services":
+                    nodeType = "RETL";
+                    break;
+                case "Waiting Rooms":
+                    nodeType = "DEPT";
+                    break;
+                case "Elevators":
+                    nodeType = "ELEV";
+                    break;
+                case "Exits":
+                    nodeType = "EXIT";
+                    break;
+                case "Staircases":
+                    nodeType = "STAI";
+                    break;
+                case "Labs":
+                    nodeType = "LABS";
+                    break;
+                case "Additional Services":
+                    nodeType = "SERV";
+                    break;
+                case "All Locations":
+                    //THIS IS NOT A REAL NODE TYPE ITS JUST TO ALLOW IT WORK
+                    nodeType = "ALL";
+                    break;
+            }
+        }
+        if (nodeType.equals("ALL")) {
+            //ADD CODE HERE THANK YOU MINGQUANNNNNN
+
+        }
+        if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
+            List<NodeData> mList = getTypeNode(currentNodes, nodeType);
+            for (NodeData nodeData : mList) {
+                nodeData.changeImageView(nodeType);
+            }
+            setNodeListImageVisibility(true, mList);
+        }
+    }
 
     //map zooming method
     public void zoomHandler(ActionEvent e) {
