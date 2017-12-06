@@ -22,6 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
+import edu.wpi.cs3733.programname.database.QueryMethods.*;
+
+
+import javax.xml.ws.Service;
+
+import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
+
 public class ManageController {
 
     private DBConnection dbConnection;
@@ -35,7 +43,6 @@ public class ManageController {
 
     public ManageController(DBConnection dbConnection) {
         this.dbConnection = new DBConnection();
-
 
         this.pathfindingController = new PathfindingController();
         this.dbQueryController = new DatabaseQueryController(this.dbConnection);
@@ -126,6 +133,10 @@ public class ManageController {
         this.dbModController.completeServiceRequest(request);
     }
 
+    public void unhandleServiceRequest(ServiceRequest request) {
+        this.dbModController.unhandleServiceRequest(request);
+    }
+
 //    public List<Employee> queryEmployeeByRequestType(String requestType) {
 //        return dbQueryController.queryEmployeesByType(requestType);
 //    }
@@ -203,6 +214,23 @@ public class ManageController {
     public void deleteServiceRequest(ServiceRequest request) {
         dbModController.deleteServiceRequest(request);
     }
+
+    public List<ServiceRequest> queryRequestsByEmployee(Employee emp) {
+        return dbQueryController.queryRequestsByHandler(emp);
+    }
+
+    public List<ServiceRequest> queryUnassignedRequestsByType(String type) {
+        List<ServiceRequest> allUnassignedReqs =  dbQueryController.queryServiceRequestsByStatus(Constants.UNASSIGNED_REQUEST);
+        List<ServiceRequest> output = new ArrayList<>();
+        for (ServiceRequest req: allUnassignedReqs) {
+            if(req.getServiceType() == type) {
+                output.add(req);
+            }
+        }
+        return output;
+    }
+
+
 
     public Employee queryEmployeeByUsername(String username) {
         return dbQueryController.queryEmployeeByUsername(username);

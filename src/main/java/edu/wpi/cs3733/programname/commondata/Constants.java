@@ -12,4 +12,9 @@ public class Constants {
     public static String ASSIGNED_REQUEST = "handled";
     public static String COMPLETED_REQUEST = "completed";
     public static String REMOVED_REQUEST = "removed";
+    // Node Constant
+    public final static int ORIGINAL_NODE_WIDTH = 30;
+    public final static int ORIGINAL_NODE_HEIGHT = 30;
+
+    public final static double MAX_UI_WIDTH = 5000;
 }

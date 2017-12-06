@@ -1,5 +1,14 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
+import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+
+import static edu.wpi.cs3733.programname.commondata.Constants.ORIGINAL_NODE_HEIGHT;
+import static edu.wpi.cs3733.programname.commondata.Constants.ORIGINAL_NODE_WIDTH;
+
 public class NodeData {
 
     private String nodeID;
@@ -10,7 +19,7 @@ public class NodeData {
     private String longName;
     private String shortName;
     private String teamAssigned;
-
+    private ImageView nodeImageView;
 
     /**
      * NodeData constructor with location
@@ -272,6 +281,55 @@ public class NodeData {
         result = 31 * result + longName.hashCode();
         result = 31 * result + teamAssigned.hashCode();
         return result;
+    }
+
+    public void initializeImageView(){
+        final ImageView imv = new ImageView();
+        Image image2 = new Image("img/NodeIcon/NodeIcon.png");
+        imv.setImage(image2);
+
+        imv.setFitWidth(ORIGINAL_NODE_WIDTH);
+        imv.setFitHeight(ORIGINAL_NODE_HEIGHT);
+        nodeImageView = imv;
+    }
+
+    public void changeImageView(String type){
+        Image image2 = new Image("img/NodeIcon/NodeIcon.png");
+        switch (type){
+            case "REST":
+                image2 = new Image("img/NodeIcon/BathroomIcon.png");
+                break;
+            case "INFO":
+                image2 = new Image("img/NodeIcon/ServDeskIcon.png");
+            case "RETL":
+                break;
+            case "DEPT":
+                break;
+        }
+        nodeImageView.setImage(image2);
+    }
+    public void setImageViewSizeAndLocation(double currentScale){
+        nodeImageView.setFitWidth(ORIGINAL_NODE_WIDTH*currentScale);
+        nodeImageView.setFitHeight(ORIGINAL_NODE_HEIGHT*currentScale);
+        nodeImageView.setX(getXCoord()*currentScale-nodeImageView.getFitWidth()/2);
+        nodeImageView.setY(getYCoord()*currentScale-nodeImageView.getFitHeight()/2);
+    }
+    public ImageView getNodeImageView(){
+        return nodeImageView;
+    }
+
+    public void setImageViewOnClick(MainUINodeDataObserver mainUINodeDataObserver){
+        mainUINodeDataObserver.setNodeData(this);
+        nodeImageView.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Image get clicked");
+                mainUINodeDataObserver.update();
+            }
+        });
+    }
+    public void setImageVisible(Boolean imageVisible){
+        nodeImageView.setVisible(imageVisible);
     }
 }
 
