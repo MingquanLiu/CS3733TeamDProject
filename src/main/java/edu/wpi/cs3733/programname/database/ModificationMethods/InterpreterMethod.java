@@ -62,7 +62,7 @@ public class InterpreterMethod {
                 dbConnection.executeUpdate(str);
                 this.wrt.writeNodes(dbConnection.getConnection());
             } catch (SQLException e) {
-                System.out.println("Delete Interpreter Skills Failed!");
+                System.out.println("Delete InterpreterSkills Failed!");
                 e.printStackTrace();
             }
         }
