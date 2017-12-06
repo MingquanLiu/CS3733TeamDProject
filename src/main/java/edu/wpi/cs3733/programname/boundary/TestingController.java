@@ -403,6 +403,7 @@ public class TestingController extends UIController implements Initializable {
 //        if(lastShowNodeData!=null)lastShowNodeData.setImageVisible(false);
 //        mNode.setImageVisible(true);
 //        lastShowNodeData = mNode;
+        if(mNode!=null)
         showNodeInfo(mNode);
     }
     //hamburger handling
@@ -532,24 +533,6 @@ public class TestingController extends UIController implements Initializable {
         selectingLocation = "selectEnd";
     }
 
-    public void SRHandler(ActionEvent e){
-        Object mEvent = e.getSource();
-        serviceRequester.setVisible(true);
-        String SRType = "";
-        if(mEvent == btnInterpreterReq){
-            lblReqType.setText("Interpreter Request");
-            SRType = "Language to: \nLanguage from:";
-        }
-        if(mEvent == btnMaintenanceReq){
-            lblReqType.setText("Maintenance Request");
-            SRType = "Maintenance type: \nMaintenance urgency(1-5): ";
-        }
-        if(mEvent == btnTransportationReq){
-            lblReqType.setText("Transportation Request");
-            SRType = "Transportation type: \nTransportation urgency: ";
-        }
-        requestDescription.setText(SRType);
-    }
 
 //    //popup methods
     private FXMLLoader showScene(String url){
