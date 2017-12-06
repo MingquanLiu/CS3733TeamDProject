@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +30,7 @@ public class Transportation_Request {
 
     private ManageController manager;
     private TestingController testingController;
+    private Coordinate coordinate;
     
 
 //    public void buttonHandler(ActionEvent e){
@@ -73,8 +75,18 @@ public class Transportation_Request {
         stage.close();
     }
 
-    public void initController(TestingController testingController){
+    void initController(TestingController testingController){
         this.testingController = testingController;
+    }
+    void initController(TestingController testingController, Coordinate coordinate){
+        this.testingController = testingController;
+        this.coordinate = coordinate;
+        DestinationField.setText(coordinate.toString());
+    }
+    public void selectLocationHandler(){
+        testingController.setSelectingLocationState("Transportation");
+        Stage stage = (Stage) btnSelectLocation.getScene().getWindow();
+        stage.close();
     }
     // End of class
 }

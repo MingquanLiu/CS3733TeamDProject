@@ -3,6 +3,8 @@ package edu.wpi.cs3733.programname.observer;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
+import java.io.IOException;
+
 public class MainUINodeDataObserver extends Observer {
     private TestingController testingController;
     private NodeData nodeData;
@@ -14,7 +16,7 @@ public class MainUINodeDataObserver extends Observer {
         this.nodeData = nodeData;
     }
     @Override
-    public void update() {
+    public void update() throws IOException {
         testingController.passNodeData(nodeData);
     }
 }

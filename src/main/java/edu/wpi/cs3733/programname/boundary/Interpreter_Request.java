@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import sun.security.krb5.internal.crypto.Des;
 
+import javax.print.attribute.standard.Destination;
 import java.time.LocalTime;
 public class Interpreter_Request {
 
@@ -35,7 +37,7 @@ public class Interpreter_Request {
 
     private ManageController manager;
     private TestingController testingController;
-
+    private Coordinate coordinate;
 
 //    public void buttonHandler(ActionEvent e){
 //        System.out.println("a button was clicked");
@@ -78,8 +80,19 @@ public class Interpreter_Request {
         stage.close();
     }
 
-    public void initController(TestingController testingController){
+    void initController(TestingController testingController){
         this.testingController = testingController;
+    }
+    void initController(TestingController testingController, Coordinate coordinate){
+        this.testingController = testingController;
+        this.coordinate = coordinate;
+        DestinationField.setText(coordinate.toString());
+    }
+
+    public void selectLocationHandler(){
+        testingController.setSelectingLocationState("Interpreter");
+        Stage stage = (Stage) btnSelectLocation.getScene().getWindow();
+        stage.close();
     }
     // End of class
 }

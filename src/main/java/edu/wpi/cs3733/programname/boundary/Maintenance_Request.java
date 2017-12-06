@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.Coordinate;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -27,7 +28,7 @@ public class Maintenance_Request {
 
     private ManageController manager;
     private TestingController testingController;
-    
+    private Coordinate coordinate;
 
 //    public void buttonHandler(ActionEvent e){
 //        System.out.println("a button was clicked");
@@ -69,8 +70,18 @@ public class Maintenance_Request {
         stage.close();
     }
 
-    public void initController(TestingController testingController){
+    void initController(TestingController testingController){
         this.testingController = testingController;
+    }
+    void initController(TestingController testingController, Coordinate coordinate){
+        this.testingController = testingController;
+        this.coordinate = coordinate;
+        DestinationField.setText(coordinate.toString());
+    }
+    public void selectLocationHandler(){
+        testingController.setSelectingLocationState("Maintenance");
+        Stage stage = (Stage) btnSelectLocation.getScene().getWindow();
+        stage.close();
     }
     // End of class
 }

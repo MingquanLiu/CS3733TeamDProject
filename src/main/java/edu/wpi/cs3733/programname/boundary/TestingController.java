@@ -5,10 +5,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.Employee;
-import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import javafx.animation.FadeTransition;
@@ -199,7 +196,7 @@ public class TestingController extends UIController implements Initializable {
     private boolean loggedIn;
     private Employee employeeLoggedIn;
     private NodeData lastShowNodeData = null;
-    private Coordinate SRSelectCoord = null;
+    private String SRSelectType = null;
 
     private PathfindingController.searchType mSearchType= ASTAR;
 
@@ -395,16 +392,22 @@ public class TestingController extends UIController implements Initializable {
     private int DBCToUIC(int value, double scale){
         return (int)(value*scale);
     }
-    public void mouseClickHandler(MouseEvent e){
+    public void mouseClickHandler(MouseEvent e) throws IOException {
         int x = (int)e.getX();
         int y =(int)e.getY();
-        List<NodeData> mList = getNodeByVisibility(currentNodes,true);
-        NodeData mNode=getClosestNode(mList,x,y);
+        if(!selectingLocation.equals("selectSRLocation")) {
+            List<NodeData> mList = getNodeByVisibility(currentNodes, true);
+            NodeData mNode = getClosestNode(mList, x, y);
 //        if(lastShowNodeData!=null)lastShowNodeData.setImageVisible(false);
 //        mNode.setImageVisible(true);
 //        lastShowNodeData = mNode;
-        if(mNode!=null)
-        showNodeInfo(mNode);
+            if (mNode != null)
+                showNodeInfo(mNode);
+        }else{
+            System.out.println("In selectSRLocation"+SRSelectType);
+            popupSRWithCoord(new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale)),SRSelectType);
+            selectingLocation ="";
+        }
     }
     //hamburger handling
     public void openMenu(MouseEvent e){
@@ -703,6 +706,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        loader.<Transportation_Request>getController().initController(this);
         stage.show();
     }
 
@@ -718,6 +722,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        loader.<Interpreter_Request>getController().initController(this);
         stage.show();
     }
 
@@ -733,6 +738,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        loader.<Maintenance_Request>getController().initController(this);
         stage.show();
     }
 
@@ -754,7 +760,7 @@ public class TestingController extends UIController implements Initializable {
     }
 
     @Override
-    public void passNodeData(NodeData nodeData) {
+    public void passNodeData(NodeData nodeData) throws IOException {
         switch (selectingLocation){
             case "":
                 clearNodes();
@@ -783,7 +789,9 @@ public class TestingController extends UIController implements Initializable {
                 selectingLocation = "";
                 break;
             case "selectSRLocation":
-                ;
+                popupSRWithCoord(nodeData.getLocation(),SRSelectType);
+                SRSelectType = null;
+                selectingLocation = "";
                 break;
         }
     }
@@ -793,8 +801,60 @@ public class TestingController extends UIController implements Initializable {
 
     }
 
-    public void changeSelectingLocationState(){
+    public void setSelectingLocationState(String SRType){
         selectingLocation = "selectSRLocation";
+        this.SRSelectType = SRType;
+    }
+
+    public void popupSRWithCoord(Coordinate coordinate,String SRType) throws IOException {
+        switch (SRType){
+            case "Interpreter":
+                System.out.println("In Interpreter");
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource(
+                                "/fxml/Interpreter_Request_UI.fxml"
+                        )
+                );
+                Stage stage = new Stage(StageStyle.DECORATED);
+                stage.setScene(
+                        new Scene(
+                                (Pane) loader.load()
+                        )
+                );
+                loader.<Interpreter_Request>getController().initController(this,coordinate);
+                stage.show();
+                break;
+            case "Maintenance":
+                loader = new FXMLLoader(
+                        getClass().getResource(
+                                "/fxml/Maintenance_Request_UI.fxml"
+                        )
+                );
+                stage = new Stage(StageStyle.DECORATED);
+                stage.setScene(
+                        new Scene(
+                                (Pane) loader.load()
+                        )
+                );
+                loader.<Maintenance_Request>getController().initController(this,coordinate);
+                stage.show();
+                break;
+            case "Transportation":
+                loader = new FXMLLoader(
+                        getClass().getResource(
+                                "/fxml/Transportation_Request_UI.fxml"
+                        )
+                );
+                stage = new Stage(StageStyle.DECORATED);
+                stage.setScene(
+                        new Scene(
+                                (Pane) loader.load()
+                        )
+                );
+                loader.<Transportation_Request>getController().initController(this,coordinate);
+                stage.show();
+                break;
+        }
     }
 
 
