@@ -389,7 +389,7 @@ public class TestingController extends UIController implements Initializable {
         comboBuilding.setItems(buildingList);
 
         setBuilding(hospital);
-        setFloor(floor2);
+        //setFloor(floor2);
 
 
         //create big grid
@@ -650,7 +650,6 @@ public class TestingController extends UIController implements Initializable {
 //        try {
         comboFloors.setItems(floorList);
         comboFloors.setValue(floorList.get(0));
-        setFloor(newBld.getFloors().get(0));
         setFloor((Floor) floorList.get(0));
 //        } catch (Exception e) {
 //            System.out.println("SCREAM");
