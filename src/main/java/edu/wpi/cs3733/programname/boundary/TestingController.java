@@ -929,7 +929,7 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
-    public void TransportRequestHandler()throws IOException {
+    public void transportRequestHandler()throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Transportation_Request_UI.fxml"
@@ -944,7 +944,7 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
-    public void InterpreterRequestHandler()throws IOException {
+    public void interpreterRequestHandler()throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Interpreter_Request_UI.fxml"
@@ -959,7 +959,7 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
-    public void MaintenanceRequestHandler()throws IOException {
+    public void maintenanceRequestHandler()throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Maintenance_Request_UI.fxml"
