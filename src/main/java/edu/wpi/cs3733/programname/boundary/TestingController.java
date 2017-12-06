@@ -300,6 +300,7 @@ public class TestingController extends UIController implements Initializable {
     private String SRSelectType = null;
 
     private PathfindingController.searchType mSearchType = ASTAR;
+    int timesCalled = 0;
 
     //this runs on startup
     @Override
@@ -364,7 +365,7 @@ public class TestingController extends UIController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
-        Building hospital = new Building("45 Francis");
+        Building hospital = new Building("Hospital");
         hospital.addAllFloors(basicFloors);
 
         floors.addAll(hospital.getFloors());
@@ -649,6 +650,8 @@ public class TestingController extends UIController implements Initializable {
         displayPath(currentPath);
         comboLocations.setValue("None");
         previousDropDownState = "";
+        timesCalled++;
+        System.out.println(timesCalled);
     }
 
     public void mouseClickHandler(MouseEvent e) throws IOException {
