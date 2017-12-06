@@ -207,6 +207,9 @@ public class TestingController extends UIController implements Initializable {
     private Label txtAreaDirections;
     //</editor-fold>
 
+    //about page stuff
+    @FXML
+    private JFXButton aboutBtn;
     //items for key locations fancy feature
     @FXML
     private TitledPane keyLocation;
@@ -984,6 +987,7 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
+
     public void closeNodeInfoHandler() {
         nodeInfoPane.setVisible(false);
         nodeInfoLongName.setText("");
@@ -1008,7 +1012,8 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
-    public void aboutButtonHandler() throws IOException {
+    public void aboutButtonHandler() throws IOException{
+        System.out.print("In About Page");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/About_Popup.fxml"
@@ -1022,6 +1027,7 @@ public class TestingController extends UIController implements Initializable {
         );
         stage.show();
     }
+
 
     public void transportRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
