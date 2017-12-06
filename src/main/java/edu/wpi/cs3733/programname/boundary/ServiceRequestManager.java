@@ -117,12 +117,12 @@ public class ServiceRequestManager {
         }
         else if (currVisible == "assigned") {
             int index = listAssigned.getSelectionModel().getSelectedIndex();
-            ServiceRequest requestToDelete = currUnassigned.get(index);
+            ServiceRequest requestToDelete = currAssigned.get(index);
             manager.deleteServiceRequest(requestToDelete);
         }
         else if (currVisible == "complete") {
             int index = listAssigned.getSelectionModel().getSelectedIndex();
-            ServiceRequest requestToDelete = currUnassigned.get(index);
+            ServiceRequest requestToDelete = currCompleted.get(index);
             manager.deleteServiceRequest(requestToDelete);
         }
         updateCurrentView();

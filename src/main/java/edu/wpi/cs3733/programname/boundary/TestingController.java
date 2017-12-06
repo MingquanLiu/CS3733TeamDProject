@@ -6,7 +6,11 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.boundary.observers.AbsObserver;
+import edu.wpi.cs3733.programname.boundary.observers.MapObserver;
+import edu.wpi.cs3733.programname.boundary.observers.RequestObserver;
 import edu.wpi.cs3733.programname.commondata.*;
+import edu.wpi.cs3733.programname.database.DbObservable;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
@@ -238,6 +242,10 @@ public class TestingController extends UIController implements Initializable {
     @FXML
     private JFXCheckBox locateAllLocations;
 
+    @FXML
+    private Label lblCrossFloor;
+
+
     private String previousDropDownState = "";
     // Handicapped checkbox
     //<editor-fold desc="handicapped">
@@ -259,6 +267,7 @@ public class TestingController extends UIController implements Initializable {
     private List<Shape> pathDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
+
     private List<NodeData> currentNodes = new ArrayList<>();
     //</editor-fold>
 
@@ -295,6 +304,10 @@ public class TestingController extends UIController implements Initializable {
     private String SRSelectType = null;
 
     private PathfindingController.searchType mSearchType = ASTAR;
+    int timesCalled = 0;
+
+    private MapObserver mapObserver;
+    private RequestObserver requestObserver;
 
     //this runs on startup
     @Override
@@ -359,7 +372,7 @@ public class TestingController extends UIController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
-        Building hospital = new Building("45 Francis");
+        Building hospital = new Building("Hospital");
         hospital.addAllFloors(basicFloors);
 
         floors.addAll(hospital.getFloors());
@@ -424,8 +437,16 @@ public class TestingController extends UIController implements Initializable {
         grid.setLayoutY(10);
         content.getChildren().add(grid);
 
-        paneControls.setPickOnBounds(false);
+        ArrayList<AbsObserver> observerList = new ArrayList<>();
+        requestObserver = new RequestObserver(this);
+        observerList.add(requestObserver);
+        mapObserver = new MapObserver(this);
+        observerList.add(mapObserver);
+        manager.initializeObservable(observerList);
 
+        lblCrossFloor.setVisible(false);
+
+        paneControls.setPickOnBounds(false);
     }
 
     public void setSearchType(PathfindingController.searchType searchType) {
@@ -501,16 +522,49 @@ public class TestingController extends UIController implements Initializable {
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
+
+                //prints correct floor on elevator edges
                 if (n.getNodeType().equals("ELEV")) {
-                    if (path.get(i+1).getNodeType().equals("ELEV") && i != path.size() -1) {
-
+                    if (i != path.size() -1) {
+                        String printFloor = "";
+                        NodeData nextNode = path.get(i+1);
+                        if (nextNode.getNodeType().equals("ELEV")) {
+                            for(int j = 1; j < path.size() - i; j++) {
+                                nextNode = path.get(i+j);
+                                if (!nextNode.getNodeType().equals("ELEV")){
+                                    printFloor = nextNode.getFloor();
+                                } else if (nextNode.equals(n)) {
+                                    printFloor = nextNode.getFloor();
+                                }
+                            }
+                        }
+                        lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
+                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
+                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
+                        lblCrossFloor.setVisible(true);
+                        }
                     }
-                }
+                //prints correct floor on stair edges
                 if (n.getNodeType().equals("STAI")) {
-                    if (path.get(i+1).getNodeType().equals("STAI") && i != path.size() -1) {
-
+                    if (i != path.size() -1) {
+                        String printFloor = "";
+                        NodeData nextNode = path.get(i+1);
+                        if (nextNode.getNodeType().equals("STAI")) {
+                            for(int j = 1; j < path.size() - i; j++) {
+                                nextNode = path.get(i+j);
+                                if (!nextNode.getNodeType().equals("STAI")){
+                                    printFloor = nextNode.getFloor();
+                                } else if (nextNode.equals(n)) {
+                                    printFloor = nextNode.getFloor();
+                                }
+                            }
+                        }
+                            lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
+                            lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
+                            lblCrossFloor.setVisible(true);
+                        }
                     }
-                }
+
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
                     l.setStrokeWidth(5.0 * currentScale);
@@ -530,6 +584,7 @@ public class TestingController extends UIController implements Initializable {
 
     public void clearMain() {
         clearPath();
+        lblCrossFloor.setVisible(false);
         closeNodeInfoHandler();
         clearPathFindLoc();
         //lastShowNodeData.setImageVisible(false);
@@ -587,7 +642,8 @@ public class TestingController extends UIController implements Initializable {
     }
 
     public void setFloor() {
-
+        //TODO add changing of displayed nodes
+        lblCrossFloor.setVisible(false);
         currentFloor = (Floor) (comboFloors.getValue());
         floor = floors.indexOf(currentFloor) - 2;
         System.out.println("floor: " + floor);
@@ -607,6 +663,8 @@ public class TestingController extends UIController implements Initializable {
         displayPath(currentPath);
         comboLocations.setValue("None");
         previousDropDownState = "";
+        timesCalled++;
+        System.out.println(timesCalled);
     }
 
     public void mouseClickHandler(MouseEvent e) throws IOException {
@@ -986,6 +1044,24 @@ public class TestingController extends UIController implements Initializable {
                 )
         );
         loader.<ServiceRequestManager>getController().initManager(manager);
+        stage.show();
+    }
+
+    public void viewMyRequestsHandler() throws IOException {
+        System.out.println("In open admin handler");
+        //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employee_request_handler.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<EmployeeRequestHandlerController>getController().initialize(manager, employeeLoggedIn);
         stage.show();
     }
 

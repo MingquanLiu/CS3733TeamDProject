@@ -250,7 +250,7 @@ public class MapAdminController extends UIController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
-        Building hospital = new Building("45 Francis");
+        Building hospital = new Building("Hospital");
         System.out.println("before adding floors: " + hospital.getFloors());
         hospital.addAllFloors(basicFloors);
         System.out.println("after adding floors: " + hospital.getFloors());
@@ -258,7 +258,7 @@ public class MapAdminController extends UIController implements Initializable {
         floors.addAll(hospital.getFloors());
         System.out.println("current floors: " + floors);
 
-        buildings.add(hospital);
+        //buildings.add(hospital);
 
         floor = 4;
 
@@ -408,7 +408,7 @@ public class MapAdminController extends UIController implements Initializable {
     private NodeData getNode(String nodeID) {
         for (NodeData nodeData : currentNodes) {
             if (nodeData.getNodeID().equals(nodeID)) {
-                if (floors.get(floor + 2).getFloorName().equals(currentFloor.getFloorName()) && currentFloor.getBuilding().equals(floors.get(floor + 2).getBuilding())) {
+                if (floors.get(floor + 2).getFloorName().equals(currentFloor.getFloorName()) && floors.get(floor + 2).getBuilding().equals(currentFloor.getBuilding())) {
                     return nodeData;
                 } else {
                     return null;
@@ -909,6 +909,7 @@ public class MapAdminController extends UIController implements Initializable {
                 bldgs.add(b);
         }
         comboBuilding.setItems(bldgs);
+        setBuilding((Building) bldgs.get(0));
     }
 
     public void allNodeButtonHandler(ActionEvent event){
