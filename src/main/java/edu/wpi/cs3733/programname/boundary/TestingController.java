@@ -281,7 +281,6 @@ public class TestingController extends UIController implements Initializable {
     //<editor-fold desc="zooming/panning">
     private double currentScale;
     private final double MAX_UI_WIDTH = 5000;
-    final private int originalMapRatioIndex = 3;
     //</editor-fold>
 
     //<editor-fold desc="map change">
@@ -298,7 +297,6 @@ public class TestingController extends UIController implements Initializable {
     //<editor-fold desc="node info">
     private String selectingLocation = "";
     private ArrayList<Double> mapRatio = new ArrayList<>();
-    private int currentMapRatioIndex;
     private boolean loggedIn;
     private String userName = null;
     private Employee employeeLoggedIn;
@@ -308,7 +306,6 @@ public class TestingController extends UIController implements Initializable {
     private boolean logOffNext = false;
     private String SRSelectType = null;
 
-    private PathfindingController.searchType mSearchType = ASTAR;
     int timesCalled = 0;
 
     private MapObserver mapObserver;
@@ -320,7 +317,6 @@ public class TestingController extends UIController implements Initializable {
     }
 
     public void initManager(ManageController manageController) {
-        currentMapRatioIndex = originalMapRatioIndex;
         manager = manageController;
 //        mapRatio.add(0.24);
         paneAdminFeatures.setVisible(false);
@@ -338,7 +334,7 @@ public class TestingController extends UIController implements Initializable {
         controlsTransition.setFromValue(0);
         controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
-        currentScale = mapRatio.get(currentMapRatioIndex);
+        currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
 //        allNodes = manageController.queryNodeByFloor(convertFloor(floor));
 //        allNodes = manageController.getAllNodeData();
@@ -455,8 +451,7 @@ public class TestingController extends UIController implements Initializable {
     }
 
     public void setSearchType(PathfindingController.searchType searchType) {
-        System.out.println(currentMapRatioIndex);
-        this.mSearchType = searchType;
+        AppSettings.getInstance().setSearchType(searchType);
     }
 
     //topmost methods are newest
@@ -860,18 +855,18 @@ public class TestingController extends UIController implements Initializable {
     //map zooming method
     public void zoomHandler(ActionEvent e) {
         if (e.getSource() == btnZoomOut) {
-            if (currentMapRatioIndex == 0) {
+            if (AppSettings.getInstance().getMapRatioIndex() == 0) {
                 return;
             }
-            currentMapRatioIndex -= 1;
-            currentScale = mapRatio.get(currentMapRatioIndex);
+            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() - 1);
+            currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
             imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         } else {
-            if (currentMapRatioIndex == (mapRatio.size() - 1)) {
+            if (AppSettings.getInstance().getMapRatioIndex() == (mapRatio.size() - 1)) {
                 return;
             }
-            currentMapRatioIndex += 1;
-            currentScale = mapRatio.get(currentMapRatioIndex);
+            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() + 1);
+            currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
             imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         }
 
@@ -897,8 +892,7 @@ public class TestingController extends UIController implements Initializable {
     public void goButtonHandler() {
         System.out.println("drawing path");
         try {
-            System.out.println(mSearchType);
-            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), mSearchType, this.handicap.isSelected());
+            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), this.handicap.isSelected());
         } catch (InvalidNodeException ine) {
             currentPath = new ArrayList<>();
         } catch (NoPathException np) {
@@ -1189,7 +1183,13 @@ public class TestingController extends UIController implements Initializable {
 
     // Turn the handicapped path restriction on or off
     public void toggleHandicap() {
-//        this.goButtonHandler();
+        if (handicap.isSelected()) {
+            handicap.setSelected(false);
+            AppSettings.getInstance().setHandicapPath(false);
+        } else {
+            handicap.setSelected(true);
+            AppSettings.getInstance().setHandicapPath(true);
+        }
     }
 
     @Override

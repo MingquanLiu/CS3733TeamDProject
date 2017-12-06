@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.pathfind;
 
+import edu.wpi.cs3733.programname.commondata.AppSettings;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.pathfind.entity.*;
@@ -25,11 +26,14 @@ public class PathfindingController {
      * @return - result is the list of nodes efficiently connecting startNode to endNode
      */
     public List<NodeData> initializePathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
-                                             String endNode, Boolean handicapped, searchType type)
+                                             String endNode)
             throws InvalidNodeException {
+        if (AppSettings.getInstance().isHandicapPath()) {
+            allEdges = filterPath (allEdges);
+        }
 
         try {
-            switch(type) {
+            switch(AppSettings.getInstance().getSearchType()) {
                 case ASTAR:
                     pathFinder = new AStar(allNodes, allEdges, startNode, endNode);
                     return pathFinder.getFinalList();
