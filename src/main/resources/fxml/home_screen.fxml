@@ -146,7 +146,7 @@
                                 <JFXButton fx:id="btnMapEdit" buttonType="RAISED" maxWidth="150.0" onAction="#mapEditHandler" text="Map Edit" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                                 <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="1" />
                                 <Line endX="100.0" opacity="0.1" startX="-100.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                        <JFXButton fx:id="manageEmployee" buttonType="RAISED" onAction="#employeeButtonHandler" text="Employee Manaher" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                        <JFXButton fx:id="manageEmployee" buttonType="RAISED" onAction="#employeeButtonHandler" text="Employee Manager" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
                         <JFXButton fx:id="viewMyTasks" buttonType="RAISED" onAction="#employeeRequestHandler" text="View My Tasks" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
                             </children>
                         </GridPane>
@@ -182,7 +182,7 @@
                 </GridPane>
                 <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                 <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
-            <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="94.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="56.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
+            <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
             <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
             </children>
         </AnchorPane>
