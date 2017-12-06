@@ -39,14 +39,17 @@ public class ServiceRequest {
     // short constructor
     public ServiceRequest(int serviceID, String sender, String serviceType, String location1,
                           String location2, String description, int severity) {
+        Date requestTimeDate = new Date();
+        long id = requestTimeDate.getTime();
+        String parseLongToInt = ""+id;
+        parseLongToInt.substring(0,8);
         this.serviceID = serviceID;
         this.sender = sender;
         this.serviceType = serviceType;
         this.location1 = location1;
         this.location2 = location2;
         this.description = description;
-        Date date = new Date();
-        this.requestTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(date.getTime()));
+        this.requestTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(requestTimeDate.getTime()));
         this.handleTime = "";
         this.completionTime = "";
         this.status = "unhandled";

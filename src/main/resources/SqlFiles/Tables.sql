@@ -62,7 +62,7 @@ CREATE TABLE Employees(
 
 
 CREATE TABLE ServiceRequests(
-    serviceID Integer,
+    serviceID INTEGER,
     sender VARCHAR(15),
     receiver VARCHAR(15),
     serviceType VARCHAR(25),
@@ -79,7 +79,7 @@ CREATE TABLE ServiceRequests(
           REFERENCES Employees (username) ON DELETE CASCADE,
     CONSTRAINT ServiceRequests_FK2 FOREIGN KEY (location1)
           REFERENCES Nodes (nodeID) ON DELETE CASCADE,
-    CONSTRAINT MaintenanceRequests_severityVal CHECK (severity > 0 AND severity < 6)
+    CONSTRAINT ServiceRequests_severityVal CHECK (severity > 0 AND severity < 6)
 );
 
 CREATE TABLE InterpreterSkills(

@@ -283,7 +283,7 @@ public class CsvReader {
 
                     //for each entry in the interpreter db for this employee,
                     //add that entry's language to this employee
-                    for (String[] data: interpreterInfo) {
+                    for (String[] data: interpreterEmployeeInfo) {
                         if(data[0].equals(values[0])){
                             languages.add(data[1]);
                         }
@@ -293,7 +293,7 @@ public class CsvReader {
                 } else if (values[6].equals(Constants.MAINTENANCE_REQUEST)) {
                     ArrayList<String> skills = new ArrayList<>();
 
-                    for(String[] data: maintenanceInfo) {
+                    for(String[] data: maintenanceEmployeeInfo) {
                         if(data[0].equals(values[0])) {
                             skills.add(data[1]);
                             break;
