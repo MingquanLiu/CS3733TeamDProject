@@ -6,10 +6,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.Employee;
-import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
@@ -288,8 +285,8 @@ public class TestingController extends UIController implements Initializable {
     private List<Shape> shownNodes = new ArrayList<>();
     //</editor-fold>
     private NodeData lastShowNodeData = null;
-
     private boolean logOffNext = false;
+    private String SRSelectType = null;
 
     private PathfindingController.searchType mSearchType= ASTAR;
 
@@ -633,16 +630,22 @@ public class TestingController extends UIController implements Initializable {
     private int DBCToUIC(int value, double scale) {
         return (int) (value * scale);
     }
-    public void mouseClickHandler(MouseEvent e){
+    public void mouseClickHandler(MouseEvent e) throws IOException {
         int x = (int)e.getX();
         int y =(int)e.getY();
-        List<NodeData> mList = getNodeByVisibility(currentNodes,true);
-        NodeData mNode=getClosestNode(mList,x,y);
+        if(!selectingLocation.equals("selectSRLocation")) {
+            List<NodeData> mList = getNodeByVisibility(currentNodes, true);
+            NodeData mNode = getClosestNode(mList, x, y);
 //        if(lastShowNodeData!=null)lastShowNodeData.setImageVisible(false);
 //        mNode.setImageVisible(true);
 //        lastShowNodeData = mNode;
-        if(mNode!=null)
-        showNodeInfo(mNode);
+            if (mNode != null)
+                showNodeInfo(mNode);
+        }else{
+            System.out.println("In selectSRLocation"+SRSelectType);
+            popupSRWithCoord(getClosestNode(currentNodes,x,y),SRSelectType);
+            selectingLocation ="";
+        }
     }
 
     //hamburger handling
@@ -891,8 +894,7 @@ public class TestingController extends UIController implements Initializable {
             System.out.println("logging out");
             return;
         }
-
-        String username = "admin";
+        String username = "wwong2";
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Login_Popup.fxml"
@@ -1008,6 +1010,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        loader.<Transportation_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
         stage.show();
     }
 
@@ -1023,6 +1026,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        loader.<Interpreter_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
         stage.show();
     }
 
@@ -1038,6 +1042,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        loader.<Maintenance_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
         stage.show();
     }
 
@@ -1064,7 +1069,7 @@ public class TestingController extends UIController implements Initializable {
     }
 
     @Override
-    public void passNodeData(NodeData nodeData) {
+    public void passNodeData(NodeData nodeData) throws IOException {
         switch (selectingLocation){
             case "":
                 clearNodes();
@@ -1092,12 +1097,73 @@ public class TestingController extends UIController implements Initializable {
                 txtEndLocation.setText(nodeData.getNodeID());
                 selectingLocation = "";
                 break;
+            case "selectSRLocation":
+                popupSRWithCoord(nodeData,SRSelectType);
+                selectingLocation = "";
+                break;
         }
     }
 
     @Override
     public void passEdgeData(EdgeData edgeData) {
 
+    }
+
+    public void setSelectingLocationState(String SRType){
+        selectingLocation = "selectSRLocation";
+        this.SRSelectType = SRType;
+    }
+
+    public void popupSRWithCoord(NodeData nodeData,String SRType) throws IOException {
+        System.out.println("If in here"+SRType);
+        switch (SRType){
+            case "interpreter":
+                System.out.println("In Interpreter");
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource(
+                                "/fxml/Interpreter_Request_UI.fxml"
+                        )
+                );
+                Stage stage = new Stage(StageStyle.DECORATED);
+                stage.setScene(
+                        new Scene(
+                                (Pane) loader.load()
+                        )
+                );
+                loader.<Interpreter_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
+                stage.show();
+                break;
+            case "maintenance":
+                loader = new FXMLLoader(
+                        getClass().getResource(
+                                "/fxml/Maintenance_Request_UI.fxml"
+                        )
+                );
+                stage = new Stage(StageStyle.DECORATED);
+                stage.setScene(
+                        new Scene(
+                                (Pane) loader.load()
+                        )
+                );
+                loader.<Maintenance_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
+                stage.show();
+                break;
+            case "transportation":
+                loader = new FXMLLoader(
+                        getClass().getResource(
+                                "/fxml/Transportation_Request_UI.fxml"
+                        )
+                );
+                stage = new Stage(StageStyle.DECORATED);
+                stage.setScene(
+                        new Scene(
+                                (Pane) loader.load()
+                        )
+                );
+                loader.<Transportation_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
+                stage.show();
+                break;
+        }
     }
 
 

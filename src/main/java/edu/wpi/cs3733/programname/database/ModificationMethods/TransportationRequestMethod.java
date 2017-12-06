@@ -15,14 +15,14 @@ public class TransportationRequestMethod {
     }
 
     public void addTransportationRequest(TransportationRequest transportationRequest){
-        int serviceID = transportationRequest.getServiceID();
+        String serviceID = transportationRequest.getServiceID();
         String transportType = transportationRequest.getTransportType();
         String destination = transportationRequest.getDestination();
         String reservationTime = transportationRequest.getReservationTime();
 
         String str;
         try {
-            str = "INSERT INTO TransportationRequests values(" + serviceID + ",'" + transportType + "','"+ destination + "','" +reservationTime +"')";
+            str = "INSERT INTO TransportationRequests values('" + serviceID + "','" + transportType + "','"+ destination + "','" +reservationTime +"')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeTransportationRequests(dbConnection.getConnection());
@@ -33,10 +33,10 @@ public class TransportationRequestMethod {
     }
 
     public void deleteTransportationRequest(TransportationRequest transportationRequest){
-        int serviceID = transportationRequest.getServiceID();
+        String serviceID = transportationRequest.getServiceID();
         String str;
         try {
-            str ="delete from TransportationRequests where serviceID = " + serviceID ;
+            str ="delete from TransportationRequests where serviceID = '" + serviceID +"'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeTransportationRequests(dbConnection.getConnection());

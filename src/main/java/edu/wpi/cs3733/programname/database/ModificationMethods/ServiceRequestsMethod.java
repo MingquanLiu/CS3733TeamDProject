@@ -18,7 +18,7 @@ public class ServiceRequestsMethod {
         this.wrt = new CsvWriter();}
 
     public void addServiceRequest(ServiceRequest serviceRequest){
-        int serviceID = serviceRequest.getServiceID();
+        String serviceID = serviceRequest.getServiceID();
         String senderUsername = serviceRequest.getSender();
         String serviceType = serviceRequest.getServiceType();
         String node1ID = serviceRequest.getLocation1();
@@ -32,7 +32,7 @@ public class ServiceRequestsMethod {
         int severity = serviceRequest.getSeverity();
         String str;
         try {
-            str = "INSERT INTO ServiceRequests values(" + serviceID + ",'" + senderUsername + "', '" + receiverUsername + "','" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
+            str = "INSERT INTO ServiceRequests values('" + serviceID + "','" + senderUsername + "', '" + receiverUsername + "','" + serviceType + "', '" + node1ID +  "', '" + node2ID + "', '" + description +
                     "', '" + requestTime + "','" + handleTime + "', '" + completionTime + "','"+ status + "'," + severity + ")";
             System.out.println(str);
             dbConnection.executeUpdate(str);
@@ -45,10 +45,10 @@ public class ServiceRequestsMethod {
 
     // mark a service request as unhandled
     public void unhandleServiceRequest(ServiceRequest serviceRequest) {
-        int serviceID = serviceRequest.getServiceID();
+        String serviceID = serviceRequest.getServiceID();
         String str;
         try {
-            str = "update ServiceRequests set handleTime = '', status = 'unhandled', receiver = '' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set handleTime = '', status = 'unhandled', receiver = '' where serviceID = '" + serviceID +"'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeServiceRequests(dbConnection.getConnection());
@@ -62,13 +62,13 @@ public class ServiceRequestsMethod {
 
     // mark a service request as handled
     public void handleServiceRequest(ServiceRequest serviceRequest, String receiver) {
-        int serviceID = serviceRequest.getServiceID();
+        String serviceID = serviceRequest.getServiceID();
         Date date = new Date();
         String handleTime;// = new Timestamp(date.getTime());
         handleTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(date.getTime()));
         String str;
         try {
-            str = "update ServiceRequests set handleTime = '"+ handleTime +"', status = 'handled', receiver = '"+ receiver +"' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set handleTime = '"+ handleTime +"', status = 'handled', receiver = '"+ receiver +"' where serviceID = '" + serviceID +"'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeServiceRequests(dbConnection.getConnection());
@@ -81,13 +81,13 @@ public class ServiceRequestsMethod {
 
     // mark a service request as completed
     public void completeServiceRequest(ServiceRequest serviceRequest) {
-        int serviceID = serviceRequest.getServiceID();
+        String serviceID = serviceRequest.getServiceID();
         Date date = new Date();
         String completionTime;// = new Timestamp(date.getTime());
         completionTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(date.getTime()));
         String str;
         try {
-            str = "update ServiceRequests set completionTime = '"+ completionTime +"', status = 'completed' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set completionTime = '"+ completionTime +"', status = 'completed' where serviceID = '" + serviceID +"'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeServiceRequests(dbConnection.getConnection());
@@ -100,10 +100,10 @@ public class ServiceRequestsMethod {
 
     // mark a service request as removed
     public void removeServiceRequest(ServiceRequest serviceRequest) {
-        int serviceID = serviceRequest.getServiceID();
+        String serviceID = serviceRequest.getServiceID();
         String str;
         try {
-            str = "update ServiceRequests set status = 'removed' where serviceID = " + serviceID ;
+            str = "update ServiceRequests set status = 'removed' where serviceID = " + serviceID +"'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeServiceRequests(dbConnection.getConnection());
@@ -117,10 +117,10 @@ public class ServiceRequestsMethod {
 
     // delete a service request from database
     public void deleteServiceRequest(ServiceRequest serviceRequest){
-        int serviceID = serviceRequest.getServiceID();
+        String serviceID = serviceRequest.getServiceID();
         String str;
         try {
-            str ="delete from ServiceRequests where serviceID = " + serviceID ;
+            str ="delete from ServiceRequests where serviceID = '" + serviceID +"'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeServiceRequests(dbConnection.getConnection());

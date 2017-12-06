@@ -30,7 +30,7 @@ public class ServiceRequestsQuery {
             String sql = "SELECT * FROM ServiceRequests";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
-            int serviceID;
+            String serviceID;
             String senderUsername;
             String serviceType;
             String node1ID;
@@ -48,7 +48,7 @@ public class ServiceRequestsQuery {
             String destination;
 
             while(result.next()) {
-                serviceID = result.getInt("serviceID");
+                serviceID = result.getString("serviceID");
                 senderUsername = result.getString("sender");
                 serviceType = result.getString("serviceType");
                 node1ID = result.getString("location1");
@@ -98,7 +98,7 @@ public class ServiceRequestsQuery {
             String sql = "SELECT * FROM ServiceRequests WHERE status = '" + status + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
-            int serviceID;
+            String serviceID;
             String senderUsername;
             String serviceType;
             String node1ID;
@@ -115,7 +115,7 @@ public class ServiceRequestsQuery {
             String destination;
 
             while(result.next()) {
-                serviceID = result.getInt("serviceID");
+                serviceID = result.getString("serviceID");
                 senderUsername = result.getString("sender");
                 serviceType = result.getString("serviceType");
                 node1ID = result.getString("location1");
@@ -162,7 +162,7 @@ public class ServiceRequestsQuery {
             String sql = "SELECT * FROM ServiceRequests WHERE serviceType = '" + serviceType + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
-            int serviceID;
+            String serviceID;
             String senderUsername;
             //String serviceType;
             String node1ID;
@@ -180,7 +180,7 @@ public class ServiceRequestsQuery {
             String destination;
 
             while(result.next()) {
-                serviceID = result.getInt("serviceID");
+                serviceID = result.getString("serviceID");
                 senderUsername = result.getString("sender");
                 node1ID = result.getString("location1");
                 node2ID = result.getString("location2");
@@ -220,10 +220,10 @@ public class ServiceRequestsQuery {
         return resultList;
     }
 
-    public ServiceRequest queryServiceRequestsByID(int serviceID){
+    public ServiceRequest queryServiceRequestsByID(String serviceID){
         ServiceRequest queryResult = null;
         try {
-            String sql = "SELECT * FROM ServiceRequests WHERE serviceID = " + serviceID;
+            String sql = "SELECT * FROM ServiceRequests WHERE serviceID = '" + serviceID +"'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String senderUsername;
