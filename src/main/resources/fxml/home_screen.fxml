@@ -11,19 +11,17 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.TestingController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.TestingController">
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
@@ -105,6 +103,7 @@
                                 </AnchorPane>
                             </content>
                         </TitledPane>
+                  <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
                     </children>
                 </AnchorPane>
             </content>
@@ -170,7 +169,7 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </JFXCheckBox>
-                        <TitledPane fx:id="keyLocation" animated="false" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="165.0" style="-fx-background-color: white white white;" text="Key Locations" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                        <TitledPane fx:id="keyLocation" animated="false" expanded="false" maxWidth="-Infinity" minWidth="-Infinity" onDragDetected="#locateDropdownHandler" prefWidth="165.0" style="-fx-background-color: white white white;" text="Key Locations" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                             </content>

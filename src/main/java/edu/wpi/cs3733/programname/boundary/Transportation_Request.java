@@ -1,12 +1,10 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.database.DBConnection;
-import javafx.event.ActionEvent;
+import edu.wpi.cs3733.programname.commondata.NodeData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -28,8 +26,10 @@ public class Transportation_Request {
     private Button btnSelectLocation;
 
     private ManageController manager;
-
-    
+    private TestingController testingController;
+    private NodeData nodeData;
+    private String userName;
+    final String type = "transportation";
 
 //    public void buttonHandler(ActionEvent e){
 //        System.out.println("a button was clicked");
@@ -61,6 +61,9 @@ public class Transportation_Request {
         System.out.println("Severity: " + SeverityDropDown.getSelectionModel().getSelectedItem() );
         System.out.println("Location: " + DestinationField.getText() );
         System.out.println("Description: "     + DescriptionField.getText());
+        manager.createTransportationRequest(userName,TransportTypeDropdown.getSelectionModel().getSelectedItem().toString(),nodeData.getNodeID(),null,
+                DescriptionField.getText(),Integer.parseInt(SeverityDropDown.getSelectionModel().getSelectedItem().toString()),
+                TransportTypeDropdown.getSelectionModel().getSelectedItem().toString(),nodeData.getNodeID(),"5 am");
         Stage stage = (Stage) SubmitBtn.getScene().getWindow();
         stage.close();
     }
@@ -70,6 +73,24 @@ public class Transportation_Request {
 
     public void backButtonHandler() {
         Stage stage = (Stage) CancelBtn.getScene().getWindow();
+        stage.close();
+    }
+
+    void initController(ManageController manageController,TestingController testingController,String userName){
+        this.manager = manageController;
+        this.testingController = testingController;
+        this.userName = userName;
+    }
+    void initController(ManageController manageController,TestingController testingController, NodeData nodeData,String userName){
+        this.manager = manageController;
+        this.userName = userName;
+        this.testingController = testingController;
+        this.nodeData = nodeData;
+        DestinationField.setText(nodeData.getLocation().toString());
+    }
+    public void selectLocationHandler(){
+        testingController.setSelectingLocationState(type);
+        Stage stage = (Stage) btnSelectLocation.getScene().getWindow();
         stage.close();
     }
     // End of class

@@ -21,12 +21,11 @@ public class MaintenanceMethod {
         ArrayList<String> skills = employee.getMaintenanceType();
         String str;
         for(String skill: skills){
-            this.addMaintenanceSkill(employee,skill);
+            this.addMaintenanceSkill(username,skill);
         }
     }
 
-    public void addMaintenanceSkill(Maintenance employee, String skill){
-        String username = employee.getUsername();
+    public void addMaintenanceSkill(String username, String skill){
         String str;
         try {
             str = "insert into MaintenanceSkills values('" + username + "','" + skill + "')";
@@ -39,8 +38,7 @@ public class MaintenanceMethod {
         }
     }
 
-    public void removeMaintenanceSkill(Maintenance employee, String skill){
-        String username = employee.getUsername();
+    public void removeMaintenanceSkill(String username, String skill){
         String str;
         try {
             str = "DELETE FROM MaintenanceSkills WHERE username = '" + username + "' and skill ='" +skill+ "'";

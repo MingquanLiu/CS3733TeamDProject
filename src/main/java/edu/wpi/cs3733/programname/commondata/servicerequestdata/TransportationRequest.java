@@ -5,15 +5,15 @@ public class TransportationRequest extends ServiceRequest {
     String destination;
     String reservationTime;
 
-    public TransportationRequest(int serviceID, String sender, String serviceType, String location1, String location2,
+    public TransportationRequest(String sender, String serviceType, String location1, String location2,
                           String description, int severity, String transportType, String destination, String reservationTime){
-        super(serviceID, sender, serviceType, location1, location2, description, severity);
+        super(sender, serviceType, location1, location2, description, severity);
         this.transportType = transportType;
         this.destination = destination;
         this.reservationTime = reservationTime;
     }
 
-    public TransportationRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2,
+    public TransportationRequest(String serviceID, String sender, String receiver, String serviceType, String location1, String location2,
                           String description, String requestTime, String handleTime, String completionTime, String status,
                           int severity, String transportType, String destination, String reservationTime){
         super(serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime,status,severity);
@@ -68,5 +68,12 @@ public class TransportationRequest extends ServiceRequest {
         result = 31 * result + (getDestination() != null ? getDestination().hashCode() : 0);
         result = 31 * result + (getReservationTime() != null ? getReservationTime().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return System.lineSeparator()+"Transport Type:" + transportType + System.lineSeparator()+
+                "Destination:" + destination + System.lineSeparator()+
+                "Reservation Time:" + reservationTime +System.lineSeparator();
     }
 }

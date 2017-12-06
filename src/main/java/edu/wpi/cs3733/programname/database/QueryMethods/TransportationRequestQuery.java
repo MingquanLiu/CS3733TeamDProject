@@ -13,10 +13,10 @@ public class TransportationRequestQuery {
         this.dbConnection = dbConnection;
     }
 
-    public ArrayList<String> queryTransportationRequestByID(int serviceID){
+    public ArrayList<String> queryTransportationRequestByID(String serviceID){
         ArrayList<String> queryResult = new ArrayList<String>();
         try {
-            String sql = "SELECT * FROM TransportationRequests WHERE serviceID = " + serviceID;
+            String sql = "SELECT * FROM TransportationRequests WHERE serviceID = '" + serviceID +"'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String transportationType;

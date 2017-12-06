@@ -21,12 +21,11 @@ public class InterpreterMethod {
         ArrayList<String> languages = employee.getLanguages();
         String str;
         for(String language: languages){
-            this.addInterpreterLanguage(employee,language);
+            this.addInterpreterLanguage(username,language);
         }
     }
 
-    public void addInterpreterLanguage(Interpreter employee, String language){
-        String username = employee.getUsername();
+    public void addInterpreterLanguage(String username, String language){
         String str;
         try {
             str = "insert into InterpreterSkills values('" + username + "','" + language + "')";
@@ -39,8 +38,7 @@ public class InterpreterMethod {
         }
     }
 
-    public void removeInterpreterLanguage(Interpreter employee, String language){
-        String username = employee.getUsername();
+    public void removeInterpreterLanguage(String username, String language){
         String str;
         try {
             str = "DELETE FROM InterpreterSkills WHERE username = '" + username + "' and language ='" +language+ "'";
