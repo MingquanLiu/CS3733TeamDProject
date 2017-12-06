@@ -22,12 +22,11 @@
       <JFXComboBox fx:id="TransportTypeDropdown" layoutX="88.0" layoutY="89.0" onAction="#TransportationTypeHandler" prefHeight="27.0" prefWidth="165.0" promptText="             -Select-">
          <items>
             <FXCollections fx:factory="observableArrayList">
-               <String fx:value="Police Car" />
-               <String fx:value="Ambulance" />
-               <String fx:value="Helicopter" />
-               <String fx:value="WheelChair" />
-               <String fx:value="Crutches" />
-               <String fx:value="Time Machine" />
+               <String fx:value="wheelchair" />
+               <String fx:value="stretcher" />
+               <String fx:value="walking cane" />
+               <String fx:value="bed" />
+               <String fx:value="other" />
             </FXCollections>
          </items>
       </JFXComboBox>
