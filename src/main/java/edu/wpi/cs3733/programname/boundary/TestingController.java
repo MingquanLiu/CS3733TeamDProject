@@ -523,6 +523,27 @@ public class TestingController extends UIController implements Initializable {
                 Line l = new Line();
                 NodeData n = path.get(i);
 
+                if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
+                    NodeData nextNode = path.get(i+1);
+                    String printFloor = "";
+                    if((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
+                            (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))){
+                        for(int j = 1; j < path.size() - i; j++) {
+                            nextNode = path.get(i+j);
+                            if (!nextNode.getNodeType().equals("ELEV")){
+                                printFloor = n.getFloor();
+                            } else if (nextNode.equals(n)) {
+                                printFloor = n.getFloor();
+                            }
+                        }
+                        lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
+                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+                        lblCrossFloor.setVisible(true);
+                        lblCrossFloor.toFront();
+                    }
+                }
+                /*
                 //prints correct floor on elevator edges
                 if (n.getNodeType().equals("ELEV")) {
                     if (i != path.size() -1) {
@@ -564,7 +585,7 @@ public class TestingController extends UIController implements Initializable {
                             lblCrossFloor.setVisible(true);
                         }
                     }
-
+                */
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
                     l.setStrokeWidth(5.0 * currentScale);
