@@ -219,7 +219,7 @@ public class ManageController {
         List<ServiceRequest> allUnassignedReqs =  dbQueryController.queryServiceRequestsByStatus(Constants.UNASSIGNED_REQUEST);
         List<ServiceRequest> output = new ArrayList<>();
         for (ServiceRequest req: allUnassignedReqs) {
-            if(req.getServiceType() == type) {
+            if(req.getServiceType().equals(type)) {
                 output.add(req);
             }
         }
