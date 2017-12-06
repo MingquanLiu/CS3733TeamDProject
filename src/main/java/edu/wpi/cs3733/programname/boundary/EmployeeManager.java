@@ -341,9 +341,15 @@ public class EmployeeManager {
             listMySkills.getItems().clear();
             listAllSkills.getItems().clear();
             mySkills.clear();
-            if(employeeTypeString.equals("maintenance")) listAllSkills.getItems().addAll(maintenanceTypes);
-            else if(employeeTypeString.equals("interpreter")) listAllSkills.getItems().addAll(languages);
-            mySkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(skillsUsernameString));
+            if(employeeTypeString.equals("maintenance")) {
+                listAllSkills.getItems().addAll(maintenanceTypes);
+            }
+            else if(employeeTypeString.equals("interpreter")) {
+                listAllSkills.getItems().addAll(languages);
+                mySkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(skillsUsernameString));
+
+            }
+            System.out.println(mySkills);
             listMySkills.getItems().addAll(mySkills);
             labelUsername.setText(skillsUsernameString);
         } catch (NullPointerException npe) {
@@ -356,7 +362,7 @@ public class EmployeeManager {
     void addSkill(ActionEvent event) {
         String skill = listAllSkills.getSelectionModel().getSelectedItem();
         Employee currentUpdatedEmployee = manageController.queryEmployeeByUsername(skillsUsernameString);
-        if (currentUpdatedEmployee.getServiceType() == Constants.INTERPRETER_REQUEST) {
+        if (currentUpdatedEmployee.getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
             this.manageController.addLanguageToInterpreter(skillsUsernameString, skill);
         } else {
             this.manageController.addSkillToMaintenanceEmployee(skillsUsernameString, skill);
