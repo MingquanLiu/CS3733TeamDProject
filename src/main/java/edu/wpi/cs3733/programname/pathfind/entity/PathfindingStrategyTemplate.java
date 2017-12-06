@@ -3,6 +3,7 @@ package edu.wpi.cs3733.programname.pathfind.entity;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +51,7 @@ public abstract class PathfindingStrategyTemplate {
     public List<NodeData> getFinalList() throws NoPathException {
         this.init();
         finalList = this.pathFind();
-
+        Collections.reverse(finalList);
         return finalList;
     }
 
