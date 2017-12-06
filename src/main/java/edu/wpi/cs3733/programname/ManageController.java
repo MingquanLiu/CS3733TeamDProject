@@ -181,7 +181,7 @@ public class ManageController {
         return newServiceRequest;
     }
 
-    public MaintenanceRequest createInterpreterRequest(String requester, String type, String location1, String location2, String description, int severity, String maintenanceType){
+    public MaintenanceRequest createMaintenanceRequest(String requester, String type, String location1, String location2, String description, int severity, String maintenanceType){
         MaintenanceRequest newServiceRequest = new MaintenanceRequest(requester, type, location1, location2, description, severity, maintenanceType);
         dbModController.addServiceRequest(newServiceRequest);
         dbModController.addMaintenanceRequest(newServiceRequest);

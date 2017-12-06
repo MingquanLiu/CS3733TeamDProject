@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
+import edu.wpi.cs3733.programname.commondata.NodeData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -24,12 +24,12 @@ public class Maintenance_Request {
     private JFXTextField DestinationField;
     @FXML
     private Button btnSelectLocation;
-
+    private String type = "maintenance";
 
     private ManageController manager;
     private TestingController testingController;
-    private Coordinate coordinate;
-
+    private NodeData nodeData;
+    private String userName;
 //    public void buttonHandler(ActionEvent e){
 //        System.out.println("a button was clicked");
 //        if(e.getSource() == SubmitBtn){
@@ -61,6 +61,8 @@ public class Maintenance_Request {
         System.out.println("Severity: " + SeverityDropDown.getSelectionModel().getSelectedItem() );
         System.out.println("Location: " + DestinationField.getText() );
         System.out.println("Description: "     + DescriptionField.getText());
+        manager.createMaintenanceRequest(userName,type,nodeData.getNodeID(),null,DescriptionField.getText(),
+                Integer.parseInt(SeverityDropDown.getSelectionModel().getSelectedItem().toString()),TypeDropDown.getSelectionModel().getSelectedItem().toString());
         Stage stage = (Stage) SubmitBtn.getScene().getWindow();
         stage.close();
     }
@@ -70,16 +72,20 @@ public class Maintenance_Request {
         stage.close();
     }
 
-    void initController(TestingController testingController){
+    void initController(ManageController manageController,TestingController testingController,String userName){
+        this.manager = manageController;
         this.testingController = testingController;
+        this.userName = userName;
     }
-    void initController(TestingController testingController, Coordinate coordinate){
+    void initController(ManageController manageController,TestingController testingController, NodeData nodeData,String userName){
+        this.manager = manageController;
+        this.userName = userName;
         this.testingController = testingController;
-        this.coordinate = coordinate;
-        DestinationField.setText(coordinate.toString());
+        this.nodeData = nodeData;
+        DestinationField.setText(nodeData.getLocation().toString());
     }
     public void selectLocationHandler(){
-        testingController.setSelectingLocationState("Maintenance");
+        testingController.setSelectingLocationState(type);
         Stage stage = (Stage) btnSelectLocation.getScene().getWindow();
         stage.close();
     }

@@ -41,6 +41,7 @@ public class ServiceRequest {
                           String location2, String description, int severity) {
         Date requestTimeDate = new Date();
         Long id = requestTimeDate.getTime();
+        System.out.println("Id "+id);
         this.serviceID = id.toString();
         this.sender = sender;
         this.serviceType = serviceType;

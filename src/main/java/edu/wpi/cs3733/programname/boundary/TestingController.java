@@ -405,7 +405,7 @@ public class TestingController extends UIController implements Initializable {
                 showNodeInfo(mNode);
         }else{
             System.out.println("In selectSRLocation"+SRSelectType);
-            popupSRWithCoord(new Coordinate(UICToDBC(x,currentScale),UICToDBC(y,currentScale)),SRSelectType);
+            popupSRWithCoord(getClosestNode(currentNodes,x,y),SRSelectType);
             selectingLocation ="";
         }
     }
@@ -555,7 +555,7 @@ public class TestingController extends UIController implements Initializable {
     }
 
     public void loginButtonHandler() throws IOException {
-        String username = "admin";
+        String username = "wwong2";
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Login_Popup.fxml"
@@ -706,7 +706,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<Transportation_Request>getController().initController(this);
+        loader.<Transportation_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
         stage.show();
     }
 
@@ -722,7 +722,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<Interpreter_Request>getController().initController(this);
+        loader.<Interpreter_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
         stage.show();
     }
 
@@ -738,7 +738,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<Maintenance_Request>getController().initController(this);
+        loader.<Maintenance_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
         stage.show();
     }
 
@@ -789,8 +789,7 @@ public class TestingController extends UIController implements Initializable {
                 selectingLocation = "";
                 break;
             case "selectSRLocation":
-                popupSRWithCoord(nodeData.getLocation(),SRSelectType);
-                SRSelectType = null;
+                popupSRWithCoord(nodeData,SRSelectType);
                 selectingLocation = "";
                 break;
         }
@@ -806,9 +805,10 @@ public class TestingController extends UIController implements Initializable {
         this.SRSelectType = SRType;
     }
 
-    public void popupSRWithCoord(Coordinate coordinate,String SRType) throws IOException {
+    public void popupSRWithCoord(NodeData nodeData,String SRType) throws IOException {
+        System.out.println("If in here"+SRType);
         switch (SRType){
-            case "Interpreter":
+            case "interpreter":
                 System.out.println("In Interpreter");
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource(
@@ -821,10 +821,10 @@ public class TestingController extends UIController implements Initializable {
                                 (Pane) loader.load()
                         )
                 );
-                loader.<Interpreter_Request>getController().initController(this,coordinate);
+                loader.<Interpreter_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
                 stage.show();
                 break;
-            case "Maintenance":
+            case "maintenance":
                 loader = new FXMLLoader(
                         getClass().getResource(
                                 "/fxml/Maintenance_Request_UI.fxml"
@@ -836,10 +836,10 @@ public class TestingController extends UIController implements Initializable {
                                 (Pane) loader.load()
                         )
                 );
-                loader.<Maintenance_Request>getController().initController(this,coordinate);
+                loader.<Maintenance_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
                 stage.show();
                 break;
-            case "Transportation":
+            case "transportation":
                 loader = new FXMLLoader(
                         getClass().getResource(
                                 "/fxml/Transportation_Request_UI.fxml"
@@ -851,7 +851,7 @@ public class TestingController extends UIController implements Initializable {
                                 (Pane) loader.load()
                         )
                 );
-                loader.<Transportation_Request>getController().initController(this,coordinate);
+                loader.<Transportation_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
                 stage.show();
                 break;
         }
