@@ -53,6 +53,7 @@ import static edu.wpi.cs3733.programname.commondata.Constants.*;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
+import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.BEAM;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 

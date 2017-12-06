@@ -258,6 +258,8 @@ public class MapAdminController extends UIController implements Initializable {
         floors.addAll(hospital.getFloors());
         System.out.println("current floors: " + floors);
 
+        ASTAR.setSelected(true);
+        //buildings.add(hospital);
         floor = 4;
 
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
@@ -698,6 +700,20 @@ public class MapAdminController extends UIController implements Initializable {
     public void nodeInfoXHandler() {
         nodeInfoPane.setVisible(false);
         clearNodeInfoText();
+    }
+
+    public ManageController getManager() {
+        return this.manager;
+    }
+
+    public void disablePaneScroll() {
+        this.paneScroll.setDisable(true);
+        this.panningPane.setDisable(true);
+    }
+
+    public void enablePaneScroll() {
+        this.paneScroll.setDisable(false);
+        this.panningPane.setDisable(false);
     }
 
     public void addHandler(ActionEvent event) {

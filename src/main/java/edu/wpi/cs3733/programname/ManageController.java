@@ -106,6 +106,7 @@ public class ManageController {
     }
 
     public void editNode(NodeData data) {
+        System.out.println("Updating node in DB **********");
         this.dbModController.editNode(data);
     }
 

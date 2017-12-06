@@ -19,7 +19,18 @@ public class MapAdminNodeDataObserver extends Observer {
     }
     @Override
     public void update() throws IOException {
-
         mapAdminController.passNodeData(nodeData);
+    }
+
+    public void updateNodeInDb() {
+        mapAdminController.getManager().editNode(nodeData);
+    }
+
+    public void disableScroll() {
+        mapAdminController.disablePaneScroll();
+    }
+
+    public void enableScroll() {
+        mapAdminController.enablePaneScroll();
     }
 }
