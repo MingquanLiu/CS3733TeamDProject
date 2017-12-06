@@ -125,6 +125,10 @@ public class MapAdminController implements Initializable {
     @FXML
     private JFXRadioButton ASTAR;
     @FXML
+    private JFXRadioButton BestFirst;
+    @FXML
+    private JFXRadioButton Beam;
+    @FXML
     private ToggleGroup pathfinding;
 
 
@@ -753,6 +757,12 @@ public class MapAdminController implements Initializable {
         }
         if (mEvent == ASTAR) {
             searchType = PathfindingController.searchType.ASTAR;
+        }
+        if (mEvent == Beam) {
+            searchType = PathfindingController.searchType.BEST;
+        }
+        if (mEvent == BestFirst) {
+            searchType = PathfindingController.searchType.BEAM;
         }
         mTestController.setSearchType(searchType);
     }

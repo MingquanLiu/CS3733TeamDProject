@@ -28,9 +28,11 @@
       <JFXComboBox fx:id="TypeDropDown" layoutX="87.0" layoutY="91.0" onAction="#TypeDropDownHandler" prefHeight="27.0" prefWidth="165.0" promptText="                    -Select-">
          <items>
             <FXCollections fx:factory="observableArrayList">
-               <String fx:value="everyone is dying" />
-               <String fx:value="ebola on the loose" />
-               <String fx:value="require more Vespen gas" />
+               <String fx:value="cleaning" />
+               <String fx:value="elevator" />
+               <String fx:value="electricity" />
+               <String fx:value="network" />
+               <String fx:value="other" />
             </FXCollections>
          </items>
       </JFXComboBox>

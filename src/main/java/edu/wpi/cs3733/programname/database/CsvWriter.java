@@ -166,6 +166,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM Employees");
+            this.getClass().getProtectionDomain().getCodeSource().getLocation();
             String outFileName = "csv/CsvTables/AllEmployees.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
@@ -258,7 +259,6 @@ public class CsvWriter {
         }
     }
 
-
     public void writeMaintenanceSkills(Connection conn) {
         try {
             Statement statement = conn.createStatement();
@@ -311,7 +311,7 @@ public class CsvWriter {
 
 
             // Initialize table fields
-            int serviceID = 0;
+            String serviceID = "";
             String sender = "";
             String receiver = "";
             String serviceType = "";
@@ -329,7 +329,7 @@ public class CsvWriter {
             // Prints header fields
             prt.println("serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity");
             while (rset.next()) {
-                serviceID = rset.getInt("serviceID");
+                serviceID = rset.getString("serviceID");
                 sender = rset.getString("sender");
                 receiver = rset.getString("receiver");
                 serviceType = rset.getString("serviceType");
@@ -380,7 +380,7 @@ public class CsvWriter {
 
 
             // Initialize table fields
-            int serviceID = 0;
+            String serviceID = "";
             String language = "";
             String reservationTime = "";
 
@@ -388,7 +388,7 @@ public class CsvWriter {
             // Prints header fields
             prt.println("serviceID, language, reservationTime");
             while (rset.next()) {
-                serviceID = rset.getInt("serviceID");
+                serviceID = rset.getString("serviceID");
                 language = rset.getString("language");
                 reservationTime = rset.getString("reservationTime");
 

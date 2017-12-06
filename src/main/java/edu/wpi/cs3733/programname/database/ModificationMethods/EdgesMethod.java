@@ -25,7 +25,7 @@ public class EdgesMethod {
             this.wrt.writeEdges(dbConnection.getConnection());
 
         } catch (SQLException e) {
-            System.out.println("Add EdgeData Failed!");
+            System.out.println("Add Edge Failed!");
             e.printStackTrace();
         }
     }
@@ -44,7 +44,7 @@ public class EdgesMethod {
             this.wrt.writeEdges(dbConnection.getConnection());
 
         } catch (SQLException e) {
-            System.out.println("Add EdgeData Failed!");
+            System.out.println("Modify Edge Failed!");
             e.printStackTrace();
         }
     }
@@ -65,7 +65,7 @@ public class EdgesMethod {
             this.wrt.writeEdges(dbConnection.getConnection());
 
         } catch (SQLException e) {
-            System.out.println("Delete EdgeData Failed!");
+            System.out.println("Delete Edge Failed!");
             e.printStackTrace();
         }
     }
