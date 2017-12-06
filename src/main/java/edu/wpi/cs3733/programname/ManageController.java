@@ -272,6 +272,9 @@ public class ManageController {
         this.dbObservable = observable;
     }
 
+    public void notifyObservers() {
+        this.dbObservable.notifyObservers();
+    }
 
         // Reader Methods
 
