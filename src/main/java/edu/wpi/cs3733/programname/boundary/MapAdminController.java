@@ -276,7 +276,7 @@ public class MapAdminController extends UIController implements Initializable {
         showNodeAndPath();
     }
 
-    private void showNodeAndPath() {
+    public void showNodeAndPath() {
         clearMain();
         clearEdge();
         clearNodes();

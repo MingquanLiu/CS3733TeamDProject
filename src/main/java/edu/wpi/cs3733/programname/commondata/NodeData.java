@@ -418,6 +418,7 @@ public class NodeData {
                     mapAdminNodeDataObserver.enableScroll();
                     mapAdminNodeDataObserver.update();
                     mapAdminNodeDataObserver.updateNodeInDb();
+                    mapAdminNodeDataObserver.showNodeAndPath();
                 } catch (IOException e) {
                 e.printStackTrace();
             }

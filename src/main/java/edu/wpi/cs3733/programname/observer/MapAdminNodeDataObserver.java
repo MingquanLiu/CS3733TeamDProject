@@ -38,4 +38,7 @@ public class MapAdminNodeDataObserver extends Observer {
     public void enableScroll() {
         mapAdminController.enablePaneScroll();
     }
+    public void showNodeAndPath(){
+        mapAdminController.showNodeAndPath();
+    }
 }
