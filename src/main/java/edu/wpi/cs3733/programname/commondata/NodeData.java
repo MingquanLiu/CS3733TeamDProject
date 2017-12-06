@@ -389,6 +389,7 @@ public class NodeData {
         circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                mapAdminNodeDataObserver.disableScroll();
                 System.out.println("Image get clicked");
                 try {
                     System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
@@ -399,6 +400,23 @@ public class NodeData {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+    public void setCircleOnDraggedExit(MapAdminNodeDataObserver mapAdminNodeDataObserver) {
+        mapAdminNodeDataObserver.setNodeData(this);
+        circle.setOnMouseReleased(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    circle.setCenterX(event.getSceneX());
+                    circle.setCenterY(event.getSceneY());
+                    mapAdminNodeDataObserver.enableScroll();
+                    mapAdminNodeDataObserver.update();
+                    mapAdminNodeDataObserver.updateNodeInDb();
+                } catch (IOException e) {
+                e.printStackTrace();
+            }
             }
         });
     }

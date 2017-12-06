@@ -106,6 +106,7 @@ public class ManageController {
     }
 
     public void editNode(NodeData data) {
+        System.out.println("Updating node in DB **********");
         this.dbModController.editNode(data);
     }
 
@@ -219,7 +220,7 @@ public class ManageController {
         List<ServiceRequest> allUnassignedReqs =  dbQueryController.queryServiceRequestsByStatus(Constants.UNASSIGNED_REQUEST);
         List<ServiceRequest> output = new ArrayList<>();
         for (ServiceRequest req: allUnassignedReqs) {
-            if(req.getServiceType() == type) {
+            if(req.getServiceType().equals(type)) {
                 output.add(req);
             }
         }

@@ -18,7 +18,6 @@ public class TextDirections {
      */
     public TextDirections(List<NodeData> nodeList) {
         this.nodeList = nodeList;
-        Collections.reverse(this.nodeList);
         produceText();
     }
 
