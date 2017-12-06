@@ -1,7 +1,9 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import edu.wpi.cs3733.programname.boundary.MapAdminController;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
+import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 
@@ -91,6 +93,30 @@ public class HelperFunction {
         }
     }
 
+         //Circles
+    public static List<NodeData>  initNodeListCircle(List<NodeData> mList){
+        for(NodeData nodeData: mList){
+            nodeData.initializeCircle();
+        }
+        return mList;
+    }
+
+    public static List<NodeData>  setCircleNodeListSizeAndLocation(List<NodeData> mList,double currentScale){
+        for(NodeData nodeData: mList){
+            nodeData.setCircleSizeAndLocation(currentScale);
+        }
+        return mList;
+    }
+
+    public static List<NodeData> setCircleNodeListController(List<NodeData> mList, MapAdminController mapAdminController){
+        for(NodeData nodeData: mList){
+            MapAdminNodeDataObserver mapAdminNodeDataObserver = new MapAdminNodeDataObserver(mapAdminController
+                    ,nodeData);
+            nodeData.setCircleOnDragged(mapAdminNodeDataObserver);
+        }
+        return mList;
+    }
+
     public static List<NodeData> getNodeByFloor(List<NodeData> mList,String floor){
         List<NodeData> result = new ArrayList<>();
         for(NodeData nodeData:mList){
@@ -109,5 +135,13 @@ public class HelperFunction {
             }
         }
         return result;
+    }
+
+    public static int UICToDBC(int value, double scale) {
+        return (int) ((double) value / scale);
+    }
+
+    public static int DBCToUIC(int value, double scale) {
+        return (int) ((double) value * scale);
     }
 }

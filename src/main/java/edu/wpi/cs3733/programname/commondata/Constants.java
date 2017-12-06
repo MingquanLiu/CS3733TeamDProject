@@ -17,4 +17,6 @@ public class Constants {
     public final static int ORIGINAL_NODE_HEIGHT = 30;
 
     public final static double MAX_UI_WIDTH = 5000;
+
+    public final static double CIRCILE_RADIUS = 14;
 }
