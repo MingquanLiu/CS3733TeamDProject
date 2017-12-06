@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -44,11 +45,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.CIRCILE_RADIUS;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.initNodeListImage;
 import static javafx.scene.paint.Color.*;
 
-public class MapAdminController implements Initializable {
+public class MapAdminController extends UIController implements Initializable {
 
     @FXML
     private AnchorPane mainPane;
@@ -270,14 +272,15 @@ public class MapAdminController implements Initializable {
         setBuilding(hospital);
         setFloor(floor2);
 
-
+        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+        currentEdge = manager.getAllEdgeData();
+        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);;
         showNodeAndPath();
     }
 
     private void showNodeAndPath() {
-        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
-        currentEdge = manager.getAllEdgeData();
-
+        System.out.println("In show node Path");
+        clearMain();
         //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
         displayEdges(currentEdge);
         showNodeList(currentNodes);
@@ -288,10 +291,7 @@ public class MapAdminController implements Initializable {
     }
 
 
-    private double mouseX;
-    private double mouseY;
-    private double imgX;
-    private double imgY;
+
     private void showNodeList (List<NodeData> nodeDataList){
         for(int i = 0;i <nodeDataList.size();i++){
             showNode(nodeDataList.get(i));
@@ -303,6 +303,10 @@ public class MapAdminController implements Initializable {
             showNode2(nodeDataList.get(i));
         }
     }
+    private double mouseX;
+    private double mouseY;
+    private double imgX;
+    private double imgY;
     EventHandler<MouseEvent> nodePressedEventHanlder =
             new EventHandler<MouseEvent>() {
                 @Override
@@ -327,17 +331,16 @@ public class MapAdminController implements Initializable {
                 }
             };
     private void showNode(NodeData n) {
-        drawCircle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale));
+//        drawCircle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale));
 //        setNodeDragHandler(n, nodeDraggedEventHandler);
 //        setNodePressHandler(n, nodePressedEventHanlder);
-//        panningPane.getChildren().add(n.getNodeImageView());
+        panningPane.getChildren().add(n.getCircle());
 //        drawCircle();
     }
 
 
     private void drawCircle(int x, int y) {
-
-        double radius = 7 * currentScale;
+        double radius = CIRCILE_RADIUS * currentScale;
         Circle c = new Circle(x, y, radius, RED);
         panningPane.getChildren().add(c);
         drawings.add(c);
@@ -525,6 +528,9 @@ public class MapAdminController implements Initializable {
                 panningPane.getChildren().remove(shape);
             }
             drawings = new ArrayList<>();
+        }
+        for(NodeData nodeData:currentNodes){
+            panningPane.getChildren().remove(nodeData.getCircle());
         }
     }
 
@@ -784,7 +790,6 @@ public class MapAdminController implements Initializable {
         System.out.println("Source" + mEvent.toString());
         if (mEvent == DFS) {
             searchType = PathfindingController.searchType.DFS;
-            System.out.println("In DFS");
         }
         if (mEvent == BFS) {
             searchType = PathfindingController.searchType.BFS;
@@ -903,11 +908,14 @@ public class MapAdminController implements Initializable {
         }
         comboBuilding.setItems(bldgs);
     }
-    private int UICToDBC(int value, double scale) {
-        return (int) ((double) value / scale);
+
+    @Override
+    public void passNodeData(NodeData nodeData) throws IOException {
+
     }
 
-    private int DBCToUIC(int value, double scale) {
-        return (int) ((double) value * scale);
+    @Override
+    void passEdgeData(EdgeData edgeData) {
+
     }
 }

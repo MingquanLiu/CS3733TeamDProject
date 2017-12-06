@@ -651,14 +651,6 @@ public class TestingController extends UIController implements Initializable {
         previousDropDownState = "";
     }
 
-    private int UICToDBC(int value, double scale) {
-        return (int) (value / scale);
-    }
-
-    private int DBCToUIC(int value, double scale) {
-        return (int) (value * scale);
-    }
-
     public void mouseClickHandler(MouseEvent e) throws IOException {
         int x = (int) e.getX();
         int y = (int) e.getY();

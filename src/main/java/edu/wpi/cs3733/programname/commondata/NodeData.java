@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import edu.wpi.cs3733.programname.boundary.MapAdminController;
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
+import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,8 +11,10 @@ import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.CIRCILE_RADIUS;
 import static edu.wpi.cs3733.programname.commondata.Constants.ORIGINAL_NODE_HEIGHT;
 import static edu.wpi.cs3733.programname.commondata.Constants.ORIGINAL_NODE_WIDTH;
+import static javafx.scene.paint.Color.RED;
 
 public class NodeData {
 
@@ -367,5 +371,37 @@ public class NodeData {
     /******************************************************************************************************************************************************
      * Doing with Shape
      */
+
+    public void initializeCircle(){
+        circle = new Circle(getXCoord(), getYCoord(), CIRCILE_RADIUS, RED) ;
+    }
+
+    public Circle getCircle(){
+        return circle;
+    }
+    public void setCircleSizeAndLocation(double currentScale){
+        circle.setCenterX(getXCoord()*currentScale);
+        circle.setCenterY(getYCoord()*currentScale);
+        circle.setRadius(CIRCILE_RADIUS*currentScale);
+    }
+    public void setCircleOnDragged(MapAdminNodeDataObserver mapAdminNodeDataObserver){
+        mapAdminNodeDataObserver.setNodeData(this);
+        circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Image get clicked");
+                try {
+                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
+                    circle.setCenterX(event.getSceneX());
+                    circle.setCenterY(event.getSceneY());
+                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
+                    mapAdminNodeDataObserver.update();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }
 
