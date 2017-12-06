@@ -845,8 +845,11 @@ public class TestingController extends UIController implements Initializable {
         }
         displayPath(currentPath);
         clearPathFindLoc();
+        //
         TextDirections textDirections = new TextDirections(currentPath);
         String directions = textDirections.getTextDirections();
+        //shitty fix for null problem
+        directions = directions.replaceAll("null", "");
         txtAreaDirections.setText(directions);
         paneDirections.setExpanded(true);
     }
