@@ -257,8 +257,6 @@ public class MapAdminController extends UIController implements Initializable {
         floors.addAll(hospital.getFloors());
         System.out.println("current floors: " + floors);
 
-        //buildings.add(hospital);
-
         floor = 4;
 
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
@@ -269,10 +267,7 @@ public class MapAdminController extends UIController implements Initializable {
         buildingList.addAll(buildings);
         comboBuilding.setItems(buildingList);
 
-        setBuilding(hospital);
-        setFloor(floor2);
-
-        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+        currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
         currentEdge = manager.getAllEdgeData();
         setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);;
         showNodeAndPath();
@@ -430,7 +425,7 @@ public class MapAdminController extends UIController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "45 Francis");
+        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
@@ -645,7 +640,6 @@ public class MapAdminController extends UIController implements Initializable {
 //        try {
         comboFloors.setItems(floorList);
         comboFloors.setValue(floorList.get(0));
-        setFloor(newBld.getFloors().get(0));
         setFloor((Floor) floorList.get(0));
 //        } catch (Exception e) {
 //            System.out.println("SCREAM");
@@ -657,6 +651,7 @@ public class MapAdminController extends UIController implements Initializable {
         setFloor();
     }
 
+    int totalScreens = 0;
     @SuppressWarnings("Duplicates")
     private void setFloor() {
         currentFloor = (Floor) (comboFloors.getValue());
@@ -670,6 +665,7 @@ public class MapAdminController extends UIController implements Initializable {
         System.out.println("about to be: " + newImg.getWidth());
         imgMap.setImage(newImg);
         clearMain();
+        System.out.println("loaded " + totalScreens++ + " screens total");
         showNodeAndPath();
         /*
         Image oldImg = imgMap.getImage();
@@ -864,7 +860,7 @@ public class MapAdminController extends UIController implements Initializable {
             displayEdges(mEdges);
         }
         if (!(currentNodes == null) && !currentNodes.isEmpty()) {
-            List<NodeData> mNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "45 Francis");
+            List<NodeData> mNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
             System.out.println("case node main, floor = " + floor);
             clearNodes();
             showNodeList(mNodes);
