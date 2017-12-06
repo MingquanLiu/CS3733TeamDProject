@@ -24,6 +24,8 @@ public class Transportation_Request {
     private JFXComboBox SeverityDropDown;
     @FXML
     private JFXTextField DestinationField;
+    @FXML
+    private Button btnSelectLocation;
 
     private ManageController manager;
 
