@@ -234,6 +234,9 @@ public class TestingController extends UIController implements Initializable {
     @FXML
     private JFXCheckBox locateAllLocations;
 
+    @FXML
+    private Label lblCrossFloor;
+
 
     // Handicapped checkbox
     //<editor-fold desc="handicapped">
@@ -255,6 +258,7 @@ public class TestingController extends UIController implements Initializable {
     private List<Shape> pathDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
+
     private List<NodeData> currentNodes = new ArrayList<>();
     //</editor-fold>
 
@@ -418,6 +422,8 @@ public class TestingController extends UIController implements Initializable {
         grid.setLayoutY(10);
         content.getChildren().add(grid);
 
+        lblCrossFloor.setVisible(false);
+
         paneControls.setPickOnBounds(false);
 
     }
@@ -496,13 +502,29 @@ public class TestingController extends UIController implements Initializable {
                 Line l = new Line();
                 NodeData n = path.get(i);
                 if (n.getNodeType().equals("ELEV")) {
-                    if (path.get(i+1).getNodeType().equals("ELEV") && i != path.size() -1) {
-
+                    if (i != path.size() -1) {
+                        NodeData nextNode = path.get(i + 1);
+                        if (nextNode.getNodeType().equals("ELEV")) {
+                            if (currentFloor.getFloorName().equals(n.getFloor())) {
+                                lblCrossFloor.setText("Proceed to Floor " + nextNode.getFloor() + "!");
+                            } else lblCrossFloor.setText("Proceed to Floor " + n.getFloor() + "!");
+                            lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
+                            lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
+                            lblCrossFloor.setVisible(true);
+                        }
                     }
                 }
                 if (n.getNodeType().equals("STAI")) {
-                    if (path.get(i+1).getNodeType().equals("STAI") && i != path.size() -1) {
-
+                    if (i != path.size() -1) {
+                        NodeData nextNode = path.get(i + 1);
+                        if (nextNode.getNodeType().equals("STAI")) {
+                            if (currentFloor.getFloorName().equals(n.getFloor())) {
+                                lblCrossFloor.setText("Proceed to Floor " + nextNode.getFloor() + "!");
+                            } else lblCrossFloor.setText("Proceed to Floor " + n.getFloor() + "!");
+                            lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
+                            lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
+                            lblCrossFloor.setVisible(true);
+                        }
                     }
                 }
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
@@ -524,6 +546,7 @@ public class TestingController extends UIController implements Initializable {
 
     public void clearMain() {
         clearPath();
+        lblCrossFloor.setVisible(false);
         closeNodeInfoHandler();
         clearPathFindLoc();
         //lastShowNodeData.setImageVisible(false);
@@ -621,6 +644,7 @@ public class TestingController extends UIController implements Initializable {
 
     public void setFloor() {
         //TODO add changing of displayed nodes
+        lblCrossFloor.setVisible(false);
         currentFloor = (Floor) (comboFloors.getValue());
         floor = floors.indexOf(currentFloor) - 2;
         System.out.println("floor: " + floor);
@@ -984,6 +1008,24 @@ public class TestingController extends UIController implements Initializable {
                 )
         );
         loader.<ServiceRequestManager>getController().initManager(manager);
+        stage.show();
+    }
+
+    public void viewMyRequestsHandler() throws IOException {
+        System.out.println("In open admin handler");
+        //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employee_request_handler.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<EmployeeRequestHandlerController>getController().initialize(manager, employeeLoggedIn);
         stage.show();
     }
 
