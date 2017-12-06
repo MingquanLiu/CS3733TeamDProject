@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ServiceRequest {
-    private int serviceID;
+    private String serviceID;
     private String sender;
     private String serviceType;
     private String location1;
@@ -20,7 +20,7 @@ public class ServiceRequest {
 
 
     // constructor using all the fields
-    public ServiceRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2, String description,
+    public ServiceRequest(String serviceID, String sender, String receiver, String serviceType, String location1, String location2, String description,
                           String requestTime, String handleTime, String completionTime, String status, int severity) {
         this.serviceID = serviceID;
         this.sender = sender;
@@ -37,16 +37,17 @@ public class ServiceRequest {
     }
 
     // short constructor
-    public ServiceRequest(int serviceID, String sender, String serviceType, String location1,
+    public ServiceRequest(String sender, String serviceType, String location1,
                           String location2, String description, int severity) {
-        this.serviceID = serviceID;
+        Date requestTimeDate = new Date();
+        Long id = requestTimeDate.getTime();
+        this.serviceID = id.toString();
         this.sender = sender;
         this.serviceType = serviceType;
         this.location1 = location1;
         this.location2 = location2;
         this.description = description;
-        Date date = new Date();
-        this.requestTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(date.getTime()));
+        this.requestTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Timestamp(requestTimeDate.getTime()));
         this.handleTime = "";
         this.completionTime = "";
         this.status = "unhandled";
@@ -55,11 +56,11 @@ public class ServiceRequest {
     }
 
 
-    public int getServiceID() {
+    public String getServiceID() {
         return serviceID;
     }
 
-    public void setServiceID(int serviceID) {
+    public void setServiceID(String serviceID) {
         this.serviceID = serviceID;
     }
 
@@ -178,8 +179,9 @@ public class ServiceRequest {
 
         ServiceRequest that = (ServiceRequest) o;
 
-        if (getServiceID() != that.getServiceID()) return false;
         if (getSeverity() != that.getSeverity()) return false;
+        if (getServiceID() != null ? !getServiceID().equals(that.getServiceID()) : that.getServiceID() != null)
+            return false;
         if (getSender() != null ? !getSender().equals(that.getSender()) : that.getSender() != null) return false;
         if (getServiceType() != null ? !getServiceType().equals(that.getServiceType()) : that.getServiceType() != null)
             return false;
@@ -201,7 +203,7 @@ public class ServiceRequest {
 
     @Override
     public int hashCode() {
-        int result = getServiceID();
+        int result = getServiceID() != null ? getServiceID().hashCode() : 0;
         result = 31 * result + (getSender() != null ? getSender().hashCode() : 0);
         result = 31 * result + (getServiceType() != null ? getServiceType().hashCode() : 0);
         result = 31 * result + (getLocation1() != null ? getLocation1().hashCode() : 0);

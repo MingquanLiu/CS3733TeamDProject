@@ -146,7 +146,7 @@ public class DatabaseQueryController {
         return serviceRequestsQuery.queryServiceRequestsByType(serviceType);
     }
 
-    public ServiceRequest queryServiceRequestsByID(int serviceID){
+    public ServiceRequest queryServiceRequestsByID(String serviceID){
         return serviceRequestsQuery.queryServiceRequestsByID(serviceID);
     }
 

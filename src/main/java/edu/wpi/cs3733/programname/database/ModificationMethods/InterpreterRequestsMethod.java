@@ -15,13 +15,13 @@ public class InterpreterRequestsMethod {
     }
 
     public void addInterpreterRequest(InterpreterRequest interpreterRequest){
-        int serviceID = interpreterRequest.getServiceID();
+        String serviceID = interpreterRequest.getServiceID();
         String language = interpreterRequest.getLanguage();
         String reservationTime = interpreterRequest.getReservationTime();
 
         String str;
         try {
-            str = "INSERT INTO InterpreterRequests values(" + serviceID + ",'" + language + "','"+ reservationTime +"')";
+            str = "INSERT INTO InterpreterRequests values('" + serviceID + "','" + language + "','"+ reservationTime +"')";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeInterpreterRequests(dbConnection.getConnection());
@@ -32,10 +32,10 @@ public class InterpreterRequestsMethod {
     }
 
     public void deleteInterpreterRequest(InterpreterRequest interpreterRequest){
-        int serviceID = interpreterRequest.getServiceID();
+        String serviceID = interpreterRequest.getServiceID();
         String str;
         try {
-            str ="delete from InterpreterRequests where serviceID = " + serviceID ;
+            str ="delete from InterpreterRequests where serviceID = '" + serviceID +"'";
             System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeInterpreterRequests(dbConnection.getConnection());
