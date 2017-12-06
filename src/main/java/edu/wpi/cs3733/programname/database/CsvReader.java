@@ -27,6 +27,7 @@ public class CsvReader {
      * empty constructor for CsvReader
      */
     public CsvReader() {
+
     }
 
 
@@ -40,14 +41,19 @@ public class CsvReader {
 
     public ArrayList<NodeData> getListOfNodes(Connection conn) throws IOException{
         ArrayList<NodeData> nodeList = new ArrayList<NodeData>();
-
+        BufferedReader buf;
 
         try {
             System.out.println("About to read nodes table");
-            String csv = "csv/CsvNodes/AllMapNodes.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
-
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvNodes/AllMapNodes.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvNodes/AllMapNodes.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
             String line;
             buf.readLine();
             // Reads all lines in the file
@@ -68,48 +74,9 @@ public class CsvReader {
 
             } // end while
 
-        }
-        catch (IOException e) {
-
-
-            String[] csvNodes = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "W"};
-
-            try {
-                for (String letter : csvNodes) {
-                    InputStream csv = this.getClass().getClassLoader().getResourceAsStream("csv/CsvNodes/Map" + letter + "Nodes.csv");
-                    Scanner inputStream = new Scanner(csv);
-
-                    // Ignores first line in csv file i.e. header row
-                    inputStream.nextLine();
-
-                    // Reads all lines in the file
-                    while (inputStream.hasNextLine()) {
-                        // Reads current row and converts to a string
-                        String data = inputStream.nextLine();
-
-                        // Seperates the string into fields and stores into an array
-                        String[] values = data.split(",");
-
-                        // Converts int fields from strings to integers
-                        int x = Integer.parseInt(values[1]);
-                        int y = Integer.parseInt(values[2]);
-                        Coordinate location = new Coordinate(x, y);
-                        NodeData nodeObject = new NodeData(values[0], location, values[3], values[4], values[5], values[6], values[7], values[8]);
-                        nodeList.add(nodeObject);
-
-
-                    } // end while
-
-
-                }
-
-            } catch (NumberFormatException w) {
-                w.printStackTrace();
-
-            }
+        } catch (IOException e) {
 
         }
-
         return nodeList;
     }// end readNodes
 
@@ -161,12 +128,19 @@ public class CsvReader {
     public ArrayList<EdgeData> getListOfEdges(Connection conn) {
         // ArrayLists stores data values is proper columns
         ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
+        BufferedReader buf;
 
 
         try {
-            String csv = "csv/CsvEdges/AllMapEdges.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvEdges/AllMapEdges.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvEdges/AllMapEdges.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
 
 
             String line;
@@ -187,38 +161,9 @@ public class CsvReader {
 
 
         } catch (IOException e) {
-            String[] csvEdges = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "W"};
-
-            try {
-                for (String letter : csvEdges) {
-                    InputStream csv = this.getClass().getClassLoader().getResourceAsStream("csv/CsvEdges/Map" + letter + "Edges.csv");
-                    Scanner inputStream = new Scanner(csv);
-
-                    // Ignores first line in csv file i.e. header row
-                    inputStream.nextLine();
-
-                    // Reads all lines in the file
-                    while (inputStream.hasNextLine()) {
-                        // Reads current row and converts to a string
-                        String data = inputStream.nextLine();
-
-                        // Seperates the string into fields and stores into an array
-                        String[] values = data.split(",");
-
-                        EdgeData edgeObject = new EdgeData(values[0], values[1], values[2]);
-                        edgeList.add(edgeObject);
-
-                    } // end while
-
-
-                }
-            } catch (NumberFormatException w) {
-            }
-
 
         } // end readEdges
         return edgeList;
-
     }
 
 
@@ -252,14 +197,21 @@ public class CsvReader {
     public ArrayList<Employee> getListOfEmployees(Connection conn) {
 
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
+        BufferedReader buf;
 
         getInterpreterEmployeeInfo();
         getMaintenanceEmployeeInfo();
 
         try {
-            String csv = "csv/CsvTables/AllEmployees.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvTables/AllEmployees.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvTables/AllEmployees.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
 
             String line;
             buf.readLine();
@@ -316,10 +268,18 @@ public class CsvReader {
 
     public void getInterpreterEmployeeInfo() {
         interpreterEmployeeInfo = new ArrayList<>();
+        BufferedReader buf;
         try {
-            String csv = "csv/CsvTables/AllInterpreterSkills.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvTables/AllInterpreterSkills.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvTables/AllInterpreterSkills.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
+
             String line;
             buf.readLine();
 
@@ -335,10 +295,17 @@ public class CsvReader {
 
     public void getMaintenanceEmployeeInfo() {
         maintenanceEmployeeInfo = new ArrayList<>();
+        BufferedReader buf;
         try {
-            String csv = "csv/CsvTables/AllMaintenanceSkills.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvTables/AllMaintenanceSkills.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvTables/AllMaintenanceSkills.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
             String line;
             buf.readLine();
 
@@ -406,10 +373,17 @@ public class CsvReader {
     // SERVICEREQUESTS
     public void getInterpreterTableInfo() {
         interpreterInfo = new ArrayList<>();
+        BufferedReader buf;
         try {
-            String csv = "csv/CsvTables/AllInterpreterRequests.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvTables/AllInterpreterRequests.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvTables/AllInterpreterRequests.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
 
             String line;
             buf.readLine();
@@ -426,10 +400,17 @@ public class CsvReader {
 
     public void getMaintenanceTableInfo() {
         maintenanceInfo = new ArrayList<>();
+        BufferedReader buf;
         try {
-            String csv = "csv/CsvTables/AllMaintenanceRequests.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvTables/AllMaintenanceRequests.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvTables/AllMaintenanceRequests.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
             String line;
             buf.readLine();
 
@@ -445,10 +426,17 @@ public class CsvReader {
 
     public void getTransportationTableInfo() {
         transportationInfo = new ArrayList<>();
+        BufferedReader buf;
         try {
-            String csv = "csv/CsvTables/AllTransportationRequests.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvTables/AllTransportationRequests.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvTables/AllTransportationRequests.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
             String line;
             buf.readLine();
 
@@ -465,15 +453,21 @@ public class CsvReader {
     public ArrayList<ServiceRequest> getListOfServiceRequests(Connection conn) {
 
         ArrayList<ServiceRequest> srList = new ArrayList<ServiceRequest>();
+        BufferedReader buf;
         getInterpreterTableInfo();
         getMaintenanceTableInfo();
         getTransportationTableInfo();
 
         try {
-
-            String csv = "csv/CsvTables/AllServiceRequests.csv";
-            InputStream input = ClassLoader.getSystemResourceAsStream(csv);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(input));
+            try {
+                InputStream in = new FileInputStream(new File("csv/CsvTables/AllServiceRequests.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/CsvTables/AllServiceRequests.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
 
             String line;
             buf.readLine();
