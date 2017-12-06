@@ -532,9 +532,9 @@ public class TestingController extends UIController implements Initializable {
                         for(int j = 1; j < path.size() - i; j++) {
                             nextNode = path.get(i+j);
                             if (!nextNode.getNodeType().equals("ELEV")){
-                                printFloor = n.getFloor();
+                                printFloor = nextNode.getFloor();
                             } else if (nextNode.equals(n)) {
-                                printFloor = n.getFloor();
+                                printFloor = nextNode.getFloor();
                             }
                         }
                         lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
