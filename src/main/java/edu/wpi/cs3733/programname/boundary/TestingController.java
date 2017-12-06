@@ -403,6 +403,7 @@ public class TestingController extends UIController implements Initializable {
 //        if(lastShowNodeData!=null)lastShowNodeData.setImageVisible(false);
 //        mNode.setImageVisible(true);
 //        lastShowNodeData = mNode;
+        if(mNode!=null)
         showNodeInfo(mNode);
     }
     //hamburger handling
@@ -532,24 +533,6 @@ public class TestingController extends UIController implements Initializable {
         selectingLocation = "selectEnd";
     }
 
-    public void SRHandler(ActionEvent e){
-        Object mEvent = e.getSource();
-        serviceRequester.setVisible(true);
-        String SRType = "";
-        if(mEvent == btnInterpreterReq){
-            lblReqType.setText("Interpreter Request");
-            SRType = "Language to: \nLanguage from:";
-        }
-        if(mEvent == btnMaintenanceReq){
-            lblReqType.setText("Maintenance Request");
-            SRType = "Maintenance type: \nMaintenance urgency(1-5): ";
-        }
-        if(mEvent == btnTransportationReq){
-            lblReqType.setText("Transportation Request");
-            SRType = "Transportation type: \nTransportation urgency: ";
-        }
-        requestDescription.setText(SRType);
-    }
 
 //    //popup methods
     private FXMLLoader showScene(String url){
@@ -655,6 +638,7 @@ public class TestingController extends UIController implements Initializable {
                 type = TRANSPORTATION_REQUEST;
             } else if (typeText == "Maintenance Request") {
                 type = MAINTENANCE_REQUEST;
+
             }
 
             int locX = Integer.parseInt(lblServiceX.getText());
@@ -696,6 +680,51 @@ public class TestingController extends UIController implements Initializable {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/About_Popup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void TransportRequestHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Transportation_Request_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void InterpreterRequestHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Interpreter_Request_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void MaintenanceRequestHandler()throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Maintenance_Request_UI.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
