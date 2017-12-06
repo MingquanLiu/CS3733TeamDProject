@@ -212,7 +212,7 @@ public class MapAdminController implements Initializable {
     }
 
     private void showNodeAndPath(){
-        List<NodeData> nodes = manager.queryNodeByFloor(lblCurrentFloor.getText());
+        List<NodeData> nodes = manager.queryNodeByFloor(lblCurrentFloor.getText(), null);
         floorNodes = nodes;
         List<EdgeData> edges = manager.getAllEdgeData();
         displayEdges(edges);
@@ -320,7 +320,7 @@ public class MapAdminController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor));
+        List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor), null);
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");

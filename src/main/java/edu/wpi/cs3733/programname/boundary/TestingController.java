@@ -327,12 +327,12 @@ public class TestingController implements Initializable {
         comboLocations.setItems(locations);
         comboLocations.setValue("Bathrooms");
 
-        Floor basement2 = new Floor("Basement 2", "main", "file:floorMaps/Floor_-2.png");
-        Floor basement1 = new Floor("Basement 1", "main", "file:floorMaps/Floor_-1.png");
-        Floor ground = new Floor("Ground", "main", "file:floorMaps/Floor_0.png");
-        Floor floor1 = new Floor("Floor 1", "main", "file:floorMaps/Floor_1.png");
-        Floor floor2 = new Floor("Floor 2", "main", "file:floorMaps/Floor_2.png");
-        Floor floor3 = new Floor("Floor 3", "Shapiro", "file:floorMaps/Floor_3.png");
+        Floor basement2 = new Floor("Basement 2", "45 Francis", "file:floorMaps/Floor_-2.png");
+        Floor basement1 = new Floor("Basement 1", "45 Francis", "file:floorMaps/Floor_-1.png");
+        Floor ground = new Floor("Ground", "45 Francis", "file:floorMaps/Floor_0.png");
+        Floor floor1 = new Floor("Floor 1", "45 Francis", "file:floorMaps/Floor_1.png");
+        Floor floor2 = new Floor("Floor 2", "45 Francis", "file:floorMaps/Floor_2.png");
+        Floor floor3 = new Floor("Floor 3", "45 Francis", "file:floorMaps/Floor_3.png");
 
         ArrayList<Floor> basicFloors = new ArrayList<>();
         basicFloors.add(basement2);
@@ -481,7 +481,8 @@ public class TestingController implements Initializable {
                 resultNodeId = node.getNodeID();
             }
         }
-        return new NodeData(resultNodeId, new Coordinate(resultX, resultY), floor + "", null, null, null, null, null);
+        System.out.println("Printing node for floor: " + floor + " and for building: " + currentFloor.getBuilding());
+        return new NodeData(resultNodeId, new Coordinate(resultX, resultY), floor + "", currentFloor.getBuilding(), null, null, null, null);
     }
 
     private void displayPath(List<NodeData> path) {
@@ -648,7 +649,7 @@ public class TestingController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor));
+        List<NodeData> nodes = manager.queryNodeByFloor(convertFloor(floor), currentFloor.getBuilding());
         NodeData mClickedNode = getClosestNode(nodes, x, y);
         switch (selectingLocation) {
             //case for displaying nearest node info when nothing is selected

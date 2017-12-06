@@ -77,8 +77,8 @@ public class ManageController {
         return this.dbQueryController.queryNodeByType(nodeType);
     }
 
-    public List<NodeData> queryNodeByFloor(String floor) {
-        return this.dbQueryController.queryNodeByFloor(floor);
+    public List<NodeData> queryNodeByFloor(String floor, String building) {
+        return this.dbQueryController.queryNodeByFloor(floor, building);
     }
 
     public List<NodeData> queryNodeByTypeFloor(String type, String floor) {
