@@ -252,7 +252,6 @@ public class TestingController extends UIController implements Initializable {
     private List<Shape> pathDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
-    private List<NodeData> allNodes = new ArrayList<>();
     private List<NodeData> currentNodes = new ArrayList<>();
     //</editor-fold>
 
@@ -316,11 +315,10 @@ public class TestingController extends UIController implements Initializable {
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
 //        allNodes = manageController.queryNodeByFloor(convertFloor(floor));
-        allNodes = manageController.getAllNodeData();
-        setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(allNodes), currentScale), this));
-        ;
-        currentNodes = getNodeByFloor(allNodes, convertFloor(floor));
-        showNodeList(allNodes);
+//        allNodes = manageController.getAllNodeData();
+        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));  ;
+        showNodeList(currentNodes);
 //        panningPane.getChildren().add(imv);
 
         ObservableList locations = FXCollections.observableArrayList(
@@ -495,7 +493,17 @@ public class TestingController extends UIController implements Initializable {
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
-                if (n.getFloor().equals(convertFloor(floor)) && prev.getFloor().equals(convertFloor(floor))) {
+                if (n.getNodeType().equals("ELEV")) {
+                    if (path.get(i+1).getNodeType().equals("ELEV") && i != path.size() -1) {
+
+                    }
+                }
+                if (n.getNodeType().equals("STAI")) {
+                    if (path.get(i+1).getNodeType().equals("STAI") && i != path.size() -1) {
+
+                    }
+                }
+                if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
                     l.setStrokeWidth(5.0 * currentScale);
                     l.setStartX(prev.getXCoord() * currentScale);
@@ -682,7 +690,7 @@ public class TestingController extends UIController implements Initializable {
     public void locateHandler(ActionEvent event) {
         Object mEvent = event.getSource();
         String nodeType = "";
-
+        setNodeListImageVisibility(false,currentNodes);
         if (mEvent == comboLocations) {
             String keyLocationString = comboLocations.getValue().toString();
             switch (keyLocationString) {
@@ -721,7 +729,10 @@ public class TestingController extends UIController implements Initializable {
         }
         if (nodeType.equals("ALL")) {
             //ADD CODE HERE THANK YOU MINGQUANNNNNN
-
+            for(NodeData nodeData:currentNodes){
+                nodeData.changeImageView(nodeType);
+            }
+            setNodeListImageVisibility(true,currentNodes);
         }
         if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
             List<NodeData> mList = getTypeNode(currentNodes, nodeType);
@@ -1075,7 +1086,7 @@ public class TestingController extends UIController implements Initializable {
 
     // Turn the handicapped path restriction on or off
     public void toggleHandicap() {
-        this.goButtonHandler();
+//        this.goButtonHandler();
     }
 
     @Override
@@ -1083,6 +1094,7 @@ public class TestingController extends UIController implements Initializable {
         switch (selectingLocation) {
             case "":
                 clearNodes();
+
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
                 break;
@@ -1097,14 +1109,14 @@ public class TestingController extends UIController implements Initializable {
                 clearNodes();
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
-                txtStartLocation.setText(nodeData.getNodeID());
+                txtStartLocation.setText(nodeData.getLongName());
                 selectingLocation = "";
                 break;
             case "selectEnd":
                 clearNodes();
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
-                txtEndLocation.setText(nodeData.getNodeID());
+                txtEndLocation.setText(nodeData.getLongName());
                 selectingLocation = "";
                 break;
             case "selectSRLocation":

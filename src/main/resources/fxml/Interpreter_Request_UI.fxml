@@ -22,10 +22,19 @@
        <JFXComboBox fx:id="LanguageDropDown" layoutX="87.0" layoutY="91.0" onAction="#LanguageDropDownHandler" prefHeight="27.0" prefWidth="165.0" promptText="                    -Select-">
            <items>
                <FXCollections fx:factory="observableArrayList">
-                   <String fx:value="French" />
+                   <String fx:value="Mandarin" />
+                   <String fx:value="Cantonese" />
                    <String fx:value="Spanish" />
+                   <String fx:value="French" />
+                   <String fx:value="German" />
+                   <String fx:value="Korean" />
+                   <String fx:value="Japanese" />
                    <String fx:value="Russian" />
-                   <String fx:value="Elbonian" />
+                   <String fx:value="Hindi" />
+                   <String fx:value="Arabic" />
+                   <String fx:value="Portuguese" />
+                   <String fx:value="Bengali" />
+                   <String fx:value="other" />
                </FXCollections>
            </items>
        </JFXComboBox>

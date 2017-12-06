@@ -62,7 +62,7 @@ public class MaintenanceMethod {
                 dbConnection.executeUpdate(str);
                 this.wrt.writeNodes(dbConnection.getConnection());
             } catch (SQLException e) {
-                System.out.println("Delete Maintenance Skill Failed!");
+                System.out.println("Delete MaintenanceSkills Failed!");
                 e.printStackTrace();
             }
         }

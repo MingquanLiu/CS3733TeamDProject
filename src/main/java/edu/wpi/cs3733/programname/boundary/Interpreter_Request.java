@@ -68,6 +68,17 @@ public class Interpreter_Request {
         System.out.println("Severity: " + SeverityDropDown.getSelectionModel().getSelectedItem());
         System.out.println("Location: " + DestinationField.getText() );
         System.out.println("Time: "     + TimeTextField.getValue());
+
+        if (nodeData == null) {
+            String coordinate = DestinationField.getText();
+            coordinate = coordinate.replace('(', ' ');
+            coordinate = coordinate.replace(')', ' ');
+            coordinate = coordinate.trim();
+            String[] values = coordinate.split(",");
+            Coordinate requestLoc = new Coordinate(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
+           // NodeData nodeData =
+        }
+
         manager.createInterpreterRequest(userName,type,nodeData.getNodeID(),null,"",Integer.parseInt(SeverityDropDown.getSelectionModel().getSelectedItem().toString())
                 ,LanguageDropDown.getSelectionModel().getSelectedItem().toString(),TimeTextField.getValue().toString());
         Stage stage = (Stage) SubmitBtn.getScene().getWindow();

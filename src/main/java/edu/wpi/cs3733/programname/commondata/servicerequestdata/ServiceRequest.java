@@ -42,7 +42,7 @@ public class ServiceRequest {
         Date requestTimeDate = new Date();
         Long id = requestTimeDate.getTime();
         System.out.println("Id "+id);
-        this.serviceID = id.toString();
+        this.serviceID = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Timestamp(requestTimeDate.getTime()));;
         this.sender = sender;
         this.serviceType = serviceType;
         this.location1 = location1;

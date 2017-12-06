@@ -117,19 +117,11 @@ public class CsvReader {
         }
     }
 
-
-
-
-
-
-
-
     // EDGES
     public ArrayList<EdgeData> getListOfEdges(Connection conn) {
         // ArrayLists stores data values is proper columns
         ArrayList<EdgeData> edgeList = new ArrayList<EdgeData>();
         BufferedReader buf;
-
 
         try {
             try {
@@ -163,6 +155,7 @@ public class CsvReader {
         } catch (IOException e) {
 
         } // end readEdges
+        System.out.println("Number of edges in csv: " + edgeList.size());
         return edgeList;
     }
 
