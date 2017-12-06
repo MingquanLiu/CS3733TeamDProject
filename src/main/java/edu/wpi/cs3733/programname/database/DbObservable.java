@@ -17,6 +17,7 @@ public class DbObservable {
     }
 
     public void notifyObservers() {
+        System.out.println("***** OBSERVERS NOTIFIED ******");
         for(AbsObserver observer: observers) {
             observer.update();
         }

@@ -1,9 +1,6 @@
 package edu.wpi.cs3733.programname.boundary;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
@@ -105,6 +102,10 @@ public class MapAdminController extends UIController implements Initializable {
     private Button btnMapDwn;
     @FXML
     private Label lblCurrentFloor;
+    @FXML
+    private JFXCheckBox allNodeBox;
+    @FXML
+    private JFXCheckBox allEdgeBox;
     private int floor = 2;
     private ArrayList<Floor> floors = new ArrayList<>();
     private Floor currentFloor;
@@ -274,12 +275,20 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     private void showNodeAndPath() {
-        System.out.println("In show node Path");
         clearMain();
-        //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
-        displayEdges(currentEdge);
-        showNodeList(currentNodes);
-
+        clearEdge();
+        clearNodes();
+        System.out.println("In show node Path");
+        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+        if(allEdgeBox.isSelected()){
+            currentEdge = manager.getAllEdgeData();
+            //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
+            displayEdges(currentEdge);
+        }
+        if(allNodeBox.isSelected()){
+            setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);
+            showNodeList(currentNodes);
+        }
 //        setNodeListImageVisibility(true,setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale));
 //        showNodeList(currentNodes);
 
@@ -470,8 +479,6 @@ public class MapAdminController extends UIController implements Initializable {
                         }
                     }
                     selectingLocation = "";
-                    clearMain();
-                    clearEdgeDrawing();
                     showNodeAndPath();
                     selectEdgeN2 = selectEdgeN1 = null;
 //                    setupBurger();
@@ -651,7 +658,6 @@ public class MapAdminController extends UIController implements Initializable {
         setFloor();
     }
 
-    int totalScreens = 0;
     @SuppressWarnings("Duplicates")
     private void setFloor() {
         currentFloor = (Floor) (comboFloors.getValue());
@@ -664,8 +670,6 @@ public class MapAdminController extends UIController implements Initializable {
         Image newImg = new Image(newUrl);
         System.out.println("about to be: " + newImg.getWidth());
         imgMap.setImage(newImg);
-        clearMain();
-        System.out.println("loaded " + totalScreens++ + " screens total");
         showNodeAndPath();
         /*
         Image oldImg = imgMap.getImage();
@@ -759,21 +763,18 @@ public class MapAdminController extends UIController implements Initializable {
                 manager.addNode(newNode);
                 displayAddNodeConfirmation(id, longName, loc);
                 clearNodeInfoText();
-                clearMain();
                 showNodeAndPath();
             }
             if (event.getSource() == nodeInfoDelete) {
                 NodeData newNode = new NodeData(id, loc, floor, building, nodeType, longName, shortName, teamAssigned);
                 manager.deleteNode(newNode);
                 clearNodeInfoText();
-                clearMain();
                 showNodeAndPath();
             }
             if (event.getSource() == nodeInfoEdit) {
                 NodeData newNode = new NodeData(id, loc, floor, building, nodeType, longName, shortName, teamAssigned);
                 manager.editNode(newNode);
                 clearNodeInfoText();
-                clearMain();
                 showNodeAndPath();
             }
         }
@@ -850,22 +851,21 @@ public class MapAdminController extends UIController implements Initializable {
             currentScale = mapRatio.get(currentMapRatioIndex);
             imgMap.setFitWidth(maxWidth * currentScale);
         }
-        clearMain();
-        clearEdgeDrawing();
-        if (!(currentEdge == null) && !currentEdge.isEmpty()) {
-
-            System.out.println("case edge 1");
-            List<EdgeData> mEdges = currentEdge;
-            clearEdge();
-            displayEdges(mEdges);
-        }
-        if (!(currentNodes == null) && !currentNodes.isEmpty()) {
-            List<NodeData> mNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
-            System.out.println("case node main, floor = " + floor);
-            clearNodes();
-            showNodeList(mNodes);
-            System.out.println(currentScale);
-        }
+//        clearMain();
+//        if (!(currentEdge == null) && !currentEdge.isEmpty()) {
+//            System.out.println("case edge 1");
+//            List<EdgeData> mEdges = currentEdge;
+//            clearEdge();
+//            displayEdges(mEdges);
+//        }
+//        if (!(currentNodes == null) && !currentNodes.isEmpty()) {
+//            List<NodeData> mNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "45 Francis");
+//            System.out.println("case node main, floor = " + floor);
+//            clearNodes();
+//            showNodeList(mNodes);
+//            System.out.println(currentScale);
+//        }
+        showNodeAndPath();
         if (mEdge != null) {
 
             System.out.println("case edge 2");
@@ -904,6 +904,14 @@ public class MapAdminController extends UIController implements Initializable {
         }
         comboBuilding.setItems(bldgs);
         setBuilding((Building) bldgs.get(0));
+    }
+
+    public void allNodeButtonHandler(ActionEvent event){
+        showNodeAndPath();
+    }
+
+    public void allEdgeButtonHandler(ActionEvent event){
+        showNodeAndPath();
     }
 
     @Override
