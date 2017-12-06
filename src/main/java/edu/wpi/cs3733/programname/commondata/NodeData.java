@@ -411,6 +411,10 @@ public class NodeData {
                 try {
                     circle.setCenterX(event.getSceneX());
                     circle.setCenterY(event.getSceneY());
+                    int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), mapAdminNodeDataObserver.getMapAdminController().currentScale);
+                    int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), mapAdminNodeDataObserver.getMapAdminController().currentScale);
+                    Coordinate newLoc = new Coordinate(dbX, dbY);
+                    mapAdminNodeDataObserver.getNodeData().setLocation(newLoc);
                     mapAdminNodeDataObserver.enableScroll();
                     mapAdminNodeDataObserver.update();
                     mapAdminNodeDataObserver.updateNodeInDb();

@@ -17,9 +17,14 @@ public class MapAdminNodeDataObserver extends Observer {
     public void setNodeData(NodeData nodeData){
         this.nodeData = nodeData;
     }
+    public NodeData getNodeData() { return this.nodeData;}
     @Override
     public void update() throws IOException {
         mapAdminController.passNodeData(nodeData);
+    }
+
+    public MapAdminController getMapAdminController() {
+        return mapAdminController;
     }
 
     public void updateNodeInDb() {
