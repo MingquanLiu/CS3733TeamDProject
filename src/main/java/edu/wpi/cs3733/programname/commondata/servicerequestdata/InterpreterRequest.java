@@ -4,14 +4,14 @@ public class InterpreterRequest extends ServiceRequest {
     String language;
     String reservationTime;
 
-    public InterpreterRequest(int serviceID, String sender, String serviceType, String location1, String location2,
+    public InterpreterRequest(String sender, String serviceType, String location1, String location2,
                            String description, int severity, String language, String reservationTime){
-        super(serviceID, sender, serviceType, location1, location2, description, severity);
+        super(sender, serviceType, location1, location2, description, severity);
         this.language = language;
         this.reservationTime = reservationTime;
     }
 
-    public InterpreterRequest(int serviceID, String sender, String receiver, String serviceType, String location1, String location2,
+    public InterpreterRequest(String serviceID, String sender, String receiver, String serviceType, String location1, String location2,
                            String description, String requestTime, String handleTime, String completionTime, String status,
                            int severity, String language, String reservationTime){
         super(serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime,status, severity);
@@ -36,7 +36,7 @@ public class InterpreterRequest extends ServiceRequest {
     }
 
     public ServiceRequest toServiceRequest(){
-        int serviceID = this.getServiceID();
+        String serviceID = this.getServiceID();
         String senderUsername = this.getSender();
         String receiverUsername = this.getReceiver();
         String serviceType = this.getServiceType();
@@ -72,5 +72,11 @@ public class InterpreterRequest extends ServiceRequest {
         result = 31 * result + (getLanguage() != null ? getLanguage().hashCode() : 0);
         result = 31 * result + (getReservationTime() != null ? getReservationTime().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return System.lineSeparator()+ "Language Requested:" + language + System.lineSeparator()+
+                "Reservation Time:" + reservationTime + System.lineSeparator();
     }
 }

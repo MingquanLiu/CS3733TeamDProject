@@ -124,7 +124,8 @@ public class DatabaseQueryController {
 
     // Interpreter Query
     public ArrayList<String> queryInterpreterSkillsbyUsername(String username){
-        return interpreterQuery.queryInterpreterSkills(username);
+        ArrayList<String> languages = interpreterQuery.queryInterpreterSkills(username);
+        return languages;
     }
 
     // Maintenance Query
@@ -145,7 +146,7 @@ public class DatabaseQueryController {
         return serviceRequestsQuery.queryServiceRequestsByType(serviceType);
     }
 
-    public ServiceRequest queryServiceRequestsByID(int serviceID){
+    public ServiceRequest queryServiceRequestsByID(String serviceID){
         return serviceRequestsQuery.queryServiceRequestsByID(serviceID);
     }
 

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.database;
 import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
+import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
 import edu.wpi.cs3733.programname.database.ModificationMethods.*;
 
@@ -21,6 +22,7 @@ public class DatabaseModificationController {
     private InterpreterMethod interpreterMethod;
     private ServiceRequestsMethod serviceRequestsMethod;
     private InterpreterRequestsMethod interpreterRequestsMethod;
+    private MaintenanceRequestsMethod maintenanceRequestMethod;
     private TransportationRequestMethod transportationRequestMethod;
     /**
      *
@@ -33,6 +35,7 @@ public class DatabaseModificationController {
         interpreterMethod = new InterpreterMethod(conn);
         serviceRequestsMethod = new ServiceRequestsMethod(conn);
         interpreterRequestsMethod = new InterpreterRequestsMethod(conn);
+        maintenanceRequestMethod = new MaintenanceRequestsMethod(conn);
         transportationRequestMethod = new TransportationRequestMethod(conn);
     }
 
@@ -86,8 +89,12 @@ public class DatabaseModificationController {
     }
 
     // add interpreter skill(language) to an employee
-    public void addLanguageToInterpreter(Interpreter interpreter, String language){
+    public void addLanguageToInterpreter(String interpreter, String language){
         interpreterMethod.addInterpreterLanguage(interpreter,language);
+    }
+
+    public void removeLanguageFromInterpreter(String interpreter, String language) {
+        interpreterMethod.removeInterpreterLanguage(interpreter, language);
     }
 
     // delete interpreter employee
@@ -113,6 +120,16 @@ public class DatabaseModificationController {
     public void deleteInterpreterRequest(InterpreterRequest interpreterRequest){
         interpreterRequestsMethod.deleteInterpreterRequest(interpreterRequest);
         serviceRequestsMethod.deleteServiceRequest(interpreterRequest);
+    }
+
+    public void addMaintenanceRequest(MaintenanceRequest maintenanceRequest){
+        serviceRequestsMethod.addServiceRequest(maintenanceRequest);
+        maintenanceRequestMethod.addMaintenanceRequest(maintenanceRequest);
+    }
+
+    public void deleteMaintenanceRequest(MaintenanceRequest maintenanceRequest){
+        maintenanceRequestMethod.deleteMaintenanceRequest(maintenanceRequest);
+        serviceRequestsMethod.deleteServiceRequest(maintenanceRequest);
     }
 
     public void addTransportationRequest(TransportationRequest transportationRequest){
