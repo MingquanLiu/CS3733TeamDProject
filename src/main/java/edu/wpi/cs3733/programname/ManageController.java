@@ -106,6 +106,8 @@ public class ManageController {
         this.dbModController.editNode(data);
     }
 
+    public void updateBuilding(String building){this.dbModController.updateBuilding(building);}
+
     public boolean login(String username, String password) {
         return this.dbQueryController.login(username, password);
     }

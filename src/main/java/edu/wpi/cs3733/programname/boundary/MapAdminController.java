@@ -527,6 +527,7 @@ public class MapAdminController implements Initializable {
         );
         stage.showAndWait();
         Floor newFloor = loader.<NewFloor>getController().getFloor();
+
         floors.add(newFloor);
         ObservableList fls = comboFloors.getItems();
         fls.add(newFloor);
@@ -544,6 +545,7 @@ public class MapAdminController implements Initializable {
                         (Pane) loader.load()
                 )
         );
+        loader.<NewBuilding>getController().initManager(manager);
         stage.showAndWait();
         Building newBld = loader.<NewBuilding>getController().getBldg();
         buildings.add(newBld);
@@ -841,6 +843,21 @@ public class MapAdminController implements Initializable {
         }
     }
 
+    public ArrayList<Building> getBuildings(){
+       return buildings;
+    }
+
+    public void sendBuildings(ArrayList<Building> curBuildings){
+        System.out.println(buildings);
+        buildings = curBuildings;
+        System.out.println(buildings);
+        ObservableList bldgs = comboBuilding.getItems();
+        for (Building b : buildings) {
+            if (!bldgs.contains(b))
+                bldgs.add(b);
+        }
+        comboBuilding.setItems(bldgs);
+    }
     private int UICToDBC(int value, double scale) {
         return (int) ((double) value / scale);
     }
