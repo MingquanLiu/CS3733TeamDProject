@@ -265,6 +265,8 @@ public class NodeData {
         if (!nodeID.equals(nodeData.nodeID)) return false;
         if (!location.equals(nodeData.location)) return false;
         if (!floor.equals(nodeData.floor)) return false;
+        if (!building.equals(nodeData.building)) return false;
+
         return shortName.equals(nodeData.shortName);
     }
 
@@ -303,9 +305,24 @@ public class NodeData {
                 break;
             case "INFO":
                 image2 = new Image("img/NodeIcon/ServDeskIcon.png");
+                break;
             case "RETL":
+                image2 = new Image("img/NodeIcon/RetailIcon.png");
                 break;
             case "DEPT":
+                image2 = new Image("img/NodeIcon/WaitRoomIcon.png");
+                break;
+            case "Exit":
+                image2 = new Image("img/NodeIcon/ExitIcon.png");
+                break;
+            case "STAI":
+                image2 = new Image("img/NodeIcon/StairsIcon.png");
+                break;
+            case "Labs":
+                image2 = new Image("img/NodeIcon/LabIcon.png");
+                break;
+            case "SERV":
+                image2 = new Image("img/NodeIcon/AddIcon.png");
                 break;
         }
         nodeImageView.setImage(image2);
