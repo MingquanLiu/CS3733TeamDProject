@@ -253,7 +253,6 @@ public class TestingController extends UIController implements Initializable {
     private List<Shape> pathDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
-    private List<NodeData> allNodes = new ArrayList<>();
     private List<NodeData> currentNodes = new ArrayList<>();
     //</editor-fold>
 
@@ -317,10 +316,10 @@ public class TestingController extends UIController implements Initializable {
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(MAX_UI_WIDTH *currentScale);
 //        allNodes = manageController.queryNodeByFloor(convertFloor(floor));
-        allNodes = manageController.getAllNodeData();
-        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(allNodes),currentScale),this));  ;
-        currentNodes = getNodeByFloor(allNodes,convertFloor(floor));
-        showNodeList(allNodes);
+//        allNodes = manageController.getAllNodeData();
+        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));  ;
+        showNodeList(currentNodes);
 //        panningPane.getChildren().add(imv);
 
         ObservableList locations = FXCollections.observableArrayList(
@@ -495,6 +494,16 @@ public class TestingController extends UIController implements Initializable {
             for(int i = 1; i < path.size(); i++){
                 Line l = new Line();
                 NodeData n = path.get(i);
+                if (n.getNodeType().equals("ELEV")) {
+                    if (path.get(i+1).getNodeType().equals("ELEV") && i != path.size() -1) {
+
+                    }
+                }
+                if (n.getNodeType().equals("STAI")) {
+                    if (path.get(i+1).getNodeType().equals("STAI") && i != path.size() -1) {
+
+                    }
+                }
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
                     l.setStroke(Color.BLUE);
                     l.setStrokeWidth(5.0*currentScale);
