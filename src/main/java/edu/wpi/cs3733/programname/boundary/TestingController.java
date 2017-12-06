@@ -524,47 +524,26 @@ public class TestingController extends UIController implements Initializable {
                 Line l = new Line();
                 NodeData n = path.get(i);
 
-                //prints correct floor on elevator edges
-                if (n.getNodeType().equals("ELEV")) {
-                    if (i != path.size() -1) {
-                        String printFloor = "";
-                        NodeData nextNode = path.get(i+1);
-                        if (nextNode.getNodeType().equals("ELEV")) {
-                            for(int j = 1; j < path.size() - i; j++) {
-                                nextNode = path.get(i+j);
-                                if (!nextNode.getNodeType().equals("ELEV")){
-                                    printFloor = nextNode.getFloor();
-                                } else if (nextNode.equals(n)) {
-                                    printFloor = nextNode.getFloor();
-                                }
+                if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
+                    NodeData nextNode = path.get(i+1);
+                    String printFloor = "";
+                    if((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
+                            (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))){
+                        for(int j = 1; j < path.size() - i; j++) {
+                            nextNode = path.get(i+j);
+                            if (!nextNode.getNodeType().equals("ELEV")){
+                                printFloor = nextNode.getFloor();
+                            } else if (nextNode.equals(n)) {
+                                printFloor = nextNode.getFloor();
                             }
                         }
                         lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
-                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
-                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
+                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
                         lblCrossFloor.setVisible(true);
-                        }
+                        lblCrossFloor.toFront();
                     }
-                //prints correct floor on stair edges
-                if (n.getNodeType().equals("STAI")) {
-                    if (i != path.size() -1) {
-                        String printFloor = "";
-                        NodeData nextNode = path.get(i+1);
-                        if (nextNode.getNodeType().equals("STAI")) {
-                            for(int j = 1; j < path.size() - i; j++) {
-                                nextNode = path.get(i+j);
-                                if (!nextNode.getNodeType().equals("STAI")){
-                                    printFloor = nextNode.getFloor();
-                                } else if (nextNode.equals(n)) {
-                                    printFloor = nextNode.getFloor();
-                                }
-                            }
-                        }
-                            lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord()-100, currentScale));
-                            lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord()-100, currentScale));
-                            lblCrossFloor.setVisible(true);
-                        }
-                    }
+                }
 
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);

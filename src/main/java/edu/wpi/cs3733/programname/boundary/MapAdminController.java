@@ -183,7 +183,7 @@ public class MapAdminController extends UIController implements Initializable {
     private boolean controlsVisible = false;
     private FadeTransition controlsTransition;
     //zooming/panning
-    private double currentScale;
+    public double currentScale;
     final double minWidth = 1500;
     final double maxWidth = 5000;
 
@@ -201,7 +201,7 @@ public class MapAdminController extends UIController implements Initializable {
 
     final private int originalMapRatioIndex = 3;
 
-    ArrayList<Double> mapRatio = new ArrayList<>();
+    public ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
     private EdgeData mEdge;
 
@@ -276,7 +276,7 @@ public class MapAdminController extends UIController implements Initializable {
         showNodeAndPath();
     }
 
-    private void showNodeAndPath() {
+    public void showNodeAndPath() {
         clearMain();
         clearEdge();
         clearNodes();
@@ -709,11 +709,13 @@ public class MapAdminController extends UIController implements Initializable {
     public void disablePaneScroll() {
         this.paneScroll.setDisable(true);
         this.panningPane.setDisable(true);
+        this.paneScroll.setFitToWidth(true);
     }
 
     public void enablePaneScroll() {
         this.paneScroll.setDisable(false);
         this.panningPane.setDisable(false);
+        this.paneScroll.setFitToWidth(false);
     }
 
     public void addHandler(ActionEvent event) {
