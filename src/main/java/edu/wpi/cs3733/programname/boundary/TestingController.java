@@ -109,6 +109,10 @@ public class TestingController extends UIController implements Initializable {
     private JFXButton btnTransportationReq;
     @FXML
     private JFXButton btnMapEdit;
+    @FXML
+    private JFXButton viewMyTasks;
+    @FXML
+    private JFXButton manageEmployees;
     //</editor-fold>
 
     //<editor-fold desc="key locations buttons">
