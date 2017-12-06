@@ -199,7 +199,7 @@ public class TestingController extends UIController implements Initializable {
     private boolean loggedIn;
     private Employee employeeLoggedIn;
     private NodeData lastShowNodeData = null;
-
+    private Coordinate SRSelectCoord = null;
 
     private PathfindingController.searchType mSearchType= ASTAR;
 
@@ -782,12 +782,19 @@ public class TestingController extends UIController implements Initializable {
                 txtEndLocation.setText(nodeData.getNodeID());
                 selectingLocation = "";
                 break;
+            case "selectSRLocation":
+                ;
+                break;
         }
     }
 
     @Override
     public void passEdgeData(EdgeData edgeData) {
 
+    }
+
+    public void changeSelectingLocationState(){
+        selectingLocation = "selectSRLocation";
     }
 
 

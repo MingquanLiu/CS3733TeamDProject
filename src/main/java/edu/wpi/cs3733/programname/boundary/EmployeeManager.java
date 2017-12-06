@@ -167,6 +167,8 @@ public class EmployeeManager {
                 passerror.setVisible(true);
             }
             else {
+                employeetable.setMouseTransparent(false);
+                btnSkills.setDisable(false);
                 newusername.setDisable(false);
                 canceledit.setVisible(false);
                 btnSkills.setVisible(false);
@@ -247,7 +249,13 @@ public class EmployeeManager {
     @FXML
     private void updateRow(MouseEvent event) {
         this.hideChangesSaved(event);
-        edit.setVisible(true);
+        try {
+            Employee employee = employeetable.getSelectionModel().getSelectedItem();
+            employee.getUsername();
+            edit.setVisible(true);
+        } catch (NullPointerException npe) {
+            // do nothing at all
+        }
     }
 
     @FXML
@@ -257,6 +265,7 @@ public class EmployeeManager {
 
     @FXML
     private void showedit(ActionEvent event) {
+        employeetable.setMouseTransparent(true);
         edit.setVisible(false);
         canceledit.setVisible(true);
         btnSkills.setVisible(true);
@@ -280,6 +289,8 @@ public class EmployeeManager {
 
     @FXML
     private void cancelEdit(ActionEvent event) {
+        employeetable.setMouseTransparent(false);
+        btnSkills.setDisable(false);
         canceledit.setVisible(false);
         btnSkills.setVisible(false);
         employeetable.getSelectionModel().clearSelection();
@@ -298,6 +309,7 @@ public class EmployeeManager {
 
     @FXML
     private void closeWindow(ActionEvent event){
+        btnSkills.setDisable(true);
         // get a handle to the stage
         Stage stage = (Stage) close.getScene().getWindow();
         changessaved.setVisible(false);
@@ -306,7 +318,7 @@ public class EmployeeManager {
 
     @FXML
     private void openSkillsWindow(ActionEvent Event) throws IOException {
-
+        btnSkills.setDisable(true);
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/employeeSkillsPopup.fxml"
@@ -323,6 +335,7 @@ public class EmployeeManager {
         try {
             listMySkills.getItems().clear();
             listAllSkills.getItems().clear();
+            mySkills.clear();
             if(employeeTypeString.equals("maintenance")) listAllSkills.getItems().addAll(maintenanceTypes);
             else if(employeeTypeString.equals("interpreter")) listAllSkills.getItems().addAll(languages);
             mySkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(skillsUsernameString));
@@ -381,10 +394,6 @@ public class EmployeeManager {
         listMySkills.getItems().remove(skill);
         this.manageController.removeLanguageFromInterpreter(skillsUsernameString, skill);
         labelSkillsSaved.setVisible(true);
-    }
-
-    private void update() {
-
     }
 
 
