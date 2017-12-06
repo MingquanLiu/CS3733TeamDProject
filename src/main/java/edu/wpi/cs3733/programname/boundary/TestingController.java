@@ -402,8 +402,8 @@ public class TestingController extends UIController implements Initializable {
         grid.add(locateAllLocations, 0, 9);
         keyLocation.setContent(content);
         keyLocation.setText("TRIALTRIAL");
-        keyLocation.setCollapsible(true);
-        keyLocation.setExpanded(true);
+        keyLocation.setCollapsible(false);
+        keyLocation.setExpanded(false);
         System.out.println("Expandable:"+keyLocation.isExpanded());
         System.out.println("Animated:"+keyLocation.isAnimated());
         System.out.println("Collapse:"+keyLocation.isCollapsible());
