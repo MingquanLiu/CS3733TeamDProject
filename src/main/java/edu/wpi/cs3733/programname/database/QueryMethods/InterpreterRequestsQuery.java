@@ -13,10 +13,10 @@ public class InterpreterRequestsQuery {
         this.dbConnection = dbConnection;
     }
 
-    public ArrayList<String> queryInterpreterRequestByID(int serviceID){
+    public ArrayList<String> queryInterpreterRequestByID(String serviceID){
         ArrayList<String> queryResult = new ArrayList<String>();
         try {
-            String sql = "SELECT * FROM InterpreterRequests WHERE serviceID = " + serviceID;
+            String sql = "SELECT * FROM InterpreterRequests WHERE serviceID = '" + serviceID + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String language;

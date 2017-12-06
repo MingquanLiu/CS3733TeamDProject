@@ -13,10 +13,10 @@ public class MaintenanceRequestsQuery {
         this.dbConnection = dbConnection;
     }
 
-    public String queryMaintenanceRequestByID(int serviceID){
+    public String queryMaintenanceRequestByID(String serviceID){
         String queryResult = "";
         try {
-            String sql = "SELECT * FROM MaintenanceRequests WHERE serviceID = " + serviceID;
+            String sql = "SELECT * FROM MaintenanceRequests WHERE serviceID = '" + serviceID + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
             String maintenanceType;
