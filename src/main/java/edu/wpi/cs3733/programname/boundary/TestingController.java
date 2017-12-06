@@ -232,7 +232,6 @@ public class TestingController extends UIController implements Initializable {
     private JFXCheckBox locateAllLocations;
 
 
-
     // Handicapped checkbox
     //<editor-fold desc="handicapped">
     @FXML
@@ -253,7 +252,6 @@ public class TestingController extends UIController implements Initializable {
     private List<Shape> pathDrawings = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
-    private List<NodeData> allNodes = new ArrayList<>();
     private List<NodeData> currentNodes = new ArrayList<>();
     //</editor-fold>
 
@@ -288,15 +286,15 @@ public class TestingController extends UIController implements Initializable {
     private boolean logOffNext = false;
     private String SRSelectType = null;
 
-    private PathfindingController.searchType mSearchType= ASTAR;
+    private PathfindingController.searchType mSearchType = ASTAR;
 
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    public void initManager(ManageController manageController){
-        currentMapRatioIndex =originalMapRatioIndex;
+    public void initManager(ManageController manageController) {
+        currentMapRatioIndex = originalMapRatioIndex;
         manager = manageController;
 //        mapRatio.add(0.24);
         paneAdminFeatures.setVisible(false);
@@ -315,12 +313,12 @@ public class TestingController extends UIController implements Initializable {
         controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
         currentScale = mapRatio.get(currentMapRatioIndex);
-        imgMap.setFitWidth(MAX_UI_WIDTH *currentScale);
+        imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
 //        allNodes = manageController.queryNodeByFloor(convertFloor(floor));
-        allNodes = manageController.getAllNodeData();
-        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(allNodes),currentScale),this));  ;
-        currentNodes = getNodeByFloor(allNodes,convertFloor(floor));
-        showNodeList(allNodes);
+//        allNodes = manageController.getAllNodeData();
+        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));  ;
+        showNodeList(currentNodes);
 //        panningPane.getChildren().add(imv);
 
         ObservableList locations = FXCollections.observableArrayList(
@@ -387,8 +385,6 @@ public class TestingController extends UIController implements Initializable {
         grid.setPadding(new Insets(5, 5, 5, 5));
 
 
-
-
         //add checkboxes to grid
         grid.add(locateBathrooms, 0, 0);
         grid.add(locateServiceDesks, 0, 1);
@@ -402,16 +398,17 @@ public class TestingController extends UIController implements Initializable {
         grid.add(locateAllLocations, 0, 9);
         keyLocation.setContent(content);
         keyLocation.setText("TRIALTRIAL");
-        keyLocation.setCollapsible(true);
-        keyLocation.setExpanded(true);
-        System.out.println("Expandable:"+keyLocation.isExpanded());
-        System.out.println("Animated:"+keyLocation.isAnimated());
-        System.out.println("Collapse:"+keyLocation.isCollapsible());
+        keyLocation.setCollapsible(false);
+        keyLocation.setExpanded(false);
+        System.out.println("Expandable:" + keyLocation.isExpanded());
+        System.out.println("Animated:" + keyLocation.isAnimated());
+        System.out.println("Collapse:" + keyLocation.isCollapsible());
         keyLocation.expandedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 keyLocation.setLayoutY(1000);
-                System.out.println("Clicked");            }
+                System.out.println("Clicked");
+            }
         });
         //add grid to titled pane
         grid.setLayoutX(10);
@@ -440,7 +437,8 @@ public class TestingController extends UIController implements Initializable {
             showNode(nodeDataList.get(i));
         }
     }
-    private void showNode(NodeData n){
+
+    private void showNode(NodeData n) {
         n.setImageViewSizeAndLocation(currentScale);
         panningPane.getChildren().add(n.getNodeImageView());
 //        drawCycle(DBCToUIC(n.getXCoord(),currentScale),DBCToUIC(n.getYCoord(),currentScale));
@@ -465,9 +463,9 @@ public class TestingController extends UIController implements Initializable {
 
     //displaying node info on click
 
-    private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY){
-        int dbX = UICToDBC(mouseX,currentScale);
-        int dbY =UICToDBC(mouseY,currentScale);
+    private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY) {
+        int dbX = UICToDBC(mouseX, currentScale);
+        int dbY = UICToDBC(mouseY, currentScale);
         NodeData mNodeData = null;
         double d = 0;
         for (NodeData node : nodeDataList) {
@@ -482,26 +480,36 @@ public class TestingController extends UIController implements Initializable {
         return mNodeData;
     }
 
-    private void displayPath(List<NodeData> path){
-        if(path!=null&&!path.isEmpty()){
-            currentPath= path;
+    private void displayPath(List<NodeData> path) {
+        if (path != null && !path.isEmpty()) {
+            currentPath = path;
             clearMain();
             System.out.println("drawing path");
             NodeData prev = path.get(0);
-            int x = (int) (prev.getXCoord()*currentScale);
-            int y = (int) (prev.getYCoord()*currentScale);
+            int x = (int) (prev.getXCoord() * currentScale);
+            int y = (int) (prev.getYCoord() * currentScale);
             System.out.println(x + ", " + y);
             ArrayList<Line> lines = new ArrayList<>();
-            for(int i = 1; i < path.size(); i++){
+            for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
-                if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))){
+                if (n.getNodeType().equals("ELEV")) {
+                    if (path.get(i+1).getNodeType().equals("ELEV") && i != path.size() -1) {
+
+                    }
+                }
+                if (n.getNodeType().equals("STAI")) {
+                    if (path.get(i+1).getNodeType().equals("STAI") && i != path.size() -1) {
+
+                    }
+                }
+                if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
-                    l.setStrokeWidth(5.0*currentScale);
-                    l.setStartX(prev.getXCoord()*currentScale);
-                    l.setStartY(prev.getYCoord()*currentScale);
-                    l.setEndX(n.getXCoord()*currentScale);
-                    l.setEndY(n.getYCoord()*currentScale);
+                    l.setStrokeWidth(5.0 * currentScale);
+                    l.setStartX(prev.getXCoord() * currentScale);
+                    l.setStartY(prev.getYCoord() * currentScale);
+                    l.setEndX(n.getXCoord() * currentScale);
+                    l.setEndY(n.getYCoord() * currentScale);
                     lines.add(l);
                 }
                 prev = n;
@@ -535,7 +543,7 @@ public class TestingController extends UIController implements Initializable {
         }
     }
 
-    private void clearNodes(){
+    private void clearNodes() {
     }
 
     //map switching methods
@@ -630,10 +638,11 @@ public class TestingController extends UIController implements Initializable {
     private int DBCToUIC(int value, double scale) {
         return (int) (value * scale);
     }
+
     public void mouseClickHandler(MouseEvent e) throws IOException {
-        int x = (int)e.getX();
-        int y =(int)e.getY();
-        if(!selectingLocation.equals("selectSRLocation")) {
+        int x = (int) e.getX();
+        int y = (int) e.getY();
+        if (!selectingLocation.equals("selectSRLocation")) {
             List<NodeData> mList = getNodeByVisibility(currentNodes, true);
             NodeData mNode = getClosestNode(mList, x, y);
 //        if(lastShowNodeData!=null)lastShowNodeData.setImageVisible(false);
@@ -641,10 +650,10 @@ public class TestingController extends UIController implements Initializable {
 //        lastShowNodeData = mNode;
             if (mNode != null)
                 showNodeInfo(mNode);
-        }else{
-            System.out.println("In selectSRLocation"+SRSelectType);
-            popupSRWithCoord(getClosestNode(currentNodes,x,y),SRSelectType);
-            selectingLocation ="";
+        } else {
+            System.out.println("In selectSRLocation" + SRSelectType);
+            popupSRWithCoord(getClosestNode(currentNodes, x, y), SRSelectType);
+            selectingLocation = "";
         }
     }
 
@@ -681,7 +690,7 @@ public class TestingController extends UIController implements Initializable {
     public void locateHandler(ActionEvent event) {
         Object mEvent = event.getSource();
         String nodeType = "";
-
+        setNodeListImageVisibility(false,currentNodes);
         if (mEvent == comboLocations) {
             String keyLocationString = comboLocations.getValue().toString();
             switch (keyLocationString) {
@@ -718,16 +727,19 @@ public class TestingController extends UIController implements Initializable {
                     break;
             }
         }
-        if (nodeType.equals("ALL")){
+        if (nodeType.equals("ALL")) {
             //ADD CODE HERE THANK YOU MINGQUANNNNNN
-
-        }
-        if((!nodeType.equals("")) && (!nodeType.equals("ALL"))){
-            List<NodeData> mList = getTypeNode(currentNodes,nodeType);
-            for(NodeData nodeData:mList){
+            for(NodeData nodeData:currentNodes){
                 nodeData.changeImageView(nodeType);
             }
-            setNodeListImageVisibility(true,mList);
+            setNodeListImageVisibility(true,currentNodes);
+        }
+        if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
+            List<NodeData> mList = getTypeNode(currentNodes, nodeType);
+            for (NodeData nodeData : mList) {
+                nodeData.changeImageView(nodeType);
+            }
+            setNodeListImageVisibility(true, mList);
         }
     }
 
@@ -773,16 +785,16 @@ public class TestingController extends UIController implements Initializable {
                     break;
             }
         }
-        if (nodeType.equals("ALL")){
+        if (nodeType.equals("ALL")) {
             //ADD CODE HERE THANK YOU MINGQUANNNNNN
 
         }
-        if((!nodeType.equals("")) && (!nodeType.equals("ALL"))){
-            List<NodeData> mList = getTypeNode(currentNodes,nodeType);
-            for(NodeData nodeData:mList){
+        if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
+            List<NodeData> mList = getTypeNode(currentNodes, nodeType);
+            for (NodeData nodeData : mList) {
                 nodeData.changeImageView(nodeType);
             }
-            setNodeListImageVisibility(true,mList);
+            setNodeListImageVisibility(true, mList);
         }
     }
 
@@ -809,7 +821,7 @@ public class TestingController extends UIController implements Initializable {
             clearPath();
             displayPath(mPath);
         }
-        setNodeListSizeAndLocation(currentNodes,currentScale);
+        setNodeListSizeAndLocation(currentNodes, currentScale);
         relocateNodeInfo();
     }
 
@@ -909,7 +921,7 @@ public class TestingController extends UIController implements Initializable {
         stage.showAndWait();
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         //loggedIn = true;
-        if(loggedIn) {
+        if (loggedIn) {
             employeeLoggedIn = manager.queryEmployeeByUsername(username);
             logOffNext = true;
             btnLogin.setText("Logout");
@@ -937,8 +949,17 @@ public class TestingController extends UIController implements Initializable {
                 )
         );
         loader.<MapAdminController>getController().initManager(manager);
+        loader.<MapAdminController>getController().sendBuildings(buildings);
         loader.<MapAdminController>getController().setmTestController(this);
-        stage.show();
+        stage.showAndWait();
+        buildings = loader.<MapAdminController>getController().getBuildings();
+        System.out.println(buildings);
+        ObservableList bldgs = comboBuilding.getItems();
+        for (Building b : buildings) {
+            if (!bldgs.contains(b))
+            bldgs.add(b);
+        }
+        comboBuilding.setItems(bldgs);
     }
 
     public void openAdminHandler() throws IOException {
@@ -959,7 +980,7 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
-    public void closeNodeInfoHandler(){
+    public void closeNodeInfoHandler() {
         nodeInfoPane.setVisible(false);
         nodeInfoLongName.setText("");
         nodeInfoShortName.setText("");
@@ -983,7 +1004,7 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
-    public void aboutButtonHandler()throws IOException {
+    public void aboutButtonHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/About_Popup.fxml"
@@ -998,7 +1019,7 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
-    public void transportRequestHandler()throws IOException {
+    public void transportRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Transportation_Request_UI.fxml"
@@ -1010,11 +1031,11 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<Transportation_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
+        loader.<Transportation_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
         stage.show();
     }
 
-    public void interpreterRequestHandler()throws IOException {
+    public void interpreterRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Interpreter_Request_UI.fxml"
@@ -1026,11 +1047,11 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<Interpreter_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
+        loader.<Interpreter_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
         stage.show();
     }
 
-    public void maintenanceRequestHandler()throws IOException {
+    public void maintenanceRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Maintenance_Request_UI.fxml"
@@ -1042,7 +1063,7 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<Maintenance_Request>getController().initController(manager,this,employeeLoggedIn.getUsername());
+        loader.<Maintenance_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
         stage.show();
     }
 
@@ -1065,21 +1086,22 @@ public class TestingController extends UIController implements Initializable {
 
     // Turn the handicapped path restriction on or off
     public void toggleHandicap() {
-        this.goButtonHandler();
+//        this.goButtonHandler();
     }
 
     @Override
     public void passNodeData(NodeData nodeData) throws IOException {
-        switch (selectingLocation){
+        switch (selectingLocation) {
             case "":
                 clearNodes();
+
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
                 break;
             case "selectLocation":
                 System.out.println("In selectLocation");
-                lblServiceX.setText(""+nodeData.getXCoord());
-                lblServiceY.setText(""+nodeData.getYCoord());
+                lblServiceX.setText("" + nodeData.getXCoord());
+                lblServiceY.setText("" + nodeData.getYCoord());
                 serviceRequester.setVisible(true);
                 selectingLocation = "";
                 break;
@@ -1087,18 +1109,18 @@ public class TestingController extends UIController implements Initializable {
                 clearNodes();
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
-                txtStartLocation.setText(nodeData.getNodeID());
+                txtStartLocation.setText(nodeData.getLongName());
                 selectingLocation = "";
                 break;
             case "selectEnd":
                 clearNodes();
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
-                txtEndLocation.setText(nodeData.getNodeID());
+                txtEndLocation.setText(nodeData.getLongName());
                 selectingLocation = "";
                 break;
             case "selectSRLocation":
-                popupSRWithCoord(nodeData,SRSelectType);
+                popupSRWithCoord(nodeData, SRSelectType);
                 selectingLocation = "";
                 break;
         }
@@ -1109,14 +1131,14 @@ public class TestingController extends UIController implements Initializable {
 
     }
 
-    public void setSelectingLocationState(String SRType){
+    public void setSelectingLocationState(String SRType) {
         selectingLocation = "selectSRLocation";
         this.SRSelectType = SRType;
     }
 
-    public void popupSRWithCoord(NodeData nodeData,String SRType) throws IOException {
-        System.out.println("If in here"+SRType);
-        switch (SRType){
+    public void popupSRWithCoord(NodeData nodeData, String SRType) throws IOException {
+        System.out.println("If in here" + SRType);
+        switch (SRType) {
             case "interpreter":
                 System.out.println("In Interpreter");
                 FXMLLoader loader = new FXMLLoader(
@@ -1130,7 +1152,7 @@ public class TestingController extends UIController implements Initializable {
                                 (Pane) loader.load()
                         )
                 );
-                loader.<Interpreter_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
+                loader.<Interpreter_Request>getController().initController(manager, this, nodeData, employeeLoggedIn.getUsername());
                 stage.show();
                 break;
             case "maintenance":
@@ -1145,7 +1167,7 @@ public class TestingController extends UIController implements Initializable {
                                 (Pane) loader.load()
                         )
                 );
-                loader.<Maintenance_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
+                loader.<Maintenance_Request>getController().initController(manager, this, nodeData, employeeLoggedIn.getUsername());
                 stage.show();
                 break;
             case "transportation":
@@ -1160,7 +1182,7 @@ public class TestingController extends UIController implements Initializable {
                                 (Pane) loader.load()
                         )
                 );
-                loader.<Transportation_Request>getController().initController(manager,this,nodeData,employeeLoggedIn.getUsername());
+                loader.<Transportation_Request>getController().initController(manager, this, nodeData, employeeLoggedIn.getUsername());
                 stage.show();
                 break;
         }

@@ -103,7 +103,7 @@
                                 </AnchorPane>
                             </content>
                         </TitledPane>
-                  <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
+                        <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
                     </children>
                 </AnchorPane>
             </content>
@@ -288,3 +288,4 @@
 
     </children>
 </AnchorPane>
+

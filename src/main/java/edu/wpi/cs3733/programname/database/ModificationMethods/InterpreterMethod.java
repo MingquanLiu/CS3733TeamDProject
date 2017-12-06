@@ -29,7 +29,7 @@ public class InterpreterMethod {
         String str;
         try {
             str = "insert into InterpreterSkills values('" + username + "','" + language + "')";
-            //System.out.println(str);
+            System.out.println(str);
             dbConnection.executeUpdate(str);
             this.wrt.writeInterpreterSkills(dbConnection.getConnection());
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class InterpreterMethod {
                 dbConnection.executeUpdate(str);
                 this.wrt.writeNodes(dbConnection.getConnection());
             } catch (SQLException e) {
-                System.out.println("Delete Interpreter Skills Failed!");
+                System.out.println("Delete InterpreterSkills Failed!");
                 e.printStackTrace();
             }
         }

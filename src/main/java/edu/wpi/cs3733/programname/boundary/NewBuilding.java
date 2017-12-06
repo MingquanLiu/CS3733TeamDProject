@@ -8,7 +8,10 @@ import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.database.CsvWriter;
 import edu.wpi.cs3733.programname.database.DBConnection;
+import edu.wpi.cs3733.programname.database.DatabaseModificationController;
+import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 import javafx.animation.FadeTransition;
@@ -72,6 +75,7 @@ public class NewBuilding {
 
     File selectedFile;
     String filepath;
+    ManageController manager;
 
     private static void configureFileChooser(final FileChooser fileChooser) {
         fileChooser.getExtensionFilters().addAll(
@@ -142,7 +146,10 @@ public class NewBuilding {
                 copyFile(selectedFile, fileMap);
 
                 //print to make sure, then hide the menu
-                System.out.println("\n\n\nCreated new building in out, stored in src");
+                System.out.println("\n\n\nCreated new building!");
+
+                initManager(manager);
+                //manager.updateBuilding(buildingName.getText());
                 onCancelButton();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -151,6 +158,11 @@ public class NewBuilding {
 
         }
 
+    }
+
+    public void initManager(ManageController manageController){
+        System.out.println("init For Login");
+        manager = manageController;
     }
 
     private String getFileExtension(File file) {

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.*;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.Constants;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -354,10 +355,14 @@ public class EmployeeManager {
     @FXML
     void addSkill(ActionEvent event) {
         String skill = listAllSkills.getSelectionModel().getSelectedItem();
-        this.manageController.addLanguageToInterpreter(skillsUsernameString, skill);
+        Employee currentUpdatedEmployee = manageController.queryEmployeeByUsername(skillsUsernameString);
+        if (currentUpdatedEmployee.getServiceType() == Constants.INTERPRETER_REQUEST) {
+            this.manageController.addLanguageToInterpreter(skillsUsernameString, skill);
+        } else {
+            this.manageController.addSkillToMaintenanceEmployee(skillsUsernameString, skill);
+        }
         listMySkills.getItems().add(skill);
         labelSkillsSaved.setVisible(true);
-
     }
 
     @FXML
