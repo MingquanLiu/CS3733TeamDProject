@@ -631,7 +631,7 @@ public class TestingController extends UIController implements Initializable {
         //For changing the node
         clearCurrentNodeIMV(currentNodes);
         currentNodes = manager.queryNodeByFloor(convertFloor(floor));
-        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));  ;
+        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));
         showNodeList(currentNodes);
     }
 

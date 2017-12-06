@@ -191,7 +191,6 @@ public class MapAdminController implements Initializable {
     private List<EdgeData> currentEdges2 = new ArrayList<>();
     private List<NodeData> currentNodes = new ArrayList<>();
     private List<NodeData> currentNodes2 = new ArrayList<>();
-    private List<NodeData> floorNodes;
     private List<Shape> edgeDrawing = new ArrayList<>();
     private boolean addingEdge;
 
@@ -276,14 +275,16 @@ public class MapAdminController implements Initializable {
     }
 
     private void showNodeAndPath() {
-        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
-        floorNodes = nodes;
-        List<EdgeData> edges = manager.getAllEdgeData();
+        currentNodes = manager.queryNodeByFloor(convertFloor(floor));
+        currentEdge = manager.getAllEdgeData();
 
         //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
+        displayEdges(currentEdge);
+        showNodeList(currentNodes);
 
-        displayEdges(edges);
-        showNodeList(nodes);
+//        setNodeListImageVisibility(true,setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale));
+//        showNodeList(currentNodes);
+
     }
 
 
@@ -295,7 +296,6 @@ public class MapAdminController implements Initializable {
         for(int i = 0;i <nodeDataList.size();i++){
             showNode(nodeDataList.get(i));
         }
-        setNodeListImageVisibility(true, nodeDataList);
     }
 
     private void showNodeList2(List<NodeData> nodeDataList) {
@@ -327,15 +327,11 @@ public class MapAdminController implements Initializable {
                 }
             };
     private void showNode(NodeData n) {
-        currentNodes.add(n);
-        //drawCircle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale));
-        n.initializeImageView();
-        ImageView img = n.getNodeImageView();
-
-        setNodeDragHandler(n, nodeDraggedEventHandler);
-        setNodePressHandler(n, nodePressedEventHanlder);
-        n.setImageViewSizeAndLocation(currentScale);
-        panningPane.getChildren().add(img);
+        drawCircle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale));
+//        setNodeDragHandler(n, nodeDraggedEventHandler);
+//        setNodePressHandler(n, nodePressedEventHanlder);
+//        panningPane.getChildren().add(n.getNodeImageView());
+//        drawCircle();
     }
 
 
@@ -382,7 +378,6 @@ public class MapAdminController implements Initializable {
             NodeData node1 = getNode(edge.getStartNode());
             NodeData node2 = getNode(edge.getEndNode());
             if (node1 != null && node2 != null) {
-                currentEdge.add(edge);
                 displayEdge(node1, node2);
             }
         }
@@ -399,7 +394,7 @@ public class MapAdminController implements Initializable {
     }
 
     private NodeData getNode(String nodeID) {
-        for (NodeData nodeData : floorNodes) {
+        for (NodeData nodeData : currentNodes) {
             if (nodeData.getNodeID().equals(nodeID)) {
                 if (floors.get(floor + 2).getFloorName().equals(currentFloor.getFloorName()) && currentFloor.getBuilding().equals(floors.get(floor + 2).getBuilding())) {
                     return nodeData;

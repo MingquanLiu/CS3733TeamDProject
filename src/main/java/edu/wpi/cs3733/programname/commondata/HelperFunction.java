@@ -79,7 +79,6 @@ public class HelperFunction {
     public static void setNodeDragHandler(NodeData n, EventHandler e){
         ImageView img = n.getNodeImageView();
         img.setOnMouseDragged(e);
-
     }
     public static void setNodePressHandler(NodeData n, EventHandler e){
         ImageView img = n.getNodeImageView();

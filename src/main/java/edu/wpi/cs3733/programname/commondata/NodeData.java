@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ public class NodeData {
     private String shortName;
     private String teamAssigned;
     private ImageView nodeImageView;
-
+    private Circle circle;
     /**
      * NodeData constructor with location
      *
@@ -287,6 +288,10 @@ public class NodeData {
         return result;
     }
 
+
+    /******************************************************************************************************************************************************
+     * Doing with Image View
+     */
     public void initializeImageView(){
         final ImageView imv = new ImageView();
         Image image2 = new Image("img/NodeIcon/NodeIcon.png");
@@ -354,5 +359,9 @@ public class NodeData {
     public void setImageVisible(Boolean imageVisible){
         nodeImageView.setVisible(imageVisible);
     }
+
+    /******************************************************************************************************************************************************
+     * Doing with Shape
+     */
 }
 
