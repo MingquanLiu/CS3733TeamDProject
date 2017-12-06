@@ -295,7 +295,8 @@ public class ManageController {
     }
 
     public ArrayList<String> queryInterpreterSkillsbyUsername(String username){
-        return dbQueryController.queryInterpreterSkillsbyUsername(username);
+        ArrayList<String> languages = dbQueryController.queryInterpreterSkillsbyUsername(username);
+        return languages;
     }
 
     public void addLanguageToInterpreter(String interpreter, String language) {

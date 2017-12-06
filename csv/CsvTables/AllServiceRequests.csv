@@ -1,2 +1,1 @@
 serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity
-27,admin,,interpreter,DHALL00102,null,Language to: fuck Language from: fuck,2017-12-05 17:28:44,,,unhandled,1

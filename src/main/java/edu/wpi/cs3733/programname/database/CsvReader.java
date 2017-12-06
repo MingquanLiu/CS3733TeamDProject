@@ -283,7 +283,7 @@ public class CsvReader {
 
                     //for each entry in the interpreter db for this employee,
                     //add that entry's language to this employee
-                    for (String[] data: interpreterInfo) {
+                    for (String[] data: interpreterEmployeeInfo) {
                         if(data[0].equals(values[0])){
                             languages.add(data[1]);
                         }
@@ -293,7 +293,7 @@ public class CsvReader {
                 } else if (values[6].equals(Constants.MAINTENANCE_REQUEST)) {
                     ArrayList<String> skills = new ArrayList<>();
 
-                    for(String[] data: maintenanceInfo) {
+                    for(String[] data: maintenanceEmployeeInfo) {
                         if(data[0].equals(values[0])) {
                             skills.add(data[1]);
                             break;
@@ -379,7 +379,7 @@ public class CsvReader {
                 if (employeeList.get(i).getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
                     Interpreter interpreter = (Interpreter) employeeList.get(i);
                     for(String language: interpreter.getLanguages()) {
-                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language)" +
                                 " VALUES (?,?)");
                         skillsInsert.setString(1, interpreter.getUsername());
                         skillsInsert.setString(2, language);
@@ -388,7 +388,7 @@ public class CsvReader {
                 } else if (employeeList.get(i).getServiceType().equals(Constants.MAINTENANCE_REQUEST)) {
                     Maintenance maintenanceEmployee = (Maintenance) employeeList.get(i);
                     for (String skill: maintenanceEmployee.getMaintenanceType()) {
-                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language) +" +
+                        skillsInsert = conn.prepareStatement("INSERT INTO InterpreterSkills(username, language)" +
                                 " VALUES (?,?)");
                         skillsInsert.setString(1, maintenanceEmployee.getUsername());
                         skillsInsert.setString(2, skill);

@@ -22,14 +22,12 @@ import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class EmployeeManager {
 
     String skillsUsernameString;
+    String employeeTypeString;
 
     @FXML
     private AnchorPane mainServicePane;
@@ -143,6 +141,7 @@ public class EmployeeManager {
     @FXML
     private Label labelSkillsSaved;
 
+
     //********************************************Additional vars*******************************************//
 
     private ManageController manageController;
@@ -152,6 +151,9 @@ public class EmployeeManager {
     private List<String> allSkills;
 
     private List<String> mySkills;
+
+    private ArrayList<String> languages;
+    private ArrayList<String> maintenanceTypes;
 
     @FXML
     private SortedList<Employee> sortedEmployee;
@@ -268,6 +270,7 @@ public class EmployeeManager {
         password.setText(employee.getPassword());
         password1.setText(employee.getPassword());
         admin.setSelected(employee.getSysAdmin());
+        employeeTypeString = employee.getServiceType();
         if(employee.getServiceType().equals("transportation")) servicegroup.selectToggle(transportBtn);
         else if(employee.getServiceType().equals("maintenance")) servicegroup.selectToggle(maintenanceBtn);
         else servicegroup.selectToggle(interpreterBtn);
@@ -318,7 +321,11 @@ public class EmployeeManager {
         );
         stage.show();
         try {
-            mySkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(newusername.getText()));
+            listMySkills.getItems().clear();
+            listAllSkills.getItems().clear();
+            if(employeeTypeString.equals("maintenance")) listAllSkills.getItems().addAll(maintenanceTypes);
+            else if(employeeTypeString.equals("interpreter")) listAllSkills.getItems().addAll(languages);
+            mySkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(skillsUsernameString));
             listMySkills.getItems().addAll(mySkills);
             labelUsername.setText(skillsUsernameString);
         } catch (NullPointerException npe) {
@@ -364,7 +371,6 @@ public class EmployeeManager {
             String newSkill = result.get();
             listAllSkills.getItems().add(newSkill);
 
-            // TODO: Add the new skill to the database list of all skills???
         }
     }
 
@@ -375,6 +381,10 @@ public class EmployeeManager {
         listMySkills.getItems().remove(skill);
         this.manageController.removeLanguageFromInterpreter(skillsUsernameString, skill);
         labelSkillsSaved.setVisible(true);
+    }
+
+    private void update() {
+
     }
 
 
@@ -390,21 +400,13 @@ public class EmployeeManager {
         email.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
         service.setCellValueFactory(cellData -> cellData.getValue().serviceTypeProperty());
         administrator.setCellValueFactory(cellData -> cellData.getValue().sysAdminProperty());
+        allSkills = new ArrayList<>();
+        mySkills = new ArrayList<>();
         listAllSkills = new JFXListView<String>();
-        try {
-            for(Employee e: data) {
-                allSkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(e.getUsername()));
-                // get their skills and add them to the list of possible skills
-            }
-
-            // This piece of kludgey code removes all the duplicates (in theory)
-            Set<String> hs = new HashSet<>();
-            hs.addAll(allSkills);
-            allSkills.clear();
-            allSkills.addAll(hs);
-            listAllSkills.getItems().addAll(allSkills);
-        } catch (NullPointerException npe) {
-            System.out.println("Hah, your employees have no skills. Add some with the skills editor.");
-        }
+        listMySkills = new JFXListView<String>();
+        languages = new ArrayList<>();
+        languages.addAll(Arrays.asList("Mandarin", "Cantonese", "Spanish", "French", "German", "Korean", "Japanese", "Russian", "Hindi", "Arabic", "Portuguese", "Bengali", "other"));
+        maintenanceTypes = new ArrayList<>();
+        maintenanceTypes.addAll(Arrays.asList("clean", "elevator", "electricity", "network","other"));
     }
 }

@@ -124,7 +124,8 @@ public class DatabaseQueryController {
 
     // Interpreter Query
     public ArrayList<String> queryInterpreterSkillsbyUsername(String username){
-        return interpreterQuery.queryInterpreterSkills(username);
+        ArrayList<String> languages = interpreterQuery.queryInterpreterSkills(username);
+        return languages;
     }
 
     // Maintenance Query
