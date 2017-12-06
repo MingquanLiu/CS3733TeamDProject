@@ -184,8 +184,8 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <JFXCheckBox text="All Nodes" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-                  <JFXCheckBox text="All Edges" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <JFXCheckBox fx:id="allNodeBox" text="All Nodes" onAction="#allNodeButtonHandler" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                  <JFXCheckBox fx:id="allEdgeBox" text="All Edges" onAction="#allEdgeButtonHandler" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
                   <Label text="Map Editing Features" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                      <font>
                         <Font name="System Bold" size="12.0" />
