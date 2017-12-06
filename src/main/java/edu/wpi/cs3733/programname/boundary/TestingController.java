@@ -1076,6 +1076,7 @@ public class TestingController extends UIController implements Initializable {
         switch (selectingLocation){
             case "":
                 clearNodes();
+
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
                 break;
@@ -1090,14 +1091,14 @@ public class TestingController extends UIController implements Initializable {
                 clearNodes();
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
-                txtStartLocation.setText(nodeData.getNodeID());
+                txtStartLocation.setText(nodeData.getLongName());
                 selectingLocation = "";
                 break;
             case "selectEnd":
                 clearNodes();
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
-                txtEndLocation.setText(nodeData.getNodeID());
+                txtEndLocation.setText(nodeData.getLongName());
                 selectingLocation = "";
                 break;
             case "selectSRLocation":
