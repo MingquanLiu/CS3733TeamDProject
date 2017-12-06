@@ -41,7 +41,7 @@ public class TextDirections {
             String name = node.getLongName();
             String face, faceSymbol; // This is the direction the node is facing relative to the last
 
-            double directionChange = getDirectionAngle(lastNode, node, nextNode);
+            double directionChange = 0 - getDirectionAngle(lastNode, node, nextNode);
             if(directionChange <= -45 && directionChange >= -135) {
                 face = "right";
                 faceSymbol = "⇒";
