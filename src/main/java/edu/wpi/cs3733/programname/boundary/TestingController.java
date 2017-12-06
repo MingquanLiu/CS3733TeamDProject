@@ -179,7 +179,6 @@ public class TestingController extends UIController implements Initializable {
     private List<Shape> shownNodes = new ArrayList<>();
     private GraphicsContext gc;
     private List<NodeData> currentPath;
-    private List<NodeData> allNodes = new ArrayList<>();
     private List<NodeData> currentNodes = new ArrayList<>();
 
     //hamburger transitions
@@ -230,10 +229,10 @@ public class TestingController extends UIController implements Initializable {
         currentScale = mapRatio.get(currentMapRatioIndex);
         imgMap.setFitWidth(MAX_UI_WIDTH *currentScale);
 //        allNodes = manageController.queryNodeByFloor(convertFloor(floor));
-        allNodes = manageController.getAllNodeData();
-        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(allNodes),currentScale),this));  ;
-        currentNodes = getNodeByFloor(allNodes,convertFloor(floor));
-        showNodeList(allNodes);
+ //       allNodes = manageController.getAllNodeData();
+        currentNodes = getNodeByFloor(manager.getAllNodeData(),convertFloor(floor));
+        setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));  ;
+        showNodeList(currentNodes);
 //        panningPane.getChildren().add(imv);
 
     }
@@ -329,7 +328,7 @@ public class TestingController extends UIController implements Initializable {
         clearPath();
         closeNodeInfoHandler();
         clearPathFindLoc();
-        lastShowNodeData.setImageVisible(false);
+//        lastShowNodeData.setImageVisible(false);
     }
     public void clearPathFindLoc(){
         txtEndLocation.setText("");
@@ -358,8 +357,12 @@ public class TestingController extends UIController implements Initializable {
             System.out.println("up to floor" + floor);
             setFloor();
             displayPath(currentPath);
-            setNodeListImageVisibility(false,currentNodes);
-            currentNodes = getNodeByFloor(allNodes,convertFloor(floor));
+            for (NodeData node: currentNodes) {
+                panningPane.getChildren().remove(node.getNodeImageView());
+            }
+            currentNodes = getNodeByFloor(manager.getAllNodeData(),convertFloor(floor));
+            setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));
+            showNodeList(currentNodes);
             nodeInfoPane.setVisible(false);
         }
         else if (e.getSource() == btnMapDwn && floor > -2){
@@ -367,8 +370,12 @@ public class TestingController extends UIController implements Initializable {
             System.out.println("down to floor" + floor);
             setFloor();
             displayPath(currentPath);
-            setNodeListImageVisibility(false,currentNodes);
-            currentNodes = getNodeByFloor(allNodes,convertFloor(floor));
+            for (NodeData node: currentNodes) {
+                panningPane.getChildren().remove(node.getNodeImageView());
+            }
+            currentNodes = getNodeByFloor(manager.getAllNodeData(),convertFloor(floor));
+            setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));
+            showNodeList(currentNodes);
             nodeInfoPane.setVisible(false);
         }
     }
