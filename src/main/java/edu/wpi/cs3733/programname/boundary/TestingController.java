@@ -282,6 +282,7 @@ public class TestingController extends UIController implements Initializable {
     private ArrayList<Double> mapRatio = new ArrayList<>();
     private int currentMapRatioIndex;
     private boolean loggedIn;
+    private String userName = null;
     private Employee employeeLoggedIn;
     private List<Shape> shownNodes = new ArrayList<>();
     //</editor-fold>
@@ -897,7 +898,7 @@ public class TestingController extends UIController implements Initializable {
             //Todo add some sort of error handling
             return loader;
         }
-        loader.<LoginPopup>getController().initManager(manager);
+        loader.<LoginPopup>getController().initManager(manager,this);
         Stage newStage = new Stage();
         newStage.setScene(newScene);
         newStage.showAndWait();
@@ -924,12 +925,13 @@ public class TestingController extends UIController implements Initializable {
                         (Pane) loader.load()
                 )
         );
-        loader.<LoginPopup>getController().initManager(manager);
+        loader.<LoginPopup>getController().initManager(manager,this);
         stage.showAndWait();
         loggedIn = loader.<LoginPopup>getController().getLoggedIn();
         //loggedIn = true;
         if (loggedIn) {
-            employeeLoggedIn = manager.queryEmployeeByUsername(username);
+            System.out.println("user name "+userName);
+            employeeLoggedIn = manager.queryEmployeeByUsername(userName);
             logOffNext = true;
             btnLogin.setText("Logout");
             showAdminControls();
@@ -1197,11 +1199,15 @@ public class TestingController extends UIController implements Initializable {
                 break;
         }
     }
-    public void clearCurrentNodeIMV(List<NodeData> mList){
+    private void clearCurrentNodeIMV(List<NodeData> mList){
         for(NodeData nodeData:mList){
             panningPane.getChildren().remove(nodeData.getNodeImageView());
         }
 
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
     }
 
 }
