@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 
+import edu.wpi.cs3733.programname.boundary.observers.AbsObserver;
 import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
@@ -21,6 +22,7 @@ import edu.wpi.cs3733.programname.database.QueryMethods.ServiceRequestsQuery;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 import java.util.Random;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
@@ -40,6 +42,7 @@ public class ManageController {
     private ServiceRequestController serviceController;
     private EmployeesQuery employeesQuery;
     private ServiceRequestsQuery serviceRequestsQuery;
+    private DbObservable dbObservable;
     private CsvWriter wrt;
 
     public ManageController(DBConnection dbConnection) {
@@ -264,6 +267,14 @@ public class ManageController {
         dbModController.deleteEmployee(emp);
     }
 
+    public void initializeObservable(ArrayList<AbsObserver> observers) {
+        DbObservable observable = new DbObservable(observers);
+        this.dbObservable = observable;
+    }
+
+    public void notifyObservers() {
+        this.dbObservable.notifyObservers();
+    }
 
         // Reader Methods
 
