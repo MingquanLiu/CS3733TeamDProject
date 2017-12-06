@@ -326,6 +326,7 @@ public class TestingController extends UIController implements Initializable {
 //        panningPane.getChildren().add(imv);
 
         ObservableList locations = FXCollections.observableArrayList(
+                "None",
                 "Bathrooms",
                 "Service Desks",
                 "Retail Services",
@@ -337,7 +338,7 @@ public class TestingController extends UIController implements Initializable {
                 "Additional Services",
                 "All Locations");
         comboLocations.setItems(locations);
-        comboLocations.setValue("Bathrooms");
+        comboLocations.setValue("None");
 
         Floor basement2 = new Floor("Basement 2", "45 Francis", "file:floorMaps/Floor_-2.png");
         Floor basement1 = new Floor("Basement 1", "45 Francis", "file:floorMaps/Floor_-1.png");
