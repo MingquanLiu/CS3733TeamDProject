@@ -902,6 +902,9 @@ public class TestingController extends UIController implements Initializable {
         directions = directions.replaceAll("null", "");
         txtAreaDirections.setText(directions);
         paneDirections.setExpanded(true);
+        /*ScrollPane sp = new ScrollPane();
+        sp.setContent(txtAreaDirections);*/
+
     }
 
     public void employeeButtonHandler(ActionEvent event) throws IOException {
