@@ -523,6 +523,7 @@ public class TestingController extends UIController implements Initializable {
             int x = (int) (prev.getXCoord() * currentScale);
             int y = (int) (prev.getYCoord() * currentScale);
             System.out.println(x + ", " + y);
+
             ArrayList<Line> lines = new ArrayList<>();
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
