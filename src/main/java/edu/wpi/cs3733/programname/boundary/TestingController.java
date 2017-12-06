@@ -550,45 +550,6 @@ public class TestingController extends UIController implements Initializable {
     private void clearNodes() {
     }
 
-    //map switching methods
-    public void addFloor() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/newFloor.fxml"
-                ));
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        stage.showAndWait();
-        Floor newFloor = loader.<NewFloor>getController().getFloor();
-        floors.add(newFloor);
-        ObservableList fls = comboFloors.getItems();
-        fls.add(newFloor);
-        comboFloors.setItems(fls);
-    }
-
-    public void addBuilding() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/newBuilding.fxml"
-                ));
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        stage.showAndWait();
-        Building newBld = loader.<NewBuilding>getController().getBldg();
-        buildings.add(newBld);
-        ObservableList bldgs = comboBuilding.getItems();
-        bldgs.add(newBld);
-        comboBuilding.setItems(bldgs);
-        setBuilding(newBld);
-    }
 
     public void mapChange(ActionEvent e) {
         setFloor();
@@ -876,6 +837,22 @@ public class TestingController extends UIController implements Initializable {
                 )
         );
         loader.<EmployeeManager>getController().initManager(this.manager);
+        stage.show();
+    }
+
+    public void employeeRequestHandler(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employee_request_handler.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<EmployeeRequestHandlerController>getController().initialize(this.manager,employeeLoggedIn);
         stage.show();
     }
 
