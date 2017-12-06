@@ -32,7 +32,9 @@ public class PathfindingController {
             switch(type) {
                 case ASTAR:
                     pathFinder = new AStar(allNodes, allEdges, startNode, endNode);
-                    return pathFinder.getFinalList();
+                    List<NodeData> imDumb = pathFinder.getFinalList();
+                    new TextDirections(imDumb);
+                    return imDumb;
                 case DFS:
                     pathFinder = new DFS(allNodes, allEdges, startNode, endNode);
                     return pathFinder.getFinalList();
