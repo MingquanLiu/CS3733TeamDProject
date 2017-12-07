@@ -3,6 +3,7 @@ package edu.wpi.cs3733.programname.boundary;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.AppSettings;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
@@ -202,7 +203,6 @@ public class MapAdminController extends UIController implements Initializable {
     final private int originalMapRatioIndex = 3;
 
     public ArrayList<Double> mapRatio = new ArrayList<>();
-    private int currentMapRatioIndex;
     private EdgeData mEdge;
 
     @Override
@@ -214,7 +214,6 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     public void initManager(ManageController manageController){
-        currentMapRatioIndex =originalMapRatioIndex;
 //        mapRatio.add(0.24);
         manager = manageController;
         mapRatio.add(0.318);
@@ -231,7 +230,7 @@ public class MapAdminController extends UIController implements Initializable {
         controlsTransition.setFromValue(0);
         controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
-        currentScale = mapRatio.get(currentMapRatioIndex);
+        currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
         System.out.println("Scale: " + currentScale);
         imgMap.setFitWidth(maxWidth * currentScale);
 
@@ -727,14 +726,12 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     public void disablePaneScroll() {
-        this.paneScroll.setDisable(true);
-        this.panningPane.setDisable(true);
+        this.paneScroll.setPannable(false);
         this.paneScroll.setFitToWidth(true);
     }
 
     public void enablePaneScroll() {
-        this.paneScroll.setDisable(false);
-        this.panningPane.setDisable(false);
+        this.paneScroll.setPannable(true);
         this.paneScroll.setFitToWidth(false);
     }
 
@@ -820,28 +817,25 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     public void selectPFAlgorithm(ActionEvent e) {
-        PathfindingController.searchType searchType = PathfindingController.searchType.DFS;
         Object mEvent = e.getSource();
-        System.out.println("Source" + mEvent.toString());
         if (mEvent == DFS) {
-            searchType = PathfindingController.searchType.DFS;
+            AppSettings.getInstance().setSearchType(PathfindingController.searchType.DFS);
         }
-        if (mEvent == BFS) {
-            searchType = PathfindingController.searchType.BFS;
+        else if (mEvent == BFS) {
+            AppSettings.getInstance().setSearchType(PathfindingController.searchType.BFS);
         }
-        if (mEvent == Dijkstra) {
-            searchType = PathfindingController.searchType.DIJKSTRA;
+        else if (mEvent == Dijkstra) {
+            AppSettings.getInstance().setSearchType(PathfindingController.searchType.DIJKSTRA);
         }
-        if (mEvent == ASTAR) {
-            searchType = PathfindingController.searchType.ASTAR;
+        else if (mEvent == ASTAR) {
+            AppSettings.getInstance().setSearchType(PathfindingController.searchType.ASTAR);
         }
-        if (mEvent == Beam) {
-            searchType = PathfindingController.searchType.BEST;
+        else if (mEvent == Beam) {
+            AppSettings.getInstance().setSearchType(PathfindingController.searchType.BEAM);
         }
-        if (mEvent == BestFirst) {
-            searchType = PathfindingController.searchType.BEAM;
+        else if (mEvent == BestFirst) {
+            AppSettings.getInstance().setSearchType(PathfindingController.searchType.BEST);
         }
-        mTestController.setSearchType(searchType);
     }
 
     public void openMenuHandler() {
@@ -872,21 +866,21 @@ public class MapAdminController extends UIController implements Initializable {
 //            if(imgMap.getFitWidth() <= minWidth){
 //                return;
 //            }
-            if (currentMapRatioIndex == 0) {
+            if (AppSettings.getInstance().getMapRatioIndex() == 0) {
                 return;
             }
-            currentMapRatioIndex -= 1;
-            currentScale = mapRatio.get(currentMapRatioIndex);
+            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() - 1);
+            currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
 //            if(imgMap.getFitWidth() >= MAX_UI_WIDTH){
 //                return;
 //            }
-            if (currentMapRatioIndex == (mapRatio.size() - 1)) {
+            if (AppSettings.getInstance().getMapRatioIndex() == (mapRatio.size() - 1)) {
                 return;
             }
-            currentMapRatioIndex += 1;
-            currentScale = mapRatio.get(currentMapRatioIndex);
+            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() + 1);
+            currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
             imgMap.setFitWidth(maxWidth * currentScale);
         }
 //        clearMain();
@@ -932,9 +926,7 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     public void sendBuildings(ArrayList<Building> curBuildings){
-        System.out.println(buildings);
         buildings = curBuildings;
-        System.out.println(buildings);
         ObservableList bldgs = comboBuilding.getItems();
         for (Building b : buildings) {
             if (!bldgs.contains(b))

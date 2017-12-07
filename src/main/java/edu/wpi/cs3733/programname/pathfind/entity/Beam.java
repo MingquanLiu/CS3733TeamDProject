@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Beam extends PathfindingStrategyTemplate {
+public class Beam extends PathfindingTemplate {
     int beamWidth = 3;
 
     public Beam(List<NodeData> allNodes, List<EdgeData> allEdges, String startID, String goalID) {

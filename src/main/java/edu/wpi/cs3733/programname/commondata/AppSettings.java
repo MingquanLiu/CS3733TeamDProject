@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import edu.wpi.cs3733.programname.boundary.Floor;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
@@ -11,7 +12,6 @@ public class AppSettings {
     private searchType searchType;
     private boolean handicapPath;
     private int mapRatioIndex;
-    private int currentFloor;       //TODO refactor this to Floor type
 
     private final int INITIAL_MAP_SCALE = 3;
 
@@ -19,7 +19,6 @@ public class AppSettings {
         searchType = PathfindingController.searchType.ASTAR;
         handicapPath = false;
         mapRatioIndex = INITIAL_MAP_SCALE;
-        currentFloor = 2;
     }
 
     public static AppSettings getInstance() {

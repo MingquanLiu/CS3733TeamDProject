@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Best extends PathfindingStrategyTemplate {
+public class Best extends PathfindingTemplate {
 
     public Best(List<NodeData> allNodes, List<EdgeData> allEdges, String startID, String goalID) {
         this.allNodes = allNodes;
