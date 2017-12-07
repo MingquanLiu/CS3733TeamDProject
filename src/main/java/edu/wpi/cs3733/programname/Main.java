@@ -18,10 +18,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 //import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
+
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 
 public class Main extends Application {
@@ -77,25 +77,62 @@ public class Main extends Application {
     }
 
 
-    private void checkOrMake() {
+    private void checkOrMake() throws Exception {
         if (new File("floorMaps").mkdirs()) {
             try {
-                copyFile(new File("out/production/resources/img/Floor_0.png"), new File("floorMaps/Floor_0.png"));
-                copyFile(new File("out/production/resources/img/Floor_1.png"), new File("floorMaps/Floor_1.png"));
-                copyFile(new File("out/production/resources/img/Floor_2.png"), new File("floorMaps/Floor_2.png"));
-                copyFile(new File("out/production/resources/img/Floor_3.png"), new File("floorMaps/Floor_3.png"));
-                copyFile(new File("out/production/resources/img/Floor_-1.png"), new File("floorMaps/Floor_-1.png"));
-                copyFile(new File("out/production/resources/img/Floor_-2.png"), new File("floorMaps/Floor_-2.png"));
-                copyFile(new File("out/production/resources/img/realPic.png"), new File("floorMaps/realPic.png"));
+                String jarPath = ExportResource("/floorMaps/Floor_0.png");
+                System.out.println("*****" + jarPath + "*****");
+                System.out.println("*****" + jarPath + "*****");
+                System.out.println("*****" + "*****");
+                ExportResource("/floorMaps/Floor_1.png");
+                ExportResource("/floorMaps/Floor_2.png");
+                ExportResource("/floorMaps/Floor_3.png");
+                ExportResource("/floorMaps/Floor_-1.png");
+                ExportResource("/floorMaps/Floor_-2.png");
+                ExportResource("/floorMaps/realPic.png");
+
+//                copyFile(new File(this.getClass().getResource("/img/Floor_0.png").toURI()),
+//                        new File("floorMaps/Floor_0.png"));
+//                copyFile(new File(this.getClass().getResource("/img/Floor_1.png").toURI()), new File("floorMaps/Floor_1.png"));
+//                copyFile(new File(this.getClass().getResource("/img/Floor_2.png").toURI()), new File("floorMaps/Floor_2.png"));
+//                copyFile(new File(this.getClass().getResource("/img/Floor_3.png").toURI()), new File("floorMaps/Floor_3.png"));
+//                copyFile(new File(this.getClass().getResource("/img/Floor_-1.png").toURI()), new File("floorMaps/Floor_-1.png"));
+//                copyFile(new File(this.getClass().getResource("/img/Floor_-2.png").toURI()), new File("floorMaps/Floor_-2.png"));
+//                copyFile(new File(this.getClass().getResource("/img/realPic.png").toURI()), new File("floorMaps/realPic.png"));
             } catch (SecurityException se) {
                 //handle it
                 se.getStackTrace();
-                System.out.println("FUCK");
+            } catch (Exception e) {
+                e.getStackTrace();
             }
         } else
             System.out.println("???");
+    }
+    static public String ExportResource(String resourceName) throws Exception {
+        InputStream stream = null;
+        OutputStream resStreamOut = null;
+        String jarFolder;
+        try {
+            stream = Main.class.getResourceAsStream(resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
+            if(stream == null) {
+                throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
+            }
 
+            int readBytes;
+            byte[] buffer = new byte[4096];
+            jarFolder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+            resStreamOut = new FileOutputStream(jarFolder + resourceName);
+            while ((readBytes = stream.read(buffer)) > 0) {
+                resStreamOut.write(buffer, 0, readBytes);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            stream.close();
+            resStreamOut.close();
+        }
 
+        return jarFolder + resourceName;
     }
 
     public void copyFile(File sourceFile, File destinationFile) {
