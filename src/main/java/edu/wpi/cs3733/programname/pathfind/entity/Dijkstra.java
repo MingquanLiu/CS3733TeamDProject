@@ -5,7 +5,7 @@ import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.util.*;
 
-public class Dijkstra extends PathfindingStrategyTemplate {
+public class Dijkstra extends PathfindingTemplate {
 
     /**
      * constructor for Dijkstra's algorithm
