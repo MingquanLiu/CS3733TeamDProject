@@ -726,14 +726,12 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     public void disablePaneScroll() {
-        this.paneScroll.setDisable(true);
-        this.panningPane.setDisable(true);
+        this.paneScroll.setPannable(false);
         this.paneScroll.setFitToWidth(true);
     }
 
     public void enablePaneScroll() {
-        this.paneScroll.setDisable(false);
-        this.panningPane.setDisable(false);
+        this.paneScroll.setPannable(true);
         this.paneScroll.setFitToWidth(false);
     }
 

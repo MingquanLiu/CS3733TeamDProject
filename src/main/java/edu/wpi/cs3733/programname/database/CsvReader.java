@@ -50,6 +50,13 @@ public class CsvReader {
                 buf = new BufferedReader(new InputStreamReader(in));
                 StringBuilder out = new StringBuilder();
             } catch (FileNotFoundException ioe) {
+                File nodesDir = new File("csv/CsvNodes");
+                File edgesDir = new File("csv/CsvEdges");
+                File tablesDir = new File("csv/CsvTables");
+                nodesDir.mkdirs();
+                edgesDir.mkdir();
+                tablesDir.mkdir();
+
                 String csv = "csv/CsvNodes/AllMapNodes.csv";
                 InputStream input = ClassLoader.getSystemResourceAsStream(csv);
                 buf = new BufferedReader(new InputStreamReader(input));
