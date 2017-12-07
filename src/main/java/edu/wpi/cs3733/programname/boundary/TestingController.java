@@ -575,6 +575,13 @@ public class TestingController extends UIController implements Initializable {
         }
     }
 
+    public void clearWholePath(){
+        clearPath();
+        lblCrossFloor.setVisible(false);
+        closeNodeInfoHandler();
+        clearPathFindLoc();
+        currentPath = new ArrayList<>();
+    }
     public void clearMain() {
         clearPath();
         lblCrossFloor.setVisible(false);
