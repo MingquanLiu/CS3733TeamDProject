@@ -10,7 +10,7 @@ import java.util.*;
 public class PathfindingController {
 
     public enum searchType {
-        ASTAR, DFS, BFS, DIJKSTRA, BEST, BEAM
+        ASTAR, DFS, BFS, DIJKSTRA, BEST, BEAM, SCENIC
     }
     private PathfindingTemplate pathFinder;
 
@@ -50,6 +50,9 @@ public class PathfindingController {
                     return pathFinder.getFinalList();
                 case BEST:
                     pathFinder = new Best(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+                case SCENIC:
+                    pathFinder = new Scenic(allNodes, allEdges, startNode, endNode);
                     return pathFinder.getFinalList();
                 default: return null;
             }
