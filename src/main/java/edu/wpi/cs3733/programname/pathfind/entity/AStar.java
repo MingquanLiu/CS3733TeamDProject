@@ -120,15 +120,6 @@ public class AStar extends PathfindingTemplate {
         double xDist = goal.getXCoord() - node.getXCoord();
         double yDist = goal.getYCoord() - node.getYCoord();
         double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
-        /*************************************************************
-         * This is where the new elevator stuff was added
-         **************************************************************/
-//        if(node.getNodeType().equals("STAI")) {
-//            distToGo = 4 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
-//        }
-//        else if(node.getNodeType().equals("ELEV")) {
-//            distToGo = 0 * distToGo;// * Math.abs(Integer.parseInt(node.getFloor()) - Integer.parseInt(goal.getFloor()));
-//        }
         return distToGo;
     }
 

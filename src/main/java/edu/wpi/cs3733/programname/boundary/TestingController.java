@@ -42,9 +42,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.*;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
@@ -918,7 +916,19 @@ public class TestingController extends UIController implements Initializable {
         clearPathFindLoc();
         //
         TextDirections textDirections = new TextDirections(currentPath);
-        String directions = textDirections.getTextDirections();
+        // TODO: Dan change this when the UI is updated
+        String directions = "";
+        for(String s: Arrays.asList("L2","L1","G","1","2","3")) {
+            try {
+                List<TextDirection> currentFloor = textDirections.getByFloor(s);
+                directions += "\n\nFloor " + s;
+                for (TextDirection t : currentFloor) {
+                    directions += "\n\t" + t.getDirection();
+                }
+            } catch (NullPointerException npe) {
+                System.out.println("No text directions on this floor");
+            }
+        }
         //shitty fix for null problem
         directions = directions.replaceAll("null", "");
         txtAreaDirections.setText(directions);

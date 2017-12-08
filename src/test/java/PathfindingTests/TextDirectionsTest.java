@@ -3,6 +3,7 @@ package PathfindingTests;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.TextDirection;
 import edu.wpi.cs3733.programname.pathfind.entity.AStar;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.StarNode;
@@ -70,7 +71,7 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"8", "1");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        System.out.println(d.getTextDirections());
+        for(TextDirection t: d.getTextDirections()) System.out.println(t.getDirection());
         System.out.println(d.getEmailMessageBody());
     }
 
@@ -79,7 +80,7 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"3", "15");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        System.out.println(d.getTextDirections());
+        for(TextDirection t: d.getTextDirections()) System.out.println(t.getDirection());
     }
 
     @Test
@@ -87,7 +88,7 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"1", "12");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        System.out.println(d.getTextDirections());
+        for(TextDirection t: d.getTextDirections()) System.out.println(t.getDirection());
     }
 
     @Test
@@ -95,7 +96,7 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"9", "17");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        System.out.println(d.getTextDirections());
+        for(TextDirection t: d.getTextDirections()) System.out.println(t.getDirection());
     }
 
     @Test
@@ -103,7 +104,7 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"11", "4");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        System.out.println(d.getTextDirections());
+        for(TextDirection t: d.getTextDirections()) System.out.println(t.getDirection());
     }
 
     @Test
@@ -111,7 +112,7 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"15", "8");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        System.out.println(d.getTextDirections());
+        for(TextDirection t: d.getTextDirections()) System.out.println(t.getDirection());
     }
 
     @Test
@@ -119,7 +120,7 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"5", "13");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        System.out.println(d.getTextDirections());
+        for(TextDirection t: d.getTextDirections()) System.out.println(t.getDirection());
     }
 
     @Test
@@ -127,7 +128,7 @@ public class TextDirectionsTest {
         AStar Path = new AStar(allNodes, allEdges,"8", "4");
         List<NodeData> astarReturn = Path.getFinalList();
         TextDirections d = new TextDirections(astarReturn);
-        System.out.println(d.getTextDirections());
+        for(TextDirection t: d.getTextDirections()) System.out.println(t.getDirection());
     }
 
     // TextDirections.getDirectionAngle() must be public in order to run this test
