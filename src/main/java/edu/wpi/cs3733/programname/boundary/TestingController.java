@@ -319,21 +319,22 @@ public class TestingController extends UIController implements Initializable {
     public void initManager(ManageController manageController) {
         manager = manageController;
 //        mapRatio.add(0.24);
-        paneAdminFeatures.setVisible(false);
-        mapRatio.add(0.318);
-        mapRatio.add(0.35);
-        mapRatio.add(0.39);
-        mapRatio.add(0.43);
-        mapRatio.add(0.48);
-        mapRatio.add(0.55);
-        mapRatio.add(0.60);
-        burgerTransition = new HamburgerSlideCloseTransition(burger);
-        burgerTransition.setRate(-1);
+        //paneAdminFeatures.setVisible(false);
+//        mapRatio.add(0.318);
+//        mapRatio.add(0.35);
+//        mapRatio.add(0.39);
+//        mapRatio.add(0.43);
+//        mapRatio.add(0.48);
+//        mapRatio.add(0.55);
+//        mapRatio.add(0.60);
+//        burgerTransition = new HamburgerSlideCloseTransition(burger);
+//        burgerTransition.setRate(-1);
+//
+//        controlsTransition = new FadeTransition(new Duration(500), paneControls);
+//        controlsTransition.setFromValue(0);
+//        controlsTransition.setToValue(1);
+//        paneControls.setVisible(controlsVisible);
 
-        controlsTransition = new FadeTransition(new Duration(500), paneControls);
-        controlsTransition.setFromValue(0);
-        controlsTransition.setToValue(1);
-        paneControls.setVisible(controlsVisible);
         //currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
         currentScale = 0.3;
         setZoom();
@@ -344,115 +345,116 @@ public class TestingController extends UIController implements Initializable {
         showNodeList(currentNodes);
 //        panningPane.getChildren().add(imv);
 
-        ObservableList locations = FXCollections.observableArrayList(
-                "None",
-                "Bathrooms",
-                "Service Desks",
-                "Retail Services",
-                "Waiting Rooms",
-                "Elevators",
-                "Exits",
-                "Staircases",
-                "Labs",
-                "Additional Services",
-                "All Locations");
-        comboLocations.setItems(locations);
-        comboLocations.setValue("None");
+//        ObservableList locations = FXCollections.observableArrayList(
+//                "None",
+//                "Bathrooms",
+//                "Service Desks",
+//                "Retail Services",
+//                "Waiting Rooms",
+//                "Elevators",
+//                "Exits",
+//                "Staircases",
+//                "Labs",
+//                "Additional Services",
+//                "All Locations");
+//        comboLocations.setItems(locations);
+//        comboLocations.setValue("None");
 
-        Floor basement2 = new Floor("Basement 2", "45 Francis", "file:floorMaps/Floor_-2.png");
-        Floor basement1 = new Floor("Basement 1", "45 Francis", "file:floorMaps/Floor_-1.png");
-        Floor ground = new Floor("Ground", "45 Francis", "file:floorMaps/Floor_0.png");
-        Floor floor1 = new Floor("Floor 1", "45 Francis", "file:floorMaps/Floor_1.png");
-        Floor floor2 = new Floor("Floor 2", "45 Francis", "file:floorMaps/Floor_2.png");
-        Floor floor3 = new Floor("Floor 3", "45 Francis", "file:floorMaps/Floor_3.png");;
-
-        ArrayList<Floor> basicFloors = new ArrayList<>();
-        basicFloors.add(basement2);
-        basicFloors.add(basement1);
-        basicFloors.add(ground);
-        basicFloors.add(floor1);
-        basicFloors.add(floor2);
-        basicFloors.add(floor3);
-
-        Building hospital = new Building("Hospital");
-        hospital.addAllFloors(basicFloors);
-
-        floors.addAll(hospital.getFloors());
-        buildings.add(hospital);
-
-        floor = 4;
-
-        ObservableList floorList = FXCollections.observableList(new ArrayList<>());
-        floorList.addAll(floors);
-        comboFloors.setItems(floorList);
-
-        ObservableList buildingList = FXCollections.observableList(new ArrayList<>());
-        buildingList.addAll(buildings);
-        comboBuilding.setItems(buildingList);
-
-        setBuilding(hospital);
-        //setFloor(floor2);
-
-
-        //create big grid
-        GridPane bigGrid = new GridPane();
-
-
-        //create titled pane
-        VBox content = new VBox();
-
-        bigGrid.add(content, 0, 0);
-
-        //create grid
-        GridPane grid = new GridPane();
-        grid.setVgap(4);
-        grid.setPadding(new Insets(5, 5, 5, 5));
-
-
-        //add checkboxes to grid
-        grid.add(locateBathrooms, 0, 0);
-        grid.add(locateServiceDesks, 0, 1);
-        grid.add(locateRetailServices, 0, 2);
-        grid.add(locateWaitingRooms, 0, 3);
-        grid.add(locateElevators, 0, 4);
-        grid.add(locateExits, 0, 5);
-        grid.add(locateStaircases, 0, 6);
-        grid.add(locateLabs, 0, 7);
-        grid.add(locateAdditionalServices, 0, 8);
-        grid.add(locateAllLocations, 0, 9);
-        keyLocation.setContent(content);
-        keyLocation.setText("TRIALTRIAL");
-        keyLocation.setCollapsible(false);
-        keyLocation.setExpanded(false);
-        System.out.println("Expandable:" + keyLocation.isExpanded());
-        System.out.println("Animated:" + keyLocation.isAnimated());
-        System.out.println("Collapse:" + keyLocation.isCollapsible());
-        keyLocation.expandedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                keyLocation.setLayoutY(1000);
-                System.out.println("Clicked");
-            }
-        });
-        //add grid to titled pane
-        grid.setLayoutX(10);
-        grid.setLayoutY(10);
-        content.getChildren().add(grid);
-
-        ArrayList<AbsObserver> observerList = new ArrayList<>();
-        requestObserver = new RequestObserver(this);
-        observerList.add(requestObserver);
-        mapObserver = new MapObserver(this);
-        observerList.add(mapObserver);
-        manager.initializeObservable(observerList);
-
-        lblCrossFloor.setVisible(false);
-
-        paneControls.setPickOnBounds(false);
+//        Floor basement2 = new Floor("Basement 2", "45 Francis", "file:floorMaps/Floor_-2.png");
+//        Floor basement1 = new Floor("Basement 1", "45 Francis", "file:floorMaps/Floor_-1.png");
+//        Floor ground = new Floor("Ground", "45 Francis", "file:floorMaps/Floor_0.png");
+//        Floor floor1 = new Floor("Floor 1", "45 Francis", "file:floorMaps/Floor_1.png");
+//        Floor floor2 = new Floor("Floor 2", "45 Francis", "file:floorMaps/Floor_2.png");
+//        Floor floor3 = new Floor("Floor 3", "45 Francis", "file:floorMaps/Floor_3.png");;
+//
+//        ArrayList<Floor> basicFloors = new ArrayList<>();
+//        basicFloors.add(basement2);
+//        basicFloors.add(basement1);
+//        basicFloors.add(ground);
+//        basicFloors.add(floor1);
+//        basicFloors.add(floor2);
+//        basicFloors.add(floor3);
+//
+//        Building hospital = new Building("Hospital");
+//        hospital.addAllFloors(basicFloors);
+//
+//        floors.addAll(hospital.getFloors());
+//        buildings.add(hospital);
+//
+//        floor = 4;
+//
+//        ObservableList floorList = FXCollections.observableList(new ArrayList<>());
+//        floorList.addAll(floors);
+//        comboFloors.setItems(floorList);
+//
+//        ObservableList buildingList = FXCollections.observableList(new ArrayList<>());
+//        buildingList.addAll(buildings);
+//        comboBuilding.setItems(buildingList);
+//
+//        setBuilding(hospital);
+//        //setFloor(floor2);
+//
+//
+//        //create big grid
+//        GridPane bigGrid = new GridPane();
+//
+//
+//        //create titled pane
+//        VBox content = new VBox();
+//
+//        bigGrid.add(content, 0, 0);
+//
+//        //create grid
+//        GridPane grid = new GridPane();
+//        grid.setVgap(4);
+//        grid.setPadding(new Insets(5, 5, 5, 5));
+//
+//
+//        //add checkboxes to grid
+//        grid.add(locateBathrooms, 0, 0);
+//        grid.add(locateServiceDesks, 0, 1);
+//        grid.add(locateRetailServices, 0, 2);
+//        grid.add(locateWaitingRooms, 0, 3);
+//        grid.add(locateElevators, 0, 4);
+//        grid.add(locateExits, 0, 5);
+//        grid.add(locateStaircases, 0, 6);
+//        grid.add(locateLabs, 0, 7);
+//        grid.add(locateAdditionalServices, 0, 8);
+//        grid.add(locateAllLocations, 0, 9);
+//        keyLocation.setContent(content);
+//        keyLocation.setText("TRIALTRIAL");
+//        keyLocation.setCollapsible(false);
+//        keyLocation.setExpanded(false);
+//        System.out.println("Expandable:" + keyLocation.isExpanded());
+//        System.out.println("Animated:" + keyLocation.isAnimated());
+//        System.out.println("Collapse:" + keyLocation.isCollapsible());
+//        keyLocation.expandedProperty().addListener(new ChangeListener<Boolean>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//                keyLocation.setLayoutY(1000);
+//                System.out.println("Clicked");
+//            }
+//        });
+//        //add grid to titled pane
+//        grid.setLayoutX(10);
+//        grid.setLayoutY(10);
+//        content.getChildren().add(grid);
+//
+//        ArrayList<AbsObserver> observerList = new ArrayList<>();
+//        requestObserver = new RequestObserver(this);
+//        observerList.add(requestObserver);
+//        mapObserver = new MapObserver(this);
+//        observerList.add(mapObserver);
+//        manager.initializeObservable(observerList);
+//
+//        lblCrossFloor.setVisible(false);
+//
+//        paneControls.setPickOnBounds(false);
 
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal){
                 currentScale = newVal.doubleValue()/10;
+                System.out.println("scale" + currentScale);
                 setZoom();
             }
         });
@@ -870,6 +872,7 @@ public class TestingController extends UIController implements Initializable {
     //map zooming method
     private void setZoom(){
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
+        /*
         if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
             clearPath();
@@ -877,11 +880,13 @@ public class TestingController extends UIController implements Initializable {
         }
         setNodeListSizeAndLocation(currentNodes, currentScale);
         relocateNodeInfo();
+        */
     }
     public void zoomHandler(ActionEvent e) {
         if (e.getSource() == btnZoomOut){
             currentScale = Math.max(currentScale-.08, .3);
-        } else if (e.getSource() == btnZoomIn){
+        }
+        else if (e.getSource() == btnZoomIn){
             currentScale = Math.min(currentScale+.08, .6);
         }
 
