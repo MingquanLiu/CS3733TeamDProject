@@ -1,16 +1,21 @@
 package edu.wpi.cs3733.programname.pathfind.entity;
 
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import edu.wpi.cs3733.programname.commondata.TextDirection;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
-import static sun.security.krb5.Confounder.intValue;
+import static edu.wpi.cs3733.programname.commondata.TextDirection.directionSymbol.*;
 
 public class TextDirections {
 
     List<NodeData> nodeList;
     String directions, prettyDirections;
+
+    List<TextDirection> directionList;
 
     /**
      * The constructor for this class generates the text directions--call getTextDirections() to return them
@@ -18,114 +23,124 @@ public class TextDirections {
      */
     public TextDirections(List<NodeData> nodeList) {
         this.nodeList = nodeList;
+        directionList = new LinkedList<>();
         produceText();
     }
 
     /**
-     * This method is called automatically on object creation and generates the string of text directions
+     * This method is called automatically on object creation and generates the list of text directions
      */
     private void produceText() {
         // Gotta start somewhere
-        directions = "Begin at " + nodeList.get(0).getLongName();
+        NodeData first = nodeList.get(0);
+        directionList.add(new TextDirection("Begin at " + first.getLongName(), first, START));
+
         NodeData lastNode;
-        NodeData node;
+        NodeData thisNode;
         NodeData nextNode;
 
         for(int i = 1; i < nodeList.size() - 1; i++) {
             int hallDistance = 0;
-            node = nodeList.get(i);
             lastNode = nodeList.get(i-1);
+            thisNode = nodeList.get(i);
             nextNode = nodeList.get(i+1);
-            if(lastNode.getNodeType().equals("HALL")) hallDistance += distanceBetween(lastNode, node);
-            String type = node.getNodeType();
-            String name = node.getLongName();
-            String face, faceSymbol; // This is the direction the node is facing relative to the last
 
-            double directionChange = 0 - getDirectionAngle(lastNode, node, nextNode);
+            if(lastNode.getNodeType().equals("HALL")) hallDistance += distanceBetween(lastNode, thisNode);
+
+            String type = thisNode.getNodeType();
+            String name = thisNode.getLongName();
+            TextDirection.directionSymbol faceSymbol;
+            String face; // This is the direction the node is facing relative to the last
+
+            double directionChange = 0 - getDirectionAngle(lastNode, thisNode, nextNode);
             if(directionChange <= -45 && directionChange >= -135) {
                 face = "right";
-                faceSymbol = "⇒";
+                faceSymbol = RIGHT;
             }
             else if(directionChange <= 135 && directionChange >= 45) {
                 face = "left";
-                faceSymbol = "⇐";
+                faceSymbol = LEFT;
             }
             else if(directionChange > 25 && directionChange < 45) {
                 face = "slight left";
-                faceSymbol = "⇖";
+                faceSymbol = SLIGHTLEFT;
             }
             else if(directionChange < -25 && directionChange > -45) {
                 face = "slight right";
-                faceSymbol = "⇗";
+                faceSymbol = SLIGHTRIGHT;
             }
             else if(directionChange > -180 && directionChange < -135) {
                 face = "sharp right";
-                faceSymbol = "⇘";
+                faceSymbol = SHARPRIGHT;
             }
             else if(directionChange < 180 && directionChange > 135) {
                 face = "sharp left";
-                faceSymbol = "⇙";
+                faceSymbol = SHARPLEFT;
             }
             else {
                 face = "straight";
-                faceSymbol = "⇑";
+                faceSymbol = STRAIGHT;
             }
             switch (type) {
                 case "ELEV":
                     if(lastNode.getNodeType().equals("ELEV"))
-                        directions += "\nGet off the elevator on floor " + node.getFloor();
+                        directionList.add(new TextDirection("Get off the elevator on floor " + thisNode.getFloor(),
+                                thisNode, INTERMED));
                     else if(lastNode.getNodeType().equals("HALL")) {
-                        directions += "\n⇑ Go straight down the hall for about " + hallDistance + " feet";
+                        directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet",
+                                thisNode, STRAIGHT));
                         hallDistance = 0;
-                        directions += "\n" + faceSymbol + " Get on " + name;
+                        directionList.add(new TextDirection("Get on " + name, thisNode, INTERMED));
                     }
-                    else directions += "\n" + faceSymbol + " Get on " + name;
+                    else directionList.add(new TextDirection("Get on " + name, thisNode, faceSymbol));
                     break;
                 case "STAI":
                     if(lastNode.getNodeType().equals("STAI"))
-                        directions += "\nExit the stairs on floor " + node.getFloor();
+                        directionList.add(new TextDirection("Exit the stairs on floor " + thisNode.getFloor(),
+                                thisNode, INTERMED));
                     else if(lastNode.getNodeType().equals("HALL") && nextNode.getNodeType().equals("STAI")) {
-                        directions += "\n⇑ Go straight down the hall for about " + hallDistance + " feet";
+                        directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet",
+                                thisNode, STRAIGHT));
                         hallDistance = 0;
-                        directions += "\n" + faceSymbol + " Enter " + name;
+                        directionList.add(new TextDirection("Enter " + thisNode.getLongName(), thisNode, INTERMED));
                     }
-                    else hallDistance += distanceBetween(node, nextNode);
+                    else hallDistance += distanceBetween(thisNode, nextNode);
                     break;
                 case "HALL":
                     if(!lastNode.getNodeType().equals("HALL")) {
                         if (Math.abs(directionChange) > 55) {
-                            directions += "\n" + faceSymbol + " Take the next " + face + " turn down the hall";
-                            hallDistance += distanceBetween(node, nextNode);
+                            directionList.add(new TextDirection("Take the next " + face + " turn down the hall",
+                                    thisNode, faceSymbol));
+                            hallDistance += distanceBetween(thisNode, nextNode);
                         }
                         else {
-                            hallDistance += distanceBetween(node, nextNode);
+                            hallDistance += distanceBetween(thisNode, nextNode);
                         }
                     }
                     else if(Math.abs(directionChange) > 55) {
-                        directions += "\n⇑ Go down the hall for about " + hallDistance + " feet";
+                        directionList.add(new TextDirection("Go down the hall for about " + hallDistance + " feet",
+                                thisNode, STRAIGHT));
                         hallDistance = 0;
-                        directions += "\n" + faceSymbol + " Take the next " + face + " and continue down the hall";
-                        hallDistance += distanceBetween(node, nextNode);
+                        directionList.add(new TextDirection("Take the next " + face + " turn down the hall",
+                                thisNode, faceSymbol));
+                        hallDistance += distanceBetween(thisNode, nextNode);
                     }
-                    else hallDistance += distanceBetween(node, nextNode);
+                    else hallDistance += distanceBetween(thisNode, nextNode);
                     break;
                 default:
                     if(lastNode.getNodeType().equals("HALL")) {
-                        directions += "\n" + faceSymbol + " Travel down the hall about " + hallDistance + " feet, then continue " + face + " past " + name;
+                        directionList.add(new TextDirection("Travel down the hall about " + hallDistance + " feet, then continue " +
+                        face + " past " + thisNode.getLongName(), thisNode, faceSymbol));
                         hallDistance = 0;
                     }
-                    else directions += "\n" + faceSymbol + " Continue " + face + " past " + name;
+                    else directionList.add(new TextDirection("Continue " + face + " past " + name, thisNode, faceSymbol));
                     break;
             }
         }
         NodeData secondToLast = nodeList.get(nodeList.size() - 2);
         NodeData last = nodeList.get(nodeList.size() - 1);
-        directions += "\nContinue until you arrive at " + last.getLongName() + " in " + distanceBetween(secondToLast, last) + " feet";
-        String[] lines = this.directions.split("\\r?\\n");
-        for(int i = 0; i < lines.length; i++) {
-            prettyDirections += "\n" + (i + 1) + ". " + lines[i];
-        }
-        System.out.println(prettyDirections);
+        directionList.add(new TextDirection("Continue until you arrive at " + last.getLongName() + " in about " + distanceBetween(secondToLast, last) + " feet",
+                secondToLast, last, STRAIGHT));
     }
 
     /**
@@ -157,8 +172,8 @@ public class TextDirections {
      *
      * @return: a block of text in a String with the directions from the start to the goal
      */
-    public String getTextDirections() {
-        return this.prettyDirections;
+    public List<TextDirection> getTextDirections() {
+        return this.directionList;
     }
 
     /**
@@ -166,13 +181,13 @@ public class TextDirections {
      * text directions included
      * @return: a lengthy string with the message inside
      */
+    // TODO: Update this
     public String getEmailMessageBody() {
         String emailDirections = "Hello,\nYou recently requested directions from " + nodeList.get(0).getLongName() +
                " to " + nodeList.get(nodeList.size()-1).getLongName() + " at the Brigham and Women's hospital. " +
                 "Your directions are included below.\n";
-        String[] lines = this.directions.split("\\r?\\n");
-        for(int i = 0; i < lines.length; i++) {
-            emailDirections += "\n" + (i + 1) + ". " + lines[i];
+        for(int i = 0; i < directionList.size(); i++) {
+            emailDirections += "\n" + (i + 1) + ". " + directionList.get(i).getDirection();
         }
         emailDirections += "\nRegards,\nKiosk Devs\n\n(Note: This inbox is not monitored. Please do not reply.)";
         return emailDirections;

@@ -903,7 +903,9 @@ public class TestingController extends UIController implements Initializable {
         clearPathFindLoc();
         //
         TextDirections textDirections = new TextDirections(currentPath);
-        String directions = textDirections.getTextDirections();
+        // TODO: This is a temporary fix and needs attention when directions are finished
+        String directions = "";
+        for(TextDirection t: textDirections.getTextDirections()) directions += "\n" + t.getDirection();
         //shitty fix for null problem
         directions = directions.replaceAll("null", "");
         txtAreaDirections.setText(directions);
