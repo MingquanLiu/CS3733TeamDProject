@@ -85,6 +85,10 @@ public class DatabaseQueryController {
 
     public List<NodeData> queryNodeByTypeFloor(String type, String floor) { return nodesQuery.getNodeByTypeAndFloor(type, floor);}
 
+    public List<NodeData> queryNodeByLongName(String longName){
+        return nodesQuery.queryNodeByLongName(longName);
+    }
+
 //    public List<ServiceRequestInfo> queryServiceRequesByType(DBConnection dbConnection, String type) {
 //        return ServiceRequestQuery.queryByType(dbConnection, type);
 //    }
