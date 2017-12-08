@@ -516,6 +516,24 @@ public class TestingController extends UIController implements Initializable {
         return mNodeData;
     }
 
+    private void pathAnimation(List<NodeData> nodes){
+        Path path = new Path();
+        for (int i = 1; i < nodes.size(); i++){
+            if(i==1){
+                MoveTo moveTo = new MoveTo();
+                moveTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
+                moveTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
+                path.getElements().add(moveTo);
+            }
+            else{
+                LineTo lineTo = new LineTo();
+                lineTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
+                lineTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
+            }
+        }
+        panningPane.getChildren().addAll(path);
+    }
+
     private void displayPath(List<NodeData> path) {
         if (path != null && !path.isEmpty()) {
             currentPath = path;
@@ -534,13 +552,14 @@ public class TestingController extends UIController implements Initializable {
                 if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
                     NodeData nextNode = path.get(i+1);
                     String printFloor = "";
-//                    Circle circle = new Circle(5.0, Color.RED);
-//                    circle.setCenterX(n.getXCoord());
-//                    circle.setCenterY(n.getYCoord());
-//                    double newX = nextNode.getXCoord();
-//                    double newY = nextNode.getYCoord();
+//                    Circle circle = new Circle(75, Color.RED);
+//                    circle.setCenterX(DBCToUIC(n.getXCoord(), currentScale));
+//                    circle.setCenterY(DBCToUIC(n.getYCoord(), currentScale));
+//                    double newX = DBCToUIC(nextNode.getXCoord(), currentScale);
+//                    double newY = DBCToUIC(nextNode.getYCoord(), currentScale);
 //                    circle.setTranslateX(newX);
 //                    circle.setTranslateY(newY);
+//                    panningPane.getChildren().add(circle);
                     if((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
                             (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))){
                         for(int j = 1; j < path.size() - i; j++) {
