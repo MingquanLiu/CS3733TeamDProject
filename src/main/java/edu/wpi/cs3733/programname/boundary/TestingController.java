@@ -1,9 +1,6 @@
 package edu.wpi.cs3733.programname.boundary;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.boundary.observers.AbsObserver;
@@ -95,6 +92,8 @@ public class TestingController extends UIController implements Initializable {
     private JFXButton btnZoomIn;
     @FXML
     private JFXButton btnZoomOut;
+    @FXML
+    private JFXSlider slideZoom;
     //</editor-fold>
 
     //<editor-fold desc="Admin features">
@@ -219,6 +218,7 @@ public class TestingController extends UIController implements Initializable {
     //about page stuff
     @FXML
     private JFXButton aboutBtn;
+
     //items for key locations fancy feature
     @FXML
     private TitledPane keyLocation;
@@ -334,8 +334,9 @@ public class TestingController extends UIController implements Initializable {
         controlsTransition.setFromValue(0);
         controlsTransition.setToValue(1);
         paneControls.setVisible(controlsVisible);
-        currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
-        imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
+        //currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
+        currentScale = 0.3;
+        setZoom();
 //        allNodes = manageController.queryNodeByFloor(convertFloor(floor));
 //        allNodes = manageController.getAllNodeData();
         currentNodes = manager.queryNodeByFloor(convertFloor(floor));
@@ -448,6 +449,13 @@ public class TestingController extends UIController implements Initializable {
         lblCrossFloor.setVisible(false);
 
         paneControls.setPickOnBounds(false);
+
+        slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal){
+                currentScale = newVal.doubleValue()/10;
+                setZoom();
+            }
+        });
     }
 
     public void setSearchType(PathfindingController.searchType searchType) {
@@ -860,23 +868,8 @@ public class TestingController extends UIController implements Initializable {
     }
 
     //map zooming method
-    public void zoomHandler(ActionEvent e) {
-        if (e.getSource() == btnZoomOut) {
-            if (AppSettings.getInstance().getMapRatioIndex() == 0) {
-                return;
-            }
-            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() - 1);
-            currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
-            imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
-        } else {
-            if (AppSettings.getInstance().getMapRatioIndex() == (mapRatio.size() - 1)) {
-                return;
-            }
-            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() + 1);
-            currentScale = mapRatio.get(AppSettings.getInstance().getMapRatioIndex());
-            imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
-        }
-
+    private void setZoom(){
+        imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
             clearPath();
@@ -884,6 +877,21 @@ public class TestingController extends UIController implements Initializable {
         }
         setNodeListSizeAndLocation(currentNodes, currentScale);
         relocateNodeInfo();
+    }
+    public void zoomHandler(ActionEvent e) {
+        if (e.getSource() == btnZoomOut){
+            currentScale = Math.max(currentScale-.08, .3);
+        } else if (e.getSource() == btnZoomIn){
+            currentScale = Math.min(currentScale+.08, .6);
+        }
+
+        setZoom();
+        updateZoomSlider();
+    }
+
+    //updates zoom slider to match current zoom scale
+    private void updateZoomSlider(){
+        slideZoom.setValue(currentScale*10);
     }
 
     //relocate the node info panel
@@ -1191,11 +1199,9 @@ public class TestingController extends UIController implements Initializable {
     // Turn the handicapped path restriction on or off
     public void toggleHandicap() {
         if (handicap.isSelected()) {
-            handicap.setSelected(false);
-            AppSettings.getInstance().setHandicapPath(false);
-        } else {
-            handicap.setSelected(true);
             AppSettings.getInstance().setHandicapPath(true);
+        } else {
+            AppSettings.getInstance().setHandicapPath(false);
         }
     }
 

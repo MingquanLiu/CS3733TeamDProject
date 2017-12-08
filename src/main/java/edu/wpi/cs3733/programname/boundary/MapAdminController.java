@@ -17,7 +17,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -28,7 +27,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
@@ -36,7 +34,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -45,7 +42,6 @@ import java.util.ResourceBundle;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.CIRCILE_RADIUS;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
-import static edu.wpi.cs3733.programname.commondata.HelperFunction.initNodeListImage;
 import static javafx.scene.paint.Color.*;
 
 public class MapAdminController extends UIController implements Initializable {
@@ -134,6 +130,8 @@ public class MapAdminController extends UIController implements Initializable {
     private JFXRadioButton BestFirst;
     @FXML
     private JFXRadioButton Beam;
+    @FXML
+    private JFXRadioButton Scenic;
     @FXML
     private ToggleGroup pathfinding;
 
@@ -835,6 +833,9 @@ public class MapAdminController extends UIController implements Initializable {
         }
         else if (mEvent == BestFirst) {
             AppSettings.getInstance().setSearchType(PathfindingController.searchType.BEST);
+        }
+        else if (mEvent == Scenic) {
+            AppSettings.getInstance().setSearchType(searchType.SCENIC);
         }
     }
 
