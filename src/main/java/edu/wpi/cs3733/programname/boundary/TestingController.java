@@ -43,6 +43,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -1305,6 +1306,16 @@ public class TestingController extends UIController implements Initializable {
 
     public void setUserName(String userName){
         this.userName = userName;
+    }
+
+    public void fuzzyStart(){
+        String input = txtStartLocation.getText();
+        LinkedList<String> longNameIDS = new LinkedList<String>();
+        LinkedList<String> searchRecs = this.search(input, longNameIDS, 0.70);
+    }
+
+    public void search(String input, LinkedList<String> longNameIDS, double number ){
+
     }
 
 }
