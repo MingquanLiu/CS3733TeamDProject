@@ -42,6 +42,12 @@ public class TextDirection {
         this.symbol = symbol;
     }
 
+    public TextDirection(String direction, NodeData node1, NodeData node2, NodeData node3, directionSymbol symbol) {
+        this.direction = direction;
+        this.nodes = new LinkedList<>(Arrays.asList(node1, node2, node3));
+        this.symbol = symbol;
+    }
+
     public String getDirection() {
         return direction;
     }

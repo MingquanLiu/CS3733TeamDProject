@@ -13,8 +13,6 @@ import static edu.wpi.cs3733.programname.commondata.TextDirection.directionSymbo
 public class TextDirections {
 
     List<NodeData> nodeList;
-    String directions, prettyDirections;
-
     List<TextDirection> directionList;
 
     /**
@@ -81,6 +79,9 @@ public class TextDirections {
                 face = "straight";
                 faceSymbol = STRAIGHT;
             }
+
+            LinkedList<NodeData> hallNodes = new LinkedList<>();
+
             switch (type) {
                 case "ELEV":
                     if(lastNode.getNodeType().equals("ELEV"))
@@ -90,9 +91,10 @@ public class TextDirections {
                         directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet",
                                 thisNode, STRAIGHT));
                         hallDistance = 0;
+                        hallNodes.clear();
                         directionList.add(new TextDirection("Get on " + name, thisNode, INTERMED));
                     }
-                    else directionList.add(new TextDirection("Get on " + name, thisNode, faceSymbol));
+                    else directionList.add(new TextDirection("Get on " + name, lastNode, thisNode, faceSymbol));
                     break;
                 case "STAI":
                     if(lastNode.getNodeType().equals("STAI"))
@@ -102,36 +104,45 @@ public class TextDirections {
                         directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet",
                                 thisNode, STRAIGHT));
                         hallDistance = 0;
-                        directionList.add(new TextDirection("Enter " + thisNode.getLongName(), thisNode, INTERMED));
+                        hallNodes.clear();
+                        directionList.add(new TextDirection("Enter " + name, thisNode, INTERMED));
                     }
-                    else hallDistance += distanceBetween(thisNode, nextNode);
+                    else directionList.add(new TextDirection("Enter " + name, lastNode, thisNode, faceSymbol));
                     break;
                 case "HALL":
                     if(!lastNode.getNodeType().equals("HALL")) {
                         if (Math.abs(directionChange) > 55) {
                             directionList.add(new TextDirection("Take the next " + face + " turn down the hall",
-                                    thisNode, faceSymbol));
+                                    lastNode, thisNode, nextNode, faceSymbol));
                             hallDistance += distanceBetween(thisNode, nextNode);
+                            hallNodes.add(thisNode);
                         }
                         else {
                             hallDistance += distanceBetween(thisNode, nextNode);
+                            hallNodes.add(thisNode);
                         }
                     }
                     else if(Math.abs(directionChange) > 55) {
                         directionList.add(new TextDirection("Go down the hall for about " + hallDistance + " feet",
-                                thisNode, STRAIGHT));
+                                hallNodes, STRAIGHT));
                         hallDistance = 0;
+                        hallNodes.clear();
                         directionList.add(new TextDirection("Take the next " + face + " turn down the hall",
-                                thisNode, faceSymbol));
+                                lastNode, thisNode, nextNode, faceSymbol));
                         hallDistance += distanceBetween(thisNode, nextNode);
+                        hallNodes.add(thisNode);
                     }
-                    else hallDistance += distanceBetween(thisNode, nextNode);
+                    else {
+                        hallDistance += distanceBetween(thisNode, nextNode);
+                        hallNodes.add(thisNode);
+                    }
                     break;
                 default:
                     if(lastNode.getNodeType().equals("HALL")) {
                         directionList.add(new TextDirection("Travel down the hall about " + hallDistance + " feet, then continue " +
-                        face + " past " + thisNode.getLongName(), thisNode, faceSymbol));
+                        face + " past " + thisNode.getLongName(), hallNodes, faceSymbol));
                         hallDistance = 0;
+                        hallNodes.clear();
                     }
                     else directionList.add(new TextDirection("Continue " + face + " past " + name, thisNode, faceSymbol));
                     break;
