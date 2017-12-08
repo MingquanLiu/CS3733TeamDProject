@@ -353,4 +353,46 @@ public class NodesQuery {
         return allNodesByFloor;
 
     }
+
+    public List<NodeData> queryNodeByLongName(String longName) {
+
+        NodeData queryResult = null;
+        List<NodeData> allNodes = new ArrayList<NodeData>();
+
+        try {
+            String sql = "SELECT * FROM Nodes WHERE longName = " + "'" + longName + "'";
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+
+            String nodeID = "";
+            int xcoord = 0;
+            int ycoord = 0;
+            String floor = "";
+            String building = "";
+            String nodeType = "";
+            String shortName = "";
+            String teamAssigned = "";
+
+            while (result.next()) {
+                nodeID = result.getString("nodeID");
+                xcoord = result.getInt("xcoord");
+                ycoord = result.getInt("ycoord");
+                floor = result.getString("floor");
+                building = result.getString("building");
+                nodeType = result.getString("nodeType");
+                longName = result.getString("longName");
+                shortName = result.getString("shortName");
+                teamAssigned = result.getString("teamAssigned");
+
+                Coordinate location = new Coordinate(xcoord, ycoord);
+                queryResult = new NodeData(nodeID, location, floor, building, nodeType, longName, shortName, teamAssigned);
+                allNodes.add(queryResult);
+            }
+        } catch (SQLException e) {
+            System.out.println("Get Node Failed!");
+            e.printStackTrace();
+        }
+        return allNodes;
+
+    }
 }
