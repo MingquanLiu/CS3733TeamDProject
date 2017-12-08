@@ -1,9 +1,5 @@
 package edu.wpi.cs3733.programname.commondata;
 
-import javafx.scene.image.Image;
-
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class TextDirection {
@@ -17,34 +13,20 @@ public class TextDirection {
         SLIGHTRIGHT,
         START,
         END,
-        INTERMED
+        INTERMED,
+        STAIR,
+        ELEV
     }
 
     private String direction;
-    private List<NodeData> nodes;
+    private NodeData thisNode;
     private directionSymbol symbol;
+    private List<NodeData> nodes;
 
-    public TextDirection(String direction, List<NodeData> nodes, directionSymbol symbol) {
-        this.direction = direction;
-        this.nodes = nodes;
-        this.symbol = symbol;
-    }
 
     public TextDirection(String direction, NodeData node, directionSymbol symbol) {
         this.direction = direction;
-        this.nodes = new LinkedList<>(Arrays.asList(node));
-        this.symbol = symbol;
-    }
-
-    public TextDirection(String direction, NodeData node1, NodeData node2, directionSymbol symbol) {
-        this.direction = direction;
-        this.nodes = new LinkedList<>(Arrays.asList(node1, node2));
-        this.symbol = symbol;
-    }
-
-    public TextDirection(String direction, NodeData node1, NodeData node2, NodeData node3, directionSymbol symbol) {
-        this.direction = direction;
-        this.nodes = new LinkedList<>(Arrays.asList(node1, node2, node3));
+        this.thisNode = node;
         this.symbol = symbol;
     }
 
@@ -56,12 +38,12 @@ public class TextDirection {
         this.direction = direction;
     }
 
-    public List<NodeData> getNodes() {
-        return nodes;
+    public NodeData getThisNode() {
+        return thisNode;
     }
 
-    public void setNodes(List<NodeData> nodes) {
-        this.nodes = nodes;
+    public void setThisNode(NodeData thisNode) {
+        this.thisNode = thisNode;
     }
 
     public directionSymbol getSymbol() {
@@ -70,5 +52,13 @@ public class TextDirection {
 
     public void setSymbol(directionSymbol symbol) {
         this.symbol = symbol;
+    }
+
+    public List<NodeData> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<NodeData> nodes) {
+        this.nodes = nodes;
     }
 }

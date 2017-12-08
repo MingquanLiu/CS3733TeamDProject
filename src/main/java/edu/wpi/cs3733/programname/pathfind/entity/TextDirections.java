@@ -3,6 +3,7 @@ package edu.wpi.cs3733.programname.pathfind.entity;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.TextDirection;
 
+import javax.xml.soap.Node;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -43,7 +44,10 @@ public class TextDirections {
             thisNode = nodeList.get(i);
             nextNode = nodeList.get(i+1);
 
-            if(lastNode.getNodeType().equals("HALL")) hallDistance += distanceBetween(lastNode, thisNode);
+
+            if(lastNode.getNodeType().equals("HALL")) {
+                hallDistance += distanceBetween(lastNode, thisNode);
+            }
 
             String type = thisNode.getNodeType();
             String name = thisNode.getLongName();
@@ -80,38 +84,32 @@ public class TextDirections {
                 faceSymbol = STRAIGHT;
             }
 
-            LinkedList<NodeData> hallNodes = new LinkedList<>();
-
             switch (type) {
                 case "ELEV":
                     if(lastNode.getNodeType().equals("ELEV"))
                         directionList.add(new TextDirection("Get off the elevator on floor " + thisNode.getFloor(),
-                                thisNode, INTERMED));
+                                thisNode, ELEV));
                     else if(lastNode.getNodeType().equals("HALL") && nextNode.getNodeType().equals("ELEV")) {
-                        directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet",
-                                thisNode, STRAIGHT));
+                        directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet, then get on " +
+                                name, thisNode, ELEV));
                         hallDistance = 0;
-                        hallNodes.clear();
-                        directionList.add(new TextDirection("Get on " + name, thisNode, INTERMED));
                     }
                     else if(nextNode.getNodeType().equals("ELEV")) {
-                        directionList.add(new TextDirection("Get on " + name, lastNode, thisNode, faceSymbol));
+                        directionList.add(new TextDirection("Get on " + name, thisNode, ELEV));
                     }
                     else hallDistance += distanceBetween(thisNode, nextNode);
                     break;
                 case "STAI":
                     if(lastNode.getNodeType().equals("STAI"))
                         directionList.add(new TextDirection("Exit the stairs on floor " + thisNode.getFloor(),
-                                thisNode, INTERMED));
+                                thisNode, STAIR));
                     else if(lastNode.getNodeType().equals("HALL") && nextNode.getNodeType().equals("STAI")) {
-                        directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet",
-                                thisNode, STRAIGHT));
+                        directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet, then enter " + name,
+                                thisNode, STAIR));
                         hallDistance = 0;
-                        hallNodes.clear();
-                        directionList.add(new TextDirection("Enter " + name, thisNode, INTERMED));
                     }
                     else if(nextNode.getNodeType().equals("STAI")){
-                        directionList.add(new TextDirection("Enter " + name, lastNode, thisNode, faceSymbol));
+                        directionList.add(new TextDirection("Enter " + name, thisNode, STAIR));
                     }
                     else hallDistance += distanceBetween(thisNode, nextNode);
                     break;
@@ -119,36 +117,27 @@ public class TextDirections {
                     if(!lastNode.getNodeType().equals("HALL")) {
                         if (Math.abs(directionChange) > 55) {
                             directionList.add(new TextDirection("Take the next " + face + " turn down the hall",
-                                    lastNode, thisNode, nextNode, faceSymbol));
+                                    thisNode, faceSymbol));
                             hallDistance += distanceBetween(thisNode, nextNode);
-                            hallNodes.add(thisNode);
                         }
                         else {
                             hallDistance += distanceBetween(thisNode, nextNode);
-                            hallNodes.add(thisNode);
                         }
                     }
                     else if(Math.abs(directionChange) > 55) {
-                        directionList.add(new TextDirection("Go down the hall for about " + hallDistance + " feet",
-                                hallNodes, STRAIGHT));
-                        hallDistance = 0;
-                        hallNodes.clear();
-                        directionList.add(new TextDirection("Take the next " + face + " turn down the hall",
-                                lastNode, thisNode, nextNode, faceSymbol));
-                        hallDistance += distanceBetween(thisNode, nextNode);
-                        hallNodes.add(thisNode);
+                        directionList.add(new TextDirection("Go down the hall for about " + hallDistance + " feet, then take a " +
+                                face + " turn to continue down the hall", thisNode, faceSymbol));
+                        hallDistance = distanceBetween(thisNode, nextNode);
                     }
                     else {
                         hallDistance += distanceBetween(thisNode, nextNode);
-                        hallNodes.add(thisNode);
                     }
                     break;
                 default:
                     if(lastNode.getNodeType().equals("HALL")) {
                         directionList.add(new TextDirection("Travel down the hall about " + hallDistance + " feet, then continue " +
-                        face + " past " + thisNode.getLongName(), hallNodes, faceSymbol));
+                        face + " past " + thisNode.getLongName(), thisNode, faceSymbol));
                         hallDistance = 0;
-                        hallNodes.clear();
                     }
                     else directionList.add(new TextDirection("Continue " + face + " past " + name, thisNode, faceSymbol));
                     break;
@@ -157,7 +146,23 @@ public class TextDirections {
         NodeData secondToLast = nodeList.get(nodeList.size() - 2);
         NodeData last = nodeList.get(nodeList.size() - 1);
         directionList.add(new TextDirection("Continue until you arrive at " + last.getLongName() + " in about " + distanceBetween(secondToLast, last) + " feet",
-                secondToLast, last, STRAIGHT));
+                last, STRAIGHT));
+
+        // process all the intermediate nodes for display purposes
+        LinkedList<NodeData> hallNodes = new LinkedList<>();
+        int directionIndex = 1;
+        hallNodes.add(nodeList.get(0));
+        directionList.get(0).setNodes(new LinkedList<>(hallNodes));
+        hallNodes.clear();
+        for(int i = 1; i < nodeList.size(); i++) {
+            if(!hallNodes.contains(nodeList.get(i-1))) hallNodes.add(nodeList.get(i-1));
+            hallNodes.add(nodeList.get(i));
+            if(directionList.get(directionIndex).getThisNode().equals(nodeList.get(i))) {
+                directionList.get(directionIndex).setNodes(new LinkedList<>(hallNodes));
+                hallNodes.clear();
+                directionIndex++;
+            }
+        }
     }
 
     /**
@@ -221,5 +226,14 @@ public class TextDirections {
         double yDist = node1.getYCoord() - node2.getYCoord();
         Double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
         return distToGo.intValue();
+    }
+
+    public List<TextDirection> getByFloor(String floor) {
+        LinkedList<TextDirection> floorList = new LinkedList<>();
+        for(TextDirection t: directionList) {
+            if(t.getThisNode().getFloor().equals(floor)) floorList.add(t);
+        }
+        if(floorList.isEmpty()) throw new NullPointerException();
+        return floorList;
     }
 }
