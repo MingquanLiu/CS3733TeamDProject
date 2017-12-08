@@ -354,13 +354,13 @@ public class NodesQuery {
 
     }
 
-    public List<NodeData> queryNodeByLongName(String longName) {
+    public List<NodeData> queryNodeByLongName(String ln) {
 
         NodeData queryResult = null;
         List<NodeData> allNodes = new ArrayList<NodeData>();
 
         try {
-            String sql = "SELECT * FROM Nodes WHERE longName = " + "'" + longName + "'";
+            String sql = "SELECT * FROM Nodes WHERE longName like " + "'%" + ln + "%'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
 
@@ -372,6 +372,7 @@ public class NodesQuery {
             String nodeType = "";
             String shortName = "";
             String teamAssigned = "";
+            String longName = "";
 
             while (result.next()) {
                 nodeID = result.getString("nodeID");
