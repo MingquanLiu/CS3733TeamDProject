@@ -1311,14 +1311,14 @@ public class TestingController extends UIController implements Initializable {
 
     public void fuzzyStart(){
         String input = txtStartLocation.getText();
-        LinkedList<String> longNameIDS = new LinkedList<String>();
+        List<NodeData> longNameIDS = manager.queryNodeByLongName("whatever");
         LinkedList<String> searchRecs = this.search(input, longNameIDS, 0.70);
         for (int i = 0; i < searchRecs.size(); i++) {
             System.out.println(searchRecs.get(i));
         }
     }
 
-    public LinkedList<String> search(String input, LinkedList<String> longNameIDS, double number ){
+    public LinkedList<String> search(String input, List<NodeData> longNameIDS, double number ){
 
         return new LinkedList<String>();
     }
