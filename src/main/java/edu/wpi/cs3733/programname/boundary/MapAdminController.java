@@ -211,7 +211,7 @@ public class MapAdminController extends UIController implements Initializable {
         this.mTestController = testController;
     }
 
-    public void initManager(ManageController manageController){
+    public void initManager(ManageController manageController) {
 //        mapRatio.add(0.24);
         manager = manageController;
         mapRatio.add(0.318);
@@ -232,12 +232,13 @@ public class MapAdminController extends UIController implements Initializable {
         System.out.println("Scale: " + currentScale);
         imgMap.setFitWidth(maxWidth * currentScale);
 
-        Floor basement2 = new Floor("Basement 2", "45 Francis", "file:floorMaps/Floor_-2.png");
-        Floor basement1 = new Floor("Basement 1", "45 Francis", "file:floorMaps/Floor_-1.png");
-        Floor ground = new Floor("Ground", "45 Francis", "file:floorMaps/Floor_0.png");
-        Floor floor1 = new Floor("Floor 1", "45 Francis", "file:floorMaps/Floor_1.png");
-        Floor floor2 = new Floor("Floor 2", "45 Francis", "file:floorMaps/Floor_2.png");
-        Floor floor3 = new Floor("Floor 3", "45 Francis", "file:floorMaps/Floor_3.png");
+        Floor basement2 = new Floor("Basement 2", "45 Francis", "L2", "file:floorMaps/Floor_-2.png");
+        Floor basement1 = new Floor("Basement 1", "45 Francis", "L1", "file:floorMaps/Floor_-1.png");
+        Floor ground = new Floor("Ground", "45 Francis", "G", "file:floorMaps/Floor_0.png");
+        Floor floor1 = new Floor("Floor 1", "45 Francis", "1", "file:floorMaps/Floor_1.png");
+        Floor floor2 = new Floor("Floor 2", "45 Francis", "2", "file:floorMaps/Floor_2.png");
+        Floor floor3 = new Floor("Floor 3", "45 Francis", "3", "file:floorMaps/Floor_3.png");
+        ;
 
         ArrayList<Floor> basicFloors = new ArrayList<>();
         basicFloors.add(basement2);
@@ -261,15 +262,16 @@ public class MapAdminController extends UIController implements Initializable {
 
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
         floorList.addAll(floors);
-        comboFloors.setItems(floorList);
+        //comboFloors.setItems(floorList);
 
         ObservableList buildingList = FXCollections.observableList(new ArrayList<>());
         buildingList.addAll(buildings);
-        comboBuilding.setItems(buildingList);
+        //comboBuilding.setItems(buildingList);
 
         currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
         currentEdge = manager.getAllEdgeData();
-        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);;
+        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
+        ;
         showNodeAndPathStart();
     }
 
@@ -278,15 +280,15 @@ public class MapAdminController extends UIController implements Initializable {
         clearEdge();
         clearNodes();
         System.out.println("In show node Path");
-          currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
+        currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
 
-        if(allEdgeBox.isSelected()){
+        if (allEdgeBox.isSelected()) {
             currentEdge = manager.getAllEdgeData();
             //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
             displayEdges(currentEdge);
         }
-        if(allNodeBox.isSelected()){
-            setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);
+        if (allNodeBox.isSelected()) {
+            setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
             showNodeList(currentNodes);
         }
 //        setNodeListImageVisibility(true,setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale));
@@ -299,15 +301,15 @@ public class MapAdminController extends UIController implements Initializable {
         clearEdge();
         clearNodes();
         System.out.println("In show node Path");
-            currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
+        currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
 
-        if(allEdgeBox.isSelected()){
+        if (allEdgeBox.isSelected()) {
             currentEdge = manager.getAllEdgeData();
             //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
             displayEdges(currentEdge);
         }
-        if(allNodeBox.isSelected()){
-            setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes),this),currentScale);
+        if (allNodeBox.isSelected()) {
+            setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
             showNodeList(currentNodes);
         }
 //        setNodeListImageVisibility(true,setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale));
@@ -316,9 +318,8 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
 
-
-    private void showNodeList (List<NodeData> nodeDataList){
-        for(int i = 0;i <nodeDataList.size();i++){
+    private void showNodeList(List<NodeData> nodeDataList) {
+        for (int i = 0; i < nodeDataList.size(); i++) {
             showNode(nodeDataList.get(i));
         }
     }
@@ -328,6 +329,7 @@ public class MapAdminController extends UIController implements Initializable {
             showNode2(nodeDataList.get(i));
         }
     }
+
     private double mouseX;
     private double mouseY;
     private double imgX;
@@ -338,8 +340,8 @@ public class MapAdminController extends UIController implements Initializable {
                 public void handle(MouseEvent event) {
                     mouseX = event.getX();
                     mouseY = event.getY();
-                    imgX = ((ImageView)(event.getSource())).getX();
-                    imgY = ((ImageView)(event.getSource())).getY();
+                    imgX = ((ImageView) (event.getSource())).getX();
+                    imgY = ((ImageView) (event.getSource())).getY();
                 }
             };
     EventHandler<MouseEvent> nodeDraggedEventHandler =
@@ -351,10 +353,11 @@ public class MapAdminController extends UIController implements Initializable {
                     double newTranslateX = imgX + offsetX;
                     double newTranslateY = imgY + offsetY;
 
-                    ((ImageView)(event.getSource())).setTranslateX(newTranslateX);
-                    ((ImageView)(event.getSource())).setTranslateY(newTranslateY);
+                    ((ImageView) (event.getSource())).setTranslateX(newTranslateX);
+                    ((ImageView) (event.getSource())).setTranslateY(newTranslateY);
                 }
             };
+
     private void showNode(NodeData n) {
 //        drawCircle(DBCToUIC(n.getXCoord(), currentScale), DBCToUIC(n.getYCoord(), currentScale));
 //        setNodeDragHandler(n, nodeDraggedEventHandler);
@@ -552,7 +555,7 @@ public class MapAdminController extends UIController implements Initializable {
             }
             drawings = new ArrayList<>();
         }
-        for(NodeData nodeData:currentNodes){
+        for (NodeData nodeData : currentNodes) {
             panningPane.getChildren().remove(nodeData.getCircle());
         }
     }
@@ -582,79 +585,87 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     //map switching methods
-    public void addFloor() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/newFloor.fxml"
-                ));
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        stage.showAndWait();
-        Floor newFloor = loader.<NewFloor>getController().getFloor();
 
-        floors.add(newFloor);
-        ObservableList fls = comboFloors.getItems();
-        fls.add(newFloor);
-        comboFloors.setItems(fls);
+
+    public void addFloor() {
+        addMap("Floor");
     }
 
-    public void addBuilding() throws IOException {
+    public void addBuilding() {
+        addMap("Building");
+    }
+
+    public void addMap(String typeToAdd) {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/newBuilding.fxml"
+                        "/fxml/newMap.fxml"
                 ));
         Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        loader.<NewBuilding>getController().initManager(manager);
+        try {
+            stage.setScene(
+                    new Scene(
+                            loader.load()
+                    )
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        loader.<NewMapController>getController().setUp(typeToAdd);
         stage.showAndWait();
-        Building newBld = loader.<NewBuilding>getController().getBldg();
-        buildings.add(newBld);
-        ObservableList bldgs = comboBuilding.getItems();
-        bldgs.add(newBld);
-        comboBuilding.setItems(bldgs);
-        setBuilding(newBld);
+        if (loader.<NewMapController>getController().addedMap()) {
+            if (typeToAdd.equals("Floor")) {
+                Floor newFloor = loader.<NewMapController>getController().getFloor();
+                floors.add(newFloor);
+                ObservableList fls = comboFloors.getItems();
+                fls.add(newFloor);
+                comboFloors.setItems(fls);
+            }
+            if (typeToAdd.equals("Building")) {
+                Building newBld = loader.<NewMapController>getController().getBuilding();
+                buildings.add(newBld);
+                ObservableList bldgs = comboBuilding.getItems();
+                bldgs.add(newBld);
+                comboBuilding.setItems(bldgs);
+            }
+            setMap();
+        }
+    }
+
+    Building curBuilding;
+    Floor curFloor;
+
+    public void setMap() {
+        Building newBld = (Building) (comboBuilding.getValue());
+        if (newBld != curBuilding) {
+            System.out.println("floors: " + newBld);
+            floors = newBld.getFloors();
+            ObservableList floorList = FXCollections.observableList(new ArrayList<>());
+            floorList.addAll(floors);
+            comboFloors.setItems(floorList);
+            comboFloors.setValue(floorList.get(0));
+            setFloor((Floor) floorList.get(0));
+            curBuilding = newBld;
+        } else if (curFloor != comboFloors.getValue()) {
+            currentFloor = (Floor) (comboFloors.getValue());
+            floor = floors.indexOf(currentFloor) - 2;
+
+            String newUrl = currentFloor.getImgUrl();
+
+            Image newImg = new Image(newUrl);
+            imgMap.setImage(newImg);
+            showNodeAndPath();
+
+            curFloor = currentFloor;
+        }
+
+
     }
 
     @SuppressWarnings("Duplicates")
     public void mapChange(ActionEvent e) {
-        /*
-        clearEdgeDrawing();
-        if(e.getSource() == btnMapUp && floor < 3){
-            floor ++;
-            System.out.println("up to floor" + floor);
-            setFloor();
-            clearMain();
-            clearEdge();
-            clearNodes();
-            showNodeAndPath();
-        }
-        else if (e.getSource() == btnMapDwn && floor > -2){
-            floor --;
-            System.out.println("down to floor" + floor);
-            setFloor();
-            clearMain();
-            clearEdge();
-            clearNodes();
-            showNodeAndPath();
-        }
-        */
         setFloor();
     }
 
-    public void setBuilding(Building newBld) {
-        System.out.println("building: " + newBld);
-        comboBuilding.setValue(newBld);
-        setBuilding();
-
-    }
 
     public void setBuilding() {
         Building newBld = (Building) (comboBuilding.getValue());
@@ -663,13 +674,9 @@ public class MapAdminController extends UIController implements Initializable {
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
         floorList.addAll(floors);
 
-//        try {
         comboFloors.setItems(floorList);
         comboFloors.setValue(floorList.get(0));
         setFloor((Floor) floorList.get(0));
-//        } catch (Exception e) {
-//            System.out.println("SCREAM");
-//        }
     }
 
     public void setFloor(Floor newFloor) {
@@ -818,23 +825,17 @@ public class MapAdminController extends UIController implements Initializable {
         Object mEvent = e.getSource();
         if (mEvent == DFS) {
             AppSettings.getInstance().setSearchType(PathfindingController.searchType.DFS);
-        }
-        else if (mEvent == BFS) {
+        } else if (mEvent == BFS) {
             AppSettings.getInstance().setSearchType(PathfindingController.searchType.BFS);
-        }
-        else if (mEvent == Dijkstra) {
+        } else if (mEvent == Dijkstra) {
             AppSettings.getInstance().setSearchType(PathfindingController.searchType.DIJKSTRA);
-        }
-        else if (mEvent == ASTAR) {
+        } else if (mEvent == ASTAR) {
             AppSettings.getInstance().setSearchType(PathfindingController.searchType.ASTAR);
-        }
-        else if (mEvent == Beam) {
+        } else if (mEvent == Beam) {
             AppSettings.getInstance().setSearchType(PathfindingController.searchType.BEAM);
-        }
-        else if (mEvent == BestFirst) {
+        } else if (mEvent == BestFirst) {
             AppSettings.getInstance().setSearchType(PathfindingController.searchType.BEST);
-        }
-        else if (mEvent == Scenic) {
+        } else if (mEvent == Scenic) {
             AppSettings.getInstance().setSearchType(searchType.SCENIC);
         }
     }
@@ -922,11 +923,11 @@ public class MapAdminController extends UIController implements Initializable {
         }
     }
 
-    public ArrayList<Building> getBuildings(){
-       return buildings;
+    public ArrayList<Building> getBuildings() {
+        return buildings;
     }
 
-    public void sendBuildings(ArrayList<Building> curBuildings){
+    public void sendBuildings(ArrayList<Building> curBuildings) {
         buildings = curBuildings;
         ObservableList bldgs = comboBuilding.getItems();
         for (Building b : buildings) {
@@ -934,14 +935,26 @@ public class MapAdminController extends UIController implements Initializable {
                 bldgs.add(b);
         }
         comboBuilding.setItems(bldgs);
-        setBuilding((Building) bldgs.get(0));
+        comboBuilding.setValue(bldgs.get(0));
+        curBuilding = (Building) bldgs.get(0);
+
+
+        ObservableList floors = comboFloors.getItems();
+        for (Floor f : ((Building) bldgs.get(0)).getFloors()){
+            if (!floors.contains(f))
+            floors.add(f);
+        }
+        comboFloors.setItems(floors);
+        comboFloors.setValue(floors.get(0));
+        curFloor = (Floor) floors.get(0);
+        setMap();
     }
 
-    public void allNodeButtonHandler(ActionEvent event){
+    public void allNodeButtonHandler(ActionEvent event) {
         showNodeAndPath();
     }
 
-    public void allEdgeButtonHandler(ActionEvent event){
+    public void allEdgeButtonHandler(ActionEvent event) {
         showNodeAndPath();
     }
 
