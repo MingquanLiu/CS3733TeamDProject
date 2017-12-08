@@ -529,9 +529,27 @@ public class TestingController extends UIController implements Initializable {
                 LineTo lineTo = new LineTo();
                 lineTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
                 lineTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
+                path.getElements().add(lineTo);
             }
         }
-        panningPane.getChildren().addAll(path);
+        //panningPane.getChildren().addAll(path);
+
+        Circle circle = new Circle(10, Color.DARKBLUE);
+//        Polygon triganle = new Polygon ((DBCToUIC(nodes.get(1).getXCoord(),currentScale)),
+//                (DBCToUIC(nodes.get(1).getYCoord(),currentScale)));
+        circle.setFill(Color.DARKBLUE);
+        PathTransition pathTransition = new PathTransition();
+
+        pathTransition.setDuration(Duration.millis(10000));
+        pathTransition.setNode(circle);
+        pathTransition.setPath(path);
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setCycleCount(1);
+        panningPane.getChildren().add(circle);
+        circle.toFront();
+        pathTransition.setAutoReverse(true);
+        pathTransition.play();
+
     }
 
     private void displayPath(List<NodeData> path) {
@@ -548,6 +566,7 @@ public class TestingController extends UIController implements Initializable {
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
+                pathAnimation(path);
 
                 if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
                     NodeData nextNode = path.get(i+1);
