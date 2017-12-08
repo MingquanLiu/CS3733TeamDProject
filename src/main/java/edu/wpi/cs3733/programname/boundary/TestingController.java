@@ -39,6 +39,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -1312,10 +1313,14 @@ public class TestingController extends UIController implements Initializable {
         String input = txtStartLocation.getText();
         LinkedList<String> longNameIDS = new LinkedList<String>();
         LinkedList<String> searchRecs = this.search(input, longNameIDS, 0.70);
+        for (int i = 0; i < searchRecs.size(); i++) {
+            System.out.println(searchRecs.get(i));
+        }
     }
 
-    public void search(String input, LinkedList<String> longNameIDS, double number ){
+    public LinkedList<String> search(String input, LinkedList<String> longNameIDS, double number ){
 
+        return new LinkedList<String>();
     }
 
 }
