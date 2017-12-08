@@ -875,10 +875,10 @@ public class TestingController extends UIController implements Initializable {
         relocateNodeInfo();
     }
     public void zoomHandler(ActionEvent e) {
-        if (e.getSource() == btnZoomOut && currentScale-.08>.3){
-            currentScale -= .08;
-        } else if (e.getSource() == btnZoomIn && currentScale+.08<.6){
-            currentScale += .08;
+        if (e.getSource() == btnZoomOut){
+            currentScale = Math.max(currentScale-.08, .3);
+        } else if (e.getSource() == btnZoomIn){
+            currentScale = Math.min(currentScale+.08, .6);
         }
 
         setZoom();
