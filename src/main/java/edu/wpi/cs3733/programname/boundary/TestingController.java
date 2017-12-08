@@ -1184,11 +1184,9 @@ public class TestingController extends UIController implements Initializable {
     // Turn the handicapped path restriction on or off
     public void toggleHandicap() {
         if (handicap.isSelected()) {
-            handicap.setSelected(false);
-            AppSettings.getInstance().setHandicapPath(false);
-        } else {
-            handicap.setSelected(true);
             AppSettings.getInstance().setHandicapPath(true);
+        } else {
+            AppSettings.getInstance().setHandicapPath(false);
         }
     }
 

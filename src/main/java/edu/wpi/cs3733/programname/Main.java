@@ -80,16 +80,16 @@ public class Main extends Application {
     private void checkOrMake() throws Exception {
         if (new File("floorMaps").mkdirs()) {
             try {
-                String jarPath = ExportResource("/floorMaps/Floor_0.png");
+                String jarPath = ExportResource("/img/Floor_0.png");
                 System.out.println("*****" + jarPath + "*****");
                 System.out.println("*****" + jarPath + "*****");
                 System.out.println("*****" + "*****");
-                ExportResource("/floorMaps/Floor_1.png");
-                ExportResource("/floorMaps/Floor_2.png");
-                ExportResource("/floorMaps/Floor_3.png");
-                ExportResource("/floorMaps/Floor_-1.png");
-                ExportResource("/floorMaps/Floor_-2.png");
-                ExportResource("/floorMaps/realPic.png");
+                ExportResource("Floor_1.png");
+                ExportResource("Floor_2.png");
+                ExportResource("Floor_3.png");
+                ExportResource("Floor_-1.png");
+                ExportResource("Floor_-2.png");
+                ExportResource("realPic.png");
 
 //                copyFile(new File(this.getClass().getResource("/img/Floor_0.png").toURI()),
 //                        new File("floorMaps/Floor_0.png"));
@@ -108,25 +108,37 @@ public class Main extends Application {
         } else
             System.out.println("???");
     }
-    static public String ExportResource(String resourceName) throws Exception {
+
+    /**
+     * Export a resource embedded into a Jar file to the local file path.
+     *
+     * @param resourceName ie.: "/SmartLibrary.dll"
+     * @return The path to the exported resource
+     * @throws Exception
+     *
+     * thank you to user Ordiel on stack overflow for the structure
+     */
+
+    public String ExportResource(String resourceName) throws Exception {
         InputStream stream = null;
         OutputStream resStreamOut = null;
-        String jarFolder;
+        String jarFolder = "";
         try {
-            stream = Main.class.getResourceAsStream(resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
+            stream = Main.class.getResourceAsStream("/img/" + resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
             if(stream == null) {
-                throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
+                throw new Exception();
             }
 
             int readBytes;
             byte[] buffer = new byte[4096];
             jarFolder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-            resStreamOut = new FileOutputStream(jarFolder + resourceName);
+            System.out.println(jarFolder + "********");
+            resStreamOut = new FileOutputStream(jarFolder + "floorMaps/" + resourceName);
             while ((readBytes = stream.read(buffer)) > 0) {
                 resStreamOut.write(buffer, 0, readBytes);
             }
         } catch (Exception ex) {
-            throw ex;
+            ex.printStackTrace();
         } finally {
             stream.close();
             resStreamOut.close();
