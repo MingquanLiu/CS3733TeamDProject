@@ -256,6 +256,12 @@ public class TestingController extends UIController implements Initializable {
     private CheckBox handicap;
     //</editor-fold>
 
+    //fuzzy search related stuffs
+    @FXML
+    JFXTextArea suggestions = new JFXTextArea();
+
+    @FXML
+    Label suggestions2 = new Label();
     /*
     *global variables, not FXML tied
     */
@@ -1311,10 +1317,20 @@ public class TestingController extends UIController implements Initializable {
 
     public void fuzzyStart(){
         String input = txtStartLocation.getText();
-        List<NodeData> longNameIDS = manager.queryNodeByLongName("whatever");
+        List<NodeData> longNameIDS = manager.queryNodeByLongName(input);
+
+        suggestions.setStyle("text-area-background: green;");
+
+
+        suggestions2.setText("trial");
+        //suggestions2.appendText("\n trial3");
+        //suggestions2.appendText("\n trial4");
+        //suggestions2.appendText("\n trial4");
+
+
         LinkedList<String> searchRecs = this.search(input, longNameIDS, 0.70);
-        for (int i = 0; i < searchRecs.size(); i++) {
-            System.out.println(searchRecs.get(i));
+        for (int i = 0; i < longNameIDS.size(); i++) {
+            suggestions.setText("trial");
         }
     }
 
