@@ -13,6 +13,7 @@ import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -32,9 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -535,6 +534,13 @@ public class TestingController extends UIController implements Initializable {
                 if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
                     NodeData nextNode = path.get(i+1);
                     String printFloor = "";
+//                    Circle circle = new Circle(5.0, Color.RED);
+//                    circle.setCenterX(n.getXCoord());
+//                    circle.setCenterY(n.getYCoord());
+//                    double newX = nextNode.getXCoord();
+//                    double newY = nextNode.getYCoord();
+//                    circle.setTranslateX(newX);
+//                    circle.setTranslateY(newY);
                     if((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
                             (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))){
                         for(int j = 1; j < path.size() - i; j++) {
@@ -561,6 +567,8 @@ public class TestingController extends UIController implements Initializable {
                     }
                 }
 
+//                Path path = new Path();
+//                PathElement start = new moveTo(l.getStartX(), l.getStartY());
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
                     l.setStrokeWidth(5.0 * currentScale);
@@ -569,6 +577,11 @@ public class TestingController extends UIController implements Initializable {
                     l.setEndX(n.getXCoord() * currentScale);
                     l.setEndY(n.getYCoord() * currentScale);
                     lines.add(l);
+//                    new LineTo(0, 300),
+//                            new ClosePath()
+//                    PathElement element = new LineTo(l.getEndX(), l.getEndY());
+//                    path.getElements().add(element);
+
                 }
                 prev = n;
             }
