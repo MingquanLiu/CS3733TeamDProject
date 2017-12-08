@@ -87,14 +87,17 @@ public class TextDirections {
                     if(lastNode.getNodeType().equals("ELEV"))
                         directionList.add(new TextDirection("Get off the elevator on floor " + thisNode.getFloor(),
                                 thisNode, INTERMED));
-                    else if(lastNode.getNodeType().equals("HALL")) {
+                    else if(lastNode.getNodeType().equals("HALL") && nextNode.getNodeType().equals("ELEV")) {
                         directionList.add(new TextDirection("Go straight down the hall for about " + hallDistance + " feet",
                                 thisNode, STRAIGHT));
                         hallDistance = 0;
                         hallNodes.clear();
                         directionList.add(new TextDirection("Get on " + name, thisNode, INTERMED));
                     }
-                    else directionList.add(new TextDirection("Get on " + name, lastNode, thisNode, faceSymbol));
+                    else if(nextNode.getNodeType().equals("ELEV")) {
+                        directionList.add(new TextDirection("Get on " + name, lastNode, thisNode, faceSymbol));
+                    }
+                    else hallDistance += distanceBetween(thisNode, nextNode);
                     break;
                 case "STAI":
                     if(lastNode.getNodeType().equals("STAI"))
@@ -107,7 +110,10 @@ public class TextDirections {
                         hallNodes.clear();
                         directionList.add(new TextDirection("Enter " + name, thisNode, INTERMED));
                     }
-                    else directionList.add(new TextDirection("Enter " + name, lastNode, thisNode, faceSymbol));
+                    else if(nextNode.getNodeType().equals("STAI")){
+                        directionList.add(new TextDirection("Enter " + name, lastNode, thisNode, faceSymbol));
+                    }
+                    else hallDistance += distanceBetween(thisNode, nextNode);
                     break;
                 case "HALL":
                     if(!lastNode.getNodeType().equals("HALL")) {
