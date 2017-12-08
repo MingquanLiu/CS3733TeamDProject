@@ -363,7 +363,7 @@ public class TestingController extends UIController implements Initializable {
         Floor ground = new Floor("Ground", "45 Francis", "file:floorMaps/Floor_0.png");
         Floor floor1 = new Floor("Floor 1", "45 Francis", "file:floorMaps/Floor_1.png");
         Floor floor2 = new Floor("Floor 2", "45 Francis", "file:floorMaps/Floor_2.png");
-        Floor floor3 = new Floor("Floor 3", "45 Francis", "file:floorMaps/Floor_3.png");
+        Floor floor3 = new Floor("Floor 3", "45 Francis", "file:floorMaps/Floor_3.png");;
 
         ArrayList<Floor> basicFloors = new ArrayList<>();
         basicFloors.add(basement2);

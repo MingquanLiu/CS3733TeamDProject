@@ -44,10 +44,10 @@ public class Main extends Application {
 
     public Stage showDialog(ManageController manageController) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/home_screen.fxml"
-                )
         );
+        loader.setLocation(getClass().getResource(
+                "/fxml/home_screen.fxml"
+        ));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
                 new Scene(
