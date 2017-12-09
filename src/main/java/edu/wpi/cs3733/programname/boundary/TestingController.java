@@ -41,6 +41,7 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.File;
 import java.io.IOException;
@@ -1457,6 +1458,13 @@ public class TestingController extends UIController implements Initializable {
         };
 
         return mouseReleaseHandler;
+    }
+
+    public void fuzzySearch() {
+
+        //List<String> suggestions = manager.queryNodeByType(input);
+        TextFields fuck;
+        //TextFields.bindAutoCompletion(input, suggestions);
     }
 
     private EventHandler<MouseEvent> dragMouse() {
