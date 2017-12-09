@@ -265,7 +265,6 @@ public class NodesQuery {
     }
 
     public List<NodeData> queryNodeByFloorAndBuilding(String nFloor, String nBuilding) {
-
         NodeData queryResult = null;
         List<NodeData> allNodesByFloor = new ArrayList<NodeData>();
 

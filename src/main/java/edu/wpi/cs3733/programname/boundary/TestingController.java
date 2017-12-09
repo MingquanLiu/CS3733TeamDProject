@@ -456,6 +456,8 @@ public class TestingController extends UIController implements Initializable {
                 setZoom();
             }
         });
+        paneAdminFeatures.setVisible(true);
+        mapEditHandler();
     }
 
     public void setSearchType(PathfindingController.searchType searchType) {
@@ -1025,8 +1027,9 @@ public class TestingController extends UIController implements Initializable {
         paneAdminFeatures.setVisible(loggedIn);
     }
 
-    public void mapEditHandler() throws IOException {
+    public void mapEditHandler() {
         System.out.println("In map Edit handler");
+        System.out.println("manager: " + manager);
 //        showScene("/edu/wpi/cs3733/programname/boundary/admin_screen.fxml");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -1034,13 +1037,14 @@ public class TestingController extends UIController implements Initializable {
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
+        try{
         stage.setScene(
                 new Scene(
                         (Pane) loader.load()
                 )
-        );
-        loader.<MapAdminController>getController().initManager(manager);
-        loader.<MapAdminController>getController().sendBuildings(buildings);
+        );}
+        catch (IOException e){e.printStackTrace();}
+        loader.<MapAdminController>getController().sendBuildings(buildings, manager);
         loader.<MapAdminController>getController().setmTestController(this);
         stage.showAndWait();
         buildings = loader.<MapAdminController>getController().getBuildings();

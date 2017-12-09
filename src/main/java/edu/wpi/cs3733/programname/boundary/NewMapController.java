@@ -78,8 +78,8 @@ public class NewMapController {
                 //print to make sure, then hide the menu
                 if (isBuilding) {
                     building = new Building(buildingName.getText());
-                    Floor fl = new Floor(floorName.getText(), building.getName(), floorNum.getValue().toString(), filepath);
-                    building.addFloor(fl);
+                    floor = new Floor(floorName.getText(), buildingName.getText(), floorNum.getValue().toString(), "file:floorMaps/" + fileName);
+                    building.addFloor(floor);
                 } else {
                     floor = new Floor(floorName.getText(), buildingName.getText(), floorNum.getValue().toString(), "file:floorMaps/" + fileName);
                 }

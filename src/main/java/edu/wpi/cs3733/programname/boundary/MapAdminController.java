@@ -103,7 +103,6 @@ public class MapAdminController extends UIController implements Initializable {
     private JFXCheckBox allNodeBox;
     @FXML
     private JFXCheckBox allEdgeBox;
-    private int floor = 2;
     private ArrayList<Floor> floors = new ArrayList<>();
     private Floor currentFloor;
     private ArrayList<Building> buildings = new ArrayList<>();
@@ -211,8 +210,33 @@ public class MapAdminController extends UIController implements Initializable {
         this.mTestController = testController;
     }
 
+    public void sendBuildings(ArrayList<Building> curBuildings, ManageController theManager) {
+        manager = theManager;
+        System.out.println("manager in sendbuildings: " + theManager);
+        buildings = curBuildings;
+        ObservableList bldgs = comboBuilding.getItems();
+        for (Building b : buildings) {
+            if (!bldgs.contains(b))
+                bldgs.add(b);
+        }
+        comboBuilding.setItems(bldgs);
+        comboBuilding.setValue(bldgs.get(0));
+        curBuilding = (Building) bldgs.get(0);
+
+        ObservableList floors = comboFloors.getItems();
+        for (Floor f : ((Building) bldgs.get(0)).getFloors()) {
+            if (!floors.contains(f))
+                floors.add(f);
+        }
+        comboFloors.setItems(floors);
+        comboFloors.setValue(floors.get(0));
+        curFloor = null;
+        System.out.println("Set up map: " + curBuildings + "|" + curFloor);
+        setMap();
+        initManager(manager);
+    }
+
     public void initManager(ManageController manageController) {
-//        mapRatio.add(0.24);
         manager = manageController;
         mapRatio.add(0.318);
         mapRatio.add(0.35);
@@ -257,8 +281,6 @@ public class MapAdminController extends UIController implements Initializable {
         System.out.println("current floors: " + floors);
 
         ASTAR.setSelected(true);
-        //buildings.add(hospital);
-        floor = 4;
 
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
         floorList.addAll(floors);
@@ -268,40 +290,20 @@ public class MapAdminController extends UIController implements Initializable {
         buildingList.addAll(buildings);
         //comboBuilding.setItems(buildingList);
 
-        currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
+        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), "Hospital");
         currentEdge = manager.getAllEdgeData();
         setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
         ;
-        showNodeAndPathStart();
-    }
-
-    public void showNodeAndPathStart() {
-        clearMain();
-        clearEdge();
-        clearNodes();
-        System.out.println("In show node Path");
-        currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "Hospital");
-
-        if (allEdgeBox.isSelected()) {
-            currentEdge = manager.getAllEdgeData();
-            //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
-            displayEdges(currentEdge);
-        }
-        if (allNodeBox.isSelected()) {
-            setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
-            showNodeList(currentNodes);
-        }
-//        setNodeListImageVisibility(true,setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale));
-//        showNodeList(currentNodes);
-
+        showNodeAndPath();
     }
 
     public void showNodeAndPath() {
         clearMain();
         clearEdge();
         clearNodes();
-        System.out.println("In show node Path");
-        currentNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
+        System.out.println("Starting show node path with " + curBuilding.getName() + " [" + curFloor + "]"
+                + "(" + curFloor.getFloorNum() + ")");
+        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curBuilding.getName());
 
         if (allEdgeBox.isSelected()) {
             currentEdge = manager.getAllEdgeData();
@@ -427,7 +429,7 @@ public class MapAdminController extends UIController implements Initializable {
     private NodeData getNode(String nodeID) {
         for (NodeData nodeData : currentNodes) {
             if (nodeData.getNodeID().equals(nodeID)) {
-                if (floors.get(floor + 2).getFloorName().equals(currentFloor.getFloorName()) && floors.get(floor + 2).getBuilding().equals(currentFloor.getBuilding())) {
+                if (nodeData.getFloor().equals(curFloor.getFloorNum()) && partOfMainB(nodeData.getBuilding(), (curFloor.getBuilding()))) {
                     return nodeData;
                 } else {
                     return null;
@@ -435,6 +437,12 @@ public class MapAdminController extends UIController implements Initializable {
             }
         }
         return null;
+    }
+
+    private boolean partOfMainB(String nodeBuilding, String curBuilding) {
+        boolean nodeBuild = nodeBuilding.matches("Hospital|BTM|(15|25|45) Francis|Tower|Shapiro");
+        boolean curBuild = curBuilding.matches("Hospital|BTM|(15|25|45) Francis|Tower|Shapiro");
+        return nodeBuild && curBuild;
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
@@ -458,7 +466,8 @@ public class MapAdminController extends UIController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), currentFloor.getBuilding());
+        System.out.println("current floor: " + curFloor);
+        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curFloor.getBuilding());
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
@@ -588,10 +597,13 @@ public class MapAdminController extends UIController implements Initializable {
 
 
     public void addFloor() {
+
+        System.out.println("adding floor");
         addMap("Floor");
     }
 
     public void addBuilding() {
+        System.out.println("adding building");
         addMap("Building");
     }
 
@@ -613,19 +625,19 @@ public class MapAdminController extends UIController implements Initializable {
         loader.<NewMapController>getController().setUp(typeToAdd);
         stage.showAndWait();
         if (loader.<NewMapController>getController().addedMap()) {
-            if (typeToAdd.equals("Floor")) {
-                Floor newFloor = loader.<NewMapController>getController().getFloor();
-                floors.add(newFloor);
-                ObservableList fls = comboFloors.getItems();
-                fls.add(newFloor);
-                comboFloors.setItems(fls);
-            }
             if (typeToAdd.equals("Building")) {
                 Building newBld = loader.<NewMapController>getController().getBuilding();
                 buildings.add(newBld);
                 ObservableList bldgs = comboBuilding.getItems();
                 bldgs.add(newBld);
                 comboBuilding.setItems(bldgs);
+            }
+            if (typeToAdd.equals("Floor")) {
+                Floor newFloor = loader.<NewMapController>getController().getFloor();
+                floors.add(newFloor);
+                ObservableList fls = comboFloors.getItems();
+                fls.add(newFloor);
+                comboFloors.setItems(fls);
             }
             setMap();
         }
@@ -636,6 +648,13 @@ public class MapAdminController extends UIController implements Initializable {
 
     public void setMap() {
         Building newBld = (Building) (comboBuilding.getValue());
+        System.out.println("Old building and floor: " + curBuilding + "[" + curFloor + "]");
+        if (newBld != curBuilding)
+            System.out.println("New building and floor: " + newBld + "[" + newBld.getFloors().get(0) + "]");
+        else
+            System.out.println("New building and floor: " + newBld + "[" + comboFloors.getValue() + "]");
+
+
         if (newBld != curBuilding) {
             System.out.println("floors: " + newBld);
             floors = newBld.getFloors();
@@ -643,83 +662,22 @@ public class MapAdminController extends UIController implements Initializable {
             floorList.addAll(floors);
             comboFloors.setItems(floorList);
             comboFloors.setValue(floorList.get(0));
-            setFloor((Floor) floorList.get(0));
             curBuilding = newBld;
-        } else if (curFloor != comboFloors.getValue()) {
-            currentFloor = (Floor) (comboFloors.getValue());
-            floor = floors.indexOf(currentFloor) - 2;
-
-            String newUrl = currentFloor.getImgUrl();
+        }
+        if (curFloor == null || curFloor != comboFloors.getValue()) {
+            System.out.println("Floors changing");
+            Floor newFloor = (Floor) (comboFloors.getValue());
+            curFloor = newFloor;
+            String newUrl = newFloor.getImgUrl();
 
             Image newImg = new Image(newUrl);
             imgMap.setImage(newImg);
             showNodeAndPath();
 
-            curFloor = currentFloor;
         }
 
 
     }
-
-    @SuppressWarnings("Duplicates")
-    public void mapChange(ActionEvent e) {
-        setFloor();
-    }
-
-
-    public void setBuilding() {
-        Building newBld = (Building) (comboBuilding.getValue());
-        floors = newBld.getFloors();
-
-        ObservableList floorList = FXCollections.observableList(new ArrayList<>());
-        floorList.addAll(floors);
-
-        comboFloors.setItems(floorList);
-        comboFloors.setValue(floorList.get(0));
-        setFloor((Floor) floorList.get(0));
-    }
-
-    public void setFloor(Floor newFloor) {
-        comboFloors.setValue(newFloor);
-        setFloor();
-    }
-
-    @SuppressWarnings("Duplicates")
-    private void setFloor() {
-        currentFloor = (Floor) (comboFloors.getValue());
-        floor = floors.indexOf(currentFloor) - 2;
-        System.out.println("floor: " + floor);
-
-        String newUrl = currentFloor.getImgUrl();
-        System.out.println("new image: " + newUrl);
-
-        Image newImg = new Image(newUrl);
-        System.out.println("about to be: " + newImg.getWidth());
-        imgMap.setImage(newImg);
-        showNodeAndPath();
-        /*
-        Image oldImg = imgMap.getImage();
-        String oldUrl = oldImg.impl_getUrl();  //using a deprecated method for lack of a better solution currently
-        System.out.println("old image: " + oldUrl);
-
-        String newUrl = oldUrl.substring(0,oldUrl.indexOf("Floor_")) + "Floor_" + floor + ".png";
-        System.out.println("new image: " + newUrl);
-
-        File file = new File(newUrl);
-        System.out.println("current map: " + file.toString());
-        Image newImg = new Image(file.toString());
-        imgMap.setImage(newImg);
-        lblCurrentFloor.setText(convertFloor(floor));
-        */
-    }
-
-
-    private void newNodeLocation() {
-        selectingLocation = "nodeAdd";
-        locationsSelected = false;
-        gridMapEdit.setVisible(false);
-    }
-
 
     public void nodeInfoXHandler() {
         nodeInfoPane.setVisible(false);
@@ -925,29 +883,6 @@ public class MapAdminController extends UIController implements Initializable {
 
     public ArrayList<Building> getBuildings() {
         return buildings;
-    }
-
-    public void sendBuildings(ArrayList<Building> curBuildings) {
-        buildings = curBuildings;
-        ObservableList bldgs = comboBuilding.getItems();
-        for (Building b : buildings) {
-            if (!bldgs.contains(b))
-                bldgs.add(b);
-        }
-        comboBuilding.setItems(bldgs);
-        comboBuilding.setValue(bldgs.get(0));
-        curBuilding = (Building) bldgs.get(0);
-
-
-        ObservableList floors = comboFloors.getItems();
-        for (Floor f : ((Building) bldgs.get(0)).getFloors()){
-            if (!floors.contains(f))
-            floors.add(f);
-        }
-        comboFloors.setItems(floors);
-        comboFloors.setValue(floors.get(0));
-        curFloor = (Floor) floors.get(0);
-        setMap();
     }
 
     public void allNodeButtonHandler(ActionEvent event) {
