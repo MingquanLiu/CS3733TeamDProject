@@ -18,9 +18,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -29,6 +31,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -308,6 +311,8 @@ public class TestingController extends UIController implements Initializable {
 
     private MapObserver mapObserver;
     private RequestObserver requestObserver;
+    private Group m_draggableNode;
+    private Circle pathDot = new Circle();
 
     //this runs on startup
     @Override
@@ -454,6 +459,29 @@ public class TestingController extends UIController implements Initializable {
                 setZoom();
             }
         });
+
+        m_draggableNode = new Group();
+
+        m_draggableNode.setOnMousePressed(pressMouse());
+        m_draggableNode.setOnMouseReleased(releaseMouse());
+
+        panningPane.getChildren().add(pathDot);
+
+        m_draggableNode.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                pathDot.setCenterX(me.getSceneX());
+                pathDot.setCenterY(me.getSceneY());
+                pathDot.setRadius(5.0f);
+                pathDot.setFill(Color.BLUE);
+                pathDot.setVisible(true);
+            }
+        });
+
+        m_draggableNode.setOnMouseExited(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                pathDot.setVisible(false);
+            }
+        });
     }
 
     public void setSearchType(PathfindingController.searchType searchType) {
@@ -571,7 +599,9 @@ public class TestingController extends UIController implements Initializable {
                 prev = n;
             }
             pathDrawings.addAll(lines);
-            panningPane.getChildren().addAll(lines);
+            m_draggableNode.getChildren().addAll(lines);
+            panningPane.getChildren().add(m_draggableNode);
+            //panningPane.getChildren().addAll(lines);
             emailDirections.setVisible(true);
         }
     }
@@ -599,9 +629,10 @@ public class TestingController extends UIController implements Initializable {
     private void clearPath() {
         //currentPath = new ArrayList<>();
         if (pathDrawings.size() > 0) {
+            panningPane.getChildren().remove(m_draggableNode);
             for (Shape shape : pathDrawings) {
                 System.out.println("success remove");
-                panningPane.getChildren().remove(shape);
+                m_draggableNode.getChildren().remove(shape);
             }
             currentPathStartFloor = "";
             currentPathGoalFloor = "";
@@ -913,7 +944,7 @@ public class TestingController extends UIController implements Initializable {
             currentPath = new ArrayList<>();
         }
         displayPath(currentPath);
-        clearPathFindLoc();
+//        clearPathFindLoc();
         //
         TextDirections textDirections = new TextDirections(currentPath);
         // TODO: Dan change this when the UI is updated
@@ -1323,5 +1354,73 @@ public class TestingController extends UIController implements Initializable {
     public void setUserName(String userName){
         this.userName = userName;
     }
+
+    /**
+     * The current x coordinate of the node.
+     */
+    private double m_nX = 0;
+
+    /**
+     * The current y coordinate of the node.
+     */
+    private double m_nY = 0;
+
+    /**
+     * The current mouse x coordinate when dragging.
+     */
+    private Double m_nMouseX = 0.0;
+
+    /**
+     * The current mouse y coordinate when dragging.
+     */
+    private Double m_nMouseY = 0.0;
+
+
+
+    private EventHandler<MouseEvent> pressMouse() {
+        EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {
+
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    // lock the scroll
+                    paneScroll.setPannable(false);
+                }
+            }
+        };
+
+        return mousePressHandler;
+    }
+
+    private EventHandler<MouseEvent> releaseMouse() {
+        EventHandler<MouseEvent> mouseReleaseHandler = new EventHandler<MouseEvent>() {
+
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    // unlock the scroll
+                    // get the latest mouse coordinate.
+                    m_nMouseX = event.getSceneX();
+                    m_nMouseY = event.getSceneY();
+                    List<NodeData> mList = getNodeByVisibility(currentNodes, true);
+                    NodeData nodeData = getClosestNode(mList, m_nMouseX.intValue(), m_nMouseY.intValue());
+                    try {
+                        currentPath = manager.startPathfind(txtStartLocation.getText(), nodeData.getLongName(), handicap.isSelected());
+                        currentPath.addAll(manager.startPathfind(nodeData.getLongName(), txtEndLocation.getText(), handicap.isSelected()));
+                        displayPath(currentPath);
+                        System.out.println("Success redraw");
+                    } catch (InvalidNodeException ine) {
+                        currentPath = new ArrayList<>();
+                    } catch (NoPathException np) {
+                        String id = np.startID;
+                        currentPath = new ArrayList<>();
+                    }
+                    paneScroll.setPannable(true);
+
+                }
+            }
+        };
+
+        return mouseReleaseHandler;
+    }
+
 
 }
