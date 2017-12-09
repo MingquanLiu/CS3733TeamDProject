@@ -313,6 +313,7 @@ public class TestingController extends UIController implements Initializable {
     private RequestObserver requestObserver;
     private Group m_draggableNode;
     private Circle pathDot = new Circle();
+    private NodeData closestNode;
 
     //this runs on startup
     @Override
@@ -1389,6 +1390,10 @@ public class TestingController extends UIController implements Initializable {
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     // lock the scroll
+                    m_nMouseX = event.getX();
+                    m_nMouseY = event.getY();
+                    List<NodeData> mList = getNodeByVisibility(currentNodes, true);
+                    closestNode = getClosestNode(mList, m_nMouseX.intValue(), m_nMouseY.intValue());
                     paneScroll.setPannable(false);
                 }
             }
@@ -1408,16 +1413,42 @@ public class TestingController extends UIController implements Initializable {
                     m_nMouseY = event.getSceneY();
                     List<NodeData> mList = getNodeByVisibility(currentNodes, true);
                     NodeData nodeData = getClosestNode(mList, m_nMouseX.intValue(), m_nMouseY.intValue());
-                    try {
-                        currentPath = manager.startPathfind(txtStartLocation.getText(), nodeData.getLongName(), handicap.isSelected());
-                        currentPath.addAll(manager.startPathfind(nodeData.getLongName(), txtEndLocation.getText(), handicap.isSelected()));
-                        displayPath(currentPath);
-                        System.out.println("Success redraw");
-                    } catch (InvalidNodeException ine) {
-                        currentPath = new ArrayList<>();
-                    } catch (NoPathException np) {
-                        String id = np.startID;
-                        currentPath = new ArrayList<>();
+                    if(closestNode.getLongName().equals(txtStartLocation.getText())) {
+                        try {
+                            currentPath.clear();
+                            currentPath.addAll(manager.startPathfind(nodeData.getLongName(), txtEndLocation.getText(), handicap.isSelected()));
+                            displayPath(currentPath);
+                            txtStartLocation.setText(nodeData.getLongName());
+                        } catch (InvalidNodeException ine) {
+                            currentPath = new ArrayList<>();
+                        } catch (NoPathException np) {
+                            String id = np.startID;
+                            currentPath = new ArrayList<>();
+                        }
+                    } else if(closestNode.getLongName().equals(txtEndLocation.getText())) {
+                        try {
+                            currentPath.clear();
+                            currentPath.addAll(manager.startPathfind(txtStartLocation.getText(), nodeData.getLongName(), handicap.isSelected()));
+                            displayPath(currentPath);
+                            txtEndLocation.setText(nodeData.getLongName());
+                        } catch (InvalidNodeException ine) {
+                            currentPath = new ArrayList<>();
+                        } catch (NoPathException np) {
+                            String id = np.startID;
+                            currentPath = new ArrayList<>();
+                        }
+                    } else {
+                        try {
+                            currentPath.clear();
+                            currentPath = manager.startPathfind(txtStartLocation.getText(), nodeData.getLongName(), handicap.isSelected());
+                            currentPath.addAll(manager.startPathfind(nodeData.getLongName(), txtEndLocation.getText(), handicap.isSelected()));
+                            displayPath(currentPath);
+                        } catch (InvalidNodeException ine) {
+                            currentPath = new ArrayList<>();
+                        } catch (NoPathException np) {
+                            String id = np.startID;
+                            currentPath = new ArrayList<>();
+                        }
                     }
                     paneScroll.setPannable(true);
 
