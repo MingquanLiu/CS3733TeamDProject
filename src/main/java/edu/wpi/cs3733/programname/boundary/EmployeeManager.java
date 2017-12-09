@@ -255,6 +255,9 @@ public class EmployeeManager {
             Employee employee = employeetable.getSelectionModel().getSelectedItem();
             employee.getUsername();
             edit.setVisible(true);
+            if(event.getClickCount() == 2){
+                showedit(null);
+            }
         } catch (NullPointerException npe) {
             // do nothing at all
         }
