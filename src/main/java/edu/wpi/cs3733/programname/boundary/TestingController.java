@@ -463,17 +463,23 @@ public class TestingController extends UIController implements Initializable {
         m_draggableNode = new Group();
 
         m_draggableNode.setOnMousePressed(pressMouse());
+        m_draggableNode.setOnMouseDragged(dragMouse());
         m_draggableNode.setOnMouseReleased(releaseMouse());
 
         panningPane.getChildren().add(pathDot);
 
-        m_draggableNode.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent me) {
-                pathDot.setCenterX(me.getSceneX());
-                pathDot.setCenterY(me.getSceneY());
-                pathDot.setRadius(5.0f);
-                pathDot.setFill(Color.BLUE);
-                pathDot.setVisible(true);
+        m_draggableNode.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(m_draggableNode.isHover()) {
+                    pathDot.setCenterX(event.getX());
+                    pathDot.setCenterY(event.getY());
+                    pathDot.setRadius(5.0f);
+                    pathDot.setFill(Color.BLUE);
+                    pathDot.setVisible(true);
+                    System.out.println(event.getX());
+                    System.out.println(event.getY());
+                }
             }
         });
 
@@ -589,7 +595,7 @@ public class TestingController extends UIController implements Initializable {
 
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
-                    l.setStrokeWidth(5.0 * currentScale);
+                    l.setStrokeWidth(10.0 * currentScale);
                     l.setStartX(prev.getXCoord() * currentScale);
                     l.setStartY(prev.getYCoord() * currentScale);
                     l.setEndX(n.getXCoord() * currentScale);
@@ -1393,8 +1399,8 @@ public class TestingController extends UIController implements Initializable {
 
     private EventHandler<MouseEvent> releaseMouse() {
         EventHandler<MouseEvent> mouseReleaseHandler = new EventHandler<MouseEvent>() {
-
             public void handle(MouseEvent event) {
+                pathDot.setVisible(false);
                 if (event.getButton() == MouseButton.PRIMARY) {
                     // unlock the scroll
                     // get the latest mouse coordinate.
@@ -1422,5 +1428,19 @@ public class TestingController extends UIController implements Initializable {
         return mouseReleaseHandler;
     }
 
-
+    private EventHandler<MouseEvent> dragMouse() {
+        EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    System.out.println(event.getX());
+                    System.out.println(event.getY());
+                    // set the layout for the draggable node.
+                    pathDot.setVisible(true);
+                    pathDot.setCenterX(event.getX());
+                    pathDot.setCenterY(event.getY());
+                }
+            }
+        };
+        return dragHandler;
+    }
 }
