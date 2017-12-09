@@ -1134,7 +1134,7 @@ public class TestingController extends UIController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
                 new Scene(
-                        (Pane) loader.load()
+                        loader.load()
                 )
         );
         stage.show();
