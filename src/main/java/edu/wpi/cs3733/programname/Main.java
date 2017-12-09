@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 import edu.wpi.cs3733.programname.boundary.EmployeeManager;
+import edu.wpi.cs3733.programname.boundary.ServiceRequestMainController;
 import edu.wpi.cs3733.programname.boundary.ServiceRequestManager;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.database.CsvReader;
@@ -46,7 +47,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(
         );
         loader.setLocation(getClass().getResource(
-                "/fxml/home_screen.fxml"
+                "/fxml/service_request_main.fxml"
         ));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
@@ -54,7 +55,7 @@ public class Main extends Application {
                         (Pane) loader.load()
                 )
         );
-        loader.<TestingController>getController().initManager(manageController);
+        loader.<ServiceRequestMainController>getController().initManager(manageController);
         stage.show();
         return stage;
     }

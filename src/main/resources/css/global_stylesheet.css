@@ -8,3 +8,9 @@
     -fx-background-color: white;
     -fx-opacity: 70%;
 }
+
+.serviceTitleText {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+}
