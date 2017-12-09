@@ -50,6 +50,7 @@ import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
 import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.BEAM;
+import static javafx.scene.paint.Color.DARKBLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
@@ -540,14 +541,44 @@ public class TestingController extends UIController implements Initializable {
         circle.setFill(Color.DARKBLUE);
         PathTransition pathTransition = new PathTransition();
 
+        pathTransition.currentTimeProperty().addListener( new ChangeListener<Duration>() {
+
+            double count = 1;
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                // skip starting at 0/0
+                if( oldValue == Duration.ZERO)
+                    return;
+
+
+                // get current location
+                double x = circle.getTranslateX();
+                double y = circle.getTranslateY();
+
+                if(!(count%8 == 0)) {
+                    count ++;
+                    return;
+                }
+                count ++;
+                Circle c = new Circle(10, Color.LIGHTBLUE);
+
+                c.setTranslateX(x);
+                c.setTranslateY(y);
+
+
+                panningPane.getChildren().add(c);
+                circle.toFront();
+            }
+        });
+
         pathTransition.setDuration(Duration.millis(10000));
         pathTransition.setNode(circle);
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition.setCycleCount(1);
+        pathTransition.setCycleCount(100);
         panningPane.getChildren().add(circle);
         circle.toFront();
-        pathTransition.setAutoReverse(true);
+        pathTransition.setAutoReverse(false);
         pathTransition.play();
 
     }
@@ -609,7 +640,7 @@ public class TestingController extends UIController implements Initializable {
 //                PathElement start = new moveTo(l.getStartX(), l.getStartY());
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
                     l.setStroke(Color.BLUE);
-                    l.setStrokeWidth(5.0 * currentScale);
+                    l.setStrokeWidth(10.0 * currentScale);
                     l.setStartX(prev.getXCoord() * currentScale);
                     l.setStartY(prev.getYCoord() * currentScale);
                     l.setEndX(n.getXCoord() * currentScale);
