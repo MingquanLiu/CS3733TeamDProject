@@ -38,7 +38,9 @@
     -fx-background-color: -fx-table-cell-border-color, white;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;
-    -fx-cell-size: 35px;
+    -fx-cell-size: 28px;
+    -fx-text-alignment: center;
+
 }
 
 .table-row-cell:odd{
@@ -48,7 +50,7 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #0063B5;
+    -fx-background-color: rgba(0, 99, 181, 0.69);
     -fx-background-insets: 0;
     -fx-background-radius: 1;
 }
