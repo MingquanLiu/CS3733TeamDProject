@@ -14,6 +14,7 @@ import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.Transition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -310,6 +311,7 @@ public class TestingController extends UIController implements Initializable {
 
     private MapObserver mapObserver;
     private RequestObserver requestObserver;
+    private ArrayList<Transition> transitions = new ArrayList<>();
 
     //this runs on startup
     @Override
@@ -518,6 +520,11 @@ public class TestingController extends UIController implements Initializable {
     }
 
     private void pathAnimation(List<NodeData> nodes){
+        if(!transitions.isEmpty()) {
+            for (Transition t : transitions) {
+                t.stop();
+            }
+        }
         Path path = new Path();
         for (int i = 1; i < nodes.size(); i++){
             if(i==1){
@@ -567,6 +574,7 @@ public class TestingController extends UIController implements Initializable {
 
 
                 panningPane.getChildren().add(c);
+                pathDrawings.add(c);
                 circle.toFront();
             }
         });
@@ -581,6 +589,8 @@ public class TestingController extends UIController implements Initializable {
         pathTransition.setAutoReverse(false);
         pathTransition.play();
 
+        pathDrawings.add(circle);
+        transitions.add(pathTransition);
     }
 
     private void displayPath(List<NodeData> path) {
