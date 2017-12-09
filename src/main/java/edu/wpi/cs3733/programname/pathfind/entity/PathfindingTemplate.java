@@ -24,14 +24,8 @@ public abstract class PathfindingTemplate {
             allStarNodes.put(node.getNodeID(), new StarNode(node));
         }
 
-        for(EdgeData edge: allEdges) {
-            StarNode node1 = allStarNodes.get(edge.getStartNode());
-            StarNode node2 = allStarNodes.get(edge.getEndNode());
-            node1.addNeighbor(node2);
-            node2.addNeighbor(node1);
-        }
         for(NodeData inode: allNodes){
- //           System.out.println("iterating through node: " + inode.getNodeID());
+            //           System.out.println("iterating through node: " + inode.getNodeID());
 //            System.out.println(startID );
             if (startID.equals(inode.getLongName()) || startID.equals(inode.getNodeID())){
                 System.out.println(inode.getLongName());
@@ -42,6 +36,25 @@ public abstract class PathfindingTemplate {
                 this.goal = allStarNodes.get(inode.getNodeID());
             }
         }
+
+        if(!start.getFloor().equals(goal.getFloor())) {
+            for (EdgeData edge : allEdges) {
+                StarNode node1 = allStarNodes.get(edge.getStartNode());
+                StarNode node2 = allStarNodes.get(edge.getEndNode());
+                node1.addNeighbor(node2);
+                node2.addNeighbor(node1);
+            }
+        } else {
+            for (EdgeData edge : allEdges) {
+                StarNode node1 = allStarNodes.get(edge.getStartNode());
+                StarNode node2 = allStarNodes.get(edge.getEndNode());
+                if(node1.getFloor().equals(node2.getFloor()) && node1.getFloor().equals(start.getFloor())) {
+                    node1.addNeighbor(node2);
+                    node2.addNeighbor(node1);
+                }
+            }
+        }
+
 //        this.start = allStarNodes.get(this.startID);
 //        this.goal = allStarNodes.get(this.goalID);
     }

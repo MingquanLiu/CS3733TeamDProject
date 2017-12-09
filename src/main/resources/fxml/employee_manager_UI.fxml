@@ -16,34 +16,33 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<?import com.jfoenix.controls.JFXListView?>
-<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.EmployeeManager">
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="716.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.EmployeeManager">
    <children>
-      <Label layoutX="14.0" layoutY="11.0" text="Employee Manager">
+      <Label layoutX="40.0" layoutY="19.0" text="Employee Manager">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="employeetable" editable="true" layoutX="8.0" layoutY="41.0" onMouseClicked="#updateRow" prefHeight="308.0" prefWidth="594.0">
+      <TableView fx:id="employeetable" editable="true" layoutX="53.0" layoutY="63.0" onMouseClicked="#updateRow" prefHeight="336.0" prefWidth="610.0" stylesheets="@../css/global_stylesheet.css">
         <columns>
           <TableColumn fx:id="username" prefWidth="75.0" text="Username" />
           <TableColumn fx:id="lastname" prefWidth="75.0" text="Last name" />
             <TableColumn fx:id="firstname" prefWidth="75.0" text="First name" />
             <TableColumn fx:id="service" prefWidth="91.0" resizable="false" text="Service type" />
             <TableColumn fx:id="administrator" prefWidth="55.0" resizable="false" text="Admin?" />
-            <TableColumn fx:id="email" prefWidth="222.0" text="Email" />
+            <TableColumn fx:id="email" prefWidth="220.0" text="Email" />
         </columns>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </TableView>
-      <Label fx:id="addlabel" layoutX="14.0" layoutY="363.0" text="Add a new employee">
+      <Label fx:id="addlabel" layoutX="67.0" layoutY="415.0" text="Add a new employee">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="passerror" layoutX="189.0" layoutY="356.0" text="Passwords do not match!" textFill="RED" visible="false" />
-      <GridPane layoutX="8.0" layoutY="407.0" prefHeight="87.0" prefWidth="594.0">
+      <Label fx:id="passerror" layoutX="242.0" layoutY="412.0" text="Passwords do not match!" textFill="RED" visible="false" />
+      <GridPane layoutX="53.0" layoutY="447.0" prefHeight="123.0" prefWidth="610.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="0.0" prefWidth="8.0" />
@@ -81,29 +80,27 @@
                </cursor></JFXButton>
          </children>
       </GridPane>
-      <JFXButton fx:id="close" layoutX="551.0" layoutY="11.0" onAction="#closeWindow" text="Close">
+      <JFXButton fx:id="close" layoutX="657.0" layoutY="12.0" onAction="#closeWindow" text="Close">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXButton>
-      <Label fx:id="dataerror" layoutX="388.0" layoutY="356.0" text="Missing employee data fields!" textFill="RED" visible="false" />
+      <Label fx:id="dataerror" layoutX="441.0" layoutY="412.0" text="Missing employee data fields!" textFill="RED" visible="false" />
       <Label fx:id="removeerror" layoutX="200.0" layoutY="16.0" text="Please select an employee to remove!" textFill="RED" visible="false" />
       <Label fx:id="changessaved" layoutX="435.0" layoutY="15.0" prefHeight="17.0" prefWidth="90.0" text="Changes saved" textFill="RED" visible="false" />
-      <JFXButton fx:id="edit" layoutX="505.0" layoutY="361.0" onAction="#showedit" text="Edit employee" visible="false">
+      <JFXButton fx:id="edit" layoutX="558.0" layoutY="417.0" onAction="#showedit" text="Edit employee" visible="false">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="canceledit" layoutX="507.0" layoutY="361.0" onAction="#cancelEdit" text="Cancel edit" visible="false">
+      <JFXButton fx:id="canceledit" layoutX="560.0" layoutY="417.0" onAction="#cancelEdit" text="Cancel edit" visible="false">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <JFXButton fx:id="btnSkills" layoutX="400.0" layoutY="361.0" onAction="#openSkillsWindow" text="Edit skills" visible="false">
+      <JFXButton fx:id="btnSkills" layoutX="453.0" layoutY="417.0" onAction="#openSkillsWindow" text="Edit skills" visible="false">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
    </children>
 </AnchorPane>
-
-

@@ -250,7 +250,7 @@
                             </rowConstraints>
                             <children>
                                 <JFXButton fx:id="btnGo" buttonType="RAISED" onAction="#goButtonHandler" style="-fx-background-color: #ccffda;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                                <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearMain" style="-fx-background-color: #ffb3bb;" text="Clear" GridPane.halignment="RIGHT" />
+                                <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearWholePath" style="-fx-background-color: #ffb3bb;" text="Clear" GridPane.halignment="RIGHT" />
                                 <JFXButton fx:id="emailDirections" buttonType="RAISED" onAction="#handleEmailButton" prefHeight="27.0" prefWidth="171.0" style="-fx-background-color: lightgrey;" text="Email Directions" visible="false" />
                             </children>
                         </GridPane>
