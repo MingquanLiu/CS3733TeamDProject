@@ -14,6 +14,9 @@ public class PathfindingController {
     }
     private PathfindingTemplate pathFinder;
 
+    HashMap<String, NodeData> fuck = new HashMap<>();
+    HashMap<String, NodeData> everything = new HashMap<>();
+
     /**
      * Takes in the starting and ending locations, and calls PathFindingStrategyTemplate to find the path between them
      * currently also takes linkedlists for nodedata and edges
@@ -27,8 +30,18 @@ public class PathfindingController {
     public List<NodeData> initializePathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
                                              String endNode)
             throws InvalidNodeException {
+
+        for(NodeData n: allNodes) {
+            fuck.put(n.getLongName(), n);
+            everything.put(n.getNodeID(), n);
+        }
+
         if (AppSettings.getInstance().isHandicapPath()) {
             allEdges = filterPath (allEdges);
+        }
+
+        if(fuck.get(startNode).getFloor().equals(fuck.get(endNode).getFloor())) {
+            allEdges = filterFloors(allEdges, fuck.get(startNode).getFloor());
         }
 
         try {
@@ -71,5 +84,15 @@ public class PathfindingController {
             }
         }
         return handicappedPath;
+    }
+
+    private List<EdgeData> filterFloors(List<EdgeData> edges, String floor) {
+        List<EdgeData> sameFloorPath = new LinkedList<>();
+        for(EdgeData e: edges) {
+            if(everything.get(e.getStartNode()).getFloor().equals(floor) && everything.get(e.getEndNode()).getFloor().equals(floor)) {
+                sameFloorPath.add(e);
+            }
+        }
+        return sameFloorPath;
     }
 }
