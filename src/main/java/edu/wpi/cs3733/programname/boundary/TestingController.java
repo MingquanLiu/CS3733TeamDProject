@@ -519,12 +519,16 @@ public class TestingController extends UIController implements Initializable {
         return mNodeData;
     }
 
-    private void pathAnimation(List<NodeData> nodes){
+    public void stopTransitions(){
         if(!transitions.isEmpty()) {
             for (Transition t : transitions) {
                 t.stop();
             }
         }
+    }
+    private void pathAnimation(List<NodeData> nodes){
+        stopTransitions();
+
         Path path = new Path();
         for (int i = 1; i < nodes.size(); i++){
             if(i==1){
@@ -542,42 +546,12 @@ public class TestingController extends UIController implements Initializable {
         }
         //panningPane.getChildren().addAll(path);
 
-        Circle circle = new Circle(10, Color.DARKBLUE);
+        Circle circle = new Circle(5, Color.DARKBLUE);
 //        Polygon triganle = new Polygon ((DBCToUIC(nodes.get(1).getXCoord(),currentScale)),
 //                (DBCToUIC(nodes.get(1).getYCoord(),currentScale)));
         circle.setFill(Color.DARKBLUE);
         PathTransition pathTransition = new PathTransition();
 
-        pathTransition.currentTimeProperty().addListener( new ChangeListener<Duration>() {
-
-            double count = 1;
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                // skip starting at 0/0
-                if( oldValue == Duration.ZERO)
-                    return;
-
-
-                // get current location
-                double x = circle.getTranslateX();
-                double y = circle.getTranslateY();
-
-                if(!(count%8 == 0)) {
-                    count ++;
-                    return;
-                }
-                count ++;
-                Circle c = new Circle(10, Color.LIGHTBLUE);
-
-                c.setTranslateX(x);
-                c.setTranslateY(y);
-
-
-                panningPane.getChildren().add(c);
-                pathDrawings.add(c);
-                circle.toFront();
-            }
-        });
 
         pathTransition.setDuration(Duration.millis(10000));
         pathTransition.setNode(circle);
@@ -587,7 +561,51 @@ public class TestingController extends UIController implements Initializable {
         panningPane.getChildren().add(circle);
         circle.toFront();
         pathTransition.setAutoReverse(false);
+
+
+
         pathTransition.play();
+
+        pathTransition.currentTimeProperty().addListener( new ChangeListener<Duration>() {
+
+            double count = 1;
+            double oldX = circle.getTranslateX();
+            double oldY = circle.getTranslateY();
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                // skip starting at 0/0
+                if( oldValue == Duration.ZERO) {
+                    oldX = circle.getTranslateX();
+                    oldY = circle.getTranslateY();
+                    return;
+                }
+                // get current location
+                double x = circle.getTranslateX();
+                double y = circle.getTranslateY();
+                System.out.println("circle at: " + x + ", " + y);
+                System.out.println("old at: " + oldX + ", " + oldY);
+
+                double distance = Math.sqrt(Math.pow(x-oldX,2)+Math.pow(y-oldY,2));
+                System.out.println("distance: " + distance);
+                if(distance > 20){
+                    oldX = x;
+                    oldY = y;
+                    Circle c = new Circle(5, Color.LIGHTBLUE);
+                    System.out.println("draw follower circle");
+                    c.setTranslateX(x);
+                    c.setTranslateY(y);
+                    System.out.println("light blue at: " + c.getTranslateX() + ", " + c.getTranslateY());
+
+                    panningPane.getChildren().add(c);
+                    pathDrawings.add(c);
+                    c.toFront();
+                    circle.toFront();
+
+                }
+
+            }
+        });
+
 
         pathDrawings.add(circle);
         transitions.add(pathTransition);
@@ -694,6 +712,7 @@ public class TestingController extends UIController implements Initializable {
             currentPathGoalFloor = "";
             pathDrawings = new ArrayList<>();
         }
+        stopTransitions();
     }
 
     private void clearNodes() {
