@@ -312,7 +312,7 @@ public class TestingController extends UIController implements Initializable {
     private MapObserver mapObserver;
     private RequestObserver requestObserver;
     private ArrayList<Transition> transitions = new ArrayList<>();
-    private ArrayList<ImageView> drawnImages;
+    private ArrayList<ImageView> drawnImages = new ArrayList<>();
 
     //this runs on startup
     @Override
@@ -724,6 +724,9 @@ public class TestingController extends UIController implements Initializable {
             currentPathStartFloor = "";
             currentPathGoalFloor = "";
             pathDrawings = new ArrayList<>();
+
+        }
+        if (drawnImages.size() > 0){
             for(ImageView img:drawnImages){
                 panningPane.getChildren().remove(img);
             }
