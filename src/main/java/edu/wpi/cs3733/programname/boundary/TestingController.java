@@ -588,10 +588,10 @@ public class TestingController extends UIController implements Initializable {
 
                 double distance = Math.sqrt(Math.pow(x-oldX,2)+Math.pow(y-oldY,2));
                 System.out.println("distance: " + distance);
-                if(distance > 20){
+                if(distance > 10){
                     oldX = x;
                     oldY = y;
-                    Circle c = new Circle(5, Color.LIGHTBLUE);
+                    Circle c = new Circle(2, Color.DARKBLUE);
                     System.out.println("draw follower circle");
                     c.setTranslateX(x);
                     c.setTranslateY(y);
@@ -668,7 +668,7 @@ public class TestingController extends UIController implements Initializable {
 //                Path path = new Path();
 //                PathElement start = new moveTo(l.getStartX(), l.getStartY());
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
-                    l.setStroke(Color.BLUE);
+                    l.setStroke(Color.LIGHTSKYBLUE);
                     l.setStrokeWidth(10.0 * currentScale);
                     l.setStartX(prev.getXCoord() * currentScale);
                     l.setStartY(prev.getYCoord() * currentScale);
