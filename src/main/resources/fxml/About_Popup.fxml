@@ -50,7 +50,7 @@
                         <Image url="@../img/photos/Wong.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="217.0" layoutY="50.0" text="Wilson Wong&#10;&#10;Computer Science&#10;&#10;Assistant Teaching Professor">
+                  <Label layoutX="217.0" layoutY="50.0" text="Dr. Wilson Wong&#10;&#10;Computer Science&#10;&#10;Assistant Teaching Professor">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -74,12 +74,12 @@
                 <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="220.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Michael Abadjiev&#10;Project Manager" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                  <Label text="Michael Abadjiev&#10;Product Owner" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Shreeja Bhattacharjee&#10;Documentation Analyst" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                  <Label text="Shreeja Bhattacharjee&#10;Project Manager" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" />
                      </GridPane.margin>
@@ -89,32 +89,32 @@
                         <Insets bottom="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Mingquan Liu&#10;Assistant Lead - &#10;Software Engineer" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label text="Mingquan Liu&#10;Co-Lead Software Engineer" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Treksh Marwaha&#10;Testing Engineer" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label text="Treksh Marwaha&#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Benjamin Newmark&#10;Assistant Lead -&#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label text="Benjamin Newmark&#10;Assistant Lead&#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Kenneth Quartuccio&#10;Testing Engineer" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <Label text="Kenneth Quartuccio&#10;Test Engineer" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="David Swenarton&#10;Lead Software Engineer" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <Label text="David Swenarton&#10;Co-Lead Software Engineer" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Daniel Wivagg &#10;Product Owner" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <Label text="Daniel Wivagg &#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets bottom="5.0" />
                      </GridPane.margin>
