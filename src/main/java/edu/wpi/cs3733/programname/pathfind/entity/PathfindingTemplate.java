@@ -37,23 +37,30 @@ public abstract class PathfindingTemplate {
             }
         }
 
-        if(!start.getFloor().equals(goal.getFloor())) {
-            for (EdgeData edge : allEdges) {
-                StarNode node1 = allStarNodes.get(edge.getStartNode());
-                StarNode node2 = allStarNodes.get(edge.getEndNode());
-                node1.addNeighbor(node2);
-                node2.addNeighbor(node1);
-            }
-        } else {
-            for (EdgeData edge : allEdges) {
-                StarNode node1 = allStarNodes.get(edge.getStartNode());
-                StarNode node2 = allStarNodes.get(edge.getEndNode());
-                if(node1.getFloor().equals(node2.getFloor()) && node1.getFloor().equals(start.getFloor())) {
-                    node1.addNeighbor(node2);
-                    node2.addNeighbor(node1);
-                }
-            }
+        for (EdgeData edge : allEdges) {
+            StarNode node1 = allStarNodes.get(edge.getStartNode());
+            StarNode node2 = allStarNodes.get(edge.getEndNode());
+            node1.addNeighbor(node2);
+            node2.addNeighbor(node1);
         }
+
+//        if(!start.getFloor().equals(goal.getFloor())) {
+//            for (EdgeData edge : allEdges) {
+//                StarNode node1 = allStarNodes.get(edge.getStartNode());
+//                StarNode node2 = allStarNodes.get(edge.getEndNode());
+//                node1.addNeighbor(node2);
+//                node2.addNeighbor(node1);
+//            }
+//        } else {
+//            for (EdgeData edge : allEdges) {
+//                StarNode node1 = allStarNodes.get(edge.getStartNode());
+//                StarNode node2 = allStarNodes.get(edge.getEndNode());
+//                if(node1.getFloor().equals(node2.getFloor()) && node1.getFloor().equals(start.getFloor())) {
+//                    node1.addNeighbor(node2);
+//                    node2.addNeighbor(node1);
+//                }
+//            }
+//        }
 
 //        this.start = allStarNodes.get(this.startID);
 //        this.goal = allStarNodes.get(this.goalID);
