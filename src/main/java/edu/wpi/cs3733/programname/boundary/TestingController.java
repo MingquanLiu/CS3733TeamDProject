@@ -312,6 +312,7 @@ public class TestingController extends UIController implements Initializable {
     private MapObserver mapObserver;
     private RequestObserver requestObserver;
     private ArrayList<Transition> transitions = new ArrayList<>();
+    private ArrayList<ImageView> drawnImages;
 
     //this runs on startup
     @Override
@@ -546,69 +547,80 @@ public class TestingController extends UIController implements Initializable {
             }
         }
         //panningPane.getChildren().addAll(path);
-
+/*
         Circle circle = new Circle(5, Color.DARKBLUE);
 //        Polygon triganle = new Polygon ((DBCToUIC(nodes.get(1).getXCoord(),currentScale)),
 //                (DBCToUIC(nodes.get(1).getYCoord(),currentScale)));
         circle.setFill(Color.DARKBLUE);
+*/
+        ImageView walkingMan = new ImageView("img/cleanWalkingMan.gif");
+        walkingMan.setPreserveRatio(true);
+        walkingMan.setFitWidth(200*currentScale);
+
         PathTransition pathTransition = new PathTransition();
 
 
-        pathTransition.setDuration(Duration.millis(10000));
-        pathTransition.setNode(circle);
+//        pathTransition.setDuration(Duration.millis(10000));
+        pathTransition.setRate(.02);
+//        pathTransition.setNode(circle);
+        pathTransition.setNode(walkingMan);
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pathTransition.setCycleCount(100);
-        panningPane.getChildren().add(circle);
-        circle.toFront();
+        panningPane.getChildren().add(walkingMan);
+        walkingMan.toFront();
+//        panningPane.getChildren().add(circle);
+//        circle.toFront();
         pathTransition.setAutoReverse(false);
+
 
 
 
         pathTransition.play();
 
-        pathTransition.currentTimeProperty().addListener( new ChangeListener<Duration>() {
+//        pathTransition.currentTimeProperty().addListener( new ChangeListener<Duration>() {
+//
+//            double count = 1;
+//            double oldX = circle.getTranslateX();
+//            double oldY = circle.getTranslateY();
+//            @Override
+//            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+//                // skip starting at 0/0
+//                if( oldValue == Duration.ZERO) {
+//                    oldX = circle.getTranslateX();
+//                    oldY = circle.getTranslateY();
+//                    return;
+//                }
+//                // get current location
+//                double x = circle.getTranslateX();
+//                double y = circle.getTranslateY();
+//                System.out.println("circle at: " + x + ", " + y);
+//                System.out.println("old at: " + oldX + ", " + oldY);
+//
+//                double distance = Math.sqrt(Math.pow(x-oldX,2)+Math.pow(y-oldY,2));
+//                System.out.println("distance: " + distance);
+//                if(distance > 20){
+//                    oldX = x;
+//                    oldY = y;
+//                    Circle c = new Circle(5, Color.LIGHTBLUE);
+//                    System.out.println("draw follower circle");
+//                    c.setTranslateX(x);
+//                    c.setTranslateY(y);
+//                    System.out.println("light blue at: " + c.getTranslateX() + ", " + c.getTranslateY());
+//
+//                    panningPane.getChildren().add(c);
+//                    pathDrawings.add(c);
+//                    c.toFront();
+//                    circle.toFront();
+//
+//                }
+//
+//            }
+//        });
 
-            double count = 1;
-            double oldX = circle.getTranslateX();
-            double oldY = circle.getTranslateY();
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                // skip starting at 0/0
-                if( oldValue == Duration.ZERO) {
-                    oldX = circle.getTranslateX();
-                    oldY = circle.getTranslateY();
-                    return;
-                }
-                // get current location
-                double x = circle.getTranslateX();
-                double y = circle.getTranslateY();
-                System.out.println("circle at: " + x + ", " + y);
-                System.out.println("old at: " + oldX + ", " + oldY);
 
-                double distance = Math.sqrt(Math.pow(x-oldX,2)+Math.pow(y-oldY,2));
-                System.out.println("distance: " + distance);
-                if(distance > 20){
-                    oldX = x;
-                    oldY = y;
-                    Circle c = new Circle(5, Color.LIGHTBLUE);
-                    System.out.println("draw follower circle");
-                    c.setTranslateX(x);
-                    c.setTranslateY(y);
-                    System.out.println("light blue at: " + c.getTranslateX() + ", " + c.getTranslateY());
-
-                    panningPane.getChildren().add(c);
-                    pathDrawings.add(c);
-                    c.toFront();
-                    circle.toFront();
-
-                }
-
-            }
-        });
-
-
-        pathDrawings.add(circle);
+//        pathDrawings.add(circle);
+        drawnImages.add(walkingMan);
         transitions.add(pathTransition);
     }
 
@@ -712,6 +724,9 @@ public class TestingController extends UIController implements Initializable {
             currentPathStartFloor = "";
             currentPathGoalFloor = "";
             pathDrawings = new ArrayList<>();
+            for(ImageView img:drawnImages){
+                panningPane.getChildren().remove(img);
+            }
         }
         stopTransitions();
     }
