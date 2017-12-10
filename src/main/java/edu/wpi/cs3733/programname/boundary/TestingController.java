@@ -94,7 +94,7 @@ public class TestingController extends UIController implements Initializable {
     @FXML
     private JFXButton btnZoomOut;
     @FXML
-    private JFXSlider slideZoom;
+    private Slider slideZoom;
     //</editor-fold>
 
     //<editor-fold desc="Admin features">
@@ -451,6 +451,7 @@ public class TestingController extends UIController implements Initializable {
         lblCrossFloor.setVisible(false);
 
         paneControls.setPickOnBounds(false);
+
 
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal){

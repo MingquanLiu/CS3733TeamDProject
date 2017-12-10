@@ -11,6 +11,7 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -200,7 +201,8 @@
                             <font>
                                 <Font name="Arial Black" size="58.0" />
                             </font></JFXButton>
-                  <JFXSlider fx:id="slideZoom" blockIncrement="0.5" max="6.0" min="3.0" minorTickCount="0" prefHeight="14.0" prefWidth="147.0" style="-fx-background-color: lightblue;" value="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXSlider blockIncrement="0.5" max="6.0" min="3.0" minorTickCount="0" prefHeight="14.0" prefWidth="147.0" style="-fx-background-color: lightblue; -fx-control-inner-background: darkblue;" stylesheets="@../css/global_stylesheet.css" value="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Slider fx:id="slideZoom" blockIncrement="0.5" max="6.0" min="3.0" style="-fx-color: blue; -fx-control-inner-background: #1a75ff;" value="3.0" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
             </children>
