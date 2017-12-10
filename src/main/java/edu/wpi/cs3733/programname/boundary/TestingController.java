@@ -1471,13 +1471,6 @@ public class TestingController extends UIController implements Initializable {
         return mouseReleaseHandler;
     }
 
-    public void fuzzySearch() {
-
-        //List<String> suggestions = manager.queryNodeByType(input);
-        TextFields fuck;
-        //TextFields.bindAutoCompletion(input, suggestions);
-    }
-
     private EventHandler<MouseEvent> dragMouse() {
         EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -1497,33 +1490,9 @@ public class TestingController extends UIController implements Initializable {
         String input = txtStartLocation.getText();
         List<String> longNameIDS = manager.queryNodeByLongName(input);
 
-        suggestions.setStyle("text-area-background: green;");
-        String [] recs = new String[5];
-
-        ArrayList<String> moreRecs = new ArrayList<String>();
-        moreRecs.add("yeggi");
-        moreRecs.add("nicol");
-        moreRecs.add("trung");
-
-
-
-        suggestions2.setText("trial");
-
         TextFields.bindAutoCompletion(txtStartLocation, longNameIDS);
-        //suggestions2.appendText("\n trial3");
-        //suggestions2.appendText("\n trial4");
-        //suggestions2.appendText("\n trial4");
+        TextFields.bindAutoCompletion(txtEndLocation, longNameIDS);
 
-
-        LinkedList<String> searchRecs = this.search(input, longNameIDS, 0.70);
-        for (int i = 0; i < longNameIDS.size(); i++) {
-            suggestions.setText("trial");
-        }
-    }
-
-    public LinkedList<String> search(String input, List<String> longNameIDS, double number ){
-
-        return new LinkedList<String>();
     }
 
 }

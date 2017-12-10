@@ -5,7 +5,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXSlider?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
@@ -296,7 +295,6 @@
                 </content>
             </TitledPane>
       <Label text="© Brigham &amp; Women’s Hospital 2017" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="10.0" />
-      <JFXTextArea fx:id="suggestions" layoutX="20.0" layoutY="103.0" prefHeight="98.0" prefWidth="280.0" style="-fx-background-color: white;" visible="false" />
 
     </children>
 </AnchorPane>
