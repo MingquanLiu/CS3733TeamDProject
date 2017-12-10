@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class NewMapController {
     //imageName - the submitted image name
@@ -21,9 +22,12 @@ public class NewMapController {
     //errUpload - hold error messages related to image selection
     @FXML
     private Label errUpload;
-    //errFloor - holds error messages related to floor name choices
+    //errFloorName - holds error messages related to floor name choices
     @FXML
-    private Label errFloor;
+    private Label errFloorName;
+    //errFloorNum - holds error messages related to floor num choices
+    @FXML
+    private Label errFloorNum;
     //errBuilding - holds error messages related to building name choices
     @FXML
     private Label errBuilding;
@@ -57,6 +61,7 @@ public class NewMapController {
     private Floor floor;
     private Building building;
     private boolean addedFile;
+    private ArrayList<Building> buildings;
 
     public void onSubmit() {
         if (validSubmission()) {
@@ -66,8 +71,11 @@ public class NewMapController {
 
                 //naming the new file based on the name given
                 String fileName = floorName.getText() + "." + getFileExtension(selectedFile);
-                //for later use pulling up the floor
+                //for later use, using variables instead of pulling straight from
                 filepath = "file:floorMaps/" + fileName;
+                String bName = buildingName.getText();
+                String fName = floorName.getText();
+                String fNum = floorNum.getValue().toString();
 
                 //creating the two new files
                 File fileMap = new File(relPathMaps + fileName);
@@ -77,12 +85,13 @@ public class NewMapController {
 
                 //print to make sure, then hide the menu
                 if (isBuilding) {
-                    building = new Building(buildingName.getText());
-                    floor = new Floor(floorName.getText(), buildingName.getText(), floorNum.getValue().toString(), "file:floorMaps/" + fileName);
+                    building = new Building(bName);
+                    floor = new Floor(fName, bName, fNum, "file:floorMaps/" + fileName);
                     building.addFloor(floor);
                 } else {
-                    floor = new Floor(floorName.getText(), buildingName.getText(), floorNum.getValue().toString(), "file:floorMaps/" + fileName);
+                    floor = new Floor(fName, bName, fNum, "file:floorMaps/" + fileName);
                 }
+                manager.addMap(bName, fName, filepath, fNum);
                 addedFile = true;
                 onCancelButton();
             } catch (Exception e) {
@@ -92,6 +101,10 @@ public class NewMapController {
 
         }
 
+    }
+
+    public void initManager(ManageController manageController) {
+        manager = manageController;
     }
 
     public void onCancelButton() {
@@ -110,7 +123,7 @@ public class NewMapController {
         return addedFile;
     }
 
-    public void setUp(String type) {
+    public void setUp(String type, ArrayList<Building> bldgs) {
         if (type.equals("Building")) {
             isBuilding = true;
             addingType.setText("Add a Building");
@@ -128,6 +141,7 @@ public class NewMapController {
         floorNum.setItems(floors);
         floorNum.setValue("L2");
         addedFile = false;
+        buildings = bldgs;
     }
 
     private static void configureFileChooser(final FileChooser fileChooser) {
@@ -139,7 +153,8 @@ public class NewMapController {
         );
         fileChooser.setTitle("View Pictures");
         fileChooser.setInitialDirectory(
-                new File(System.getProperty("user.home"))
+                new File(System.getProperty("user.home")
+                        + System.getProperty("file.separator") + "Pictures")
         );
     }
 
@@ -160,11 +175,12 @@ public class NewMapController {
     }
 
     private boolean validSubmission() {
-        boolean haveFile = false, haveBuilding = false, haveFloor = false;
+        boolean haveFile = false, haveBuilding = false, haveFloor = false, validNum = false;
         String extension;
         errUpload.setText("");
         errBuilding.setText("");
-        errFloor.setText("");
+        errFloorName.setText("");
+        errFloorNum.setText("");
 
         if (selectedFile != null) {
             extension = getFileExtension(selectedFile);
@@ -178,17 +194,43 @@ public class NewMapController {
 
         if (!buildingName.getText().equals("")) {
             //ADD FORMATTING GUIDELINES
-            haveBuilding = true;
+            for (Building b : buildings) {
+                if (b.getName().equals(buildingName.getText()) || isBuilding)
+                    haveBuilding = true;
+            }
+            if (!haveBuilding)
+                errBuilding.setText("Not a valid building");
         } else
             errBuilding.setText("You need to set a building name.");
 
         if (!floorName.getText().equals("")) {
             //ADD FORMATTING GUIDELINES
             haveFloor = true;
+            for (Building b : buildings) {
+                if (b.getName().equals(buildingName.getText())) {
+                    for (Floor f : b.getFloors())
+                        if (f.getFloorName().equals(floorName.getText()))
+                            haveFloor = false;
+                }
+            }
+            if (!haveFloor)
+                errFloorName.setText("Floor name is already in use.");
         } else
-            errFloor.setText("You need to set a floor name.");
+            errFloorName.setText("You need to set a floor name.");
 
-        return (haveBuilding && haveFile && haveFloor);
+            //ADD FORMATTING GUIDELINES
+            validNum = true;
+            for (Building b : buildings) {
+                if (b.getName().equals(buildingName.getText())) {
+                    for (Floor f : b.getFloors())
+                        if (f.getFloorNum().equals(floorNum.getValue()))
+                            validNum = false;
+                }
+            }
+            if (!validNum)
+                errFloorNum.setText("Floor number is already in use.");
+
+        return (haveBuilding && haveFile && haveFloor && validNum);
     }
 
     private String getFileExtension(File file) {

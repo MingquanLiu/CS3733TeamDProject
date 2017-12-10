@@ -18,19 +18,19 @@ public class MapMethod {
 
     public void insertMap(String bName, String fName, String imgPath, String fNum) {
         String buildingName = bName;
-        String floorName = fNum;
+        String floorName = fName;
         String imagePath = imgPath;
         String floorNum = fNum;
         String str;
 
         try {
 
-            str = "INSERT INTO MapInfo VALUES('" + buildingName + "', " + floorName + ", "
-                    + imagePath + "," + floorNum + "')";
+            str = "INSERT INTO MapInfo VALUES('" + buildingName + "', '" + floorName + "', '"
+                    + imagePath + "', '" + floorNum + "')";
 
             System.out.println(str);
             dbConnection.executeUpdate(str);
-            this.wrt.writeNodes(dbConnection.getConnection());
+            this.wrt.writeMaps(dbConnection.getConnection());
         } catch (SQLException e) {
             System.out.println("Insert Map info Failed!");
             e.printStackTrace();

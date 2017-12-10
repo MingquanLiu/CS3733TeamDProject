@@ -307,7 +307,7 @@ public class MapAdminController extends UIController implements Initializable {
 
         if (allEdgeBox.isSelected()) {
             currentEdge = manager.getAllEdgeData();
-           System.out.println("Doing edges");
+            System.out.println("Doing edges");
             displayEdges(currentEdge);
         }
         if (allNodeBox.isSelected()) {
@@ -433,9 +433,8 @@ public class MapAdminController extends UIController implements Initializable {
                 boolean rightBuilding = false;
                 if ((curFloor.getBuilding()).matches("Main Hospital"))
                     rightBuilding = partOfMainB(nodeData.getBuilding(), (curFloor.getBuilding()));
-                else
-                    if ((curFloor.getBuilding().equals(curBuilding.getName())))
-                        rightBuilding = true;
+                else if ((curFloor.getBuilding().equals(curBuilding.getName())))
+                    rightBuilding = true;
                 if (nodeData.getFloor().equals(curFloor.getFloorNum()) && rightBuilding) {
                     return nodeData;
                 } else {
@@ -629,7 +628,8 @@ public class MapAdminController extends UIController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        loader.<NewMapController>getController().setUp(typeToAdd);
+        loader.<NewMapController>getController().setUp(typeToAdd, buildings);
+        loader.<NewMapController>getController().initManager(manager);
         stage.showAndWait();
         if (loader.<NewMapController>getController().addedMap()) {
             if (typeToAdd.equals("Building")) {
@@ -640,11 +640,18 @@ public class MapAdminController extends UIController implements Initializable {
                 comboBuilding.setItems(bldgs);
             }
             if (typeToAdd.equals("Floor")) {
+                boolean shouldAddNow = false;
                 Floor newFloor = loader.<NewMapController>getController().getFloor();
-                floors.add(newFloor);
-                ObservableList fls = comboFloors.getItems();
-                fls.add(newFloor);
-                comboFloors.setItems(fls);
+                for (Building b : buildings) {
+                    if (b.getName().equals(newFloor.getBuilding())) {
+                        b.addFloor(newFloor);
+                    }
+                }
+                if (curBuilding.getName().equals(newFloor.getBuilding())) {
+                    ObservableList fls = comboFloors.getItems();
+                    fls.add(newFloor);
+                    comboFloors.setItems(fls);
+                }
             }
             setMap();
         }

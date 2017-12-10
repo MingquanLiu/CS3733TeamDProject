@@ -78,7 +78,7 @@ public class CsvWriter {
         try {
             Statement statement = conn.createStatement();
             ResultSet rset = statement.executeQuery("SELECT * FROM MapInfo");
-            String outFileName = "csv/CsvNodes/AllMaps.csv";
+            String outFileName = "csv/AllMaps.csv";
             FileWriter wrt = new FileWriter(outFileName, false);
             BufferedWriter buf = new BufferedWriter(wrt);
             PrintWriter prt = new PrintWriter(buf);
@@ -87,18 +87,21 @@ public class CsvWriter {
             // Initialize table fields
             String buildingName = "";
             String imagePath = "";
-            String floor = "";
-            prt.println("buildingName, imagePath, floor");
+            String floorName = "";
+            String floorNum = "";
+            prt.println("buildingName, floorName, imagePath, floorNum");
 
             // Gets all data in the table
             while (rset.next()) {
                 buildingName = rset.getString("buildingName");
+                floorName = rset.getString("floorName");
                 imagePath = rset.getString("imagePath");
-                floor = rset.getString("floor");
+                floorNum = rset.getString("floorNum");
 
                 prt.println(buildingName + "," +
+                        floorName + "," +
                         imagePath + "," +
-                        floor);
+                        floorNum);
 
 
             }

@@ -129,11 +129,11 @@ public class CsvReader {
         try {
             System.out.println("About to read maps table");
             try {
-                InputStream in = new FileInputStream(new File("csv/allMaps.csv").getPath());
+                InputStream in = new FileInputStream(new File("csv/AllMaps.csv").getPath());
                 buf = new BufferedReader(new InputStreamReader(in));
                 StringBuilder out = new StringBuilder();
             } catch (FileNotFoundException ioe) {
-                String csv = "csv/allMaps.csv";
+                String csv = "csv/AllMaps.csv";
                 InputStream input = ClassLoader.getSystemResourceAsStream(csv);
                 buf = new BufferedReader(new InputStreamReader(input));
             }
