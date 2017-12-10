@@ -177,6 +177,7 @@
                 <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
             <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
             <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
+            <JFXButton layoutX="57.0" layoutY="483.0" onAction="#newServiceUIHandler" text="New ServUI" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">

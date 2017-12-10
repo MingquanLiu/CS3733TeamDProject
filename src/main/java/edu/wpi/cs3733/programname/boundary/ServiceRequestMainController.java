@@ -23,17 +23,22 @@ import java.util.List;
 public class ServiceRequestMainController {
 
     @FXML
-    JFXMasonryPane masonryPane;
+    JFXMasonryPane masonryPane  = new JFXMasonryPane();
 
     ManageController manager;
 
     public void initManager(ManageController manage) throws IOException {
         this.manager = manage;
-        masonryPane = new JFXMasonryPane();
+        masonryPane.setVisible(true);
+        masonryPane.toFront();
         List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
         for(ServiceRequest unassigned: allUnassigned) {
-            AnchorPane requestView = (AnchorPane) FXMLLoader.load(new URL("service_request_obj.fxml"));
+            AnchorPane requestView = (AnchorPane) FXMLLoader.load(getClass().getResource(
+                    "/fxml/service_request_obj.fxml"
+            ));
+            requestView.styleProperty().setValue( #64b5f6);
             updateRequestDetail(requestView, unassigned);
+            requestView.setVisible(true);
             masonryPane.getChildren().add(requestView);
         }
     }
