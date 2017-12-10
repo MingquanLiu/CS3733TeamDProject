@@ -32,6 +32,12 @@
                                 <Image url="@../img/Floor_2.png" />
                             </image>
                         </ImageView>
+                  <JFXButton fx:id="btnDefaultLocation" layoutX="8.0" layoutY="190.0" onAction="#defaultLocationHandler" text="Set Default Location" />
+                  <AnchorPane layoutX="25.0" layoutY="215.0" prefHeight="30.0" prefWidth="102.0">
+                     <children>
+                        <JFXTextField fx:id="txtDefaultLocation" layoutX="-18.0" layoutY="18.0" promptText="Default Node ID" />
+                     </children>
+                  </AnchorPane>
                     </children>
                 </AnchorPane>
             </content>

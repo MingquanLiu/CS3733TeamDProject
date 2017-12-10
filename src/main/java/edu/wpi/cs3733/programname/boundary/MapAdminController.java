@@ -167,6 +167,12 @@ public class MapAdminController extends UIController implements Initializable {
     private JFXButton confirmEditEdge;
     @FXML
     private JFXButton cancleEditEdge;
+    @FXML
+    private JFXButton btnDefaultLocation;
+    @FXML
+    private TextField txtDefaultLocation;
+
+
     private TestingController mTestController;
     ManageController manager;
     private List<Shape> drawings = new ArrayList<>();
@@ -943,6 +949,14 @@ public class MapAdminController extends UIController implements Initializable {
 
     public void allEdgeButtonHandler(ActionEvent event){
         showNodeAndPath();
+    }
+
+    public void defaultLocationHandler() {
+        String id = txtDefaultLocation.getText();
+        if (!id.equals("")) {
+            NodeData defaultNode = this.manager.getNodeData(id);
+            AppSettings.getInstance().setDefaultLocation(id);
+        }
     }
 
     @Override

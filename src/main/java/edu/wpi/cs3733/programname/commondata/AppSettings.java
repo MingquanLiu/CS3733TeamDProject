@@ -12,6 +12,7 @@ public class AppSettings {
     private searchType searchType;
     private boolean handicapPath;
     private int mapRatioIndex;
+    private String defaultLocation;
 
     private final int INITIAL_MAP_SCALE = 3;
 
@@ -19,6 +20,7 @@ public class AppSettings {
         searchType = PathfindingController.searchType.ASTAR;
         handicapPath = false;
         mapRatioIndex = INITIAL_MAP_SCALE;
+        defaultLocation = "DEXIT00102";
     }
 
     public static AppSettings getInstance() {
@@ -41,5 +43,11 @@ public class AppSettings {
     }
     public void setMapRatioIndex(int mapRatioIndex) {
         this.mapRatioIndex = mapRatioIndex;
+    }
+    public String getDefaultLocation() {
+        return defaultLocation;
+    }
+    public void setDefaultLocation(String defaultLocation) {
+        this.defaultLocation = defaultLocation;
     }
 }
