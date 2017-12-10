@@ -50,7 +50,7 @@
                         <Image url="@../img/photos/Wong.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="210.0" layoutY="70.0" text="Wilson Wong&#10;Computer Science&#10;Assistant Teaching Professor">
+                  <Label layoutX="217.0" layoutY="50.0" text="Wilson Wong&#10;&#10;Computer Science&#10;&#10;Assistant Teaching Professor">
                      <font>
                         <Font size="16.0" />
                      </font>
