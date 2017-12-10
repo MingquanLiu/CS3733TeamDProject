@@ -97,7 +97,7 @@ public class ManageController {
         return this.dbQueryController.queryNodeByTypeFloor(type, floor);
     }
 
-    public List<String> queryNodeByLongName(String longName){
+    public List<NodeData> queryNodeByLongName(String longName){
         return this.dbQueryController.queryNodeByLongName(longName);
     }
     
