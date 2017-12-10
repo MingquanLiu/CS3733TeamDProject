@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.programname.boundary;
 
+import Healthcare.HealthCareRun;
+import api.SanitationService;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
@@ -43,6 +45,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.controlsfx.control.textfield.TextFields;
 
+import javax.xml.ws.Action;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -119,6 +122,10 @@ public class TestingController extends UIController implements Initializable {
     private JFXButton viewMyTasks;
     @FXML
     private JFXButton manageEmployees;
+    @FXML
+    private JFXButton btnSanitation;
+    @FXML
+    private JFXButton btnHealthcare;
     //</editor-fold>
 
     //<editor-fold desc="key locations buttons">
@@ -1482,4 +1489,29 @@ public class TestingController extends UIController implements Initializable {
         };
         return dragHandler;
     }
+
+    @FXML
+    private void launchSanitation(ActionEvent event) {
+        Stage primaryStage = new Stage();
+        SanitationService api = SanitationService.newInstance(primaryStage);
+        api.run(100, 100, 1900, 1000, getClass().getResource("/css/sanitation_styles.css").toString(), "EDEPT00101", null);
+    }
+
+    @FXML
+    private void launchHealthcare(ActionEvent event) {
+        HealthCareRun health = new HealthCareRun();
+        try {
+            health.run(0,0,600,350,"view/stylesheets/default.css","","");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void launchIT(ActionEvent event) {
+        // Team F has no documentation whatsoever on their API
+    }
+
+
+
 }

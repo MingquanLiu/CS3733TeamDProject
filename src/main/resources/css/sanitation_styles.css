@@ -1,0 +1,68 @@
+.text-field {
+    -fx-text-fill: INSERT-YOUR-COLOR;
+    -fx-prompt-text-fill: INSERT-YOUR-COLOR ;
+}
+
+.text-field .input-line {
+    -fx-background-color: INSERT-YOUR-COLOR ;
+}
+
+.jfx-date-picker .input-line {
+    -fx-background-color: INSERT-YOUR-COLOR;
+}
+
+.jfx-time-picker .input-line {
+    -fx-background-color: INSERT-YOUR-COLOR;
+}
+
+.jfx-tab-pane .headers-region, .tab-pane {
+    /*-fx-background-color: rgb(INSERT-YOUR-COLOR);*/
+}
+.jfx-tab-pane .tab-header-background {
+    /*-fx-background-color: rgb(INSERT-YOUR-COLOR);*/
+}
+.jfx-tab-pane .tab-selected-line{
+    -fx-background-color: INSERT-YOUR-COLOR;
+
+}
+.jfx-tab-pane .tab-header-area .jfx-rippler{
+    -jfx-rippler-fill: INSERT-YOUR-COLOR;
+}
+
+
+
+.menu-item, .list-cell{
+    -fx-text-fill: white;
+    /*-fx-background-color: rgb(INSERT-YOUR-COLOR);*/
+}
+
+.pane{
+    /*-fx-background-color:rgb(INSERT-YOUR-COLOR);*/
+}
+
+.label{
+    -fx-text-fill: INSERT-YOUR-COLOR;
+}
+
+
+.black{
+    -fx-background-color: INSERT-YOUR-COLOR ;
+}
+
+.text-on-dark, .titled-pane{
+    -fx-text-fill: INSERT-YOUR-COLOR ;
+    -fx-prompt-text-fill: INSERT-YOUR-COLOR ;
+}
+/*
+.text-on-white{
+    -fx-text-fill: rgb(INSERT-YOUR-COLOR);
+}
+.list-pane{
+    -fx-background-color: rgb(INSERT-YOUR-COLOR);
+}
+
+
+.list-view:focused .list-cell:filled:focused:selected {
+    -fx-background-color: rgb(INSERT-YOUR-COLOR);
+    -fx-background: -fx-accent;
+    -fx-text-fill: rgb(INSERT-YOUR-COLOR);*/

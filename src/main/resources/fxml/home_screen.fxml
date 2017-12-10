@@ -130,6 +130,9 @@
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <JFXButton fx:id="btnOpenAdmin" buttonType="RAISED" maxWidth="200.0" onAction="#openAdminHandler" text="Service Request Manager" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -141,6 +144,8 @@
                                 <Line endX="100.0" opacity="0.1" startX="-100.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <JFXButton fx:id="btn" onAction="#employeeButtonHandler" prefHeight="54.0" prefWidth="211.0" text="Employee Manager" GridPane.rowIndex="7" />
                         <JFXButton fx:id="btnViewMyRequests" onAction="#viewMyRequestsHandler" prefHeight="42.0" prefWidth="232.0" text="View My Requests" GridPane.rowIndex="8" />
+                        <JFXButton fx:id="btnSanitation" onAction="#launchSanitation" text="Sanitation API " GridPane.rowIndex="9" />
+                        <JFXButton fx:id="btnHealthcare" onAction="#launchHealthcare" text="Healthcare API" GridPane.rowIndex="10" />
                             </children>
                         </GridPane>
                         <Label text="Key Locations" textAlignment="CENTER" GridPane.halignment="CENTER">
