@@ -1495,14 +1495,21 @@ public class TestingController extends UIController implements Initializable {
     }
     public void fuzzyStart(){
         String input = txtStartLocation.getText();
-        List<NodeData> longNameIDS = manager.queryNodeByLongName(input);
+        List<String> longNameIDS = manager.queryNodeByLongName(input);
 
         suggestions.setStyle("text-area-background: green;");
+        String [] recs = new String[5];
+
+        ArrayList<String> moreRecs = new ArrayList<String>();
+        moreRecs.add("yeggi");
+        moreRecs.add("nicol");
+        moreRecs.add("trung");
+
 
 
         suggestions2.setText("trial");
 
-        //TextFields.bindAutoCompletion(input,longNameIDS);
+        TextFields.bindAutoCompletion(txtStartLocation, longNameIDS);
         //suggestions2.appendText("\n trial3");
         //suggestions2.appendText("\n trial4");
         //suggestions2.appendText("\n trial4");
@@ -1514,7 +1521,7 @@ public class TestingController extends UIController implements Initializable {
         }
     }
 
-    public LinkedList<String> search(String input, List<NodeData> longNameIDS, double number ){
+    public LinkedList<String> search(String input, List<String> longNameIDS, double number ){
 
         return new LinkedList<String>();
     }

@@ -297,7 +297,6 @@
             </TitledPane>
       <Label text="© Brigham &amp; Women’s Hospital 2017" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="10.0" />
       <JFXTextArea fx:id="suggestions" layoutX="20.0" layoutY="103.0" prefHeight="98.0" prefWidth="280.0" style="-fx-background-color: white;" visible="false" />
-      <Label fx:id="suggestions2" layoutX="15.0" layoutY="106.0" prefHeight="122.0" prefWidth="287.0" style="-fx-background-color: white;" />
 
     </children>
 </AnchorPane>
