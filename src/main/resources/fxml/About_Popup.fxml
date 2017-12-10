@@ -190,7 +190,7 @@
                   </ImageView>
                </children>
             </GridPane>
-            <Pane layoutX="262.0" layoutY="1201.0" prefHeight="201.0" prefWidth="160.0">
+            <Pane layoutX="373.0" layoutY="1199.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.rightAnchor="170.0">
                <children>
                   <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -205,6 +205,16 @@
                   <Font size="10.0" />
                </font>
             </Label>
+            <Pane layoutX="171.0" layoutY="1199.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.leftAnchor="170.0">
+               <children>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/photos/Haiau.jpeg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="9.0" layoutY="170.0" text="Haiau Duong&#10;(Ex) Database Engineer" textAlignment="CENTER" />
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </content>
