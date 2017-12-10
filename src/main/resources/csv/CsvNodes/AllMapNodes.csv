@@ -1,4 +1,4 @@
-nodeId, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned
+nodeId,xcoord,ycoord,floor,building,nodeType,longName,shortName,teamAssigned
 ESTAI00101,2190,910,1,45 Francis,STAI,Staircase K1 Floor 1,Stair K1,Team E
 EHALL00301,2240,910,1,45 Francis,HALL,Hallway Node 1 Floor 1,Hall 01,Team E
 EHALL00401,2275,910,1,45 Francis,HALL,Hallway Node 2 Floor 1,HallE02,Team E
@@ -158,7 +158,7 @@ BHALL01202,2945,900,2,45 Francis,HALL,Hallway Intersection 12 Level 2,Hallway B1
 BHALL01302,3135,890,2,45 Francis,HALL,Hallway Intersection 13 Level 2,Hallway B1302,Team B
 BHALL01402,3296,883,2,45 Francis,HALL,Hallway Intersection 14 Level 2,Hallway B1402,Team B
 BHALL01502,2680,820,2,45 Francis,HALL,Hallway Intersection 15 Level 2,Hallway B1502,Team B
-BHALL01602,2721,750,2,45 Francis,HALL,Hallway Intersection 16 Level 2 ,Hallway B1602,Team B
+BHALL01602,2721,750,2,45 Francis,HALL,Hallway Intersection 16 Level 2,Hallway B1602,Team B
 BHALL01702,2945,710,2,45 Francis,HALL,Hallway Intersection 17 Level 2,Hallway B1702,Team B
 BHALL01802,2610,953,2,45 Francis,HALL,Hallway Intersection 18 Level 2,Hallway B1802,Team B
 BHALL01902,2679,1038,2,45 Francis,HALL,Hallway intersection 19 Level 2,Hallway B1902,Team B
@@ -367,7 +367,7 @@ WHALL00802,1720,1745,2,Shapiro,HALL,Hallway Connector 8 Floor 2,Hallway W0802,Te
 WHALL00902,1690,2240,2,Shapiro,HALL,Hallway Connector 9 Floor 2,Hallway W0902,Team G
 WHALL01002,1690,2455,2,BTM,HALL,Hallway Connector 10 Floor 2,Hallway W1002,Team A
 FHALL00101,2055,910,1,Tower,HALL,Lower Pike Hallway Exit Lobby,Hallway F00101,Team F
-FHALL00201,2026,910,1,Tower ,HALL,Lobby Shattuck Street,Hallway F00201,Team F
+FHALL00201,2026,910,1,Tower,HALL,Lobby Shattuck Street,Hallway F00201,Team F
 FSTAI00101,2026,892,1,Tower,STAI,Lobby Shattuck Street Stairs,Stairway F00101,Team F
 FHALL00301,2017,910,1,Tower,HALL,Shattuck Street Lobby 1,Hallway F00301,Team F
 FEXIT00101,2017,799,1,Tower,EXIT,Shattuck Street Lobby Exit,Shattuck St. Exit,Team F
@@ -418,7 +418,7 @@ FRETL00201,1609,1246,1,Tower,RETL,Au Bon Pain,ABP,Team F
 FHALL03101,2026,976,1,Tower,HALL,Lobby Hallway 6,Hallway F02801,Team F
 FREST00101,2091,976,1,Tower,REST,Bathroom 75 Lobby,Bathroom Lobby,Team F
 FEXIT00301,2099,1357,1,Tower,EXIT,Emergency Department Entrance,Emergency Entrance,Team F
-FHALL03201,1758,1029,1,Tower,HALL,Tower Hallway 13 ,Hallway F03201,Team F
+FHALL03201,1758,1029,1,Tower,HALL,Tower Hallway 13,Hallway F03201,Team F
 FDEPT00601,1780,1029,1,Tower,DEPT,International Patient Center,IPC,Team F
 FHALL03301,2066,1282,1,Tower,HALL,Emergency Hallway,Hallway F03301,Team F
 GCONF02001,1513,2116,1,Shapiro,CONF,Shapiro Board Room Node 20 Floor 1,Shapiro Board Room,Team G
@@ -456,33 +456,33 @@ GDEPT02402,1578,1932,2,Shapiro,DEPT,Watkins A Node 24 Floor 2 Floor 2,Watkins A,
 GDEPT03502,1580,2166,2,Shapiro,DEPT,Watkins B Node 35 Floor 2,Watkins B,Team G
 GELEV00N02,1630,1931,2,Shapiro,ELEV,Elevator N Node 25 Floor 2,Elevator N Floor 1,Team G
 GELEV00Q02,1628,2102,2,Shapiro,ELEV,Elevator Q Node 31a Floor 2,Elevator Q Floor 2,Team G
-GHALL00102,1170,1780,2,Shapiro,HALL,Hall Node 1 Floor 2,,Team G
-GHALL00202,1168,1820,2,Shapiro,HALL,Hall Node 2 Floor 2,,Team G
-GHALL00302,1231,1781,2,Shapiro,HALL,Hall Node 3 Floor 2,,Team G
-GHALL00402,1230,1820,2,Shapiro,HALL,Hall Node 4 Floor 2,,Team G
-GHALL00502,1283,1781,2,Shapiro,HALL,Hall Node 5 Floor 2,,Team G
-GHALL01002,1340,1820,2,Shapiro,HALL,Hall Node 10 Floor 2,,Team G
-GHALL01102,1396,1781,2,Shapiro,HALL,Hall Node 11 Floor 2,,Team G
-GHALL01202,1395,1820,2,Shapiro,HALL,Hall Node 12 Floor 2,,Team G
-GHALL01302,1450,1781,2,Shapiro,HALL,Hall Node 13 Floor 2,,Team G
-GHALL01402,1450,1820,2,Shapiro,HALL,Hall Node 14 Floor 2,,Team G
-GHALL01502,1502,1781,2,Shapiro,HALL,Hall Node 15 Floor 2,,Team G
-GHALL01602,1502,1820,2,Shapiro,HALL,Hall Node 16 Floor 2,,Team G
-GHALL01702,1578,1820,2,Shapiro,HALL,Hall Node 17 (Exit?) Floor 2,,Team G
-GHALL01802,1630,1801,2,Shapiro,HALL,Hall Node 18 Floor 2,,Team G
-GHALL02002,1684,1801,2,Shapiro,HALL,Hall Node 20 Floor 2,,Team G
-GHALL02102,1683,1821,2,Shapiro,HALL,Hall Node 21 Floor 2,,Team G
-GHALL02202,1720,1801,2,Shapiro,HALL,Hall Node 22 Floor 2,,Team G
-GHALL02302,1726,1835,2,Shapiro,HALL,Hall Node 23 Floor 2,,Team G
-GHALL02702,1726,1930,2,Shapiro,HALL,Hall Node 27 Floor 2,,Team G
-GHALL02902,1728,2042,2,Shapiro,HALL,Hall Node 29 Floor 2,,Team G
-GHALL03002,1580,2090,2,Shapiro,HALL,Hall Node 30 Floor 2,,Team G
-GHALL03202,1684,2091,2,Shapiro,HALL,Hall Node 32 Floor 2,,Team G
-GHALL03302,1692,2124,2,Shapiro,HALL,Hall Node 33 Floor 2,,Team G
-GHALL03402,1724,2123,2,Shapiro,HALL,Hall Node 34 Floor 2,,Team G
-GHALL03602,1580,2208,2,Shapiro,HALL,Hall Node 36 Floor 2,,Team G
-GHALL03702,1692,2211,2,Shapiro,HALL,Hall Node 37 Floor 2,,Team G
-GHALL03802,1726,2210,2,Shapiro,HALL,Hall Node 38 Floor 2,,Team G
+GHALL00102,1170,1780,2,Shapiro,HALL,Hall Node 1 Floor 2,GHall12,Team G
+GHALL00202,1168,1820,2,Shapiro,HALL,Hall Node 2 Floor 2,GHall22,Team G
+GHALL00302,1231,1781,2,Shapiro,HALL,Hall Node 3 Floor 2,GHall32,Team G
+GHALL00402,1230,1820,2,Shapiro,HALL,Hall Node 4 Floor 2,GHall42,Team G
+GHALL00502,1283,1781,2,Shapiro,HALL,Hall Node 5 Floor 2,GHall52,Team G
+GHALL01002,1340,1820,2,Shapiro,HALL,Hall Node 10 Floor 2,GHall102,Team G
+GHALL01102,1396,1781,2,Shapiro,HALL,Hall Node 11 Floor 2,GHall112,Team G
+GHALL01202,1395,1820,2,Shapiro,HALL,Hall Node 12 Floor 2,GHall122,Team G
+GHALL01302,1450,1781,2,Shapiro,HALL,Hall Node 13 Floor 2,GHall132,Team G
+GHALL01402,1450,1820,2,Shapiro,HALL,Hall Node 14 Floor 2,GHall142,Team G
+GHALL01502,1502,1781,2,Shapiro,HALL,Hall Node 15 Floor 2,GHall152,Team G
+GHALL01602,1502,1820,2,Shapiro,HALL,Hall Node 16 Floor 2,GHall162,Team G
+GHALL01702,1578,1820,2,Shapiro,HALL,Hall Node 17 (Exit?) Floor 2,GHall172,Team G
+GHALL01802,1630,1801,2,Shapiro,HALL,Hall Node 18 Floor 2,GHall182,Team G
+GHALL02002,1684,1801,2,Shapiro,HALL,Hall Node 20 Floor 2,GHall202,Team G
+GHALL02102,1683,1821,2,Shapiro,HALL,Hall Node 21 Floor 2,GHall212,Team G
+GHALL02202,1720,1801,2,Shapiro,HALL,Hall Node 22 Floor 2,GHall222,Team G
+GHALL02302,1726,1835,2,Shapiro,HALL,Hall Node 23 Floor 2,GHall232,Team G
+GHALL02702,1726,1930,2,Shapiro,HALL,Hall Node 27 Floor 2,GHall272,Team G
+GHALL02902,1728,2042,2,Shapiro,HALL,Hall Node 29 Floor 2,GHall292,Team G
+GHALL03002,1580,2090,2,Shapiro,HALL,Hall Node 30 Floor 2,GHall302,Team G
+GHALL03202,1684,2091,2,Shapiro,HALL,Hall Node 32 Floor 2,GHall322,Team G
+GHALL03302,1692,2124,2,Shapiro,HALL,Hall Node 33 Floor 2,GHall332,Team G
+GHALL03402,1724,2123,2,Shapiro,HALL,Hall Node 34 Floor 2,GHall342,Team G
+GHALL03602,1580,2208,2,Shapiro,HALL,Hall Node 36 Floor 2,GHall362,Team G
+GHALL03702,1692,2211,2,Shapiro,HALL,Hall Node 37 Floor 2,GHall372,Team G
+GHALL03802,1726,2210,2,Shapiro,HALL,Hall Node 38 Floor 2,GHall382,Team G
 GINFO01902,1630,1821,2,Shapiro,INFO,Info Node 19 Floor 2,Information Center Shapiro Floor 2,Team G
 GREST00602,1284,1821,2,Shapiro,REST,Restroom Node 6 Floor 2,Restroom 1 Shapiro Floor 2,Team G
 GREST03102,1628,2092,2,Shapiro,REST,Restroom Node 31 Floor 2,Handicap Accessible Restrooms Shapiro Floor 2,Team G
@@ -503,7 +503,7 @@ GHALL01103,1628,2070,3,Shapiro,HALL,Hallway Node 11 Floor 3,,Team G
 GHALL01303,1580,2006,3,Shapiro,HALL,Hallway Node 13 Floor 3,,Team G
 GREST01203,1628,2052,3,Shapiro,REST,Restroom Node 12 Floor 3,Restroom Shapiro Floor 3,Team G
 GSERV01603,1580,1858,3,Shapiro,SERV,The Porch Node 16 Floor 3,The Porch,Team G
-GSTAI00903,1685,2052,3,Shapiro,STAI,Staircase Node 9 Floor 3,Floor 3 Stairs ,Team G
+GSTAI00903,1685,2052,3,Shapiro,STAI,Staircase Node 9 Floor 3,Floor 3 Stairs,Team G
 GELEV00QL1,1637,2116,L1,Shapiro,ELEV,Elevator Q Node 7 Floor L1,Elevator Q L1,Team G
 GEXIT001L1,1702,2260,L1,Shapiro,EXIT,Fenwood Road Exit Node 1 Floor L1,Fenwood Road Entrance/Exit L1,Team G
 GHALL002L1,1702,2167,L1,Shapiro,HALL,Hallway Node 2 Floor L1,,Team G
@@ -528,71 +528,71 @@ GLABS003L2,1729,2089,L2,Shapiro,LABS,Cardiovascular Imaging Center Floor L2,Card
 GLABS014L2,1512,1844,L2,Shapiro,LABS,Cardiac Stress Test Lab Floor L2,Cardiac Stress Test Lab,Team G
 GLABS015L2,1512,1812,L2,Shapiro,LABS,CVRR Floor L2,CVRR,Team G
 GREST004L2,1680,2090,L2,Shapiro,REST,Restroom Node 4 Floor L2,Restroom Shapiro L2,Team G
-AHALL0090G,1524,2726,G,BTM,HALL,Hall,Hall,Team A
-AHALL01001,1605,2568,1,BTM,HALL,Hall,Hall,Team A
-AHALL0070G,1712,2647,G,BTM,HALL,Hall,Hall,Team A
-AHALL0050G,1713,2558,G,BTM,HALL,Hall,Hall,Team A
+AHALL0090G,1524,2726,G,BTM,HALL,Hallway 9 floor G,Hall9G,Team A
+AHALL01001,1605,2568,1,BTM,HALL,Hallway 1 floor 1,Hall11,Team A
+AHALL0070G,1712,2647,G,BTM,HALL,Hallway 7 floor G,Hall7G,Team A
+AHALL0050G,1713,2558,G,BTM,HALL,Hallway 5 floor G,Hall5G,Team A
 AREST00101,1556,2604,1,BTM,REST,Restroom; S elevator; 1st floor,Restroom,Team A
 AREST00103,1552,2854,3,BTM,REST,Restroom; BTM conference center; 3rd floor,Restroom,Team A
 AHALL002L2,1698,2776,L2,BTM,HALL,Hallway Intersection,Hall,Team A
 AELEV00S0G,1523,2763,G,BTM,ELEV,Elevator S G,Elevator S G,Team A
-ADEPT0020G,1552,2843,G,BTM,DEPT,Infusion Waiting Area ,Infusion Waiting Area,Team A
+ADEPT0020G,1552,2843,G,BTM,DEPT,Infusion Waiting Area,Infusion Waiting Area,Team A
 AINFO001L2,1681,2747,L2,BTM,INFO,BTM Security Desk,Security,Team A
-ALABS00203,1671,2695,3,BTM,LABS,Clinical Trials ,Clinical Trials,Team A
-AHALL00901,1581,2566,1,BTM,HALL,Hall,Hall,Team A
-AHALL0010G,1677,2530,G,BTM,HALL,Hall,Hall,Team A
+ALABS00203,1671,2695,3,BTM,LABS,Clinical Trials,Clinical Trials,Team A
+AHALL00901,1581,2566,1,BTM,HALL,Hallway 9 floor 1,Hall91,Team A
+AHALL0010G,1677,2530,G,BTM,HALL,Hallway 1 floor G,Hall1G,Team A
 ACONF0010G,1671,2648,G,BTM,CONF,Schlagler Innovation Lobby,Schlagler Lobby,Team A
 AELEV00S01,1534,2777,1,BTM,ELEV,Elevator S 01,Elevator S 1,Team A
 ADEPT00101,1401,2628,1,BTM,DEPT,Neuroscience Waiting Room,Neuro Waiting Room,Team A
 ADEPT00102,1395,2674,2,BTM,DEPT,Orthopedics and Rhemutalogy,Orthopedics and Rhemutalogy,Team A
 ADEPT00301,986,2852,1,BTM,DEPT,CART Waiting,CART Waiting,Team A
 AELEV00S03,1539,2773,3,BTM,ELEV,Elevator S; Floor 3,Elevator S 3,Team A
-AHALL0140G,1599,2727,G,BTM,HALL,Hall,Hall,Team A
+AHALL0140G,1599,2727,G,BTM,HALL,Hallway 14 floor G,Hall14G,Team A
 AELEV00S02,1532,2777,2,BTM,ELEV,Elevator S 02,Elevator S 2,Team A
-AHALL00602,1683,2543,2,BTM,HALL,Hall,Hall,Team A
-AHALL00603,1580,2858,3,BTM,HALL,HallNode,HallNode,Team A
-AHALL00801,1532,2739,1,BTM,HALL,Hall,Hall,Team A
-AHALL00402,1528,2745,2,BTM,HALL,Hall,Hall,Team A
-AHALL00403,1650,2766,3,BTM,HALL,Hall,Hall,Team A
-AHALL00601,1678,2865,1,BTM,HALL,Hall,Hall,Team A
+AHALL00602,1683,2543,2,BTM,HALL,Hallway 6 floorr 2,Hall62,Team A
+AHALL00603,1580,2858,3,BTM,HALL,Hallway 6 floor 3,Hall63,Team A
+AHALL00801,1532,2739,1,BTM,HALL,Hallway 8 floor 1,Hall81,Team A
+AHALL00402,1528,2745,2,BTM,HALL,Hallway 4 floor 2,Hall42,Team A
+AHALL00403,1650,2766,3,BTM,HALL,Hallway 4 floor 3,Hall43,Team A
+AHALL00601,1678,2865,1,BTM,HALL,Hallway 6 floor 1,Hall61,Team A
 ALABS001L2,1667,2682,L2,BTM,LABS,MRI/CT Scan Imaging,MRI/CT Imaging,Team A
-AHALL00202,1590,2604,2,BTM,HALL,Hall,Hall,Team A
-AHALL00203,1600,2732,3,BTM,HALL,Hall,Hall,Team A
-AHALL00401,1420,2737,1,BTM,HALL,Hall,Hall,Team A
-AHALL00201,1608,2596,1,BTM,HALL,Hall,Hall,Team A
+AHALL00202,1590,2604,2,BTM,HALL,Hallway 2 floor 2,Hall22,Team A
+AHALL00203,1600,2732,3,BTM,HALL,Hallway 2 floor 3,Hall23,Team A
+AHALL00401,1420,2737,1,BTM,HALL,Hallway 4 floor 1,Hall41,Team A
+AHALL00201,1608,2596,1,BTM,HALL,Hallway 2 floor 1,Hall21,Team A
 AEXIT0010G,1678,2460,G,BTM,EXIT,Fenwood Road,Fenwood Road,Team A
-AHALL004L2,1698,2687,L2,BTM,HALL,Hall,Hall,Team A
-AHALL0120G,1548,2538,G,BTM,HALL,Hall,Hall,Team A
-AHALL0100G,1600,2853,G,BTM,HALL,Hall,Hall,Team A
+AHALL004L2,1698,2687,L2,BTM,HALL,Hallway 4 floor L2,Hall4L2,Team A
+AHALL0120G,1548,2538,G,BTM,HALL,Hallway 12 floor G,Hall12G,Team A
+AHALL0100G,1600,2853,G,BTM,HALL,Hallway 10 floor G,Hall10G,Team A
 AINFO0010G,1484,2710,G,BTM,INFO,BTM Security Desk,Security,Team A
 AELEV00SL2,1630,2742,L2,BTM,ELEV,Elevator S L2,Elevator S L2,Team A
-AHALL0080G,1602,2706,G,BTM,HALL,Hall,Hall,Team A
+AHALL0080G,1602,2706,G,BTM,HALL,Hallway 8 floor G,Hall8G,Team A
 ASTAI0010G,1622,2556,G,BTM,STAI,Schlagler Stairs,Schlager Stairs,Team A
-AHALL0060G,1595,2583,G,BTM,HALL,Hall,Hall,Team A
-AHALL0040G,1528,2531,G,BTM,HALL,Hall,Hall,Team A
-AHALL003L2,1701,2734,L2,BTM,HALL,Hall,Hall,Team A
-ADEPT0010G,1530,2495,G,BTM,DEPT,Neuro Testing Waiting Area ,Neuro Wating Area,Team A
-AHALL001L2,1627,2782,L2,BTM,HALL,Hallway to Elevator,Hall,Team A
+AHALL0060G,1595,2583,G,BTM,HALL,Hallway 6 floor G,Hall6G,Team A
+AHALL0040G,1528,2531,G,BTM,HALL,Hallway 4 floor G,Hall4G,Team A
+AHALL003L2,1701,2734,L2,BTM,HALL,Hallway 3 floor L2,Hall3L2,Team A
+ADEPT0010G,1530,2495,G,BTM,DEPT,Neuro Testing Waiting Area,Neuro Wating Area,Team A
+AHALL001L2,1627,2782,L2,BTM,HALL,Hallway to Elevator,HallToElevator,Team A
 ASTAI00101,1642,2596,1,BTM,STAI,Cafe Stairs,Cafe Staris,Team A
 ASTAI00102,1650,2602,2,BTM,STAI,Stairs; Floor 2,Stairs Floor 2,Team A
 ALABS00103,1611,2678,3,BTM,LABS,Innovation Hub,Innovation Hub,Team A
-AHALL0020G,1623,2531,G,BTM,HALL,Hall,Hall,Team A
+AHALL0020G,1623,2531,G,BTM,HALL,Hallway 2 floor G,Hall2G,Team A
 AEXIT001L2,1696,2788,L2,BTM,EXIT,Parking Garage L2,Parking Garage L2,Team A
-ADEPT00201,1720,2847,1,BTM,DEPT,MS Waiting,MS Waiting,Team A
-AHALL0150G,1598,2532,G,BTM,HALL,Hall,Hall,Team A
-AHALL00503,1650,2855,3,BTM,HALL,Hall,Hall,Team A
-AHALL00701,1017,2865,1,BTM,HALL,Hall,Hall,Team A
-AHALL00303,1650,2732,3,BTM,HALL,Hall,Hall,Team A
-AHALL00501,1420,2865,1,BTM,HALL,Hall,Hall,Team A
-AHALL00502,1398,2745,2,BTM,HALL,Hall,Hall,Team A
-AHALL00103,1534,2732,3,BTM,HALL,Hall,Hall,Team A
-AHALL00301,1608,2737,1,BTM,HALL,Hall,Hall,Team A
-AHALL00302,1590,2745,2,BTM,HALL,Hall,Hall,Team A
-AHALL00101,1638,2553,1,BTM,HALL,Hall,Hall,Team A
-AHALL00102,1591,2560,2,BTM,HALL,Hall,Hall,Team A
+ADEPT00201,1720,2847,1,BTM,DEPT,MS Waiting Room,MS Waiting,Team A
+AHALL0150G,1598,2532,G,BTM,HALL,Hallway 15 floor G,AHall15G,Team A
+AHALL00503,1650,2855,3,BTM,HALL,Hallway 5 floor 3,AHall53,Team A
+AHALL00701,1017,2865,1,BTM,HALL,Hallway 7 floor 1,AHall71,Team A
+AHALL00303,1650,2732,3,BTM,HALL,Hallway 3 floor 3,AHall33,Team A
+AHALL00501,1420,2865,1,BTM,HALL,Hallway 5 floor 1,AHall51,Team A
+AHALL00502,1398,2745,2,BTM,HALL,Hallway 5 floor 2,AHall52,Team A
+AHALL00103,1534,2732,3,BTM,HALL,Hallway 1 floor 3,AHall13,Team A
+AHALL00301,1608,2737,1,BTM,HALL,Hallway 3 floor 1,AHall31,Team A
+AHALL00302,1590,2745,2,BTM,HALL,Hallway 3 floor 2,AHall32,Team A
+AHALL00101,1638,2553,1,BTM,HALL,Hallway 1 floor 1,AHall11,Team A
+AHALL00102,1591,2560,2,BTM,HALL,Hallway 1 floor 2,AHall12,Team A
 ACONF00103,1648,2968,3,BTM,CONF,BTM Conference Center,BTM Conference,Team A
-ACONF00102,1580,2538,2,BTM,HALL,Hall,Hall,Team A
-AHALL0130G,1582,2533,G,BTM,HALL,Hall,Hall,Team A
+ACONF00102,1580,2538,2,BTM,CONF,Conference,Conference,Team A
+AHALL0130G,1582,2533,G,BTM,HALL,Hallway 13 floor G,AHall13G,Team A
 AINFO0020G,1699,2707,G,BTM,INFO,Information Desk,Information,Team A
-AHALL0110G,1550,2853,G,BTM,HALL,Hall,Hall,Team A
+AHALL0110G,1550,2853,G,BTM,HALL,Hallway 11 floor G,AHall11G,Team A
 ARETL00101,1619,2522,1,BTM,RETL,Cafe,Cafe,Team A
