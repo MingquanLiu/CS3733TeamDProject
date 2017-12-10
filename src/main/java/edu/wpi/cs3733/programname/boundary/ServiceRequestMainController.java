@@ -25,7 +25,6 @@ public class ServiceRequestMainController {
     @FXML
     JFXMasonryPane masonryPane;
 
-
     ManageController manager;
 
     public void initManager(ManageController manage) throws IOException {
@@ -43,21 +42,33 @@ public class ServiceRequestMainController {
         Label titleLabel = (Label) requestView.lookup("#lblRequestTitle");
         Label detailLabel = (Label) requestView.lookup("#lblRequestDetail");
         Label locationLabel = (Label) requestView.lookup("#lblRequestLocation");
-        NodeData locationNodeData = manager.queryNode
+        Label descriptionLabel = (Label) requestView.lookup("#lblDescription");
+        Label severityLabel = (Label) requestView.lookup("#lblSeverity");
+        Label assignedToLabel = (Label) requestView.lookup("#lblAssignedTo");
+        Label idLabel = (Label) requestView.lookup("#lblRequestId");
+
+        NodeData locationNodeData = manager.getNodeData(request.getLocation2());
         if (request.getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
             InterpreterRequest interpreterRequest = (InterpreterRequest) request;
             titleLabel.setText("Interpreter Request");
             detailLabel.setText(interpreterRequest.getLanguage() + "translation request at ");
-            locationLabel.setText()
+            locationLabel.setText(locationNodeData.getLongName());
         } else if (request.getServiceType().equals(Constants.MAINTENANCE_REQUEST)) {
             MaintenanceRequest maintenanceRequest = (MaintenanceRequest) request;
             titleLabel.setText("Maintenance Request");
             detailLabel.setText(maintenanceRequest.getMaintenanceType() + " maintenance request at ");
+            locationLabel.setText(locationNodeData.getLongName());
         } else if (request.getServiceType().equals(Constants.TRANSPORTATION_REQUEST)) {
             TransportationRequest transportationRequest = (TransportationRequest) request;
+            NodeData destination = manager.getNodeData(transportationRequest.getDestination());
             titleLabel.setText("Transportation Request");
             detailLabel.setText(transportationRequest.getTransportType() + " transport request from ");
+            locationLabel.setText(locationNodeData.getLongName() + " to " + destination.getLongName());
         }
+        descriptionLabel.setText(request.getDescription());
+        severityLabel.setText("Severity: " + request.getSeverity());
+        assignedToLabel.setText("");
+        idLabel.setText("ID#: " + request.getServiceID());
     }
 
 
