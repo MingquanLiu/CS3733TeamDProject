@@ -66,6 +66,7 @@ public class Main extends Application {
         RunScript run = new RunScript();
         run.runScript(dbConnection.getConnection());
         mCsvReader.insertNodes(dbConnection.getConnection(), mCsvReader.getListOfNodes(dbConnection.getConnection()));
+        mCsvReader.insertMaps(dbConnection.getConnection(), mCsvReader.getBuildings(dbConnection.getConnection()));
         mCsvReader.insertEdges(dbConnection.getConnection(), mCsvReader.getListOfEdges(dbConnection.getConnection()));
         mCsvReader.insertEmployees(dbConnection.getConnection(), mCsvReader.getListOfEmployees(dbConnection.getConnection()));
         mCsvReader.insertServiceRequests(dbConnection.getConnection(), mCsvReader.getListOfServiceRequests(dbConnection.getConnection()));
@@ -81,9 +82,9 @@ public class Main extends Application {
         if (new File("floorMaps").mkdirs()) {
             try {
                 String jarPath = ExportResource("/img/Floor_0.png");
-                System.out.println("*****" + jarPath + "*****");
-                System.out.println("*****" + jarPath + "*****");
-                System.out.println("*****" + "*****");
+                //System.out.println("*****" + jarPath + "*****");
+                //System.out.println("*****" + jarPath + "*****");
+                //System.out.println("*****" + "*****");
                 ExportResource("Floor_1.png");
                 ExportResource("Floor_2.png");
                 ExportResource("Floor_3.png");
@@ -132,7 +133,7 @@ public class Main extends Application {
             int readBytes;
             byte[] buffer = new byte[4096];
             jarFolder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-            System.out.println(jarFolder + "********");
+            //System.out.println(jarFolder + "********");
             resStreamOut = new FileOutputStream(jarFolder + "floorMaps/" + resourceName);
             while ((readBytes = stream.read(buffer)) > 0) {
                 resStreamOut.write(buffer, 0, readBytes);

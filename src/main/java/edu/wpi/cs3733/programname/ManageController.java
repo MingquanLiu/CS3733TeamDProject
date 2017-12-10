@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 
+import edu.wpi.cs3733.programname.boundary.Building;
 import edu.wpi.cs3733.programname.boundary.observers.AbsObserver;
 import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
@@ -110,7 +111,8 @@ public class ManageController {
         this.dbModController.editNode(data);
     }
 
-    public void updateBuilding(String building){this.dbModController.updateBuilding(building);}
+    public List<Building> getAllBuildings(){return this.dbQueryController.queryAllBuildings();
+    }
 
     public boolean login(String username, String password) {
         return this.dbQueryController.login(username, password);
@@ -282,6 +284,8 @@ public class ManageController {
     public void updateCsvNodes(Connection conn){
         wrt.writeNodes(conn);
     }
+
+    public void updateCsvMaps(Connection conn){wrt.writeMaps(conn);}
 
     public void updateCsvEdges(Connection conn){
         wrt.writeEdges(conn);

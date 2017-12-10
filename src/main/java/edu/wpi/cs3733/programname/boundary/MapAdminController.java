@@ -307,7 +307,7 @@ public class MapAdminController extends UIController implements Initializable {
 
         if (allEdgeBox.isSelected()) {
             currentEdge = manager.getAllEdgeData();
-            //setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(nodes),currentScale),this.mTestController));  ;
+           System.out.println("Doing edges");
             displayEdges(currentEdge);
         }
         if (allNodeBox.isSelected()) {
@@ -429,7 +429,14 @@ public class MapAdminController extends UIController implements Initializable {
     private NodeData getNode(String nodeID) {
         for (NodeData nodeData : currentNodes) {
             if (nodeData.getNodeID().equals(nodeID)) {
-                if (nodeData.getFloor().equals(curFloor.getFloorNum()) && partOfMainB(nodeData.getBuilding(), (curFloor.getBuilding()))) {
+                System.out.println(nodeData.getBuilding());
+                boolean rightBuilding = false;
+                if ((curFloor.getBuilding()).matches("Main Hospital"))
+                    rightBuilding = partOfMainB(nodeData.getBuilding(), (curFloor.getBuilding()));
+                else
+                    if ((curFloor.getBuilding().equals(curBuilding.getName())))
+                        rightBuilding = true;
+                if (nodeData.getFloor().equals(curFloor.getFloorNum()) && rightBuilding) {
                     return nodeData;
                 } else {
                     return null;
@@ -440,8 +447,8 @@ public class MapAdminController extends UIController implements Initializable {
     }
 
     private boolean partOfMainB(String nodeBuilding, String curBuilding) {
-        boolean nodeBuild = nodeBuilding.matches("Hospital|BTM|(15|25|45) Francis|Tower|Shapiro");
-        boolean curBuild = curBuilding.matches("Hospital|BTM|(15|25|45) Francis|Tower|Shapiro");
+        boolean nodeBuild = nodeBuilding.matches("Main Hospital|BTM|(15|25|45) Francis|Tower|Shapiro");
+        boolean curBuild = curBuilding.matches("Main Hospital");
         return nodeBuild && curBuild;
     }
 

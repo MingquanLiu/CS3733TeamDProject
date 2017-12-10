@@ -374,12 +374,15 @@ public class TestingController extends UIController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
-        Building hospital = new Building("Hospital");
+        Building hospital = new Building("Main Hospital");
         hospital.addAllFloors(basicFloors);
 
         floors.addAll(hospital.getFloors());
-        buildings.add(hospital);
-
+        //buildings.add(hospital);
+        List<Building> dbBuildings = manager.getAllBuildings();
+        System.out.println("buildings: " + dbBuildings);
+        for (Building b : dbBuildings)
+            buildings.add(b);
         floor = 4;
 
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
@@ -424,9 +427,7 @@ public class TestingController extends UIController implements Initializable {
         keyLocation.setText("TRIALTRIAL");
         keyLocation.setCollapsible(false);
         keyLocation.setExpanded(false);
-        System.out.println("Expandable:" + keyLocation.isExpanded());
-        System.out.println("Animated:" + keyLocation.isAnimated());
-        System.out.println("Collapse:" + keyLocation.isCollapsible());
+        System.out.println("\n\n");
         keyLocation.expandedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -1028,8 +1029,6 @@ public class TestingController extends UIController implements Initializable {
     }
 
     public void mapEditHandler() {
-        System.out.println("In map Edit handler");
-        System.out.println("manager: " + manager);
 //        showScene("/edu/wpi/cs3733/programname/boundary/admin_screen.fxml");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
