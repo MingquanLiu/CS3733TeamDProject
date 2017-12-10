@@ -1501,6 +1501,8 @@ public class TestingController extends UIController implements Initializable {
 
 
         suggestions2.setText("trial");
+
+        //TextFields.bindAutoCompletion(input,longNameIDS);
         //suggestions2.appendText("\n trial3");
         //suggestions2.appendText("\n trial4");
         //suggestions2.appendText("\n trial4");
