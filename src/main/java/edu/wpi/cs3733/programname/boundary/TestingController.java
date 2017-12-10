@@ -680,7 +680,7 @@ public class TestingController extends UIController implements Initializable {
 //                Path path = new Path();
 //                PathElement start = new moveTo(l.getStartX(), l.getStartY());
                 if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
-                    l.setStroke(Color.BLUE);
+                    l.setStroke(Color.LIGHTSKYBLUE);
                     l.setStrokeWidth(10.0 * currentScale);
                     l.setStartX(prev.getXCoord() * currentScale);
                     l.setStartY(prev.getYCoord() * currentScale);
