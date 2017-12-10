@@ -1409,10 +1409,9 @@ public class TestingController extends UIController implements Initializable {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     // unlock the scroll
                     // get the latest mouse coordinate.
-                    m_nMouseX = event.getSceneX();
-                    m_nMouseY = event.getSceneY();
-                    List<NodeData> mList = getNodeByVisibility(currentNodes, true);
-                    NodeData nodeData = getClosestNode(mList, m_nMouseX.intValue(), m_nMouseY.intValue());
+                    m_nMouseX = event.getX();
+                    m_nMouseY = event.getY();
+                    NodeData nodeData = getClosestNode(currentNodes, m_nMouseX.intValue(), m_nMouseY.intValue());
                     if(closestNode.getLongName().equals(txtStartLocation.getText())) {
                         try {
                             currentPath.clear();
