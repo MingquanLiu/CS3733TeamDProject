@@ -456,16 +456,18 @@ public class TestingController extends UIController implements Initializable {
 
         paneControls.setPickOnBounds(false);
 
-        slideZoom.onDragDetectedProperty().addListener(new ChangeListener<EventHandler<? super MouseEvent>>() {
+        slideZoom.valueChangingProperty().addListener(new ChangeListener<Boolean>() {
             @Override
-            public void changed(ObservableValue<? extends EventHandler<? super MouseEvent>> observable, EventHandler<? super MouseEvent> oldValue, EventHandler<? super MouseEvent> newValue) {
-                pauseTransitions();
-            }
-        });
-        slideZoom.onDragDoneProperty().addListener(new ChangeListener<EventHandler<? super DragEvent>>() {
-            @Override
-            public void changed(ObservableValue<? extends EventHandler<? super DragEvent>> observable, EventHandler<? super DragEvent> oldValue, EventHandler<? super DragEvent> newValue) {
-                resumeTransitions();
+            public void changed(
+                    ObservableValue<? extends Boolean> observableValue,
+                    Boolean wasChanging,
+                    Boolean changing) {
+
+                if (changing) {
+                    pauseTransitions();
+                } else {
+                    resumeTransitions();
+                }
             }
         });
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
