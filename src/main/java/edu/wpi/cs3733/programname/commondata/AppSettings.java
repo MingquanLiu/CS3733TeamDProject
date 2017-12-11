@@ -12,6 +12,8 @@ public class AppSettings {
     private searchType searchType;
     private boolean handicapPath;
     private int mapRatioIndex;
+    private long delayTime;
+    private boolean saveScreen;
 
     private final int INITIAL_MAP_SCALE = 3;
 
@@ -19,6 +21,8 @@ public class AppSettings {
         searchType = PathfindingController.searchType.ASTAR;
         handicapPath = false;
         mapRatioIndex = INITIAL_MAP_SCALE;
+        delayTime = System.currentTimeMillis() + 5000;
+        saveScreen = false;
     }
 
     public static AppSettings getInstance() {
@@ -41,5 +45,17 @@ public class AppSettings {
     }
     public void setMapRatioIndex(int mapRatioIndex) {
         this.mapRatioIndex = mapRatioIndex;
+    }
+    public void kickTimer() {
+        delayTime = System.currentTimeMillis() + 5000;
+    }
+    public long getDelayTime() {
+        return delayTime;
+    }
+    public boolean isSaveScreen() {
+        return saveScreen;
+    }
+    public void setSaveScreen(boolean saveScreen) {
+        this.saveScreen = saveScreen;
     }
 }
