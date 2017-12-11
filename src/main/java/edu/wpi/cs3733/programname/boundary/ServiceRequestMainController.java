@@ -36,7 +36,7 @@ public class ServiceRequestMainController {
             AnchorPane requestView = (AnchorPane) FXMLLoader.load(getClass().getResource(
                     "/fxml/service_request_obj.fxml"
             ));
-            requestView.styleProperty().setValue( #64b5f6);
+  //          requestView.styleProperty().setValue( #64b5f6);
             updateRequestDetail(requestView, unassigned);
             requestView.setVisible(true);
             masonryPane.getChildren().add(requestView);
