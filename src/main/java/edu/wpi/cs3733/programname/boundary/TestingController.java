@@ -225,7 +225,10 @@ public class TestingController extends UIController implements Initializable {
     //about page stuff
     @FXML
     private JFXButton aboutBtn;
-
+    @FXML
+    private JFXButton BathroomSweep;
+    @FXML
+    private JFXButton ElevatorSweep;
     //items for key locations fancy feature
     @FXML
     private TitledPane keyLocation;
@@ -1191,6 +1194,35 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
+    public void BathroomSweepHandler() throws IOException{
+        System.out.println("Searching for nearest bathroom");
+        String startID = AppSettings.getInstance().getDefaultLocation();
+        String goalID = "REST";
+        try {
+            currentPath = manager.sweepPathfinder(startID,goalID, this.handicap.isSelected());
+        } catch (InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        } catch (NoPathException np) {
+            String id = np.startID;
+            currentPath = new ArrayList<>();
+        }
+        displayPath(currentPath);
+    }
+
+    public void ElevatorSweepHandler() throws IOException{
+        System.out.println("Searching for nearest elevator");
+        String startID = AppSettings.getInstance().getDefaultLocation();
+        String goalID = "ELEV";
+        try {
+            currentPath = manager.sweepPathfinder(startID,goalID, this.handicap.isSelected());
+        } catch (InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        } catch (NoPathException np) {
+            String id = np.startID;
+            currentPath = new ArrayList<>();
+        }
+        displayPath(currentPath);
+    }
 
     public void transportRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
