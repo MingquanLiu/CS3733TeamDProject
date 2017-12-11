@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 
+import edu.wpi.cs3733.programname.boundary.Building;
 import edu.wpi.cs3733.programname.boundary.observers.AbsObserver;
 import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
@@ -26,6 +27,7 @@ import java.util.Observer;
 import java.util.Random;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.INTERPRETER_REQUEST;
+
 import edu.wpi.cs3733.programname.database.QueryMethods.*;
 
 
@@ -59,7 +61,7 @@ public class ManageController {
         List<NodeData> allNodes = dbQueryController.getAllNodeData();
         List<EdgeData> allEdges = dbQueryController.getAllEdgeData();
         List<NodeData> finalPath = this.pathfindingController.initializePathfind(allNodes, allEdges, startId, goalId);
-        System.out.println(finalPath.get(0).getNodeID() + " to " + finalPath.get(finalPath.size() -1));
+        System.out.println(finalPath.get(0).getNodeID() + " to " + finalPath.get(finalPath.size() - 1));
         return finalPath;
     }
 
@@ -78,9 +80,11 @@ public class ManageController {
     public List<EdgeData> getAllEdgeData() {
         return this.dbQueryController.getAllEdgeData();
     }
-    public List<EdgeData> getEdgeDataByFloor(String floor){
+
+    public List<EdgeData> getEdgeDataByFloor(String floor) {
         return dbQueryController.queryEdgeDataByFloor(floor);
     }
+
     public List<NodeData> queryNodeByType(String nodeType) {
         return this.dbQueryController.queryNodeByType(nodeType);
     }
@@ -96,7 +100,12 @@ public class ManageController {
     public List<NodeData> queryNodeByTypeFloor(String type, String floor) {
         return this.dbQueryController.queryNodeByTypeFloor(type, floor);
     }
-    
+
+
+    public List<String> queryNodeByLongName(String longName){
+        return this.dbQueryController.queryNodeByLongName(longName);
+    }
+
     public void addNode(NodeData data) {
         this.dbModController.addNode(data);
     }
@@ -110,7 +119,9 @@ public class ManageController {
         this.dbModController.editNode(data);
     }
 
-    public void updateBuilding(String building){this.dbModController.updateBuilding(building);}
+    public List<Building> getAllBuildings() {
+        return this.dbQueryController.queryAllBuildings();
+    }
 
     public boolean login(String username, String password) {
         return this.dbQueryController.login(username, password);
@@ -118,6 +129,10 @@ public class ManageController {
 
     public List<Employee> getAllEmployees() {
         return this.dbQueryController.queryAllEmployees();
+    }
+
+    public void addMap(String bName, String fName, String imgPath, String fNum) {
+        this.dbModController.addMap(bName, fName, imgPath, fNum);
     }
 
     public void addEmployee(Employee employee) {
@@ -169,11 +184,13 @@ public class ManageController {
 //        serviceController.assignRequest(request, recipients);
 //    }
 
-    public void addEdge(String nodeId1, String nodeId2){
-        this.dbModController.addEdge(nodeId1,nodeId2);
+    public void addEdge(String nodeId1, String nodeId2) {
+        this.dbModController.addEdge(nodeId1, nodeId2);
     }
-    public void deleteEdge(String edgeId){
-        this.dbModController.deleteEdge(this.dbQueryController.queryEdgeById(edgeId));;
+
+    public void deleteEdge(String edgeId) {
+        this.dbModController.deleteEdge(this.dbQueryController.queryEdgeById(edgeId));
+        ;
     }
 
     public void sendTextDirectionsEmail(List<NodeData> path, String recipient) {
@@ -182,28 +199,28 @@ public class ManageController {
         msg.sendMessage();
     }
 
-    public InterpreterRequest createInterpreterRequest(String requester, String type, String location1, String location2, String description, int severity, String language, String reservationTime){
+    public InterpreterRequest createInterpreterRequest(String requester, String type, String location1, String location2, String description, int severity, String language, String reservationTime) {
         //generate random id
-        InterpreterRequest newServiceRequest = new InterpreterRequest(requester, type, location1, location2, description,severity, language,reservationTime);
+        InterpreterRequest newServiceRequest = new InterpreterRequest(requester, type, location1, location2, description, severity, language, reservationTime);
         dbModController.addInterpreterRequest(newServiceRequest);
         return newServiceRequest;
     }
 
-    public MaintenanceRequest createMaintenanceRequest(String requester, String type, String location1, String location2, String description, int severity, String maintenanceType){
+    public MaintenanceRequest createMaintenanceRequest(String requester, String type, String location1, String location2, String description, int severity, String maintenanceType) {
         MaintenanceRequest newServiceRequest = new MaintenanceRequest(requester, type, location1, location2, description, severity, maintenanceType);
         dbModController.addMaintenanceRequest(newServiceRequest);
         return newServiceRequest;
     }
 
-    public TransportationRequest createTransportationRequest(String requester, String type, String location1, String location2, String description, int severity, String transportationType, String destination, String reservationTime){
-        TransportationRequest newServiceRequest = new TransportationRequest(requester, type, location1, location2, description,severity, transportationType,destination,reservationTime);
+    public TransportationRequest createTransportationRequest(String requester, String type, String location1, String location2, String description, int severity, String transportationType, String destination, String reservationTime) {
+        TransportationRequest newServiceRequest = new TransportationRequest(requester, type, location1, location2, description, severity, transportationType, destination, reservationTime);
         dbModController.addTransportationRequest(newServiceRequest);
         return newServiceRequest;
     }
 
 
     public ServiceRequest createServiceRequest(String requester, String type, String location1, String location2, String description, int severity) {
-        ServiceRequest newServiceRequest = new ServiceRequest(requester, type, location1, location2, description,severity);
+        ServiceRequest newServiceRequest = new ServiceRequest(requester, type, location1, location2, description, severity);
         dbModController.addServiceRequest(newServiceRequest);
         return newServiceRequest;
     }
@@ -217,10 +234,10 @@ public class ManageController {
     }
 
     public List<ServiceRequest> queryUnassignedRequestsByType(String type) {
-        List<ServiceRequest> allUnassignedReqs =  dbQueryController.queryServiceRequestsByStatus(Constants.UNASSIGNED_REQUEST);
+        List<ServiceRequest> allUnassignedReqs = dbQueryController.queryServiceRequestsByStatus(Constants.UNASSIGNED_REQUEST);
         List<ServiceRequest> output = new ArrayList<>();
-        for (ServiceRequest req: allUnassignedReqs) {
-            if(req.getServiceType().equals(type)) {
+        for (ServiceRequest req : allUnassignedReqs) {
+            if (req.getServiceType().equals(type)) {
                 output.add(req);
             }
         }
@@ -228,24 +245,23 @@ public class ManageController {
     }
 
 
-
     public Employee queryEmployeeByUsername(String username) {
         return dbQueryController.queryEmployeeByUsername(username);
     }
 
-    public ArrayList<InterpreterRequest> getInterpreterRequest(){
+    public ArrayList<InterpreterRequest> getInterpreterRequest() {
         ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("interpreter");
         ArrayList<InterpreterRequest> interpreterRequests = new ArrayList<InterpreterRequest>();
-        for(ServiceRequest request: serviceRequests){
+        for (ServiceRequest request : serviceRequests) {
             interpreterRequests.add((InterpreterRequest) request);
         }
         return interpreterRequests;
     }
 
-    public ArrayList<TransportationRequest> getTransportationRequest(){
+    public ArrayList<TransportationRequest> getTransportationRequest() {
         ArrayList<ServiceRequest> serviceRequests = serviceRequestsQuery.queryServiceRequestsByType("transportation");
         ArrayList<TransportationRequest> transportationRequests = new ArrayList<TransportationRequest>();
-        for(ServiceRequest request: serviceRequests){
+        for (ServiceRequest request : serviceRequests) {
             transportationRequests.add((TransportationRequest) request);
         }
         return transportationRequests;
@@ -277,29 +293,33 @@ public class ManageController {
         this.dbObservable.notifyObservers();
     }
 
-        // Reader Methods
+    // Reader Methods
 
-    public void updateCsvNodes(Connection conn){
+    public void updateCsvNodes(Connection conn) {
         wrt.writeNodes(conn);
     }
 
-    public void updateCsvEdges(Connection conn){
+    public void updateCsvMaps(Connection conn) {
+        wrt.writeMaps(conn);
+    }
+
+    public void updateCsvEdges(Connection conn) {
         wrt.writeEdges(conn);
     }
 
-    public void updateCsvEmployees(Connection conn){
+    public void updateCsvEmployees(Connection conn) {
         wrt.writeEmployees(conn);
     }
 
-    public void updateCsvInterpreterSkills(Connection conn){
+    public void updateCsvInterpreterSkills(Connection conn) {
         wrt.writeInterpreterSkills(conn);
     }
 
-    public void updateCsvServiceRequests(Connection conn){
+    public void updateCsvServiceRequests(Connection conn) {
         wrt.writeServiceRequests(conn);
     }
 
-    public ArrayList<String> queryInterpreterSkillsbyUsername(String username){
+    public ArrayList<String> queryInterpreterSkillsbyUsername(String username) {
         ArrayList<String> languages = dbQueryController.queryInterpreterSkillsbyUsername(username);
         return languages;
     }

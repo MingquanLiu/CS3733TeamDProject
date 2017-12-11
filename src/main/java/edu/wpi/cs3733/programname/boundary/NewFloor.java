@@ -107,7 +107,7 @@ public class NewFloor {
                 copyFile(selectedFile, fileMap);
 
                 //print to make sure, then hide the menu
-                floor = new Floor(floorName.getText(), buildingName.getText(), "file:floorMaps/" + fileName);
+                //floor = new Floor(floorName.getText(), buildingName.getText(), "file:floorMaps/" + fileName);
                 System.out.println("\n\n\nCreated new floor in out, stored in src");
                 onCancelButton();
             } catch (Exception e) {

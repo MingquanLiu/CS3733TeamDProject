@@ -1,4 +1,5 @@
 package edu.wpi.cs3733.programname.database;
+
 import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
@@ -17,6 +18,7 @@ import edu.wpi.cs3733.programname.database.ModificationMethods.ServiceRequestsMe
 
 public class DatabaseModificationController {
     private NodesMethod nodesMethod;
+    private MapMethod mapsMethod;
     private EdgesMethod edgesMethod;
     private EmployeesMethod employeesMethod;
     private InterpreterMethod interpreterMethod;
@@ -25,12 +27,13 @@ public class DatabaseModificationController {
     private InterpreterRequestsMethod interpreterRequestsMethod;
     private MaintenanceRequestsMethod maintenanceRequestMethod;
     private TransportationRequestMethod transportationRequestMethod;
+
     /**
-     *
      * @param conn the connection to the database
      */
-    public DatabaseModificationController(DBConnection conn){
+    public DatabaseModificationController(DBConnection conn) {
         nodesMethod = new NodesMethod(conn);
+        mapsMethod = new MapMethod(conn);
         edgesMethod = new EdgesMethod(conn);
         employeesMethod = new EmployeesMethod(conn);
         interpreterMethod = new InterpreterMethod(conn);
@@ -52,25 +55,39 @@ public class DatabaseModificationController {
     }
 
 
-    public void deleteNode(NodeData data){
+    public void deleteNode(NodeData data) {
         nodesMethod.removeNode(data);
     }
 
-    public void updateBuilding(String building){nodesMethod.updateBuilding(building);}
+    //Map Modifications
+    public void addMap(String bName, String fName, String imgPath, String fNum) {
+        mapsMethod.insertMap(bName, fName, imgPath, fNum);
+    }
+
+
+    public void editMap(String bName, String fName, String imgPath, String fNum) {
+        mapsMethod.modifyMap(bName, fName, imgPath, fNum);
+    }
+
+    public void deleteMap(String bName, String fName) {
+        mapsMethod.removeMap(bName, fName);
+    }
+
 
     //EdgeData Modification
 
-    public void addEdge(String node1ID, String node2ID){
+    public void addEdge(String node1ID, String node2ID) {
         edgesMethod.insertEdge(node1ID, node2ID);
     }
 
 
-    public void editEdge(EdgeData data){
+    public void editEdge(EdgeData data) {
         edgesMethod.modifyEdge(data);
     }
 
     /**
      * the given edge is deleted from the database (the nodes that make up the edge still exist)
+     *
      * @param data the edge that we want to delete
      */
     public void deleteEdge(EdgeData data) {
@@ -78,23 +95,23 @@ public class DatabaseModificationController {
     }
 
     //Employee Modification
-    public void addEmployee(Employee employee){
+    public void addEmployee(Employee employee) {
         employeesMethod.addEmployee(employee);
     }
 
-    public void deleteEmployee(Employee employee){
+    public void deleteEmployee(Employee employee) {
         employeesMethod.deleteEmployee(employee);
     }
 
     // add interpreter employee
-    public void addInterpreter(Interpreter interpreter){
+    public void addInterpreter(Interpreter interpreter) {
         employeesMethod.addEmployee(interpreter);
         interpreterMethod.addInterpreter(interpreter);
     }
 
     // add interpreter skill(language) to an employee
-    public void addLanguageToInterpreter(String interpreter, String language){
-        interpreterMethod.addInterpreterLanguage(interpreter,language);
+    public void addLanguageToInterpreter(String interpreter, String language) {
+        interpreterMethod.addInterpreterLanguage(interpreter, language);
     }
 
     public void removeLanguageFromInterpreter(String interpreter, String language) {
@@ -106,7 +123,7 @@ public class DatabaseModificationController {
     }
 
     // delete interpreter employee
-    public void deleteInterpreter(Interpreter interpreter){
+    public void deleteInterpreter(Interpreter interpreter) {
         interpreterMethod.deleteInterpreter(interpreter);
         employeesMethod.deleteEmployee(interpreter);
     }
@@ -116,55 +133,57 @@ public class DatabaseModificationController {
     }
 
     //Service Request Modification
-    public void addServiceRequest(ServiceRequest serviceRequest){
+    public void addServiceRequest(ServiceRequest serviceRequest) {
         serviceRequestsMethod.addServiceRequest(serviceRequest);
     }
 
-    public void addInterpreterRequest(InterpreterRequest interpreterRequest){
+    public void addInterpreterRequest(InterpreterRequest interpreterRequest) {
         serviceRequestsMethod.addServiceRequest(interpreterRequest);
         interpreterRequestsMethod.addInterpreterRequest(interpreterRequest);
     }
 
-    public void deleteInterpreterRequest(InterpreterRequest interpreterRequest){
+    public void deleteInterpreterRequest(InterpreterRequest interpreterRequest) {
         interpreterRequestsMethod.deleteInterpreterRequest(interpreterRequest);
         serviceRequestsMethod.deleteServiceRequest(interpreterRequest);
     }
 
-    public void addMaintenanceRequest(MaintenanceRequest maintenanceRequest){
+    public void addMaintenanceRequest(MaintenanceRequest maintenanceRequest) {
         serviceRequestsMethod.addServiceRequest(maintenanceRequest);
         maintenanceRequestMethod.addMaintenanceRequest(maintenanceRequest);
     }
 
-    public void deleteMaintenanceRequest(MaintenanceRequest maintenanceRequest){
+    public void deleteMaintenanceRequest(MaintenanceRequest maintenanceRequest) {
         maintenanceRequestMethod.deleteMaintenanceRequest(maintenanceRequest);
         serviceRequestsMethod.deleteServiceRequest(maintenanceRequest);
     }
 
-    public void addTransportationRequest(TransportationRequest transportationRequest){
+    public void addTransportationRequest(TransportationRequest transportationRequest) {
         serviceRequestsMethod.addServiceRequest(transportationRequest);
         transportationRequestMethod.addTransportationRequest(transportationRequest);
     }
 
-    public void deleteTransportationRequest(TransportationRequest transportationRequest){
+    public void deleteTransportationRequest(TransportationRequest transportationRequest) {
         transportationRequestMethod.deleteTransportationRequest(transportationRequest);
         serviceRequestsMethod.deleteServiceRequest(transportationRequest);
     }
 
-    public void handleServiceRequest(ServiceRequest serviceRequest, String receiver){
-        serviceRequestsMethod.handleServiceRequest(serviceRequest,receiver);
+    public void handleServiceRequest(ServiceRequest serviceRequest, String receiver) {
+        serviceRequestsMethod.handleServiceRequest(serviceRequest, receiver);
     }
 
     public void unhandleServiceRequest(ServiceRequest request) {
         serviceRequestsMethod.unhandleServiceRequest(request);
     }
 
-    public void completeServiceRequest(ServiceRequest serviceRequest){
+    public void completeServiceRequest(ServiceRequest serviceRequest) {
         serviceRequestsMethod.completeServiceRequest(serviceRequest);
     }
-    public void removeServiceRequest(ServiceRequest serviceRequest){
+
+    public void removeServiceRequest(ServiceRequest serviceRequest) {
         serviceRequestsMethod.removeServiceRequest(serviceRequest);
     }
-    public void deleteServiceRequest(ServiceRequest serviceRequest){
+
+    public void deleteServiceRequest(ServiceRequest serviceRequest) {
         serviceRequestsMethod.deleteServiceRequest(serviceRequest);
     }
 

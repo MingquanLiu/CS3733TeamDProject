@@ -1,12 +1,14 @@
 package edu.wpi.cs3733.programname.database;
 
 import java.io.*;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import edu.wpi.cs3733.programname.boundary.Building;
 import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
@@ -87,11 +89,6 @@ public class CsvReader {
         return nodeList;
     }// end readNodes
 
-
-
-
-
-
     // Insert Nodes into DB
     public void insertNodes(Connection conn, ArrayList<NodeData> nodesList) {
         try {
@@ -118,6 +115,80 @@ public class CsvReader {
             }
 
             System.out.println("Number of node rows: " + j);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Maps
+    public ArrayList<ArrayList <String>> getBuildings(Connection conn) throws IOException{
+        ArrayList<ArrayList <String>> buildingList = new ArrayList<ArrayList<String>>();
+        BufferedReader buf;
+
+        try {
+            System.out.println("About to read maps table");
+            try {
+                InputStream in = new FileInputStream(new File("csv/AllMaps.csv").getPath());
+                buf = new BufferedReader(new InputStreamReader(in));
+                StringBuilder out = new StringBuilder();
+            } catch (FileNotFoundException ioe) {
+                String csv = "csv/AllMaps.csv";
+                InputStream input = ClassLoader.getSystemResourceAsStream(csv);
+                buf = new BufferedReader(new InputStreamReader(input));
+            }
+            String line;
+            buf.readLine();
+            // Reads all lines in the file
+            while ((line = buf.readLine()) != null) {
+                ArrayList<String> contents = new ArrayList<>();
+                // Separates the string into fields and stores into an array
+                String[] values = line.split(",");
+
+                String bName = values[0];
+                contents.add(bName);
+                String fName = values[1];
+                contents.add(fName);
+                String imgPath = values[2];
+                contents.add(imgPath);
+                String fNum = values[3];
+                contents.add(fNum);
+
+                System.out.println(contents);
+                buildingList.add(contents);
+
+
+            } // end while
+
+        } catch (IOException e) {
+
+        }
+        return buildingList;
+    }// end readNodes
+
+    public void insertMaps(Connection conn, ArrayList<ArrayList <String>> allBuildings) {
+        try {
+            int i;
+            int count = allBuildings.size();
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO MapInfo(buildingName, floorName, imagePath, floorNum)" +
+                    "VALUES (?,?,?,?)");
+
+            int j = 0;
+
+            for (i = 0; i < count; i++) {
+                ArrayList<String> curBuilding = allBuildings.get(i);
+                System.out.println("i: " + i + " and j: " + j);
+                System.out.println(curBuilding.get(0) + " | " + curBuilding.get(1)
+                        + " | " + curBuilding.get(2) + " | " + curBuilding.get(3) );
+                pst.setString(1, curBuilding.get(0));
+                pst.setString(2, curBuilding.get(1));
+                pst.setString(3, curBuilding.get(2));
+                pst.setString(4, curBuilding.get(3));
+                pst.executeUpdate();
+                j++;
+            }
+
+            System.out.println("Number of map rows: " + j);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,7 +261,6 @@ public class CsvReader {
             e.printStackTrace();
         }
     } // end insertNodes
-
 
 
     // EMPLOYEES
@@ -557,10 +627,6 @@ public class CsvReader {
 
         return srList;
     }
-
-
-
-
 
 
     public void insertServiceRequests(Connection conn, ArrayList<ServiceRequest> srList) {

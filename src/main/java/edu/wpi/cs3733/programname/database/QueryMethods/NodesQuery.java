@@ -265,13 +265,12 @@ public class NodesQuery {
     }
 
     public List<NodeData> queryNodeByFloorAndBuilding(String nFloor, String nBuilding) {
-
         NodeData queryResult = null;
         List<NodeData> allNodesByFloor = new ArrayList<NodeData>();
 
         try {
             String sql;
-            if (nBuilding.matches("Hospital|BTM|(15|25|45) Francis|Tower|Shapiro"))
+            if (nBuilding.matches("Main Hospital"))
                 sql = "SELECT * FROM Nodes WHERE floor = " + "'" + nFloor + "'" + "AND (building = 'BTM' OR building = '45 Francis' OR building = '15 Francis' OR building = 'Tower' OR building = 'Shapiro')";
             else
                 sql = "SELECT * FROM Nodes WHERE floor = " + "'" + nFloor + "'" + "AND building = " + "'" + nBuilding + "'";
@@ -351,6 +350,29 @@ public class NodesQuery {
             e.printStackTrace();
         }
         return allNodesByFloor;
+
+    }
+
+    public List<String> queryNodeByLongName(String ln) {
+
+        List<String> allNodes = new ArrayList<String>();
+
+        try {
+            String sql = "SELECT * FROM Nodes WHERE longName like " + "'%" + ln + "%'";
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+
+            String longName = "";
+
+            while (result.next()) {
+                longName = result.getString("longName");
+                allNodes.add(longName);
+            }
+        } catch (SQLException e) {
+            System.out.println("Get Node Failed!");
+            e.printStackTrace();
+        }
+        return allNodes;
 
     }
 }

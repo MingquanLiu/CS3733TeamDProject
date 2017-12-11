@@ -43,9 +43,14 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.*;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.*;
@@ -256,6 +261,12 @@ public class TestingController extends UIController implements Initializable {
     private CheckBox handicap;
     //</editor-fold>
 
+    //fuzzy search related stuffs
+    @FXML
+    JFXTextArea suggestions = new JFXTextArea();
+
+    @FXML
+    Label suggestions2 = new Label();
     /*
     *global variables, not FXML tied
     */
@@ -364,12 +375,12 @@ public class TestingController extends UIController implements Initializable {
         comboLocations.setItems(locations);
         comboLocations.setValue("None");
 
-        Floor basement2 = new Floor("Basement 2", "45 Francis", "file:floorMaps/Floor_-2.png");
-        Floor basement1 = new Floor("Basement 1", "45 Francis", "file:floorMaps/Floor_-1.png");
-        Floor ground = new Floor("Ground", "45 Francis", "file:floorMaps/Floor_0.png");
-        Floor floor1 = new Floor("Floor 1", "45 Francis", "file:floorMaps/Floor_1.png");
-        Floor floor2 = new Floor("Floor 2", "45 Francis", "file:floorMaps/Floor_2.png");
-        Floor floor3 = new Floor("Floor 3", "45 Francis", "file:floorMaps/Floor_3.png");;
+        Floor basement2 = new Floor("Basement 2", "45 Francis", "L2","file:floorMaps/Floor_-2.png");
+        Floor basement1 = new Floor("Basement 1", "45 Francis", "L1", "file:floorMaps/Floor_-1.png");
+        Floor ground = new Floor("Ground", "45 Francis", "G", "file:floorMaps/Floor_0.png");
+        Floor floor1 = new Floor("Floor 1", "45 Francis", "1","file:floorMaps/Floor_1.png");
+        Floor floor2 = new Floor("Floor 2", "45 Francis", "2","file:floorMaps/Floor_2.png");
+        Floor floor3 = new Floor("Floor 3", "45 Francis", "3", "file:floorMaps/Floor_3.png");;
 
         ArrayList<Floor> basicFloors = new ArrayList<>();
         basicFloors.add(basement2);
@@ -379,12 +390,15 @@ public class TestingController extends UIController implements Initializable {
         basicFloors.add(floor2);
         basicFloors.add(floor3);
 
-        Building hospital = new Building("Hospital");
+        Building hospital = new Building("Main Hospital");
         hospital.addAllFloors(basicFloors);
 
         floors.addAll(hospital.getFloors());
-        buildings.add(hospital);
-
+        //buildings.add(hospital);
+        List<Building> dbBuildings = manager.getAllBuildings();
+        System.out.println("buildings: " + dbBuildings);
+        for (Building b : dbBuildings)
+            buildings.add(b);
         floor = 4;
 
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
@@ -429,9 +443,7 @@ public class TestingController extends UIController implements Initializable {
         keyLocation.setText("TRIALTRIAL");
         keyLocation.setCollapsible(false);
         keyLocation.setExpanded(false);
-        System.out.println("Expandable:" + keyLocation.isExpanded());
-        System.out.println("Animated:" + keyLocation.isAnimated());
-        System.out.println("Collapse:" + keyLocation.isCollapsible());
+        System.out.println("\n\n");
         keyLocation.expandedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -1099,8 +1111,7 @@ public class TestingController extends UIController implements Initializable {
         paneAdminFeatures.setVisible(loggedIn);
     }
 
-    public void mapEditHandler() throws IOException {
-        System.out.println("In map Edit handler");
+    public void mapEditHandler() {
 //        showScene("/edu/wpi/cs3733/programname/boundary/admin_screen.fxml");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -1108,13 +1119,14 @@ public class TestingController extends UIController implements Initializable {
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
+        try{
         stage.setScene(
                 new Scene(
                         (Pane) loader.load()
                 )
-        );
-        loader.<MapAdminController>getController().initManager(manager);
-        loader.<MapAdminController>getController().sendBuildings(buildings);
+        );}
+        catch (IOException e){e.printStackTrace();}
+        loader.<MapAdminController>getController().sendBuildings(buildings, manager);
         loader.<MapAdminController>getController().setmTestController(this);
         stage.showAndWait();
         buildings = loader.<MapAdminController>getController().getBuildings();
@@ -1484,13 +1496,6 @@ public class TestingController extends UIController implements Initializable {
         return mouseReleaseHandler;
     }
 
-    public void fuzzySearch() {
-
-        //List<String> suggestions = manager.queryNodeByType(input);
-        TextFields fuck;
-        //TextFields.bindAutoCompletion(input, suggestions);
-    }
-
     private EventHandler<MouseEvent> dragMouse() {
         EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -1506,4 +1511,13 @@ public class TestingController extends UIController implements Initializable {
         };
         return dragHandler;
     }
+    public void fuzzyStart(){
+        String input = txtStartLocation.getText();
+        List<String> longNameIDS = manager.queryNodeByLongName(input);
+
+        TextFields.bindAutoCompletion(txtStartLocation, longNameIDS);
+        TextFields.bindAutoCompletion(txtEndLocation, longNameIDS);
+
+    }
+
 }
