@@ -58,8 +58,8 @@
                <children>
                   <Label text="Building" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
                   <Label text="Floor" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <JFXComboBox fx:id="comboFloors" onAction="#mapChange" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                  <JFXComboBox fx:id="comboBuilding" onAction="#setBuilding" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="comboFloors" onAction="#setMap" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <JFXComboBox fx:id="comboBuilding" onAction="#setMap" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                </children>
                 </GridPane>
             </children>

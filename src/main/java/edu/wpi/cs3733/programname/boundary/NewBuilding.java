@@ -1,53 +1,11 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.commondata.Coordinate;
-import edu.wpi.cs3733.programname.commondata.EdgeData;
-import edu.wpi.cs3733.programname.commondata.NodeData;
-import edu.wpi.cs3733.programname.database.CsvWriter;
-import edu.wpi.cs3733.programname.database.DBConnection;
-import edu.wpi.cs3733.programname.database.DatabaseModificationController;
-import edu.wpi.cs3733.programname.database.ModificationMethods.NodesMethod;
-import edu.wpi.cs3733.programname.pathfind.PathfindingController;
-import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
-import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.apache.derby.iapi.services.io.FileUtil;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
-import static javafx.scene.paint.Color.*;
 
 public class NewBuilding {
 
@@ -194,8 +152,8 @@ public class NewBuilding {
 
     public Building getBldg() {
         Building bldg = new Building(buildingName.getText());
-        Floor fl = new Floor(floorName.getText(), bldg.getName(), filepath);
-        bldg.addFloor(fl);
+        //Floor fl = new Floor(floorName.getText(), bldg.getName(), filepath);
+        //bldg.addFloor(fl);
 
         return bldg;
     }

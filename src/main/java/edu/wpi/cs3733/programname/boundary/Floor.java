@@ -2,12 +2,14 @@ package edu.wpi.cs3733.programname.boundary;
 
 public class Floor {
     private String floorName;
+    private String floorNum;
     private String building;
     private String imgUrl;
 
-    public Floor(String floor, String building, String img){
+    public Floor(String floor, String building, String num, String img) {
         floorName = floor;
         this.building = building;
+        floorNum = num;
         imgUrl = img;
     }
 
@@ -35,7 +37,15 @@ public class Floor {
         this.building = building;
     }
 
-    public String toString(){
+    public String getFloorNum() {
+        return floorNum;
+    }
+
+    public void setFloorNum(String floorNum) {
+        this.floorNum = floorNum;
+    }
+
+    public String toString() {
         return floorName;
     }
 }
