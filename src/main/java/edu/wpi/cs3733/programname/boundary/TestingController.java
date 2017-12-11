@@ -932,7 +932,11 @@ public class TestingController extends UIController implements Initializable {
     public void goButtonHandler() {
         System.out.println("drawing path");
         try {
-            currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), this.handicap.isSelected());
+            if (txtStartLocation.getText().equals("")) {
+                currentPath = manager.startPathfind(AppSettings.getInstance().getDefaultLocation(),
+                        txtEndLocation.getText(), this.handicap.isSelected());
+            }
+            else currentPath = manager.startPathfind(txtStartLocation.getText(), txtEndLocation.getText(), this.handicap.isSelected());
         } catch (InvalidNodeException ine) {
             currentPath = new ArrayList<>();
         } catch (NoPathException np) {
