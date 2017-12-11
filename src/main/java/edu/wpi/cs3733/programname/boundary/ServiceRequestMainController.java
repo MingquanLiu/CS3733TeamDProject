@@ -23,6 +23,7 @@ import java.util.List;
 public class ServiceRequestMainController {
 
     @FXML
+    AnchorPane mainPane;
     JFXMasonryPane masonryPane  = new JFXMasonryPane();
 
     ManageController manager;
@@ -31,6 +32,8 @@ public class ServiceRequestMainController {
         this.manager = manage;
         masonryPane.setVisible(true);
         masonryPane.toFront();
+        mainPane.getChildren()
+                .add(masonryPane);
         List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
         for(ServiceRequest unassigned: allUnassigned) {
             AnchorPane requestView = (AnchorPane) FXMLLoader.load(getClass().getResource(

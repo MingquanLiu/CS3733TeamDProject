@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXMasonryPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="450.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
+<AnchorPane fx:id="mainPane" prefHeight="450.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
    <children>
-      <JFXMasonryPane fx:id="masonryPane" layoutX="296.0" layoutY="207.0" />
+      <Label layoutX="180.0" layoutY="27.0" prefHeight="34.0" prefWidth="270.0" text="Service Request Manager" />
    </children>
 </AnchorPane>
