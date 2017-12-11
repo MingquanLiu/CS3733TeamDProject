@@ -352,4 +352,27 @@ public class NodesQuery {
         return allNodesByFloor;
 
     }
+
+    public List<String> queryNodeByLongName(String ln) {
+
+        List<String> allNodes = new ArrayList<String>();
+
+        try {
+            String sql = "SELECT * FROM Nodes WHERE longName like " + "'%" + ln + "%'";
+            Statement stmt = dbConnection.getConnection().createStatement();
+            ResultSet result = stmt.executeQuery(sql);
+
+            String longName = "";
+
+            while (result.next()) {
+                longName = result.getString("longName");
+                allNodes.add(longName);
+            }
+        } catch (SQLException e) {
+            System.out.println("Get Node Failed!");
+            e.printStackTrace();
+        }
+        return allNodes;
+
+    }
 }

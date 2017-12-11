@@ -100,7 +100,7 @@
                 </AnchorPane>
             </content>
         </ScrollPane>
-        <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: rgba(255,255,255,0.9); -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: white; -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane fx:id="gridHamburgerTItles" layoutX="3.0" layoutY="77.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="326.0" prefWidth="158.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="76.0">
                     <columnConstraints>
@@ -229,7 +229,7 @@
                             <GridPane.margin>
                                 <Insets left="20.0" top="10.0" />
                             </GridPane.margin></Label>
-                        <JFXTextField fx:id="txtStartLocation" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
+                        <JFXTextField fx:id="txtStartLocation" onKeyTyped="#fuzzyStart" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
                             <GridPane.margin>
                                 <Insets left="20.0" />
                             </GridPane.margin>
