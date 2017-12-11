@@ -27,7 +27,7 @@
             <content>
                 <AnchorPane fx:id="panningPane" focusTraversable="true">
                     <children>
-                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" onMouseClicked="#mouseClickHandler" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" layoutX="-152.0" layoutY="-46.0" onMouseClicked="#mouseClickHandler" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../img/Floor_2.png" />
                             </image>
@@ -177,6 +177,7 @@
                 <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
                 <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
                 <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
+            <JFXButton fx:id="BathroomSweep" buttonType="RAISED" layoutX="47.0" layoutY="548.0" onAction="#BathroomSweepHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="Find Restroom" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">

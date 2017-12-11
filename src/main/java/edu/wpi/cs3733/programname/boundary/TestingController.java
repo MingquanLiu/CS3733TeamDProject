@@ -225,7 +225,8 @@ public class TestingController extends UIController implements Initializable {
     //about page stuff
     @FXML
     private JFXButton aboutBtn;
-
+    @FXML
+    private JFXButton BathroomSweep;
     //items for key locations fancy feature
     @FXML
     private TitledPane keyLocation;
@@ -1196,9 +1197,9 @@ public class TestingController extends UIController implements Initializable {
     }
 
     public void BathroomSweepHandler() throws IOException{
-        System.out.print("Searching for nearest bathroom");
+        System.out.println("Searching for nearest bathroom");
         String startID = AppSettings.getInstance().getDefaultLocation();
-        String goalID = "rest";
+        String goalID = "REST";
         try {
             currentPath = manager.sweepPathfinder(startID,goalID, this.handicap.isSelected());
         } catch (InvalidNodeException ine) {

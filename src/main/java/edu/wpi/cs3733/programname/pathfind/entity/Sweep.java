@@ -41,8 +41,8 @@ public class Sweep extends PathfindingTemplate {
             current.visit();
             System.out.println("evaluating node: " + current.getNodeID());
             frontier.removeFirst(); // pop the priority queue
-            //System.out.println("current frontier size: " + frontier.size());
-            if ( current.getNodeType().equals(goal.getNodeType()) ) {
+            System.out.println("current frontier size: " + frontier.size());
+            if ( current.getNodeType().equals(goalID) ) {
                 // If we are at the goal, we need to backtrack through the shortest path
                 System.out.println("At target!, Begin Traceback");
                 finalList.add(current); // we have to add the goal to the path before we start backtracking
@@ -53,13 +53,14 @@ public class Sweep extends PathfindingTemplate {
                 }
                 return finalList;
             } else {
+                System.out.println("wrong node, adding neighbors ");
                 // we need to get all the neighbor nodes, identify their costs, and put them into the queue
                 LinkedList<StarNode> neighbors = current.getNeighbors();
                 // we also need to remove the previous node from the list of neighbors because we do not want to backtrack
                 neighbors.remove(current.getPreviousNode());
                 for (StarNode newnode : neighbors) {
                     if (!newnode.isVisited() && !newnode.isonlist()) {
-                        //System.out.println("add to frontier: " + newnode.getNodeID());
+                        System.out.println("add to frontier: " + newnode.getNodeID());
                         newnode.addtolist();
                         newnode.setPreviousNode(current);
                         frontier.add(newnode);
