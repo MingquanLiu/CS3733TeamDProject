@@ -91,7 +91,7 @@
                   </Label>
                   <Label text="Mingquan Liu&#10;Co-Lead Software Engineer" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
-                        <Insets />
+                        <Insets bottom="5.0" />
                      </GridPane.margin>
                   </Label>
                   <Label text="Treksh Marwaha&#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -208,7 +208,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Pane layoutX="170.0" layoutY="1214.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.leftAnchor="170.0">
+            <Pane layoutX="169.0" layoutY="1218.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.leftAnchor="169.0">
                <children>
                   <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -218,7 +218,7 @@
                   <Label layoutX="9.0" layoutY="170.0" text="Haiau Duong&#10;(Ex) Database Engineer" textAlignment="CENTER" />
                </children>
             </Pane>
-            <Label layoutX="101.0" layoutY="1446.0" text="Credit To: &#10;Team Emerald Elbow-Witches (10) - Coach Sai Vadlamudi&#10;Yianni Alexiou, Jonathan Berry, Clayton Dembski, Mitchell Farren, Joshua Galang, &#10;Krystal Grant, Karsten Roberts, Tung Truong, Nikolay Uvarov and Thomas Wiles&#10;for the health care API." />
+            <Label layoutX="101.0" layoutY="1450.0" text="Credit To: &#10;Team Emerald Elbow-Witches (10) - Coach Sai Vadlamudi&#10;Yianni Alexiou, Jonathan Berry, Clayton Dembski, Mitchell Farren, Joshua Galang, &#10;Krystal Grant, Karsten Roberts, Tung Truong, Nikolay Uvarov and Thomas Wiles&#10;for the health care API." />
          </children>
       </AnchorPane>
    </content>
