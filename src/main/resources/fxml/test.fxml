@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXSlider?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -18,9 +18,9 @@
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <AnchorPane fx:id="panningPane" focusTraversable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="panningPane" focusTraversable="true">
                     <children>
-                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" layoutX="-14.0" layoutY="-4.0" onMouseClicked="#mouseClickHandler" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" onMouseClicked="#mouseClickHandler" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <image>
                                 <Image url="@../img/Floor_2.png" />
                             </image>
@@ -28,30 +28,58 @@
                         <Accordion layoutX="355.0" layoutY="221.0" />
                         <Accordion layoutX="748.0" layoutY="348.0" />
                     <AnchorPane layoutX="569.0" layoutY="374.0" prefHeight="8.0" prefWidth="40.0" />
-                  <JFXHamburger layoutX="1323.0" layoutY="34.0" prefHeight="41.0" prefWidth="41.0" />
-                  <JFXButton ellipsisString="" layoutX="1302.0" layoutY="75.0" prefHeight="57.0" prefWidth="46.0" wrapText="true">
-                     <graphic>
-                        <ImageView fitHeight="100.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/NodeIcon/ExitIcon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" ellipsisString="" layoutX="1279.0" layoutY="126.0" prefHeight="62.0" prefWidth="8.0" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" />
-                  <JFXButton ellipsisString="" layoutX="1293.0" layoutY="125.0" prefHeight="74.0" prefWidth="60.0" wrapText="true">
-                     <graphic>
-                        <ImageView fitHeight="64.0" fitWidth="65.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/AdminFeatureIcon/interpreter-logo.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
+                  <AnchorPane layoutX="469.0" layoutY="174.0" prefHeight="200.0" prefWidth="200.0" />
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
+      <AnchorPane fx:id="adminFeaturePane" prefHeight="294.0" prefWidth="314.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <JFXButton fx:id="adminFeatureSubject" buttonType="RAISED" ellipsisString="" prefHeight="45.0" prefWidth="61.0" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton buttonType="RAISED" ellipsisString="" maxHeight="46.0" maxWidth="43.0" minHeight="38.0" prefHeight="46.0" prefWidth="43.0" styleClass="icon-button-subject" stylesheets="@../css/general_button.css" text=" " />
+               </graphic>
+               <styleClass>
+                  <String fx:value="color-button-adminFeature" />
+                  <String fx:value="icon-buttona" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton fx:id="employeeManager" alignment="TOP_CENTER" buttonType="RAISED" ellipsisString="" layoutX="78.0" layoutY="14.0" prefHeight="50.0" prefWidth="67.0" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-employeeManager" stylesheets="@../css/general_button.css" text=" " />
+               </graphic>
+               <styleClass>
+                  <String fx:value="icon-buttona" />
+                  <String fx:value="color-button-adminFeature" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton fx:id="mapEdit" buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="117.0" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-mapEdit" stylesheets="@../css/general_button.css" text=" " />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="serviceRequestSubject" buttonType="RAISED" ellipsisString="" layoutX="157.0" layoutY="201.0" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" minWidth="39.0" prefHeight="40.0" prefWidth="39.0" styleClass="icon-button-serviceRequest" stylesheets="@../css/general_button.css" text=" " />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="transportationServiceRequest" buttonType="RAISED" ellipsisString="" layoutX="61.0" layoutY="192.0" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-transportationRequest" stylesheets="@../css/general_button.css" text=" " />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="interpreterServiceRequest" buttonType="RAISED" ellipsisString="" layoutX="145.0" layoutY="30.0" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-interpreterRequest" stylesheets="@../css/general_button.css" text=" " />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="maintenanceServiceRequest" buttonType="RAISED" ellipsisString="" layoutX="93.0" layoutY="97.0" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-maintenanceRequest" stylesheets="@../css/general_button.css" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
         <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
             <children>
                 <GridPane layoutY="-5.0" prefHeight="120.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-276.0" AnchorPane.topAnchor="-5.0">
@@ -80,29 +108,17 @@
                 </GridPane>
             </children>
         </AnchorPane>
-      <AnchorPane opacity="0.53" prefHeight="31.0" prefWidth="1382.0" style="-fx-background-color: black;">
+      <AnchorPane opacity="0.53" prefHeight="31.0" prefWidth="1382.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0">
          <children>
-            <GridPane layoutX="1077.0" layoutY="1.0" prefHeight="24.0" prefWidth="305.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" prefHeight="31.0" prefWidth="107.0" ripplerFill="#0eafff" text="Login" textFill="WHITE" />
-                  <JFXButton alignment="BOTTOM_CENTER" prefHeight="31.0" prefWidth="104.0" ripplerFill="#f85050" text="About" textFill="WHITE" GridPane.columnIndex="1" />
-                  <JFXButton alignment="BOTTOM_CENTER" prefHeight="31.0" prefWidth="101.0" ripplerFill="#59fc92" text="Help" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" />
-               </children>
-            </GridPane>
-            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="-3.0" prefHeight="31.0" prefWidth="516.0" text="Welcome to BW Hospital" textAlignment="CENTER" textFill="WHITE">
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="-3.0" prefHeight="31.0" prefWidth="516.0" text="Welcome to BW Hospital" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="569.0">
                <font>
                   <Font name="Algerian" size="24.0" />
                </font>
             </Label>
-            <JFXButton alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="132.0" ripplerFill="#f3ff88" text="Location Service" textFill="#fcfcfc" />
+            <JFXButton alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="132.0" ripplerFill="#f3ff88" text="Location Service" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" />
+            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="1073.0" layoutY="4.0" prefHeight="31.0" prefWidth="107.0" ripplerFill="#0eafff" text="Login" textFill="WHITE" AnchorPane.rightAnchor="208.0" />
+            <JFXButton alignment="BOTTOM_CENTER" layoutX="1281.0" layoutY="1.0" prefHeight="31.0" prefWidth="104.0" ripplerFill="#f85050" text="About" textFill="WHITE" AnchorPane.rightAnchor="0.0" />
+            <JFXButton alignment="BOTTOM_CENTER" layoutX="1180.0" layoutY="4.0" prefHeight="31.0" prefWidth="101.0" ripplerFill="#59fc92" text="Help" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="104.0" />
          </children>
       </AnchorPane>
 

@@ -13,6 +13,8 @@ import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyValue;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -35,14 +37,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -218,30 +223,27 @@ public class TestingController extends UIController implements Initializable {
     //about page stuff
     @FXML
     private JFXButton aboutBtn;
+    @FXML
+    private AnchorPane adminFeaturePane;
+    @FXML
+    private JFXButton adminFeatureSubject;
+    @FXML
+    private JFXButton mapEdit;
+    @FXML
+    private JFXButton employeeManager;
+    @FXML
+    private JFXButton serviceRequestSubject;
+    @FXML
+    private JFXButton maintenanceServiceRequest;
+    @FXML
+    private JFXButton interpreterServiceRequest;
+    @FXML
+    private JFXButton transportationServiceRequest;
+    @FXML
+    private JFXNodesList adminFeatureNodeList;
+    @FXML
+    private JFXNodesList serviceRequestNodeList;
 
-    //items for key locations fancy feature
-    @FXML
-    private TitledPane keyLocation;
-    @FXML
-    private JFXCheckBox locateBathrooms;
-    @FXML
-    private JFXCheckBox locateServiceDesks;
-    @FXML
-    private JFXCheckBox locateRetailServices;
-    @FXML
-    private JFXCheckBox locateWaitingRooms;
-    @FXML
-    private JFXCheckBox locateElevators;
-    @FXML
-    private JFXCheckBox locateExits;
-    @FXML
-    private JFXCheckBox locateStaircases;
-    @FXML
-    private JFXCheckBox locateLabs;
-    @FXML
-    private JFXCheckBox locateAdditionalServices;
-    @FXML
-    private JFXCheckBox locateAllLocations;
 
     @FXML
     private Label lblCrossFloor;
@@ -310,7 +312,7 @@ public class TestingController extends UIController implements Initializable {
 
     private MapObserver mapObserver;
     private RequestObserver requestObserver;
-
+    private boolean serviceRequestSubjectClicked =false;
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -318,6 +320,7 @@ public class TestingController extends UIController implements Initializable {
 
     public void initManager(ManageController manageController) {
         manager = manageController;
+        instantiateNodeList();
 //        mapRatio.add(0.24);
         //paneAdminFeatures.setVisible(false);
 //        mapRatio.add(0.318);
@@ -813,62 +816,6 @@ public class TestingController extends UIController implements Initializable {
         }
         previousDropDownState = nodeType;
     }
-
-
-//    //THIs doesnt link its not EVEN THE DROP DOWN ITS THE TITLED PANE BUT YEA GL MING-MING
-    public void locateDropdownHandler(ActionEvent event) {
-        Object mEvent = event.getSource();
-        String nodeType = "";
-
-        if (mEvent == keyLocation) {
-            String keyLocationString = keyLocation.getChildrenUnmodifiable().toString();
-            switch (keyLocationString) {
-                case "Bathrooms":
-                    nodeType = "REST";
-                    break;
-                case "Service Desks":
-                    nodeType = "INFO";
-                    break;
-                case "Retail Services":
-                    nodeType = "RETL";
-                    break;
-                case "Waiting Rooms":
-                    nodeType = "DEPT";
-                    break;
-                case "Elevators":
-                    nodeType = "ELEV";
-                    break;
-                case "Exits":
-                    nodeType = "EXIT";
-                    break;
-                case "Staircases":
-                    nodeType = "STAI";
-                    break;
-                case "Labs":
-                    nodeType = "LABS";
-                    break;
-                case "Additional Services":
-                    nodeType = "SERV";
-                    break;
-                case "All Locations":
-                    //THIS IS NOT A REAL NODE TYPE ITS JUST TO ALLOW IT WORK
-                    nodeType = "ALL";
-                    break;
-            }
-        }
-        if (nodeType.equals("ALL")) {
-            //ADD CODE HERE THANK YOU MINGQUANNNNNN
-
-        }
-        if ((!nodeType.equals("")) && (!nodeType.equals("ALL"))) {
-            List<NodeData> mList = getTypeNode(currentNodes, nodeType);
-            for (NodeData nodeData : mList) {
-                nodeData.changeImageView(nodeType);
-            }
-            setNodeListImageVisibility(true, mList);
-        }
-    }
-
     //map zooming method
     private void setZoom(){
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
@@ -1317,6 +1264,54 @@ public class TestingController extends UIController implements Initializable {
 
     public void setUserName(String userName){
         this.userName = userName;
+    }
+
+    public void instantiateNodeList(){
+        JFXNodesList nodesList = new JFXNodesList();
+        JFXNodesList nodesList1 = new JFXNodesList();
+        nodesList.addAnimatedNode(adminFeatureSubject, new Callback<Boolean, Collection<KeyValue>>() {
+            @Override
+            public Collection<KeyValue> call(Boolean expanded) {
+                return new ArrayList<KeyValue>(){
+                    {add(new KeyValue(adminFeatureSubject.rotateProperty(),expanded ? 360:0, Interpolator.EASE_BOTH) );}
+                };
+            }
+        });
+        nodesList.addAnimatedNode(mapEdit);
+        nodesList.addAnimatedNode(employeeManager);
+        serviceRequestSubject.addEventHandler(MouseEvent.MOUSE_CLICKED,(e)->{
+//            int i =serviceRequestSubject.getStyleClass().size();
+            if(serviceRequestSubjectClicked){
+                serviceRequestSubject.getStyleClass().remove("color-button-serviceRequest");
+                serviceRequestSubject.getStyleClass().add("color-button-adminFeature");
+            }else{
+                serviceRequestSubject.getStyleClass().remove("color-button-adminFeature");
+                serviceRequestSubject.getStyleClass().add("color-button-serviceRequest");
+            }
+            serviceRequestSubjectClicked = !serviceRequestSubjectClicked;
+
+    });
+        nodesList1.addAnimatedNode(serviceRequestSubject
+                ,new Callback<Boolean, Collection<KeyValue>>() {
+            @Override
+            public Collection<KeyValue> call(Boolean expanded) {
+                return new ArrayList<KeyValue>(){
+                    {add(new KeyValue(serviceRequestSubject.rotateProperty(),expanded ? 0:270, Interpolator.EASE_BOTH) );}
+                };
+            }
+        });
+        nodesList1.addAnimatedNode(interpreterServiceRequest);
+        nodesList1.addAnimatedNode(maintenanceServiceRequest);
+        nodesList1.addAnimatedNode(transportationServiceRequest);
+        nodesList1.setSpacing(10);
+//        nodesList1.getTransforms().add(new Rotate(serviceRequestSubject.getLayoutX(),serviceRequestSubject.getLayoutY(),90));
+        nodesList1.setRotate(90);
+        nodesList.addAnimatedNode(nodesList1);
+        nodesList.setSpacing(10);
+
+        adminFeaturePane.getChildren().add(nodesList);
+        AnchorPane.setTopAnchor(nodesList,5.00);
+        AnchorPane.setRightAnchor(nodesList,10.0);
     }
 
 }
