@@ -15,13 +15,15 @@ public class AppSettings {
     private long delayTime;
     private boolean saveScreen;
 
+    private long shutdownDelay = 60000; // CHANGE THIS VALUE TO ADJUST THE SCREEN SAVER DELAY
+
     private final int INITIAL_MAP_SCALE = 3;
 
     private AppSettings() {
         searchType = PathfindingController.searchType.ASTAR;
         handicapPath = false;
         mapRatioIndex = INITIAL_MAP_SCALE;
-        delayTime = System.currentTimeMillis() + 60000;
+        delayTime = System.currentTimeMillis() + shutdownDelay;
         saveScreen = false;
     }
 
@@ -47,7 +49,7 @@ public class AppSettings {
         this.mapRatioIndex = mapRatioIndex;
     }
     public void kickTimer() {
-        delayTime = System.currentTimeMillis() + 60000;
+        delayTime = System.currentTimeMillis() + shutdownDelay;
     }
     public long getDelayTime() {
         return delayTime;
