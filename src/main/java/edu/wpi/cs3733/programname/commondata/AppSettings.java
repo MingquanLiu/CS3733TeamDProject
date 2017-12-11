@@ -12,7 +12,6 @@ public class AppSettings {
     private searchType searchType;
     private boolean handicapPath;
     private int mapRatioIndex;
-
     private final int INITIAL_MAP_SCALE = 3;
 
     private AppSettings() {
