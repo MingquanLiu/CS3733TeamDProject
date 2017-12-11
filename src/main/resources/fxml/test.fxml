@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,12 +30,145 @@
                         </ImageView>
                         <Accordion layoutX="355.0" layoutY="221.0" />
                         <Accordion layoutX="748.0" layoutY="348.0" />
-                    <AnchorPane layoutX="569.0" layoutY="374.0" prefHeight="8.0" prefWidth="40.0" />
-                  <AnchorPane layoutX="469.0" layoutY="174.0" prefHeight="200.0" prefWidth="200.0" />
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
+      <AnchorPane prefHeight="301.0" prefWidth="314.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="186.0">
+         <children>
+            <TitledPane animated="false" layoutX="-32.0" layoutY="-96.0" text="textDirection" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="307.0" prefWidth="312.0">
+                     <children>
+                        <JFXListView layoutX="21.0" layoutY="-84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="keyLocationPane" prefHeight="363.0" prefWidth="200.0" AnchorPane.leftAnchor="322.0" AnchorPane.topAnchor="35.0">
+         <children>
+            <JFXButton fx:id="keyLocationBathroom" buttonType="RAISED" ellipsisString="" layoutX="90.0" layoutY="14.0" prefHeight="50.0" prefWidth="0.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-bathroom" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationElevator" buttonType="RAISED" ellipsisString="" layoutX="90.0" layoutY="75.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-elevator" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationExit" buttonType="RAISED" ellipsisString="" layoutX="90.0" layoutY="136.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-exit" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationLab" buttonType="RAISED" ellipsisString="" layoutX="90.0" layoutY="194.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-lab" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationServiceDesk" buttonType="RAISED" ellipsisString="" layoutX="90.0" layoutY="258.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-serviceDesk" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationRetail" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-retail" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationWaitingroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="75.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-waitingRoom" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationDestination" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="136.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-destination" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationSubject" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="194.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="icon-button-subject" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="keyLocationStairs" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="258.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+               <graphic>
+                  <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
+                     <styleClass>
+                        <String fx:value="button-icon-stairs" />
+                        <String fx:value="button-keyLocation" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="151.0" prefWidth="314.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
+         <children>
+            <JFXTextField layoutX="111.0" layoutY="14.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="9.0" />
+            <JFXTextField layoutX="111.0" layoutY="60.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="55.0" />
+            <Label layoutX="11.0" layoutY="14.0" prefHeight="31.0" prefWidth="100.0" text="Start Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0" />
+            <Label layoutX="11.0" layoutY="60.0" prefHeight="31.0" prefWidth="100.0" text="End Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="60.0" />
+            <JFXButton buttonType="RAISED" layoutX="46.0" layoutY="104.0" ripplerFill="#cff888" text="Search">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="190.0" layoutY="104.0" text="Clear">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="adminFeaturePane" prefHeight="294.0" prefWidth="314.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
          <children>
             <JFXButton fx:id="adminFeatureSubject" buttonType="RAISED" ellipsisString="" prefHeight="45.0" prefWidth="61.0" stylesheets="@../css/general_button.css">

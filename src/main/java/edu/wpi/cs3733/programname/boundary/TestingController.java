@@ -256,6 +256,30 @@ public class TestingController extends UIController implements Initializable {
     private CheckBox handicap;
     //</editor-fold>
 
+    //For the Key Location button List
+    @FXML
+    private JFXButton keyLocationRetail;
+    @FXML
+    private JFXButton keyLocationBathroom;
+    @FXML
+    private JFXButton keyLocationWaitingroom;
+    @FXML
+    private JFXButton keyLocationElevator;
+    @FXML
+    private JFXButton keyLocationDestination;
+    @FXML
+    private JFXButton keyLocationExit;
+    @FXML
+    private JFXButton keyLocationSubject;
+    @FXML
+    private JFXButton keyLocationLab;
+    @FXML
+    private JFXButton keyLocationServiceDesk;
+    @FXML
+    private JFXButton keyLocationStairs;
+    @FXML
+    private AnchorPane keyLocationPane;
+
     /*
     *global variables, not FXML tied
     */
@@ -1269,6 +1293,7 @@ public class TestingController extends UIController implements Initializable {
     public void instantiateNodeList(){
         JFXNodesList nodesList = new JFXNodesList();
         JFXNodesList nodesList1 = new JFXNodesList();
+        JFXNodesList keyLocationNodeList = new JFXNodesList();
         nodesList.addAnimatedNode(adminFeatureSubject, new Callback<Boolean, Collection<KeyValue>>() {
             @Override
             public Collection<KeyValue> call(Boolean expanded) {
@@ -1308,8 +1333,28 @@ public class TestingController extends UIController implements Initializable {
         nodesList1.setRotate(90);
         nodesList.addAnimatedNode(nodesList1);
         nodesList.setSpacing(10);
-
         adminFeaturePane.getChildren().add(nodesList);
+        keyLocationNodeList.addAnimatedNode(keyLocationSubject, new Callback<Boolean, Collection<KeyValue>>() {
+            @Override
+            public Collection<KeyValue> call(Boolean expanded) {
+                return new ArrayList<KeyValue>(){
+                    {add(new KeyValue(keyLocationSubject.rotateProperty(),expanded ? 360:0, Interpolator.EASE_BOTH) );}
+                };
+            }
+        });
+        keyLocationNodeList.addAnimatedNode(keyLocationDestination);
+        keyLocationNodeList.addAnimatedNode(keyLocationBathroom);
+        keyLocationNodeList.addAnimatedNode(keyLocationElevator);
+        keyLocationNodeList.addAnimatedNode(keyLocationExit);
+        keyLocationNodeList.addAnimatedNode(keyLocationLab);
+        keyLocationNodeList.addAnimatedNode(keyLocationRetail);
+        keyLocationNodeList.addAnimatedNode(keyLocationStairs);
+        keyLocationNodeList.addAnimatedNode(keyLocationWaitingroom);
+        keyLocationNodeList.addAnimatedNode(keyLocationServiceDesk);
+        keyLocationNodeList.setSpacing(10);
+        keyLocationPane.getChildren().add(keyLocationNodeList);
+        AnchorPane.setTopAnchor(keyLocationNodeList,5.00);
+        AnchorPane.setLeftAnchor(keyLocationNodeList,10.0);
         AnchorPane.setTopAnchor(nodesList,5.00);
         AnchorPane.setRightAnchor(nodesList,10.0);
     }
