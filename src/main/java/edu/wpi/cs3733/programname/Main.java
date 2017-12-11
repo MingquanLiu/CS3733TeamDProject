@@ -124,8 +124,8 @@ public class Main extends Application {
                 while(true) {
                     if(!AppSettings.getInstance().isSaveScreen()) {
                         if(System.currentTimeMillis() >= AppSettings.getInstance().getDelayTime()) {
-                             frame = new Frame("Test");
-//                            System.out.println("Timeout");
+                            frame = new Frame("Test");
+                            frame.setVisible(false);
                             frame.setUndecorated(true);
                             try {
                                 frame.add(new Component() {
@@ -144,8 +144,6 @@ public class Main extends Application {
                             GraphicsDevice gs = ge.getDefaultScreenDevice();
                             gs.setFullScreenWindow(frame);
                             frame.validate();
-//                            frame.setVisible(false);
-//                            frame.setAlwaysOnTop(true);
                             frame.setVisible(true);
                             frame.setAlwaysOnTop(true);
                             frame.toFront();
@@ -153,7 +151,6 @@ public class Main extends Application {
                         }
                     } else {
                         if(System.currentTimeMillis() < AppSettings.getInstance().getDelayTime()) {
-//                            System.out.println("Timein");
                             frame.dispose();
                             AppSettings.getInstance().setSaveScreen(false);
                         }
@@ -162,7 +159,6 @@ public class Main extends Application {
             }
         });
         thread.start();
-
         launch(args);
     }
 
