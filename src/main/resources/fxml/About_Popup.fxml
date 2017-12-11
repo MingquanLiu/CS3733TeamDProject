@@ -14,14 +14,14 @@
 
 <ScrollPane fx:id="mainWindow" maxWidth="1.7976931348623157E308" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.About_Popup">
    <content>
-      <AnchorPane fx:id="main" prefHeight="1480.0" prefWidth="703.0">
+      <AnchorPane fx:id="main" prefHeight="1596.0" prefWidth="703.0">
          <children>
             <Label fx:id="title" alignment="TOP_CENTER" prefHeight="44.0" prefWidth="682.0" text="About" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <GridPane alignment="CENTER" layoutY="53.0" prefHeight="95.0" prefWidth="606.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
+            <GridPane alignment="CENTER" layoutY="53.0" prefHeight="95.0" prefWidth="606.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="288.0" minWidth="50.0" prefWidth="253.0" />
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="366.0" minWidth="50.0" prefWidth="353.0" />
@@ -43,7 +43,7 @@
                   <Label alignment="CENTER" contentDisplay="CENTER" text="WPI Computer Science Department &#10;CS3733: Software Engineering" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
                </children>
             </GridPane>
-            <Pane layoutX="112.0" layoutY="198.0" prefHeight="201.0" prefWidth="455.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="200.0">
+            <Pane layoutX="125.0" layoutY="200.0" prefHeight="201.0" prefWidth="455.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="225.0">
                <children>
                   <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -57,12 +57,12 @@
                   </Label>
                </children>
             </Pane>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="199.0" prefHeight="29.0" prefWidth="658.0" text="Team D" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="460.0">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="444.0" prefHeight="29.0" prefWidth="658.0" text="Our Team: Dragonfly Dragons" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="445.0">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Zapfino" size="22.0" />
                </font>
             </Label>
-            <GridPane layoutX="96.0" layoutY="248.0" prefHeight="664.0" prefWidth="564.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="500.0">
+            <GridPane layoutX="96.0" layoutY="248.0" prefHeight="664.0" prefWidth="564.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="550.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -163,6 +163,9 @@
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Ken.jpg" />
+                     </image>
                   </ImageView>
                   <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
@@ -190,7 +193,7 @@
                   </ImageView>
                </children>
             </GridPane>
-            <Pane layoutX="373.0" layoutY="1199.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.rightAnchor="170.0">
+            <Pane layoutX="374.0" layoutY="1218.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.rightAnchor="169.0">
                <children>
                   <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -205,7 +208,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Pane layoutX="171.0" layoutY="1199.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.leftAnchor="170.0">
+            <Pane layoutX="170.0" layoutY="1214.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.leftAnchor="170.0">
                <children>
                   <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -215,6 +218,7 @@
                   <Label layoutX="9.0" layoutY="170.0" text="Haiau Duong&#10;(Ex) Database Engineer" textAlignment="CENTER" />
                </children>
             </Pane>
+            <Label layoutX="101.0" layoutY="1446.0" text="Credit To: &#10;Team Emerald Elbow-Witches (10) - Coach Sai Vadlamudi&#10;Yianni Alexiou, Jonathan Berry, Clayton Dembski, Mitchell Farren, Joshua Galang, &#10;Krystal Grant, Karsten Roberts, Tung Truong, Nikolay Uvarov and Thomas Wiles&#10;for the health care API." />
          </children>
       </AnchorPane>
    </content>
