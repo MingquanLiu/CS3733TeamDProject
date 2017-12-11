@@ -43,9 +43,14 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.*;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.*;
@@ -256,6 +261,12 @@ public class TestingController extends UIController implements Initializable {
     private CheckBox handicap;
     //</editor-fold>
 
+    //fuzzy search related stuffs
+    @FXML
+    JFXTextArea suggestions = new JFXTextArea();
+
+    @FXML
+    Label suggestions2 = new Label();
     /*
     *global variables, not FXML tied
     */
@@ -1459,13 +1470,6 @@ public class TestingController extends UIController implements Initializable {
         return mouseReleaseHandler;
     }
 
-    public void fuzzySearch() {
-
-        //List<String> suggestions = manager.queryNodeByType(input);
-        TextFields fuck;
-        //TextFields.bindAutoCompletion(input, suggestions);
-    }
-
     private EventHandler<MouseEvent> dragMouse() {
         EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -1481,4 +1485,13 @@ public class TestingController extends UIController implements Initializable {
         };
         return dragHandler;
     }
+    public void fuzzyStart(){
+        String input = txtStartLocation.getText();
+        List<String> longNameIDS = manager.queryNodeByLongName(input);
+
+        TextFields.bindAutoCompletion(txtStartLocation, longNameIDS);
+        TextFields.bindAutoCompletion(txtEndLocation, longNameIDS);
+
+    }
+
 }
