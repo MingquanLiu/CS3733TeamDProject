@@ -25,9 +25,9 @@
     <children>
         <ScrollPane fx:id="paneScroll" hbarPolicy="ALWAYS" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <AnchorPane fx:id="panningPane" focusTraversable="true">
+                <AnchorPane fx:id="panningPane" focusTraversable="true"  >
                     <children>
-                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" onMouseClicked="#mouseClickHandler" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" layoutX="-14.0" layoutY="-4.0" onMouseClicked="#mouseClickHandler" pickOnBounds="true" preserveRatio="true" >
                             <image>
                                 <Image url="@../img/Floor_2.png" />
                             </image>
@@ -85,22 +85,12 @@
                         </DialogPane>
                         <Accordion layoutX="355.0" layoutY="221.0" />
                         <Accordion layoutX="748.0" layoutY="348.0" />
-                        <JFXCheckBox fx:id="locateBathrooms" layoutX="1087.0" layoutY="164.0" text="Bathrooms" />
-                        <JFXCheckBox fx:id="locateServiceDesks" layoutX="1027.0" layoutY="243.0" text="Service Desks" />
-                        <JFXCheckBox fx:id="locateRetailServices" layoutX="1059.0" layoutY="308.0" text="Retail Services" />
-                        <JFXCheckBox fx:id="locateWaitingRooms" layoutX="827.0" layoutY="299.0" text="Waiting Rooms" />
-                        <JFXCheckBox fx:id="locateElevators" layoutX="729.0" layoutY="415.0" text="Elevators" />
-                        <JFXCheckBox fx:id="locateExits" layoutX="659.0" layoutY="290.0" text="Exits" />
-                        <JFXCheckBox fx:id="locateStaircases" layoutX="652.0" layoutY="449.0" text="Staircases" />
-                        <JFXCheckBox fx:id="locateLabs" layoutX="479.0" layoutY="339.0" text="Labs" />
-                        <JFXCheckBox fx:id="locateAdditionalServices" layoutX="528.0" layoutY="406.0" text="Additional Services" />
-                        <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
                   <Label fx:id="lblCrossFloor" layoutX="560.0" layoutY="244.0" style="-fx-background-color: #afeeee; -fx-border-color: #d3d3d3;" styleClass="roundCorners" stylesheets="@../css/general_button.css" text="Proceed to Floor X" />
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
-        <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: rgba(255,255,255,0.9); -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: white; -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane fx:id="gridHamburgerTItles" layoutX="3.0" layoutY="77.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="326.0" prefWidth="158.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="76.0">
                     <columnConstraints>
@@ -229,7 +219,7 @@
                             <GridPane.margin>
                                 <Insets left="20.0" top="10.0" />
                             </GridPane.margin></Label>
-                        <JFXTextField fx:id="txtStartLocation" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
+                        <JFXTextField fx:id="txtStartLocation" onKeyTyped="#fuzzyStart" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
                             <GridPane.margin>
                                 <Insets left="20.0" />
                             </GridPane.margin>
