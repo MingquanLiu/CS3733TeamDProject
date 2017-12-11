@@ -8,7 +8,10 @@ import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.RunScript;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -24,6 +27,7 @@ import java.net.URISyntaxException;
 
 
 public class Main extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         checkOrMake();
@@ -45,15 +49,17 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(
         );
         loader.setLocation(getClass().getResource(
-                "/fxml/home_screen.fxml"
+                "/fxml/test.fxml"
         ));
-        Stage stage = new Stage(StageStyle.DECORATED);
+        Stage stage = new Stage(StageStyle
+                .DECORATED);
         stage.setScene(
                 new Scene(
                         (Pane) loader.load()
                 )
         );
-        loader.<TestingController>getController().initManager(manageController);
+        loader.<NewMainUIController>getController().initManager(manageController);
+
         stage.show();
         return stage;
     }

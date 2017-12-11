@@ -314,9 +314,6 @@ public class MapAdminController extends UIController implements Initializable {
             setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
             showNodeList(currentNodes);
         }
-//        setNodeListImageVisibility(true,setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale));
-//        showNodeList(currentNodes);
-
     }
 
 
@@ -722,8 +719,6 @@ public class MapAdminController extends UIController implements Initializable {
         } else {
             selectingLocation = "selectEdge";
             edgeAction = "addEdge";
-//            setupBurger();
-//            editEdgePane.setVisible(true);
         }
     }
 

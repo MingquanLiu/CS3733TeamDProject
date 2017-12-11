@@ -1,14 +1,15 @@
 package edu.wpi.cs3733.programname.commondata;
 
 import edu.wpi.cs3733.programname.boundary.MapAdminController;
+import edu.wpi.cs3733.programname.boundary.NewMainUIController;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
 import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
+import edu.wpi.cs3733.programname.observer.MainNodeDataObserver;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 
 
-import javax.xml.soap.Node;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,6 +115,18 @@ public class HelperFunction {
                     ,nodeData);
             nodeData.setCircleOnDragged(mapAdminNodeDataObserver);
             nodeData.setCircleOnDraggedExit(mapAdminNodeDataObserver);
+        }
+        return mList;
+    }
+
+
+
+    public static List<NodeData> setCircleNodeListController(List<NodeData> mList, NewMainUIController mainController){
+        for(NodeData nodeData: mList){
+            MainNodeDataObserver mainDataObserver = new MainNodeDataObserver(mainController
+                    ,nodeData);
+            nodeData.setCircleOnDragged(mainDataObserver);
+            nodeData.setCircleOnDraggedExit(mainDataObserver);
         }
         return mList;
     }

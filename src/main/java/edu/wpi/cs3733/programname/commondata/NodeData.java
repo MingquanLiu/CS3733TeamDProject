@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.programname.commondata;
 
-import edu.wpi.cs3733.programname.boundary.MapAdminController;
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
 import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
+import edu.wpi.cs3733.programname.observer.MainNodeDataObserver;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -415,13 +415,55 @@ public class NodeData {
                     int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), mapAdminNodeDataObserver.getMapAdminController().currentScale);
                     Coordinate newLoc = new Coordinate(dbX, dbY);
                     mapAdminNodeDataObserver.getNodeData().setLocation(newLoc);
-                    mapAdminNodeDataObserver.enableScroll();
+                   // mapAdminNodeDataObserver.enableScroll();
                     mapAdminNodeDataObserver.update();
                     mapAdminNodeDataObserver.updateNodeInDb();
                     mapAdminNodeDataObserver.showNodeAndPath();
                 } catch (IOException e) {
                 e.printStackTrace();
             }
+            }
+        });
+    }
+
+    public void setCircleOnDragged(MainNodeDataObserver mainNodeDataObserver){
+        mainNodeDataObserver.setNodeData(this);
+        circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //mainNodeDataObserver.disableScroll();
+                System.out.println("Image get clicked");
+                try {
+                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
+                    circle.setCenterX(event.getSceneX());
+                    circle.setCenterY(event.getSceneY());
+                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
+                    mainNodeDataObserver.update();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    public void setCircleOnDraggedExit(MainNodeDataObserver mainNodeDataObserver) {
+        mainNodeDataObserver.setNodeData(this);
+        circle.setOnMouseReleased(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    circle.setCenterX(event.getSceneX());
+                    circle.setCenterY(event.getSceneY());
+                    int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), mainNodeDataObserver.getMainController().getScale());
+                    int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), mainNodeDataObserver.getMainController().getScale());
+                    Coordinate newLoc = new Coordinate(dbX, dbY);
+                    mainNodeDataObserver.getNodeData().setLocation(newLoc);
+                    //mainNodeDataObserver.enableScroll();
+                    mainNodeDataObserver.update();
+                    mainNodeDataObserver.updateNodeInDb();
+                    mainNodeDataObserver.showNodesOrEdges();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
