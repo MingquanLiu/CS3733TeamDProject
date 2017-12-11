@@ -12,6 +12,7 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
+import foodRequest.FoodRequest;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.Transition;
@@ -461,6 +462,15 @@ public class TestingController extends UIController implements Initializable {
             }
         });
     }
+    public void foodRequest(){
+        FoodRequest foodRequest = new FoodRequest();
+        try{
+            foodRequest.run(0,0,1900,1000,null,null,null);
+        }catch (Exception e){
+            System.out.println("Failed to run API");
+            e.printStackTrace();
+        }
+    }
 
     public void setSearchType(PathfindingController.searchType searchType) {
         AppSettings.getInstance().setSearchType(searchType);
@@ -553,7 +563,7 @@ public class TestingController extends UIController implements Initializable {
 //                (DBCToUIC(nodes.get(1).getYCoord(),currentScale)));
         circle.setFill(Color.DARKBLUE);
 */
-        ImageView walkingMan = new ImageView("img/cleanWalkingMan.gif");
+        ImageView walkingMan = new ImageView("img/walkingBlue.gif");
         walkingMan.setPreserveRatio(true);
         walkingMan.setFitWidth(200*currentScale);
 
@@ -572,12 +582,19 @@ public class TestingController extends UIController implements Initializable {
 //        panningPane.getChildren().add(circle);
 //        circle.toFront();
         pathTransition.setAutoReverse(false);
+        pathTransition.orientationProperty().addListener(new ChangeListener<PathTransition.OrientationType>() {
+            @Override
+            public void changed(ObservableValue<? extends PathTransition.OrientationType> observable, PathTransition.OrientationType oldValue, PathTransition.OrientationType newValue) {
+                System.out.println("orientation change");
+            }
+        });
 
 
 
 
         pathTransition.play();
 
+//used in the case of a circle to drop elements behind it
 //        pathTransition.currentTimeProperty().addListener( new ChangeListener<Duration>() {
 //
 //            double count = 1;
@@ -638,7 +655,6 @@ public class TestingController extends UIController implements Initializable {
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
-                pathAnimation(path);
 
                 if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
                     NodeData nextNode = path.get(i+1);
@@ -697,6 +713,7 @@ public class TestingController extends UIController implements Initializable {
             }
             pathDrawings.addAll(lines);
             panningPane.getChildren().addAll(lines);
+            pathAnimation(path);
             emailDirections.setVisible(true);
         }
     }
