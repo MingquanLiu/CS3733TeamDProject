@@ -45,7 +45,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(
         );
         loader.setLocation(getClass().getResource(
-                "/fxml/test.fxml"
+                "/fxml/home_screen.fxml"
         ));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
@@ -53,7 +53,7 @@ public class Main extends Application {
                         (Pane) loader.load()
                 )
         );
-        loader.<NewMainUIController>getController().initManager(manageController);
+        loader.<TestingController>getController().initManager(manageController);
         stage.show();
         return stage;
     }
