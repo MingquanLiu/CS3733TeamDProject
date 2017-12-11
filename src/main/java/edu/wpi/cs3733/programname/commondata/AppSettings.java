@@ -16,6 +16,7 @@ public class AppSettings {
     private boolean saveScreen;
 
     private long shutdownDelay = 5000; // CHANGE THIS VALUE TO ADJUST THE SCREEN SAVER DELAY
+    private String defaultLocation;
 
     private final int INITIAL_MAP_SCALE = 3;
 
@@ -25,6 +26,7 @@ public class AppSettings {
         mapRatioIndex = INITIAL_MAP_SCALE;
         delayTime = System.currentTimeMillis() + shutdownDelay;
         saveScreen = false;
+        defaultLocation = "DEXIT00102";
     }
 
     public static AppSettings getInstance() {
@@ -59,5 +61,11 @@ public class AppSettings {
     }
     public void setSaveScreen(boolean saveScreen) {
         this.saveScreen = saveScreen;
+    }
+    public String getDefaultLocation() {
+        return defaultLocation;
+    }
+    public void setDefaultLocation(String defaultLocation) {
+        this.defaultLocation = defaultLocation;
     }
 }
