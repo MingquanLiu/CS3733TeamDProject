@@ -464,7 +464,7 @@ public class TestingController extends UIController implements Initializable {
                     Boolean changing) {
 
                 if (changing) {
-                    pauseTransitions();
+                    //pauseTransitions();
                 } else {
                     resumeTransitions();
                 }
@@ -473,6 +473,7 @@ public class TestingController extends UIController implements Initializable {
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal){
                 currentScale = newVal.doubleValue()/10;
+                pauseTransitions();
                 setZoom();
             }
         });
@@ -645,6 +646,7 @@ public class TestingController extends UIController implements Initializable {
             int y = (int) (prev.getYCoord() * currentScale);
             System.out.println(x + ", " + y);
 
+            ArrayList<NodeData> thisFloorPath = new ArrayList<>();
             ArrayList<Line> lines = new ArrayList<>();
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
@@ -697,6 +699,8 @@ public class TestingController extends UIController implements Initializable {
                     l.setEndX(n.getXCoord() * currentScale);
                     l.setEndY(n.getYCoord() * currentScale);
                     lines.add(l);
+
+                    thisFloorPath.add(n);
 //                    new LineTo(0, 300),
 //                            new ClosePath()
 //                    PathElement element = new LineTo(l.getEndX(), l.getEndY());
@@ -707,7 +711,9 @@ public class TestingController extends UIController implements Initializable {
             }
             pathDrawings.addAll(lines);
             panningPane.getChildren().addAll(lines);
-            pathAnimation(path);
+            if(thisFloorPath.size() > 0) {
+                pathAnimation(thisFloorPath);
+            }
             emailDirections.setVisible(true);
         }
     }
