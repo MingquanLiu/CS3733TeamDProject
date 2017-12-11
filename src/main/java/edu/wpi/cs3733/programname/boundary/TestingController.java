@@ -21,6 +21,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,6 +33,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -454,7 +456,18 @@ public class TestingController extends UIController implements Initializable {
 
         paneControls.setPickOnBounds(false);
 
-
+        slideZoom.onDragDetectedProperty().addListener(new ChangeListener<EventHandler<? super MouseEvent>>() {
+            @Override
+            public void changed(ObservableValue<? extends EventHandler<? super MouseEvent>> observable, EventHandler<? super MouseEvent> oldValue, EventHandler<? super MouseEvent> newValue) {
+                pauseTransitions();
+            }
+        });
+        slideZoom.onDragDoneProperty().addListener(new ChangeListener<EventHandler<? super DragEvent>>() {
+            @Override
+            public void changed(ObservableValue<? extends EventHandler<? super DragEvent>> observable, EventHandler<? super DragEvent> oldValue, EventHandler<? super DragEvent> newValue) {
+                resumeTransitions();
+            }
+        });
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal){
                 currentScale = newVal.doubleValue()/10;
@@ -462,15 +475,22 @@ public class TestingController extends UIController implements Initializable {
             }
         });
     }
-    public void foodRequest(){
-        FoodRequest foodRequest = new FoodRequest();
-        try{
-            foodRequest.run(0,0,1900,1000,null,null,null);
-        }catch (Exception e){
-            System.out.println("Failed to run API");
-            e.printStackTrace();
+
+    private void pauseTransitions() {
+        if (transitions.size() > 0) {
+            for (Transition t : transitions) {
+                t.pause();
+            }
         }
     }
+    private void resumeTransitions(){
+        if(transitions.size() > 0){
+            for(Transition t:transitions){
+                t.play();
+            }
+        }
+    }
+
 
     public void setSearchType(PathfindingController.searchType searchType) {
         AppSettings.getInstance().setSearchType(searchType);
@@ -530,20 +550,47 @@ public class TestingController extends UIController implements Initializable {
         }
         return mNodeData;
     }
+    //clearing functions
+    public void clearMain() {
+        clearPath();
+        lblCrossFloor.setVisible(false);
+        closeNodeInfoHandler();
+        clearPathFindLoc();
+        //lastShowNodeData.setImageVisible(false);
+    }
+    private void clearPath() {
+        currentPath = new ArrayList<>();
+        if (pathDrawings.size() > 0) {
+            for (Shape shape : pathDrawings) {
+                System.out.println("success remove");
+                panningPane.getChildren().remove(shape);
+            }
+            currentPathStartFloor = "";
+            currentPathGoalFloor = "";
+            pathDrawings = new ArrayList<>();
 
-    public void stopTransitions(){
+        }
+        clearAnimations();
+    }
+    public void clearAnimations(){
         if(!transitions.isEmpty()) {
             for (Transition t : transitions) {
+                t = new PathTransition();
                 t.stop();
+            }
+        }
+        transitions = new ArrayList<>();
+        if (drawnImages.size() > 0){
+            for(ImageView img:drawnImages){
+                panningPane.getChildren().remove(img);
             }
         }
     }
     private void pathAnimation(List<NodeData> nodes){
-        stopTransitions();
-
+        clearAnimations();
         Path path = new Path();
-        for (int i = 1; i < nodes.size(); i++){
-            if(i==1){
+        for (int i = 0; i < nodes.size(); i++){
+            if(i==0){
                 MoveTo moveTo = new MoveTo();
                 moveTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
                 moveTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
@@ -557,12 +604,7 @@ public class TestingController extends UIController implements Initializable {
             }
         }
         //panningPane.getChildren().addAll(path);
-/*
-        Circle circle = new Circle(5, Color.DARKBLUE);
-//        Polygon triganle = new Polygon ((DBCToUIC(nodes.get(1).getXCoord(),currentScale)),
-//                (DBCToUIC(nodes.get(1).getYCoord(),currentScale)));
-        circle.setFill(Color.DARKBLUE);
-*/
+
         ImageView walkingMan = new ImageView("img/walkingBlue.gif");
         walkingMan.setPreserveRatio(true);
         walkingMan.setFitWidth(200*currentScale);
@@ -570,17 +612,13 @@ public class TestingController extends UIController implements Initializable {
         PathTransition pathTransition = new PathTransition();
 
 
-//        pathTransition.setDuration(Duration.millis(10000));
         pathTransition.setRate(.02);
-//        pathTransition.setNode(circle);
         pathTransition.setNode(walkingMan);
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pathTransition.setCycleCount(100);
         panningPane.getChildren().add(walkingMan);
         walkingMan.toFront();
-//        panningPane.getChildren().add(circle);
-//        circle.toFront();
         pathTransition.setAutoReverse(false);
         pathTransition.orientationProperty().addListener(new ChangeListener<PathTransition.OrientationType>() {
             @Override
@@ -589,62 +627,16 @@ public class TestingController extends UIController implements Initializable {
             }
         });
 
-
-
-
         pathTransition.play();
 
-//used in the case of a circle to drop elements behind it
-//        pathTransition.currentTimeProperty().addListener( new ChangeListener<Duration>() {
-//
-//            double count = 1;
-//            double oldX = circle.getTranslateX();
-//            double oldY = circle.getTranslateY();
-//            @Override
-//            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-//                // skip starting at 0/0
-//                if( oldValue == Duration.ZERO) {
-//                    oldX = circle.getTranslateX();
-//                    oldY = circle.getTranslateY();
-//                    return;
-//                }
-//                // get current location
-//                double x = circle.getTranslateX();
-//                double y = circle.getTranslateY();
-//                System.out.println("circle at: " + x + ", " + y);
-//                System.out.println("old at: " + oldX + ", " + oldY);
-//
-//                double distance = Math.sqrt(Math.pow(x-oldX,2)+Math.pow(y-oldY,2));
-//                System.out.println("distance: " + distance);
-//                if(distance > 20){
-//                    oldX = x;
-//                    oldY = y;
-//                    Circle c = new Circle(5, Color.LIGHTBLUE);
-//                    System.out.println("draw follower circle");
-//                    c.setTranslateX(x);
-//                    c.setTranslateY(y);
-//                    System.out.println("light blue at: " + c.getTranslateX() + ", " + c.getTranslateY());
-//
-//                    panningPane.getChildren().add(c);
-//                    pathDrawings.add(c);
-//                    c.toFront();
-//                    circle.toFront();
-//
-//                }
-//
-//            }
-//        });
-
-
-//        pathDrawings.add(circle);
         drawnImages.add(walkingMan);
         transitions.add(pathTransition);
     }
 
     private void displayPath(List<NodeData> path) {
         if (path != null && !path.isEmpty()) {
+            clearPath();                    //first thing to do is clear any visible path and animations
             currentPath = path;
-            clearPath();
             System.out.println("drawing path");
             NodeData prev = path.get(0);
             int x = (int) (prev.getXCoord() * currentScale);
@@ -718,42 +710,10 @@ public class TestingController extends UIController implements Initializable {
         }
     }
 
-    public void clearMain() {
-        clearPath();
-        lblCrossFloor.setVisible(false);
-        closeNodeInfoHandler();
-        clearPathFindLoc();
-        //lastShowNodeData.setImageVisible(false);
-    }
-
     private void clearPathFindLoc() {
         txtEndLocation.setText("");
         txtStartLocation.setText("");
     }
-
-    private void clearPath() {
-        //currentPath = new ArrayList<>();
-        if (pathDrawings.size() > 0) {
-            for (Shape shape : pathDrawings) {
-                System.out.println("success remove");
-                panningPane.getChildren().remove(shape);
-            }
-            currentPathStartFloor = "";
-            currentPathGoalFloor = "";
-            pathDrawings = new ArrayList<>();
-
-        }
-        if (drawnImages.size() > 0){
-            for(ImageView img:drawnImages){
-                panningPane.getChildren().remove(img);
-            }
-        }
-        stopTransitions();
-    }
-
-    private void clearNodes() {
-    }
-
 
     public void mapChange(ActionEvent e) {
         setFloor();
@@ -1012,7 +972,6 @@ public class TestingController extends UIController implements Initializable {
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
-            clearPath();
             displayPath(mPath);
         }
         setNodeListSizeAndLocation(currentNodes, currentScale);
@@ -1351,7 +1310,6 @@ public class TestingController extends UIController implements Initializable {
     public void passNodeData(NodeData nodeData) throws IOException {
         switch (selectingLocation) {
             case "":
-                clearNodes();
 
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
@@ -1364,14 +1322,12 @@ public class TestingController extends UIController implements Initializable {
                 selectingLocation = "";
                 break;
             case "selectStart":
-                clearNodes();
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
                 txtStartLocation.setText(nodeData.getLongName());
                 selectingLocation = "";
                 break;
             case "selectEnd":
-                clearNodes();
 //                showNode(nodeData);
                 showNodeInfo(nodeData);
                 txtEndLocation.setText(nodeData.getLongName());
