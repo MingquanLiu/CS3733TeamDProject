@@ -133,7 +133,7 @@
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
-                        <String fx:value="icon-button-subject" />
+                        <String fx:value="button-icon-subject" />
                         <String fx:value="button-keyLocation" />
                      </styleClass>
                   </JFXButton>
