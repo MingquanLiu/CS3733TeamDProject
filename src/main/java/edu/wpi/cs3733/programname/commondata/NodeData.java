@@ -363,6 +363,21 @@ public class NodeData {
             }
         });
     }
+
+    public void setImageViewOnClick(MainNodeDataObserver mainNodeDataObserver){
+        mainNodeDataObserver.setNodeData(this);
+        nodeImageView.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Image get clicked");
+                try {
+                    mainNodeDataObserver.update();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
     public void setImageVisible(Boolean imageVisible){
         nodeImageView.setVisible(imageVisible);
     }

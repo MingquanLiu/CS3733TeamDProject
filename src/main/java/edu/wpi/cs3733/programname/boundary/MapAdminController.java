@@ -318,12 +318,14 @@ public class MapAdminController extends UIController implements Initializable {
 
 
     private void showNodeList(List<NodeData> nodeDataList) {
+        System.out.println("using node list 1");
         for (int i = 0; i < nodeDataList.size(); i++) {
             showNode(nodeDataList.get(i));
         }
     }
 
     private void showNodeList2(List<NodeData> nodeDataList) {
+        System.out.println("using node list 2");
         for (int i = 0; i < nodeDataList.size(); i++) {
             showNode2(nodeDataList.get(i));
         }

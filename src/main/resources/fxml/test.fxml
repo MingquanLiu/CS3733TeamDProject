@@ -7,7 +7,9 @@
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TitledPane?>
@@ -44,7 +46,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="307.0" prefWidth="312.0">
                      <children>
-                        <JFXListView layoutX="21.0" layoutY="-84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0" />
+                        <JFXListView fx:id="textDirections" layoutX="21.0" layoutY="-84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
               </content>
@@ -157,11 +159,11 @@
       </AnchorPane>
       <AnchorPane prefHeight="184.0" prefWidth="314.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
-            <JFXTextField layoutX="111.0" layoutY="14.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="9.0" />
-            <JFXTextField layoutX="111.0" layoutY="60.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="55.0" />
+            <JFXTextField fx:id="startLocation" layoutX="111.0" layoutY="14.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="9.0" />
+            <JFXTextField fx:id="endLocation" layoutX="111.0" layoutY="60.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="55.0" />
             <Label layoutX="11.0" layoutY="14.0" prefHeight="31.0" prefWidth="100.0" text="Start Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0" />
             <Label layoutX="11.0" layoutY="60.0" prefHeight="31.0" prefWidth="100.0" text="End Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="60.0" />
-            <JFXButton buttonType="RAISED" layoutX="46.0" layoutY="104.0" ripplerFill="#cff888" text="Search">
+            <JFXButton buttonType="RAISED" layoutX="46.0" layoutY="104.0" onAction="#goButtonHandler" ripplerFill="#cff888" text="Search">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -171,7 +173,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXCheckBox layoutX="54.0" layoutY="142.0" text="Handicap" />
+            <JFXCheckBox fx:id="handicap" layoutX="54.0" layoutY="142.0" text="Handicap" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="adminFeaturePane" prefHeight="294.0" prefWidth="314.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
@@ -262,7 +264,7 @@
             <JFXButton alignment="BOTTOM_CENTER" layoutX="1180.0" layoutY="4.0" prefHeight="31.0" prefWidth="101.0" ripplerFill="#59fc92" text="Help" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="104.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="490.0" layoutY="45.0" prefHeight="326.0" prefWidth="331.0">
+      <AnchorPane layoutX="490.0" layoutY="45.0" prefHeight="255.0" prefWidth="237.0">
          <children>
             <JFXComboBox fx:id="comboBuilding" layoutX="17.0" layoutY="24.0" onAction="#setMap" prefHeight="39.0" prefWidth="123.0" />
             <JFXComboBox fx:id="comboFloors" layoutX="17.0" layoutY="69.0" onAction="#setMap" prefHeight="39.0" prefWidth="120.0" />
@@ -276,7 +278,7 @@
             <JFXButton fx:id="btnAddEdge" layoutX="135.0" layoutY="216.0" onAction="#addButtonHandler" text="add Edge" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="nodeInfoPane" layoutX="423.0" layoutY="217.0" prefHeight="294.0" prefWidth="630.0" style="-fx-background-color: white; -fx-border-color: #1c221d;" visible="false">
+      <AnchorPane fx:id="nodeEditPane" layoutX="423.0" layoutY="217.0" prefHeight="294.0" prefWidth="630.0" style="-fx-background-color: white; -fx-border-color: #1c221d;" visible="false">
          <children>
             <Pane layoutX="1.0" prefHeight="50.0" prefWidth="320.0" style="-fx-background-color: #c0c0c0; -fx-border-color: #1c221d transparent #494949 transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="82.0" layoutY="14.0" text="Node Information" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
@@ -348,6 +350,57 @@
             </StackPane>
          </children>
       </AnchorPane>
+      <DialogPane fx:id="nodeInfoPane" layoutX="354.0" layoutY="300.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="187.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
+         <content>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="150.0">
+               <children>
+                  <JFXButton fx:id="closeNodeInfo" layoutX="38.0" layoutY="65.0" mnemonicParsing="false" onAction="#closeNodeInfoHandler" style="-fx-background-color: #d2d2d2; -fx-border-color: black;" text="Close" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <GridPane layoutX="32.0" layoutY="68.0" prefHeight="29.0" prefWidth="136.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="25.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="20.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="20.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label fx:id="lblNodeX" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblNodeY" text="Label" GridPane.columnIndex="3" />
+                        <Label text="X: " />
+                        <Label text="Y:" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="20.0" layoutY="20.0" prefHeight="75.0" prefWidth="153.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="-10.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label fx:id="nodeInfoLongName" maxHeight="-Infinity" maxWidth="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" />
+                        <Label fx:id="nodeInfoShortName" maxHeight="-Infinity" maxWidth="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Label" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Label fx:id="nodeInfoType" maxHeight="-Infinity" maxWidth="1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="150.0" text="Label" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content>
+         <header>
+            <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #c0c0c0; -fx-border-color: transparent transparent black transparent;" text="Node Info" textAlignment="CENTER">
+               <padding>
+                  <Insets left="50.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </header>
+      </DialogPane>
 
     </children>
 </AnchorPane>

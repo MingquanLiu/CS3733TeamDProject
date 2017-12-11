@@ -100,10 +100,8 @@ public class NewMainUIController implements Initializable {
     private JFXButton interpreterServiceRequest;
     @FXML
     private JFXButton transportationServiceRequest;
-    //<editor-fold desc="handicapped">
     @FXML
     private CheckBox handicap;
-    //</editor-fold>
     @FXML
     private JFXButton keyLocationRetail;
     @FXML
@@ -145,7 +143,9 @@ public class NewMainUIController implements Initializable {
     @FXML
     private JFXButton btnAddEdge;
     @FXML
-    private AnchorPane nodeInfoPane;
+    private DialogPane nodeInfoPane;
+    @FXML
+    private AnchorPane nodeEditPane;
     @FXML
     private JFXButton nodeInfoSetLocation;
     @FXML
@@ -170,6 +170,23 @@ public class NewMainUIController implements Initializable {
     private Label lblCurrentFloor;
     @FXML
     private JFXComboBox comboTypes;
+    @FXML
+    private TextField startLocation;
+    @FXML
+    private TextField endLocation;
+    @FXML
+    private JFXListView textLocations;
+    @FXML
+    private Label lblNodeX;
+    @FXML
+    private Label lblNodeY;
+    @FXML
+    private Label nodeInfoType;
+    @FXML
+    private Label nodeInfoShortName;
+    @FXML
+    private Label nodeInfoLongName;
+
     /*
     *global variables, not FXML tied
     */
@@ -194,6 +211,17 @@ public class NewMainUIController implements Initializable {
     private NodeData selectEdgeN1 = null;
     private NodeData selectEdgeN2 = null;
 
+    private List<NodeData> currentPath;
+    private List<Shape> pathDrawings = new ArrayList<>();
+    private Group m_draggableNode;
+    private String currentPathStartFloor = "";
+    private String currentPathGoalFloor = "";
+    private Coordinate currentStartFloorLoc;
+    private Coordinate currentGoalFloorLoc;
+    final double minWidth = 1500;
+    final double maxWidth = 5000;
+
+
     //this runs on startup
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -204,7 +232,6 @@ public class NewMainUIController implements Initializable {
         instantiateNodeList();
 
         currentScale = 0.3;
-        setZoom();
 
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
@@ -257,6 +284,7 @@ public class NewMainUIController implements Initializable {
         comboTypes.setValue("REST");
         //sets the map, just in case we want it to start on another floor
         setMap();
+        setZoom();
     }
 
     public void onClickMap(MouseEvent e) {
@@ -264,12 +292,26 @@ public class NewMainUIController implements Initializable {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
+
+        ///////////////////
+
+        if (!selectingLocation.equals("selectSRLocation")) {
+
+        } else {
+            //System.out.println("In selectSRLocation" + SRSelectType);
+            //popupSRWithCoord(getClosestNode(currentNodes, x, y), SRSelectType);
+            selectingLocation = "";
+        }
+
+        ///////////////////////
         System.out.println("current floor: " + curFloor);
         List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curFloor.getBuilding());
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
                 NodeData mClickedNode = getClosestNode(nodes, x, y);
+                if (mClickedNode != null)
+                    showNodeInfo(mClickedNode);
                 break;
             case "selectLocation":
                 nodeInfoSetLocation.getScene().setCursor(Cursor.DEFAULT);
@@ -286,7 +328,7 @@ public class NewMainUIController implements Initializable {
                         setNodeDataToInfoPane(mClickedNode);
                         break;
                 }
-                nodeInfoPane.setVisible(true);
+                nodeEditPane.setVisible(true);
                 selectingLocation = "";
                 break;
             case "selectEdge":
@@ -389,15 +431,15 @@ public class NewMainUIController implements Initializable {
     //map zooming method
     private void setZoom() {
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
-        /*
         if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
             clearPath();
             displayPath(mPath);
         }
         setNodeListSizeAndLocation(currentNodes, currentScale);
+        showNodesOrEdges();
         relocateNodeInfo();
-        */
+
     }
 
 
@@ -406,15 +448,46 @@ public class NewMainUIController implements Initializable {
         slideZoom.setValue(currentScale * 10);
     }
 
-    public void zoomHandler(ActionEvent e) {
-        if (e.getSource() == btnZoomOut) {
-            currentScale = Math.max(currentScale - .08, .3);
-        } else if (e.getSource() == btnZoomIn) {
-            currentScale = Math.min(currentScale + .08, .6);
-        }
 
-        setZoom();
+    public void zoomHandler(ActionEvent e) {
         updateZoomSlider();
+        if (e.getSource() == btnZoomOut) {
+//            if(imgMap.getFitWidth() <= minWidth){
+//                return;
+//            }
+            if (AppSettings.getInstance().getMapRatioIndex() == 0) {
+                return;
+            }
+            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() - 1);
+            currentScale = Math.max(currentScale - .08, .3);
+            imgMap.setFitWidth(maxWidth * currentScale);
+        } else {
+//            if(imgMap.getFitWidth() >= MAX_UI_WIDTH){
+//                return;
+//            }
+            if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
+                return;
+            }
+            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() + 1);
+            currentScale = Math.min(currentScale + .08, .6);
+            imgMap.setFitWidth(maxWidth * currentScale);
+        }
+//        clearMain();
+//        if (!(currentEdge == null) && !currentEdge.isEmpty()) {
+//            System.out.println("case edge 1");
+//            List<EdgeData> mEdges = currentEdge;
+//            clearEdge();
+//            displayEdges(mEdges);
+//        }
+//        if (!(currentNodes == null) && !currentNodes.isEmpty()) {
+//            List<NodeData> mNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "45 Francis");
+//            System.out.println("case node main, floor = " + floor);
+//            clearNodes();
+//            showNodeList(mNodes);
+//            System.out.println(currentScale);
+//        }
+        updateZoomSlider();
+        showNodesOrEdges();
     }
 
     public double getScale(){return currentScale;}
@@ -520,6 +593,8 @@ public class NewMainUIController implements Initializable {
 
             Image newImg = new Image(newUrl);
             imgMap.setImage(newImg);
+
+            setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));  ;
             showNodesOrEdges();
 
         }
@@ -577,7 +652,7 @@ public class NewMainUIController implements Initializable {
 
     public void addButtonHandler(ActionEvent event) {
         if (event.getSource() == btnAddNode) {
-            nodeInfoPane.setVisible(true);
+            nodeEditPane.setVisible(true);
             nodeInfoAdd.setVisible(true);
             nodeInfoDelete.setVisible(false);
             nodeInfoEdit.setVisible(false);
@@ -592,7 +667,7 @@ public class NewMainUIController implements Initializable {
     }
 
     public void nodeInfoHandler(ActionEvent event) {
-        nodeInfoPane.setVisible(false);
+        nodeEditPane.setVisible(false);
         if (event.getSource() == nodeInfoSetLocation) {
             selectingLocation = "selectLocation";
             nodeInfoSetLocation.getScene().setCursor(Cursor.CROSSHAIR);
@@ -685,6 +760,149 @@ public class NewMainUIController implements Initializable {
         drawings.add(line);
     }
 
+
+    public void goButtonHandler() {
+        System.out.println("drawing path");
+        try {
+            //false needs to be changed to something that reflects if we need a handicap path
+            System.out.println("start: " + startLocation.getText());
+            System.out.println("end: " + endLocation.getText());
+            currentPath = manager.startPathfind(startLocation.getText(), endLocation.getText(), handicap.isSelected());
+        } catch (InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        } catch (NoPathException np) {
+            String id = np.startID;
+            currentPath = new ArrayList<>();
+        }
+        //displayPath(currentPath);
+        TextDirections textDirections = new TextDirections(currentPath);
+        String directions = "";
+        ObservableList directionsList = FXCollections.observableList(new ArrayList<>());
+        for(String s: Arrays.asList("L2","L1","G","1","2","3")) {
+            try {
+                List<TextDirection> currentFloor = textDirections.getByFloor(s);
+                directions += "\n\nFloor " + s;
+                for (TextDirection t : currentFloor) {
+                    directions += "\n\t" + t.getDirection();
+                }
+            } catch (NullPointerException npe) {
+                System.out.println("No text directions on this floor");
+            }
+        }
+        //shitty fix for null problem
+        directions = directions.replaceAll("null", "");
+        directionsList.add(directions);
+        textLocations.setItems(directionsList);
+
+    }
+
+    private void displayPath(List<NodeData> path) {
+        if (path != null && !path.isEmpty()) {
+            currentPath = path;
+            clearPath();
+            System.out.println("drawing path");
+            NodeData prev = path.get(0);
+            int x = (int) (prev.getXCoord() * currentScale);
+            int y = (int) (prev.getYCoord() * currentScale);
+            System.out.println(x + ", " + y);
+
+            ArrayList<Line> lines = new ArrayList<>();
+            for (int i = 1; i < path.size(); i++) {
+                Line l = new Line();
+                NodeData n = path.get(i);
+
+                if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
+                    NodeData nextNode = path.get(i+1);
+                    String printFloor = "";
+                    if((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
+                            (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))){
+                        for(int j = 1; j < path.size() - i; j++) {
+                            nextNode = path.get(i+j);
+                            if (!nextNode.getNodeType().equals(n.getNodeType())){
+                                printFloor = n.getFloor();
+                                currentPathStartFloor = printFloor;
+                                currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
+                                currentPathGoalFloor = nextNode.getFloor();
+                                currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
+                            } else if (nextNode.equals(n)) {
+                                printFloor = n.getFloor();
+                                currentPathStartFloor = printFloor;
+                                currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
+                                currentPathGoalFloor = nextNode.getFloor();
+                                currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
+                            }
+                        }
+                        /*lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
+                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+                        lblCrossFloor.setVisible(true);
+                        lblCrossFloor.toFront();*/
+                    }
+                }
+
+                if(n.getFloor().equals(curFloor.getFloorNum())&&prev.getFloor().equals(curFloor.getFloorNum())) {
+                    l.setStroke(Color.BLUE);
+                    l.setStrokeWidth(10.0 * currentScale);
+                    l.setStartX(prev.getXCoord() * currentScale);
+                    l.setStartY(prev.getYCoord() * currentScale);
+                    l.setEndX(n.getXCoord() * currentScale);
+                    l.setEndY(n.getYCoord() * currentScale);
+                    lines.add(l);
+                }
+                prev = n;
+            }
+            pathDrawings.addAll(lines);
+            m_draggableNode.getChildren().addAll(lines);
+            panningPane.getChildren().add(m_draggableNode);
+            //panningPane.getChildren().addAll(lines);
+            //emailDirections.setVisible(true);
+        }
+    }
+
+    ///
+    // helper functions
+    ///
+
+    private void clearPathFindLoc() {
+        endLocation.setText("");
+        startLocation.setText("");
+    }
+
+    public void clearMain() {
+        if (drawings.size() > 0) {
+            for (Shape shape : drawings) {
+                panningPane.getChildren().remove(shape);
+            }
+            drawings = new ArrayList<>();
+        }
+        for (NodeData nodeData : currentNodes) {
+            panningPane.getChildren().remove(nodeData.getCircle());
+        }
+    }
+
+    private void clearPath() {
+        //currentPath = new ArrayList<>();
+        if (pathDrawings.size() > 0) {
+            panningPane.getChildren().remove(m_draggableNode);
+            for (Shape shape : pathDrawings) {
+                System.out.println("success remove");
+                m_draggableNode.getChildren().remove(shape);
+            }
+            currentPathStartFloor = "";
+            currentPathGoalFloor = "";
+            pathDrawings = new ArrayList<>();
+        }
+    }
+
+    public void relocateNodeInfo() {
+        if (nodeInfoPane.isVisible()) {
+            int x = Integer.parseInt(lblNodeX.getText());
+            int y = Integer.parseInt(lblNodeY.getText());
+            nodeInfoPane.setLayoutX(x * currentScale);
+            nodeInfoPane.setLayoutY(y * currentScale);
+        }
+    }
+
     private NodeData getNode(String nodeID) {
         for (NodeData nodeData : currentNodes) {
             if (nodeData.getNodeID().equals(nodeID)) {
@@ -723,7 +941,7 @@ public class NewMainUIController implements Initializable {
     }
 
     public void nodeInfoXHandler() {
-        nodeInfoPane.setVisible(false);
+        nodeEditPane.setVisible(false);
         clearNodeInfoText();
     }
 
@@ -737,16 +955,76 @@ public class NewMainUIController implements Initializable {
         textNodeTeamAssigned.setText("");
     }
 
-    public void clearMain() {
-        if (drawings.size() > 0) {
-            for (Shape shape : drawings) {
-                panningPane.getChildren().remove(shape);
-            }
-            drawings = new ArrayList<>();
-        }
-        for (NodeData nodeData : currentNodes) {
-            panningPane.getChildren().remove(nodeData.getCircle());
+    private void showNodeInfo(NodeData nodeData) {
+        int dbX = nodeData.getXCoord();
+        int dbY = nodeData.getYCoord();
+        System.out.println("Node Coordinate: " + dbX + "," + dbY + " Node Name: " + nodeData.getLongName());
+        nodeInfoPane.setVisible(true);
+        nodeInfoPane.setLayoutX(DBCToUIC(dbX, currentScale) + 3);
+        nodeInfoPane.setLayoutY(DBCToUIC(dbY, currentScale) + 3);
+        nodeInfoPane.setVisible(true);
+        //nodeInfoLocation.setText(dbX + ", " + dbY);
+        lblNodeX.setText(dbX + "");
+        lblNodeY.setText(dbY + "");
+        nodeInfoType.setText("" + nodeData.getNodeType());
+        nodeInfoLongName.setText("" + nodeData.getLongName());
+        nodeInfoShortName.setText("" + nodeData.getShortName());
+        nodeInfoPane.toFront();
+    }
+
+    public void closeNodeInfoHandler() {
+        nodeInfoPane.setVisible(false);
+        nodeInfoLongName.setText("");
+        nodeInfoShortName.setText("");
+        nodeInfoType.setText("");
+        lblNodeX.setText("");
+        lblNodeY.setText("");
+    }
+
+    public void fuzzyStart(){
+        String input = startLocation.getText();
+        List<String> longNameIDS = manager.queryNodeByLongName(input);
+
+        TextFields.bindAutoCompletion(startLocation, longNameIDS);
+        TextFields.bindAutoCompletion(endLocation, longNameIDS);
+
+    }
+/*
+    public void passNodeData(NodeData nodeData) throws IOException {
+        switch (selectingLocation) {
+            case "":
+                clearNodes();
+
+//                showNode(nodeData);
+                showNodeInfo(nodeData);
+                break;
+            case "selectLocation":
+                System.out.println("In selectLocation");
+                lblServiceX.setText("" + nodeData.getXCoord());
+                lblServiceY.setText("" + nodeData.getYCoord());
+                serviceRequester.setVisible(true);
+                selectingLocation = "";
+                break;
+            case "selectStart":
+                clearNodes();
+//                showNode(nodeData);
+                showNodeInfo(nodeData);
+                txtStartLocation.setText(nodeData.getLongName());
+                selectingLocation = "";
+                break;
+            case "selectEnd":
+                clearNodes();
+//                showNode(nodeData);
+                showNodeInfo(nodeData);
+                txtEndLocation.setText(nodeData.getLongName());
+                selectingLocation = "";
+                break;
+            case "selectSRLocation":
+                popupSRWithCoord(nodeData, SRSelectType);
+                selectingLocation = "";
+                break;
         }
     }
+*/
 
 }

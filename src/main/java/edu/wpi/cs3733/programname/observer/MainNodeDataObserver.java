@@ -9,14 +9,20 @@ import java.io.IOException;
 public class MainNodeDataObserver extends Observer {
     private NewMainUIController mainController;
     private NodeData nodeData;
-    public MainNodeDataObserver(NewMainUIController mainController, NodeData nodeData){
+
+    public MainNodeDataObserver(NewMainUIController mainController, NodeData nodeData) {
         this.mainController = mainController;
         this.nodeData = nodeData;
     }
-    public void setNodeData(NodeData nodeData){
+
+    public void setNodeData(NodeData nodeData) {
         this.nodeData = nodeData;
     }
-    public NodeData getNodeData() { return this.nodeData;}
+
+    public NodeData getNodeData() {
+        return this.nodeData;
+    }
+
     @Override
     public void update() throws IOException {
         //mainController.passNodeData(nodeData);
@@ -30,7 +36,7 @@ public class MainNodeDataObserver extends Observer {
         //mainController.getManager().editNode(nodeData);
     }
 
-    public void showNodesOrEdges(){
+    public void showNodesOrEdges() {
         mainController.showNodesOrEdges();
     }
 }

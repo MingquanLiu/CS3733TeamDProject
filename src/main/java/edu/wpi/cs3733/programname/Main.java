@@ -46,10 +46,12 @@ public class Main extends Application {
 
 
     public Stage showDialog(ManageController manageController) throws IOException {
+        String toUse = "home_screen";
+        toUse = "test";
         FXMLLoader loader = new FXMLLoader(
         );
         loader.setLocation(getClass().getResource(
-                "/fxml/test.fxml"
+                "/fxml/" + toUse + ".fxml"
         ));
         Stage stage = new Stage(StageStyle
                 .DECORATED);
@@ -58,7 +60,10 @@ public class Main extends Application {
                         (Pane) loader.load()
                 )
         );
-        loader.<NewMainUIController>getController().initManager(manageController);
+        if (toUse.equals("home_screen"))
+            loader.<TestingController>getController().initManager(manageController);
+        else
+            loader.<NewMainUIController>getController().initManager(manageController);
 
         stage.show();
         return stage;
@@ -120,9 +125,7 @@ public class Main extends Application {
      *
      * @param resourceName ie.: "/SmartLibrary.dll"
      * @return The path to the exported resource
-     * @throws Exception
-     *
-     * thank you to user Ordiel on stack overflow for the structure
+     * @throws Exception thank you to user Ordiel on stack overflow for the structure
      */
 
     public String ExportResource(String resourceName) throws Exception {
@@ -131,7 +134,7 @@ public class Main extends Application {
         String jarFolder = "";
         try {
             stream = Main.class.getResourceAsStream("/img/" + resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
-            if(stream == null) {
+            if (stream == null) {
                 throw new Exception();
             }
 

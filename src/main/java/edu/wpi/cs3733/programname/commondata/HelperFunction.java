@@ -62,8 +62,19 @@ public class HelperFunction {
         }
         return mList;
     }
+
+    public static List<NodeData> setNodeListController(List<NodeData> mList, NewMainUIController mainController){
+        for(NodeData nodeData: mList){
+            MainNodeDataObserver mainNodeDataObserver = new MainNodeDataObserver(mainController
+                    ,nodeData);
+            nodeData.setImageViewOnClick(mainNodeDataObserver);
+        }
+        return mList;
+    }
+
     public static List<NodeData>  setNodeListSizeAndLocation(List<NodeData> mList,double currentScale){
         for(NodeData nodeData: mList){
+            System.out.println("Node: " + nodeData);
             nodeData.setImageViewSizeAndLocation(currentScale);
         }
         return mList;
