@@ -492,6 +492,31 @@ public class TestingController extends UIController implements Initializable {
         });
     }
 
+    public void reinitalize() {
+        paneAdminFeatures.setVisible(false);
+        burgerTransition = new HamburgerSlideCloseTransition(burger);
+        burgerTransition.setRate(-1);
+
+        paneControls.setVisible(false);
+        currentScale = 0.3;
+        ObservableList locations = FXCollections.observableArrayList(
+                "None",
+               "Bathrooms",
+               "Service Desks",
+               "Retail Services",
+               "Waiting Rooms",
+               "Elevators",
+               "Exits",
+               "Staircases",
+               "Labs",
+               "Additional Services",
+               "All Locations");
+        comboLocations.setItems(locations);
+        comboLocations.setValue("None");
+        lblCrossFloor.setVisible(false);
+        paneControls.setPickOnBounds(false);
+    }
+
     public void setSearchType(PathfindingController.searchType searchType) {
         AppSettings.getInstance().setSearchType(searchType);
     }

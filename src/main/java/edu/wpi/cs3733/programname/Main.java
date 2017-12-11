@@ -80,6 +80,7 @@ public class Main extends Application {
             }
         });
         loader.<TestingController>getController().initManager(manageController);
+        initThread(manageController, loader.<TestingController>getController());
         stage.show();
         return stage;
     }
@@ -97,7 +98,7 @@ public class Main extends Application {
         return dbConnection;
     }
 
-    public static void main(String[] args) {
+    private Thread initThread(ManageController manageController, TestingController testingController) {
         try {
             GlobalScreen.registerNativeHook();
         }
@@ -153,12 +154,18 @@ public class Main extends Application {
                         if(System.currentTimeMillis() < AppSettings.getInstance().getDelayTime()) {
                             frame.dispose();
                             AppSettings.getInstance().setSaveScreen(false);
+                            testingController.reinitalize();
                         }
                     }
                 }
             }
         });
         thread.start();
+        return thread;
+    }
+
+    public static void main(String[] args) {
+
         launch(args);
     }
 
