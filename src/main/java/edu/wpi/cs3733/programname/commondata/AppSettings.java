@@ -21,7 +21,7 @@ public class AppSettings {
         searchType = PathfindingController.searchType.ASTAR;
         handicapPath = false;
         mapRatioIndex = INITIAL_MAP_SCALE;
-        delayTime = System.currentTimeMillis() + 5000;
+        delayTime = System.currentTimeMillis() + 60000;
         saveScreen = false;
     }
 
@@ -47,7 +47,7 @@ public class AppSettings {
         this.mapRatioIndex = mapRatioIndex;
     }
     public void kickTimer() {
-        delayTime = System.currentTimeMillis() + 5000;
+        delayTime = System.currentTimeMillis() + 60000;
     }
     public long getDelayTime() {
         return delayTime;

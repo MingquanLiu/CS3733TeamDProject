@@ -115,7 +115,7 @@ public class Main extends Application {
 
         // Get the logger for "org.jnativehook" and set the level to off.
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
-        logger.setLevel(Level.SEVERE);
+        logger.setLevel(Level.OFF);
 
         Thread thread = new Thread(new Runnable() {
             public void run() {
@@ -129,8 +129,7 @@ public class Main extends Application {
                             frame.setUndecorated(true);
                             try {
                                 frame.add(new Component() {
-                                    BufferedImage img = ImageIO.read(new URL("http://upload.wikimedia.org/"+
-                                            "wikipedia/en/2/24/Lenna.png"));
+                                    BufferedImage img = ImageIO.read(new URL("img/LoginLogo/BrighamandWomensHospital.jpg"));
                                     @Override
                                     public void paint(Graphics g) {
                                         super.paint(g);
