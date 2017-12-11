@@ -130,7 +130,7 @@ public class Main extends Application {
                             frame.setUndecorated(true);
                             try {
                                 frame.add(new Component() {
-                                    BufferedImage img = ImageIO.read(new URL("img/LoginLogo/BrighamandWomensHospital.jpg"));
+                                    BufferedImage img = ImageIO.read(getClass().getResource("/css/sanitation_styles.css"));
                                     @Override
                                     public void paint(Graphics g) {
                                         super.paint(g);
