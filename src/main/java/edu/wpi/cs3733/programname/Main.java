@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 import edu.wpi.cs3733.programname.boundary.EmployeeManager;
+import edu.wpi.cs3733.programname.boundary.NewMainUIController;
 import edu.wpi.cs3733.programname.boundary.ServiceRequestManager;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.database.CsvReader;
@@ -20,8 +21,6 @@ import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.net.URISyntaxException;
-
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
 
 public class Main extends Application {
