@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname;
 
 import edu.wpi.cs3733.programname.boundary.EmployeeManager;
+import edu.wpi.cs3733.programname.boundary.NewMainUIController;
 import edu.wpi.cs3733.programname.boundary.ServiceRequestManager;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.database.CsvReader;
@@ -52,7 +53,7 @@ public class Main extends Application {
                         (Pane) loader.load()
                 )
         );
-        loader.<TestingController>getController().initManager(manageController);
+        loader.<NewMainUIController>getController().initManager(manageController);
         stage.show();
         return stage;
     }
