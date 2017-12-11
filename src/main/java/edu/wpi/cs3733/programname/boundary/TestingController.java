@@ -1195,6 +1195,21 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
+    public void BathroomSweepHandler() throws IOException{
+        System.out.print("Searching for nearest bathroom");
+        String startID = AppSettings.getInstance().getDefaultLocation();
+        String goalID = "rest";
+        try {
+            currentPath = manager.sweepPathfinder(startID,goalID, this.handicap.isSelected());
+        } catch (InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        } catch (NoPathException np) {
+            String id = np.startID;
+            currentPath = new ArrayList<>();
+        }
+        displayPath(currentPath);
+
+    }
 
     public void transportRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
