@@ -143,6 +143,6 @@ CREATE TABLE MapInfo(
     buildingName VARCHAR(30),
     floorName VARCHAR(30),
     imagePath VARCHAR(100),
-    floorNum VARCHAR(5)
-
-)
+    floorNum VARCHAR(5),
+    CONSTRAINT MapInfo_PK PRIMARY KEY (buildingName,floorName)
+);
