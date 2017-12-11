@@ -113,6 +113,7 @@ public class Main extends Application {
         // Add the appropriate listeners.
         GlobalScreen.addNativeMouseListener(example);
         GlobalScreen.addNativeMouseMotionListener(example);
+        GlobalScreen.addNativeKeyListener(new GlobalKeyListener());
 
         // Get the logger for "org.jnativehook" and set the level to off.
         Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());

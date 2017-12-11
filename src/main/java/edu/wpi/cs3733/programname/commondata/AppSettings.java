@@ -15,7 +15,7 @@ public class AppSettings {
     private long delayTime;
     private boolean saveScreen;
 
-    private long shutdownDelay = 5000; // CHANGE THIS VALUE TO ADJUST THE SCREEN SAVER DELAY
+    private long shutdownDelay = 60000; // CHANGE THIS VALUE TO ADJUST THE SCREEN SAVER DELAY
     private String defaultLocation;
 
     private final int INITIAL_MAP_SCALE = 3;
@@ -51,7 +51,9 @@ public class AppSettings {
         this.mapRatioIndex = mapRatioIndex;
     }
     public void kickTimer() {
+        System.out.println("Current time: " + System.currentTimeMillis());
         delayTime = System.currentTimeMillis() + shutdownDelay;
+        System.out.println("Updated time: " + delayTime);
     }
     public long getDelayTime() {
         return delayTime;
