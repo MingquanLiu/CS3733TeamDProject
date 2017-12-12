@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXMasonryPane;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Constants;
@@ -11,23 +10,25 @@ import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterReque
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.ServiceRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRequest;
-import edu.wpi.cs3733.programname.database.DBConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceRequestMainController {
+
+    private final int UNASSIGNED = 0;
+    private final int ASSIGNED = 1;
+    private final int COMPLETED = 2;
 
     @FXML
     JFXMasonryPane requestMasonryPane;
@@ -35,8 +36,17 @@ public class ServiceRequestMainController {
     ScrollPane requestMasonryScroll;
 
     @FXML
-    JFXListView<String> listEmployees;
-    List<Employee> currEmployees = new ArrayList<Employee>();
+    TableView<Employee> employeeTableView;
+    private final ObservableList<Employee> employees = FXCollections.observableArrayList();
+
+    @FXML
+    private SortedList<Employee> sortedEmployee;
+
+    @FXML
+    private TableColumn<Employee, String> fullname;
+
+    @FXML
+    private TableColumn<Employee, String> email;
 
     @FXML
     private StackPane requestMasonry;
@@ -53,17 +63,28 @@ public class ServiceRequestMainController {
     @FXML
     private JFXButton btnCompleted;
 
+    @FXML
+    private JFXButton btnAll;
+
+    @FXML
+    private JFXButton btnInterpreter;
+
+    @FXML
+    private JFXButton btnMaintenance;
+
+    @FXML
+    private JFXButton btnTransportation;
 
     ManageController manager;
 
     public void initManager(ManageController manage) throws IOException {
         this.manager = manage;
-        listEmployees = new JFXListView<>();
-        updateRequestMasonry();
-        updateEmployeeList();
+        updateRequestsUnassigned();
+        updateEmployeeTable();
     }
 
-    private void updateRequestMasonry() throws IOException {
+    private void updateRequestsUnassigned() throws IOException {
+        requestMasonryPane.getChildren().clear();
         requestMasonryPane.setVisible(true);
         List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
         for(ServiceRequest unassigned: allUnassigned) {
@@ -72,27 +93,87 @@ public class ServiceRequestMainController {
             ));
             AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
             requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
-            updateRequestDetail(requestView, unassigned);
+            updateRequestDetail(requestView, unassigned, UNASSIGNED);
             requestView.setVisible(true);
             requestMasonryPane.getChildren().add(requestView);
         }
     }
 
-    private void updateEmployeeList() {
-        currEmployees = manager.getAllEmployees();
-        listEmployees.getItems().clear();
-        for(Employee emp: currEmployees) {
-            String employeeDisplay = createEmployeeListString(emp);
-            listEmployees.getItems().add(employeeDisplay);
+    public void unassignedButtonHandler() throws IOException {
+        updateRequestsUnassigned();
+    }
+
+    public void assignedButtonHandler() throws IOException {
+        updateRequestsAssigned();
+    }
+
+    public void completedButtonHandler() throws IOException {
+        updateRequestsCompleted();
+    }
+
+    public void allTypesButtonHandler() {
+
+    }
+
+    public void interpreterButtonHandler() {
+
+    }
+
+    public void maintenanceButtonHandler() {
+
+    }
+
+    public void transportationButtonHandler() {
+
+    }
+
+    private void updateRequestsAssigned() throws IOException {
+        requestMasonryPane.getChildren().clear();
+        requestMasonryPane.setVisible(true);
+        List<ServiceRequest> allAssigned = manager.getAssignedRequests();
+        for(ServiceRequest assigned: allAssigned) {
+            AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
+                    "/fxml/service_request_obj2.fxml"
+            ));
+            AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
+            requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
+            updateRequestDetail(requestView, assigned, ASSIGNED);
+            requestView.setVisible(true);
+            requestMasonryPane.getChildren().add(requestView);
         }
-        listEmployees.setExpanded(true);
+    }
+
+    private void updateRequestsCompleted() throws IOException {
+        requestMasonryPane.getChildren().clear();
+        List<ServiceRequest> allCompleted = manager.getCompletedRequests();
+        for(ServiceRequest completed: allCompleted) {
+            AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
+                    "/fxml/service_request_obj2.fxml"
+            ));
+            AnchorPane completedRequestView = (AnchorPane) requestFXML.lookup("#serviceObj");
+            completedRequestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
+            updateRequestDetail(completedRequestView, completed, COMPLETED);
+            completedRequestView.setVisible(true);
+            requestMasonryPane.getChildren().add(completedRequestView);
+        }
+    }
+
+    private void updateEmployeeTable() {
+        employees.addAll(manager.getAllEmployees());
+        sortedEmployee = new SortedList<Employee>(this.employees);
+        employeeTableView.setItems(this.sortedEmployee);
+        sortedEmployee.comparatorProperty().bind(employeeTableView.comparatorProperty());
+        fullname.setCellValueFactory(
+                cellData -> cellData.getValue().
+                        fullNameProperty());
+        email.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
     }
 
     public String createEmployeeListString(Employee e) {
         return e.getUsername() + " - " + e.getFirstName() + " " + e.getLastName();
     }
 
-    private void updateRequestDetail(AnchorPane requestView, ServiceRequest request) {
+    private void updateRequestDetail(AnchorPane requestView, ServiceRequest request, int reqStatus) {
         String details = "";
         Label titleLabel = (Label) requestView.lookup("#lblRequestTitle");
         Label typeLocationLabel = (Label) requestView.lookup("#lblTypeLocation");
@@ -123,7 +204,12 @@ public class ServiceRequestMainController {
         typeLocationLabel.setText(details);
         typeLocationLabel.setWrapText(true);
         severityLabel.setText("Severity: " + request.getSeverity());
-        assignedToLabel.setText("Request not assigned!");
+        if (reqStatus == UNASSIGNED) {
+            assignedToLabel.setText("Request not assigned!");
+        } else {
+            Employee handler = manager.queryEmployeeByUsername(request.getReceiver());
+            assignedToLabel.setText("Assigned to: " + handler.getFirstName() + " " + handler.getLastName());
+        }
         assignedToLabel.setWrapText(true);
     }
 
