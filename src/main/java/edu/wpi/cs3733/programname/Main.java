@@ -137,7 +137,6 @@ public class Main extends Application {
                 Frame frame = null;
 
                 while(true) {
-                    System.out.println(System.currentTimeMillis());
                     // The world will never know why we need this line, but we do, so don't delete it
                     System.currentTimeMillis();
                     // (I'm assuming it allows the internal timers to synchronize)
