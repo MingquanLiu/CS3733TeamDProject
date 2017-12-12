@@ -90,11 +90,11 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="41.0" minHeight="-Infinity" prefHeight="18.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="45.0" minHeight="-Infinity" prefHeight="37.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="31.0" minHeight="-Infinity" prefHeight="26.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="24.0" minHeight="-Infinity" prefHeight="24.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -119,7 +119,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </JFXButton>
-                  <GridPane GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <GridPane prefHeight="92.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -127,10 +127,11 @@
                     <rowConstraints>
                       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="28.0" minHeight="-Infinity" prefHeight="27.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="34.0" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXRadioButton fx:id="DFS" onAction="#selectPFAlgorithm" selected="true" text="DFS">
+                        <JFXRadioButton fx:id="DFS" onAction="#selectPFAlgorithm" text="DFS">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -138,12 +139,12 @@
                               <ToggleGroup fx:id="pathfinding" />
                            </toggleGroup>
                         </JFXRadioButton>
-                        <JFXRadioButton fx:id="BFS" onAction="#selectPFAlgorithm" selected="true" text="BFS" toggleGroup="$pathfinding" GridPane.columnIndex="1">
+                        <JFXRadioButton fx:id="BFS" onAction="#selectPFAlgorithm" text="BFS" toggleGroup="$pathfinding" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </JFXRadioButton>
-                        <JFXRadioButton fx:id="Dijkstra" onAction="#selectPFAlgorithm" selected="true" text="Dijkstra" toggleGroup="$pathfinding" GridPane.rowIndex="1">
+                        <JFXRadioButton fx:id="Dijkstra" onAction="#selectPFAlgorithm" text="Dijkstra" toggleGroup="$pathfinding" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -154,8 +155,9 @@
                            </GridPane.margin>
                         </JFXRadioButton>
                         <Line endX="100.0" opacity="0.3" startX="-100.0" GridPane.valignment="TOP" />
-                        <JFXRadioButton fx:id="BestFirst" onAction="#selectPFAlgorithm" selected="true" text="Best First" toggleGroup="$pathfinding" GridPane.rowIndex="2" />
-                        <JFXRadioButton fx:id="Beam" onAction="#selectPFAlgorithm" selected="true" text="Beam" toggleGroup="$pathfinding" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXRadioButton fx:id="BestFirst" onAction="#selectPFAlgorithm" text="Best First" toggleGroup="$pathfinding" GridPane.rowIndex="2" />
+                        <JFXRadioButton fx:id="Beam" onAction="#selectPFAlgorithm" text="Beam" toggleGroup="$pathfinding" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXRadioButton fx:id="Scenic" onAction="#selectPFAlgorithm" text="Scenic" toggleGroup="$pathfinding" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <Label text="Addition" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
@@ -184,8 +186,8 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <JFXCheckBox fx:id="allNodeBox" text="All Nodes" onAction="#allNodeButtonHandler" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-                  <JFXCheckBox fx:id="allEdgeBox" text="All Edges" onAction="#allEdgeButtonHandler" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <JFXCheckBox fx:id="allNodeBox" onAction="#allNodeButtonHandler" text="All Nodes" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                  <JFXCheckBox fx:id="allEdgeBox" onAction="#allEdgeButtonHandler" text="All Edges" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
                   <Label text="Map Editing Features" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                      <font>
                         <Font name="System Bold" size="12.0" />
