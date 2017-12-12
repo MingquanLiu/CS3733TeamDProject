@@ -41,6 +41,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -184,7 +185,7 @@ public class NewMainUIController {
     @FXML
     private TextField endLocation;
     @FXML
-    private JFXListView textLocations;
+    private JFXListView textDirections;
     @FXML
     private Label lblNodeX;
     @FXML
@@ -897,25 +898,48 @@ public class NewMainUIController {
             currentPath = new ArrayList<>();
         }
         //displayPath(currentPath);
-        TextDirections textDirections = new TextDirections(currentPath);
-        String directions = "";
+        TextDirections text = new TextDirections(currentPath);
         ObservableList directionsList = FXCollections.observableList(new ArrayList<>());
-        for (String s : Arrays.asList("L2", "L1", "G", "1", "2", "3")) {
-            try {
-                List<TextDirection> currentFloor = textDirections.getByFloor(s);
-                directions += "\n\nFloor " + s;
-                for (TextDirection t : currentFloor) {
-                    directions += "\n\t" + t.getDirection();
+        directionsList.addAll(text.getTextDirections());
+        textDirections.setItems(directionsList);
+        textDirections.setCellFactory(param -> new ListCell<TextDirection>() {
+            private Text text;
+            @Override
+            protected void updateItem(TextDirection item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null || item.getThisNode() == null) {
+                    setText(null);
+                } else {
+                    text = new Text(item.getDirection());
+                    text.setWrappingWidth(270.0);
+                    setGraphic(text);
                 }
-            } catch (NullPointerException npe) {
-                System.out.println("No text directions on this floor");
             }
-        }
-        //shitty fix for null problem
-        directions = directions.replaceAll("null", "");
-        directionsList.add(directions);
-        textLocations.setItems(directionsList);
+        });
+        // TODO: Dan, sort these by floor
+//        for (String s : Arrays.asList("L2", "L1", "G", "1", "2", "3")) {
+//            try {
+//                List<TextDirection> currentFloor = text.getByFloor(s);
+//                directions += "\n\nFloor " + s;
+//                for (TextDirection t : currentFloor) {
+//                    directions += "\n\t" + t.getDirection();
+//                }
+//            } catch (NullPointerException npe) {
+//                System.out.println("No text directions on this floor");
+//            }
+//        }
 
+    }
+
+    @FXML
+    private void goToDirection(MouseEvent event) {
+        TextDirection direction = (TextDirection) textDirections.getSelectionModel().getSelectedItem();
+        try {
+            direction.getNodes();
+            // TODO: Draw an actual path
+        } catch (NullPointerException e) {
+            System.out.println("User selected nothing");
+        }
     }
 
     private void displayPath(List<NodeData> path) {
