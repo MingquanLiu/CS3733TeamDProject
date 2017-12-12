@@ -18,5 +18,9 @@ public class Constants {
 
     public final static double MAX_UI_WIDTH = 5000;
 
-    public final static double CIRCILE_RADIUS = 10;
+    public final static double CIRCILE_RADIUS = 12;
+    public final static double EXPANDED_CIRCILE_RADIUS = 17;
+
+    public final static double OPACITY_SHOWN = 0.64;
+    public final static double OPACITY_NOT_SHOWN = 0;
 }

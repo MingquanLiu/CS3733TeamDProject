@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.programname;
 
-import edu.wpi.cs3733.programname.boundary.EmployeeManager;
-import edu.wpi.cs3733.programname.boundary.NewMainUIController;
-import edu.wpi.cs3733.programname.boundary.ServiceRequestManager;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import edu.wpi.cs3733.programname.boundary.NewMainPageController;
+import edu.wpi.cs3733.programname.boundary.NewMapAdminUI;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.commondata.AppSettings;
 import edu.wpi.cs3733.programname.database.CsvReader;
@@ -13,8 +13,6 @@ import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -91,10 +89,10 @@ public class Main extends Application {
         if (toUse.equals("home_screen"))
             loader.<TestingController>getController().initManager(manageController);
         else {
-            loader.<NewMainUIController>getController().initManager(manageController);
-            loader.<NewMainUIController>getController().passStage(stage);
+            loader.<NewMainPageController>getController().initManager(manageController);
+            loader.<NewMainPageController>getController().passStage(stage);
         }
-        initThread(loader.<NewMainUIController>getController());
+        initThread(loader.<NewMainPageController>getController());
         stage.show();
         return stage;
     }
@@ -113,7 +111,7 @@ public class Main extends Application {
         return dbConnection;
     }
 
-    private Thread initThread(NewMainUIController controller) {
+    private Thread initThread(NewMainPageController controller) {
         try {
             GlobalScreen.registerNativeHook();
         }
