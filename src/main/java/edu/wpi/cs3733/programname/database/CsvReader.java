@@ -177,9 +177,7 @@ public class CsvReader {
 
             for (i = 0; i < count; i++) {
                 ArrayList<String> curBuilding = allBuildings.get(i);
-                System.out.println("i: " + i + " and j: " + j);
-                System.out.println(curBuilding.get(0) + " | " + curBuilding.get(1)
-                        + " | " + curBuilding.get(2) + " | " + curBuilding.get(3) );
+
                 pst.setString(1, curBuilding.get(0));
                 pst.setString(2, curBuilding.get(1));
                 pst.setString(3, curBuilding.get(2));

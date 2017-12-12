@@ -23,6 +23,7 @@ public class LoginPopup {
     private ManageController manager;
     boolean succesfulLogin;
     private TestingController testingController;
+    private NewMainUIController newMainUIController;
     
 
     public void buttonHandler(ActionEvent e){
@@ -32,7 +33,8 @@ public class LoginPopup {
             if(succesfulLogin) {
                 System.out.println("logging in");
                 btnSubmit.getScene().getWindow().hide();
-                testingController.setUserName(txtUser.getText());
+                //testingController.setUserName(txtUser.getText());
+                newMainUIController.setUserName(txtUser.getText());
             }
             else{
                 System.out.println("login failed");
@@ -58,6 +60,13 @@ public class LoginPopup {
         System.out.println("init For Login");
         manager = manageController;
         this.testingController = testingController;
+    }
+
+    public void initManager(ManageController manageController,NewMainUIController newMainUIController){
+        System.out.println("init For Login");
+        manager = manageController;
+        this.testingController = testingController;
+        this.newMainUIController = newMainUIController;
     }
 
     @FXML

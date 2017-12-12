@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname.database.QueryMethods;
 
 import edu.wpi.cs3733.programname.boundary.Building;
 import edu.wpi.cs3733.programname.boundary.Floor;
+import edu.wpi.cs3733.programname.boundary.FloorSorter;
 import edu.wpi.cs3733.programname.commondata.Coordinate;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.database.DBConnection;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MapsQuery {
@@ -48,12 +50,14 @@ public class MapsQuery {
             String sql = "SELECT * FROM MapInfo WHERE buildingName = '" + building.getName() + "'";
             Statement stmt = dbConnection.getConnection().createStatement();
             ResultSet result = stmt.executeQuery(sql);
-
+            ArrayList<Floor> floorList = new ArrayList<>();
             while (result.next()) {
                 Floor floor = new Floor(result.getString("floorName"), building.getName(),
                         result.getString("floorNum"), result.getString("imagePath"));
-                building.addFloor(floor);
+                floorList.add(floor);
             }
+            Collections.sort(floorList, new FloorSorter());
+            building.addAllFloors(floorList);
 
             System.out.println(building);
             //queryResult = new NodeData(nodeID, location, floor, building, nodeType, longName, shortName, teamAssigned);
