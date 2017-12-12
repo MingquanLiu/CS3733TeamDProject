@@ -33,6 +33,7 @@ public class NewMapAdminNodeDataObserver extends Observer {
 
     public void updateNodeInDb() {
         mainController.getManager().editNode(nodeData);
+        mainController.showNodesOrEdges();
     }
 
     public void showNodesOrEdges() {

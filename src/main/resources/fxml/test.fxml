@@ -229,7 +229,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-        <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="750.0">
             <children>
                 <GridPane layoutY="-5.0" prefHeight="120.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-276.0" AnchorPane.topAnchor="-5.0">
                     <columnConstraints>
@@ -242,15 +242,31 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@../css/general_button.css" text="+" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@../css/general_button.css" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Arial Black" size="58.0" />
                             </font>
+                     <graphic>
+                        <JFXButton stylesheets="@../css/general_button.css">
+                           <styleClass>
+                              <String fx:value="button-zoom" />
+                              <String fx:value="button-zoom-in" />
+                           </styleClass>
+                        </JFXButton>
+                     </graphic>
                   </JFXButton>
-                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@../css/general_button.css" text="-" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@../css/general_button.css" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Arial Black" size="58.0" />
                             </font>
+                     <graphic>
+                        <JFXButton stylesheets="@../css/general_button.css">
+                           <styleClass>
+                              <String fx:value="button-zoom" />
+                              <String fx:value="button-zoom-out" />
+                           </styleClass>
+                        </JFXButton>
+                     </graphic>
                   </JFXButton>
                   <JFXSlider fx:id="slideZoom" blockIncrement="0.5" max="6.0" min="3.0" minorTickCount="0" prefHeight="14.0" prefWidth="147.0" style="-fx-background-color: lightblue;" value="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </children>

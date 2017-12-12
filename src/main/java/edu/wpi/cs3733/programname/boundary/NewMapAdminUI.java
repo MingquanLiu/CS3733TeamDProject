@@ -595,7 +595,7 @@ public class NewMapAdminUI extends UIController{
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
-        nodeInfoBox.setOpacity(64);
+        nodeInfoBox.setOpacity(OPACITY_SHOWN);
         textNodeId.setText(nodeData.getNodeID());
         lblCurrentBuilding.setText(nodeData.getBuilding());
         lblCurrentFloor.setText(nodeData.getFloor());
@@ -760,6 +760,8 @@ public class NewMapAdminUI extends UIController{
 //    }
 
     public void clearMain() {
+        if(prevShowNode!=null)
+        panningPane.getChildren().remove(prevShowNode.getCircle());
         prevShowNode = null;
         if (drawings.size() > 0) {
             for (Shape shape : drawings) {
@@ -945,8 +947,8 @@ public class NewMapAdminUI extends UIController{
         //sets the map, just in case we want it to start on another floor
         setMap();
         setZoom();
-        nodeInfoBox.setOpacity(0);
-        edgeAddPane.setOpacity(0);
+        nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+        edgeAddPane.setOpacity(OPACITY_NOT_SHOWN);
 //        showNodesOrEdges();
 //        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), "Hospital");
 //        currentEdges = manager.getAllEdgeData();

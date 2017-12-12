@@ -449,7 +449,7 @@ public class NodeData {
             @Override
             public void handle(MouseEvent event) {
 //                if(clicked){
-//                    newMapAdminNodeDataObserver.disableScroll();
+                    newMapAdminNodeDataObserver.disableScroll();
                     System.out.println("Circle dragged");
                     System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
                     circle.setCenterX(event.getSceneX());
@@ -474,7 +474,7 @@ public class NodeData {
                         int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), newMapAdminNodeDataObserver.getMainController().getScale());
                         Coordinate newLoc = new Coordinate(dbX, dbY);
                         newMapAdminNodeDataObserver.getNodeData().setLocation(newLoc);
-//                        newMapAdminNodeDataObserver.enableScroll();
+                        newMapAdminNodeDataObserver.enableScroll();
 
                         newMapAdminNodeDataObserver.updateNodeInDb();
                         newMapAdminNodeDataObserver.update();
