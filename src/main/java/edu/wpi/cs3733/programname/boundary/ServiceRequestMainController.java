@@ -1,9 +1,11 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXMasonryPane;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Constants;
+import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.InterpreterRequest;
 import edu.wpi.cs3733.programname.commondata.servicerequestdata.MaintenanceRequest;
@@ -28,9 +30,13 @@ import java.util.List;
 public class ServiceRequestMainController {
 
     @FXML
-    JFXMasonryPane masonryPane;
+    JFXMasonryPane requestMasonryPane;
     @FXML
     ScrollPane requestMasonryScroll;
+
+    @FXML
+    JFXListView<String> listEmployees;
+    List<Employee> currEmployees = new ArrayList<Employee>();
 
     @FXML
     private StackPane requestMasonry;
@@ -52,23 +58,38 @@ public class ServiceRequestMainController {
 
     public void initManager(ManageController manage) throws IOException {
         this.manager = manage;
-        initializeRequestMasonry();
+        listEmployees = new JFXListView<>();
+        updateRequestMasonry();
+        updateEmployeeList();
     }
 
-    private void initializeRequestMasonry() throws IOException {
-        masonryPane.setVisible(true);
-        ArrayList<Node> children = new ArrayList<>();
+    private void updateRequestMasonry() throws IOException {
+        requestMasonryPane.setVisible(true);
         List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
         for(ServiceRequest unassigned: allUnassigned) {
             AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
                     "/fxml/service_request_obj2.fxml"
             ));
             AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
-            requestView.setStyle("-fx-border-color: black; -fx-background-radius: 5 5 0 0; -fx-background-color: lightblue");
+            requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
             updateRequestDetail(requestView, unassigned);
             requestView.setVisible(true);
-            masonryPane.getChildren().add(requestView);
+            requestMasonryPane.getChildren().add(requestView);
         }
+    }
+
+    private void updateEmployeeList() {
+        currEmployees = manager.getAllEmployees();
+        listEmployees.getItems().clear();
+        for(Employee emp: currEmployees) {
+            String employeeDisplay = createEmployeeListString(emp);
+            listEmployees.getItems().add(employeeDisplay);
+        }
+        listEmployees.setExpanded(true);
+    }
+
+    public String createEmployeeListString(Employee e) {
+        return e.getUsername() + " - " + e.getFirstName() + " " + e.getLastName();
     }
 
     private void updateRequestDetail(AnchorPane requestView, ServiceRequest request) {
