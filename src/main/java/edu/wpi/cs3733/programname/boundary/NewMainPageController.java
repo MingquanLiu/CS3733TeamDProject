@@ -277,7 +277,7 @@ public class NewMainPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        loader.<NewMapAdminUI>getController().initAdminManager(manager);
+            loader.<NewMapAdminUI>getController().initAdminManager(manager);
         loader.<NewMapAdminUI>getController().passStage(stage);
         System.out.println("Changed to admin view");
     }

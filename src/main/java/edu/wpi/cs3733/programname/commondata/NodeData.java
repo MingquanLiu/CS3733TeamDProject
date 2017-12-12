@@ -7,8 +7,10 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.awt.*;
 import java.io.IOException;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.*;
@@ -391,6 +393,10 @@ public class NodeData {
 
     public void initializeCircle(){
         circle = new Circle(getXCoord(), getYCoord(), CIRCILE_RADIUS, RED) ;
+        setBorder();
+    }
+    public void setBorder(){
+        circle.setStroke(Color.BLACK);
     }
 
     public Circle getCircle(){
@@ -501,11 +507,13 @@ public class NodeData {
     }
     public void enlargeCircleAndChangeColor(double currentScale){
         circle =new Circle(circle.getCenterX(), circle.getCenterY(), EXPANDED_CIRCILE_RADIUS*currentScale, GREEN);
+        setBorder();
         clicked = true;
         System.out.println("In changing circles");
     }
     public void changeBackCircleAndChangeColor(double currentScale){
         circle =new Circle(circle.getCenterX(), circle.getCenterY(), CIRCILE_RADIUS*currentScale, RED);
+        setBorder();
         clicked = false;
     }
 

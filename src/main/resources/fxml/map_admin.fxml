@@ -185,7 +185,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-        <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
+        <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
             <children>
                 <GridPane layoutY="-2.0" prefHeight="120.0" prefWidth="467.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
                     <columnConstraints>
