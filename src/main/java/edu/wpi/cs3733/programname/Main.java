@@ -1,29 +1,42 @@
 package edu.wpi.cs3733.programname;
 
-import edu.wpi.cs3733.programname.boundary.EmployeeManager;
-import edu.wpi.cs3733.programname.boundary.NewMainUIController;
-import edu.wpi.cs3733.programname.boundary.ServiceRequestManager;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import edu.wpi.cs3733.programname.boundary.NewMainPageController;
+import edu.wpi.cs3733.programname.boundary.NewMapAdminUI;
 import edu.wpi.cs3733.programname.boundary.TestingController;
+import edu.wpi.cs3733.programname.commondata.AppSettings;
 import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.RunScript;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeHookException;
 //import org.junit.Test;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Main extends Application {
@@ -60,13 +73,26 @@ public class Main extends Application {
                         (Pane) loader.load()
                 )
         );
+        stage.setOnCloseRequest(event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Exit Kiosk");
+            alert.setHeaderText("You are about to exit!");
+            alert.setContentText("Are you sure you want to close the kiosk? This will close all windows and service requests.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                System.exit(1);
+            } else {
+                event.consume();
+            }
+        });
         if (toUse.equals("home_screen"))
             loader.<TestingController>getController().initManager(manageController);
         else {
-            loader.<NewMainUIController>getController().initManager(manageController);
-            loader.<NewMainUIController>getController().passStage(stage);
+            loader.<NewMainPageController>getController().initManager(manageController);
+            loader.<NewMainPageController>getController().passStage(stage);
         }
-
+        initThread(loader.<NewMainPageController>getController());
         stage.show();
         return stage;
     }
@@ -85,7 +111,85 @@ public class Main extends Application {
         return dbConnection;
     }
 
+    private Thread initThread(NewMainPageController controller) {
+        try {
+            GlobalScreen.registerNativeHook();
+        }
+        catch (NativeHookException ex) {
+            System.err.println("There was a problem registering the native hook.");
+            System.err.println(ex.getMessage());
+
+            System.exit(1);
+        }
+        GlobalMouseListener example = new GlobalMouseListener();
+
+        // Add the appropriate listeners.
+        GlobalScreen.addNativeMouseListener(example);
+        GlobalScreen.addNativeMouseMotionListener(example);
+        GlobalScreen.addNativeKeyListener(new GlobalKeyListener());
+
+        // Get the logger for "org.jnativehook" and set the level to off.
+        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+        logger.setLevel(Level.OFF);
+
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                Frame frame = null;
+
+                while(true) {
+                    if((System.currentTimeMillis() - AppSettings.getInstance().getDelayTime()) > 0L) {
+                        if(!AppSettings.getInstance().isSaveScreen()) {
+//                            System.out.println("Time at which the loop actually kicked: " + System.currentTimeMillis());
+
+                            frame = new Frame("Kiosk Screen Saver");
+                            frame.setVisible(false);
+                            frame.setUndecorated(true);
+                            try {
+                                frame.add(new Component() {
+                                    BufferedImage img = ImageIO.read(getClass().getResource("/img/WaitnLoad.gif"));
+                                    @Override
+                                    public void paint(Graphics g) {
+                                        super.paint(g);
+                                        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                            GraphicsDevice gs = ge.getDefaultScreenDevice();
+                            gs.setFullScreenWindow(frame);
+                            frame.validate();
+                            frame.setVisible(true);
+                            frame.setAlwaysOnTop(true);
+                            frame.toFront();
+                            AppSettings.getInstance().setSaveScreen(true);
+                        }
+                    } else {
+                        if(AppSettings.getInstance().isSaveScreen()) {
+                            FutureTask<Void> task = new FutureTask<>(() -> controller.reinitialize(), null);
+                            Platform.runLater(task);
+                            try {
+                                task.get();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+                            frame.dispose();
+                            AppSettings.getInstance().setSaveScreen(false);
+                        }
+                    }
+                }
+            }
+        });
+        thread.start();
+        return thread;
+    }
+
     public static void main(String[] args) {
+
         launch(args);
     }
 

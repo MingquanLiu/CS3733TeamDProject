@@ -906,7 +906,6 @@ public class MapAdminController extends UIController implements Initializable {
 
     @Override
     public void passNodeData(NodeData nodeData) throws IOException {
-
     }
 
     @Override

@@ -1,16 +1,15 @@
 package edu.wpi.cs3733.programname.observer;
 
-import edu.wpi.cs3733.programname.boundary.MapAdminController;
-import edu.wpi.cs3733.programname.boundary.NewMainUIController;
+import edu.wpi.cs3733.programname.boundary.NewMapAdminUI;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.io.IOException;
 
-public class MainNodeDataObserver extends Observer {
-    private NewMainUIController mainController;
+public class NewMapAdminNodeDataObserver extends Observer {
+    private NewMapAdminUI mainController;
     private NodeData nodeData;
 
-    public MainNodeDataObserver(NewMainUIController mainController, NodeData nodeData) {
+    public NewMapAdminNodeDataObserver(NewMapAdminUI mainController, NodeData nodeData) {
         this.mainController = mainController;
         this.nodeData = nodeData;
     }
@@ -25,18 +24,27 @@ public class MainNodeDataObserver extends Observer {
 
     @Override
     public void update() throws IOException {
-        //mainController.passNodeData(nodeData);
+        mainController.passNodeData(nodeData);
     }
 
-    public NewMainUIController getMainController() {
+    public NewMapAdminUI getMainController() {
         return mainController;
     }
 
     public void updateNodeInDb() {
-        //mainController.getManager().editNode(nodeData);
+        mainController.getManager().editNode(nodeData);
+        mainController.showNodesOrEdges();
     }
 
     public void showNodesOrEdges() {
         mainController.showNodesOrEdges();
+    }
+
+    public void disableScroll() {
+        mainController.disablePaneScroll();
+    }
+
+    public void enableScroll() {
+        mainController.enablePaneScroll();
     }
 }
