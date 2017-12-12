@@ -319,7 +319,7 @@ public class NewMainPageController {
         startLocation.setText("");
     }
     private void clearPath() {
-        currentPath = new ArrayList<>();
+        //currentPath = new ArrayList<>();
         if (pathDrawings.size() > 0) {
             for (Shape shape : pathDrawings) {
                 System.out.println("success remove");
@@ -462,22 +462,24 @@ public class NewMainPageController {
         System.out.println(curFloor.getFloorName());
         System.out.println(currentPathStartFloor);
         System.out.println(currentPathGoalFloor);
-        /*
+
         if(curFloor.getFloorName().equals(currentPathGoalFloor)){
             for (Floor f:floors){
                 if(f.getFloorName().equals(currentPathStartFloor)){
-                    setFloor(f);
+                    curFloor = f;
+                    setMap();
                 }
             }
         }
         else if(curFloor.getFloorName().equals(currentPathStartFloor)){
             for (Floor f:floors){
                 if(f.getFloorName().equals(currentPathGoalFloor)){
-                    setFloor(f);
+                    curFloor = f;
+                    setMap();
                 }
             }
         }
-        */
+
     }
     public void selectCharacter(){
         displayPath(currentPath);
@@ -865,12 +867,12 @@ public class NewMainPageController {
 
 //                setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
                 showNodesOrEdges();
-
             }
             if (lblCurrentBuilding != null) {
                 lblCurrentBuilding.setText(curBuilding.getName());
                 lblCurrentFloor.setText(curFloor.getFloorNum());
             }
+            displayPath(currentPath);
         }
     }
     public void onClickMap(MouseEvent e) {
