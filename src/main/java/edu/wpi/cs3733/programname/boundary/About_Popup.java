@@ -8,13 +8,10 @@ import javafx.scene.layout.AnchorPane;
 
 public class About_Popup {
     @FXML
-    ScrollPane mainWindow;
+    private ScrollPane mainWindow;
 
     @FXML
     private AnchorPane main;
-
-    @FXML
-    private TextArea text;
 
     @FXML
     private Label title;
