@@ -78,7 +78,7 @@ public class NewMainUIController implements Initializable {
     @FXML
     private JFXButton btnZoomOut;
     @FXML
-    private JFXSlider slideZoom;
+    private Slider slideZoom;
     //</editor-fold>
     //<editor-fold desc="directions pane">
     //about page stuff
