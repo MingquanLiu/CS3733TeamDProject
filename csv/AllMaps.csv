@@ -1,0 +1,31 @@
+buildingName, floorName, imagePath, floorNum
+Main Hospital,Basement 2,file:floorMaps/Floor_-2.png,L2
+Main Hospital,Basement 1,file:floorMaps/Floor_-1.png,L1
+Main Hospital,Ground,file:floorMaps/Floor_0.png,G
+Main Hospital,Floor 1,file:floorMaps/Floor_1.png,1
+Main Hospital,Floor 2,file:floorMaps/Floor_2.png,2
+Main Hospital,Floor 3,file:floorMaps/Floor_3.png,3
+15 Francis,Floor 2,file:floorMaps/Floor_2.png,2
+45 Francis,Basement 2,file:floorMaps/Floor_-2.png,L2
+45 Francis,Basement 1,file:floorMaps/Floor_-1.png,L1
+45 Francis,Floor 1,file:floorMaps/Floor_1.png,1
+45 Francis,Floor 2,file:floorMaps/Floor_2.png,2
+45 Francis,Floor 3,file:floorMaps/Floor_3.png,3
+Tower,Basement 2,file:floorMaps/Floor_-2.png,L2
+Tower,Basement 1,file:floorMaps/Floor_-1.png,L1
+Tower,Floor 1,file:floorMaps/Floor_1.png,1
+Tower,Floor 2,file:floorMaps/Floor_2.png,2
+Tower,Floor 3,file:floorMaps/Floor_3.png,3
+BTM,Basement 2,file:floorMaps/Floor_2.png,L2
+BTM,Ground,file:floorMaps/Floor_0.png,G
+BTM,Floor 1,file:floorMaps/Floor_1.png,1
+BTM,Floor 2,file:floorMaps/Floor_2.png,2
+BTM,Floor 3,file:floorMaps/Floor_3.png,3
+Shapiro,Basement 2,file:floorMaps/Floor_-2.png,L2
+Shapiro,Basement 1,file:floorMaps/Floor_-1.png,L1
+Shapiro,Floor 1,file:floorMaps/Floor_1.png,1
+Shapiro,Floor 2,file:floorMaps/Floor_2.png,2
+Shapiro,Floor 3,file:floorMaps/Floor_3.png,3
+Tada,White,file:floorMaps/White.png,L2
+Tada,Black,file:floorMaps/Black.png,L1
+Tada,Prohib,file:floorMaps/Prohib.png,G

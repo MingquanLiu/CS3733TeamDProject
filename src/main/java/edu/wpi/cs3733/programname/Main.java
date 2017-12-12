@@ -8,7 +8,10 @@ import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.RunScript;
 import javafx.application.Application;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -24,6 +27,7 @@ import java.net.URISyntaxException;
 
 
 public class Main extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         checkOrMake();
@@ -42,18 +46,27 @@ public class Main extends Application {
 
 
     public Stage showDialog(ManageController manageController) throws IOException {
+        String toUse = "home_screen";
+        toUse = "test";
         FXMLLoader loader = new FXMLLoader(
         );
         loader.setLocation(getClass().getResource(
-                "/fxml/test.fxml"
+                "/fxml/" + toUse + ".fxml"
         ));
-        Stage stage = new Stage(StageStyle.DECORATED);
+        Stage stage = new Stage(StageStyle
+                .DECORATED);
         stage.setScene(
                 new Scene(
                         (Pane) loader.load()
                 )
         );
-        loader.<NewMainUIController>getController().initManager(manageController);
+        if (toUse.equals("home_screen"))
+            loader.<TestingController>getController().initManager(manageController);
+        else {
+            loader.<NewMainUIController>getController().initManager(manageController);
+            loader.<NewMainUIController>getController().passStage(stage);
+        }
+
         stage.show();
         return stage;
     }
@@ -65,6 +78,7 @@ public class Main extends Application {
         RunScript run = new RunScript();
         run.runScript(dbConnection.getConnection());
         mCsvReader.insertNodes(dbConnection.getConnection(), mCsvReader.getListOfNodes(dbConnection.getConnection()));
+        mCsvReader.insertMaps(dbConnection.getConnection(), mCsvReader.getBuildings(dbConnection.getConnection()));
         mCsvReader.insertEdges(dbConnection.getConnection(), mCsvReader.getListOfEdges(dbConnection.getConnection()));
         mCsvReader.insertEmployees(dbConnection.getConnection(), mCsvReader.getListOfEmployees(dbConnection.getConnection()));
         mCsvReader.insertServiceRequests(dbConnection.getConnection(), mCsvReader.getListOfServiceRequests(dbConnection.getConnection()));
@@ -80,9 +94,9 @@ public class Main extends Application {
         if (new File("floorMaps").mkdirs()) {
             try {
                 String jarPath = ExportResource("/img/Floor_0.png");
-                System.out.println("*****" + jarPath + "*****");
-                System.out.println("*****" + jarPath + "*****");
-                System.out.println("*****" + "*****");
+                //System.out.println("*****" + jarPath + "*****");
+                //System.out.println("*****" + jarPath + "*****");
+                //System.out.println("*****" + "*****");
                 ExportResource("Floor_1.png");
                 ExportResource("Floor_2.png");
                 ExportResource("Floor_3.png");
@@ -113,9 +127,7 @@ public class Main extends Application {
      *
      * @param resourceName ie.: "/SmartLibrary.dll"
      * @return The path to the exported resource
-     * @throws Exception
-     *
-     * thank you to user Ordiel on stack overflow for the structure
+     * @throws Exception thank you to user Ordiel on stack overflow for the structure
      */
 
     public String ExportResource(String resourceName) throws Exception {
@@ -124,14 +136,14 @@ public class Main extends Application {
         String jarFolder = "";
         try {
             stream = Main.class.getResourceAsStream("/img/" + resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
-            if(stream == null) {
+            if (stream == null) {
                 throw new Exception();
             }
 
             int readBytes;
             byte[] buffer = new byte[4096];
             jarFolder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-            System.out.println(jarFolder + "********");
+            //System.out.println(jarFolder + "********");
             resStreamOut = new FileOutputStream(jarFolder + "floorMaps/" + resourceName);
             while ((readBytes = stream.read(buffer)) > 0) {
                 resStreamOut.write(buffer, 0, readBytes);

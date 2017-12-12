@@ -265,13 +265,12 @@ public class NodesQuery {
     }
 
     public List<NodeData> queryNodeByFloorAndBuilding(String nFloor, String nBuilding) {
-
         NodeData queryResult = null;
         List<NodeData> allNodesByFloor = new ArrayList<NodeData>();
 
         try {
             String sql;
-            if (nBuilding.matches("Hospital|BTM|(15|25|45) Francis|Tower|Shapiro"))
+            if (nBuilding.matches("Main Hospital"))
                 sql = "SELECT * FROM Nodes WHERE floor = " + "'" + nFloor + "'" + "AND (building = 'BTM' OR building = '45 Francis' OR building = '15 Francis' OR building = 'Tower' OR building = 'Shapiro')";
             else
                 sql = "SELECT * FROM Nodes WHERE floor = " + "'" + nFloor + "'" + "AND building = " + "'" + nBuilding + "'";

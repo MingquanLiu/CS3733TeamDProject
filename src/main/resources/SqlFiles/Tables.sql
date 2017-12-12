@@ -13,6 +13,7 @@ DROP TABLE ServiceRequests;
 DROP TABLE Employees;
 DROP TABLE Edges;
 DROP TABLE Nodes;
+DROP TABLE MapInfo;
 
 
 CREATE TABLE Nodes(
@@ -136,4 +137,12 @@ CREATE TABLE MaintenanceRequests(
           REFERENCES ServiceRequests (serviceID) ON DELETE CASCADE,
     CONSTRAINT MaintenanceRequests_typeVal CHECK (maintenanceType IN
     ('cleaning', 'elevator', 'electricity', 'network','other'))
+);
+
+CREATE TABLE MapInfo(
+    buildingName VARCHAR(30),
+    floorName VARCHAR(30),
+    imagePath VARCHAR(100),
+    floorNum VARCHAR(5),
+    CONSTRAINT MapInfo_PK PRIMARY KEY (buildingName,floorName)
 );

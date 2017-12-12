@@ -1,2 +1,2 @@
 serviceID, sender, receiver, serviceType, location1, location2, description, requestTime, handleTime, completionTime, status, severity
-20171206130930242,admin,wwong2,interpreter,WELEV00KL2,null,,2017-12-06 13:09:30,2017-12-06 13:09:46,,handled,3
+20171211193200843,admin,wwong2,interpreter,WELEV00KL2,null,,2017-12-11 19:32:00,2017-12-11 19:32:44,2017-12-11 19:32:35,handled,5
