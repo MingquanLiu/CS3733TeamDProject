@@ -8,6 +8,8 @@ import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyValue;
+import javafx.animation.PathTransition;
+import javafx.animation.Transition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,11 +26,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Shape;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
@@ -62,7 +66,7 @@ public class NewMainPageController {
     @FXML
     private JFXButton btnZoomOut;
     @FXML
-    private JFXSlider slideZoom;
+    private Slider slideZoom;
     //</editor-fold>
     //<editor-fold desc="directions pane">
     //about page stuff
@@ -106,6 +110,7 @@ public class NewMainPageController {
     private JFXButton keyLocationStairs;
     @FXML
     private AnchorPane keyLocationPane;
+
 
     @FXML
     private JFXComboBox comboBuilding;
@@ -199,6 +204,16 @@ public class NewMainPageController {
     private String userName = null;
     private Employee employeeLoggedIn;
 
+    //animations stuff
+    @FXML
+    private JFXComboBox<Image> comboCharacter;
+    private ArrayList<Transition> transitions = new ArrayList<>();
+    private ArrayList<ImageView> drawnImages = new ArrayList<>();
+    @FXML
+    private JFXButton crossFloor;
+    private ArrayList<Floor> floors;
+
+
     public void initManager(ManageController manageController) {
         manager = manageController;
         instantiateNodeList();
@@ -257,6 +272,229 @@ public class NewMainPageController {
         //sets the map, just in case we want it to start on another floor
         setMap();
         setZoom();
+
+        Image walkingMan = new Image("img/walkingBlue.gif");
+        Image runningBatman = new Image("img/batmanRun.gif");
+
+        ObservableList characters = FXCollections.observableList(new ArrayList<>());
+        characters.add(walkingMan);
+        characters.add(runningBatman);
+
+        comboCharacter.getItems().addAll(characters);
+        comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
+        comboCharacter.setCellFactory(listView -> new NewMainPageController.ImageListCell());
+        comboCharacter.setValue(walkingMan);
+    }
+    //path display/animation
+    private class ImageListCell extends ListCell<Image> {
+        private final ImageView view;
+
+        ImageListCell() {
+            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            view = new ImageView();
+        }
+
+        @Override
+        protected void updateItem(Image item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (item == null || empty) {
+                setGraphic(null);
+            } else {
+                view.setImage(item);
+                setGraphic(view);
+            }
+        }
+    }
+    public void clearMain() {
+        clearPath();
+        //lblCrossFloor.setVisible(false);
+        crossFloor.setVisible(false);
+        closeNodeInfoHandler();
+        clearPathFindLoc();
+        //lastShowNodeData.setImageVisible(false);
+    }
+    private void clearPathFindLoc() {
+        endLocation.setText("");
+        startLocation.setText("");
+    }
+    private void clearPath() {
+        currentPath = new ArrayList<>();
+        if (pathDrawings.size() > 0) {
+            for (Shape shape : pathDrawings) {
+                System.out.println("success remove");
+                panningPane.getChildren().remove(shape);
+            }
+            currentPathStartFloor = "";
+            currentPathGoalFloor = "";
+            pathDrawings = new ArrayList<>();
+
+        }
+        clearAnimations();
+    }
+    public void clearAnimations(){
+        if(!transitions.isEmpty()) {
+            for (Transition t : transitions) {
+                t = new PathTransition();
+                t.stop();
+            }
+        }
+        transitions = new ArrayList<>();
+        if (drawnImages.size() > 0){
+            for(ImageView img:drawnImages){
+                panningPane.getChildren().remove(img);
+            }
+        }
+    }
+    private void pathAnimation(List<NodeData> nodes){
+        clearAnimations();
+        Path path = new Path();
+        MoveTo moveTo = new MoveTo();
+        moveTo.setX(DBCToUIC(nodes.get(0).getXCoord(),currentScale));
+        moveTo.setY(DBCToUIC(nodes.get(0).getYCoord(),currentScale));
+        path.getElements().add(moveTo);
+        for (int i = 1; i < nodes.size(); i++){
+            LineTo lineTo = new LineTo();
+            lineTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
+            lineTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
+            path.getElements().add(lineTo);
+
+        }
+        //panningPane.getChildren().addAll(path);
+
+        String imgUrl = ((Image)(comboCharacter.getValue())).impl_getUrl();
+        System.out.println(imgUrl);
+        ImageView walkingMan = new ImageView(imgUrl);
+        walkingMan.setPreserveRatio(true);
+        walkingMan.setFitWidth(200*currentScale);
+
+        PathTransition pathTransition = new PathTransition();
+
+        int distance = distanceBetweenNodes(nodes.get(0), nodes.get(nodes.size()-1));
+        pathTransition.setDuration(Duration.millis(distance*10));
+        pathTransition.setNode(walkingMan);
+        pathTransition.setPath(path);
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setCycleCount(100);
+        panningPane.getChildren().add(walkingMan);
+        walkingMan.toFront();
+        pathTransition.setAutoReverse(false);
+        pathTransition.orientationProperty().addListener(new ChangeListener<PathTransition.OrientationType>() {
+            @Override
+            public void changed(ObservableValue<? extends PathTransition.OrientationType> observable, PathTransition.OrientationType oldValue, PathTransition.OrientationType newValue) {
+                System.out.println("orientation change");
+            }
+        });
+
+        pathTransition.play();
+
+        drawnImages.add(walkingMan);
+        transitions.add(pathTransition);
+    }
+
+    private void displayPath(List<NodeData> path) {
+        if (path != null && !path.isEmpty()) {
+            clearPath();                    //first thing to do is clear any visible path and animations
+            //currentPath = path;
+            System.out.println("drawing path");
+            NodeData prev = path.get(0);
+            int x = (int) (prev.getXCoord() * currentScale);
+            int y = (int) (prev.getYCoord() * currentScale);
+            System.out.println(x + ", " + y);
+
+            ArrayList<NodeData> thisFloorPath = new ArrayList<>();
+            ArrayList<Line> lines = new ArrayList<>();
+            int startIndex = -1;
+            for (int i = 1; i < path.size(); i++) {
+                Line l = new Line();
+                NodeData n = path.get(i);
+
+                if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
+                    NodeData nextNode = path.get(i+1);
+                    if(!n.getFloor().equals(nextNode.getFloor())){
+                        currentPathStartFloor = n.getFloor();
+                        currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
+                        currentPathGoalFloor = nextNode.getFloor();
+                        currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
+//                        lblCrossFloor.setText("Proceed to Floor " + currentPathGoalFloor + System.lineSeparator()+ "From Floor " + currentPathStartFloor);
+//                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+//                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+//                        lblCrossFloor.setVisible(true);
+//                        lblCrossFloor.toFront();
+                        crossFloor.setText("From floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
+                        crossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+                        crossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+                        crossFloor.setVisible(true);
+                        crossFloor.toFront();
+                    }
+                }
+
+                if(n.getFloor().equals(curFloor.getFloorNum())) {
+                    System.out.println(n.getLongName());
+                    if (prev.getFloor().equals(curFloor.getFloorNum())) {
+                        l.setStroke(Color.LIGHTSKYBLUE);
+                        l.setStrokeWidth(10.0 * currentScale);
+                        l.setStartX(prev.getXCoord() * currentScale);
+                        l.setStartY(prev.getYCoord() * currentScale);
+                        l.setEndX(n.getXCoord() * currentScale);
+                        l.setEndY(n.getYCoord() * currentScale);
+                        lines.add(l);
+                    }
+                }
+                prev = n;
+            }
+            for(NodeData n:path){
+                if(n.getFloor().equals(curFloor.getFloorNum())){
+                    thisFloorPath.add(n);
+                }
+            }
+            if(thisFloorPath.size() > 0){
+                pathAnimation(thisFloorPath);
+            }
+            pathDrawings.addAll(lines);
+            panningPane.getChildren().addAll(lines);
+
+            //emailDirections.setVisible(true);
+        }
+    }
+    public void crossFloor(){
+        System.out.println("called crossFloor");
+        System.out.println(curFloor.getFloorName());
+        System.out.println(currentPathStartFloor);
+        System.out.println(currentPathGoalFloor);
+        /*
+        if(curFloor.getFloorName().equals(currentPathGoalFloor)){
+            for (Floor f:floors){
+                if(f.getFloorName().equals(currentPathStartFloor)){
+                    setFloor(f);
+                }
+            }
+        }
+        else if(curFloor.getFloorName().equals(currentPathStartFloor)){
+            for (Floor f:floors){
+                if(f.getFloorName().equals(currentPathGoalFloor)){
+                    setFloor(f);
+                }
+            }
+        }
+        */
+    }
+    public void selectCharacter(){
+        displayPath(currentPath);
+    }
+    private void pauseTransitions() {
+        if (transitions.size() > 0) {
+            for (Transition t : transitions) {
+                t.pause();
+            }
+        }
+    }
+    private void resumeTransitions(){
+        if(transitions.size() > 0){
+            for(Transition t:transitions){
+                t.play();
+            }
+        }
     }
 
     public synchronized void reinitialize() {
@@ -430,7 +668,7 @@ public class NewMainPageController {
             String id = np.startID;
             currentPath = new ArrayList<>();
         }
-        //displayPath(currentPath);
+        displayPath(currentPath);
         TextDirections text = new TextDirections(currentPath);
         ObservableList directionsList = FXCollections.observableList(new ArrayList<>());
         directionsList.addAll(text.getTextDirections());
@@ -606,7 +844,7 @@ public class NewMainPageController {
 
             if (newBld != curBuilding) {
                 System.out.println("floors: " + newBld);
-                ArrayList<Floor> floors = newBld.getFloors();
+                floors = newBld.getFloors();
                 ObservableList floorList = FXCollections.observableList(new ArrayList<>());
 
                 floorList.addAll(floors);

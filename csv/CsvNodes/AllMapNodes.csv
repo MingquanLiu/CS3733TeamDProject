@@ -260,7 +260,7 @@ HHALL00702,1740,1165,2,Tower,HALL,Hallway Connector 7 Floor 2,Hallway H00702,Tea
 HSTAI00202,1695,1165,2,Tower,STAI,Stairwell 2 Tower Floor 2,Stairwell 0202,Team H
 HHALL00802,1740,1230,2,Tower,HALL,Hallway Connector 8 Floor 2,Hallway H00802,Team H
 HSTAI00302,1790,1230,2,Tower,STAI,Escalator 1 Floor 2,Escalator 1 Floor 2,Team H
-HHALL00902,1740,1280,2,Tower,HALL,Hallway Connector 9 Floor 2,Hallway H00902,Team H
+HHALL00902,1736,1293,2,Tower,HALL,Hallway Connector 9 Floor 2,Hallway H00902,Team H
 HHALL01002,2055,1280,2,Tower,HALL,Hallway Connector 10 Floor 2,Hallway H01002,Team H
 HDEPT00102,2055,1330,2,Tower,DEPT,Endoscopy,Endoscopy,Team H
 HHALL00503,1680,1290,3,Tower,HALL,Hallway Connector 5 Floor 3,Hallway H00502,Team H
@@ -362,7 +362,7 @@ WHALL00302,2085,900,2,45 Francis,HALL,Hallway Connector 3 Floor 2,Hallway W0302,
 WHALL00402,2105,900,2,45 Francis,HALL,Hallway Connector 4 Floor 2,Hallway W0402,Team B
 WHALL00502,2085,1280,2,45 Francis,HALL,Hallway Connector 5 Floor 2,Hallway W0502,Team H
 WHALL00602,2105,1280,2,45 Francis,HALL,Hallway Connector 6 Floor 2,Hallway W0602,Team B
-WHALL00702,1740,1500,2,Tower,HALL,Hallway Connector 7 Floor 2,Hallway W0702,Team H
+WHALL00702,1743,1513,2,Tower,HALL,Hallway Connector 7 Floor 2,Hallway W0702,Team H
 WHALL00802,1720,1745,2,Shapiro,HALL,Hallway Connector 8 Floor 2,Hallway W0802,Team G
 WHALL00902,1690,2240,2,Shapiro,HALL,Hallway Connector 9 Floor 2,Hallway W0902,Team G
 WHALL01002,1690,2455,2,BTM,HALL,Hallway Connector 10 Floor 2,Hallway W1002,Team A
@@ -596,4 +596,4 @@ AHALL0130G,1582,2533,G,BTM,HALL,Hallway 13 floor G,AHall13G,Team A
 AINFO0020G,1699,2707,G,BTM,INFO,Information Desk,Information,Team A
 AHALL0110G,1550,2853,G,BTM,HALL,Hallway 11 floor G,AHall11G,Team A
 ARETL00101,1619,2522,1,BTM,RETL,Cafe,Cafe,Team A
-WhatEver,2256,546,2,15 Francis,HALL,aaaa,ssss,D
+WhatEver,2720,513,2,15 Francis,HALL,aaaa,ssss,D

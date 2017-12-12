@@ -370,12 +370,12 @@ public class TestingController extends UIController implements Initializable {
         comboLocations.setItems(locations);
         comboLocations.setValue("None");
 
-        Floor basement2 = new Floor("L2", "45 Francis", "file:floorMaps/Floor_-2.png");
-        Floor basement1 = new Floor("L1", "45 Francis", "file:floorMaps/Floor_-1.png");
-        Floor ground = new Floor("G", "45 Francis", "file:floorMaps/Floor_0.png");
-        Floor floor1 = new Floor("1", "45 Francis", "file:floorMaps/Floor_1.png");
-        Floor floor2 = new Floor("2", "45 Francis", "file:floorMaps/Floor_2.png");
-        Floor floor3 = new Floor("3", "45 Francis", "file:floorMaps/Floor_3.png");
+        Floor basement2 = new Floor("L2", "45 Francis", "L2", "file:floorMaps/Floor_-2.png");
+        Floor basement1 = new Floor("L1", "45 Francis", "L1", "file:floorMaps/Floor_-1.png");
+        Floor ground = new Floor("G", "45 Francis", "G", "file:floorMaps/Floor_0.png");
+        Floor floor1 = new Floor("1", "45 Francis", "1", "file:floorMaps/Floor_1.png");
+        Floor floor2 = new Floor("2", "45 Francis", "2", "file:floorMaps/Floor_2.png");
+        Floor floor3 = new Floor("3", "45 Francis", "3", "file:floorMaps/Floor_3.png");
 
         ArrayList<Floor> basicFloors = new ArrayList<>();
         basicFloors.add(basement2);
@@ -492,32 +492,32 @@ public class TestingController extends UIController implements Initializable {
         characters.add(runningBatman);
 
         comboCharacter.getItems().addAll(characters);
-        comboCharacter.setButtonCell(new ImageListCell());
-        comboCharacter.setCellFactory(listView -> new ImageListCell());
+        //comboCharacter.setButtonCell(new ImageListCell());
+        //comboCharacter.setCellFactory(listView -> new ImageListCell());
         comboCharacter.setValue(walkingMan);
 //        comboCharacter.getSelectionModel().select(0);
 
     }
-    private class ImageListCell extends ListCell<Image> {
-        private final ImageView view;
-
-        ImageListCell() {
-            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            view = new ImageView();
-        }
-
-        @Override
-        protected void updateItem(Image item, boolean empty) {
-            super.updateItem(item, empty);
-
-            if (item == null || empty) {
-                setGraphic(null);
-            } else {
-                view.setImage(item);
-                setGraphic(view);
-            }
-        }
-    }
+//    private class ImageListCell extends ListCell<Image> {
+//        private final ImageView view;
+//
+//        ImageListCell() {
+//            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+//            view = new ImageView();
+//        }
+//
+//        @Override
+//        protected void updateItem(Image item, boolean empty) {
+//            super.updateItem(item, empty);
+//
+//            if (item == null || empty) {
+//                setGraphic(null);
+//            } else {
+//                view.setImage(item);
+//                setGraphic(view);
+//            }
+//        }
+//    }
 
     public void selectCharacter(){
         displayPath(currentPath);
@@ -1202,7 +1202,7 @@ public class TestingController extends UIController implements Initializable {
                 )
         );
         loader.<MapAdminController>getController().initManager(manager);
-        loader.<MapAdminController>getController().sendBuildings(buildings);
+        //loader.<MapAdminController>getController().sendBuildings(buildings);
         loader.<MapAdminController>getController().setmTestController(this);
         stage.showAndWait();
         buildings = loader.<MapAdminController>getController().getBuildings();
