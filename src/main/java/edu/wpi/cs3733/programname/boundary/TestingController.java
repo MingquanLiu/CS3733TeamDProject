@@ -12,7 +12,6 @@ import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
-import foodRequest.FoodRequest;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.Transition;
@@ -253,6 +252,8 @@ public class TestingController extends UIController implements Initializable {
 
     @FXML
     private Label lblCrossFloor;
+    @FXML
+    private JFXButton crossFloor;
 
 
     private String previousDropDownState = "";
@@ -369,12 +370,12 @@ public class TestingController extends UIController implements Initializable {
         comboLocations.setItems(locations);
         comboLocations.setValue("None");
 
-        Floor basement2 = new Floor("Basement 2", "45 Francis", "file:floorMaps/Floor_-2.png");
-        Floor basement1 = new Floor("Basement 1", "45 Francis", "file:floorMaps/Floor_-1.png");
-        Floor ground = new Floor("Ground", "45 Francis", "file:floorMaps/Floor_0.png");
-        Floor floor1 = new Floor("Floor 1", "45 Francis", "file:floorMaps/Floor_1.png");
-        Floor floor2 = new Floor("Floor 2", "45 Francis", "file:floorMaps/Floor_2.png");
-        Floor floor3 = new Floor("Floor 3", "45 Francis", "file:floorMaps/Floor_3.png");
+        Floor basement2 = new Floor("L2", "45 Francis", "file:floorMaps/Floor_-2.png");
+        Floor basement1 = new Floor("L1", "45 Francis", "file:floorMaps/Floor_-1.png");
+        Floor ground = new Floor("G", "45 Francis", "file:floorMaps/Floor_0.png");
+        Floor floor1 = new Floor("1", "45 Francis", "file:floorMaps/Floor_1.png");
+        Floor floor2 = new Floor("2", "45 Francis", "file:floorMaps/Floor_2.png");
+        Floor floor3 = new Floor("3", "45 Francis", "file:floorMaps/Floor_3.png");
 
         ArrayList<Floor> basicFloors = new ArrayList<>();
         basicFloors.add(basement2);
@@ -456,7 +457,8 @@ public class TestingController extends UIController implements Initializable {
         observerList.add(mapObserver);
         manager.initializeObservable(observerList);
 
-        lblCrossFloor.setVisible(false);
+        //lblCrossFloor.setVisible(false);
+        crossFloor.setVisible(false);
 
         paneControls.setPickOnBounds(false);
 
@@ -597,7 +599,8 @@ public class TestingController extends UIController implements Initializable {
     //clearing functions
     public void clearMain() {
         clearPath();
-        lblCrossFloor.setVisible(false);
+        //lblCrossFloor.setVisible(false);
+        crossFloor.setVisible(false);
         closeNodeInfoHandler();
         clearPathFindLoc();
         //lastShowNodeData.setImageVisible(false);
@@ -692,41 +695,27 @@ public class TestingController extends UIController implements Initializable {
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
+//                if(i==1 || i == path.size()-1){
+//                    n.
+//                }
 
                 if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
                     NodeData nextNode = path.get(i+1);
-                    String printFloor = "";
-//                    Circle circle = new Circle(75, Color.RED);
-//                    circle.setCenterX(DBCToUIC(n.getXCoord(), currentScale));
-//                    circle.setCenterY(DBCToUIC(n.getYCoord(), currentScale));
-//                    double newX = DBCToUIC(nextNode.getXCoord(), currentScale);
-//                    double newY = DBCToUIC(nextNode.getYCoord(), currentScale);
-//                    circle.setTranslateX(newX);
-//                    circle.setTranslateY(newY);
-//                    panningPane.getChildren().add(circle);
-                    if((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
-                            (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))){
-                        for(int j = 1; j < path.size() - i; j++) {
-                            nextNode = path.get(i+j);
-                            if (!nextNode.getNodeType().equals(n.getNodeType())){
-                                printFloor = n.getFloor();
-                                currentPathStartFloor = printFloor;
+                    if(!n.getFloor().equals(nextNode.getFloor())){
+                                currentPathStartFloor = n.getFloor();
                                 currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
                                 currentPathGoalFloor = nextNode.getFloor();
                                 currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
-                            } else if (nextNode.equals(n)) {
-                                printFloor = n.getFloor();
-                                currentPathStartFloor = printFloor;
-                                currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
-                                currentPathGoalFloor = nextNode.getFloor();
-                                currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
-                            }
-                        }
-                        lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
-                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
-                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
-                        lblCrossFloor.setVisible(true);
-                        lblCrossFloor.toFront();
+//                        lblCrossFloor.setText("Proceed to Floor " + currentPathGoalFloor + System.lineSeparator()+ "From Floor " + currentPathStartFloor);
+//                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+//                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+//                        lblCrossFloor.setVisible(true);
+//                        lblCrossFloor.toFront();
+                        crossFloor.setText("From floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
+                        crossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+                        crossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+                        crossFloor.setVisible(true);
+                        crossFloor.toFront();
                     }
                 }
 
@@ -758,6 +747,27 @@ public class TestingController extends UIController implements Initializable {
             panningPane.getChildren().addAll(lines);
 
             emailDirections.setVisible(true);
+        }
+    }
+
+    public void crossFloor(){
+        System.out.println("called crossFloor");
+        System.out.println(currentFloor.getFloorName());
+        System.out.println(currentPathStartFloor);
+        System.out.println(currentPathGoalFloor);
+        if(currentFloor.getFloorName().equals(currentPathGoalFloor)){
+            for (Floor f:floors){
+                if(f.getFloorName().equals(currentPathStartFloor)){
+                    setFloor(f);
+                }
+            }
+        }
+        else if(currentFloor.getFloorName().equals(currentPathStartFloor)){
+            for (Floor f:floors){
+                if(f.getFloorName().equals(currentPathGoalFloor)){
+                    setFloor(f);
+                }
+            }
         }
     }
 
@@ -798,7 +808,7 @@ public class TestingController extends UIController implements Initializable {
 
     public void setFloor() {
         //TODO add changing of displayed nodes
-        lblCrossFloor.setVisible(false);
+        //lblCrossFloor.setVisible(false);
         currentFloor = (Floor) (comboFloors.getValue());
         floor = floors.indexOf(currentFloor) - 2;
         System.out.println("floor: " + floor);
@@ -818,22 +828,24 @@ public class TestingController extends UIController implements Initializable {
         displayPath(currentPath);
 
         nodeInfoPane.setVisible(false);
-        if (currentPathStartFloor.equals("") || !currentPathGoalFloor.equals(currentFloor.getFloorName()) ||
-                currentPathGoalFloor.equals(currentFloor.getFloorName())) {
-            lblCrossFloor.setVisible(false);
-        }
-
-        if (currentFloor.getFloorName().equals(currentPathGoalFloor)) {
-            lblCrossFloor.setText("Proceed to Floor " + currentPathStartFloor + "!");
-            lblCrossFloor.setLayoutX(DBCToUIC(currentStartFloorLoc.getXCoord(), currentScale));
-            lblCrossFloor.setLayoutY(DBCToUIC(currentStartFloorLoc.getYCoord(), currentScale));
-            lblCrossFloor.setVisible(true);
-        } else if (currentFloor.getFloorName().equals(currentPathStartFloor)) {
-            lblCrossFloor.setText("Proceed to Floor " + currentPathGoalFloor + "!");
-            lblCrossFloor.setLayoutX(DBCToUIC(currentGoalFloorLoc.getXCoord(), currentScale));
-            lblCrossFloor.setLayoutY(DBCToUIC(currentGoalFloorLoc.getYCoord(), currentScale));
-            lblCrossFloor.setVisible(true);
-        }
+//        if (currentPathStartFloor.equals("") || !currentPathGoalFloor.equals(currentFloor.getFloorName()) ||
+//                currentPathGoalFloor.equals(currentFloor.getFloorName())) {
+//            lblCrossFloor.setVisible(false);
+//        }
+//
+//        if (currentFloor.getFloorName().equals(currentPathGoalFloor)) {
+//            lblCrossFloor.setText("Proceed to Floor " + currentPathStartFloor + "!");
+//            lblCrossFloor.setLayoutX(DBCToUIC(currentStartFloorLoc.getXCoord(), currentScale));
+//            lblCrossFloor.setLayoutY(DBCToUIC(currentStartFloorLoc.getYCoord(), currentScale));
+//            lblCrossFloor.setVisible(true);
+//            lblCrossFloor.toFront();
+//        } else if (currentFloor.getFloorName().equals(currentPathStartFloor)) {
+//            lblCrossFloor.setText("Proceed to Floor " + currentPathGoalFloor + "!");
+//            lblCrossFloor.setLayoutX(DBCToUIC(currentGoalFloorLoc.getXCoord(), currentScale));
+//            lblCrossFloor.setLayoutY(DBCToUIC(currentGoalFloorLoc.getYCoord(), currentScale));
+//            lblCrossFloor.setVisible(true);
+//            lblCrossFloor.toFront();
+//        }
         comboLocations.setValue("None");
         previousDropDownState = "";
         timesCalled++;
@@ -904,7 +916,7 @@ public class TestingController extends UIController implements Initializable {
                 case "Retail Services":
                     nodeType = "RETL";
                     break;
-                case "Waiting Rooms":
+                case "Departments":
                     nodeType = "DEPT";
                     break;
                 case "Elevators":
