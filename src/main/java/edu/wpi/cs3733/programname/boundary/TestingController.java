@@ -611,8 +611,8 @@ public class TestingController extends UIController implements Initializable {
 
         PathTransition pathTransition = new PathTransition();
 
-
-        pathTransition.setRate(.02);
+        int distance = distanceBetweenNodes(nodes.get(0), nodes.get(nodes.size()-1));
+        pathTransition.setDuration(Duration.millis(distance));
         pathTransition.setNode(walkingMan);
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
@@ -690,12 +690,6 @@ public class TestingController extends UIController implements Initializable {
 //                Path path = new Path();
 //                PathElement start = new moveTo(l.getStartX(), l.getStartY());
                 if(n.getFloor().equals(convertFloor(floor))) {
-                    if(i == 1){
-                        thisFloorPath.add(prev);
-                    }
-                    else {
-                        thisFloorPath.add(n);
-                    }
                     System.out.println(n.getLongName());
                     if (prev.getFloor().equals(convertFloor(floor))) {
                         l.setStroke(Color.LIGHTSKYBLUE);
@@ -709,11 +703,17 @@ public class TestingController extends UIController implements Initializable {
                 }
                 prev = n;
             }
-            pathDrawings.addAll(lines);
-            panningPane.getChildren().addAll(lines);
-            if(thisFloorPath.size() > 0) {
+            for(NodeData n:path){
+                if(n.getFloor().equals(convertFloor(floor))){
+                    thisFloorPath.add(n);
+                }
+            }
+            if(thisFloorPath.size() > 0){
                 pathAnimation(thisFloorPath);
             }
+            pathDrawings.addAll(lines);
+            panningPane.getChildren().addAll(lines);
+
             emailDirections.setVisible(true);
         }
     }
