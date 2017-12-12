@@ -171,8 +171,6 @@ public class Main extends Application {
                     } else {
                         //if(System.currentTimeMillis() < AppSettings.getInstance().getDelayTime()) {
                         if(AppSettings.getInstance().isSaveScreen()) {
-                            frame.dispose();
-                            AppSettings.getInstance().setSaveScreen(false);
                             FutureTask<Void> task = new FutureTask<>(() -> controller.reinitialize(), null);
                             Platform.runLater(task);
                             try {
@@ -182,7 +180,8 @@ public class Main extends Application {
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
                             }
-//                                controller.reinitialize();
+                            frame.dispose();
+                            AppSettings.getInstance().setSaveScreen(false);
                         }
                     }
                 }
