@@ -204,6 +204,30 @@ public class NewMainPageController {
     private String userName = null;
     private Employee employeeLoggedIn;
 
+
+    private boolean showStairs = false;
+    private boolean showSubject = false;
+    private boolean showDestination = false;
+    private boolean showWaitingRooms = false;
+    private boolean showRetail = false;
+    private boolean showServiceDesk = false;
+    private boolean showLabs = false;
+    private boolean showExits = false;
+    private boolean showElevator = false;
+    private boolean showBathrooms = false;
+
+
+    public void StairsToggle(){ this.showStairs = !this.showStairs;}
+    public void SubjectToggle(){this.showSubject = !this.showSubject;}
+    public void DestinationToggle(){this.showDestination = !this.showDestination;}
+    public void WaitingRoomToggle(){this.showWaitingRooms = !this.showWaitingRooms;}
+    public void RetailToggle(){this.showRetail = !this.showRetail;}
+    public void ServiceDeskToggle(){this.showServiceDesk = !this.showServiceDesk;}
+    public void LabToggle(){this.showLabs = !this.showLabs;}
+    public void ExitToggle(){this.showExits = !this.showExits;}
+    public void ElevatorToggle(){this.showElevator = !this.showElevator;}
+    public void BathroomToggle(){this.showBathrooms = !this.showBathrooms;}
+
     //animations stuff
     @FXML
     private JFXComboBox<Image> comboCharacter;
@@ -986,4 +1010,5 @@ public class NewMainPageController {
         stage.show();
     }
 
+    // End of controller
 }
