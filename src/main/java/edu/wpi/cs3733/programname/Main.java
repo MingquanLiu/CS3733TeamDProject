@@ -169,7 +169,6 @@ public class Main extends Application {
                             AppSettings.getInstance().setSaveScreen(true);
                         }
                     } else {
-                        //if(System.currentTimeMillis() < AppSettings.getInstance().getDelayTime()) {
                         if(AppSettings.getInstance().isSaveScreen()) {
                             FutureTask<Void> task = new FutureTask<>(() -> controller.reinitialize(), null);
                             Platform.runLater(task);
