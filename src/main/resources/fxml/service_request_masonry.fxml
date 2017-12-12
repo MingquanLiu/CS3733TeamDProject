@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXMasonryPane?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.StackPane?>
+
 <StackPane fx:id="root" xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
    <ScrollPane fitToHeight="true" fitToWidth="true" fx:id="masonryScroll" hbarPolicy="NEVER">

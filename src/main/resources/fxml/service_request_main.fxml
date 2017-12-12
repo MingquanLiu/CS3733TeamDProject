@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXMasonryPane?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
    <children>
-      <StackPane layoutX="52.0" layoutY="123.0" prefHeight="210.0" prefWidth="313.0" />
-      <StackPane layoutX="373.0" layoutY="123.0" prefHeight="210.0" prefWidth="339.0" />
+      <StackPane fx:id="requestMasonry" layoutX="117.0" layoutY="53.0" prefHeight="387.0" prefWidth="325.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="304.0" AnchorPane.topAnchor="53.0" xmlns="http://javafx.com/javafx/2.2" xmlns:fx="http://javafx.com/fxml/1">
+         <ScrollPane fx:id="requestMasonryScroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER">
+            <JFXMasonryPane fx:id="masonryPane">
+            </JFXMasonryPane>
+         </ScrollPane>
+      </StackPane>
+      <StackPane fx:id="employeeMasonry" layoutX="454.0" layoutY="58.0" prefHeight="289.0" prefWidth="275.0" />
       <Label alignment="TOP_CENTER" layoutX="195.0" layoutY="20.0" prefHeight="47.0" prefWidth="356.0" style="-fx-font-family: sans-serif; -fx-text-fill: lightskyblue;" text="Service Request Manager" />
-      <AnchorPane layoutX="8.0" layoutY="355.0" prefHeight="141.0" prefWidth="173.0">
+      <AnchorPane layoutX="471.0" layoutY="347.0" prefHeight="141.0" prefWidth="173.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="34.0">
          <children>
             <Label layoutX="50.0" layoutY="14.0" text="Filter by Request Type:" />
             <JFXButton layoutX="23.0" layoutY="47.0" prefHeight="27.0" prefWidth="97.0" style="-fx-background-color: lightblue;" text="All" />
@@ -20,6 +26,12 @@
             <JFXButton layoutX="132.0" layoutY="89.0" style="-fx-background-color: lightblue;" text="Transportation" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="343.0" layoutY="356.0" prefHeight="133.0" prefWidth="385.0" />
+      <AnchorPane layoutY="88.0" prefHeight="193.0" prefWidth="90.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="88.0">
+         <children>
+            <JFXButton fx:id="btnUnassigned" layoutX="14.0" layoutY="24.0" style="-fx-background-color: lightblue;" text="Unassigned" />
+            <JFXButton fx:id="btnAssigned" layoutX="14.0" layoutY="83.0" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: lightblue;" text="Assigned" />
+            <JFXButton fx:id="btnCompleted" layoutX="14.0" layoutY="141.0" prefHeight="27.0" prefWidth="91.0" style="-fx-background-color: lightblue;" text="Completed" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

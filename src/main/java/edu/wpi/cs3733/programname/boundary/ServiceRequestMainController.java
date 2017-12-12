@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.boundary;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.Constants;
@@ -27,16 +28,34 @@ import java.util.List;
 public class ServiceRequestMainController {
 
     @FXML
-    StackPane root;
-    @FXML
     JFXMasonryPane masonryPane;
     @FXML
-    ScrollPane masonryScroll;
+    ScrollPane requestMasonryScroll;
+
+    @FXML
+    private StackPane requestMasonry;
+
+    @FXML
+    private StackPane employeeMasonry;
+
+    @FXML
+    private JFXButton btnUnassigned;
+
+    @FXML
+    private JFXButton btnAssigned;
+
+    @FXML
+    private JFXButton btnCompleted;
+
 
     ManageController manager;
 
     public void initManager(ManageController manage) throws IOException {
         this.manager = manage;
+        initializeRequestMasonry();
+    }
+
+    private void initializeRequestMasonry() throws IOException {
         masonryPane.setVisible(true);
         ArrayList<Node> children = new ArrayList<>();
         List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
@@ -45,26 +64,21 @@ public class ServiceRequestMainController {
                     "/fxml/service_request_obj2.fxml"
             ));
             AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
-            requestView.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,
-                    CornerRadii.EMPTY, Insets.EMPTY)));
+            requestView.setStyle("-fx-border-color: black; -fx-background-radius: 5 5 0 0; -fx-background-color: lightblue");
             updateRequestDetail(requestView, unassigned);
             requestView.setVisible(true);
-            requestView.toFront();
             masonryPane.getChildren().add(requestView);
         }
-
     }
 
     private void updateRequestDetail(AnchorPane requestView, ServiceRequest request) {
         String details = "";
         Label titleLabel = (Label) requestView.lookup("#lblRequestTitle");
         Label typeLocationLabel = (Label) requestView.lookup("#lblTypeLocation");
-        Label descriptionLabel = (Label) requestView.lookup("#lblDescription");
         Label severityLabel = (Label) requestView.lookup("#lblSeverity");
         Label assignedToLabel = (Label) requestView.lookup("#lblAssignedTo");
-        Label idLabel = (Label) requestView.lookup("#lblRequestId");
 
-        NodeData locationNodeData = manager.getNodeData(request.getLocation2());
+        NodeData locationNodeData = manager.getNodeData(request.getLocation1());
         if (request.getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
             InterpreterRequest interpreterRequest = (InterpreterRequest) request;
             titleLabel.setText("Interpreter Request");
@@ -87,12 +101,9 @@ public class ServiceRequestMainController {
         }
         typeLocationLabel.setText(details);
         typeLocationLabel.setWrapText(true);
-        descriptionLabel.setText(request.getDescription());
-        descriptionLabel.setWrapText(true);
         severityLabel.setText("Severity: " + request.getSeverity());
-        assignedToLabel.setText("");
+        assignedToLabel.setText("Request not assigned!");
         assignedToLabel.setWrapText(true);
-        idLabel.setText("ID#: " + request.getServiceID());
     }
 
 

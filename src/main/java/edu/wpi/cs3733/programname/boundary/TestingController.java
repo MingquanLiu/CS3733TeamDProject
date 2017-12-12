@@ -1237,7 +1237,7 @@ public class TestingController extends UIController implements Initializable {
     public void newServiceUIHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/service_request_masonry.fxml"
+                        "/fxml/service_request_main.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
