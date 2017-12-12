@@ -612,7 +612,7 @@ public class TestingController extends UIController implements Initializable {
         PathTransition pathTransition = new PathTransition();
 
         int distance = distanceBetweenNodes(nodes.get(0), nodes.get(nodes.size()-1));
-        pathTransition.setDuration(Duration.millis(distance));
+        pathTransition.setDuration(Duration.millis(distance*10));
         pathTransition.setNode(walkingMan);
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
