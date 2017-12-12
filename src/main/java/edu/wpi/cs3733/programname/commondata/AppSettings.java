@@ -15,7 +15,7 @@ public class AppSettings {
     private long delayTime;
     private boolean saveScreen;
 
-    private long shutdownDelay = 60000; // CHANGE THIS VALUE TO ADJUST THE SCREEN SAVER DELAY
+    private long shutdownDelay = 6000; // CHANGE THIS VALUE TO ADJUST THE SCREEN SAVER DELAY
     private String defaultLocation;
 
     private final int INITIAL_MAP_SCALE = 3;
