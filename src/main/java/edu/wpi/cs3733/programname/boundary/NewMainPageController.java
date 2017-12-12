@@ -532,9 +532,8 @@ public class NewMainPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Clear all drawings on the map
-        closeNodeInfoHandler();
         // Go back to the default view
+        clearMain();
     }
 
     public void mapEditHandler() {
@@ -822,7 +821,9 @@ public class NewMainPageController {
         System.out.println("scale says: " + currentScale + " but slider says: " + slideZoom.getValue() / 10);
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         showNodesOrEdges();
-
+        if(currentPath != null){
+            displayPath(currentPath);
+        }
     }
 
 
