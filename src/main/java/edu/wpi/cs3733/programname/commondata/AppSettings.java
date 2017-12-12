@@ -51,9 +51,9 @@ public class AppSettings {
         this.mapRatioIndex = mapRatioIndex;
     }
     public void kickTimer() {
-        System.out.println("Current time: " + System.currentTimeMillis());
+//        System.out.println("Current time: " + System.currentTimeMillis());
         delayTime = System.currentTimeMillis() + shutdownDelay;
-        System.out.println("Updated time: " + delayTime);
+//        System.out.println("Time at which the loop should kick: " + delayTime);
     }
     public long getDelayTime() {
         return delayTime;

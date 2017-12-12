@@ -9,7 +9,11 @@ import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.RunScript;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -31,11 +35,14 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class Main extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         checkOrMake();
@@ -54,12 +61,15 @@ public class Main extends Application {
 
 
     public Stage showDialog(ManageController manageController) throws IOException {
+        String toUse = "home_screen";
+        toUse = "test";
         FXMLLoader loader = new FXMLLoader(
         );
         loader.setLocation(getClass().getResource(
-                "/fxml/home_screen.fxml"
+                "/fxml/" + toUse + ".fxml"
         ));
-        Stage stage = new Stage(StageStyle.DECORATED);
+        Stage stage = new Stage(StageStyle
+                .DECORATED);
         stage.setScene(
                 new Scene(
                         (Pane) loader.load()
@@ -78,8 +88,13 @@ public class Main extends Application {
                 event.consume();
             }
         });
-        loader.<TestingController>getController().initManager(manageController);
-        initThread(manageController, loader.<TestingController>getController());
+        if (toUse.equals("home_screen"))
+            loader.<TestingController>getController().initManager(manageController);
+        else {
+            loader.<NewMainUIController>getController().initManager(manageController);
+            loader.<NewMainUIController>getController().passStage(stage);
+        }
+        initThread(loader.<NewMainUIController>getController());
         stage.show();
         return stage;
     }
@@ -98,7 +113,7 @@ public class Main extends Application {
         return dbConnection;
     }
 
-    private Thread initThread(ManageController manageController, TestingController testingController) {
+    private Thread initThread(NewMainUIController controller) {
         try {
             GlobalScreen.registerNativeHook();
         }
@@ -124,9 +139,11 @@ public class Main extends Application {
                 Frame frame = null;
 
                 while(true) {
-                    if(!AppSettings.getInstance().isSaveScreen()) {
-                        if(System.currentTimeMillis() >= AppSettings.getInstance().getDelayTime()) {
-                            frame = new Frame("Test");
+                    if((System.currentTimeMillis() - AppSettings.getInstance().getDelayTime()) > 0L) {
+                        if(!AppSettings.getInstance().isSaveScreen()) {
+//                            System.out.println("Time at which the loop actually kicked: " + System.currentTimeMillis());
+
+                            frame = new Frame("Kiosk Screen Saver");
                             frame.setVisible(false);
                             frame.setUndecorated(true);
                             try {
@@ -152,10 +169,20 @@ public class Main extends Application {
                             AppSettings.getInstance().setSaveScreen(true);
                         }
                     } else {
-                        if(System.currentTimeMillis() < AppSettings.getInstance().getDelayTime()) {
+                        //if(System.currentTimeMillis() < AppSettings.getInstance().getDelayTime()) {
+                        if(AppSettings.getInstance().isSaveScreen()) {
                             frame.dispose();
                             AppSettings.getInstance().setSaveScreen(false);
-                            testingController.reinitalize();
+                            FutureTask<Void> task = new FutureTask<>(() -> controller.reinitialize(), null);
+                            Platform.runLater(task);
+                            try {
+                                task.get();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
+//                                controller.reinitialize();
                         }
                     }
                 }
@@ -208,9 +235,7 @@ public class Main extends Application {
      *
      * @param resourceName ie.: "/SmartLibrary.dll"
      * @return The path to the exported resource
-     * @throws Exception
-     *
-     * thank you to user Ordiel on stack overflow for the structure
+     * @throws Exception thank you to user Ordiel on stack overflow for the structure
      */
 
     public String ExportResource(String resourceName) throws Exception {
@@ -219,7 +244,7 @@ public class Main extends Application {
         String jarFolder = "";
         try {
             stream = Main.class.getResourceAsStream("/img/" + resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
-            if(stream == null) {
+            if (stream == null) {
                 throw new Exception();
             }
 

@@ -65,6 +65,25 @@ public class PathfindingController {
         }
     }
 
+
+    public List<NodeData> SweeperPathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
+                                             String endNode)
+            throws InvalidNodeException {
+
+        if (AppSettings.getInstance().isHandicapPath()) {
+            allEdges = filterPath (allEdges);
+        }
+
+        try {
+                    pathFinder = new Sweep(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+
+        } catch (NoPathException npe) {
+            System.out.println(npe.fillInStackTrace());
+            return null;
+        }
+    }
+
     // if the pathfinding needs to make handicapped path, remove all the stairs
     private List<EdgeData> filterPath(List<EdgeData> edges) {
         List<EdgeData> handicappedPath = new LinkedList<EdgeData>();
