@@ -31,6 +31,7 @@
                         </ImageView>
                         <Accordion layoutX="355.0" layoutY="221.0" />
                         <Accordion layoutX="748.0" layoutY="348.0" />
+                  <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="637.0" onAction="#returnToMain" ripplerFill="RED" text="&lt;-- BACK" />
                     </children>
                 </AnchorPane>
             </content>

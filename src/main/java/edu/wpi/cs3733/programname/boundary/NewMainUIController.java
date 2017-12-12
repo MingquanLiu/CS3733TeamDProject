@@ -863,7 +863,6 @@ public class NewMainUIController {
     }
 
     public void addEdge() {
-
         if (!edgeNode1.equals("None") && !edgeNode2.equals("None")) {
             manager.addEdge(edgeNode1.getText(), edgeNode2.getText());
             clearMain();
@@ -1167,6 +1166,28 @@ public class NewMainUIController {
         stage.show();
     }
 
+    public void returnToMain() {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/test.fxml"
+                )
+        );
+
+        try {
+            stage.setScene(
+                    new Scene(
+                            (Pane) loader.load()
+                    )
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        loader.<NewMainUIController>getController().initManager(manager);
+        loader.<NewMainUIController>getController().passStage(stage);
+
+        System.out.println("Returned to normal view");
+    }
+
     public void mapEditHandler() {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
@@ -1184,6 +1205,7 @@ public class NewMainUIController {
             e.printStackTrace();
         }
         loader.<NewMainUIController>getController().initAdminManager(manager);
+        loader.<NewMainUIController>getController().passStage(stage);
         System.out.println("Changed to admin view");
     }
 
