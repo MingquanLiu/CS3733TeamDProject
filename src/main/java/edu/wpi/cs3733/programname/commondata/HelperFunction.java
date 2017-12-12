@@ -3,13 +3,12 @@ package edu.wpi.cs3733.programname.commondata;
 import edu.wpi.cs3733.programname.boundary.*;
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
 import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
-import edu.wpi.cs3733.programname.observer.MainNodeDataObserver;
+import edu.wpi.cs3733.programname.observer.NewMapAdminNodeDataObserver;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class HelperFunction{
@@ -58,11 +57,11 @@ public class HelperFunction{
         return mList;
     }
 
-    public static List<NodeData> setNodeListController(List<NodeData> mList, NewMainUIController mainController){
+    public static List<NodeData> setNodeListController(List<NodeData> mList, NewMapAdminUI mainController){
         for(NodeData nodeData: mList){
-            MainNodeDataObserver mainNodeDataObserver = new MainNodeDataObserver(mainController
+            NewMapAdminNodeDataObserver newMapAdminNodeDataObserver = new NewMapAdminNodeDataObserver(mainController
                     ,nodeData);
-            nodeData.setImageViewOnClick(mainNodeDataObserver);
+            nodeData.setImageViewOnClick(newMapAdminNodeDataObserver);
         }
         return mList;
     }
@@ -127,19 +126,21 @@ public class HelperFunction{
 
 
 
-    public static List<NodeData> setCircleNodeListController(List<NodeData> mList, NewMainUIController mainController){
+    public static List<NodeData> setCircleNodeListController(List<NodeData> mList, NewMapAdminUI mainController){
         for(NodeData nodeData: mList){
-            MainNodeDataObserver mainDataObserver = new MainNodeDataObserver(mainController
+            NewMapAdminNodeDataObserver mainDataObserver = new NewMapAdminNodeDataObserver(mainController
                     ,nodeData);
             nodeData.setCircleOnDragged(mainDataObserver);
             nodeData.setCircleOnDraggedExit(mainDataObserver);
+            nodeData.setCircleMapAdminOnClick(mainDataObserver);
+
         }
         return mList;
     }
 
     public static List<NodeData> setCircleNodeListController(List<NodeData> mList, MapEditController mapEditController){
         for(NodeData nodeData: mList){
-           // MainNodeDataObserver mainDataObserver = new MainNodeDataObserver(mapEditController
+           // NewMapAdminNodeDataObserver mainDataObserver = new NewMapAdminNodeDataObserver(mapEditController
           //          ,nodeData);
           //  nodeData.setCircleOnDragged(mainDataObserver);
             //nodeData.setCircleOnDraggedExit(mainDataObserver);

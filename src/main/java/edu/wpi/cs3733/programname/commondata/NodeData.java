@@ -2,7 +2,7 @@ package edu.wpi.cs3733.programname.commondata;
 
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
 import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
-import edu.wpi.cs3733.programname.observer.MainNodeDataObserver;
+import edu.wpi.cs3733.programname.observer.NewMapAdminNodeDataObserver;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,9 +11,8 @@ import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 
-import static edu.wpi.cs3733.programname.commondata.Constants.CIRCILE_RADIUS;
-import static edu.wpi.cs3733.programname.commondata.Constants.ORIGINAL_NODE_HEIGHT;
-import static edu.wpi.cs3733.programname.commondata.Constants.ORIGINAL_NODE_WIDTH;
+import static edu.wpi.cs3733.programname.commondata.Constants.*;
+import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
 public class NodeData {
@@ -364,14 +363,14 @@ public class NodeData {
         });
     }
 
-    public void setImageViewOnClick(MainNodeDataObserver mainNodeDataObserver){
-        mainNodeDataObserver.setNodeData(this);
+    public void setImageViewOnClick(NewMapAdminNodeDataObserver newMapAdminNodeDataObserver){
+        newMapAdminNodeDataObserver.setNodeData(this);
         nodeImageView.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Image get clicked");
                 try {
-                    mainNodeDataObserver.update();
+                    newMapAdminNodeDataObserver.update();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -441,46 +440,65 @@ public class NodeData {
         });
     }
 
-    public void setCircleOnDragged(MainNodeDataObserver mainNodeDataObserver){
-        mainNodeDataObserver.setNodeData(this);
+    public void setCircleOnDragged(NewMapAdminNodeDataObserver newMapAdminNodeDataObserver){
+        newMapAdminNodeDataObserver.setNodeData(this);
         circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //mainNodeDataObserver.disableScroll();
-                System.out.println("Image get clicked");
+                //newMapAdminNodeDataObserver.disableScroll();
+                System.out.println("Circle dragged");
+                System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
+                circle.setCenterX(event.getSceneX());
+                circle.setCenterY(event.getSceneY());
+                System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
+//                    newMapAdminNodeDataObserver.update();
+            }
+        });
+    }
+    public void setCircleOnDraggedExit(NewMapAdminNodeDataObserver newMapAdminNodeDataObserver) {
+        newMapAdminNodeDataObserver.setNodeData(this);
+        circle.setOnMouseReleased(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Circle dragged exit");
                 try {
-                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
                     circle.setCenterX(event.getSceneX());
                     circle.setCenterY(event.getSceneY());
-                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
-                    mainNodeDataObserver.update();
+                    int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), newMapAdminNodeDataObserver.getMainController().getScale());
+                    int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), newMapAdminNodeDataObserver.getMainController().getScale());
+                    Coordinate newLoc = new Coordinate(dbX, dbY);
+                    newMapAdminNodeDataObserver.getNodeData().setLocation(newLoc);
+                    //newMapAdminNodeDataObserver.enableScroll();
+
+                    newMapAdminNodeDataObserver.updateNodeInDb();
+                    newMapAdminNodeDataObserver.update();
+//                    newMapAdminNodeDataObserver.showNodesOrEdges();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
     }
-    public void setCircleOnDraggedExit(MainNodeDataObserver mainNodeDataObserver) {
-        mainNodeDataObserver.setNodeData(this);
-        circle.setOnMouseReleased(new EventHandler<MouseEvent>(){
+    public void setCircleMapAdminOnClick(NewMapAdminNodeDataObserver newMapAdminNodeDataObserver) {
+        newMapAdminNodeDataObserver.setNodeData(this);
+        circle.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    circle.setCenterX(event.getSceneX());
-                    circle.setCenterY(event.getSceneY());
-                    int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), mainNodeDataObserver.getMainController().getScale());
-                    int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), mainNodeDataObserver.getMainController().getScale());
-                    Coordinate newLoc = new Coordinate(dbX, dbY);
-                    mainNodeDataObserver.getNodeData().setLocation(newLoc);
-                    //mainNodeDataObserver.enableScroll();
-                    mainNodeDataObserver.update();
-                    mainNodeDataObserver.updateNodeInDb();
-                    mainNodeDataObserver.showNodesOrEdges();
+                        newMapAdminNodeDataObserver.update();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+    public void enlargeCircleAndChangeColor(double currentScale){
+        circle =new Circle(circle.getCenterX(), circle.getCenterY(), EXPANDED_CIRCILE_RADIUS*currentScale, GREEN);
+
+        System.out.println("In changing circles");
+    }
+    public void changeBackCircleAndChangeColor(double currentScale){
+        circle =new Circle(circle.getCenterX(), circle.getCenterY(), CIRCILE_RADIUS*currentScale, RED);
     }
 
 }

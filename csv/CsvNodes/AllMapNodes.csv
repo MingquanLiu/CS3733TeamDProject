@@ -136,11 +136,11 @@ DHALL05802,3420,850,2,15 Francis,HALL,Hallway 58 Floor 2,Hallway D5802,Team D
 BCONF00102,2150,1025,2,45 Francis,CONF,Conference Room 1 Level 2,Conf B0102,Team B
 BDEPT00102,2263,786,2,45 Francis,DEPT,Comprehensive Breast Heath Level 2,DEPT B0102,Team B
 BDEPT00202,2166,1039,2,45 Francis,DEPT,Oral Medicine and Denstistry Level 2,DEPT B0202,Team B
-BDEPT00302,2389,753,2,45 Francis,DEPT,Lee Bell Breast Center Level 2,DEPT B0302,Team B
+BDEPT00302,2440,720,2,45 Francis,DEPT,Lee Bell Breast Center Level 2,DEPT B0302,Team B
 BDEPT00402,2439,903,2,45 Francis,DEPT,Jet Center for Primary Care Level 2,DEPT B0402,Team B
 BDEPT00502,2623,1018,2,45 Francis,DEPT,Ear Nose & Throat Level 2,DEPT B0502,Team B
 BDEPT00602,2781,1305,2,45 Francis,DEPT,Medical Surgical Specialties Level 2,DEPT B0602,Team B
-BDEPT00702,2950,775,2,45 Francis,DEPT,Plastic Surgery Level 2,DPET B0702,Team B
+BDEPT00702,2953,786,2,45 Francis,DEPT,Plastic Surgery Level 2,DPET B0702,Team B
 BDEPT00802,3155,878,2,45 Francis,DEPT,Outpatient Pharamacy Level 2,DEPT B0802,Team B
 BDEPT00902,3258,877,2,45 Francis,DEPT,Weiner Center for Pre-operational Evaluation Level 2,DEPT B0902,Team B
 BHALL00102,2237,902,2,45 Francis,HALL,Hallway intersection 1 Level 2,Hallway B0102,Team B
@@ -151,7 +151,7 @@ BHALL00502,2381,902,2,45 Francis,HALL,Hallway Intersection 5 Level 2,Hallway B05
 BHALL00602,2605,901,2,45 Francis,HALL,Hallway Intersection 6 Level 2,Hallway B0602,Team B
 BHALL00702,2672,902,2,45 Francis,HALL,Hallway Intersection 7 Level 2,Hallway B0702,Team B
 BHALL00802,2604,783,2,45 Francis,HALL,Hallway Intersection 8 Level 2,Hallway B0802,Team B
-BHALL00902,2335,590,2,45 Francis,HALL,Hallway Intersection 9 Level 2,Hallway B0902,Team B
+BHALL00902,2326,690,2,45 Francis,HALL,Hallway Intersection 9 Level 2,Hallway B0902,Team B
 BHALL01002,2713,903,2,45 Francis,HALL,Hallway Intersection 10 Level 2,Hallway B1002,Team B
 BHALL01102,2921,903,2,45 Francis,HALL,Hallway Intersection 11 Level 2,Hallway B1102,Team B
 BHALL01202,2945,900,2,45 Francis,HALL,Hallway Intersection 12 Level 2,Hallway B1202,Team B
@@ -159,7 +159,7 @@ BHALL01302,3135,890,2,45 Francis,HALL,Hallway Intersection 13 Level 2,Hallway B1
 BHALL01402,3296,883,2,45 Francis,HALL,Hallway Intersection 14 Level 2,Hallway B1402,Team B
 BHALL01502,2680,820,2,45 Francis,HALL,Hallway Intersection 15 Level 2,Hallway B1502,Team B
 BHALL01602,2721,750,2,45 Francis,HALL,Hallway Intersection 16 Level 2 ,Hallway B1602,Team B
-BHALL01702,2945,710,2,45 Francis,HALL,Hallway Intersection 17 Level 2,Hallway B1702,Team B
+BHALL01702,2950,716,2,45 Francis,HALL,Hallway Intersection 17 Level 2,Hallway B1702,Team B
 BHALL01802,2610,953,2,45 Francis,HALL,Hallway Intersection 18 Level 2,Hallway B1802,Team B
 BHALL01902,2679,1038,2,45 Francis,HALL,Hallway intersection 19 Level 2,Hallway B1902,Team B
 BHALL02002,2761,1041,2,45 Francis,HALL,Hallway Intersection 20 Level 2,Hallway B2002,Team B
@@ -198,7 +198,7 @@ BSTAI00902,2190,1290,2,45 Francis,STAI,Staircase Intersection 9 Level 2,Stair B0
 BSTAI01002,2231,932,2,45 Francis,STAI,Staircase Intersection 10 Level 2,Stair B1002,Team B
 BHALL03302,3228,880,2,45 Francis,HALL,Hallway Intersection 33 Level 2,Hallway B3302,Team B
 BHALL03402,3075,967,2,45 Francis,HALL,Hallway Intersection 34 Level 2,Hallway B3402,Team B
-CCONF001L1,2255,850,L1,45 Francis,CONF,Anesthesia Conf Floor L1,Conf C001L1,Team C
+CCONF001L1,2256,856,L1,45 Francis,CONF,Anesthesia Conf Floor L1,Conf C001L1,Team C
 CCONF002L1,2665,1043,L1,45 Francis,CONF,Medical Records Conference Room Floor L1,Conf C002L1,Team C
 CCONF003L1,2445,1245,L1,45 Francis,CONF,Abrams Conference Room,Conf C003L1,Team C
 CDEPT002L1,1980,845,L1,Tower,DEPT,Day Surgery Family Waiting Floor L1,Department C002L1,Team C
@@ -331,7 +331,7 @@ WELEV00H01,2735,1070,1,45 Francis,ELEV,Elevator H Floor 1,Elevator H1,Team E
 WELEV00H02,2725,1065,2,45 Francis,ELEV,Elevator H Floor 2,Elevator H2,Team B
 WELEV00H03,2715,1075,3,45 Francis,ELEV,Elevator H Floor 3,Elevator H3,Team I
 WELEV00JL2,2360,788,L2,45 Francis,ELEV,Elevator J Floor L2,Elevator JL2,Team C
-WELEV00JL1,2360,800,L1,45 Francis,ELEV,Elevator J Floor L1,Elevator JL1,Team C
+WELEV00JL1,2363,796,L1,45 Francis,ELEV,Elevator J Floor L1,Elevator JL1,Team C
 WELEV00J01,2385,810,1,45 Francis,ELEV,Elevator J Floor 1,Elevator J1,Team E
 WELEV00J02,2385,800,2,45 Francis,ELEV,Elevator J Floor 2,Elevator J2,Team B
 WELEV00J03,2365,800,3,45 Francis,ELEV,Elevator J Floor 3,Elevator J3,Team I
