@@ -940,6 +940,7 @@ public class NewMapAdminUI extends UIController{
         setMap();
         setZoom();
         nodeInfoBox.setOpacity(0);
+        edgeAddPane.setOpacity(0);
 //        showNodesOrEdges();
 //        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), "Hospital");
 //        currentEdges = manager.getAllEdgeData();

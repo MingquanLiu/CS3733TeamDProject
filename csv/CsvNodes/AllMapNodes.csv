@@ -134,9 +134,9 @@ DHALL05602,3480,790,2,15 Francis,HALL,Hallway 56 Floor 2,Hallway D5602,Team D
 DHALL05702,3510,790,2,15 Francis,HALL,Hallway 57 Floor 2,Hallway D5702,Team D
 DHALL05802,3420,850,2,15 Francis,HALL,Hallway 58 Floor 2,Hallway D5802,Team D
 BCONF00102,2150,1025,2,45 Francis,CONF,Conference Room 1 Level 2,Conf B0102,Team B
-BDEPT00102,2263,786,2,45 Francis,DEPT,Comprehensive Breast Heath Level 2,DEPT B0102,Team B
+BDEPT00102,2273,793,2,45 Francis,DEPT,Comprehensive Breast Heath Level 2,DEPT B0102,Team B
 BDEPT00202,2166,1039,2,45 Francis,DEPT,Oral Medicine and Denstistry Level 2,DEPT B0202,Team B
-BDEPT00302,2440,720,2,45 Francis,DEPT,Lee Bell Breast Center Level 2,DEPT B0302,Team B
+BDEPT00302,2443,733,2,45 Francis,DEPT,Lee Bell Breast Center Level 2,DEPT B0302,Team B
 BDEPT00402,2439,903,2,45 Francis,DEPT,Jet Center for Primary Care Level 2,DEPT B0402,Team B
 BDEPT00502,2623,1018,2,45 Francis,DEPT,Ear Nose & Throat Level 2,DEPT B0502,Team B
 BDEPT00602,2781,1305,2,45 Francis,DEPT,Medical Surgical Specialties Level 2,DEPT B0602,Team B
@@ -151,7 +151,7 @@ BHALL00502,2381,902,2,45 Francis,HALL,Hallway Intersection 5 Level 2,Hallway B05
 BHALL00602,2605,901,2,45 Francis,HALL,Hallway Intersection 6 Level 2,Hallway B0602,Team B
 BHALL00702,2672,902,2,45 Francis,HALL,Hallway Intersection 7 Level 2,Hallway B0702,Team B
 BHALL00802,2604,783,2,45 Francis,HALL,Hallway Intersection 8 Level 2,Hallway B0802,Team B
-BHALL00902,2326,690,2,45 Francis,HALL,Hallway Intersection 9 Level 2,Hallway B0902,Team B
+BHALL00902,2336,703,2,45 Francis,HALL,Hallway Intersection 9 Level 2,Hallway B0902,Team B
 BHALL01002,2713,903,2,45 Francis,HALL,Hallway Intersection 10 Level 2,Hallway B1002,Team B
 BHALL01102,2921,903,2,45 Francis,HALL,Hallway Intersection 11 Level 2,Hallway B1102,Team B
 BHALL01202,2945,900,2,45 Francis,HALL,Hallway Intersection 12 Level 2,Hallway B1202,Team B
@@ -247,7 +247,7 @@ CSERV001L1,2490,1043,L1,45 Francis,SERV,Volunteers Floor L1,Service C001L1,Team 
 CSERV001L2,2015,1280,L2,45 Francis,SERV,Interpreter Services Floor L2,Service C001L2,Team C
 HHALL00102,1875,925,2,Tower,HALL,Hallway Connector 1 Floor 2,Hallway H00102,Team H
 HHALL00202,1955,900,2,Tower,HALL,Hallway Connector 2 Floor 2,Hallway H00202,Team H
-HRETL00102,1935,860,2,Tower,RETL,Garden Cafe,Garden Cafe,Team H
+HRETL00102,1933,853,2,Tower,RETL,Garden Cafe,Garden Cafe,Team H
 HHALL00302,2035,900,2,Tower,HALL,Hallway Connector 3 Floor 2,Hallway H00302,Team H
 HSTAI00102,2060,880,2,Tower,STAI,Stairwell 1 Floor 2,Stairwell 0102,Team H
 HHALL00402,1875,1025,2,Tower,HALL,Hallway Connector 4 Floor 2,Hallway H00402,Team H
