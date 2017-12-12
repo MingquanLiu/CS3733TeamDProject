@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="340.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
+   <children>
+      <AnchorPane fx:id="serviceObj" layoutX="9.0" layoutY="5.0" prefHeight="311.0" prefWidth="377.0" style="-fx-background-color: lightblue;">
+         <children>
+            <Label fx:id="lblRequestTitle" alignment="TOP_CENTER" layoutX="23.0" layoutY="2.0" prefHeight="24.0" prefWidth="332.0" style="-fx-background-color: #D3D3D3; -fx-font-family: Roboto; -fx-text-fill: #64b5f6; -fx-font-size: 16px;" styleClass="serviceTitleText" stylesheets="@../css/global_stylesheet.css" text="Maintenance Request" />
+            <Label fx:id="lblTypeLocation" alignment="TOP_CENTER" layoutX="23.0" layoutY="41.0" prefHeight="57.0" prefWidth="332.0" text="Request Type at Location" />
+            <Label fx:id="lblDescription" alignment="TOP_CENTER" layoutX="23.0" layoutY="108.0" prefHeight="87.0" prefWidth="332.0" text="Description" />
+            <Label fx:id="lblSeverity" alignment="TOP_LEFT" layoutX="23.0" layoutY="203.0" prefHeight="38.0" prefWidth="130.0" text="Severity: #" />
+            <Label fx:id="lblRequestId" layoutX="185.0" layoutY="280.0" prefHeight="17.0" prefWidth="178.0" text="ID Number" />
+            <Label fx:id="lblAssignedTo" alignment="TOP_LEFT" layoutX="153.0" layoutY="203.0" prefHeight="65.0" prefWidth="213.0" text="Assigned to: Employee" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

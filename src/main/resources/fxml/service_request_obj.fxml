@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="281.0" prefWidth="359.0" style="-fx-background-color: #64b5f6;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
+<AnchorPane prefHeight="281.0" prefWidth="359.0" style="-fx-background-color: #64b5f6; -fx-border-color: Black;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
    <children>
       <Label fx:id="lblRequestTitle" alignment="TOP_CENTER" layoutX="16.0" layoutY="14.0" prefHeight="24.0" prefWidth="332.0" style="-fx-background-color: #D3D3D3; -fx-font-family: Roboto; -fx-text-fill: #64b5f6; -fx-font-size: 16px;" styleClass="serviceTitleText" stylesheets="@../css/global_stylesheet.css" text="Maintenance Request" />
       <Label fx:id="lblRequestDetail" alignment="TOP_LEFT" layoutX="14.0" layoutY="43.0" prefHeight="45.0" prefWidth="175.0" text="Request Type at" />

@@ -7,7 +7,6 @@ import edu.wpi.cs3733.programname.boundary.observers.AbsObserver;
 import edu.wpi.cs3733.programname.boundary.observers.MapObserver;
 import edu.wpi.cs3733.programname.boundary.observers.RequestObserver;
 import edu.wpi.cs3733.programname.commondata.*;
-import edu.wpi.cs3733.programname.database.DbObservable;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
@@ -21,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -32,25 +30,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import static edu.wpi.cs3733.programname.commondata.Constants.*;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
-import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
-import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.BEAM;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
 
 
 public class TestingController extends UIController implements Initializable {
@@ -1160,7 +1151,7 @@ public class TestingController extends UIController implements Initializable {
     public void newServiceUIHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/service_request_main.fxml"
+                        "/fxml/service_request_masonry.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);

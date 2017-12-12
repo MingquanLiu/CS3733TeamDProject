@@ -11,45 +11,54 @@ import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRe
 import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceRequestMainController {
 
     @FXML
-    AnchorPane mainPane;
-    JFXMasonryPane masonryPane  = new JFXMasonryPane();
+    StackPane root;
+    @FXML
+    JFXMasonryPane masonryPane;
+    @FXML
+    ScrollPane masonryScroll;
 
     ManageController manager;
 
     public void initManager(ManageController manage) throws IOException {
         this.manager = manage;
         masonryPane.setVisible(true);
-        masonryPane.toFront();
-        mainPane.getChildren()
-                .add(masonryPane);
+        ArrayList<Node> children = new ArrayList<>();
         List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
         for(ServiceRequest unassigned: allUnassigned) {
-            AnchorPane requestView = (AnchorPane) FXMLLoader.load(getClass().getResource(
-                    "/fxml/service_request_obj.fxml"
+            AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
+                    "/fxml/service_request_obj2.fxml"
             ));
-  //          requestView.styleProperty().setValue( #64b5f6);
+            AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
+            requestView.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,
+                    CornerRadii.EMPTY, Insets.EMPTY)));
             updateRequestDetail(requestView, unassigned);
             requestView.setVisible(true);
+            requestView.toFront();
             masonryPane.getChildren().add(requestView);
         }
+
     }
 
     private void updateRequestDetail(AnchorPane requestView, ServiceRequest request) {
+        String details = "";
         Label titleLabel = (Label) requestView.lookup("#lblRequestTitle");
-        Label detailLabel = (Label) requestView.lookup("#lblRequestDetail");
-        Label locationLabel = (Label) requestView.lookup("#lblRequestLocation");
+        Label typeLocationLabel = (Label) requestView.lookup("#lblTypeLocation");
         Label descriptionLabel = (Label) requestView.lookup("#lblDescription");
         Label severityLabel = (Label) requestView.lookup("#lblSeverity");
         Label assignedToLabel = (Label) requestView.lookup("#lblAssignedTo");
@@ -59,23 +68,30 @@ public class ServiceRequestMainController {
         if (request.getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
             InterpreterRequest interpreterRequest = (InterpreterRequest) request;
             titleLabel.setText("Interpreter Request");
-            detailLabel.setText(interpreterRequest.getLanguage() + "translation request at ");
-            locationLabel.setText(locationNodeData.getLongName());
+            details = interpreterRequest.getLanguage() + " translation request at " +
+                    locationNodeData.getLongName() + "!";
+            typeLocationLabel.setText(details);
+            typeLocationLabel.setWrapText(true);
         } else if (request.getServiceType().equals(Constants.MAINTENANCE_REQUEST)) {
             MaintenanceRequest maintenanceRequest = (MaintenanceRequest) request;
             titleLabel.setText("Maintenance Request");
-            detailLabel.setText(maintenanceRequest.getMaintenanceType() + " maintenance request at ");
-            locationLabel.setText(locationNodeData.getLongName());
+            details = maintenanceRequest.getMaintenanceType() + " maintenance request at " +
+                    locationNodeData.getLongName() + "!";
+
         } else if (request.getServiceType().equals(Constants.TRANSPORTATION_REQUEST)) {
             TransportationRequest transportationRequest = (TransportationRequest) request;
             NodeData destination = manager.getNodeData(transportationRequest.getDestination());
             titleLabel.setText("Transportation Request");
-            detailLabel.setText(transportationRequest.getTransportType() + " transport request from ");
-            locationLabel.setText(locationNodeData.getLongName() + " to " + destination.getLongName());
+            details = transportationRequest.getTransportType() + " transport request from " +
+                    locationNodeData.getLongName() + " to " + destination.getLongName() + "!";
         }
+        typeLocationLabel.setText(details);
+        typeLocationLabel.setWrapText(true);
         descriptionLabel.setText(request.getDescription());
+        descriptionLabel.setWrapText(true);
         severityLabel.setText("Severity: " + request.getSeverity());
         assignedToLabel.setText("");
+        assignedToLabel.setWrapText(true);
         idLabel.setText("ID#: " + request.getServiceID());
     }
 

@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="mainPane" prefHeight="450.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
+
+<AnchorPane prefHeight="500.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
    <children>
-      <Label layoutX="180.0" layoutY="27.0" prefHeight="34.0" prefWidth="270.0" text="Service Request Manager" />
+      <StackPane layoutX="52.0" layoutY="123.0" prefHeight="210.0" prefWidth="313.0" />
+      <StackPane layoutX="373.0" layoutY="123.0" prefHeight="210.0" prefWidth="339.0" />
+      <Label alignment="TOP_CENTER" layoutX="195.0" layoutY="20.0" prefHeight="47.0" prefWidth="356.0" style="-fx-font-family: sans-serif; -fx-text-fill: lightskyblue;" text="Service Request Manager" />
+      <AnchorPane layoutX="8.0" layoutY="355.0" prefHeight="141.0" prefWidth="173.0">
+         <children>
+            <Label layoutX="50.0" layoutY="14.0" text="Filter by Request Type:" />
+            <JFXButton layoutX="23.0" layoutY="47.0" prefHeight="27.0" prefWidth="97.0" style="-fx-background-color: lightblue;" text="All" />
+            <JFXButton layoutX="132.0" layoutY="47.0" prefHeight="27.0" prefWidth="109.0" style="-fx-background-color: lightblue;" text="Interpreter" />
+            <JFXButton layoutX="23.0" layoutY="89.0" style="-fx-background-color: lightblue;" text="Maintenance" />
+            <JFXButton layoutX="132.0" layoutY="89.0" style="-fx-background-color: lightblue;" text="Transportation" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="343.0" layoutY="356.0" prefHeight="133.0" prefWidth="385.0" />
    </children>
 </AnchorPane>
