@@ -798,7 +798,9 @@ public class NewMainPageController {
         System.out.println("scale says: " + currentScale + " but slider says: " + slideZoom.getValue() / 10);
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         showNodesOrEdges();
-
+        if(currentPath != null){
+            displayPath(currentPath);
+        }
     }
 
 
