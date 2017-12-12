@@ -129,8 +129,8 @@ public class Main extends Application {
         GlobalScreen.addNativeKeyListener(new GlobalKeyListener());
 
         // Get the logger for "org.jnativehook" and set the level to off.
-//        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
-//        logger.setLevel(Level.OFF);
+        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
+        logger.setLevel(Level.OFF);
 
         Thread thread = new Thread(new Runnable() {
             public void run() {
