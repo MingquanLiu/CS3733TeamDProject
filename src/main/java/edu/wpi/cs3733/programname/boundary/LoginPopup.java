@@ -2,7 +2,6 @@ package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import edu.wpi.cs3733.programname.database.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -23,7 +22,7 @@ public class LoginPopup {
     private ManageController manager;
     boolean succesfulLogin;
     private TestingController testingController;
-    private NewMainUIController newMainUIController;
+    private NewMainPageController newMainPageController;
     
 
     public void buttonHandler(ActionEvent e){
@@ -34,7 +33,7 @@ public class LoginPopup {
                 System.out.println("logging in");
                 btnSubmit.getScene().getWindow().hide();
                 //testingController.setUserName(txtUser.getText());
-                newMainUIController.setUserName(txtUser.getText());
+                newMainPageController.setUserName(txtUser.getText());
             }
             else{
                 System.out.println("login failed");
@@ -62,11 +61,10 @@ public class LoginPopup {
         this.testingController = testingController;
     }
 
-    public void initManager(ManageController manageController,NewMainUIController newMainUIController){
+    public void initManager(ManageController manageController,NewMainPageController newMainPageController){
         System.out.println("init For Login");
         manager = manageController;
-        this.testingController = testingController;
-        this.newMainUIController = newMainUIController;
+        this.newMainPageController = newMainPageController;
     }
 
     @FXML

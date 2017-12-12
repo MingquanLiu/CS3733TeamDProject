@@ -1,29 +1,20 @@
 package edu.wpi.cs3733.programname;
 
-import edu.wpi.cs3733.programname.boundary.EmployeeManager;
-import edu.wpi.cs3733.programname.boundary.NewMainUIController;
-import edu.wpi.cs3733.programname.boundary.ServiceRequestManager;
+import edu.wpi.cs3733.programname.boundary.NewMainPageController;
+import edu.wpi.cs3733.programname.boundary.NewMapAdminUI;
 import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.RunScript;
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 //import org.junit.Test;
 
 import java.io.*;
-import java.net.URISyntaxException;
 
 
 public class Main extends Application {
@@ -63,8 +54,8 @@ public class Main extends Application {
         if (toUse.equals("home_screen"))
             loader.<TestingController>getController().initManager(manageController);
         else {
-            loader.<NewMainUIController>getController().initManager(manageController);
-            loader.<NewMainUIController>getController().passStage(stage);
+            loader.<NewMainPageController>getController().initManager(manageController);
+            loader.<NewMainPageController>getController().passStage(stage);
         }
 
         stage.show();

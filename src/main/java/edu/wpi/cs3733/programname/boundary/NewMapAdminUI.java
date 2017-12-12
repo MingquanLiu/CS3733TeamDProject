@@ -1,17 +1,11 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import edu.wpi.cs3733.programname.ManageController;
-import edu.wpi.cs3733.programname.boundary.*;
-import edu.wpi.cs3733.programname.boundary.observers.MapObserver;
-import edu.wpi.cs3733.programname.boundary.observers.RequestObserver;
 import edu.wpi.cs3733.programname.commondata.*;
-import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
-import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyValue;
 import javafx.beans.value.ChangeListener;
@@ -19,26 +13,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
@@ -48,14 +34,15 @@ import javafx.util.Callback;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_NOT_SHOWN;
+import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_SHOWN;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 import static javafx.scene.paint.Color.BLUE;
 
 
-public class NewMainUIController {
+public class NewMapAdminUI extends UIController{
 
 
     //FXML objects
@@ -212,6 +199,8 @@ public class NewMainUIController {
     private JFXButton setEdge1;
     @FXML
     private JFXButton setEdge2;
+    @FXML
+    private AnchorPane edgeAddPane;
 
 
     /*
@@ -223,7 +212,7 @@ public class NewMainUIController {
     private ManageController manager;
     private double currentScale;
     private final double MAX_UI_WIDTH = 5000;
-    private boolean serviceRequestSubjectClicked = false;
+//    private boolean serviceRequestSubjectClicked = false;
 
 
     private Building curBuilding;
@@ -249,153 +238,74 @@ public class NewMainUIController {
     private Coordinate currentGoalFloorLoc;
     final double minWidth = 1500;
     final double maxWidth = 5000;
+    private NodeData prevShowNode;
 
-    private boolean logOffNext = false;
-    private boolean loggedIn;
-    private String userName = null;
-    private Employee employeeLoggedIn;
-
-
-    public void initManager(ManageController manageController) {
-        manager = manageController;
-        instantiateNodeList();
-
-        currentScale = 0.3;
-
-        slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
-                currentScale = newVal.doubleValue() / 10;
-                System.out.println("scale" + currentScale);
-                setZoom();
-            }
-        });
-
-        ////
-        //MAP STUFF
-        ////
-
-        //get all buildings from the database: for each loops through and adds them to the list of buildings, and
-        //picks "Main Hospital" as the starting building
-        List<Building> dbBuildings = manager.getAllBuildings();
-        for (Building b : dbBuildings) {
-            buildings.add(b);
-            if (b.getName().equals("Main Hospital"))
-                curBuilding = b;
-        }
-
-        //sets up the comboBuilding ComboBox with the list of buildings, always starts with main hospital as the selected box
-        ObservableList buildingList = FXCollections.observableList(new ArrayList<>());
-        buildingList.addAll(buildings);
-        System.out.println("buildinglist: " + buildingList);
-
-        comboBuilding.setItems(buildingList);
-        comboBuilding.setValue(curBuilding);
-
-        //sets up the comboFloors ComboBox, gets the list of floors from curBuilding and picks the starting flor
-        ObservableList floorList = FXCollections.observableList(new ArrayList<>());
-
-        floorList.addAll(curBuilding.getFloors());
-
-        comboFloors.setItems(floorList);
-        System.out.println("3: " + curBuilding.getFloors().get(3) +
-                " and 4: " + curBuilding.getFloors().get(4));
-        curFloor = curBuilding.getFloors().get(4);
-        comboFloors.setValue(curFloor);
+//    private boolean logOffNext = false;
+//    private boolean loggedIn;
+//    private String userName = null;
+//    private Employee employeeLoggedIn;
 
 
-        ObservableList typeList = FXCollections.observableList(new ArrayList<>());
-        typeList.add("REST");
-        typeList.add("INFO");
-        typeList.add("RETL");
-        typeList.add("DEPT");
-        typeList.add("ELEV");
-        typeList.add("EXIT");
-        typeList.add("STAI");
-        typeList.add("LABS");
-        typeList.add("SERV");
-
-        comboTypes.setItems(typeList);
-        comboTypes.setValue("REST");
-        //sets the map, just in case we want it to start on another floor
-        setMap();
-        setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
-        setZoom();
-    }
-
-    public void onClickMap(MouseEvent e) {
-        System.out.println("Mouse Clicked");
-        //clearMain();
-        int x = (int) e.getX();
-        int y = (int) e.getY();
-
-        ///////////////////
-
-        if (!selectingLocation.equals("selectSRLocation")) {
-
-        } else {
-            //System.out.println("In selectSRLocation" + SRSelectType);
-            //popupSRWithCoord(getClosestNode(currentNodes, x, y), SRSelectType);
-            selectingLocation = "";
-        }
-
-        ///////////////////////
-        System.out.println("current floor: " + curFloor);
-        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curFloor.getBuilding());
-        switch (selectingLocation) {
-            case "":
-                System.out.println("Get in findNodeData");
-                NodeData mClickedNode = getClosestNode(nodes, x, y);
-                if (mClickedNode != null)
-                    showNodeInfo(mClickedNode);
-                break;
-            case "selectLocation":
-                nodeInfoSetLocation.getScene().setCursor(Cursor.DEFAULT);
-                switch (nodeAction) {
-                    case "addNode":
-                        textNodeLocation.setText(UICToDBC(x, currentScale) + "," + UICToDBC(y, currentScale));
-                        break;
-                    case "deleteNode":
-                        mClickedNode = getClosestNode(nodes, x, y);
-                        setNodeDataToInfoPane(mClickedNode);
-                        break;
-                    case "editNode":
-                        mClickedNode = getClosestNode(nodes, x, y);
-                        setNodeDataToInfoPane(mClickedNode);
-                        break;
-                }
-                nodeEditPane.setVisible(true);
-                selectingLocation = "";
-                break;
-            case "selectEdge":
-                NodeData mNode = getClosestNode(nodes, x, y);
-                if (selectEdgeN1 == null) {
-                    selectEdgeN1 = mNode;
-                    //showNode2(selectEdgeN1);
-                } else if (selectEdgeN2 == null) {
-                    selectEdgeN2 = mNode;
-                    //showNode2(selectEdgeN2);
-                }
-                if (selectEdgeN2 != null && selectEdgeN1 != null) {
-                    //displayEdge2(selectEdgeN1, selectEdgeN2);
-                    if (edgeAction.equals("addEdge")) {
-                        manager.addEdge(selectEdgeN1.getNodeID(), selectEdgeN2.getNodeID());
-                    }
-                    if (edgeAction.equals("deleteEdge")) {
-                        String edgeId = getEdge(currentEdges, selectEdgeN1.getNodeID(), selectEdgeN2.getNodeID());
-                        if (!edgeId.equals("")) {
-                            manager.deleteEdge(edgeId);
-                            System.out.println("Edge Exists");
-                        }
-                    }
-                    selectingLocation = "";
-                    nodeInfoSetLocation.getScene().setCursor(Cursor.DEFAULT);
-                    showNodesOrEdges();
-                    selectEdgeN2 = selectEdgeN1 = null;
-                }
-                break;
-        }
-    }
-
+//    public void initManager(ManageController manageController) {
+//        manager = manageController;
+//        instantiateNodeList();
+//        currentScale = 0.35;
+//        slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
+//            public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
+//                currentScale = newVal.doubleValue() / 10;
+//                System.out.println("scale" + currentScale);
+//                setZoom();
+//            }
+//        });
+//
+//        ////
+//        //MAP STUFF
+//        ////
+//
+//        //get all buildings from the database: for each loops through and adds them to the list of buildings, and
+//        //picks "Main Hospital" as the starting building
+//        List<Building> dbBuildings = manager.getAllBuildings();
+//        for (Building b : dbBuildings) {
+//            buildings.add(b);
+//            if (b.getName().equals("Main Hospital"))
+//                curBuilding = b;
+//        }
+//        //sets up the comboBuilding ComboBox with the list of buildings, always starts with main hospital as the selected box
+//        ObservableList buildingList = FXCollections.observableList(new ArrayList<>());
+//        buildingList.addAll(buildings);
+//        System.out.println("buildinglist: " + buildingList);
+//        comboBuilding.setItems(buildingList);
+//        comboBuilding.setValue(curBuilding);
+//        //sets up the comboFloors ComboBox, gets the list of floors from curBuilding and picks the starting flor
+//        ObservableList floorList = FXCollections.observableList(new ArrayList<>());
+//
+//        floorList.addAll(curBuilding.getFloors());
+//
+//        comboFloors.setItems(floorList);
+//        System.out.println("3: " + curBuilding.getFloors().get(3) +
+//                " and 4: " + curBuilding.getFloors().get(4));
+//        curFloor = curBuilding.getFloors().get(4);
+//        comboFloors.setValue(curFloor);
+//
+//
+//        ObservableList typeList = FXCollections.observableList(new ArrayList<>());
+//        typeList.add("REST");
+//        typeList.add("INFO");
+//        typeList.add("RETL");
+//        typeList.add("DEPT");
+//        typeList.add("ELEV");
+//        typeList.add("EXIT");
+//        typeList.add("STAI");
+//        typeList.add("LABS");
+//        typeList.add("SERV");
+//
+//        comboTypes.setItems(typeList);
+//        comboTypes.setValue("REST");
+//        //sets the map, just in case we want it to start on another floor
+//        setMap();
+//        setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
+//        setZoom();
+//    }
     public void adminClickMap(MouseEvent e) {
         System.out.println("Mouse Clicked");
         //clearMain();
@@ -406,13 +316,17 @@ public class NewMainUIController {
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
-                NodeData mClickedNode = getClosestNode(nodes, x, y);
-                setNodeDataToInfoPane(mClickedNode);
-                btnAddNode.setVisible(false);
-                btnDeleteNode.setVisible(true);
-                btnEditNode.setVisible(true);
+                nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+                if(prevShowNode!=null) {
+                    panningPane.getChildren().remove(prevShowNode.getCircle());
+                    prevShowNode.changeBackCircleAndChangeColor(currentScale);
+                    setCircleNodeController(prevShowNode,this);
+                    panningPane.getChildren().add(prevShowNode.getCircle());
+                }
+//                setNodeDataToInfoPane(mClickedNode);
                 if (e.getClickCount() == 2) {
                     clearNodeInfoText();
+                    NodeData mClickedNode = getClosestNode(nodes, x, y);
                     lblCurrentBuilding.setText(mClickedNode.getBuilding());
                     lblCurrentFloor.setText(curFloor.getFloorNum());
                     textNodeLocation.setText(UICToDBC(x, currentScale) +
@@ -420,46 +334,7 @@ public class NewMainUIController {
                     btnAddNode.setVisible(true);
                     btnDeleteNode.setVisible(false);
                     btnEditNode.setVisible(false);
-
-                }
-                break;
-            case "selectLocation":
-                switch (nodeAction) {
-                    case "addNode":
-                        textNodeLocation.setText(UICToDBC(x, currentScale) + "," + UICToDBC(y, currentScale));
-                        break;
-                    case "deleteNode":
-                        mClickedNode = getClosestNode(nodes, x, y);
-                        setNodeDataToInfoPane(mClickedNode);
-                        break;
-                    case "editNode":
-                        mClickedNode = getClosestNode(nodes, x, y);
-                        setNodeDataToInfoPane(mClickedNode);
-                        break;
-                }
-                break;
-            case "selectEdge":
-                NodeData mNode = getClosestNode(nodes, x, y);
-                if (selectEdgeN1 == null) {
-                    selectEdgeN1 = mNode;
-                } else if (selectEdgeN2 == null) {
-                    selectEdgeN2 = mNode;
-                }
-                if (selectEdgeN2 != null && selectEdgeN1 != null) {
-                    if (edgeAction.equals("addEdge")) {
-                        manager.addEdge(selectEdgeN1.getNodeID(), selectEdgeN2.getNodeID());
-                    }
-                    if (edgeAction.equals("deleteEdge")) {
-                        /*String edgeId = getEdge(currentEdge, selectEdgeN1.getNodeID(), selectEdgeN2.getNodeID());
-                        if (!edgeId.equals("")) {
-                            manager.deleteEdge(edgeId);
-                            System.out.println("Edge Exists");
-                        }*/
-                    }
-                    selectingLocation = "";
-                    showNodesOrEdges();
-                    selectEdgeN2 = selectEdgeN1 = null;
-//                    setupBurger();
+                    nodeInfoBox.setOpacity(OPACITY_SHOWN);
                 }
                 break;
         }
@@ -557,35 +432,22 @@ public class NewMainUIController {
 
     public void zoomHandler(ActionEvent e) {
         updateZoomSlider();
+        int ratioIndex = AppSettings.getInstance().getMapRatioIndex();
         if (e.getSource() == btnZoomOut) {
             if (AppSettings.getInstance().getMapRatioIndex() == 0) {
                 return;
             }
-            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() - 1);
+            AppSettings.getInstance().setMapRatioIndex(ratioIndex - 1);
             currentScale = Math.max(currentScale - .08, .3);
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
             if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
                 return;
             }
-            AppSettings.getInstance().setMapRatioIndex(AppSettings.getInstance().getMapRatioIndex() + 1);
+            AppSettings.getInstance().setMapRatioIndex(ratioIndex + 1);
             currentScale = Math.min(currentScale + .08, .6);
             imgMap.setFitWidth(maxWidth * currentScale);
         }
-//        clearMain();
-//        if (!(currentEdge == null) && !currentEdge.isEmpty()) {
-//            System.out.println("case edge 1");
-//            List<EdgeData> mEdges = currentEdge;
-//            clearEdge();
-//            displayEdges(mEdges);
-//        }
-//        if (!(currentNodes == null) && !currentNodes.isEmpty()) {
-//            List<NodeData> mNodes = manager.queryNodeByFloorAndBuilding(convertFloor(floor), "45 Francis");
-//            System.out.println("case node main, floor = " + floor);
-//            clearNodes();
-//            showNodeList(mNodes);
-//            System.out.println(currentScale);
-//        }
         updateZoomSlider();
         showNodesOrEdges();
     }
@@ -594,80 +456,6 @@ public class NewMainUIController {
         return currentScale;
     }
 
-    public void instantiateNodeList() {
-        JFXNodesList nodesList = new JFXNodesList();
-        JFXNodesList nodesList1 = new JFXNodesList();
-        JFXNodesList keyLocationNodeList = new JFXNodesList();
-        nodesList.addAnimatedNode(adminFeatureSubject, new Callback<Boolean, Collection<KeyValue>>() {
-            @Override
-            public Collection<KeyValue> call(Boolean expanded) {
-                return new ArrayList<KeyValue>() {
-                    {
-                        add(new KeyValue(adminFeatureSubject.rotateProperty(), expanded ? 360 : 0, Interpolator.EASE_BOTH));
-                    }
-                };
-            }
-        });
-        nodesList.addAnimatedNode(mapEdit);
-        nodesList.addAnimatedNode(employeeManager);
-        serviceRequestSubject.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-//            int i =serviceRequestSubject.getStyleClass().size();
-            if (serviceRequestSubjectClicked) {
-                serviceRequestSubject.getStyleClass().remove("color-button-serviceRequest");
-                serviceRequestSubject.getStyleClass().add("color-button-adminFeature");
-            } else {
-                serviceRequestSubject.getStyleClass().remove("color-button-adminFeature");
-                serviceRequestSubject.getStyleClass().add("color-button-serviceRequest");
-            }
-            serviceRequestSubjectClicked = !serviceRequestSubjectClicked;
-
-        });
-        nodesList1.addAnimatedNode(serviceRequestSubject
-                , new Callback<Boolean, Collection<KeyValue>>() {
-                    @Override
-                    public Collection<KeyValue> call(Boolean expanded) {
-                        return new ArrayList<KeyValue>() {
-                            {
-                                add(new KeyValue(serviceRequestSubject.rotateProperty(), expanded ? 0 : 270, Interpolator.EASE_BOTH));
-                            }
-                        };
-                    }
-                });
-        nodesList1.addAnimatedNode(interpreterServiceRequest);
-        nodesList1.addAnimatedNode(maintenanceServiceRequest);
-        nodesList1.addAnimatedNode(transportationServiceRequest);
-        nodesList1.setSpacing(10);
-//        nodesList1.getTransforms().add(new Rotate(serviceRequestSubject.getLayoutX(),serviceRequestSubject.getLayoutY(),90));
-        nodesList1.setRotate(90);
-        nodesList.addAnimatedNode(nodesList1);
-        nodesList.setSpacing(10);
-        adminFeaturePane.getChildren().add(nodesList);
-        keyLocationNodeList.addAnimatedNode(keyLocationSubject, new Callback<Boolean, Collection<KeyValue>>() {
-            @Override
-            public Collection<KeyValue> call(Boolean expanded) {
-                return new ArrayList<KeyValue>() {
-                    {
-                        add(new KeyValue(keyLocationSubject.rotateProperty(), expanded ? 360 : 0, Interpolator.EASE_BOTH));
-                    }
-                };
-            }
-        });
-        keyLocationNodeList.addAnimatedNode(keyLocationDestination);
-        keyLocationNodeList.addAnimatedNode(keyLocationBathroom);
-        keyLocationNodeList.addAnimatedNode(keyLocationElevator);
-        keyLocationNodeList.addAnimatedNode(keyLocationExit);
-        keyLocationNodeList.addAnimatedNode(keyLocationLab);
-        keyLocationNodeList.addAnimatedNode(keyLocationRetail);
-        keyLocationNodeList.addAnimatedNode(keyLocationStairs);
-        keyLocationNodeList.addAnimatedNode(keyLocationWaitingroom);
-        keyLocationNodeList.addAnimatedNode(keyLocationServiceDesk);
-        keyLocationNodeList.setSpacing(10);
-        keyLocationPane.getChildren().add(keyLocationNodeList);
-        AnchorPane.setTopAnchor(keyLocationNodeList, 5.00);
-        AnchorPane.setLeftAnchor(keyLocationNodeList, 10.0);
-        AnchorPane.setTopAnchor(nodesList, 5.00);
-        AnchorPane.setRightAnchor(nodesList, 10.0);
-    }
 
     public void setMap() {
         if (comboBuilding.getValue() != null && comboFloors.getValue() != null) {
@@ -758,19 +546,19 @@ public class NewMainUIController {
         }
     }
 
-    public void addButtonHandler(ActionEvent event) {
-        if (event.getSource() == btnAddNode) {
-            nodeEditPane.setVisible(true);
-            nodeInfoAdd.setVisible(true);
-            nodeInfoDelete.setVisible(false);
-            nodeInfoEdit.setVisible(false);
-            nodeAction = "addNode";
-        } else {
-            selectingLocation = "selectEdge";
-            edgeAction = "addEdge";
-            btnAddEdge.getScene().setCursor(Cursor.CROSSHAIR);
-        }
-    }
+//    public void addButtonHandler(ActionEvent event) {
+//        if (event.getSource() == btnAddNode) {
+//            nodeEditPane.setVisible(true);
+//            nodeInfoAdd.setVisible(true);
+//            nodeInfoDelete.setVisible(false);
+//            nodeInfoEdit.setVisible(false);
+//            nodeAction = "addNode";
+//        } else {
+//            selectingLocation = "selectEdge";
+//            edgeAction = "addEdge";
+//            btnAddEdge.getScene().setCursor(Cursor.CROSSHAIR);
+//        }
+//    }
 
     public void nodeInfoHandler(ActionEvent event) {
         String id = textNodeId.getText();
@@ -807,7 +595,7 @@ public class NewMainUIController {
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
-        nodeInfoBox.setOpacity(75);
+        nodeInfoBox.setOpacity(OPACITY_SHOWN);
         textNodeId.setText(nodeData.getNodeID());
         lblCurrentBuilding.setText(nodeData.getBuilding());
         lblCurrentFloor.setText(nodeData.getFloor());
@@ -868,6 +656,7 @@ public class NewMainUIController {
             manager.addEdge(edgeNode1.getText(), edgeNode2.getText());
             clearMain();
             showNodesOrEdges();
+            edgeAddPane.setOpacity(OPACITY_NOT_SHOWN);
         }
     }
 
@@ -876,71 +665,27 @@ public class NewMainUIController {
             edgeNode1.setText(textNodeId.getText());
         else
             edgeNode2.setText(textNodeId.getText());
+        edgeAddPane.setOpacity(OPACITY_SHOWN);
     }
 
     public void clearEdges() {
         edgeNode1.setText("None");
         edgeNode2.setText("None");
+        edgeAddPane.setOpacity(OPACITY_NOT_SHOWN);
     }
 
 
-    public void goButtonHandler() {
-        System.out.println("drawing path");
-        try {
-            //false needs to be changed to something that reflects if we need a handicap path
-            System.out.println("start: " + startLocation.getText());
-            System.out.println("end: " + endLocation.getText());
-            currentPath = manager.startPathfind(startLocation.getText(), endLocation.getText(), handicap.isSelected());
-        } catch (InvalidNodeException ine) {
-            currentPath = new ArrayList<>();
-        } catch (NoPathException np) {
-            String id = np.startID;
-            currentPath = new ArrayList<>();
-        }
-        //displayPath(currentPath);
-        TextDirections text = new TextDirections(currentPath);
-        ObservableList directionsList = FXCollections.observableList(new ArrayList<>());
-        directionsList.addAll(text.getTextDirections());
-        textDirections.setItems(directionsList);
-        textDirections.setCellFactory(param -> new ListCell<TextDirection>() {
-            private Text text;
-            @Override
-            protected void updateItem(TextDirection item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null || item.getThisNode() == null) {
-                    setText(null);
-                } else {
-                    text = new Text(item.getDirection());
-                    text.setWrappingWidth(270.0);
-                    setGraphic(text);
-                }
-            }
-        });
-        // TODO: Dan, sort these by floor
-//        for (String s : Arrays.asList("L2", "L1", "G", "1", "2", "3")) {
-//            try {
-//                List<TextDirection> currentFloor = text.getByFloor(s);
-//                directions += "\n\nFloor " + s;
-//                for (TextDirection t : currentFloor) {
-//                    directions += "\n\t" + t.getDirection();
-//                }
-//            } catch (NullPointerException npe) {
-//                System.out.println("No text directions on this floor");
-//            }
+
+//    @FXML
+//    private void goToDirection(MouseEvent event) {
+//        TextDirection direction = (TextDirection) textDirections.getSelectionModel().getSelectedItem();
+//        try {
+//            direction.getNodes();
+//            // TODO: Draw an actual path
+//        } catch (NullPointerException e) {
+//            System.out.println("User selected nothing");
 //        }
-
-    }
-
-    @FXML
-    private void goToDirection(MouseEvent event) {
-        TextDirection direction = (TextDirection) textDirections.getSelectionModel().getSelectedItem();
-        try {
-            direction.getNodes();
-            // TODO: Draw an actual path
-        } catch (NullPointerException e) {
-            System.out.println("User selected nothing");
-        }
-    }
+//    }
 
     private void displayPath(List<NodeData> path) {
         if (path != null && !path.isEmpty()) {
@@ -1009,12 +754,15 @@ public class NewMainUIController {
     // helper functions
     ///
 
-    private void clearPathFindLoc() {
-        endLocation.setText("");
-        startLocation.setText("");
-    }
+//    private void clearPathFindLoc() {
+//        endLocation.setText("");
+//        startLocation.setText("");
+//    }
 
     public void clearMain() {
+        if(prevShowNode!=null)
+        panningPane.getChildren().remove(prevShowNode.getCircle());
+        prevShowNode = null;
         if (drawings.size() > 0) {
             for (Shape shape : drawings) {
                 panningPane.getChildren().remove(shape);
@@ -1086,11 +834,6 @@ public class NewMainUIController {
         return nodeBuild && curBuild;
     }
 
-    public void nodeInfoXHandler() {
-        nodeEditPane.setVisible(false);
-        clearNodeInfoText();
-    }
-
     private void clearNodeInfoText() {
         textNodeId.setText("");
         lblCurrentFloor.setText("");
@@ -1118,77 +861,6 @@ public class NewMainUIController {
         nodeInfoPane.toFront();
     }
 
-    public void closeNodeInfoHandler() {
-        nodeInfoPane.setVisible(false);
-        nodeInfoLongName.setText("");
-        nodeInfoShortName.setText("");
-        nodeInfoType.setText("");
-        lblNodeX.setText("");
-        lblNodeY.setText("");
-    }
-
-    public void fuzzyStart() {
-        String input = startLocation.getText();
-        List<String> longNameIDS = manager.queryNodeByLongName(input);
-
-        TextFields.bindAutoCompletion(startLocation, longNameIDS);
-        TextFields.bindAutoCompletion(endLocation, longNameIDS);
-
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void loginButtonHandler() throws IOException {
-        if (logOffNext) {
-            logOffNext = false;
-            loggedIn = false;
-            btnLogin.setText("Login");
-            adminFeaturePane.setVisible(false);
-            System.out.println("logging out");
-            return;
-        }
-        String username = "wwong2";
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/Login_Popup.fxml"
-                ));
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        loader.<LoginPopup>getController().initManager(manager, this);
-        stage.showAndWait();
-        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
-        //loggedIn = true;
-        if (loggedIn) {
-            System.out.println("user name " + userName);
-            employeeLoggedIn = manager.queryEmployeeByUsername(userName);
-            logOffNext = true;
-            btnLogin.setText("Logout");
-            adminFeaturePane.setVisible(true);
-        }
-        //stage.show();
-    }
-
-    public void employeeButtonHandler(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/employee_manager_UI.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        loader.<EmployeeManager>getController().initManager(this.manager);
-        stage.show();
-    }
 
     public void returnToMain() {
         FXMLLoader loader = new FXMLLoader(
@@ -1206,132 +878,12 @@ public class NewMainUIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        loader.<NewMainUIController>getController().initManager(manager);
-        loader.<NewMainUIController>getController().passStage(stage);
+        loader.<NewMainPageController>getController().initManager(manager);
+        loader.<NewMainPageController>getController().passStage(stage);
 
         System.out.println("Returned to normal view");
     }
 
-    public void mapEditHandler() {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/map_admin.fxml"
-                )
-        );
-
-        try {
-            stage.setScene(
-                    new Scene(
-                            (Pane) loader.load()
-                    )
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        loader.<NewMainUIController>getController().initAdminManager(manager);
-        loader.<NewMainUIController>getController().passStage(stage);
-        System.out.println("Changed to admin view");
-    }
-
-    public void openAdminHandler() throws IOException {
-        System.out.println("In open admin handler");
-        //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/serv_UI.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        loader.<ServiceRequestManager>getController().initManager(manager);
-        stage.show();
-    }
-
-    public void transportRequestHandler() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/Transportation_Request_UI.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        //TODO fix requests to use this controller
-        //loader.<Transportation_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
-        stage.show();
-    }
-
-    public void interpreterRequestHandler() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/Interpreter_Request_UI.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        //TODO fix requests to use this controller
-        //loader.<Interpreter_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
-        stage.show();
-    }
-
-    public void maintenanceRequestHandler() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/Maintenance_Request_UI.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        //TODO fix requests to use this controller
-        //loader.<Maintenance_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
-        stage.show();
-    }
-
-    public void helpButtonHandler() throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/FAQ_Popup.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        stage.show();
-    }
-
-    public void aboutButtonHandler() throws IOException {
-        System.out.print("In About Page");
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/About_Popup.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        stage.show();
-    }
 
     public void passStage(Stage s) {
         stage = s;
@@ -1350,11 +902,7 @@ public class NewMainUIController {
                 setZoom();
             }
         });
-
-        ////
         //MAP STUFF
-        ////
-
         //get all buildings from the database: for each loops through and adds them to the list of buildings, and
         //picks "Main Hospital" as the starting building
         List<Building> dbBuildings = manager.getAllBuildings();
@@ -1399,7 +947,54 @@ public class NewMainUIController {
         //sets the map, just in case we want it to start on another floor
         setMap();
         setZoom();
+        nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+        edgeAddPane.setOpacity(OPACITY_NOT_SHOWN);
+//        showNodesOrEdges();
+//        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), "Hospital");
+//        currentEdges = manager.getAllEdgeData();
+//        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
+
     }
 
+    public ManageController getManager(){
+        return manager;
+    }
 
+    @Override
+    public void passNodeData(NodeData nodeData) throws IOException {
+        if(prevShowNode==null){
+            prevShowNode = nodeData;
+        }else if(!nodeData.equals(prevShowNode)){
+            panningPane.getChildren().remove(prevShowNode.getCircle());
+            prevShowNode.changeBackCircleAndChangeColor(currentScale);
+            setCircleNodeController(nodeData,this);
+            panningPane.getChildren().add(prevShowNode.getCircle());
+            prevShowNode = nodeData;
+        }else{
+            System.out.println("Equals");
+        }
+        panningPane.getChildren().remove(nodeData.getCircle());
+        nodeData.enlargeCircleAndChangeColor(currentScale);
+        setCircleNodeController(nodeData,this);
+        panningPane.getChildren().add(nodeData.getCircle());
+        btnAddNode.setVisible(false);
+        btnDeleteNode.setVisible(true);
+        btnEditNode.setVisible(true);
+        setNodeDataToInfoPane(nodeData);
+    }
+
+    @Override
+    public void passEdgeData(EdgeData edgeData) {
+
+    }
+
+    public void disablePaneScroll() {
+        this.paneScroll.setPannable(false);
+        this.paneScroll.setFitToWidth(true);
+    }
+
+    public void enablePaneScroll() {
+        this.paneScroll.setPannable(true);
+        this.paneScroll.setFitToWidth(false);
+    }
 }
