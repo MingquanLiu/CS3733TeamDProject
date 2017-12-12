@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.database;
 
+import edu.wpi.cs3733.programname.boundary.Building;
 import edu.wpi.cs3733.programname.commondata.EdgeData;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
@@ -18,6 +19,7 @@ public class DatabaseQueryController {
 
     private NodesQuery nodesQuery;
     private EdgesQuery edgesQuery;
+    private MapsQuery mapsQuery;
     private EmployeesQuery employeesQuery;
     private ServiceRequestsQuery serviceRequestsQuery;
     private InterpreterQuery interpreterQuery;
@@ -26,6 +28,7 @@ public class DatabaseQueryController {
     public DatabaseQueryController(DBConnection dbConnection) {
         nodesQuery = new NodesQuery(dbConnection);
         edgesQuery = new EdgesQuery(dbConnection);
+        mapsQuery = new MapsQuery(dbConnection);
         employeesQuery = new EmployeesQuery(dbConnection);
         serviceRequestsQuery = new ServiceRequestsQuery(dbConnection);
         interpreterQuery = new InterpreterQuery(dbConnection);
@@ -85,6 +88,10 @@ public class DatabaseQueryController {
 
     public List<NodeData> queryNodeByTypeFloor(String type, String floor) { return nodesQuery.getNodeByTypeAndFloor(type, floor);}
 
+    public List<String> queryNodeByLongName(String longName){
+        return nodesQuery.queryNodeByLongName(longName);
+    }
+
 //    public List<ServiceRequestInfo> queryServiceRequesByType(DBConnection dbConnection, String type) {
 //        return ServiceRequestQuery.queryByType(dbConnection, type);
 //    }
@@ -106,6 +113,10 @@ public class DatabaseQueryController {
 //    public EmployeeInfo queryEmployeesByFullName(DBConnection dbConnection, String fName, String mName, String lName){
 //        return EmployeeQuery.queryByName(dbConnection, fName, mName, lName);
 //    }
+
+
+    public ArrayList<Building> queryAllBuildings(){return mapsQuery.queryAllBuildings();}
+
 
     //Employee Query
     public ArrayList<Employee> queryAllEmployees(){

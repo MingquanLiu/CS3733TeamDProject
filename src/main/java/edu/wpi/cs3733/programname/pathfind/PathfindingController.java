@@ -7,6 +7,8 @@ import edu.wpi.cs3733.programname.pathfind.entity.*;
 
 import java.util.*;
 
+import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.SCENIC;
+
 public class PathfindingController {
 
     public enum searchType {
@@ -27,6 +29,7 @@ public class PathfindingController {
     public List<NodeData> initializePathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
                                              String endNode)
             throws InvalidNodeException {
+
         if (AppSettings.getInstance().isHandicapPath()) {
             allEdges = filterPath (allEdges);
         }
@@ -56,6 +59,25 @@ public class PathfindingController {
                     return pathFinder.getFinalList();
                 default: return null;
             }
+        } catch (NoPathException npe) {
+            System.out.println(npe.fillInStackTrace());
+            return null;
+        }
+    }
+
+
+    public List<NodeData> SweeperPathfind(List<NodeData> allNodes, List<EdgeData> allEdges, String startNode,
+                                             String endNode)
+            throws InvalidNodeException {
+
+        if (AppSettings.getInstance().isHandicapPath()) {
+            allEdges = filterPath (allEdges);
+        }
+
+        try {
+                    pathFinder = new Sweep(allNodes, allEdges, startNode, endNode);
+                    return pathFinder.getFinalList();
+
         } catch (NoPathException npe) {
             System.out.println(npe.fillInStackTrace());
             return null;

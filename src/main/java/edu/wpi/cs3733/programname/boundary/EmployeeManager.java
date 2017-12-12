@@ -34,6 +34,9 @@ public class EmployeeManager {
     private AnchorPane mainServicePane;
 
     @FXML
+    private AnchorPane paneSkills;
+
+    @FXML
     private TableView<Employee> employeetable;
 
     @FXML
@@ -153,8 +156,8 @@ public class EmployeeManager {
 
     private List<String> mySkills;
 
-    private ArrayList<String> languages;
-    private ArrayList<String> maintenanceTypes;
+    private ObservableList<String> languages;
+    private ObservableList<String> maintenanceTypes;
 
     @FXML
     private SortedList<Employee> sortedEmployee;
@@ -168,6 +171,8 @@ public class EmployeeManager {
                 passerror.setVisible(true);
             }
             else {
+                paneSkills.setVisible(false);
+                employeetable.setVisible(true);
                 btnSkills.setDisable(false);
                 employeetable.setMouseTransparent(false);
                 btnSkills.setDisable(false);
@@ -255,6 +260,9 @@ public class EmployeeManager {
             Employee employee = employeetable.getSelectionModel().getSelectedItem();
             employee.getUsername();
             edit.setVisible(true);
+            if(event.getClickCount() == 2){
+                showedit(null);
+            }
         } catch (NullPointerException npe) {
             // do nothing at all
         }
@@ -293,6 +301,8 @@ public class EmployeeManager {
 
     @FXML
     private void cancelEdit(ActionEvent event) {
+        paneSkills.setVisible(false);
+        employeetable.setVisible(true);
         btnSkills.setDisable(false);
         employeetable.setMouseTransparent(false);
         btnSkills.setDisable(false);
@@ -323,20 +333,9 @@ public class EmployeeManager {
 
     @FXML
     private void openSkillsWindow(ActionEvent Event) throws IOException {
+        employeetable.setVisible(false);
+        paneSkills.setVisible(true);
         btnSkills.setDisable(true);
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/employeeSkillsPopup.fxml"
-                )
-        );
-        loader.setController(this);
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        stage.show();
         try {
             listMySkills.getItems().clear();
             listAllSkills.getItems().clear();
@@ -345,9 +344,8 @@ public class EmployeeManager {
                 listAllSkills.getItems().addAll(maintenanceTypes);
             }
             else if(employeeTypeString.equals("interpreter")) {
-                listAllSkills.getItems().addAll(languages);
+                listAllSkills.setItems(languages);
                 mySkills.addAll(this.manageController.queryInterpreterSkillsbyUsername(skillsUsernameString));
-
             }
             System.out.println(mySkills);
             listMySkills.getItems().addAll(mySkills);
@@ -398,7 +396,6 @@ public class EmployeeManager {
         if (result.isPresent()){
             String newSkill = result.get();
             listAllSkills.getItems().add(newSkill);
-
         }
     }
 
@@ -428,9 +425,10 @@ public class EmployeeManager {
         mySkills = new ArrayList<>();
         listAllSkills = new JFXListView<String>();
         listMySkills = new JFXListView<String>();
-        languages = new ArrayList<>();
-        languages.addAll(Arrays.asList("Mandarin", "Cantonese", "Spanish", "French", "German", "Korean", "Japanese", "Russian", "Hindi", "Arabic", "Portuguese", "Bengali", "other"));
-        maintenanceTypes = new ArrayList<>();
-        maintenanceTypes.addAll(Arrays.asList("clean", "elevator", "electricity", "network","other"));
+        languages = FXCollections.<String>observableArrayList("Mandarin", "Cantonese", "Spanish", "French", "German", "Korean", "Japanese", "Russian", "Hindi", "Arabic", "Portuguese", "Bengali", "other");
+//        languages.addAll(Arrays.asList("Mandarin", "Cantonese", "Spanish", "French", "German", "Korean", "Japanese", "Russian", "Hindi", "Arabic", "Portuguese", "Bengali", "other"));
+        maintenanceTypes = FXCollections.observableArrayList("clean", "elevator", "electricity", "network","other");
+//        maintenanceTypes.addAll(Arrays.asList("clean", "elevator", "electricity", "network","other"));
+        paneSkills.setVisible(false);
     }
 }

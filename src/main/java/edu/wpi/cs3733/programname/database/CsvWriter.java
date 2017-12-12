@@ -13,50 +13,6 @@ public class CsvWriter {
         this.dbConnection = dbConnection;
     }
 
-//    public void writeNodes(Connection conn, ArrayList<NodeData> nodesList) {
-//        try {
-//            // Write out the csv file
-//            String outFileName = "AllMapNodes.csv";
-//            FileWriter wrt = new FileWriter(outFileName, false);
-//            BufferedWriter buf = new BufferedWriter(wrt);
-//            PrintWriter prt = new PrintWriter(buf);
-//            int j;
-//
-//            // Prints header fields
-//            prt.println("nodeId, xcoord, ycoord, floor, building, nodeType, longName, shortName, teamAssigned");
-//
-//            for (j = 0; j < nodesList.size(); j++) {
-//                prt.println(
-//                        nodesList.get(j).getNodeID() + "," +
-//                                nodesList.get(j).getXCoord() + "," +
-//                                nodesList.get(j).getYCoord() + "," +
-//                                nodesList.get(j).getFloor() + "," +
-//                                nodesList.get(j).getBuilding() + "," +
-//                                nodesList.get(j).getNodeType() + "," +
-//                                nodesList.get(j).getLongName() + "," +
-//                                nodesList.get(j).getShortName() + "," +
-//                                nodesList.get(j).getTeamAssigned()
-//                );
-//            } // end for
-//
-//            System.out.println("Write out success!");
-//
-//            prt.flush();
-//            prt.close();
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//
-//        }
-//    }// end csvNodes
-
-
-
-
-
     public void writeNodes(Connection conn) {
         try {
             Statement statement = conn.createStatement();
@@ -118,6 +74,49 @@ public class CsvWriter {
         }
     }
 
+    public void writeMaps (Connection conn) {
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rset = statement.executeQuery("SELECT * FROM MapInfo");
+            String outFileName = "csv/AllMaps.csv";
+            FileWriter wrt = new FileWriter(outFileName, false);
+            BufferedWriter buf = new BufferedWriter(wrt);
+            PrintWriter prt = new PrintWriter(buf);
+
+
+            // Initialize table fields
+            String buildingName = "";
+            String imagePath = "";
+            String floorName = "";
+            String floorNum = "";
+            prt.println("buildingName, floorName, imagePath, floorNum");
+
+            // Gets all data in the table
+            while (rset.next()) {
+                buildingName = rset.getString("buildingName");
+                floorName = rset.getString("floorName");
+                imagePath = rset.getString("imagePath");
+                floorNum = rset.getString("floorNum");
+
+                prt.println(buildingName + "," +
+                        floorName + "," +
+                        imagePath + "," +
+                        floorNum);
+
+
+            }
+            prt.flush();
+            prt.close();
+
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void writeEdges(Connection conn) {
         try {
