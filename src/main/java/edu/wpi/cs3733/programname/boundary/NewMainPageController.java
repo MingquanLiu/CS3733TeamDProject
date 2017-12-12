@@ -668,7 +668,6 @@ public class NewMainPageController {
             String id = np.startID;
             currentPath = new ArrayList<>();
         }
-        displayPath(currentPath);
         TextDirections text = new TextDirections(currentPath);
         ObservableList directionsList = FXCollections.observableList(new ArrayList<>());
         directionsList.addAll(text.getTextDirections());
@@ -687,6 +686,8 @@ public class NewMainPageController {
                 }
             }
         });
+        displayPath(currentPath);
+
         // TODO: Dan, sort these by floor
 //        for (String s : Arrays.asList("L2", "L1", "G", "1", "2", "3")) {
 //            try {
