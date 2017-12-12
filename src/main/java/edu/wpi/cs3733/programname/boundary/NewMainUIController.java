@@ -54,7 +54,7 @@ import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 import static javafx.scene.paint.Color.BLUE;
 
 
-public class NewMainUIController implements Initializable {
+public class NewMainUIController {
 
 
     //FXML objects
@@ -129,6 +129,10 @@ public class NewMainUIController implements Initializable {
     private JFXComboBox comboBuilding;
     @FXML
     private JFXComboBox comboFloors;
+    @FXML
+    private JFXComboBox comboBuildingAdmin;
+    @FXML
+    private JFXComboBox comboFloorsAdmin;
 
     @FXML
     private JFXCheckBox allEdgesBox;
@@ -140,6 +144,11 @@ public class NewMainUIController implements Initializable {
     private JFXButton btnNewFloor;
     @FXML
     private JFXButton btnAddNode;
+    @FXML
+    private JFXButton btnDeleteNode;
+    @FXML
+    private JFXButton btnEditNode;
+
     @FXML
     private JFXButton btnAddEdge;
     @FXML
@@ -186,10 +195,29 @@ public class NewMainUIController implements Initializable {
     private Label nodeInfoShortName;
     @FXML
     private Label nodeInfoLongName;
+    @FXML
+    private JFXButton btnLogin;
+    @FXML
+    private JFXButton btnHelp;
+    @FXML
+    private JFXButton btnAbout;
+    @FXML
+    private AnchorPane nodeInfoBox;
+    @FXML
+    private Label edgeNode1;
+    @FXML
+    private Label edgeNode2;
+    @FXML
+    private JFXButton setEdge1;
+    @FXML
+    private JFXButton setEdge2;
+
 
     /*
     *global variables, not FXML tied
     */
+
+    private Stage stage;
 
     private ManageController manager;
     private double currentScale;
@@ -221,11 +249,11 @@ public class NewMainUIController implements Initializable {
     final double minWidth = 1500;
     final double maxWidth = 5000;
 
+    private boolean logOffNext = false;
+    private boolean loggedIn;
+    private String userName = null;
+    private Employee employeeLoggedIn;
 
-    //this runs on startup
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
 
     public void initManager(ManageController manageController) {
         manager = manageController;
@@ -258,13 +286,18 @@ public class NewMainUIController implements Initializable {
         ObservableList buildingList = FXCollections.observableList(new ArrayList<>());
         buildingList.addAll(buildings);
         System.out.println("buildinglist: " + buildingList);
+
         comboBuilding.setItems(buildingList);
         comboBuilding.setValue(curBuilding);
 
         //sets up the comboFloors ComboBox, gets the list of floors from curBuilding and picks the starting flor
         ObservableList floorList = FXCollections.observableList(new ArrayList<>());
+
         floorList.addAll(curBuilding.getFloors());
+
         comboFloors.setItems(floorList);
+        System.out.println("3: " + curBuilding.getFloors().get(3) +
+                " and 4: " + curBuilding.getFloors().get(4));
         curFloor = curBuilding.getFloors().get(4);
         comboFloors.setValue(curFloor);
 
@@ -284,6 +317,7 @@ public class NewMainUIController implements Initializable {
         comboTypes.setValue("REST");
         //sets the map, just in case we want it to start on another floor
         setMap();
+        setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
         setZoom();
     }
 
@@ -361,6 +395,75 @@ public class NewMainUIController implements Initializable {
         }
     }
 
+    public void adminClickMap(MouseEvent e) {
+        System.out.println("Mouse Clicked");
+        //clearMain();
+        int x = (int) e.getX();
+        int y = (int) e.getY();
+        System.out.println("current floor: " + curFloor);
+        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curFloor.getBuilding());
+        switch (selectingLocation) {
+            case "":
+                System.out.println("Get in findNodeData");
+                NodeData mClickedNode = getClosestNode(nodes, x, y);
+                setNodeDataToInfoPane(mClickedNode);
+                btnAddNode.setVisible(false);
+                btnDeleteNode.setVisible(true);
+                btnEditNode.setVisible(true);
+                if (e.getClickCount() == 2) {
+                    clearNodeInfoText();
+                    lblCurrentBuilding.setText(mClickedNode.getBuilding());
+                    lblCurrentFloor.setText(curFloor.getFloorNum());
+                    textNodeLocation.setText(UICToDBC(x, currentScale) +
+                            "," + UICToDBC(y, currentScale));
+                    btnAddNode.setVisible(true);
+                    btnDeleteNode.setVisible(false);
+                    btnEditNode.setVisible(false);
+
+                }
+                break;
+            case "selectLocation":
+                switch (nodeAction) {
+                    case "addNode":
+                        textNodeLocation.setText(UICToDBC(x, currentScale) + "," + UICToDBC(y, currentScale));
+                        break;
+                    case "deleteNode":
+                        mClickedNode = getClosestNode(nodes, x, y);
+                        setNodeDataToInfoPane(mClickedNode);
+                        break;
+                    case "editNode":
+                        mClickedNode = getClosestNode(nodes, x, y);
+                        setNodeDataToInfoPane(mClickedNode);
+                        break;
+                }
+                break;
+            case "selectEdge":
+                NodeData mNode = getClosestNode(nodes, x, y);
+                if (selectEdgeN1 == null) {
+                    selectEdgeN1 = mNode;
+                } else if (selectEdgeN2 == null) {
+                    selectEdgeN2 = mNode;
+                }
+                if (selectEdgeN2 != null && selectEdgeN1 != null) {
+                    if (edgeAction.equals("addEdge")) {
+                        manager.addEdge(selectEdgeN1.getNodeID(), selectEdgeN2.getNodeID());
+                    }
+                    if (edgeAction.equals("deleteEdge")) {
+                        /*String edgeId = getEdge(currentEdge, selectEdgeN1.getNodeID(), selectEdgeN2.getNodeID());
+                        if (!edgeId.equals("")) {
+                            manager.deleteEdge(edgeId);
+                            System.out.println("Edge Exists");
+                        }*/
+                    }
+                    selectingLocation = "";
+                    showNodesOrEdges();
+                    selectEdgeN2 = selectEdgeN1 = null;
+//                    setupBurger();
+                }
+                break;
+        }
+    }
+
     private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY) {
         int dbX = UICToDBC(mouseX, currentScale);
         int dbY = UICToDBC(mouseY, currentScale);
@@ -430,15 +533,17 @@ public class NewMainUIController implements Initializable {
 
     //map zooming method
     private void setZoom() {
+
+        System.out.println("scale says: " + currentScale + " but slider says: " + slideZoom.getValue() / 10);
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
         if (!(currentPath == null) && !currentPath.isEmpty()) {
             List<NodeData> mPath = currentPath;
             clearPath();
             displayPath(mPath);
         }
-        setNodeListSizeAndLocation(currentNodes, currentScale);
-        showNodesOrEdges();
-        relocateNodeInfo();
+
+        if (allNodesBox != null)
+            showNodesOrEdges();
 
     }
 
@@ -452,9 +557,6 @@ public class NewMainUIController implements Initializable {
     public void zoomHandler(ActionEvent e) {
         updateZoomSlider();
         if (e.getSource() == btnZoomOut) {
-//            if(imgMap.getFitWidth() <= minWidth){
-//                return;
-//            }
             if (AppSettings.getInstance().getMapRatioIndex() == 0) {
                 return;
             }
@@ -462,9 +564,6 @@ public class NewMainUIController implements Initializable {
             currentScale = Math.max(currentScale - .08, .3);
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
-//            if(imgMap.getFitWidth() >= MAX_UI_WIDTH){
-//                return;
-//            }
             if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
                 return;
             }
@@ -490,7 +589,9 @@ public class NewMainUIController implements Initializable {
         showNodesOrEdges();
     }
 
-    public double getScale(){return currentScale;}
+    public double getScale() {
+        return currentScale;
+    }
 
     public void instantiateNodeList() {
         JFXNodesList nodesList = new JFXNodesList();
@@ -568,38 +669,44 @@ public class NewMainUIController implements Initializable {
     }
 
     public void setMap() {
-        Building newBld = (Building) (comboBuilding.getValue());
-        System.out.println("Old building and floor: " + curBuilding + "[" + curFloor + "]");
-        if (newBld != curBuilding)
-            System.out.println("New building and floor: " + newBld + "[" + newBld.getFloors().get(0) + "]");
-        else
-            System.out.println("New building and floor: " + newBld + "[" + comboFloors.getValue() + "]");
+        if (comboBuilding.getValue() != null && comboFloors.getValue() != null) {
+            Building newBld = (Building) (comboBuilding.getValue());
+            System.out.println("Old building and floor: " + curBuilding + "[" + curFloor + "]");
+            if (newBld != curBuilding)
+                System.out.println("New building and floor: " + newBld + "[" + newBld.getFloors().get(0) + "]");
+            else
+                System.out.println("New building and floor: " + newBld + "[" + comboFloors.getValue() + "]");
 
 
-        if (newBld != curBuilding) {
-            System.out.println("floors: " + newBld);
-            ArrayList<Floor> floors = newBld.getFloors();
-            ObservableList floorList = FXCollections.observableList(new ArrayList<>());
-            floorList.addAll(floors);
-            comboFloors.setItems(floorList);
-            comboFloors.setValue(floorList.get(0));
-            curBuilding = newBld;
+            if (newBld != curBuilding) {
+                System.out.println("floors: " + newBld);
+                ArrayList<Floor> floors = newBld.getFloors();
+                ObservableList floorList = FXCollections.observableList(new ArrayList<>());
+
+                floorList.addAll(floors);
+                comboFloors.setItems(floorList);
+                comboFloors.setValue(floorList.get(0));
+                curBuilding = newBld;
+            }
+            if (curFloor == null || curFloor != comboFloors.getValue()) {
+                System.out.println("Floors changing");
+                System.out.println("comboFloors: " + comboFloors);
+                Floor newFloor = (Floor) (comboFloors.getValue());
+                curFloor = newFloor;
+                String newUrl = newFloor.getImgUrl();
+
+                Image newImg = new Image(newUrl);
+                imgMap.setImage(newImg);
+
+                setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
+                showNodesOrEdges();
+
+            }
+            if (lblCurrentBuilding != null) {
+                lblCurrentBuilding.setText(curBuilding.getName());
+                lblCurrentFloor.setText(curFloor.getFloorNum());
+            }
         }
-        if (curFloor == null || curFloor != comboFloors.getValue()) {
-            System.out.println("Floors changing");
-            Floor newFloor = (Floor) (comboFloors.getValue());
-            curFloor = newFloor;
-            String newUrl = newFloor.getImgUrl();
-
-            Image newImg = new Image(newUrl);
-            imgMap.setImage(newImg);
-
-            setNodeListImageVisibility(false,setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes),currentScale),this));  ;
-            showNodesOrEdges();
-
-        }
-
-
     }
 
     public void addMap(ActionEvent event) {
@@ -657,8 +764,6 @@ public class NewMainUIController implements Initializable {
             nodeInfoDelete.setVisible(false);
             nodeInfoEdit.setVisible(false);
             nodeAction = "addNode";
-            lblCurrentBuilding.setText(curBuilding.getName());
-            lblCurrentFloor.setText(curFloor.getFloorNum());
         } else {
             selectingLocation = "selectEdge";
             edgeAction = "addEdge";
@@ -667,45 +772,41 @@ public class NewMainUIController implements Initializable {
     }
 
     public void nodeInfoHandler(ActionEvent event) {
-        nodeEditPane.setVisible(false);
-        if (event.getSource() == nodeInfoSetLocation) {
-            selectingLocation = "selectLocation";
-            nodeInfoSetLocation.getScene().setCursor(Cursor.CROSSHAIR);
-        } else {
-            String id = textNodeId.getText();
-            String nodeType = comboTypes.getValue().toString();
-            String location = textNodeLocation.getText();
-            String[] locXY = location.split(",");
-            Coordinate loc = new Coordinate(Integer.parseInt(locXY[0]), Integer.parseInt(locXY[1]));
-            String longName = textNodeFullName.getText();
-            String floor = lblCurrentFloor.getText();
-            String shortName = textNodeShortName.getText();
-            String building = lblCurrentBuilding.getText();               //figure out building based on Coordinate
-            String teamAssigned = textNodeTeamAssigned.getText();           //figure out what to do with this field for new nodes
-            if (event.getSource() == nodeInfoAdd) {
-                NodeData newNode = new NodeData(id, loc, floor, building, nodeType, longName, shortName, teamAssigned);
-                manager.addNode(newNode);
-                //displayAddNodeConfirmation(id, longName, loc);
-                clearNodeInfoText();
-                showNodesOrEdges();
-            }
-            if (event.getSource() == nodeInfoDelete) {
-                NodeData newNode = new NodeData(id, loc, floor, building, nodeType, longName, shortName, teamAssigned);
-                manager.deleteNode(newNode);
-                clearNodeInfoText();
-                showNodesOrEdges();
-            }
-            if (event.getSource() == nodeInfoEdit) {
-                NodeData newNode = new NodeData(id, loc, floor, building, nodeType, longName, shortName, teamAssigned);
-                manager.editNode(newNode);
-                clearNodeInfoText();
-                showNodesOrEdges();
-            }
+        String id = textNodeId.getText();
+        String nodeType = comboTypes.getValue().toString();
+        String location = textNodeLocation.getText();
+        String[] locXY = location.split(",");
+        Coordinate loc = new Coordinate(Integer.parseInt(locXY[0]), Integer.parseInt(locXY[1]));
+        String longName = textNodeFullName.getText();
+        String floor = lblCurrentFloor.getText();
+        String shortName = textNodeShortName.getText();
+        String building = lblCurrentBuilding.getText();               //figure out building based on Coordinate
+        String teamAssigned = textNodeTeamAssigned.getText();           //figure out what to do with this field for new nodes
+        if (event.getSource() == btnAddNode) {
+            NodeData newNode = new NodeData(id, loc, floor, building, nodeType, longName, shortName, teamAssigned);
+            manager.addNode(newNode);
+            clearNodeInfoText();
+            clearMain();
+            showNodesOrEdges();
         }
-
+        if (event.getSource() == btnDeleteNode) {
+            NodeData newNode = new NodeData(id, loc, floor, building, nodeType, longName, shortName, teamAssigned);
+            manager.deleteNode(newNode);
+            clearNodeInfoText();
+            clearMain();
+            showNodesOrEdges();
+        }
+        if (event.getSource() == btnEditNode) {
+            NodeData newNode = new NodeData(id, loc, floor, building, nodeType, longName, shortName, teamAssigned);
+            manager.editNode(newNode);
+            clearNodeInfoText();
+            clearMain();
+            showNodesOrEdges();
+        }
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
+        nodeInfoBox.setOpacity(75);
         textNodeId.setText(nodeData.getNodeID());
         lblCurrentBuilding.setText(nodeData.getBuilding());
         lblCurrentFloor.setText(nodeData.getFloor());
@@ -713,6 +814,7 @@ public class NewMainUIController implements Initializable {
         textNodeLocation.setText(nodeData.getLocation().toString());
         textNodeShortName.setText(nodeData.getShortName());
         textNodeTeamAssigned.setText(nodeData.getTeamAssigned());
+        comboTypes.setValue(nodeData.getNodeType());
     }
 
     public void showNodesOrEdges() {
@@ -760,6 +862,27 @@ public class NewMainUIController implements Initializable {
         drawings.add(line);
     }
 
+    public void addEdge() {
+
+        if (!edgeNode1.equals("None") && !edgeNode2.equals("None")) {
+            manager.addEdge(edgeNode1.getText(), edgeNode2.getText());
+            clearMain();
+            showNodesOrEdges();
+        }
+    }
+
+    public void addEdgeToList(ActionEvent event) {
+        if (event.getSource() == setEdge1)
+            edgeNode1.setText(textNodeId.getText());
+        else
+            edgeNode2.setText(textNodeId.getText());
+    }
+
+    public void clearEdges() {
+        edgeNode1.setText("None");
+        edgeNode2.setText("None");
+    }
+
 
     public void goButtonHandler() {
         System.out.println("drawing path");
@@ -778,7 +901,7 @@ public class NewMainUIController implements Initializable {
         TextDirections textDirections = new TextDirections(currentPath);
         String directions = "";
         ObservableList directionsList = FXCollections.observableList(new ArrayList<>());
-        for(String s: Arrays.asList("L2","L1","G","1","2","3")) {
+        for (String s : Arrays.asList("L2", "L1", "G", "1", "2", "3")) {
             try {
                 List<TextDirection> currentFloor = textDirections.getByFloor(s);
                 directions += "\n\nFloor " + s;
@@ -811,14 +934,14 @@ public class NewMainUIController implements Initializable {
                 Line l = new Line();
                 NodeData n = path.get(i);
 
-                if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
-                    NodeData nextNode = path.get(i+1);
+                if (i <= path.size() - 2) {     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
+                    NodeData nextNode = path.get(i + 1);
                     String printFloor = "";
-                    if((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
-                            (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))){
-                        for(int j = 1; j < path.size() - i; j++) {
-                            nextNode = path.get(i+j);
-                            if (!nextNode.getNodeType().equals(n.getNodeType())){
+                    if ((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
+                            (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))) {
+                        for (int j = 1; j < path.size() - i; j++) {
+                            nextNode = path.get(i + j);
+                            if (!nextNode.getNodeType().equals(n.getNodeType())) {
                                 printFloor = n.getFloor();
                                 currentPathStartFloor = printFloor;
                                 currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
@@ -840,7 +963,7 @@ public class NewMainUIController implements Initializable {
                     }
                 }
 
-                if(n.getFloor().equals(curFloor.getFloorNum())&&prev.getFloor().equals(curFloor.getFloorNum())) {
+                if (n.getFloor().equals(curFloor.getFloorNum()) && prev.getFloor().equals(curFloor.getFloorNum())) {
                     l.setStroke(Color.BLUE);
                     l.setStrokeWidth(10.0 * currentScale);
                     l.setStartX(prev.getXCoord() * currentScale);
@@ -959,7 +1082,7 @@ public class NewMainUIController implements Initializable {
         int dbX = nodeData.getXCoord();
         int dbY = nodeData.getYCoord();
         System.out.println("Node Coordinate: " + dbX + "," + dbY + " Node Name: " + nodeData.getLongName());
-        nodeInfoPane.setVisible(true);
+        //nodeInfoPane.setVisible(true);
         nodeInfoPane.setLayoutX(DBCToUIC(dbX, currentScale) + 3);
         nodeInfoPane.setLayoutY(DBCToUIC(dbY, currentScale) + 3);
         nodeInfoPane.setVisible(true);
@@ -981,7 +1104,7 @@ public class NewMainUIController implements Initializable {
         lblNodeY.setText("");
     }
 
-    public void fuzzyStart(){
+    public void fuzzyStart() {
         String input = startLocation.getText();
         List<String> longNameIDS = manager.queryNodeByLongName(input);
 
@@ -989,42 +1112,248 @@ public class NewMainUIController implements Initializable {
         TextFields.bindAutoCompletion(endLocation, longNameIDS);
 
     }
-/*
-    public void passNodeData(NodeData nodeData) throws IOException {
-        switch (selectingLocation) {
-            case "":
-                clearNodes();
 
-//                showNode(nodeData);
-                showNodeInfo(nodeData);
-                break;
-            case "selectLocation":
-                System.out.println("In selectLocation");
-                lblServiceX.setText("" + nodeData.getXCoord());
-                lblServiceY.setText("" + nodeData.getYCoord());
-                serviceRequester.setVisible(true);
-                selectingLocation = "";
-                break;
-            case "selectStart":
-                clearNodes();
-//                showNode(nodeData);
-                showNodeInfo(nodeData);
-                txtStartLocation.setText(nodeData.getLongName());
-                selectingLocation = "";
-                break;
-            case "selectEnd":
-                clearNodes();
-//                showNode(nodeData);
-                showNodeInfo(nodeData);
-                txtEndLocation.setText(nodeData.getLongName());
-                selectingLocation = "";
-                break;
-            case "selectSRLocation":
-                popupSRWithCoord(nodeData, SRSelectType);
-                selectingLocation = "";
-                break;
-        }
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-*/
+
+    public void loginButtonHandler() throws IOException {
+        if (logOffNext) {
+            logOffNext = false;
+            loggedIn = false;
+            btnLogin.setText("Login");
+            adminFeaturePane.setVisible(false);
+            System.out.println("logging out");
+            return;
+        }
+        String username = "wwong2";
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Login_Popup.fxml"
+                ));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<LoginPopup>getController().initManager(manager, this);
+        stage.showAndWait();
+        loggedIn = loader.<LoginPopup>getController().getLoggedIn();
+        //loggedIn = true;
+        if (loggedIn) {
+            System.out.println("user name " + userName);
+            employeeLoggedIn = manager.queryEmployeeByUsername(userName);
+            logOffNext = true;
+            btnLogin.setText("Logout");
+            adminFeaturePane.setVisible(true);
+        }
+        //stage.show();
+    }
+
+    public void employeeButtonHandler(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employee_manager_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<EmployeeManager>getController().initManager(this.manager);
+        stage.show();
+    }
+
+    public void mapEditHandler() {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/map_admin.fxml"
+                )
+        );
+
+        try {
+            stage.setScene(
+                    new Scene(
+                            (Pane) loader.load()
+                    )
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        loader.<NewMainUIController>getController().initAdminManager(manager);
+        System.out.println("Changed to admin view");
+    }
+
+    public void openAdminHandler() throws IOException {
+        System.out.println("In open admin handler");
+        //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/serv_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<ServiceRequestManager>getController().initManager(manager);
+        stage.show();
+    }
+
+    public void transportRequestHandler() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Transportation_Request_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        //TODO fix requests to use this controller
+        //loader.<Transportation_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        stage.show();
+    }
+
+    public void interpreterRequestHandler() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Interpreter_Request_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        //TODO fix requests to use this controller
+        //loader.<Interpreter_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        stage.show();
+    }
+
+    public void maintenanceRequestHandler() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/Maintenance_Request_UI.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        //TODO fix requests to use this controller
+        //loader.<Maintenance_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        stage.show();
+    }
+
+    public void helpButtonHandler() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/FAQ_Popup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void aboutButtonHandler() throws IOException {
+        System.out.print("In About Page");
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/About_Popup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
+    }
+
+    public void passStage(Stage s) {
+        stage = s;
+    }
+
+    public void initAdminManager(ManageController manageController) {
+
+        manager = manageController;
+
+        currentScale = 0.3;
+
+        slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
+                currentScale = newVal.doubleValue() / 10;
+                System.out.println("scale" + currentScale);
+                setZoom();
+            }
+        });
+
+        ////
+        //MAP STUFF
+        ////
+
+        //get all buildings from the database: for each loops through and adds them to the list of buildings, and
+        //picks "Main Hospital" as the starting building
+        List<Building> dbBuildings = manager.getAllBuildings();
+        for (Building b : dbBuildings) {
+            buildings.add(b);
+            if (b.getName().equals("Main Hospital"))
+                curBuilding = b;
+        }
+
+        //sets up the comboBuilding ComboBox with the list of buildings, always starts with main hospital as the selected box
+        ObservableList buildingList = FXCollections.observableList(new ArrayList<>());
+        buildingList.addAll(buildings);
+        comboBuilding.setItems(buildingList);
+        comboBuilding.setValue(curBuilding);
+
+        //sets up the comboFloors ComboBox, gets the list of floors from curBuilding and picks the starting flor
+        ObservableList floorList = FXCollections.observableList(new ArrayList<>());
+        floorList.addAll(curBuilding.getFloors());
+        comboFloors.setItems(floorList);
+        curFloor = curBuilding.getFloors().get(4);
+        comboFloors.setValue(curFloor);
+
+        System.out.println("Value: " + comboFloors.getValue());
+
+
+        ObservableList typeList = FXCollections.observableList(new ArrayList<>());
+        typeList.add("REST");
+        typeList.add("INFO");
+        typeList.add("RETL");
+        typeList.add("DEPT");
+        typeList.add("ELEV");
+        typeList.add("EXIT");
+        typeList.add("STAI");
+        typeList.add("LABS");
+        typeList.add("SERV");
+
+        comboTypes.setItems(typeList);
+        comboTypes.setValue("REST");
+        lblCurrentBuilding.setText(curBuilding.getName());
+        lblCurrentFloor.setText(curFloor.getFloorNum());
+        selectingLocation = "";
+        //sets the map, just in case we want it to start on another floor
+        setMap();
+        setZoom();
+    }
+
 
 }

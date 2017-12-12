@@ -62,8 +62,10 @@ public class Main extends Application {
         );
         if (toUse.equals("home_screen"))
             loader.<TestingController>getController().initManager(manageController);
-        else
+        else {
             loader.<NewMainUIController>getController().initManager(manageController);
+            loader.<NewMainUIController>getController().passStage(stage);
+        }
 
         stage.show();
         return stage;

@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.programname.commondata;
 
-import edu.wpi.cs3733.programname.boundary.MapAdminController;
-import edu.wpi.cs3733.programname.boundary.NewMainUIController;
-import edu.wpi.cs3733.programname.boundary.TestingController;
+import edu.wpi.cs3733.programname.boundary.*;
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
 import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
 import edu.wpi.cs3733.programname.observer.MainNodeDataObserver;
@@ -11,9 +9,11 @@ import javafx.scene.image.ImageView;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class HelperFunction {
+public class HelperFunction{
+
     public static String convertFloor(int floor){
         String mString = "";
         switch (floor){
@@ -38,11 +38,6 @@ public class HelperFunction {
         }
         return mString;
     }
-
-//    public NodeData setNodeDataImage(String type,NodeData nodeData){
-//        switch (type){
-//            case "REST":
-//        }
 
     public static List<NodeData> getTypeNode(List<NodeData> mList,String type){
         List<NodeData> result = new ArrayList<>();
@@ -72,9 +67,9 @@ public class HelperFunction {
         return mList;
     }
 
+
     public static List<NodeData>  setNodeListSizeAndLocation(List<NodeData> mList,double currentScale){
         for(NodeData nodeData: mList){
-            System.out.println("Node: " + nodeData);
             nodeData.setImageViewSizeAndLocation(currentScale);
         }
         return mList;
@@ -138,6 +133,16 @@ public class HelperFunction {
                     ,nodeData);
             nodeData.setCircleOnDragged(mainDataObserver);
             nodeData.setCircleOnDraggedExit(mainDataObserver);
+        }
+        return mList;
+    }
+
+    public static List<NodeData> setCircleNodeListController(List<NodeData> mList, MapEditController mapEditController){
+        for(NodeData nodeData: mList){
+           // MainNodeDataObserver mainDataObserver = new MainNodeDataObserver(mapEditController
+          //          ,nodeData);
+          //  nodeData.setCircleOnDragged(mainDataObserver);
+            //nodeData.setCircleOnDraggedExit(mainDataObserver);
         }
         return mList;
     }
