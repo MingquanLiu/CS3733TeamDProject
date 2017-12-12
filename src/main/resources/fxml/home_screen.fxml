@@ -96,7 +96,11 @@
                         <JFXCheckBox fx:id="locateLabs" layoutX="479.0" layoutY="339.0" text="Labs" />
                         <JFXCheckBox fx:id="locateAdditionalServices" layoutX="528.0" layoutY="406.0" text="Additional Services" />
                         <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
-                  <Label fx:id="lblCrossFloor" layoutX="560.0" layoutY="244.0" style="-fx-background-color: #afeeee; -fx-border-color: #d3d3d3;" styleClass="roundCorners" stylesheets="@../css/general_button.css" text="Proceed to Floor X" />
+                  <JFXButton fx:id="crossFloor" buttonType="RAISED" layoutX="515.0" layoutY="208.0" onAction="#crossFloor" prefHeight="37.0" prefWidth="80.0" ripplerFill="WHITE" style="-fx-background-color: rgb(179, 236, 255, 0.7);" text="From floor XX&#10;To floor YY">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </JFXButton>
                     </children>
                 </AnchorPane>
             </content>
@@ -297,11 +301,11 @@
             </children>
         </AnchorPane>
         <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0" />
-            <TitledPane fx:id="paneDirections" animated="false" expanded="false" prefHeight="175.0" prefWidth="300.0" text="Directions" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
+            <TitledPane fx:id="paneDirections" animated="false" expanded="false" prefHeight="236.0" prefWidth="300.0" text="Directions" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
                         <children>
-                  <ScrollPane prefHeight="150.0" prefWidth="300.0">
+                  <ScrollPane prefHeight="215.0" prefWidth="300.0">
                      <content>
                                   <Label fx:id="txtAreaDirections" prefWidth="300.0" wrapText="true" />
                      </content>
