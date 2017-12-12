@@ -248,6 +248,10 @@ public class TestingController extends UIController implements Initializable {
     private JFXCheckBox locateAllLocations;
 
     @FXML
+    private JFXComboBox<Image> comboCharacter;
+    private ImageView character;
+
+    @FXML
     private Label lblCrossFloor;
 
 
@@ -477,8 +481,45 @@ public class TestingController extends UIController implements Initializable {
                 setZoom();
             }
         });
+
+        Image walkingMan = new Image("img/walkingBlue.gif");
+        Image runningBatman = new Image("img/batmanRun.gif");
+
+        ObservableList characters = FXCollections.observableList(new ArrayList<>());
+        characters.add(walkingMan);
+        characters.add(runningBatman);
+
+        comboCharacter.getItems().addAll(characters);
+        comboCharacter.setButtonCell(new ImageListCell());
+        comboCharacter.setCellFactory(listView -> new ImageListCell());
+        comboCharacter.setValue(walkingMan);
+//        comboCharacter.getSelectionModel().select(0);
+
+    }
+    private class ImageListCell extends ListCell<Image> {
+        private final ImageView view;
+
+        ImageListCell() {
+            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            view = new ImageView();
+        }
+
+        @Override
+        protected void updateItem(Image item, boolean empty) {
+            super.updateItem(item, empty);
+
+            if (item == null || empty) {
+                setGraphic(null);
+            } else {
+                view.setImage(item);
+                setGraphic(view);
+            }
+        }
     }
 
+    public void selectCharacter(){
+        displayPath(currentPath);
+    }
     private void pauseTransitions() {
         if (transitions.size() > 0) {
             for (Transition t : transitions) {
@@ -605,7 +646,9 @@ public class TestingController extends UIController implements Initializable {
         }
         //panningPane.getChildren().addAll(path);
 
-        ImageView walkingMan = new ImageView("img/walkingBlue.gif");
+        String imgUrl = ((Image)(comboCharacter.getValue())).impl_getUrl();
+        System.out.println(imgUrl);
+        ImageView walkingMan = new ImageView(imgUrl);
         walkingMan.setPreserveRatio(true);
         walkingMan.setFitWidth(200*currentScale);
 
@@ -1419,5 +1462,6 @@ public class TestingController extends UIController implements Initializable {
     public void setUserName(String userName){
         this.userName = userName;
     }
+
 
 }

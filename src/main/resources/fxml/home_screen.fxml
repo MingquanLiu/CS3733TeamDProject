@@ -179,6 +179,7 @@
             <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
             <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
             <Button layoutX="57.0" layoutY="483.0" mnemonicParsing="false" onAction="#clearAnimations" text="Button" />
+            <JFXComboBox fx:id="comboCharacter" layoutX="38.0" layoutY="545.0" onAction="#selectCharacter" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="60.0" prefWidth="322.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
