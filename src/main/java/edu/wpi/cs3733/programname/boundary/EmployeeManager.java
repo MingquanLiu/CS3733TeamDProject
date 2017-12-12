@@ -99,6 +99,9 @@ public class EmployeeManager {
     private JFXButton close;
 
     @FXML
+    private JFXButton btnCloseSkills;
+
+    @FXML
     private JFXButton remove;
 
     @FXML
@@ -171,8 +174,7 @@ public class EmployeeManager {
                 passerror.setVisible(true);
             }
             else {
-                paneSkills.setVisible(false);
-                employeetable.setVisible(true);
+                closeSkillsWindow(event);
                 btnSkills.setDisable(false);
                 employeetable.setMouseTransparent(false);
                 btnSkills.setDisable(false);
@@ -301,8 +303,7 @@ public class EmployeeManager {
 
     @FXML
     private void cancelEdit(ActionEvent event) {
-        paneSkills.setVisible(false);
-        employeetable.setVisible(true);
+        closeSkillsWindow(event);
         btnSkills.setDisable(false);
         employeetable.setMouseTransparent(false);
         btnSkills.setDisable(false);
@@ -332,9 +333,31 @@ public class EmployeeManager {
     }
 
     @FXML
+    private void closeSkillsWindow(ActionEvent event){
+        btnSkills.setDisable(true);
+        // get a handle to the stage
+        Stage stage = (Stage) btnCloseSkills.getScene().getWindow();
+        changessaved.setVisible(false);
+        stage.close();
+        employeetable.setVisible(true);
+    }
+
+    @FXML
     private void openSkillsWindow(ActionEvent Event) throws IOException {
         employeetable.setVisible(false);
-        paneSkills.setVisible(true);
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/employeeSkillsPopup.fxml"
+                )
+        );
+        loader.setController(this);
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        stage.show();
         btnSkills.setDisable(true);
         try {
             listMySkills.getItems().clear();
@@ -371,16 +394,34 @@ public class EmployeeManager {
 
     @FXML
     void enableAddSkill(MouseEvent event) {
-        btnAddSkill.setDisable(false);
-        btnRmSkill.setDisable(true);
-        labelSkillsSaved.setVisible(false);
+        String skill = listAllSkills.getSelectionModel().getSelectedItem();
+        try {
+            if (skill.isEmpty()) {
+                System.out.println("Nothing selected");
+            } else {
+                btnAddSkill.setDisable(false);
+                btnRmSkill.setDisable(true);
+                labelSkillsSaved.setVisible(false);
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Nothing selected");
+        }
     }
 
     @FXML
     void enableRmSkill(MouseEvent event) {
-        btnRmSkill.setDisable(false);
-        btnAddSkill.setDisable(true);
-        labelSkillsSaved.setVisible(false);
+        String skill = listMySkills.getSelectionModel().getSelectedItem();
+        try {
+            if (skill.isEmpty()) {
+                System.out.println("Nothing selected");
+            } else {
+                btnRmSkill.setDisable(false);
+                btnAddSkill.setDisable(true);
+                labelSkillsSaved.setVisible(false);
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Nothing selected");
+        }
     }
 
     @FXML
@@ -429,6 +470,5 @@ public class EmployeeManager {
 //        languages.addAll(Arrays.asList("Mandarin", "Cantonese", "Spanish", "French", "German", "Korean", "Japanese", "Russian", "Hindi", "Arabic", "Portuguese", "Bengali", "other"));
         maintenanceTypes = FXCollections.observableArrayList("clean", "elevator", "electricity", "network","other");
 //        maintenanceTypes.addAll(Arrays.asList("clean", "elevator", "electricity", "network","other"));
-        paneSkills.setVisible(false);
     }
 }

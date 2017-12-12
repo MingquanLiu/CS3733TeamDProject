@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -103,23 +102,5 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <AnchorPane fx:id="paneSkills" layoutX="108.0" layoutY="43.0" prefHeight="362.0" prefWidth="498.0">
-         <children>
-            <Label layoutX="14.0" layoutY="10.0" prefHeight="31.0" prefWidth="202.0" text="Edit  Employee Skills" textAlignment="CENTER">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Label>
-            <JFXListView fx:id="listMySkills" layoutX="282.0" layoutY="58.0" onMouseClicked="#enableRmSkill" prefHeight="262.0" prefWidth="202.0" />
-            <JFXButton fx:id="btnAddSkill" disable="true" layoutX="224.0" layoutY="169.0" onAction="#addSkill" text="Add &gt;" />
-            <JFXButton fx:id="btnRmSkill" disable="true" layoutX="342.0" layoutY="323.0" onAction="#rmSkill" text="Remove skill" />
-            <JFXButton fx:id="btnNewSkill" layoutX="72.0" layoutY="323.0" onAction="#newSkill" text="Add new skill" visible="false" />
-            <Label fx:id="labelSkillsSaved" layoutX="209.0" layoutY="327.0" text="Changes saved" textFill="RED" visible="false" />
-            <Label layoutX="69.0" layoutY="40.0" text="All available skills" />
-            <Label layoutX="340.0" layoutY="40.0" text="Employee's skills" />
-            <Label fx:id="labelUsername" layoutX="369.0" layoutY="17.0" />
-            <JFXListView fx:id="listAllSkills" layoutX="20.0" layoutY="59.0" onMouseClicked="#enableAddSkill" prefHeight="262.0" prefWidth="196.0" />
-         </children>
-      </AnchorPane>
    </children>
 </AnchorPane>
