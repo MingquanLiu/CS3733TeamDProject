@@ -137,10 +137,11 @@ public class Main extends Application {
                 Frame frame = null;
 
                 while(true) {
+                    // The world will never know why we need this line, but we do, so don't delete it
+                    System.currentTimeMillis();
+                    // (I'm assuming it allows the internal timers to synchronize)
                     if((System.currentTimeMillis() - AppSettings.getInstance().getDelayTime()) > 0L) {
                         if(!AppSettings.getInstance().isSaveScreen()) {
-//                            System.out.println("Time at which the loop actually kicked: " + System.currentTimeMillis());
-
                             frame = new Frame("Kiosk Screen Saver");
                             frame.setVisible(false);
                             frame.setUndecorated(true);
@@ -168,15 +169,15 @@ public class Main extends Application {
                         }
                     } else {
                         if(AppSettings.getInstance().isSaveScreen()) {
-                            FutureTask<Void> task = new FutureTask<>(() -> controller.reinitialize(), null);
-                            Platform.runLater(task);
-                            try {
-                                task.get();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            }
+//                            FutureTask<Void> task = new FutureTask<>(() -> controller.reinitialize(), null);
+//                            Platform.runLater(task);
+//                            try {
+//                                task.get();
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            } catch (ExecutionException e) {
+//                                e.printStackTrace();
+//                            }
                             frame.dispose();
                             AppSettings.getInstance().setSaveScreen(false);
                         }
