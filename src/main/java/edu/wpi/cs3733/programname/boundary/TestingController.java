@@ -592,19 +592,16 @@ public class TestingController extends UIController implements Initializable {
     private void pathAnimation(List<NodeData> nodes){
         clearAnimations();
         Path path = new Path();
-        for (int i = 0; i < nodes.size(); i++){
-            if(i==0){
-                MoveTo moveTo = new MoveTo();
-                moveTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
-                moveTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
-                path.getElements().add(moveTo);
-            }
-            else{
-                LineTo lineTo = new LineTo();
-                lineTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
-                lineTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
-                path.getElements().add(lineTo);
-            }
+        MoveTo moveTo = new MoveTo();
+        moveTo.setX(DBCToUIC(nodes.get(0).getXCoord(),currentScale));
+        moveTo.setY(DBCToUIC(nodes.get(0).getYCoord(),currentScale));
+        path.getElements().add(moveTo);
+        for (int i = 1; i < nodes.size(); i++){
+            LineTo lineTo = new LineTo();
+            lineTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
+            lineTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
+            path.getElements().add(lineTo);
+
         }
         //panningPane.getChildren().addAll(path);
 
@@ -648,6 +645,7 @@ public class TestingController extends UIController implements Initializable {
 
             ArrayList<NodeData> thisFloorPath = new ArrayList<>();
             ArrayList<Line> lines = new ArrayList<>();
+            int startIndex = -1;
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
@@ -691,21 +689,23 @@ public class TestingController extends UIController implements Initializable {
 
 //                Path path = new Path();
 //                PathElement start = new moveTo(l.getStartX(), l.getStartY());
-                if(n.getFloor().equals(convertFloor(floor))&&prev.getFloor().equals(convertFloor(floor))) {
-                    l.setStroke(Color.LIGHTSKYBLUE);
-                    l.setStrokeWidth(10.0 * currentScale);
-                    l.setStartX(prev.getXCoord() * currentScale);
-                    l.setStartY(prev.getYCoord() * currentScale);
-                    l.setEndX(n.getXCoord() * currentScale);
-                    l.setEndY(n.getYCoord() * currentScale);
-                    lines.add(l);
-
-                    thisFloorPath.add(n);
-//                    new LineTo(0, 300),
-//                            new ClosePath()
-//                    PathElement element = new LineTo(l.getEndX(), l.getEndY());
-//                    path.getElements().add(element);
-
+                if(n.getFloor().equals(convertFloor(floor))) {
+                    if(i == 1){
+                        thisFloorPath.add(prev);
+                    }
+                    else {
+                        thisFloorPath.add(n);
+                    }
+                    System.out.println(n.getLongName());
+                    if (prev.getFloor().equals(convertFloor(floor))) {
+                        l.setStroke(Color.LIGHTSKYBLUE);
+                        l.setStrokeWidth(10.0 * currentScale);
+                        l.setStartX(prev.getXCoord() * currentScale);
+                        l.setStartY(prev.getYCoord() * currentScale);
+                        l.setEndX(n.getXCoord() * currentScale);
+                        l.setEndY(n.getYCoord() * currentScale);
+                        lines.add(l);
+                    }
                 }
                 prev = n;
             }
