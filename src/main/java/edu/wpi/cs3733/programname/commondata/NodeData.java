@@ -27,6 +27,7 @@ public class NodeData {
     private String teamAssigned;
     private ImageView nodeImageView;
     private Circle circle;
+    private boolean clicked;
     /**
      * NodeData constructor with location
      *
@@ -49,6 +50,7 @@ public class NodeData {
         this.longName = longName;
         this.shortName = shortName;
         this.teamAssigned = teamAssigned;
+        clicked = false;
     }
 
 
@@ -75,6 +77,7 @@ public class NodeData {
         this.longName = longName;
         this.shortName = shortName;
         this.teamAssigned = teamAssigned;
+        clicked = false;
     }
 
 
@@ -445,12 +448,14 @@ public class NodeData {
         circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //newMapAdminNodeDataObserver.disableScroll();
-                System.out.println("Circle dragged");
-                System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
-                circle.setCenterX(event.getSceneX());
-                circle.setCenterY(event.getSceneY());
-                System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
+//                if(clicked){
+//                    newMapAdminNodeDataObserver.disableScroll();
+                    System.out.println("Circle dragged");
+                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
+                    circle.setCenterX(event.getSceneX());
+                    circle.setCenterY(event.getSceneY());
+                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
+//                }
 //                    newMapAdminNodeDataObserver.update();
             }
         });
@@ -461,21 +466,23 @@ public class NodeData {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Circle dragged exit");
-                try {
-                    circle.setCenterX(event.getSceneX());
-                    circle.setCenterY(event.getSceneY());
-                    int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), newMapAdminNodeDataObserver.getMainController().getScale());
-                    int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), newMapAdminNodeDataObserver.getMainController().getScale());
-                    Coordinate newLoc = new Coordinate(dbX, dbY);
-                    newMapAdminNodeDataObserver.getNodeData().setLocation(newLoc);
-                    //newMapAdminNodeDataObserver.enableScroll();
+//                if(clicked){
+                    try {
+                        circle.setCenterX(event.getSceneX());
+                        circle.setCenterY(event.getSceneY());
+                        int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), newMapAdminNodeDataObserver.getMainController().getScale());
+                        int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), newMapAdminNodeDataObserver.getMainController().getScale());
+                        Coordinate newLoc = new Coordinate(dbX, dbY);
+                        newMapAdminNodeDataObserver.getNodeData().setLocation(newLoc);
+//                        newMapAdminNodeDataObserver.enableScroll();
 
-                    newMapAdminNodeDataObserver.updateNodeInDb();
-                    newMapAdminNodeDataObserver.update();
+                        newMapAdminNodeDataObserver.updateNodeInDb();
+                        newMapAdminNodeDataObserver.update();
 //                    newMapAdminNodeDataObserver.showNodesOrEdges();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+//                }
             }
         });
     }
@@ -494,11 +501,12 @@ public class NodeData {
     }
     public void enlargeCircleAndChangeColor(double currentScale){
         circle =new Circle(circle.getCenterX(), circle.getCenterY(), EXPANDED_CIRCILE_RADIUS*currentScale, GREEN);
-
+        clicked = true;
         System.out.println("In changing circles");
     }
     public void changeBackCircleAndChangeColor(double currentScale){
         circle =new Circle(circle.getCenterX(), circle.getCenterY(), CIRCILE_RADIUS*currentScale, RED);
+        clicked = false;
     }
 
 }

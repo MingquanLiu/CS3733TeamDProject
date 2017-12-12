@@ -126,6 +126,7 @@ public class HelperFunction{
 
 
 
+
     public static List<NodeData> setCircleNodeListController(List<NodeData> mList, NewMapAdminUI mainController){
         for(NodeData nodeData: mList){
             NewMapAdminNodeDataObserver mainDataObserver = new NewMapAdminNodeDataObserver(mainController
@@ -136,6 +137,16 @@ public class HelperFunction{
 
         }
         return mList;
+    }
+
+    public static void setCircleNodeController(NodeData nodeData, NewMapAdminUI mainController){
+
+            NewMapAdminNodeDataObserver mainDataObserver = new NewMapAdminNodeDataObserver(mainController
+                    ,nodeData);
+            nodeData.setCircleOnDragged(mainDataObserver);
+            nodeData.setCircleOnDraggedExit(mainDataObserver);
+            nodeData.setCircleMapAdminOnClick(mainDataObserver);
+
     }
 
     public static List<NodeData> setCircleNodeListController(List<NodeData> mList, MapEditController mapEditController){

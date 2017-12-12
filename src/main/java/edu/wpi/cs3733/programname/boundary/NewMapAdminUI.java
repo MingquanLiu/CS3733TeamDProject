@@ -317,6 +317,12 @@ public class NewMapAdminUI extends UIController{
             case "":
                 System.out.println("Get in findNodeData");
                 nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+                if(prevShowNode!=null) {
+                    panningPane.getChildren().remove(prevShowNode.getCircle());
+                    prevShowNode.changeBackCircleAndChangeColor(currentScale);
+                    setCircleNodeController(prevShowNode,this);
+                    panningPane.getChildren().add(prevShowNode.getCircle());
+                }
 //                setNodeDataToInfoPane(mClickedNode);
                 if (e.getClickCount() == 2) {
                     clearNodeInfoText();
@@ -959,6 +965,7 @@ public class NewMapAdminUI extends UIController{
         }else if(!nodeData.equals(prevShowNode)){
             panningPane.getChildren().remove(prevShowNode.getCircle());
             prevShowNode.changeBackCircleAndChangeColor(currentScale);
+            setCircleNodeController(nodeData,this);
             panningPane.getChildren().add(prevShowNode.getCircle());
             prevShowNode = nodeData;
         }else{
@@ -966,16 +973,26 @@ public class NewMapAdminUI extends UIController{
         }
         panningPane.getChildren().remove(nodeData.getCircle());
         nodeData.enlargeCircleAndChangeColor(currentScale);
+        setCircleNodeController(nodeData,this);
         panningPane.getChildren().add(nodeData.getCircle());
         btnAddNode.setVisible(false);
         btnDeleteNode.setVisible(true);
         btnEditNode.setVisible(true);
         setNodeDataToInfoPane(nodeData);
-
     }
 
     @Override
     public void passEdgeData(EdgeData edgeData) {
 
+    }
+
+    public void disablePaneScroll() {
+        this.paneScroll.setPannable(false);
+        this.paneScroll.setFitToWidth(true);
+    }
+
+    public void enablePaneScroll() {
+        this.paneScroll.setPannable(true);
+        this.paneScroll.setFitToWidth(false);
     }
 }

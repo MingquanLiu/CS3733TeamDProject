@@ -38,4 +38,12 @@ public class NewMapAdminNodeDataObserver extends Observer {
     public void showNodesOrEdges() {
         mainController.showNodesOrEdges();
     }
+
+    public void disableScroll() {
+        mainController.disablePaneScroll();
+    }
+
+    public void enableScroll() {
+        mainController.enablePaneScroll();
+    }
 }
