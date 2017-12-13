@@ -28,7 +28,7 @@
            </items>
        </JFXComboBox>
 
-       <JFXComboBox fx:id="comboMaintenanceType" layoutX="85.0" layoutY="91.0" prefHeight="27.0" prefWidth="156.0" promptText="        -Maintenance Type-">
+       <JFXComboBox fx:id="comboMaintenanceType" layoutX="85.0" layoutY="91.0" prefHeight="27.0" prefWidth="156.0" promptText="   -Maintenance Type-">
            <items>
                <FXCollections fx:factory="observableArrayList">
                    <String fx:value="cleaning" />
@@ -74,7 +74,7 @@
 
        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="602.0" layoutY="424.0" onAction="#submitButtonHandler" style="-fx-background-color: #d2d2d2;" text="Submit" />
        <JFXTimePicker fx:id="timePicker" layoutX="159.0" layoutY="424.0" prefHeight="27.0" prefWidth="228.0" />
-       <Label layoutX="24.0" layoutY="426.0" text="Reseve a Time:">
+       <Label fx:id="lblReserveTime" layoutX="24.0" layoutY="426.0" text="Reseve a Time:">
            <font>
                <Font size="18.0" />
            </font>
@@ -86,9 +86,9 @@
       <JFXTextArea fx:id="txtDescription" layoutX="99.0" layoutY="201.0" promptText="Request Description..." />
       <HBox alignment="TOP_CENTER" layoutX="92.0" layoutY="52.0" prefHeight="27.0" prefWidth="528.0" spacing="100.0">
          <children>
-            <JFXButton fx:id="btnNewInterpreter" onAction="#interpreterButtonHandler" text="Interpreter" />
-            <JFXButton fx:id="btnNewMaintenance" onAction="#maintenanceButtonHandler" text="Maintenance" />
-            <JFXButton fx:id="btnNewTransportation" onAction="#transportationButtonHandler" text="Transportation" />
+            <JFXButton fx:id="btnNewInterpreter" onAction="#interpreterButtonHandler" style="-fx-background-color: lightgreen;" text="Interpreter" />
+            <JFXButton fx:id="btnNewMaintenance" onAction="#maintenanceButtonHandler" style="-fx-background-color: lightgreen;" text="Maintenance" />
+            <JFXButton fx:id="btnNewTransportation" onAction="#transportationButtonHandler" style="-fx-background-color: lightgreen;" text="Transportation" />
          </children>
       </HBox>
    </children>

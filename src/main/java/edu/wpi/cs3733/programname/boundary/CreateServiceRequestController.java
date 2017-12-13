@@ -44,6 +44,9 @@ public class CreateServiceRequestController {
     private Label lblNewRequestTitle;
 
     @FXML
+    private Label lblReserveTime;
+
+    @FXML
     private JFXButton btnNewInterpreter;
 
     @FXML
@@ -90,6 +93,7 @@ public class CreateServiceRequestController {
         txtTransportDestination.setVisible(false);
         timePicker.setVisible(true);
         btnCurrentTime.setVisible(true);
+        lblReserveTime.setVisible(true);
         submissionType = Constants.INTERPRETER_REQUEST;
     }
 
@@ -100,6 +104,7 @@ public class CreateServiceRequestController {
         txtTransportDestination.setVisible(false);
         timePicker.setVisible(false);
         btnCurrentTime.setVisible(false);
+        lblReserveTime.setVisible(false);
         submissionType = Constants.MAINTENANCE_REQUEST;
     }
 
@@ -110,6 +115,7 @@ public class CreateServiceRequestController {
         txtTransportDestination.setVisible(true);
         timePicker.setVisible(true);
         btnCurrentTime.setVisible(true);
+        lblReserveTime.setVisible(true);
         submissionType = Constants.TRANSPORTATION_REQUEST;
     }
 
