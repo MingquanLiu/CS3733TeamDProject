@@ -42,12 +42,18 @@
                 </TitledPane>
                   <TitledPane animated="false" text="Q: How do I change floors of the map?">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;">
+                           <children>
+                              <JFXTextArea layoutX="14.0" layoutY="14.0" prefHeight="133.0" prefWidth="512.0" promptText="You can select floor from the top white dropdown" />
+                           </children></AnchorPane>
                     </content>
                   </TitledPane>
                   <TitledPane animated="false" style="-fx-background-color: #b5bbcc;" text="Q: How do I change the building of the map?">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;">
+                           <children>
+                              <JFXTextArea layoutX="14.0" layoutY="14.0" prefHeight="135.0" prefWidth="513.0" promptText="You can select building from the top white dropdown" />
+                           </children></AnchorPane>
                     </content>
                   </TitledPane>
                   <TitledPane animated="false" style="-fx-background-color: #b5bbcc;" text="Q: How do I send directions to myself?">
