@@ -415,9 +415,10 @@ public class NodeData {
                 mapAdminNodeDataObserver.disableScroll();
                 System.out.println("Image get clicked");
                 try {
-                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
-                    circle.setCenterX(event.getSceneX());
-                    circle.setCenterY(event.getSceneY());
+                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());
+                    System.out.println("image translate x:" + mapAdminNodeDataObserver.getMapAdminController().getFloorImage().getTranslateX());
+                    circle.setCenterX(event.getX() + mapAdminNodeDataObserver.getMapAdminController().getFloorImage().getTranslateX());
+                    circle.setCenterY(event.getY()  + mapAdminNodeDataObserver.getMapAdminController().getFloorImage().getTranslateY());
                     System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
                     mapAdminNodeDataObserver.update();
                 } catch (IOException e) {
@@ -449,22 +450,50 @@ public class NodeData {
         });
     }
 
+    double mouseX;
+    double mouseY;
+    double imgX;
+    double imgY;
     public void setCircleOnDragged(NewMapAdminNodeDataObserver newMapAdminNodeDataObserver){
         newMapAdminNodeDataObserver.setNodeData(this);
+
+        circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                mouseX = event.getSceneX();
+                mouseY = event.getSceneY();
+                imgX = ((Circle) (event.getSource())).getCenterX();
+                imgY = ((Circle) (event.getSource())).getCenterY();
+            }
+        });
         circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-//                if(clicked){
-                    newMapAdminNodeDataObserver.disableScroll();
-                    System.out.println("Circle dragged");
-                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());;
-                    circle.setCenterX(event.getSceneX());
-                    circle.setCenterY(event.getSceneY());
-                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
-//                }
-//                    newMapAdminNodeDataObserver.update();
+                newMapAdminNodeDataObserver.disableScroll();
+                double offsetX = event.getSceneX() - mouseX;
+                double offsetY = event.getSceneY() - mouseY;
+                double newTranslateX = imgX + offsetX;
+                double newTranslateY = imgY + offsetY;
+
+                ((Circle) (event.getSource())).setCenterX(newTranslateX);
+                ((Circle) (event.getSource())).setCenterY(newTranslateY);
             }
         });
+//        circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
+////            @Override
+////            public void handle(MouseEvent event) {
+//////                if(clicked){
+////                    newMapAdminNodeDataObserver.disableScroll();
+////                    System.out.println("Circle dragged");
+////                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());
+////                     System.out.println("image translate x:" + ((Circle)(event.getSource())).getCenterX());
+////                    circle.setCenterX(event.getSceneX());
+////                    circle.setCenterY(event.getSceneY());
+////                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
+//////                }
+//////                    newMapAdminNodeDataObserver.update();
+////            }
+//        });
     }
     public void setCircleOnDraggedExit(NewMapAdminNodeDataObserver newMapAdminNodeDataObserver) {
         newMapAdminNodeDataObserver.setNodeData(this);
@@ -474,8 +503,8 @@ public class NodeData {
                 System.out.println("Circle dragged exit");
 //                if(clicked){
                     try {
-                        circle.setCenterX(event.getSceneX());
-                        circle.setCenterY(event.getSceneY());
+                        //circle.setCenterX(event.getSceneX());
+                        //circle.setCenterY(event.getSceneY());
                         int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), newMapAdminNodeDataObserver.getMainController().getScale());
                         int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), newMapAdminNodeDataObserver.getMainController().getScale());
                         Coordinate newLoc = new Coordinate(dbX, dbY);
@@ -488,7 +517,7 @@ public class NodeData {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-//                }
+////                }
             }
         });
     }

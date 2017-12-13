@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -1017,5 +1018,13 @@ public class NewMapAdminUI extends UIController{
         }else{
             System.out.println("Node Id is empty");
         }
+    }
+
+    public ImageView getFloorImage() {
+        return imgMap;
+    }
+
+    public ScrollPane getPaneScroll() {
+        return paneScroll;
     }
 }
