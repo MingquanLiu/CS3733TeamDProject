@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.programname.boundary;
 
+import Healthcare.HealthCareRun;
 import com.jfoenix.controls.*;
 import com.sun.javafx.stage.StageHelper;
 import edu.wpi.cs3733.programname.ManageController;
@@ -7,6 +8,7 @@ import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
 import edu.wpi.cs3733.programname.pathfind.entity.NoPathException;
 import edu.wpi.cs3733.programname.pathfind.entity.TextDirections;
+import foodRequest.FoodRequest;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyValue;
 import javafx.animation.PathTransition;
@@ -1447,11 +1449,22 @@ public class NewMainPageController extends UIController {
 
     }
     public void healthAPIHandler(ActionEvent event){
-
+        HealthCareRun health = new HealthCareRun();
+        try {
+            health.run(0,0,600,350,"view/stylesheets/default.css","","");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void foodAPIHandler(ActionEvent event){
-
+        FoodRequest foodRequest = new FoodRequest();
+        try{
+            foodRequest.run(0,0,1900,1000,null,null,null);
+        }catch (Exception e){
+            System.out.println("Failed to run API");
+            e.printStackTrace();
+        }
     }
 
 
