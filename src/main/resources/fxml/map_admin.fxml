@@ -33,14 +33,14 @@
                 </AnchorPane>
             </content>
         </ScrollPane>
-      <AnchorPane fx:id="mapAdminSettingPane" opacity="0.64" prefHeight="217.0" prefWidth="272.0" style="-fx-background-color: grey;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="32.0">
+      <AnchorPane fx:id="mapAdminSettingPane" opacity="0.91" prefHeight="217.0" prefWidth="272.0" style="-fx-background-color: grey;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="32.0">
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutY="3.0" text="Path Find Algorithm" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXRadioButton fx:id="AStar" layoutY="30.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="85.0" text="AStar" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <JFXRadioButton fx:id="AStar" layoutY="30.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="85.0" selected="true" text="AStar" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
                <toggleGroup>
                   <ToggleGroup fx:id="pathFind" />
                </toggleGroup></JFXRadioButton>
@@ -59,7 +59,7 @@
             <JFXCheckBox fx:id="allEdgesBox" layoutX="145.0" layoutY="171.0" onAction="#showNodesOrEdges" text="All Edges" textFill="#fcfcfc" unCheckedColor="#b2b2b2" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="171.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="nodeInfoBox" opacity="0.64" prefHeight="394.0" prefWidth="362.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="17.0">
+      <AnchorPane fx:id="nodeInfoBox" opacity="0.9" prefHeight="410.0" prefWidth="362.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="17.0">
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutX="61.0" layoutY="25.0" text="Node Info" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
@@ -111,11 +111,11 @@
                </font>
             </Label>
             <JFXTextField fx:id="textNodeTeamAssigned" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
-            <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="71.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="87.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="325.0">
+            <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="71.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="39.0" prefWidth="87.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="325.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnDeleteNode" buttonType="RAISED" layoutX="164.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="101.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Delete" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="325.0">
+            <JFXButton fx:id="btnDeleteNode" buttonType="RAISED" layoutX="164.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="39.0" prefWidth="101.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Delete" textFill="#fcfcfc" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="325.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
@@ -123,7 +123,7 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnSetDefaultLocation" buttonType="RAISED" layoutX="164.0" layoutY="357.0" onAction="#setDefaultLocationHandler" prefHeight="31.0" prefWidth="187.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Set As Default Location" textFill="#fcfcfc" AnchorPane.leftAnchor="164.0" AnchorPane.topAnchor="357.0">
+            <JFXButton fx:id="btnSetDefaultLocation" buttonType="RAISED" layoutX="164.0" layoutY="373.0" onAction="#setDefaultLocationHandler" prefHeight="31.0" prefWidth="187.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Set As Default Location" textFill="#fcfcfc" AnchorPane.leftAnchor="164.0" AnchorPane.topAnchor="373.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
@@ -143,7 +143,7 @@
             <JFXComboBox fx:id="comboFloors" layoutX="-2.0" layoutY="77.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="edgeAddPane" opacity="0.64" prefHeight="158.0" prefWidth="230.0" style="-fx-background-color: grey;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="33.0">
+      <AnchorPane fx:id="edgeAddPane" opacity="0.9" prefHeight="158.0" prefWidth="230.0" style="-fx-background-color: grey;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="33.0">
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutX="-18.0" layoutY="5.0" text="Add Edge" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
@@ -151,8 +151,8 @@
                </font>
             </Label>
             <Label alignment="CENTER" ellipsisString="" layoutY="21.0" text="Node One:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="21.0" />
-            <Label fx:id="edgeNode1" alignment="CENTER" ellipsisString="" layoutY="42.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
-            <Label alignment="CENTER" ellipsisString="" layoutY="63.0" prefHeight="27.0" prefWidth="85.0" text="Node Twoe:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="63.0" />
+            <Label fx:id="edgeNode1" alignment="CENTER" ellipsisString="" layoutX="102.0" layoutY="42.0" prefWidth="123.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
+            <Label alignment="CENTER" ellipsisString="" layoutY="63.0" prefHeight="27.0" text="Node Two:" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="63.0" />
             <Label fx:id="edgeNode2" alignment="CENTER" ellipsisString="" layoutX="5.0" layoutY="85.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="84.0" />
             <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="114.0" onAction="#clearEdges" prefHeight="31.0" prefWidth="85.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Cancel" textFill="#fcfcfc">
                <font>
