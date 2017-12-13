@@ -15,6 +15,7 @@ public class Employee {
 
     private final StringProperty firstNameProperty;
     private final StringProperty lastNameProperty;
+    private final StringProperty fullNameProperty;
     private final StringProperty usernameProperty;
     private final StringProperty passwordProperty;
     private final StringProperty serviceTypeProperty;
@@ -44,6 +45,7 @@ public class Employee {
 
         this.firstNameProperty = new SimpleStringProperty(firstName);
         this.lastNameProperty = new SimpleStringProperty(lastName);
+        this.fullNameProperty = new SimpleStringProperty(firstName + " " + lastName);
         this.usernameProperty = new SimpleStringProperty(username);
         this.passwordProperty = new SimpleStringProperty(password);
         this.serviceTypeProperty = new SimpleStringProperty(serviceType);
@@ -70,6 +72,18 @@ public class Employee {
 
     public StringProperty lastNameProperty() {
         return lastNameProperty;
+    }
+
+    public void setFullNameProperty(String fullNameProperty) {
+        this.fullNameProperty.set(fullNameProperty);
+    }
+
+    public String getFullNameProperty() {
+        return fullNameProperty.get();
+    }
+
+    public StringProperty fullNameProperty() {
+        return fullNameProperty;
     }
 
     public void setLastNameProperty(String lastNameProperty) {

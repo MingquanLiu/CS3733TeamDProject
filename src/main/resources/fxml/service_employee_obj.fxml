@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="123.0" prefWidth="126.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
+    <children>
+    <AnchorPane fx:id="employeeObj" layoutX="10.0" prefHeight="168.0" prefWidth="170.0" style="-fx-background-color: lightblue;" AnchorPane.leftAnchor="0.0">
+        <children>
+            <Label fx:id="lblEmployeeName" alignment="TOP_CENTER" layoutX="7.0" layoutY="2.0" prefHeight="24.0" prefWidth="245.0" style="-fx-background-color: #D3D3D3; -fx-font-family: Roboto; -fx-text-fill: #64b5f6; -fx-font-size: 15px;" styleClass="serviceTitleText" stylesheets="@../css/global_stylesheet.css" text="Employee Name" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
+            <Label fx:id="lblEmail" layoutX="22.0" layoutY="41.0" text="Employee Email" />
+            <Label fx:id="lblServiceType" layoutX="22.0" layoutY="76.0" text="Service Type" />
+        </children>
+    </AnchorPane>
+    </children>
+</AnchorPane>

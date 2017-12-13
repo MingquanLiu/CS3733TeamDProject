@@ -110,7 +110,11 @@ public class ManageController {
     }
 
 
-    public List<String> queryNodeByLongName(String longName){
+    public List<String> fuzzyQueryNodesByLongName(String longName){
+        return this.dbQueryController.fuzzyQueryNodesByLongName(longName);
+    }
+
+    public NodeData queryNodeByLongName(String longName){
         return this.dbQueryController.queryNodeByLongName(longName);
     }
 
@@ -252,6 +256,9 @@ public class ManageController {
         return output;
     }
 
+    public ServiceRequest queryRequestsById(String id) {
+        return this.dbQueryController.queryServiceRequestsByID(id);
+    }
 
     public Employee queryEmployeeByUsername(String username) {
         return dbQueryController.queryEmployeeByUsername(username);

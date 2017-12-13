@@ -49,10 +49,10 @@
             </TitledPane>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="99.0" prefWidth="132.0" AnchorPane.leftAnchor="413.0" AnchorPane.topAnchor="37.0">
+      <AnchorPane layoutX="403.0" prefHeight="99.0" prefWidth="142.0" style="-fx-background-color: rgb(255, 255, 255, 0.7);" AnchorPane.leftAnchor="413.0" AnchorPane.topAnchor="37.0">
          <children>
-            <JFXComboBox fx:id="comboBuilding" layoutX="102.0" layoutY="5.0" onAction="#setMap" prefHeight="39.0" prefWidth="123.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="12.0" />
-            <JFXComboBox fx:id="comboFloors" layoutX="104.0" layoutY="60.0" onAction="#setMap" prefHeight="39.0" prefWidth="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="12.0" />
+            <JFXComboBox fx:id="comboBuilding" layoutX="6.0" onAction="#setMap" prefHeight="39.0" prefWidth="123.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
+            <JFXComboBox fx:id="comboFloors" layoutX="6.0" layoutY="50.0" onAction="#setMap" prefHeight="39.0" prefWidth="120.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="keyLocationPane" prefHeight="363.0" prefWidth="24.0" AnchorPane.leftAnchor="322.0" AnchorPane.topAnchor="35.0">
@@ -300,9 +300,9 @@
                </font>
             </Label>
             <JFXButton alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="132.0" ripplerFill="#f3ff88" text="Location Service" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" />
-            <JFXButton fx:id="btnLogin" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="1073.0" layoutY="4.0" onAction="#loginButtonHandler" prefHeight="31.0" prefWidth="107.0" ripplerFill="#0eafff" text="Login" textFill="WHITE" AnchorPane.rightAnchor="208.0" />
-            <JFXButton fx:id="btnAbout" alignment="BOTTOM_CENTER" layoutX="1281.0" layoutY="1.0" onAction="#aboutButtonHandler" prefHeight="31.0" prefWidth="104.0" ripplerFill="#f85050" text="About" textFill="WHITE" AnchorPane.rightAnchor="0.0" />
-            <JFXButton fx:id="btnHelp" alignment="BOTTOM_CENTER" layoutX="1180.0" layoutY="4.0" onAction="#helpButtonHandler" prefHeight="31.0" prefWidth="101.0" ripplerFill="#59fc92" text="Help" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="104.0" />
+            <JFXButton fx:id="btnLogin" alignment="BOTTOM_CENTER" buttonType="RAISED" layoutX="1073.0" layoutY="4.0" onAction="#loginButtonHandler" prefHeight="31.0" prefWidth="107.0" ripplerFill="#0eafff" text="Login" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="3.0" />
+            <JFXButton fx:id="btnAbout" alignment="BOTTOM_CENTER" layoutX="1281.0" layoutY="5.0" onAction="#aboutButtonHandler" prefHeight="31.0" prefWidth="104.0" ripplerFill="#f85050" text="About" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="3.0" />
+            <JFXButton fx:id="btnHelp" alignment="BOTTOM_CENTER" layoutX="1180.0" layoutY="4.0" onAction="#helpButtonHandler" prefHeight="31.0" prefWidth="101.0" ripplerFill="#59fc92" text="Help" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="3.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="nodeInfoBox" layoutX="10.0" layoutY="10.0" opacity="0.0" prefHeight="343.0" prefWidth="362.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
