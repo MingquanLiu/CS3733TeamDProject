@@ -393,11 +393,11 @@ public class NodeData {
      */
 
     public void initializeCircle(){
-        circle = new Circle(getXCoord(), getYCoord(), CIRCILE_RADIUS, RED) ;
+        circle = new Circle(getXCoord(), getYCoord(), CIRCILE_RADIUS, NODE_COLOR) ;
         setBorder();
     }
     public void setBorder(){
-        circle.setStroke(Color.BLACK);
+        circle.setStroke(NODE_STROKE_COLOR);
     }
 
     public Circle getCircle(){
@@ -549,13 +549,13 @@ public class NodeData {
         });
     }
     public void enlargeCircleAndChangeColor(double currentScale){
-        circle =new Circle(circle.getCenterX(), circle.getCenterY(), EXPANDED_CIRCILE_RADIUS*currentScale, GREEN);
+        circle =new Circle(circle.getCenterX(), circle.getCenterY(), EXPANDED_CIRCILE_RADIUS*currentScale, NODE_ENLARGED_COLOR);
         setBorder();
         clicked = true;
         System.out.println("In changing circles");
     }
     public void changeBackCircleAndChangeColor(double currentScale){
-        circle =new Circle(circle.getCenterX(), circle.getCenterY(), CIRCILE_RADIUS*currentScale, RED);
+        circle =new Circle(circle.getCenterX(), circle.getCenterY(), CIRCILE_RADIUS*currentScale, NODE_COLOR);
         setBorder();
         clicked = false;
     }

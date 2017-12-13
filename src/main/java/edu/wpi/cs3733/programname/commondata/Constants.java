@@ -1,5 +1,10 @@
 package edu.wpi.cs3733.programname.commondata;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
+import java.awt.*;
+
 public class Constants {
 
 // This is just a test comment
@@ -26,4 +31,7 @@ public class Constants {
 
     public final static double OPACITY_KEY_LOCATION_SHOWN = 1.00;
     public final static double OPACITY_KEY_LOCATION_NOT_SHOWN = 0.4;
+    public final static Paint NODE_COLOR = Color.rgb(231, 76, 60);
+    public final static Paint NODE_ENLARGED_COLOR = Color.rgb(88, 214, 141);
+    public final static Paint NODE_STROKE_COLOR = Color.rgb(0, 0, 0);
 }
