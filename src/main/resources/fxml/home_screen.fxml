@@ -4,13 +4,14 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXHamburger?>
-<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -95,12 +96,16 @@
                         <JFXCheckBox fx:id="locateLabs" layoutX="479.0" layoutY="339.0" text="Labs" />
                         <JFXCheckBox fx:id="locateAdditionalServices" layoutX="528.0" layoutY="406.0" text="Additional Services" />
                         <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
-                        <Label fx:id="lblCrossFloor" layoutX="560.0" layoutY="244.0" style="-fx-background-color: #afeeee; -fx-border-color: #d3d3d3;" styleClass="roundCorners" stylesheets="@../css/general_button.css" text="Proceed to Floor X" />
+                  <JFXButton fx:id="crossFloor" buttonType="RAISED" layoutX="515.0" layoutY="208.0" onAction="#crossFloor" prefHeight="37.0" prefWidth="80.0" ripplerFill="WHITE" style="-fx-background-color: rgb(179, 236, 255, 0.7);" text="From floor XX&#10;To floor YY">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </JFXButton>
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
-        <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: white; -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="paneControls" layoutY="151.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: rgba(255,255,255,0.9); -fx-border-color: transparent transparent transparent #3c3c1e;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane fx:id="gridHamburgerTItles" layoutX="3.0" layoutY="77.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="326.0" prefWidth="158.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="76.0">
                     <columnConstraints>
@@ -129,7 +134,7 @@
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <JFXButton fx:id="btnOpenAdmin" buttonType="RAISED" maxWidth="200.0" onAction="#openAdminHandler" text="Service Request Manager" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -139,8 +144,8 @@
                                 <JFXButton fx:id="btnMapEdit" buttonType="RAISED" maxWidth="150.0" onAction="#mapEditHandler" text="Map Edit" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                                 <Line endX="100.0" opacity="0.3" startX="-100.0" stroke="#3c3c1e" GridPane.rowIndex="1" />
                                 <Line endX="100.0" opacity="0.1" startX="-100.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                                <JFXButton fx:id="btn" onAction="#employeeButtonHandler" prefHeight="54.0" prefWidth="211.0" text="Employee Manager" GridPane.rowIndex="7" />
-                                <JFXButton fx:id="btnViewMyRequests" onAction="#viewMyRequestsHandler" prefHeight="42.0" prefWidth="232.0" text="View My Requests" GridPane.rowIndex="8" />
+                        <JFXButton fx:id="btn" onAction="#employeeButtonHandler" prefHeight="54.0" prefWidth="211.0" text="Employee Manager" GridPane.rowIndex="7" />
+                        <JFXButton fx:id="btnViewMyRequests" onAction="#viewMyRequestsHandler" prefHeight="42.0" prefWidth="232.0" text="View My Requests" GridPane.rowIndex="8" />
                             </children>
                         </GridPane>
                         <Label text="Key Locations" textAlignment="CENTER" GridPane.halignment="CENTER">
@@ -175,34 +180,48 @@
                 </GridPane>
                 <Line endX="100.0" layoutX="101.0" layoutY="74.0" opacity="0.85" startX="-100.0" stroke="#3c3c1e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                 <AnchorPane layoutX="22.0" layoutY="494.0" prefHeight="75.0" prefWidth="106.0" AnchorPane.rightAnchor="1272.0" AnchorPane.topAnchor="494.0" />
-                <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
-                <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
-            <JFXButton fx:id="BathroomSweep" buttonType="RAISED" layoutX="47.0" layoutY="548.0" onAction="#BathroomSweepHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="Find Restroom" />
-            <JFXButton fx:id="ElevatorSweep" buttonType="RAISED" layoutX="52.0" layoutY="504.0" onAction="#ElevatorSweepHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="Find Elevator" />
+            <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
+            <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
+            <Button layoutX="57.0" layoutY="483.0" mnemonicParsing="false" onAction="#clearAnimations" text="Button" />
+            <JFXComboBox fx:id="comboCharacter" layoutX="38.0" layoutY="545.0" onAction="#selectCharacter" />
             </children>
         </AnchorPane>
-        <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+        <AnchorPane prefHeight="60.0" prefWidth="322.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
             <children>
-                <GridPane layoutY="-5.0" prefHeight="120.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-276.0" AnchorPane.topAnchor="-5.0">
+                <GridPane layoutY="-11.0" prefHeight="120.0" prefWidth="298.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-198.0" AnchorPane.topAnchor="-11.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.79998779296875" minWidth="10.0" prefWidth="222.60000610351562" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="50.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@../css/general_button.css" text="+" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="100.0" prefWidth="100.0" scaleX="0.5" scaleY="0.5" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font name="Arial Black" size="58.0" />
-                            </font></JFXButton>
-                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@../css/general_button.css" text="-" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                <Font size="1.0" />
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/plus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></JFXButton>
+                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="100.0" prefWidth="100.0" scaleX="0.5" scaleY="0.5" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <font>
-                                <Font name="Arial Black" size="58.0" />
-                            </font></JFXButton>
-                        <JFXSlider fx:id="slideZoom" blockIncrement="0.5" max="6.0" min="3.0" minorTickCount="0" prefHeight="14.0" prefWidth="147.0" style="-fx-background-color: lightblue;" value="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Font size="1.0" />
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/minus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></JFXButton>
+                  <Slider fx:id="slideZoom" blockIncrement="0.5" max="6.0" min="3.0" style="-fx-color: blue; -fx-control-inner-background: #1a75ff;" value="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             </children>
@@ -231,7 +250,7 @@
                             <GridPane.margin>
                                 <Insets left="20.0" top="10.0" />
                             </GridPane.margin></Label>
-                        <JFXTextField fx:id="txtStartLocation" onKeyTyped="#fuzzyStart" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
+                        <JFXTextField fx:id="txtStartLocation" onMouseClicked="#selectStartField" promptText="Start Location" GridPane.rowIndex="1">
                             <GridPane.margin>
                                 <Insets left="20.0" />
                             </GridPane.margin>
@@ -251,7 +270,7 @@
                             </rowConstraints>
                             <children>
                                 <JFXButton fx:id="btnGo" buttonType="RAISED" onAction="#goButtonHandler" style="-fx-background-color: #ccffda;" text="Go" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
-                                <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearWholePath" style="-fx-background-color: #ffb3bb;" text="Clear" GridPane.halignment="RIGHT" />
+                                <JFXButton fx:id="btnClear" buttonType="RAISED" onAction="#clearMain" style="-fx-background-color: #ffb3bb;" text="Clear" GridPane.halignment="RIGHT" />
                                 <JFXButton fx:id="emailDirections" buttonType="RAISED" onAction="#handleEmailButton" prefHeight="27.0" prefWidth="171.0" style="-fx-background-color: lightgrey;" text="Email Directions" visible="false" />
                             </children>
                         </GridPane>
@@ -265,38 +284,38 @@
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <JFXComboBox fx:id="comboFloors" onAction="#mapChange" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                        <Label text="Building" GridPane.columnSpan="3" GridPane.halignment="CENTER" />
-                        <Label text="Floor" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <JFXComboBox fx:id="comboBuilding" onAction="#setBuilding" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Label text="Building" GridPane.columnSpan="3" GridPane.halignment="CENTER" />
+                  <Label text="Floor" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                      <JFXComboBox fx:id="comboBuilding" onAction="#setBuilding" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="745.0" prefHeight="110.0" prefWidth="120.0" />
-        <TitledPane fx:id="paneDirections" animated="false" expanded="false" prefHeight="175.0" prefWidth="300.0" text="Directions" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
-                    <children>
-                        <ScrollPane prefHeight="150.0" prefWidth="300.0">
-                            <content>
-                                <Label fx:id="txtAreaDirections" prefWidth="300.0" wrapText="true" />
-                            </content>
-                        </ScrollPane>
-                    </children>
-                </AnchorPane>
-            </content>
-        </TitledPane>
-        <Label text="© Brigham &amp; Women’s Hospital 2017" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="10.0" />
+            <TitledPane fx:id="paneDirections" animated="false" expanded="false" prefHeight="236.0" prefWidth="300.0" text="Directions" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="200.0">
+                        <children>
+                  <ScrollPane prefHeight="215.0" prefWidth="300.0">
+                     <content>
+                                  <Label fx:id="txtAreaDirections" prefWidth="300.0" wrapText="true" />
+                     </content>
+                  </ScrollPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </TitledPane>
+      <Label text="© Brigham &amp; Women’s Hospital 2017" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="10.0" />
 
     </children>
 </AnchorPane>

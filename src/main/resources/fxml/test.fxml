@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
@@ -12,6 +11,7 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -42,6 +42,7 @@
                         <Label layoutX="29.0" layoutY="80.0" prefHeight="21.0" prefWidth="71.0" text="Floor" />
                      </children>
                   </AnchorPane>
+                  <JFXButton fx:id="crossFloor" layoutX="519.0" layoutY="291.0" onAction="#crossFloor" />
                     </children>
                 </AnchorPane>
             </content>
@@ -61,7 +62,7 @@
       </AnchorPane>
       <AnchorPane fx:id="keyLocationPane" prefHeight="363.0" prefWidth="24.0" AnchorPane.leftAnchor="322.0" AnchorPane.topAnchor="35.0">
          <children>
-            <JFXButton fx:id="keyLocationBathroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="50.0" prefWidth="0.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationBathroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#BathroomToggle" prefHeight="50.0" prefWidth="0.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -71,7 +72,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationElevator" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationElevator" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ElevatorToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -81,7 +82,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationExit" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationExit" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ExitToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -91,7 +92,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationLab" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationLab" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#LabToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -101,7 +102,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationServiceDesk" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationServiceDesk" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ServiceDeskToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="45.0" prefHeight="45.0" prefWidth="23.0" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -111,7 +112,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationRetail" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationRetail" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#RetailToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -121,7 +122,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationWaitingroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationWaitingroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#WaitingRoomToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -131,7 +132,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationDestination" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationDestination" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#DestinationToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -141,7 +142,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationSubject" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationSubject" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#SubjectToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -151,7 +152,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationStairs" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationStairs" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#StairsToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -180,6 +181,7 @@
                </font>
             </JFXButton>
             <JFXCheckBox fx:id="handicap" layoutX="54.0" layoutY="142.0" text="Handicap" />
+            <JFXComboBox fx:id="comboCharacter" layoutX="195.0" layoutY="148.0" onAction="#selectCharacter" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="adminFeaturePane" prefHeight="294.0" prefWidth="314.0" visible="false" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
@@ -268,7 +270,7 @@
                         </JFXButton>
                      </graphic>
                   </JFXButton>
-                  <JFXSlider fx:id="slideZoom" blockIncrement="0.5" max="6.0" min="3.0" minorTickCount="0" prefHeight="14.0" prefWidth="147.0" style="-fx-background-color: lightblue;" value="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       <Slider fx:id="slideZoom" blockIncrement="0.5" max="6.0" min="3.0" style="-fx-color: blue; -fx-control-inner-background: #1a75ff;" value="3.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             </children>

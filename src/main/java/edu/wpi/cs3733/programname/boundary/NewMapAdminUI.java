@@ -68,7 +68,7 @@ public class NewMapAdminUI extends UIController{
     @FXML
     private JFXButton btnZoomOut;
     @FXML
-    private JFXSlider slideZoom;
+    private Slider slideZoom;
     //</editor-fold>
     //<editor-fold desc="directions pane">
     //about page stuff
@@ -238,6 +238,7 @@ public class NewMapAdminUI extends UIController{
     private Coordinate currentGoalFloorLoc;
     final double minWidth = 1500;
     final double maxWidth = 5000;
+
     private NodeData prevShowNode;
 
 //    private boolean logOffNext = false;

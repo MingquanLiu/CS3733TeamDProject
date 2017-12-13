@@ -178,6 +178,12 @@ public class HelperFunction{
         }
         return result;
     }
+    public static int distanceBetweenNodes(NodeData node1, NodeData node2) {
+        double xDist = node1.getXCoord() - node2.getXCoord();
+        double yDist = node1.getYCoord() - node2.getYCoord();
+        Double distToGo = Math.sqrt(xDist*xDist + yDist*yDist);
+        return distToGo.intValue();
+    }
 
     public static int UICToDBC(int value, double scale) {
         return (int) ((double) value / scale);
