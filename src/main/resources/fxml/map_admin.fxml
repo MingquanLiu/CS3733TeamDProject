@@ -111,23 +111,23 @@
                </font>
             </Label>
             <JFXTextField fx:id="textNodeTeamAssigned" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
-            <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="71.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="39.0" prefWidth="87.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="325.0">
+            <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="65.0" layoutY="333.0" onAction="#nodeInfoHandler" prefHeight="31.0" prefWidth="70.0" style="-fx-border-color: white; -fx-border-radius: 3;" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="227.0" AnchorPane.topAnchor="333.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnDeleteNode" buttonType="RAISED" layoutX="164.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="39.0" prefWidth="101.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Delete" textFill="#fcfcfc" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="325.0">
+            <JFXButton fx:id="btnDeleteNode" buttonType="RAISED" layoutX="169.0" layoutY="333.0" onAction="#nodeInfoHandler" prefHeight="31.0" prefWidth="70.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Delete" textFill="#fcfcfc" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="169.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="333.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnEditNode" buttonType="RAISED" layoutX="267.0" layoutY="326.0" onAction="#nodeInfoHandler" prefHeight="31.0" prefWidth="81.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Edit" textFill="#fcfcfc" AnchorPane.leftAnchor="267.0" AnchorPane.topAnchor="326.0">
+            <JFXButton fx:id="btnEditNode" buttonType="RAISED" layoutX="267.0" layoutY="333.0" onAction="#nodeInfoHandler" prefHeight="30.0" prefWidth="70.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Edit" textFill="#fcfcfc" AnchorPane.leftAnchor="267.0" AnchorPane.topAnchor="333.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnSetDefaultLocation" buttonType="RAISED" layoutX="164.0" layoutY="373.0" onAction="#setDefaultLocationHandler" prefHeight="31.0" prefWidth="187.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Set As Default Location" textFill="#fcfcfc" AnchorPane.leftAnchor="164.0" AnchorPane.topAnchor="373.0">
+            <JFXButton fx:id="btnSetDefaultLocation" buttonType="RAISED" layoutX="129.0" layoutY="373.0" onAction="#setDefaultLocationHandler" prefHeight="39.0" prefWidth="220.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Set As Default Location" textFill="#fcfcfc" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="373.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="addEdgeNodeInfoBox" buttonType="RAISED" layoutX="70.0" layoutY="357.0" onAction="#addEdgeToList" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Add Edge" textFill="#fcfcfc" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="204.0">
+            <JFXButton fx:id="addEdgeNodeInfoBox" buttonType="RAISED" layoutX="20.0" layoutY="371.0" onAction="#addEdgeToList" prefHeight="39.0" prefWidth="101.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Add Edge" textFill="#fcfcfc" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="252.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -154,12 +154,12 @@
             <Label fx:id="edgeNode1" alignment="CENTER" ellipsisString="" layoutX="102.0" layoutY="42.0" prefWidth="123.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
             <Label alignment="CENTER" ellipsisString="" layoutY="63.0" prefHeight="27.0" text="Node Two:" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="63.0" />
             <Label fx:id="edgeNode2" alignment="CENTER" ellipsisString="" layoutX="5.0" layoutY="85.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="84.0" />
-            <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="114.0" onAction="#clearEdges" prefHeight="31.0" prefWidth="85.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Cancel" textFill="#fcfcfc">
+            <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="114.0" onAction="#clearEdges" prefHeight="31.0" prefWidth="85.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Cancel" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="131.0" layoutY="114.0" onAction="#addEdge" prefHeight="31.0" prefWidth="85.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Submit" textFill="#fcfcfc">
+            <JFXButton buttonType="RAISED" layoutX="131.0" layoutY="114.0" onAction="#addEdge" prefHeight="31.0" prefWidth="85.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Submit" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -190,7 +190,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" onAction="#returnToMain" opacity="0.664" ripplerFill="RED" style="-fx-background-color: grey;" text="&lt;-- BACK" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+      <JFXButton buttonType="RAISED" onAction="#returnToMain" opacity="0.664" ripplerFill="RED" style="-fx-background-color: grey;" text="&lt;-- BACK" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
       <AnchorPane layoutX="326.0" layoutY="10.0" prefHeight="100.0" prefWidth="788.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0">
          <children>
             <JFXButton fx:id="btnZoomOut" buttonType="RAISED" layoutX="77.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="49.0" prefWidth="48.0" styleClass="zoombutton" stylesheets="@../css/general_button.css" textAlignment="CENTER" AnchorPane.leftAnchor="77.0">
