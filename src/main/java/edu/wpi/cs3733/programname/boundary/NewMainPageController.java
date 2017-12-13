@@ -1589,7 +1589,7 @@ public class NewMainPageController extends UIController {
 
     public void BathroomSweepHandler() throws IOException {
         String startID;
-        if (startLocation.getText() == "" || startLocation.getText() == null) {
+        if (startLocation.getText().equals("") || startLocation.getText().equals( null)) {
             startID = AppSettings.getInstance().getDefaultLocation();
         } else {
             startID = startLocation.getText();
@@ -1609,7 +1609,7 @@ public class NewMainPageController extends UIController {
 
     public void ElevatorSweepHandler() throws IOException {
         String startID;
-        if (startLocation.getText() == "" || startLocation.getText() == null) {
+        if (startLocation.getText().equals("") || startLocation.getText().equals(null)) {
             startID = AppSettings.getInstance().getDefaultLocation();
         } else {
             startID = startLocation.getText();
