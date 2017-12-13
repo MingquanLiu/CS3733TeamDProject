@@ -39,7 +39,7 @@
         </ScrollPane>
       <AnchorPane prefHeight="411.0" prefWidth="314.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="220.0">
          <children>
-            <TitledPane fx:id="paneDirections" animated="false" layoutY="39.0" prefWidth="314.0" style="-fx-border-color: transparent #3c3c1e transparent  transparent;" text="Text Directions" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
+            <TitledPane fx:id="paneDirections" animated="false" layoutY="39.0" prefWidth="314.0"  text="Text Directions" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
               <content>
                 <AnchorPane minWidth="0.0" prefHeight="195.0" prefWidth="312.0">
                      <children>
