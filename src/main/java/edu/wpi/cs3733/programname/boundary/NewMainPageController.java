@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.programname.boundary;
 
+import foodRequest.FoodRequest;
+import Healthcare.HealthCareRun;
 import com.jfoenix.controls.*;
 import com.sun.javafx.stage.StageHelper;
 import edu.wpi.cs3733.programname.ManageController;
@@ -154,11 +156,9 @@ public class NewMainPageController extends UIController {
     @FXML
     private TextField textNodeFloor;
     @FXML
-    private JFXButton nodeInfoAdd;
+    private JFXButton setFrom;
     @FXML
-    private JFXButton nodeInfoEdit;
-    @FXML
-    private JFXButton nodeInfoDelete;
+    private JFXButton setTo;
 
     @FXML
     private TextField startLocation;
@@ -193,6 +193,28 @@ public class NewMainPageController extends UIController {
     private ImageView currentChar;
 
     private Stage stage;
+
+    //key location labels
+    @FXML
+    private Label blueKeyLocation;
+    @FXML
+    private Label blueDestination;
+    @FXML
+    private Label blueBathroom;
+    @FXML
+    private Label blueElevator;
+    @FXML
+    private Label blueExit;
+    @FXML
+    private Label blueLab;
+    @FXML
+    private Label blueRetailService;
+    @FXML
+    private Label blueStair;
+    @FXML
+    private Label blueWaitingRoom;
+    @FXML
+    private Label blueInfoDesk;
 
 
     private ManageController manager;
@@ -251,7 +273,6 @@ public class NewMainPageController extends UIController {
     private boolean showExits = false;
     private boolean showElevator = false;
     private boolean showBathrooms = false;
-
     public void StairsToggle() {
         resetKeyLocationShow();
         this.showStairs = !this.showStairs;
@@ -1304,7 +1325,10 @@ public class NewMainPageController extends UIController {
             else
                 System.out.println("New building and floor: " + newBld + "[" + comboFloors.getValue() + "]");
 
-
+            if (prevShowNode!=null) {
+                panningPane.getChildren().remove(prevShowNode.getCircle());
+                prevShowNode = null;
+            }
             if (newBld != curBuilding) {
                 System.out.println("floors: " + newBld);
                 floors = newBld.getFloors();
@@ -1334,12 +1358,13 @@ public class NewMainPageController extends UIController {
                 Floor newFloor = (Floor) (comboFloors.getValue());
                 curFloor = newFloor;
                 String newUrl = newFloor.getImgUrl();
-
                 Image newImg = new Image(newUrl);
                 imgMap.setImage(newImg);
 
                 showNodesOrEdges();
             }
+
+            nodeInfoBox.setVisible(false);
             displayPath(currentPath);
         }
     }
@@ -1555,12 +1580,32 @@ public class NewMainPageController extends UIController {
 
     }
 
-    public void healthAPIHandler(ActionEvent event) {
+    public void healthAPIHandler(ActionEvent event){
+        HealthCareRun health = new HealthCareRun();
+        try {
+            health.run(0,0,600,350,"view/stylesheets/default.css","","");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void foodAPIHandler(ActionEvent event) {
 
+    public void foodAPIHandler(ActionEvent event){
+        foodRequest.FoodRequest foodRequest = new FoodRequest();
+        try{
+            foodRequest.run(0,0,1900,1000,null,null,null);
+        }catch (Exception e){
+            System.out.println("Failed to run API");
+            e.printStackTrace();
+        }
     }
+    public void setLocationHandler(ActionEvent event){
+        if(event.getSource().equals(setFrom)){
+            startLocation.setText(textNodeFullName.getText());
+
+        }else{
+            endLocation.setText(textNodeFullName.getText());
+        }
 
 
     public void clearPathHandler() {
@@ -1698,5 +1743,80 @@ public class NewMainPageController extends UIController {
         return moveHandler;
     }
 
+    public void displayHoveringText(MouseEvent e){
+        Object input = e.getSource();
+
+        if(input == keyLocationSubject){
+            blueKeyLocation.setVisible(true);
+        }
+
+        else if(input == keyLocationDestination){
+            blueDestination.setVisible(true);
+        }
+        else if(input == keyLocationBathroom){
+            blueBathroom.setVisible(true);
+        }
+        else if(input == keyLocationElevator){
+            blueElevator.setVisible(true);
+        }
+        else if(input == keyLocationExit){
+            blueExit.setVisible(true);
+        }
+        else if(input == keyLocationLab){
+            blueLab.setVisible(true);
+        }
+        else if(input == keyLocationRetail){
+            blueRetailService.setVisible(true);
+        }
+        else if(input == keyLocationStairs){
+            blueStair.setVisible(true);
+        }
+        else if(input == keyLocationWaitingroom){
+            blueWaitingRoom.setVisible(true);
+        }
+        else if(input == keyLocationServiceDesk){
+            blueInfoDesk.setVisible(true);
+        }
+
+
+    }
+
+    public void goodbyeHoveringText(MouseEvent e){
+        Object input = e.getSource();
+
+        if(input == keyLocationSubject){
+            blueKeyLocation.setVisible(false);
+        }
+
+        else if(input == keyLocationDestination){
+            blueDestination.setVisible(false);
+        }
+        else if(input == keyLocationBathroom){
+            blueBathroom.setVisible(false);
+        }
+        else if(input == keyLocationElevator){
+            blueElevator.setVisible(false);
+        }
+        else if(input == keyLocationExit){
+            blueExit.setVisible(false);
+        }
+        else if(input == keyLocationLab){
+            blueLab.setVisible(false);
+        }
+        else if(input == keyLocationRetail){
+            blueRetailService.setVisible(false);
+        }
+        else if(input == keyLocationStairs){
+            blueStair.setVisible(false);
+        }
+        else if(input == keyLocationWaitingroom){
+            blueWaitingRoom.setVisible(false);
+        }
+        else if(input == keyLocationServiceDesk){
+            blueInfoDesk.setVisible(false);
+        }
+
+
+    }
     // End of controller
 }

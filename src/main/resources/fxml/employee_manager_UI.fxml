@@ -80,7 +80,7 @@
                </cursor></JFXButton>
          </children>
       </GridPane>
-      <JFXButton fx:id="close" layoutX="657.0" layoutY="12.0" onAction="#closeWindow" text="Close">
+      <JFXButton fx:id="close" buttonType="RAISED" layoutX="622.0" layoutY="20.0" onAction="#closeWindow" style="-fx-border-color: grey; -fx-border-radius: 3;" text="Close">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></JFXButton>
