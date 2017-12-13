@@ -1599,14 +1599,14 @@ public class NewMainPageController extends UIController {
             e.printStackTrace();
         }
     }
-    public void setLocationHandler(ActionEvent event){
-        if(event.getSource().equals(setFrom)){
+    public void setLocationHandler(ActionEvent event) {
+        if (event.getSource().equals(setFrom)) {
             startLocation.setText(textNodeFullName.getText());
 
-        }else{
+        } else {
             endLocation.setText(textNodeFullName.getText());
         }
-
+    }
 
     public void clearPathHandler() {
         clearPath();

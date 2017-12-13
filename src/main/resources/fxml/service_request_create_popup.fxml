@@ -72,14 +72,14 @@
            </items>
        </JFXComboBox>
 
-       <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="571.0" layoutY="424.0" onAction="#submitButtonHandler" style="-fx-background-color: #d2d2d2;" text="Submit" />
+       <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="571.0" layoutY="436.0" onAction="#submitButtonHandler" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Submit" />
        <JFXTimePicker fx:id="timePicker" layoutX="159.0" layoutY="424.0" prefHeight="27.0" prefWidth="228.0" />
        <Label fx:id="lblReserveTime" layoutX="17.0" layoutY="426.0" text="Reserve a Time:">
            <font>
                <Font size="18.0" />
            </font>
        </Label>
-       <JFXButton fx:id="btnCurrentTime" buttonType="RAISED" layoutX="420.0" layoutY="424.0" onAction="#currentTimeButtonHandler" style="-fx-background-color: #d2d2d2;" text="Current Time" />
+       <JFXButton fx:id="btnCurrentTime" buttonType="RAISED" layoutX="425.0" layoutY="436.0" onAction="#currentTimeButtonHandler" prefHeight="52.0" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Current Time" />
       <Label fx:id="lblNewRequestTitle" layoutX="259.0" layoutY="14.0" prefHeight="26.0" prefWidth="228.0" text="Transportation Request">
          <font>
             <Font size="20.0" />
@@ -89,9 +89,9 @@
       <JFXTextArea fx:id="txtDescription" layoutX="94.0" layoutY="227.0" prefHeight="178.0" prefWidth="523.0" promptText="Request Description..." style="-fx-border-color: grey;" stylesheets="@../css/global_stylesheet.css" />
       <HBox alignment="TOP_CENTER" layoutX="92.0" layoutY="62.0" prefHeight="27.0" prefWidth="528.0" spacing="100.0">
          <children>
-            <JFXButton fx:id="btnNewInterpreter" onAction="#interpreterButtonHandler" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Interpreter" />
-            <JFXButton fx:id="btnNewMaintenance" onAction="#maintenanceButtonHandler" prefWidth="130.0" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Maintenance" />
-            <JFXButton fx:id="btnNewTransportation" onAction="#transportationButtonHandler" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Transportation" />
+            <JFXButton fx:id="btnNewInterpreter" buttonType="RAISED" onAction="#interpreterButtonHandler" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Interpreter" />
+            <JFXButton fx:id="btnNewMaintenance" buttonType="RAISED" onAction="#maintenanceButtonHandler" prefWidth="130.0" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Maintenance" />
+            <JFXButton fx:id="btnNewTransportation" buttonType="RAISED" onAction="#transportationButtonHandler" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Transportation" />
          </children>
       </HBox>
    </children>
