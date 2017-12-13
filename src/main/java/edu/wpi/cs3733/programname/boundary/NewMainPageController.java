@@ -691,6 +691,8 @@ public class NewMainPageController extends UIController {
 
     private void clearPath() {
         //currentPath = new ArrayList<>();
+        startLocation.setText("");
+        endLocation.setText("");
         if (pathDrawings.size() > 0) {
             for (Shape shape : pathDrawings) {
                 System.out.println("success remove");
