@@ -74,7 +74,7 @@ DSTAI00402,4175,620,2,15 Francis,STAI,Staircase4 Floor2,Staircase4,Team D
 DSTAI00502,4065,630,2,15 Francis,STAI,Staircase5 Floor2,Staircase5,Team D
 DSTAI00602,3950,865,2,15 Francis,STAI,Staircase6 Floor2,Staircase6,Team D
 DSTAI00702,3855,565,2,15 Francis,STAI,Staircase7 Floor2,Staircase7,Team D
-DSTAI00802,3535,645,2,15 Francis,STAI,Staircase8 Floor2,Staircase8,Team D
+DSTAI00802,3530,655,2,15 Francis,STAI,Staircase8 Floor2,Staircase8,Team D
 DHALL00102,4770,1140,2,15 Francis,HALL,Hallway 1 Floor 2,Hallway D0102,Team D
 DHALL00202,4750,1080,2,15 Francis,HALL,Hallway 2 Floor 2,Hallway D0202,Team D
 DHALL00302,4725,995,2,15 Francis,HALL,Hallway 3 Floor 2,Hallway D0302,Team D
@@ -159,7 +159,7 @@ BHALL01302,3135,890,2,45 Francis,HALL,Hallway Intersection 13 Level 2,Hallway B1
 BHALL01402,3296,883,2,45 Francis,HALL,Hallway Intersection 14 Level 2,Hallway B1402,Team B
 BHALL01502,2680,820,2,45 Francis,HALL,Hallway Intersection 15 Level 2,Hallway B1502,Team B
 BHALL01602,2721,750,2,45 Francis,HALL,Hallway Intersection 16 Level 2,Hallway B1602,Team B
-BHALL01702,2950,706,2,45 Francis,HALL,Hallway Intersection 17 Level 2,Hallway B1702,Team B
+BHALL01702,2960,710,2,45 Francis,HALL,Hallway Intersection 17 Level 2,Hallway B1702,Team B
 BHALL01802,2610,953,2,45 Francis,HALL,Hallway Intersection 18 Level 2,Hallway B1802,Team B
 BHALL01902,2679,1038,2,45 Francis,HALL,Hallway intersection 19 Level 2,Hallway B1902,Team B
 BHALL02002,2761,1041,2,45 Francis,HALL,Hallway Intersection 20 Level 2,Hallway B2002,Team B

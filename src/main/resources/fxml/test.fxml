@@ -34,12 +34,10 @@
                         </ImageView>
                         <Accordion layoutX="355.0" layoutY="221.0" />
                         <Accordion layoutX="748.0" layoutY="348.0" />
-                  <AnchorPane layoutX="413.0" layoutY="37.0" prefHeight="93.0" prefWidth="235.0" AnchorPane.leftAnchor="413.0" AnchorPane.topAnchor="37.0">
+                  <AnchorPane layoutX="413.0" layoutY="37.0" prefHeight="99.0" prefWidth="132.0" AnchorPane.leftAnchor="413.0" AnchorPane.topAnchor="37.0">
                      <children>
-                        <JFXComboBox fx:id="comboBuilding" layoutX="102.0" layoutY="5.0" onAction="#setMap" prefHeight="39.0" prefWidth="123.0" />
-                        <JFXComboBox fx:id="comboFloors" layoutX="104.0" layoutY="60.0" onAction="#setMap" prefHeight="39.0" prefWidth="120.0" />
-                        <Label layoutX="25.0" layoutY="25.0" prefHeight="27.0" prefWidth="78.0" text="Building" />
-                        <Label layoutX="29.0" layoutY="80.0" prefHeight="21.0" prefWidth="71.0" text="Floor" />
+                        <JFXComboBox fx:id="comboBuilding" layoutX="102.0" layoutY="5.0" onAction="#setMap" prefHeight="39.0" prefWidth="123.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="12.0" />
+                        <JFXComboBox fx:id="comboFloors" layoutX="104.0" layoutY="60.0" onAction="#setMap" prefHeight="39.0" prefWidth="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="12.0" />
                      </children>
                   </AnchorPane>
                   <JFXButton fx:id="crossFloor" layoutX="588.0" layoutY="345.0" />
@@ -241,7 +239,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-        <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="750.0">
+        <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="600.0">
             <children>
                 <GridPane layoutY="-5.0" prefHeight="120.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-276.0" AnchorPane.topAnchor="-5.0">
                     <columnConstraints>
@@ -401,9 +399,9 @@
                </font>
             </Label>
             <JFXTextField fx:id="textNodeTeamAssigned" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
-            <JFXTextField fx:id="textNodeLocation1" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="221.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
-            <JFXTextField fx:id="textNodeLocation11" editable="false" focusColor="#7396ff" layoutX="136.0" layoutY="253.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
-            <JFXTextField fx:id="textNodeFullName1" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="87.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeBuilding" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="221.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeFloor" editable="false" focusColor="#7396ff" layoutX="136.0" layoutY="253.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeType" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="87.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
          </children>
       </AnchorPane>
       <Label text="© Brigham &amp; Women’s Hospital 2017" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
