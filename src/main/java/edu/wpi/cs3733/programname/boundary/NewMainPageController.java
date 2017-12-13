@@ -38,6 +38,8 @@ import org.controlsfx.control.textfield.TextFields;
 import java.io.IOException;
 import java.util.*;
 
+import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_KEY_LOCATION_NOT_SHOWN;
+import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_KEY_LOCATION_SHOWN;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 
 public class NewMainPageController {
@@ -204,7 +206,6 @@ public class NewMainPageController {
 
 
     private boolean showStairs = false;
-    private boolean showSubject = false;
     private boolean showDestination = false;
     private boolean showWaitingRooms = false;
     private boolean showRetail = false;
@@ -213,17 +214,131 @@ public class NewMainPageController {
     private boolean showExits = false;
     private boolean showElevator = false;
     private boolean showBathrooms = false;
-    public void StairsToggle()          {this.showStairs = !this.showStairs;            updateNodeVisibility();}
-    public void SubjectToggle()         {this.showSubject = !this.showSubject;          updateNodeVisibility();}
-    public void DestinationToggle()     {this.showDestination = !this.showDestination;  updateNodeVisibility();}
-    public void WaitingRoomToggle()     {this.showWaitingRooms = !this.showWaitingRooms;updateNodeVisibility();}
-    public void RetailToggle()          {this.showRetail = !this.showRetail;            updateNodeVisibility();}
-    public void ServiceDeskToggle()     {this.showServiceDesk = !this.showServiceDesk;  updateNodeVisibility();}
-    public void LabToggle()             {this.showLabs = !this.showLabs;                updateNodeVisibility();}
-    public void ExitToggle()            {this.showExits = !this.showExits;              updateNodeVisibility();}
-    public void ElevatorToggle()        {this.showElevator = !this.showElevator;        updateNodeVisibility();}
-    public void BathroomToggle()        {this.showBathrooms = !this.showBathrooms;      updateNodeVisibility();}
 
+    public void StairsToggle() {
+        resetKeyLocationShow();
+        this.showStairs = !this.showStairs;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+
+    public void SubjectToggle() {
+    }
+
+    public void DestinationToggle() {
+        resetKeyLocationShow();
+        this.showDestination = !this.showDestination;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+
+    public void WaitingRoomToggle() {
+        resetKeyLocationShow();
+        this.showWaitingRooms = !this.showWaitingRooms;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+
+    public void RetailToggle() {
+        resetKeyLocationShow();
+        this.showRetail = !this.showRetail;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+
+    public void ServiceDeskToggle() {
+        resetKeyLocationShow();
+        this.showServiceDesk = !this.showServiceDesk;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+
+    public void LabToggle() {
+        resetKeyLocationShow();
+        this.showLabs = !this.showLabs;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+
+    public void ExitToggle() {
+        resetKeyLocationShow();
+        this.showExits = !this.showExits;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+
+    public void ElevatorToggle() {
+        resetKeyLocationShow();
+        this.showElevator = !this.showElevator;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+
+    public void BathroomToggle() {
+        resetKeyLocationShow();
+        this.showBathrooms = !this.showBathrooms;
+        updateButtonVisibility();
+        updateNodeVisibility();
+    }
+    public void resetKeyLocationShow(){
+        showStairs = false;
+        showDestination = false;
+        showWaitingRooms = false;
+        showRetail = false;
+        showServiceDesk = false;
+        showLabs = false;
+        showExits = false;
+        showElevator = false;
+        showBathrooms = false;
+    }
+    public void updateButtonVisibility(){
+        //if a nodegroup is toggled on, add it to the list of shown nodes
+        if (showStairs) {
+            keyLocationStairs.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationStairs.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+        if (showBathrooms) {
+            keyLocationBathroom.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationBathroom.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+        if (showElevator) {
+            keyLocationElevator.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationElevator.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+        if (showDestination) {
+            keyLocationDestination.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationDestination.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+        if (showExits) {
+            keyLocationExit.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationExit.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+        if (showLabs) {
+            keyLocationLab.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationLab.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+        if (showRetail) {
+            keyLocationRetail.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationRetail.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+        if (showServiceDesk) {
+            keyLocationServiceDesk.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationServiceDesk.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+        if (showWaitingRooms) {
+            keyLocationWaitingroom.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
+        } else {
+            keyLocationWaitingroom.setOpacity(OPACITY_KEY_LOCATION_NOT_SHOWN);
+        }
+    }
 
     // This function displays all the nodes that are toggled on according to the ShowXXXX booleans
     public void updateNodeVisibility(){
@@ -237,9 +352,7 @@ public class NewMainPageController {
         if (showRetail){}
         if (showWaitingRooms){}
         if (showDestination){}
-        if (showSubject){}
         if (showStairs){}
-        setNodeListImageVisibility(true , visibleNodes);
     }
     //animations stuff
     @FXML
