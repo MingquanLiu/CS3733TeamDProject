@@ -14,7 +14,7 @@
 
 <ScrollPane fx:id="mainWindow" maxWidth="1.7976931348623157E308" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.About_Popup">
    <content>
-      <AnchorPane fx:id="main" prefHeight="1596.0" prefWidth="703.0">
+      <AnchorPane fx:id="main" prefHeight="1688.0" prefWidth="796.0">
          <children>
             <Label fx:id="title" alignment="TOP_CENTER" prefHeight="44.0" prefWidth="682.0" text="About" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
@@ -193,7 +193,7 @@
                   </ImageView>
                </children>
             </GridPane>
-            <Pane layoutX="374.0" layoutY="1218.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.rightAnchor="169.0">
+            <Pane layoutX="439.0" layoutY="1218.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.rightAnchor="197.0">
                <children>
                   <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -208,7 +208,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Pane layoutX="169.0" layoutY="1218.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.leftAnchor="169.0">
+            <Pane layoutX="202.0" layoutY="1218.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.leftAnchor="202.0">
                <children>
                   <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -218,7 +218,7 @@
                   <Label layoutX="9.0" layoutY="170.0" text="Haiau Duong&#10;(Ex) Database Engineer" textAlignment="CENTER" />
                </children>
             </Pane>
-            <Label layoutX="101.0" layoutY="1450.0" text="Credit To: &#10;Team Emerald Elbow-Witches (10) - Coach Sai Vadlamudi&#10;Yianni Alexiou, Jonathan Berry, Clayton Dembski, Mitchell Farren, Joshua Galang, &#10;Krystal Grant, Karsten Roberts, Tung Truong, Nikolay Uvarov and Thomas Wiles&#10;for the health care API." />
+            <Label layoutX="123.0" layoutY="1456.0" text="Credit To: &#10;Team Emerald Elbow-Witches (10) - Coach Sai Vadlamudi&#10;Yianni Alexiou, Jonathan Berry, Clayton Dembski, Mitchell Farren, Joshua Galang, &#10;Krystal Grant, Karsten Roberts, Tung Truong, Nikolay Uvarov and Thomas Wiles&#10;for the health care API.&#10;&#10;And Team Granite Gargoyles (11) - Coach Binam Kayastha&#10;Quinn Averill, Melanie Dworak, Nicole Franco, Zachary Halzel, Sean Hunt, Ian MacGregor, &#10;Garrett Otteni, Alexander Pappas, Lucas Sacherer, Taylor Stephen, Dimitrios Tsiakmakis&#10;for the food request API." />
          </children>
       </AnchorPane>
    </content>
