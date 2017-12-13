@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -23,7 +24,7 @@
             <content>
                 <AnchorPane fx:id="panningPane" focusTraversable="true">
                     <children>
-                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" onMouseClicked="#onClickMap" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" layoutX="-14.0" layoutY="-14.0" onMouseClicked="#onClickMap" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="-14.0">
                             <image>
                                 <Image url="@../img/Floor_2.png" />
                             </image>
@@ -32,15 +33,24 @@
                         <Accordion layoutX="748.0" layoutY="348.0" />
                   <JFXButton fx:id="crossFloor" buttonType="RAISED" layoutX="588.0" layoutY="345.0" onAction="#crossFloor" style="-fx-background-color: rgb(179, 236, 255, 0.7);" visible="false" />
                   <HBox layoutX="612.0" layoutY="471.0" prefHeight="100.0" prefWidth="200.0" />
+                  <JFXButton fx:id="crossFloor" layoutX="588.0" layoutY="345.0" />
+                  <Label fx:id="blueBathroom" layoutX="387.0" layoutY="168.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Bathrooms " textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="168.0" />
+                  <Label fx:id="blueInfoDesk" layoutX="387.0" layoutY="588.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text="  View Info Desks " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="588.0" />
+                  <Label fx:id="blueElevator" layoutX="386.0" layoutY="232.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Elevators " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="228.0" />
+                  <Label fx:id="blueStair" layoutX="387.0" layoutY="469.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Stairs " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="468.0" />
+                  <Label fx:id="blueWaitingRoom" layoutX="386.0" layoutY="528.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Waiting Rooms " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="528.0" />
+                  <Label fx:id="blueRetailService" layoutX="389.0" layoutY="408.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Retail Services " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="408.0" />
+                  <Label fx:id="blueLab" layoutX="389.0" layoutY="348.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Labs " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="348.0" />
+                  <Label fx:id="blueExit" layoutX="390.0" layoutY="290.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Exits " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="288.0" />
                     </children>
                 </AnchorPane>
             </content>
         </ScrollPane>
-      <AnchorPane prefHeight="301.0" prefWidth="314.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="220.0">
+      <AnchorPane prefHeight="301.0" prefWidth="314.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="220.0">
          <children>
-            <TitledPane animated="false" layoutX="-32.0" layoutY="-96.0" text="textDirection" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TitledPane animated="false" layoutY="39.0" prefWidth="314.0" text="textDirection" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="307.0" prefWidth="312.0">
+                <AnchorPane minWidth="0.0" prefWidth="312.0">
                      <children>
                         <JFXListView fx:id="textDirections" layoutX="21.0" layoutY="-84.0" onMouseClicked="#goToDirection" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0" />
                      </children>
@@ -51,7 +61,7 @@
       </AnchorPane>
       <AnchorPane fx:id="keyLocationPane" prefHeight="363.0" prefWidth="24.0" AnchorPane.leftAnchor="322.0" AnchorPane.topAnchor="35.0">
          <children>
-            <JFXButton fx:id="keyLocationBathroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#BathroomToggle" prefHeight="50.0" prefWidth="0.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationBathroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#BathroomToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="50.0" prefWidth="0.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -61,7 +71,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationElevator" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ElevatorToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationElevator" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ElevatorToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -71,7 +81,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationExit" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ExitToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationExit" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ExitToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -81,7 +91,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationLab" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#LabToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationLab" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#LabToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -91,7 +101,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationServiceDesk" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ServiceDeskToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationServiceDesk" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#ServiceDeskToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="45.0" prefHeight="45.0" prefWidth="23.0" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -101,7 +111,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationRetail" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#RetailToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationRetail" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#RetailToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -111,7 +121,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationWaitingroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#WaitingRoomToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationWaitingroom" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#WaitingRoomToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -121,7 +131,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationDestination" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#DestinationToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationDestination" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#DestinationToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -131,7 +141,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationSubject" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationSubject" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -141,7 +151,7 @@
                   </JFXButton>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="keyLocationStairs" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#StairsToggle" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="keyLocationStairs" buttonType="RAISED" ellipsisString="" layoutX="21.0" layoutY="14.0" onAction="#StairsToggle" onMouseEntered="#displayHoveringText" onMouseExited="#goodbyeHoveringText" prefHeight="46.0" prefWidth="54.0" styleClass="color-button-keyLocations" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" stylesheets="@../css/general_button.css" text=" ">
                      <styleClass>
@@ -157,44 +167,53 @@
          <children>
             <JFXComboBox fx:id="comboBuilding" layoutX="6.0" onAction="#setMap" prefHeight="39.0" prefWidth="123.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
             <JFXComboBox fx:id="comboFloors" layoutX="6.0" layoutY="50.0" onAction="#setMap" prefHeight="39.0" prefWidth="120.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
+            <Label fx:id="blueKeyLocation" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Key Locations " textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="-20.0" AnchorPane.topAnchor="14.0" />
+            <Label fx:id="blueDestination" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View All Destinations " visible="false" AnchorPane.leftAnchor="-20.0" AnchorPane.topAnchor="74.0" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="184.0" prefWidth="314.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <AnchorPane prefHeight="225.0" prefWidth="314.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
-            <JFXTextField fx:id="startLocation" layoutX="111.0" layoutY="14.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="9.0" />
-            <JFXTextField fx:id="endLocation" layoutX="111.0" layoutY="60.0" onKeyTyped="#fuzzyEnd" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="55.0" />
-            <Label layoutX="11.0" layoutY="14.0" prefHeight="31.0" prefWidth="100.0" text="Start Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0" />
-            <Label layoutX="11.0" layoutY="60.0" prefHeight="31.0" prefWidth="100.0" text="End Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="60.0" />
-            <JFXButton buttonType="RAISED" layoutX="47.0" layoutY="111.0" onAction="#goButtonHandler" ripplerFill="#cff888" text="Search">
+            <JFXTextField fx:id="startLocation" layoutX="78.0" layoutY="12.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="12.0" />
+            <JFXTextField fx:id="endLocation" layoutX="78.0" layoutY="42.0" onKeyTyped="#fuzzyEnd" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="42.0" />
+            <Label layoutX="30.0" layoutY="11.0" prefHeight="31.0" text="From:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="11.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label layoutX="35.0" layoutY="39.0" prefHeight="31.0" text=" To:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="39.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <JFXButton buttonType="RAISED" layoutX="186.0" layoutY="85.0" onAction="#goButtonHandler" ripplerFill="#cff888" styleClass="search-location-button" stylesheets="@../css/general_button.css" text="Search">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="193.0" layoutY="111.0" onMouseClicked="#clearPathHandler" text="Clear">
+            <JFXButton buttonType="RAISED" layoutX="45.0" layoutY="85.0" onMouseClicked="#clearPathHandler" styleClass="clear-location-button" stylesheets="@../css/general_button.css" text="Clear">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXCheckBox fx:id="handicap" layoutX="45.0" layoutY="148.0" text="Handicap" AnchorPane.bottomAnchor="12.0" />
+            <JFXCheckBox fx:id="handicap" layoutX="32.0" layoutY="186.0" text="Handicap" AnchorPane.bottomAnchor="22.0" />
             <JFXComboBox fx:id="comboCharacter" layoutX="201.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#selectCharacter" prefHeight="40.0" prefWidth="20.0" stylesheets="@../css/animated_dropdown.css" AnchorPane.bottomAnchor="0.0">
                <styleClass>
                   <String fx:value="combo-box-popup" />
                   <String fx:value="combo-box" />
                   <String fx:value="list-view" />
-               </styleClass></JFXComboBox>
-            <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="82.0" onAction="#BathroomSweepHandler" ripplerFill="#cff888" text="Find Bathroom">
+               </styleClass>
+            </JFXComboBox>
+            <JFXButton buttonType="RAISED" layoutX="153.0" layoutY="135.0" onAction="#BathroomSweepHandler" ripplerFill="#cff888" styleClass="find-nearest-buttons" stylesheets="@../css/general_button.css" text="Find Bathroom">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="162.0" layoutY="82.0" onAction="#ElevatorSweepHandler" ripplerFill="#cff888" text="Find Elevator">
+            <JFXButton buttonType="RAISED" layoutX="13.0" layoutY="135.0" onAction="#ElevatorSweepHandler" ripplerFill="#cff888" styleClass="find-nearest-buttons" stylesheets="@../css/general_button.css" text="Find Elevator">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="adminFeaturePane" prefHeight="107.0" prefWidth="101.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane fx:id="adminFeaturePane" prefHeight="107.0" prefWidth="101.0" visible="false" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
          <children>
             <JFXButton fx:id="adminFeatureSubject" buttonType="RAISED" ellipsisString="" prefHeight="45.0" prefWidth="61.0" stylesheets="@../css/general_button.css">
                <graphic>
@@ -305,7 +324,7 @@
             <JFXButton fx:id="btnHelp" alignment="BOTTOM_CENTER" layoutX="1180.0" layoutY="4.0" onAction="#helpButtonHandler" prefHeight="31.0" prefWidth="104.0" ripplerFill="#59fc92" text="Help" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="nodeInfoBox" layoutX="10.0" layoutY="10.0" opacity="0.77" prefHeight="343.0" prefWidth="362.0" style="-fx-background-color: grey;" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
+      <AnchorPane fx:id="nodeInfoBox" layoutX="10.0" layoutY="10.0" opacity="0.77" prefHeight="363.0" prefWidth="362.0" style="-fx-background-color: grey;" visible="false" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0">
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutX="61.0" layoutY="25.0" text="Node Info" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
@@ -318,35 +337,35 @@
                </font>
             </Label>
             <JFXTextField fx:id="textNodeId" editable="false" focusColor="#7396ff" layoutX="126.0" layoutY="36.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="36.0" />
-            <Label alignment="CENTER" ellipsisString="" layoutX="26.0" layoutY="102.0" text="Node Type:" textAlignment="CENTER" textFill="#fcfcfc">
+            <Label alignment="CENTER" ellipsisString="" layoutX="26.0" layoutY="92.0" text="Node Type:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" ellipsisString="" layoutX="26.0" layoutY="139.0" text="Long Name:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="249.0" AnchorPane.topAnchor="139.0">
+            <Label alignment="CENTER" ellipsisString="" layoutX="26.0" layoutY="128.0" text="Long Name:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="249.0" AnchorPane.topAnchor="128.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
             <JFXTextField fx:id="textNodeFullName" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="123.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="123.0" />
-            <Label alignment="CENTER" ellipsisString="" layoutX="24.0" layoutY="172.0" text="Short Name:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="172.0">
+            <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="160.0" text="Short Name:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="160.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
             <JFXTextField fx:id="textNodeShortName" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="155.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="155.0" />
-            <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="205.0" text="Location:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="205.0">
+            <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="192.0" text="Location:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="192.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
             <JFXTextField fx:id="textNodeLocation" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="187.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="187.0" />
-            <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="236.0" text="Building:" textAlignment="CENTER" textFill="#fcfcfc">
+            <Label alignment="CENTER" ellipsisString="" layoutX="26.0" layoutY="226.0" text="Building:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="268.0" text="Floor:" textAlignment="CENTER" textFill="#fcfcfc">
+            <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="258.0" text="Floor:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -359,7 +378,33 @@
             <JFXTextField fx:id="textNodeTeamAssigned" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
             <JFXTextField fx:id="textNodeBuilding" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="221.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
             <JFXTextField fx:id="textNodeFloor" editable="false" focusColor="#7396ff" layoutX="136.0" layoutY="253.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
-            <JFXTextField fx:id="textNodeType" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="87.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeType" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="77.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXButton fx:id="setFrom" buttonType="RAISED" layoutX="48.0" layoutY="318.0" onAction="#setLocationHandler" text="Set As From" AnchorPane.bottomAnchor="8.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="nodeInfoPane-text" />
+                  <String fx:value="button-admin-nodeInfoBox" />
+               </styleClass>
+               <stylesheets>
+                  <URL value="@../css/global_stylesheet.css" />
+                  <URL value="@../css/general_button.css" />
+               </stylesheets>
+            </JFXButton>
+            <JFXButton fx:id="setTo" buttonType="RAISED" layoutX="239.0" layoutY="324.0" onAction="#setLocationHandler" text="Set As To">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@../css/global_stylesheet.css" />
+                  <URL value="@../css/general_button.css" />
+               </stylesheets>
+               <styleClass>
+                  <String fx:value="nodeInfoPane-text" />
+                  <String fx:value="button-admin-nodeInfoBox" />
+               </styleClass>
+            </JFXButton>
          </children>
       </AnchorPane>
       <Label text="© Brigham &amp; Women’s Hospital 2017" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />

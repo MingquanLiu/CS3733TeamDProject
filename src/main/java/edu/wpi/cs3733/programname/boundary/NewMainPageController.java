@@ -156,11 +156,9 @@ public class NewMainPageController extends UIController {
     @FXML
     private TextField textNodeFloor;
     @FXML
-    private JFXButton nodeInfoAdd;
+    private JFXButton setFrom;
     @FXML
-    private JFXButton nodeInfoEdit;
-    @FXML
-    private JFXButton nodeInfoDelete;
+    private JFXButton setTo;
 
     @FXML
     private TextField startLocation;
@@ -196,6 +194,27 @@ public class NewMainPageController extends UIController {
 
     private Stage stage;
 
+    //key location labels
+    @FXML
+    private Label blueKeyLocation;
+    @FXML
+    private Label blueDestination;
+    @FXML
+    private Label blueBathroom;
+    @FXML
+    private Label blueElevator;
+    @FXML
+    private Label blueExit;
+    @FXML
+    private Label blueLab;
+    @FXML
+    private Label blueRetailService;
+    @FXML
+    private Label blueStair;
+    @FXML
+    private Label blueWaitingRoom;
+    @FXML
+    private Label blueInfoDesk;
 
 
     private ManageController manager;
@@ -260,55 +279,64 @@ public class NewMainPageController extends UIController {
         updateButtonVisibility();
         updateNodeVisibility();
     }
+
     public void DestinationToggle() {
         resetKeyLocationShow();
         this.showDestination = !this.showDestination;
         updateButtonVisibility();
         updateNodeVisibility();
     }
+
     public void WaitingRoomToggle() {
         resetKeyLocationShow();
         this.showWaitingRooms = !this.showWaitingRooms;
         updateButtonVisibility();
         updateNodeVisibility();
     }
+
     public void RetailToggle() {
         resetKeyLocationShow();
         this.showRetail = !this.showRetail;
         updateButtonVisibility();
         updateNodeVisibility();
     }
+
     public void ServiceDeskToggle() {
         resetKeyLocationShow();
         this.showServiceDesk = !this.showServiceDesk;
         updateButtonVisibility();
         updateNodeVisibility();
     }
+
     public void LabToggle() {
         resetKeyLocationShow();
         this.showLabs = !this.showLabs;
         updateButtonVisibility();
         updateNodeVisibility();
     }
+
     public void ExitToggle() {
         resetKeyLocationShow();
         this.showExits = !this.showExits;
         updateButtonVisibility();
         updateNodeVisibility();
     }
+
     public void ElevatorToggle() {
         resetKeyLocationShow();
         this.showElevator = !this.showElevator;
         updateButtonVisibility();
         updateNodeVisibility();
     }
+
     public void BathroomToggle() {
         resetKeyLocationShow();
         this.showBathrooms = !this.showBathrooms;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-    private void resetKeyLocationShow(){
+
+    private void resetKeyLocationShow() {
         showStairs = false;
         showDestination = false;
         showWaitingRooms = false;
@@ -319,7 +347,8 @@ public class NewMainPageController extends UIController {
         showElevator = false;
         showBathrooms = false;
     }
-    private void updateButtonVisibility(){
+
+    private void updateButtonVisibility() {
         //if a nodegroup is toggled on, add it to the list of shown nodes
         if (showStairs) {
             keyLocationStairs.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
@@ -369,7 +398,7 @@ public class NewMainPageController extends UIController {
     }
 
     // This function displays all the nodes that are toggled on according to the ShowXXXX booleans
-    private void updateNodeVisibility(){
+    private void updateNodeVisibility() {
 
         List<NodeData> visibleNodes = new LinkedList<NodeData>();
         //    private void showNode(NodeData n) panningPane.getChildren().add(n.getCircle());}
@@ -381,20 +410,21 @@ public class NewMainPageController extends UIController {
                 }
             }
         }
-        if (showElevator){
+        if (showElevator) {
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("ELEV")) {
                     visibleNodes.add(nodeIt);
                 }
             }
         }
-        if (showExits){
+        if (showExits) {
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("EXIT")) {
-                    visibleNodes.add(nodeIt); }
+                    visibleNodes.add(nodeIt);
+                }
             }
         }
-        if (showLabs){
+        if (showLabs) {
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("LABS")) {
                     visibleNodes.add(nodeIt);
@@ -402,7 +432,7 @@ public class NewMainPageController extends UIController {
                 }
             }
         }
-        if (showServiceDesk){
+        if (showServiceDesk) {
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("INFO")) {
                     visibleNodes.add(nodeIt);
@@ -411,7 +441,7 @@ public class NewMainPageController extends UIController {
             }
 
         }
-        if (showRetail){
+        if (showRetail) {
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("RETL")) {
                     visibleNodes.add(nodeIt);
@@ -419,7 +449,7 @@ public class NewMainPageController extends UIController {
                 }
             }
         }
-        if (showWaitingRooms){
+        if (showWaitingRooms) {
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("DEPT")) {
                     visibleNodes.add(nodeIt);
@@ -435,7 +465,7 @@ public class NewMainPageController extends UIController {
                 }
             }
         }
-        if (showStairs){
+        if (showStairs) {
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("STAR")) {
                     visibleNodes.add(nodeIt);
@@ -443,10 +473,9 @@ public class NewMainPageController extends UIController {
                 }
             }
         }
-        HelperFunction.setNodeListCircleVisibility(false , currentNodes);
-        HelperFunction.setNodeListCircleVisibility(true , visibleNodes);
+        HelperFunction.setNodeListCircleVisibility(false, currentNodes);
+        HelperFunction.setNodeListCircleVisibility(true, visibleNodes);
     }
-
 
 
     public void initManager(ManageController manageController) {
@@ -493,6 +522,7 @@ public class NewMainPageController extends UIController {
         typeList.add("STAI");
         typeList.add("LABS");
         typeList.add("SERV");
+        typeList.add("HALL");
         //sets the map, just in case we want it to start on another floor
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
@@ -523,8 +553,8 @@ public class NewMainPageController extends UIController {
         comboCharacter.setValue(walkingMan);
         longNameIDStart = manager.fuzzyQueryNodesByLongName("");
         longNameIDEnd = longNameIDStart;
-        autoCompletionBindingStart = TextFields.bindAutoCompletion(startLocation,longNameIDStart);
-        autoCompletionBindingEnd = TextFields.bindAutoCompletion(endLocation,longNameIDEnd);
+        autoCompletionBindingStart = TextFields.bindAutoCompletion(startLocation, longNameIDStart);
+        autoCompletionBindingEnd = TextFields.bindAutoCompletion(endLocation, longNameIDEnd);
 //        System.out.println("Building:"+curBuilding.getName()+" Floor:"+curFloor.getFloorNum());
 //        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curBuilding.getName());
 //        System.out.println("CurrentNodesList size:"+currentNodes.size());
@@ -565,14 +595,15 @@ public class NewMainPageController extends UIController {
             panningPane.getChildren().remove(nodeData.getCircle());
         }
     }
+
     @Override
     public void passNodeData(NodeData nodeData) throws IOException {
-        if(prevShowNode==null){
+        if (prevShowNode == null) {
             prevShowNode = nodeData;
-        }else if(!nodeData.equals(prevShowNode)){
+        } else if (!nodeData.equals(prevShowNode)) {
             shrinkNode(prevShowNode);
             prevShowNode = nodeData;
-        }else{
+        } else {
             System.out.println("Equals");
         }
         enlargeNode(nodeData);
@@ -586,17 +617,17 @@ public class NewMainPageController extends UIController {
 
     }
 
-    public void shrinkNode(NodeData nodeData){
+    public void shrinkNode(NodeData nodeData) {
         panningPane.getChildren().remove(nodeData.getCircle());
         nodeData.changeBackCircleAndChangeColor(currentScale);
-        setCircleNodeController(nodeData,this);
+        setCircleNodeController(nodeData, this);
         panningPane.getChildren().add(nodeData.getCircle());
     }
 
-    public void enlargeNode(NodeData nodeData){
+    public void enlargeNode(NodeData nodeData) {
         panningPane.getChildren().remove(nodeData.getCircle());
         nodeData.enlargeCircleAndChangeColor(currentScale);
-        setCircleNodeController(nodeData,this);
+        setCircleNodeController(nodeData, this);
         panningPane.getChildren().add(nodeData.getCircle());
     }
 
@@ -621,10 +652,12 @@ public class NewMainPageController extends UIController {
             }
         }
     }
+
     private void clearPathFindLoc() {
         endLocation.setText("");
         startLocation.setText("");
     }
+
     private void clearPath() {
         //currentPath = new ArrayList<>();
         if (pathDrawings.size() > 0) {
@@ -632,7 +665,7 @@ public class NewMainPageController extends UIController {
                 System.out.println("success remove");
                 draggablePath.getChildren().remove(shape);
             }
-            if(panningPane.getChildren().contains(draggablePath));
+            if (panningPane.getChildren().contains(draggablePath)) ;
             panningPane.getChildren().remove(draggablePath);
             currentPathStartFloor = "";
             currentPathGoalFloor = "";
@@ -642,46 +675,48 @@ public class NewMainPageController extends UIController {
         clearAnimations();
         clearHighlightedSteps();
     }
-    public void clearAnimations(){
-        if(!transitions.isEmpty()) {
+
+    public void clearAnimations() {
+        if (!transitions.isEmpty()) {
             for (Transition t : transitions) {
                 t = new PathTransition();
                 t.stop();
             }
         }
         transitions = new ArrayList<>();
-        if (drawnImages.size() > 0){
-            for(ImageView img:drawnImages){
+        if (drawnImages.size() > 0) {
+            for (ImageView img : drawnImages) {
                 panningPane.getChildren().remove(img);
             }
         }
     }
-    private void pathAnimation(List<NodeData> nodes){
+
+    private void pathAnimation(List<NodeData> nodes) {
         clearAnimations();
         Path path = new Path();
         MoveTo moveTo = new MoveTo();
-        moveTo.setX(DBCToUIC(nodes.get(0).getXCoord(),currentScale));
-        moveTo.setY(DBCToUIC(nodes.get(0).getYCoord(),currentScale));
+        moveTo.setX(DBCToUIC(nodes.get(0).getXCoord(), currentScale));
+        moveTo.setY(DBCToUIC(nodes.get(0).getYCoord(), currentScale));
         path.getElements().add(moveTo);
-        for (int i = 1; i < nodes.size(); i++){
+        for (int i = 1; i < nodes.size(); i++) {
             LineTo lineTo = new LineTo();
-            lineTo.setX(DBCToUIC(nodes.get(i).getXCoord(),currentScale));
-            lineTo.setY(DBCToUIC(nodes.get(i).getYCoord(),currentScale));
+            lineTo.setX(DBCToUIC(nodes.get(i).getXCoord(), currentScale));
+            lineTo.setY(DBCToUIC(nodes.get(i).getYCoord(), currentScale));
             path.getElements().add(lineTo);
 
         }
         //panningPane.getChildren().addAll(path);
 
-        String imgUrl = ((Image)(comboCharacter.getValue())).impl_getUrl();
+        String imgUrl = ((Image) (comboCharacter.getValue())).impl_getUrl();
         System.out.println(imgUrl);
         ImageView character = currentChar;
         character.setPreserveRatio(true);
-        character.setFitWidth(200*currentScale);
+        character.setFitWidth(200 * currentScale);
 
         PathTransition pathTransition = new PathTransition();
 
-        int distance = distanceBetweenNodes(nodes.get(0), nodes.get(nodes.size()-1));
-        pathTransition.setDuration(Duration.millis(distance*10));
+        int distance = distanceBetweenNodes(nodes.get(0), nodes.get(nodes.size() - 1));
+        pathTransition.setDuration(Duration.millis(distance * 10));
         pathTransition.setNode(character);
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
@@ -702,6 +737,9 @@ public class NewMainPageController extends UIController {
         transitions.add(pathTransition);
     }
 
+    String oldBuilding = "";
+    String newBuilding = "";
+
     private void displayPath(List<NodeData> path) {
         if (path != null && !path.isEmpty()) {
             clearPath();                    //first thing to do is clear any visible path and animations
@@ -719,14 +757,27 @@ public class NewMainPageController extends UIController {
                 Line l = new Line();
                 NodeData n = path.get(i);
 
-                if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
-                    NodeData nextNode = path.get(i+1);
-                    if(!n.getFloor().equals(nextNode.getFloor())){
+                if (i <= path.size() - 2) {     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
+                    NodeData nextNode = path.get(i + 1);
+                    oldBuilding = n.getBuilding();
+                    newBuilding = nextNode.getBuilding();
+
+
+                   if (!oldBuilding.equals(newBuilding) &&
+                            n.getNodeType().equals("EXIT") && nextNode.getNodeType().equals("EXIT")) {
+                        crossFloor.setText("Transport from " + oldBuilding + System.lineSeparator() +
+                                " to " + newBuilding);
+                        currentPathGoalFloor = nextNode.getFloor();
+                        crossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+                        crossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+                        crossFloor.setVisible(true);
+                        crossFloor.toFront();
+                    } else if (!n.getFloor().equals(nextNode.getFloor())) {
                         currentPathStartFloor = n.getFloor();
                         currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
                         currentPathGoalFloor = nextNode.getFloor();
                         currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
-                        crossFloor.setText("From Floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
+                        crossFloor.setText("From Floor " + currentPathGoalFloor + System.lineSeparator() + "To Floor " + currentPathStartFloor);
                         crossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
                         crossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
                         crossFloor.setVisible(true);
@@ -734,7 +785,7 @@ public class NewMainPageController extends UIController {
                     }
                 }
 
-                if(n.getFloor().equals(curFloor.getFloorNum())) {
+                if (n.getFloor().equals(curFloor.getFloorNum())) {
                     System.out.println(n.getLongName());
                     if (prev.getFloor().equals(curFloor.getFloorNum())) {
                         l.setStroke(Color.LIGHTSKYBLUE);
@@ -748,12 +799,12 @@ public class NewMainPageController extends UIController {
                 }
                 prev = n;
             }
-            for(NodeData n:path){
-                if(n.getFloor().equals(curFloor.getFloorNum())){
+            for (NodeData n : path) {
+                if (n.getFloor().equals(curFloor.getFloorNum())) {
                     thisFloorPath.add(n);
                 }
             }
-            if(thisFloorPath.size() > 0){
+            if (thisFloorPath.size() > 0) {
                 pathAnimation(thisFloorPath);
             }
             pathDrawings.addAll(lines);
@@ -764,26 +815,75 @@ public class NewMainPageController extends UIController {
             //emailDirections.setVisible(true);
         }
     }
-    public void crossFloor(){
-        System.out.println("called crossFloor");
-        System.out.println(curFloor.getFloorNum());
-        System.out.println(currentPathStartFloor);
-        System.out.println(currentPathGoalFloor);
 
-        if(curFloor.getFloorNum().equals(currentPathGoalFloor)){
+    public void crossFloor() {
+        if (!crossFloor.getText().contains("Transport")) {
+            System.out.println("called crossFloor");
+            System.out.println(curFloor.getFloorNum());
+            System.out.println(currentPathStartFloor);
+            System.out.println(currentPathGoalFloor);
 
-            for (Floor f: curBuilding.getFloors()){
-                if(f.getFloorNum().equals(currentPathStartFloor)){
-                    comboFloors.setValue(f);
+            if (curFloor.getFloorNum().equals(currentPathGoalFloor)) {
+
+                for (Floor f : curBuilding.getFloors()) {
+                    if (f.getFloorNum().equals(currentPathStartFloor)) {
+                        comboFloors.setValue(f);
+                        setMap();
+                        return;
+                    }
+                }
+            } else if (curFloor.getFloorNum().equals(currentPathStartFloor)) {
+                for (Floor f : curBuilding.getFloors()) {
+                    if (f.getFloorNum().equals(currentPathGoalFloor)) {
+                        comboFloors.setValue(f);
+                        setMap();
+                        return;
+                    }
+                }
+            }
+        } else
+            crossBuilding();
+    }
+
+    public void crossBuilding() {
+        System.out.println("called crossBulding");
+        System.out.println(curBuilding.getName());
+        if (partOfMainB(oldBuilding, curBuilding.getName())) {
+            oldBuilding = curBuilding.getName();
+            System.out.println("old: " + oldBuilding);
+
+        }
+
+        if (partOfMainB(newBuilding, curBuilding.getName())) {
+            newBuilding = "Main Hospital";
+
+            System.out.println("new: " + newBuilding);
+        }
+
+        System.out.println("old :" + oldBuilding + " and new: " + newBuilding);
+
+
+        if (oldBuilding.equals(newBuilding) && !comboBuilding.getValue().toString().equals(newBuilding)) {
+            for (Building b : buildings) {
+                if (b.getName().equals(newBuilding)) {
+                    comboBuilding.setValue(b);
                     setMap();
                     return;
                 }
             }
         }
-        else if(curFloor.getFloorNum().equals(currentPathStartFloor)){
-            for (Floor f:curBuilding.getFloors()){
-                if(f.getFloorNum().equals(currentPathGoalFloor)){
-                    comboFloors.setValue(f);
+        if (curBuilding.getName().equals(oldBuilding)) {
+            for (Building b : buildings) {
+                if (b.getName().equals(newBuilding)) {
+                    comboBuilding.setValue(b);
+                    setMap();
+                    return;
+                }
+            }
+        } else if (curBuilding.getName().equals(newBuilding)) {
+            for (Building b : buildings) {
+                if (b.getName().equals(oldBuilding)) {
+                    comboBuilding.setValue(b);
                     setMap();
                     return;
                 }
@@ -791,13 +891,21 @@ public class NewMainPageController extends UIController {
         }
 
     }
-    public void selectCharacter(){
+
+    private boolean partOfMainB(String pathBuilding, String curBuilding) {
+        boolean pathBuild = pathBuilding.matches("Main Hospital|BTM|(15|25|45) Francis|Tower|Shapiro");
+        boolean curBuild = curBuilding.matches("Main Hospital");
+        return pathBuild && curBuild;
+    }
+
+    public void selectCharacter() {
         Image selectedChar = comboCharacter.getValue();
         String newUrl = selectedChar.impl_getUrl();
-        newUrl = newUrl.substring(0,newUrl.indexOf("1.gif")) + ".gif";
+        newUrl = newUrl.substring(0, newUrl.indexOf("1.gif")) + ".gif";
         currentChar = new ImageView(newUrl);
         displayPath(currentPath);
     }
+
     private void pauseTransitions() {
         if (transitions.size() > 0) {
             for (Transition t : transitions) {
@@ -805,9 +913,10 @@ public class NewMainPageController extends UIController {
             }
         }
     }
-    private void resumeTransitions(){
-        if(transitions.size() > 0){
-            for(Transition t:transitions){
+
+    private void resumeTransitions() {
+        if (transitions.size() > 0) {
+            for (Transition t : transitions) {
                 t.play();
             }
         }
@@ -817,14 +926,14 @@ public class NewMainPageController extends UIController {
         // Set the scale to default
         currentScale = 0.3;
         // Log off the admin
-        if(logOffNext) try {
+        if (logOffNext) try {
             loginButtonHandler();
         } catch (IOException e) {
             e.printStackTrace();
         }
         // Go back to the default view
         clearMain();
-        for(Stage stage: managers) {
+        for (Stage stage : managers) {
             stage.close();
             stage.hide();
         }
@@ -847,7 +956,7 @@ public class NewMainPageController extends UIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-            loader.<NewMapAdminUI>getController().initAdminManager(manager);
+        loader.<NewMapAdminUI>getController().initAdminManager(manager);
         loader.<NewMapAdminUI>getController().passStage(stage);
         System.out.println("Changed to admin view");
     }
@@ -981,7 +1090,9 @@ public class NewMainPageController extends UIController {
         autoCompletionBindingEnd.setUserInput(input);
     }
 
-    public void setUserName(String userName) {        this.userName = userName; }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public void goButtonHandler() {
         System.out.println("drawing path");
@@ -1002,6 +1113,7 @@ public class NewMainPageController extends UIController {
         textDirections.setItems(directionsList);
         textDirections.setCellFactory(param -> new ListCell<TextDirection>() {
             private Text text;
+
             @Override
             protected void updateItem(TextDirection item, boolean empty) {
                 super.updateItem(item, empty);
@@ -1014,8 +1126,8 @@ public class NewMainPageController extends UIController {
                 }
             }
         });
-        for (Floor f:curBuilding.getFloors()){
-            if(currentPath.get(1).getFloor().equals(f.getFloorNum())){
+        for (Floor f : curBuilding.getFloors()) {
+            if (currentPath.get(1).getFloor().equals(f.getFloorNum())) {
                 comboFloors.setValue(f);
                 setMap();
             }
@@ -1163,8 +1275,8 @@ public class NewMainPageController extends UIController {
         System.out.println("scale says: " + currentScale + " but slider says: " + slideZoom.getValue() / 10);
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
 //        showNodesOrEdges();
-        setCircleNodeListSizeAndLocation(currentNodes,currentScale);
-        if(currentPath != null){
+        setCircleNodeListSizeAndLocation(currentNodes, currentScale);
+        if (currentPath != null) {
             displayPath(currentPath);
             goToDirection(null);
         }
@@ -1213,7 +1325,10 @@ public class NewMainPageController extends UIController {
             else
                 System.out.println("New building and floor: " + newBld + "[" + comboFloors.getValue() + "]");
 
-
+            if (prevShowNode!=null) {
+                panningPane.getChildren().remove(prevShowNode.getCircle());
+                prevShowNode = null;
+            }
             if (newBld != curBuilding) {
                 System.out.println("floors: " + newBld);
                 floors = newBld.getFloors();
@@ -1230,15 +1345,17 @@ public class NewMainPageController extends UIController {
                 Floor newFloor = (Floor) (comboFloors.getValue());
                 curFloor = newFloor;
                 String newUrl = newFloor.getImgUrl();
-
                 Image newImg = new Image(newUrl);
                 imgMap.setImage(newImg);
 
                 showNodesOrEdges();
             }
+
+            nodeInfoBox.setVisible(false);
             displayPath(currentPath);
         }
     }
+
     public void onClickMap(MouseEvent e) {
         System.out.println("Mouse Clicked");
         //clearMain();
@@ -1247,7 +1364,7 @@ public class NewMainPageController extends UIController {
         switch (selectingLocation) {
             case "":
                 nodeInfoBox.setVisible(false);
-                if(prevShowNode!=null) {
+                if (prevShowNode != null) {
                     shrinkNode(prevShowNode);
                 }
                 break;
@@ -1292,8 +1409,8 @@ public class NewMainPageController extends UIController {
             Line l = new Line();
             NodeData n = subList.get(i);
 
-            if(i <= subList.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
-                NodeData nextNode = subList.get(i+1);
+            if (i <= subList.size() - 2) {     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
+                NodeData nextNode = subList.get(i + 1);
 //                if(!n.getFloor().equals(nextNode.getFloor())){
 //                    currentPathStartFloor = n.getFloor();
 //                    currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
@@ -1312,7 +1429,7 @@ public class NewMainPageController extends UIController {
 //                }
             }
 
-            if(n.getFloor().equals(curFloor.getFloorNum())) {
+            if (n.getFloor().equals(curFloor.getFloorNum())) {
                 System.out.println(n.getLongName());
                 if (prev.getFloor().equals(curFloor.getFloorNum())) {
                     l.setStroke(Color.LIGHTGREEN.darker().saturate());
@@ -1326,12 +1443,12 @@ public class NewMainPageController extends UIController {
             }
             prev = n;
         }
-        for(NodeData n:subList){
-            if(n.getFloor().equals(curFloor.getFloorNum())){
+        for (NodeData n : subList) {
+            if (n.getFloor().equals(curFloor.getFloorNum())) {
                 thisFloorPath.add(n);
             }
         }
-        if(thisFloorPath.size() > 0){
+        if (thisFloorPath.size() > 0) {
             pathAnimation(thisFloorPath);
         }
         pathSubset.getChildren().addAll(lines);
@@ -1346,7 +1463,7 @@ public class NewMainPageController extends UIController {
             Object o = iter.next();
             iter.remove();
         }
-        if(panningPane.getChildren().contains(pathSubset))
+        if (panningPane.getChildren().contains(pathSubset))
             panningPane.getChildren().remove(pathSubset);
     }
 
@@ -1396,12 +1513,12 @@ public class NewMainPageController extends UIController {
         //stage.show();
     }
 
-    public void BathroomSweepHandler() throws IOException{
+    public void BathroomSweepHandler() throws IOException {
         System.out.println("Searching for nearest bathroom");
         String startID = AppSettings.getInstance().getDefaultLocation();
         String goalID = "REST";
         try {
-            currentPath = manager.sweepPathfinder(startID,goalID, this.handicap.isSelected());
+            currentPath = manager.sweepPathfinder(startID, goalID, this.handicap.isSelected());
         } catch (InvalidNodeException ine) {
             currentPath = new ArrayList<>();
         } catch (NoPathException np) {
@@ -1412,12 +1529,12 @@ public class NewMainPageController extends UIController {
 
     }
 
-    public void ElevatorSweepHandler() throws IOException{
+    public void ElevatorSweepHandler() throws IOException {
         System.out.println("Searching for nearest elevator");
         String startID = AppSettings.getInstance().getDefaultLocation();
         String goalID = "ELEV";
         try {
-            currentPath = manager.sweepPathfinder(startID,goalID, this.handicap.isSelected());
+            currentPath = manager.sweepPathfinder(startID, goalID, this.handicap.isSelected());
         } catch (InvalidNodeException ine) {
             currentPath = new ArrayList<>();
         } catch (NoPathException np) {
@@ -1448,6 +1565,7 @@ public class NewMainPageController extends UIController {
     public void openManagerHandler(ActionEvent event){
 
     }
+
     public void healthAPIHandler(ActionEvent event){
         HealthCareRun health = new HealthCareRun();
         try {
@@ -1467,6 +1585,15 @@ public class NewMainPageController extends UIController {
         }
     }
 
+    public void setLocationHandler(ActionEvent event){
+        if(event.getSource().equals(setFrom)){
+            startLocation.setText(textNodeFullName.getText());
+
+        }else{
+            endLocation.setText(textNodeFullName.getText());
+        }
+    }
+
 
     public void clearPathHandler(){
         clearPath();
@@ -1481,6 +1608,7 @@ public class NewMainPageController extends UIController {
     private void showNode(NodeData n) {
         panningPane.getChildren().add(n.getCircle());
     }
+
     private EventHandler<MouseEvent> mousePress() {
         EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {
 
@@ -1512,7 +1640,7 @@ public class NewMainPageController extends UIController {
                     m_nMouseX = event.getX();
                     m_nMouseY = event.getY();
                     NodeData nodeData = getClosestNode(currentNodes, m_nMouseX.intValue(), m_nMouseY.intValue());
-                    if(closestNode.getLongName().equals(startLocation.getText())) {
+                    if (closestNode.getLongName().equals(startLocation.getText())) {
                         try {
                             currentPath.clear();
                             currentPath.addAll(manager.startPathfind(nodeData.getLongName(), endLocation.getText(), handicap.isSelected()));
@@ -1524,7 +1652,7 @@ public class NewMainPageController extends UIController {
                             String id = np.startID;
                             currentPath = new ArrayList<>();
                         }
-                    } else if(closestNode.getLongName().equals(endLocation.getText())) {
+                    } else if (closestNode.getLongName().equals(endLocation.getText())) {
                         try {
                             currentPath.clear();
                             currentPath.addAll(manager.startPathfind(startLocation.getText(), nodeData.getLongName(), handicap.isSelected()));
@@ -1587,7 +1715,7 @@ public class NewMainPageController extends UIController {
         EventHandler<MouseEvent> moveHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(draggablePath.isHover()) {
+                if (draggablePath.isHover()) {
                     pathDot.setCenterX(event.getX());
                     pathDot.setCenterY(event.getY());
                     pathDot.setRadius(5.0f);
@@ -1602,5 +1730,80 @@ public class NewMainPageController extends UIController {
         return moveHandler;
     }
 
+    public void displayHoveringText(MouseEvent e){
+        Object input = e.getSource();
+
+        if(input == keyLocationSubject){
+            blueKeyLocation.setVisible(true);
+        }
+
+        else if(input == keyLocationDestination){
+            blueDestination.setVisible(true);
+        }
+        else if(input == keyLocationBathroom){
+            blueBathroom.setVisible(true);
+        }
+        else if(input == keyLocationElevator){
+            blueElevator.setVisible(true);
+        }
+        else if(input == keyLocationExit){
+            blueExit.setVisible(true);
+        }
+        else if(input == keyLocationLab){
+            blueLab.setVisible(true);
+        }
+        else if(input == keyLocationRetail){
+            blueRetailService.setVisible(true);
+        }
+        else if(input == keyLocationStairs){
+            blueStair.setVisible(true);
+        }
+        else if(input == keyLocationWaitingroom){
+            blueWaitingRoom.setVisible(true);
+        }
+        else if(input == keyLocationServiceDesk){
+            blueInfoDesk.setVisible(true);
+        }
+
+
+    }
+
+    public void goodbyeHoveringText(MouseEvent e){
+        Object input = e.getSource();
+
+        if(input == keyLocationSubject){
+            blueKeyLocation.setVisible(false);
+        }
+
+        else if(input == keyLocationDestination){
+            blueDestination.setVisible(false);
+        }
+        else if(input == keyLocationBathroom){
+            blueBathroom.setVisible(false);
+        }
+        else if(input == keyLocationElevator){
+            blueElevator.setVisible(false);
+        }
+        else if(input == keyLocationExit){
+            blueExit.setVisible(false);
+        }
+        else if(input == keyLocationLab){
+            blueLab.setVisible(false);
+        }
+        else if(input == keyLocationRetail){
+            blueRetailService.setVisible(false);
+        }
+        else if(input == keyLocationStairs){
+            blueStair.setVisible(false);
+        }
+        else if(input == keyLocationWaitingroom){
+            blueWaitingRoom.setVisible(false);
+        }
+        else if(input == keyLocationServiceDesk){
+            blueInfoDesk.setVisible(false);
+        }
+
+
+    }
     // End of controller
 }
