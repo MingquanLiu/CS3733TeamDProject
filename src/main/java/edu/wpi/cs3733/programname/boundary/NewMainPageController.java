@@ -184,6 +184,28 @@ public class NewMainPageController extends UIController {
 
     private Stage stage;
 
+    //key location labels
+    @FXML
+    private Label blueKeyLocation;
+    @FXML
+    private Label blueDestination;
+    @FXML
+    private Label blueBathroom;
+    @FXML
+    private Label blueElevator;
+    @FXML
+    private Label blueExit;
+    @FXML
+    private Label blueLab;
+    @FXML
+    private Label blueRetailService;
+    @FXML
+    private Label blueStair;
+    @FXML
+    private Label blueWaitingRoom;
+    @FXML
+    private Label blueInfoDesk;
+
 
 
     private ManageController manager;
@@ -1507,5 +1529,80 @@ public class NewMainPageController extends UIController {
         return moveHandler;
     }
 
+    public void displayHoveringText(MouseEvent e){
+        Object input = e.getSource();
+
+        if(input == keyLocationSubject){
+            blueKeyLocation.setVisible(true);
+        }
+
+        else if(input == keyLocationDestination){
+            blueDestination.setVisible(true);
+        }
+        else if(input == keyLocationBathroom){
+            blueBathroom.setVisible(true);
+        }
+        else if(input == keyLocationElevator){
+            blueElevator.setVisible(true);
+        }
+        else if(input == keyLocationExit){
+            blueExit.setVisible(true);
+        }
+        else if(input == keyLocationLab){
+            blueLab.setVisible(true);
+        }
+        else if(input == keyLocationRetail){
+            blueRetailService.setVisible(true);
+        }
+        else if(input == keyLocationStairs){
+            blueStair.setVisible(true);
+        }
+        else if(input == keyLocationWaitingroom){
+            blueWaitingRoom.setVisible(true);
+        }
+        else if(input == keyLocationServiceDesk){
+            blueInfoDesk.setVisible(true);
+        }
+
+
+    }
+
+    public void goodbyeHoveringText(MouseEvent e){
+        Object input = e.getSource();
+
+        if(input == keyLocationSubject){
+            blueKeyLocation.setVisible(false);
+        }
+
+        else if(input == keyLocationDestination){
+            blueDestination.setVisible(false);
+        }
+        else if(input == keyLocationBathroom){
+            blueBathroom.setVisible(false);
+        }
+        else if(input == keyLocationElevator){
+            blueElevator.setVisible(false);
+        }
+        else if(input == keyLocationExit){
+            blueExit.setVisible(false);
+        }
+        else if(input == keyLocationLab){
+            blueLab.setVisible(false);
+        }
+        else if(input == keyLocationRetail){
+            blueRetailService.setVisible(false);
+        }
+        else if(input == keyLocationStairs){
+            blueStair.setVisible(false);
+        }
+        else if(input == keyLocationWaitingroom){
+            blueWaitingRoom.setVisible(false);
+        }
+        else if(input == keyLocationServiceDesk){
+            blueInfoDesk.setVisible(false);
+        }
+
+
+    }
     // End of controller
 }
