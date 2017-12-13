@@ -303,6 +303,9 @@ public class NewMainPageController extends UIController {
     private boolean showExits = false;
     private boolean showElevator = false;
     private boolean showBathrooms = false;
+    @FXML
+    private TitledPane paneDirections;
+
     public void StairsToggle() {
         resetKeyLocationShow();
         this.showStairs = !this.showStairs;
@@ -512,7 +515,7 @@ public class NewMainPageController extends UIController {
         manager = manageController;
         instantiateNodeList();
         currentScale = 0.4;
-
+        paneDirections.setExpanded(false);
 
         ////
         //MAP STUFF
@@ -625,6 +628,7 @@ public class NewMainPageController extends UIController {
         for (NodeData nodeData : currentNodes) {
             panningPane.getChildren().remove(nodeData.getCircle());
         }
+        paneDirections.setExpanded(false);
     }
 
     @Override
@@ -1170,6 +1174,7 @@ public class NewMainPageController extends UIController {
             currentPath = new ArrayList<>();
         }
         TextDirections text = new TextDirections(currentPath);
+        paneDirections.setExpanded(true);
         ObservableList directionsList = FXCollections.observableList(new ArrayList<>());
         directionsList.addAll(text.getTextDirections());
         textDirections.setItems(directionsList);
