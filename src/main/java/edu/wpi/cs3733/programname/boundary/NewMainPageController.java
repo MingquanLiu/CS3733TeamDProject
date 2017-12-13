@@ -168,7 +168,15 @@ public class NewMainPageController {
     private JFXButton btnHelp;
     @FXML
     private JFXButton btnAbout;
-
+    //animations stuff
+    @FXML
+    private JFXComboBox<Image> comboCharacter;
+    private ArrayList<Transition> transitions = new ArrayList<>();
+    private ArrayList<ImageView> drawnImages = new ArrayList<>();
+    @FXML
+    private JFXButton crossFloor;
+    private ArrayList<Floor> floors;
+    private ImageView currentChar;
 
     private Stage stage;
 
@@ -214,73 +222,61 @@ public class NewMainPageController {
     private boolean showExits = false;
     private boolean showElevator = false;
     private boolean showBathrooms = false;
-
     public void StairsToggle() {
         resetKeyLocationShow();
         this.showStairs = !this.showStairs;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-
-    public void SubjectToggle() {
-    }
-
     public void DestinationToggle() {
         resetKeyLocationShow();
         this.showDestination = !this.showDestination;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-
     public void WaitingRoomToggle() {
         resetKeyLocationShow();
         this.showWaitingRooms = !this.showWaitingRooms;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-
     public void RetailToggle() {
         resetKeyLocationShow();
         this.showRetail = !this.showRetail;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-
     public void ServiceDeskToggle() {
         resetKeyLocationShow();
         this.showServiceDesk = !this.showServiceDesk;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-
     public void LabToggle() {
         resetKeyLocationShow();
         this.showLabs = !this.showLabs;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-
     public void ExitToggle() {
         resetKeyLocationShow();
         this.showExits = !this.showExits;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-
     public void ElevatorToggle() {
         resetKeyLocationShow();
         this.showElevator = !this.showElevator;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-
     public void BathroomToggle() {
         resetKeyLocationShow();
         this.showBathrooms = !this.showBathrooms;
         updateButtonVisibility();
         updateNodeVisibility();
     }
-    public void resetKeyLocationShow(){
+    private void resetKeyLocationShow(){
         showStairs = false;
         showDestination = false;
         showWaitingRooms = false;
@@ -291,7 +287,7 @@ public class NewMainPageController {
         showElevator = false;
         showBathrooms = false;
     }
-    public void updateButtonVisibility(){
+    private void updateButtonVisibility(){
         //if a nodegroup is toggled on, add it to the list of shown nodes
         if (showStairs) {
             keyLocationStairs.setOpacity(OPACITY_KEY_LOCATION_SHOWN);
@@ -341,7 +337,7 @@ public class NewMainPageController {
     }
 
     // This function displays all the nodes that are toggled on according to the ShowXXXX booleans
-    public void updateNodeVisibility(){
+    private void updateNodeVisibility(){
         List<NodeData> visibleNodes = new LinkedList<NodeData>();
         //if a nodegroup is toggled on, add it to the list of shown nodes
         if (showBathrooms){} //visibleNodes.add(HelperFunction.getTypeNode(,"REST"));}
@@ -354,15 +350,7 @@ public class NewMainPageController {
         if (showDestination){}
         if (showStairs){}
     }
-    //animations stuff
-    @FXML
-    private JFXComboBox<Image> comboCharacter;
-    private ArrayList<Transition> transitions = new ArrayList<>();
-    private ArrayList<ImageView> drawnImages = new ArrayList<>();
-    @FXML
-    private JFXButton crossFloor;
-    private ArrayList<Floor> floors;
-    private ImageView currentChar;
+
 
 
     public void initManager(ManageController manageController) {
@@ -405,10 +393,6 @@ public class NewMainPageController {
                 " and 4: " + curBuilding.getFloors().get(4));
         curFloor = curBuilding.getFloors().get(4);
         comboFloors.setValue(curFloor);
-
-
-
-
         ObservableList typeList = FXCollections.observableList(new ArrayList<>());
         typeList.add("REST");
         typeList.add("INFO");
@@ -419,9 +403,6 @@ public class NewMainPageController {
         typeList.add("STAI");
         typeList.add("LABS");
         typeList.add("SERV");
-
-//        comboTypes.setItems(typeList);
-//        comboTypes.setValue("REST");
         //sets the map, just in case we want it to start on another floor
         setMap();
         setZoom();
@@ -979,7 +960,7 @@ public class NewMainPageController {
                 return;
             }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex + 1);
-            currentScale = Math.min(currentScale + .08, .8);
+            currentScale = Math.min(currentScale + .08, .9);
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         updateZoomSlider();

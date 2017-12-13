@@ -408,14 +408,14 @@ public class NewMapAdminUI extends UIController{
                 return;
             }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex - 1);
-            currentScale = Math.max(currentScale - .08, .3);
+            currentScale = Math.max(currentScale - .08, .4);
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
             if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
                 return;
             }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex + 1);
-            currentScale = Math.min(currentScale + .08, .6);
+            currentScale = Math.min(currentScale + .08, .9);
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         updateZoomSlider();
