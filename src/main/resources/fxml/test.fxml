@@ -42,6 +42,7 @@
                         <Label layoutX="29.0" layoutY="80.0" prefHeight="21.0" prefWidth="71.0" text="Floor" />
                      </children>
                   </AnchorPane>
+                  <JFXButton fx:id="crossFloor" layoutX="588.0" layoutY="345.0" />
                     </children>
                 </AnchorPane>
             </content>
@@ -174,7 +175,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="190.0" layoutY="104.0" text="Clear" onMouseClicked="#clearPathHandler">
+            <JFXButton buttonType="RAISED" layoutX="190.0" layoutY="104.0" onMouseClicked="#clearPathHandler" text="Clear">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
