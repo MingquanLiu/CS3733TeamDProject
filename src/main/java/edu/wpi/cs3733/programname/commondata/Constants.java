@@ -26,7 +26,7 @@ public class Constants {
     public final static double CIRCILE_RADIUS = 12;
     public final static double EXPANDED_CIRCILE_RADIUS = 17;
 
-    public final static double OPACITY_SHOWN = 0.77;
+    public final static double OPACITY_SHOWN = 0.95;
     public final static double OPACITY_NOT_SHOWN = 0;
 
     public final static double OPACITY_KEY_LOCATION_SHOWN = 1.00;
