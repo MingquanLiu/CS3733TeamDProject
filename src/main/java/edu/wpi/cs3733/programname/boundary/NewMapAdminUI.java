@@ -44,7 +44,7 @@ import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 import static javafx.scene.paint.Color.BLUE;
 
 
-public class NewMapAdminUI extends UIController{
+public class NewMapAdminUI extends UIController {
 
 
     //FXML objects
@@ -262,7 +262,7 @@ public class NewMapAdminUI extends UIController{
 
     private NodeData prevShowNode;
 
-//    private boolean logOffNext = false;
+    //    private boolean logOffNext = false;
 //    private boolean loggedIn;
 //    private String userName = null;
 //    private Employee employeeLoggedIn;
@@ -276,35 +276,42 @@ public class NewMapAdminUI extends UIController{
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
-                nodeInfoBox.setVisible(false);
-                if(prevShowNode!=null) {
+                nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+                if (prevShowNode != null) {
                     shrinkNode(prevShowNode);
                 }
 //                setNodeDataToInfoPane(mClickedNode);
                 if (e.getClickCount() == 2) {
+                    nodeInfoBox.toFront();
                     clearNodeInfoText();
                     NodeData mClickedNode = getClosestNode(nodes, x, y);
-                    lblCurrentBuilding.setText(mClickedNode.getBuilding());
-                    lblCurrentFloor.setText(curFloor.getFloorNum());
+                    if (mClickedNode != null) {
+                        lblCurrentBuilding.setText(mClickedNode.getBuilding());
+                        lblCurrentFloor.setText(curFloor.getFloorNum());
+                    } else {
+                        lblCurrentBuilding.setText(curBuilding.getName());
+                        lblCurrentFloor.setText(curFloor.getFloorNum());
+                    }
                     textNodeLocation.setText(UICToDBC(x, currentScale) +
                             "," + UICToDBC(y, currentScale));
                     setButtonVisibilityForAdd(true);
                     nodeInfoBox.setVisible(true);
                     nodeInfoBox.setOpacity(OPACITY_SHOWN);
+                } else {
+                    nodeInfoBox.toBack();
                 }
                 break;
         }
     }
 
-    public void setButtonVisibilityForAdd(Boolean addNode){
-        if(addNode){
+    public void setButtonVisibilityForAdd(Boolean addNode) {
+        if (addNode) {
             btnAddNode.setVisible(true);
             btnDeleteNode.setVisible(false);
             btnEditNode.setVisible(false);
             addEdgeNodeInfoBox.setVisible(false);
             btnSetDefaultLocation.setVisible(false);
-        }
-        else{
+        } else {
             btnAddNode.setVisible(false);
             btnDeleteNode.setVisible(true);
             btnEditNode.setVisible(true);
@@ -312,6 +319,7 @@ public class NewMapAdminUI extends UIController{
             btnSetDefaultLocation.setVisible(true);
         }
     }
+
     private NodeData getClosestNode(List<NodeData> nodeDataList, int mouseX, int mouseY) {
         int dbX = UICToDBC(mouseX, currentScale);
         int dbY = UICToDBC(mouseY, currentScale);
@@ -399,7 +407,6 @@ public class NewMapAdminUI extends UIController{
             }
             if (curFloor == null || curFloor != comboFloors.getValue()) {
                 System.out.println("Floors changing");
-                System.out.println("comboFloors: " + comboFloors);
                 Floor newFloor = (Floor) (comboFloors.getValue());
                 curFloor = newFloor;
                 String newUrl = newFloor.getImgUrl();
@@ -515,6 +522,7 @@ public class NewMapAdminUI extends UIController{
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
+        nodeInfoBox.toFront();
         nodeInfoBox.setVisible(true);
         nodeInfoBox.setOpacity(OPACITY_SHOWN);
         textNodeId.setText(nodeData.getNodeID());
@@ -601,8 +609,8 @@ public class NewMapAdminUI extends UIController{
     }
 
     public void clearMain() {
-        if(prevShowNode!=null)
-        panningPane.getChildren().remove(prevShowNode.getCircle());
+        if (prevShowNode != null)
+            panningPane.getChildren().remove(prevShowNode.getCircle());
         prevShowNode = null;
         if (drawings.size() > 0) {
             for (Shape shape : drawings) {
@@ -798,42 +806,44 @@ public class NewMapAdminUI extends UIController{
 
     }
 
-    public ManageController getManager(){
+    public ManageController getManager() {
         return manager;
     }
 
     @Override
     public void passNodeData(NodeData nodeData) throws IOException {
 
-        if(prevShowNode==null){
+        if (prevShowNode == null) {
             prevShowNode = nodeData;
-        }else if(!nodeData.equals(prevShowNode)){
+        } else if (!nodeData.equals(prevShowNode)) {
             shrinkNode(prevShowNode);
             prevShowNode = nodeData;
-        }else{
+        } else {
             System.out.println("Equals");
         }
         enlargeNode(nodeData);
         setButtonVisibilityForAdd(false);
         setNodeDataToInfoPane(nodeData);
-        if(selectEdge){
+        if (selectEdge) {
             edgeNode2.setText(textNodeId.getText());
-            selectEdge=false;
+            selectEdge = false;
         }
     }
-    public void shrinkNode(NodeData nodeData){
+
+    public void shrinkNode(NodeData nodeData) {
         panningPane.getChildren().remove(nodeData.getCircle());
         nodeData.changeBackCircleAndChangeColor(currentScale);
-        setCircleNodeController(nodeData,this);
+        setCircleNodeController(nodeData, this);
         panningPane.getChildren().add(nodeData.getCircle());
     }
 
-    public void enlargeNode(NodeData nodeData){
+    public void enlargeNode(NodeData nodeData) {
         panningPane.getChildren().remove(nodeData.getCircle());
         nodeData.enlargeCircleAndChangeColor(currentScale);
-        setCircleNodeController(nodeData,this);
+        setCircleNodeController(nodeData, this);
         panningPane.getChildren().add(nodeData.getCircle());
     }
+
     @Override
     public void passEdgeData(EdgeData edgeData) {
 
@@ -849,46 +859,47 @@ public class NewMapAdminUI extends UIController{
         this.paneScroll.setFitToWidth(false);
     }
 
-    public void mapAdminSettingHandler(){
-        if(mapAdminSettingPane.visibleProperty().getValue())
+    public void mapAdminSettingHandler() {
+        if (mapAdminSettingPane.visibleProperty().getValue())
             mapAdminSettingPane.setVisible(false);
-        else{
+        else {
             mapAdminSettingPane.setVisible(true);
         }
     }
 
-    public void pfAlgorithmHandler(ActionEvent e){
+    public void pfAlgorithmHandler(ActionEvent e) {
         Object mEvent = e.getSource();
         PathfindingController.searchType mType = PathfindingController.searchType.ASTAR;
-        if(mEvent.equals(AStar)){
+        if (mEvent.equals(AStar)) {
             mType = PathfindingController.searchType.ASTAR;
         }
-        if(mEvent.equals(BestFirst)){
+        if (mEvent.equals(BestFirst)) {
             mType = PathfindingController.searchType.BEST;
         }
-        if(mEvent.equals(Beam)){
+        if (mEvent.equals(Beam)) {
             mType = PathfindingController.searchType.BEAM;
         }
 
-        if(mEvent.equals(BFS)){
+        if (mEvent.equals(BFS)) {
             mType = PathfindingController.searchType.BFS;
         }
 
-        if(mEvent.equals(DFS)){
+        if (mEvent.equals(DFS)) {
             mType = PathfindingController.searchType.DFS;
         }
-        if(mEvent.equals(Dijkstra)){
+        if (mEvent.equals(Dijkstra)) {
             mType = PathfindingController.searchType.DIJKSTRA;
         }
-        if(mEvent.equals(Scenic)){
+        if (mEvent.equals(Scenic)) {
             mType = PathfindingController.searchType.SCENIC;
         }
         AppSettings.getInstance().setSearchType(mType);
     }
-    public void setDefaultLocationHandler(ActionEvent e){
-        if(textNodeId.getText()!=null&&!textNodeId.getText().equals("")){
+
+    public void setDefaultLocationHandler(ActionEvent e) {
+        if (textNodeId.getText() != null && !textNodeId.getText().equals("")) {
             AppSettings.getInstance().setDefaultLocation(textNodeId.getText());
-        }else{
+        } else {
             System.out.println("Node Id is empty");
         }
     }
