@@ -24,7 +24,7 @@ public class TransportationRequestQuery {
             String reservationTime;
 
             while(result.next()) {
-                transportationType = result.getString("transportationType");
+                transportationType = result.getString("transportType");
                 destination = result.getString("destination");
                 reservationTime = result.getString("reservationTime");
                 queryResult.add(transportationType);

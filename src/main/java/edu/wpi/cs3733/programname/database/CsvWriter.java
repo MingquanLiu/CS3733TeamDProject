@@ -430,15 +430,15 @@ public class CsvWriter {
 
 
             // Initialize table fields
-            int serviceID = 0;
+            String serviceID = "";
             String skill = "";
 
 
             // Prints header fields
             prt.println("serviceID, skill");
             while (rset.next()) {
-                serviceID = rset.getInt("serviceID");
-                skill = rset.getString("skill");
+                serviceID = rset.getString("serviceID");
+                skill = rset.getString("maintenanceType");
 
 
                 prt.println(serviceID + "," +
@@ -469,7 +469,7 @@ public class CsvWriter {
 
 
             // Initialize table fields
-            int serviceID = 0;
+            String serviceID = "";
             String transportationType = "";
             String destination = "";
             String reservationTime = "";
@@ -478,8 +478,8 @@ public class CsvWriter {
             // Prints header fields
             prt.println("serviceID, transportationType, destination, reservationTime");
             while (rset.next()) {
-                serviceID = rset.getInt("serviceID");
-                transportationType = rset.getString("transportationType");
+                serviceID = rset.getString("serviceID");
+                transportationType = rset.getString("transportType");
                 destination = rset.getString("destination");
                 reservationTime = rset.getString("reservationTime");
 

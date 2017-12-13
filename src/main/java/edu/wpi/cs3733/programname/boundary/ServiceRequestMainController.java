@@ -20,7 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+import javax.xml.ws.Service;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceRequestMainController {
@@ -77,65 +79,165 @@ public class ServiceRequestMainController {
     @FXML
     private JFXButton btnAssignSelected;
 
+    List<ServiceRequest> currentlyVisible;
+    int currentView;
+
     ManageController manager;
 
     public void initManager(ManageController manage) throws IOException {
         this.manager = manage;
-        updateRequestsUnassigned();
+        unassignedButtonHandler();
         updateEmployeeTable();
         AppSettings.getInstance().setCurrentSelectedRequestId(null);
     }
 
     @SuppressWarnings("Duplicates")
-    private void updateRequestsUnassigned() throws IOException {
+    private void updateRequestsUnassigned(List<ServiceRequest> allUnassigned) throws IOException {
         requestMasonryPane.getChildren().clear();
-        requestMasonryPane.setVisible(true);
-        List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
         for(ServiceRequest unassigned: allUnassigned) {
             AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
                     "/fxml/service_request_obj2.fxml"
             ));
             AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
-            requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
+            //requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
             updateRequestDetail(requestView, unassigned, UNASSIGNED);
-            requestView.setVisible(true);
+            requestView.toFront();
             requestMasonryPane.getChildren().add(requestView);
         }
+        currentlyVisible = allUnassigned;
+        currentView = UNASSIGNED;
     }
 
     public void unassignedButtonHandler() throws IOException {
-        updateRequestsUnassigned();
+        List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
+        updateRequestsUnassigned(allUnassigned);
     }
 
     public void assignedButtonHandler() throws IOException {
-        updateRequestsAssigned();
+        List<ServiceRequest> allAssigned = manager.getAssignedRequests();
+        updateRequestsAssigned(allAssigned);
     }
 
     public void completedButtonHandler() throws IOException {
-        updateRequestsCompleted();
+        List<ServiceRequest> allCompleted = manager.getCompletedRequests();
+        updateRequestsCompleted(allCompleted);
     }
 
-    public void allTypesButtonHandler() {
+
+    public void allTypesButtonHandler() throws IOException {
+        List<ServiceRequest> sorted;
+        if (currentView == UNASSIGNED) {
+            sorted = manager.getUnassignedRequests();
+            updateRequestsUnassigned(sorted);
+        } else if (currentView == ASSIGNED) {
+            sorted = manager.getAssignedRequests();
+            updateRequestsAssigned(sorted);
+        } else if (currentView == COMPLETED) {
+            sorted = manager.getCompletedRequests();
+            updateRequestsCompleted(sorted);
+        }
+    }
+
+    public void interpreterButtonHandler() throws IOException{
+        List<ServiceRequest> sorted;
+        if (currentView == UNASSIGNED) {
+            sorted = manager.getUnassignedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsUnassigned(filtered);
+        } else if (currentView == ASSIGNED) {
+            sorted = manager.getAssignedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsAssigned(filtered);
+        } else if (currentView == COMPLETED) {
+            sorted = manager.getCompletedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsCompleted(filtered);
+        }
+    }
+
+    public void maintenanceButtonHandler() throws IOException {
+        List<ServiceRequest> sorted;
+        if (currentView == UNASSIGNED) {
+            sorted = manager.getUnassignedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.MAINTENANCE_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsUnassigned(filtered);
+        } else if (currentView == ASSIGNED) {
+            sorted = manager.getAssignedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.MAINTENANCE_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsAssigned(filtered);
+        } else if (currentView == COMPLETED) {
+            sorted = manager.getCompletedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.MAINTENANCE_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsCompleted(filtered);
+        }
 
     }
 
-    public void interpreterButtonHandler() {
-
-    }
-
-    public void maintenanceButtonHandler() {
-
-    }
-
-    public void transportationButtonHandler() {
-
+    public void transportationButtonHandler() throws IOException {
+        List<ServiceRequest> sorted;
+        if (currentView == UNASSIGNED) {
+            sorted = manager.getUnassignedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.TRANSPORTATION_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsUnassigned(filtered);
+        } else if (currentView == ASSIGNED) {
+            sorted = manager.getAssignedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.TRANSPORTATION_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsAssigned(filtered);
+        } else if (currentView == COMPLETED) {
+            sorted = manager.getCompletedRequests();
+            List<ServiceRequest> filtered = new ArrayList<>();
+            for (ServiceRequest request: sorted) {
+                if (request.getServiceType().equals(Constants.TRANSPORTATION_REQUEST)) {
+                    filtered.add(request);
+                }
+            }
+            updateRequestsCompleted(filtered);
+        }
     }
 
     @SuppressWarnings("Duplicates")
-    private void updateRequestsAssigned() throws IOException {
+    private void updateRequestsAssigned(List<ServiceRequest> allAssigned) throws IOException {
         requestMasonryPane.getChildren().clear();
-        requestMasonryPane.setVisible(true);
-        List<ServiceRequest> allAssigned = manager.getAssignedRequests();
         for(ServiceRequest assigned: allAssigned) {
             AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
                     "/fxml/service_request_obj2.fxml"
@@ -143,15 +245,17 @@ public class ServiceRequestMainController {
             AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
             requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
             updateRequestDetail(requestView, assigned, ASSIGNED);
-            requestView.setVisible(true);
+            requestView.toFront();
             requestMasonryPane.getChildren().add(requestView);
         }
+        currentlyVisible = allAssigned;
+        currentView = ASSIGNED;
     }
 
     @SuppressWarnings("Duplicates")
-    private void updateRequestsCompleted() throws IOException {
+    private void updateRequestsCompleted(List<ServiceRequest> allCompleted) throws IOException {
         requestMasonryPane.getChildren().clear();
-        List<ServiceRequest> allCompleted = manager.getCompletedRequests();
+
         for(ServiceRequest completed: allCompleted) {
             AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
                     "/fxml/service_request_obj2.fxml"
@@ -159,10 +263,14 @@ public class ServiceRequestMainController {
             AnchorPane completedRequestView = (AnchorPane) requestFXML.lookup("#serviceObj");
             completedRequestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
             updateRequestDetail(completedRequestView, completed, COMPLETED);
-            completedRequestView.setVisible(true);
+            completedRequestView.toFront();
             requestMasonryPane.getChildren().add(completedRequestView);
         }
+        currentlyVisible = allCompleted;
+        currentView = COMPLETED;
     }
+
+
 
     private void updateEmployeeTable() {
         employees.addAll(manager.getAllEmployees());
@@ -247,7 +355,6 @@ public class ServiceRequestMainController {
             alert.showAndWait();
             return false;
         }
-
         return true;
     }
 }
