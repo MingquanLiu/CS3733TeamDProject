@@ -399,9 +399,9 @@
                </font>
             </Label>
             <JFXTextField fx:id="textNodeTeamAssigned" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
-            <JFXTextField fx:id="textNodeLocation1" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="221.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
-            <JFXTextField fx:id="textNodeLocation11" editable="false" focusColor="#7396ff" layoutX="136.0" layoutY="253.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
-            <JFXTextField fx:id="textNodeFullName1" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="87.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeBuilding" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="221.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeFloor" editable="false" focusColor="#7396ff" layoutX="136.0" layoutY="253.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeType" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="87.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
          </children>
       </AnchorPane>
       <Label text="© Brigham &amp; Women’s Hospital 2017" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
