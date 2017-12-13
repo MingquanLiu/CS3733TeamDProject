@@ -93,6 +93,7 @@ public class ServiceRequestMainController {
 
     @SuppressWarnings("Duplicates")
     private void updateRequestsUnassigned(List<ServiceRequest> allUnassigned) throws IOException {
+        bufferUI();
         requestMasonryPane.getChildren().clear();
         for(ServiceRequest unassigned: allUnassigned) {
             AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
@@ -109,16 +110,19 @@ public class ServiceRequestMainController {
     }
 
     public void unassignedButtonHandler() throws IOException {
+        bufferUI();
         List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
         updateRequestsUnassigned(allUnassigned);
     }
 
     public void assignedButtonHandler() throws IOException {
+        bufferUI();
         List<ServiceRequest> allAssigned = manager.getAssignedRequests();
         updateRequestsAssigned(allAssigned);
     }
 
     public void completedButtonHandler() throws IOException {
+        bufferUI();
         List<ServiceRequest> allCompleted = manager.getCompletedRequests();
         updateRequestsCompleted(allCompleted);
     }
@@ -237,6 +241,7 @@ public class ServiceRequestMainController {
 
     @SuppressWarnings("Duplicates")
     private void updateRequestsAssigned(List<ServiceRequest> allAssigned) throws IOException {
+        bufferUI();
         requestMasonryPane.getChildren().clear();
         for(ServiceRequest assigned: allAssigned) {
             AnchorPane requestFXML = (AnchorPane) FXMLLoader.load(getClass().getResource(
@@ -254,6 +259,7 @@ public class ServiceRequestMainController {
 
     @SuppressWarnings("Duplicates")
     private void updateRequestsCompleted(List<ServiceRequest> allCompleted) throws IOException {
+        bufferUI();
         requestMasonryPane.getChildren().clear();
 
         for(ServiceRequest completed: allCompleted) {
@@ -356,5 +362,14 @@ public class ServiceRequestMainController {
             return false;
         }
         return true;
+    }
+
+    private void bufferUI() {
+        requestMasonryPane.getChildren().clear();
+        try {
+            Thread.sleep(150);
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
     }
 }
