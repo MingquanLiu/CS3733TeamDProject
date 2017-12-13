@@ -547,7 +547,7 @@ public class NewMainPageController extends UIController {
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
         nodeInfoBox.setVisible(true);
-        nodeInfoBox.setOpacity(OPACITY_SHOWN);
+//        nodeInfoBox.setOpacity(OPACITY_SHOWN);
         textNodeId.setText(nodeData.getNodeID());
         textNodeType.setText(nodeData.getNodeType());
         textNodeBuilding.setText(nodeData.getBuilding());
@@ -576,7 +576,7 @@ public class NewMainPageController extends UIController {
         enlargeNode(nodeData);
         setNodeDataToInfoPane(nodeData);
         nodeInfoBox.setVisible(true);
-        nodeInfoBox.setOpacity(OPACITY_SHOWN);
+//        nodeInfoBox.setOpacity(OPACITY_SHOWN);
     }
 
     @Override

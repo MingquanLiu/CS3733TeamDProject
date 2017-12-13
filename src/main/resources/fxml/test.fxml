@@ -194,7 +194,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="adminFeaturePane" prefHeight="294.0" prefWidth="314.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane fx:id="adminFeaturePane" prefHeight="107.0" prefWidth="101.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
          <children>
             <JFXButton fx:id="adminFeatureSubject" buttonType="RAISED" ellipsisString="" prefHeight="45.0" prefWidth="61.0" stylesheets="@../css/general_button.css">
                <graphic>
@@ -205,7 +205,7 @@
                   <String fx:value="icon-buttona" />
                </styleClass>
             </JFXButton>
-            <JFXButton fx:id="employeeManager" alignment="TOP_CENTER" buttonType="RAISED" ellipsisString="" layoutX="78.0" layoutY="14.0" onAction="#employeeButtonHandler" prefHeight="50.0" prefWidth="67.0" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="employeeManager" alignment="TOP_CENTER" buttonType="RAISED" ellipsisString="" onAction="#employeeButtonHandler" prefHeight="50.0" prefWidth="67.0" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-employeeManager" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
@@ -214,47 +214,47 @@
                   <String fx:value="color-button-adminFeature" />
                </styleClass>
             </JFXButton>
-            <JFXButton fx:id="mapEdit" buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="117.0" onAction="#mapEditHandler" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="mapEdit" buttonType="RAISED" ellipsisString="" onAction="#mapEditHandler" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-mapEdit" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="serviceRequestSubject" buttonType="RAISED" ellipsisString="" layoutX="157.0" layoutY="201.0" onAction="#openAdminHandler" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="serviceRequestSubject" buttonType="RAISED" ellipsisString="" onAction="#openAdminHandler" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" minWidth="39.0" prefHeight="40.0" prefWidth="39.0" styleClass="icon-button-serviceRequest" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="transportationServiceRequest" buttonType="RAISED" ellipsisString="" layoutX="61.0" layoutY="192.0" onAction="#transportRequestHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="transportationServiceRequest" buttonType="RAISED" ellipsisString="" layoutX="14.0" onAction="#transportRequestHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-transportationRequest" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="interpreterServiceRequest" buttonType="RAISED" ellipsisString="" layoutX="145.0" layoutY="30.0" onAction="#interpreterRequestHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="interpreterServiceRequest" buttonType="RAISED" ellipsisString="" onAction="#interpreterRequestHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-interpreterRequest" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="maintenanceServiceRequest" buttonType="RAISED" ellipsisString="" layoutX="93.0" layoutY="97.0" onAction="#maintenanceRequestHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="maintenanceServiceRequest" buttonType="RAISED" ellipsisString="" onAction="#maintenanceRequestHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-maintenanceRequest" stylesheets="@../css/general_button.css" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="serviceRequestManager" buttonType="RAISED" ellipsisString="" layoutX="177.0" layoutY="127.0" onAction="#openManagerHandler" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="serviceRequestManager" buttonType="RAISED" ellipsisString="" onAction="#openManagerHandler" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" minWidth="39.0" prefHeight="40.0" prefWidth="39.0" styleClass="icon-button-serviceManager" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="API" buttonType="RAISED" ellipsisString="" layoutX="197.0" layoutY="80.0" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="API" buttonType="RAISED" ellipsisString="" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" minWidth="39.0" prefHeight="40.0" prefWidth="39.0" styleClass="icon-button-API" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="foodAPI" buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="210.0" onAction="#foodAPIHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="foodAPI" buttonType="RAISED" ellipsisString="" layoutX="14.0" layoutY="14.0" onAction="#foodAPIHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-foodAPI" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="healthAPI" buttonType="RAISED" ellipsisString="" layoutX="78.0" layoutY="210.0" onAction="#healthAPIHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="healthAPI" buttonType="RAISED" ellipsisString="" layoutX="6.0" onAction="#healthAPIHandler" prefHeight="50.0" prefWidth="42.0" styleClass="color-button-serviceRequest" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-healthAPI" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
@@ -305,7 +305,7 @@
             <JFXButton fx:id="btnHelp" alignment="BOTTOM_CENTER" layoutX="1180.0" layoutY="4.0" onAction="#helpButtonHandler" prefHeight="31.0" prefWidth="101.0" ripplerFill="#59fc92" text="Help" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="3.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="nodeInfoBox" layoutX="10.0" layoutY="10.0" opacity="0.0" prefHeight="343.0" prefWidth="362.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
+      <AnchorPane fx:id="nodeInfoBox" layoutX="10.0" layoutY="10.0" opacity="0.77" prefHeight="343.0" prefWidth="362.0" style="-fx-background-color: grey;" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutX="61.0" layoutY="25.0" text="Node Info" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
