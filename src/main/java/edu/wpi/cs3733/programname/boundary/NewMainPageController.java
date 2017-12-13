@@ -15,14 +15,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -199,7 +200,6 @@ public class NewMainPageController {
 
     private List<NodeData> currentPath;
     private List<Shape> pathDrawings = new ArrayList<>();
-    private Group m_draggableNode;
     private String currentPathStartFloor = "";
     private String currentPathGoalFloor = "";
     private Coordinate currentStartFloorLoc;
@@ -211,6 +211,11 @@ public class NewMainPageController {
     private boolean loggedIn;
     private String userName = null;
     private Employee employeeLoggedIn;
+
+    // Circle, group, and node all required for path dragging
+    private Group draggablePath;
+    private Circle pathDot = new Circle();
+    private NodeData closestNode; // this is needed in a few methods
 
 
     private boolean showStairs = false;
@@ -422,6 +427,17 @@ public class NewMainPageController {
         comboCharacter.setCellFactory(listView -> new NewMainPageController.ImageListCell());
         comboCharacter.setValue(walkingMan);
         currentNodes = manageController.queryNodeByFloorAndBuilding(curBuilding.getName(),curFloor.getFloorNum());
+
+        // Initialize all mouse event callbacks for path dragging
+        draggablePath = new Group();
+        draggablePath.setOnMouseMoved(mouseMove());
+        draggablePath.setOnMouseExited(mouseExit());
+        draggablePath.setOnMousePressed(mousePress());
+        draggablePath.setOnMouseDragged(mouseDrag());
+        draggablePath.setOnMouseReleased(mouseRelease());
+
+        // This is the circle that appears when user hovers over a line
+        panningPane.getChildren().add(pathDot);
     }
     //path display/animation
     private class ImageListCell extends ListCell<Image> {
@@ -461,7 +477,7 @@ public class NewMainPageController {
         if (pathDrawings.size() > 0) {
             for (Shape shape : pathDrawings) {
                 System.out.println("success remove");
-                panningPane.getChildren().remove(shape);
+                draggablePath.getChildren().remove(shape);
             }
             currentPathStartFloor = "";
             currentPathGoalFloor = "";
@@ -590,7 +606,8 @@ public class NewMainPageController {
                 pathAnimation(thisFloorPath);
             }
             pathDrawings.addAll(lines);
-            panningPane.getChildren().addAll(lines);
+            draggablePath.getChildren().addAll(lines);
+            panningPane.getChildren().add(draggablePath);
 
             //emailDirections.setVisible(true);
         }
@@ -1128,6 +1145,126 @@ public class NewMainPageController {
     public void clearPathHandler(){
         clearPath();
         clearPathFindLoc();
+    }
+
+    private EventHandler<MouseEvent> mousePress() {
+        EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {
+
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    // lock the scroll
+                    Double m_nMouseX = 0.0;
+                    Double m_nMouseY = 0.0;
+                    m_nMouseX = event.getX();
+                    m_nMouseY = event.getY();
+                    closestNode = getClosestNode(currentNodes, m_nMouseX.intValue(), m_nMouseY.intValue());
+                    paneScroll.setPannable(false);
+                }
+            }
+        };
+
+        return mousePressHandler;
+    }
+
+    private EventHandler<MouseEvent> mouseRelease() {
+        EventHandler<MouseEvent> mouseReleaseHandler = new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                pathDot.setVisible(false);
+                Double m_nMouseX = 0.0;
+                Double m_nMouseY = 0.0;
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    // unlock the scroll
+                    // get the latest mouse coordinate.
+                    m_nMouseX = event.getX();
+                    m_nMouseY = event.getY();
+                    NodeData nodeData = getClosestNode(currentNodes, m_nMouseX.intValue(), m_nMouseY.intValue());
+                    if(closestNode.getLongName().equals(startLocation.getText())) {
+                        try {
+                            currentPath.clear();
+                            currentPath.addAll(manager.startPathfind(nodeData.getLongName(), endLocation.getText(), handicap.isSelected()));
+                            displayPath(currentPath);
+                            startLocation.setText(nodeData.getLongName());
+                        } catch (InvalidNodeException ine) {
+                            currentPath = new ArrayList<>();
+                        } catch (NoPathException np) {
+                            String id = np.startID;
+                            currentPath = new ArrayList<>();
+                        }
+                    } else if(closestNode.getLongName().equals(endLocation.getText())) {
+                        try {
+                            currentPath.clear();
+                            currentPath.addAll(manager.startPathfind(startLocation.getText(), nodeData.getLongName(), handicap.isSelected()));
+                            displayPath(currentPath);
+                            endLocation.setText(nodeData.getLongName());
+                        } catch (InvalidNodeException ine) {
+                            currentPath = new ArrayList<>();
+                        } catch (NoPathException np) {
+                            String id = np.startID;
+                            currentPath = new ArrayList<>();
+                        }
+                    } else {
+                        try {
+                            currentPath.clear();
+                            currentPath = manager.startPathfind(startLocation.getText(), nodeData.getLongName(), handicap.isSelected());
+                            currentPath.addAll(manager.startPathfind(nodeData.getLongName(), endLocation.getText(), handicap.isSelected()));
+                            displayPath(currentPath);
+                        } catch (InvalidNodeException ine) {
+                            currentPath = new ArrayList<>();
+                        } catch (NoPathException np) {
+                            String id = np.startID;
+                            currentPath = new ArrayList<>();
+                        }
+                    }
+                    paneScroll.setPannable(true);
+
+                }
+            }
+        };
+
+        return mouseReleaseHandler;
+    }
+
+    private EventHandler<MouseEvent> mouseDrag() {
+        EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    System.out.println(event.getX());
+                    System.out.println(event.getY());
+                    // set the layout for the draggable node.
+                    pathDot.setVisible(true);
+                    pathDot.setCenterX(event.getX());
+                    pathDot.setCenterY(event.getY());
+                }
+            }
+        };
+        return dragHandler;
+    }
+
+    private EventHandler<MouseEvent> mouseExit() {
+        EventHandler<MouseEvent> exitHandler = new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                pathDot.setVisible(false);
+            }
+        };
+        return exitHandler;
+    }
+
+    private EventHandler<MouseEvent> mouseMove() {
+        EventHandler<MouseEvent> moveHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(draggablePath.isHover()) {
+                    pathDot.setCenterX(event.getX());
+                    pathDot.setCenterY(event.getY());
+                    pathDot.setRadius(5.0f);
+                    pathDot.setFill(Color.BLUE);
+                    pathDot.setVisible(true);
+                    System.out.println(event.getX());
+                    System.out.println(event.getY());
+                }
+            }
+        };
+        return moveHandler;
     }
 
     // End of controller
