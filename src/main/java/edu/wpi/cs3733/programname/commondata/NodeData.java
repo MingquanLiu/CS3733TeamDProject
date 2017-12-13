@@ -393,11 +393,11 @@ public class NodeData {
      */
 
     public void initializeCircle(){
-        circle = new Circle(getXCoord(), getYCoord(), CIRCILE_RADIUS, RED) ;
+        circle = new Circle(getXCoord(), getYCoord(), CIRCILE_RADIUS, NODE_COLOR) ;
         setBorder();
     }
     public void setBorder(){
-        circle.setStroke(Color.BLACK);
+        circle.setStroke(NODE_STROKE_COLOR);
     }
 
     public Circle getCircle(){
@@ -458,43 +458,43 @@ public class NodeData {
     public void setCircleOnDragged(NewMapAdminNodeDataObserver newMapAdminNodeDataObserver){
         newMapAdminNodeDataObserver.setNodeData(this);
 
-        circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                mouseX = event.getSceneX();
-                mouseY = event.getSceneY();
-                imgX = ((Circle) (event.getSource())).getCenterX();
-                imgY = ((Circle) (event.getSource())).getCenterY();
-            }
-        });
+//        circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                mouseX = event.getSceneX();
+//                mouseY = event.getSceneY();
+//                imgX = ((Circle) (event.getSource())).getCenterX();
+//                imgY = ((Circle) (event.getSource())).getCenterY();
+//            }
+//        });
+//        circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                newMapAdminNodeDataObserver.disableScroll();
+//                double offsetX = event.getSceneX() - mouseX;
+//                double offsetY = event.getSceneY() - mouseY;
+//                double newTranslateX = imgX + offsetX;
+//                double newTranslateY = imgY + offsetY;
+//
+//                ((Circle) (event.getSource())).setCenterX(newTranslateX);
+//                ((Circle) (event.getSource())).setCenterY(newTranslateY);
+//            }
+//        });
         circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                newMapAdminNodeDataObserver.disableScroll();
-                double offsetX = event.getSceneX() - mouseX;
-                double offsetY = event.getSceneY() - mouseY;
-                double newTranslateX = imgX + offsetX;
-                double newTranslateY = imgY + offsetY;
-
-                ((Circle) (event.getSource())).setCenterX(newTranslateX);
-                ((Circle) (event.getSource())).setCenterY(newTranslateY);
+//                if(clicked){
+                    newMapAdminNodeDataObserver.disableScroll();
+                    System.out.println("Circle dragged");
+                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());
+                     System.out.println("image translate x:" + ((Circle)(event.getSource())).getCenterX());
+                    circle.setCenterX(event.getSceneX());
+                    circle.setCenterY(event.getSceneY());
+                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
+//                }
+//                    newMapAdminNodeDataObserver.update();
             }
         });
-//        circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
-////            @Override
-////            public void handle(MouseEvent event) {
-//////                if(clicked){
-////                    newMapAdminNodeDataObserver.disableScroll();
-////                    System.out.println("Circle dragged");
-////                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());
-////                     System.out.println("image translate x:" + ((Circle)(event.getSource())).getCenterX());
-////                    circle.setCenterX(event.getSceneX());
-////                    circle.setCenterY(event.getSceneY());
-////                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
-//////                }
-//////                    newMapAdminNodeDataObserver.update();
-////            }
-//        });
     }
     public void setCircleOnDraggedExit(NewMapAdminNodeDataObserver newMapAdminNodeDataObserver) {
         newMapAdminNodeDataObserver.setNodeData(this);
@@ -549,13 +549,13 @@ public class NodeData {
         });
     }
     public void enlargeCircleAndChangeColor(double currentScale){
-        circle =new Circle(circle.getCenterX(), circle.getCenterY(), EXPANDED_CIRCILE_RADIUS*currentScale, GREEN);
+        circle =new Circle(circle.getCenterX(), circle.getCenterY(), EXPANDED_CIRCILE_RADIUS*currentScale, NODE_ENLARGED_COLOR);
         setBorder();
         clicked = true;
         System.out.println("In changing circles");
     }
     public void changeBackCircleAndChangeColor(double currentScale){
-        circle =new Circle(circle.getCenterX(), circle.getCenterY(), CIRCILE_RADIUS*currentScale, RED);
+        circle =new Circle(circle.getCenterX(), circle.getCenterY(), CIRCILE_RADIUS*currentScale, NODE_COLOR);
         setBorder();
         clicked = false;
     }

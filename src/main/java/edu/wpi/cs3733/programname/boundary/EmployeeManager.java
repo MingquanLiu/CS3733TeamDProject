@@ -339,12 +339,10 @@ public class EmployeeManager {
         Stage stage = (Stage) btnCloseSkills.getScene().getWindow();
         changessaved.setVisible(false);
         stage.close();
-        employeetable.setVisible(true);
     }
 
     @FXML
     private void openSkillsWindow(ActionEvent Event) throws IOException {
-        employeetable.setVisible(false);
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/employeeSkillsPopup.fxml"
