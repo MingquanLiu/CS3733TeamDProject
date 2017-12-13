@@ -595,6 +595,8 @@ public class NewMainPageController extends UIController {
                 System.out.println("success remove");
                 draggablePath.getChildren().remove(shape);
             }
+            if(panningPane.getChildren().contains(draggablePath));
+            panningPane.getChildren().remove(draggablePath);
             currentPathStartFloor = "";
             currentPathGoalFloor = "";
             pathDrawings = new ArrayList<>();
@@ -1294,7 +1296,6 @@ public class NewMainPageController extends UIController {
     }
     public void clearPathHandler(){
         clearPath();
-        clearPathFindLoc();
     }
 
     private void showNodeList(List<NodeData> nodeDataList) {
@@ -1417,6 +1418,7 @@ public class NewMainPageController extends UIController {
                     pathDot.setCenterY(event.getY());
                     pathDot.setRadius(5.0f);
                     pathDot.setFill(Color.BLUE);
+                    pathDot.setStroke(Color.BLACK);
                     pathDot.setVisible(true);
                     System.out.println(event.getX());
                     System.out.println(event.getY());

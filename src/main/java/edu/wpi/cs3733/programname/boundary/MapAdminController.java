@@ -912,4 +912,12 @@ public class MapAdminController extends UIController implements Initializable {
     void passEdgeData(EdgeData edgeData) {
 
     }
+
+    public ImageView getFloorImage() {
+        return imgMap;
+    }
+
+    public ScrollPane getPaneScroll() {
+        return paneScroll;
+    }
 }
