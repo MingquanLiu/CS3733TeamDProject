@@ -119,6 +119,8 @@ public class CsvReader {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        CsvWriter writer = new CsvWriter();
+        writer.writeNodes(conn);
     }
 
     //Maps
@@ -258,6 +260,8 @@ public class CsvReader {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        CsvWriter writer = new CsvWriter();
+        writer.writeEdges(conn);
     } // end insertNodes
 
 
@@ -436,6 +440,8 @@ public class CsvReader {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        CsvWriter writer = new CsvWriter();
+        writer.writeEmployees(conn);
     }
 
     // SERVICEREQUESTS
@@ -683,6 +689,8 @@ public class CsvReader {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        CsvWriter writer = new CsvWriter();
+        writer.writeServiceRequests(conn);
     }
 
 }

@@ -11,6 +11,12 @@ public class CsvWriter {
 
     public CsvWriter() {
         this.dbConnection = dbConnection;
+        File csvFolder = new File("csv/CsvNodes");
+        csvFolder.mkdirs();
+        File csvEdges = new File("csv/CsvEdges");
+        csvEdges.mkdir();
+        File csvTables = new File("csv/CsvTables");
+        csvTables.mkdir();
     }
 
     public void writeNodes(Connection conn) {
@@ -215,8 +221,9 @@ public class CsvWriter {
 
         } catch (IOException e) {
             e.printStackTrace();
-
         }
+        writeInterpreterSkills(conn);
+        writeMaintenanceSkills(conn);
     }
 
 
@@ -364,8 +371,10 @@ public class CsvWriter {
 
         } catch (IOException e) {
             e.printStackTrace();
-
         }
+        writeInterpreterRequests(conn);
+        writeTransportationRequests(conn);
+        writeMaintenanceRequests(conn);
     }
 
     public void writeInterpreterRequests(Connection conn) {
