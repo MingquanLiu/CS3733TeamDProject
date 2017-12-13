@@ -390,7 +390,8 @@ public class NewMapAdminUI extends UIController{
         }
 
         if (allNodesBox != null)
-            showNodesOrEdges();
+            setCircleNodeListSizeAndLocation(currentNodes,currentScale);
+//            showNodesOrEdges();
 
     }
 
@@ -420,7 +421,7 @@ public class NewMapAdminUI extends UIController{
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         updateZoomSlider();
-        showNodesOrEdges();
+//        showNodesOrEdges();
     }
 
     public double getScale() {
@@ -935,7 +936,7 @@ public class NewMapAdminUI extends UIController{
         if(prevShowNode==null){
             prevShowNode = nodeData;
         }else if(!nodeData.equals(prevShowNode)){
-            shrinkNode(nodeData);
+            shrinkNode(prevShowNode);
             prevShowNode = nodeData;
         }else{
             System.out.println("Equals");
