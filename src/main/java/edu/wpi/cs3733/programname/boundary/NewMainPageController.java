@@ -354,17 +354,91 @@ public class NewMainPageController extends UIController {
 
     // This function displays all the nodes that are toggled on according to the ShowXXXX booleans
     private void updateNodeVisibility(){
+
         List<NodeData> visibleNodes = new LinkedList<NodeData>();
+        //    private void showNode(NodeData n) panningPane.getChildren().add(n.getCircle());}
         //if a nodegroup is toggled on, add it to the list of shown nodes
-        if (showBathrooms){} //visibleNodes.add(HelperFunction.getTypeNode(,"REST"));}
-        if (showElevator){}
-        if (showExits){}
-        if (showLabs){}
-        if (showServiceDesk){}
-        if (showRetail){}
-        if (showWaitingRooms){}
-        if (showDestination){}
-        if (showStairs){}
+        if (showBathrooms) {
+//            System.out.println(manager.queryNodeByFloor(curFloor.getFloorNum()).size());
+//            System.out.println(manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curBuilding.toString()).size());
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("REST")) {
+                    visibleNodes.add(nodeIt);
+                   // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+        }
+         //visibleNodes.add(HelperFunction.getTypeNode(,"REST"));}
+        if (showElevator){
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("ELEV")) {
+                    visibleNodes.add(nodeIt);
+                    // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+        }
+        if (showExits){
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("EXIT")) {
+                    visibleNodes.add(nodeIt);
+                    // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+        }
+        if (showLabs){
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("LABS")) {
+                    visibleNodes.add(nodeIt);
+                    // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+        }
+        if (showServiceDesk){
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("INFO")) {
+                    visibleNodes.add(nodeIt);
+                    // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+
+        }
+        if (showRetail){
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("RETL")) {
+                    visibleNodes.add(nodeIt);
+                    // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+        }
+        if (showWaitingRooms){
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("DEPT")) {
+                    visibleNodes.add(nodeIt);
+                    // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+        }
+        if (showDestination) {     //TODO FIX THIS
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("DEPT")) {
+                    visibleNodes.add(nodeIt);
+                    // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+        }
+        if (showStairs){
+            for (NodeData nodeIt : currentNodes) {
+                if (nodeIt.getNodeType().equals("STAI")) {
+                    visibleNodes.add(nodeIt);
+                    // panningPane.getChildren().add(nodeIt.getCircle());
+                }
+            }
+        }
+        System.out.println(visibleNodes.size());
+        HelperFunction.setNodeListCircleVisibility(false , currentNodes);
+        HelperFunction.setNodeListCircleVisibility(true , visibleNodes);
+              //  HelperFunction.setNodeListImageVisibility(false, currentNodes);
+             //   HelperFunction.setNodeListImageVisibility(true, visibleNodes);
     }
 
 
