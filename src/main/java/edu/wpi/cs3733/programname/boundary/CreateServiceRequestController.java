@@ -97,6 +97,7 @@ public class CreateServiceRequestController {
         btnCurrentTime.setVisible(true);
         lblReserveTime.setVisible(true);
         submissionType = Constants.INTERPRETER_REQUEST;
+        lblNewRequestTitle.setText("Interpreter Request");
     }
 
     public void initializeMaintenance() {
@@ -108,6 +109,7 @@ public class CreateServiceRequestController {
         btnCurrentTime.setVisible(false);
         lblReserveTime.setVisible(false);
         submissionType = Constants.MAINTENANCE_REQUEST;
+        lblNewRequestTitle.setText("Maintenance Request");
     }
 
     public void initializeTransportation() {
@@ -119,6 +121,7 @@ public class CreateServiceRequestController {
         btnCurrentTime.setVisible(true);
         lblReserveTime.setVisible(true);
         submissionType = Constants.TRANSPORTATION_REQUEST;
+        lblNewRequestTitle.setText("Transportation Request");
     }
 
     public void interpreterButtonHandler() {

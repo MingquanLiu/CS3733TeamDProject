@@ -267,4 +267,10 @@
     -fx-pref-width: 50;
 }
 
+.color-button-typeOfServiceRequest{
+    -fx-background-color: #d2d2d2;
+    -fx-pref-height:60;
+    -fx-pref-width: 120;
+}
+
 
