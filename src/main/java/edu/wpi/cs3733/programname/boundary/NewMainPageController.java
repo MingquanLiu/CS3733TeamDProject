@@ -1006,20 +1006,36 @@ public class NewMainPageController extends UIController {
 
     public void openAdminHandler() throws IOException {
         System.out.println("In open admin handler");
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/service_request_main.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
-        loader.<ServiceRequestMainController>getController().initManager(manager);
-        stage.show();
-        managers.add(stage);
+        if (employeeLoggedIn.getSysAdmin() == true) {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/fxml/service_request_main.fxml"
+                    )
+            );
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setScene(
+                    new Scene(
+                            (Pane) loader.load()
+                    )
+            );
+            loader.<ServiceRequestMainController>getController().initManager(manager);
+            stage.show();
+            managers.add(stage);
+        } else {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/fxml/employee_request_handler.fxml"
+                    )
+            );
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setScene(
+                    new Scene(
+                            (Pane) loader.load()
+                    )
+            );
+            loader.<EmployeeRequestHandlerController>getController().initialize(this.manager,employeeLoggedIn);
+            stage.show();
+        }
     }
 
     public void transportRequestHandler() throws IOException {
@@ -1542,10 +1558,10 @@ public class NewMainPageController extends UIController {
             loggedIn = false;
             btnLogin.setText("Login");
             adminFeaturePane.setVisible(false);
-            System.out.println("logging out");
+            employeeManager.setDisable(false);
+            employeeManager.setOpacity(1.0);
             return;
         }
-        String username = "wwong2";
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/Login_Popup.fxml"
@@ -1566,6 +1582,10 @@ public class NewMainPageController extends UIController {
             logOffNext = true;
             btnLogin.setText("Logout");
             adminFeaturePane.setVisible(true);
+            if (employeeLoggedIn.getSysAdmin() == false) {
+                employeeManager.setDisable(true);
+                employeeManager.setOpacity(0.5);
+            }
         }
         //stage.show();
     }
@@ -1638,21 +1658,23 @@ public class NewMainPageController extends UIController {
     }
 
     public void employeeButtonHandler(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "/fxml/employee_manager_UI.fxml"
-                )
-        );
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(
-                new Scene(
-                        (Pane) loader.load()
-                )
-        );
+        if (employeeManager.getOpacity() == 1.0) {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/fxml/employee_manager_UI.fxml"
+                    )
+            );
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setScene(
+                    new Scene(
+                            (Pane) loader.load()
+                    )
+            );
 
-        loader.<EmployeeManager>getController().initManager(this.manager);
-        stage.show();
-        managers.add(stage);
+            loader.<EmployeeManager>getController().initManager(this.manager);
+            stage.show();
+            managers.add(stage);
+        }
     }
 
     public void openManagerHandler(ActionEvent event) {

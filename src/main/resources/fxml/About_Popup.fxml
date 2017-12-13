@@ -203,7 +203,7 @@
                   <Label layoutX="23.0" layoutY="170.0" text="Christopher Myers&#10;Team Coach" textAlignment="CENTER" />
                </children>
             </Pane>
-            <Label layoutX="10.0" layoutY="1441.0" prefHeight="34.0" prefWidth="685.0" text="Special thanks to Brigham and Women's Faulkner Hospital and Andrew Shinn.&#10;The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="10.0">
+            <Label layoutX="70.0" layoutY="1640.0" prefHeight="34.0" prefWidth="685.0" text="Special thanks to Brigham and Women's Faulkner Hospital and Andrew Shinn.&#10;The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." AnchorPane.leftAnchor="70.0">
                <font>
                   <Font size="10.0" />
                </font>
