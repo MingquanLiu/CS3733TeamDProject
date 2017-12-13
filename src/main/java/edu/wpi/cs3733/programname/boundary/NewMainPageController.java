@@ -494,12 +494,14 @@ public class NewMainPageController extends UIController {
         Image walkingMan = new Image("img/walkingBlue1.gif");
         Image runningBatman = new Image("img/batmanRun1.gif");
         Image runningCat = new Image("img/catRun1.gif");
+        Image wong = new Image("img/wong1.gif");
         currentChar = new ImageView("img/walkingBlue.gif");
 
         ObservableList characters = FXCollections.observableList(new ArrayList<>());
         characters.add(walkingMan);
         characters.add(runningBatman);
         characters.add(runningCat);
+        characters.add(wong);
 
         comboCharacter.getItems().addAll(characters);
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
@@ -922,7 +924,7 @@ public class NewMainPageController extends UIController {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
                 new Scene(
-                        (Pane) loader.load()
+                        loader.load()
                 )
         );
         stage.show();

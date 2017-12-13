@@ -178,8 +178,13 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXCheckBox fx:id="handicap" layoutX="45.0" layoutY="148.0" text="Handicap" />
-            <JFXComboBox fx:id="comboCharacter" layoutX="201.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#selectCharacter" prefHeight="40.0" prefWidth="20.0" />
+            <JFXCheckBox fx:id="handicap" layoutX="45.0" layoutY="148.0" text="Handicap" AnchorPane.bottomAnchor="12.0" />
+            <JFXComboBox fx:id="comboCharacter" layoutX="201.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#selectCharacter" prefHeight="40.0" prefWidth="20.0" stylesheets="@../css/animated_dropdown.css" AnchorPane.bottomAnchor="0.0">
+               <styleClass>
+                  <String fx:value="combo-box-popup" />
+                  <String fx:value="combo-box" />
+                  <String fx:value="list-view" />
+               </styleClass></JFXComboBox>
             <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="82.0" onAction="#BathroomSweepHandler" ripplerFill="#cff888" text="Find Bathroom">
                <font>
                   <Font name="System Bold" size="17.0" />

@@ -486,10 +486,12 @@ public class TestingController extends UIController implements Initializable {
 
         Image walkingMan = new Image("img/walkingBlue.gif");
         Image runningBatman = new Image("img/batmanRun.gif");
+        Image wong = new Image("img/wong.gif");
 
         ObservableList characters = FXCollections.observableList(new ArrayList<>());
         characters.add(walkingMan);
         characters.add(runningBatman);
+        characters.add(wong);
 
         comboCharacter.getItems().addAll(characters);
         //comboCharacter.setButtonCell(new ImageListCell());
@@ -1286,7 +1288,7 @@ public class TestingController extends UIController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
                 new Scene(
-                        (Pane) loader.load()
+                        loader.load()
                 )
         );
         stage.show();
