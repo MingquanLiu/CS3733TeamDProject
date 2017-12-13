@@ -72,7 +72,7 @@
            </items>
        </JFXComboBox>
 
-       <JFXButton fx:id="SubmitBtn" buttonType="RAISED" layoutX="602.0" layoutY="424.0" style="-fx-background-color: #d2d2d2;" text="Submit" />
+       <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="602.0" layoutY="424.0" onAction="#submitButtonHandler" style="-fx-background-color: #d2d2d2;" text="Submit" />
        <JFXTimePicker fx:id="timePicker" layoutX="159.0" layoutY="424.0" prefHeight="27.0" prefWidth="228.0" />
        <Label layoutX="24.0" layoutY="426.0" text="Reseve a Time:">
            <font>

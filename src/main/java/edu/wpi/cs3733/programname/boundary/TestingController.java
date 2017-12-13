@@ -1250,6 +1250,22 @@ public class TestingController extends UIController implements Initializable {
         stage.show();
     }
 
+    public void newInterpreterHandler() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "/fxml/service_request_create_popup.fxml"
+                )
+        );
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(
+                new Scene(
+                        (Pane) loader.load()
+                )
+        );
+        loader.<CreateServiceRequestController>getController().initManager(this.manager, Constants.INTERPRETER_REQUEST, employeeLoggedIn);
+        stage.show();
+    }
+
     public void interpreterRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(

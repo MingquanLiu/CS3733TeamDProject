@@ -96,6 +96,7 @@
                         <JFXCheckBox fx:id="locateAdditionalServices" layoutX="528.0" layoutY="406.0" text="Additional Services" />
                         <JFXCheckBox fx:id="locateAllLocations" layoutX="911.0" layoutY="406.0" text="All Locations" />
                         <Label fx:id="lblCrossFloor" layoutX="560.0" layoutY="244.0" style="-fx-background-color: #afeeee; -fx-border-color: #d3d3d3;" styleClass="roundCorners" stylesheets="@../css/general_button.css" text="Proceed to Floor X" />
+                  <JFXButton layoutX="49.0" layoutY="402.0" onAction="#newInterpreterHandler" text="Create New Interpreter" />
                     </children>
                 </AnchorPane>
             </content>
@@ -178,8 +179,6 @@
             <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
             <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
             <JFXButton layoutX="57.0" layoutY="483.0" onAction="#newServiceUIHandler" text="New ServUI" />
-                <JFXButton fx:id="aboutBtn" buttonType="RAISED" layoutX="83.0" layoutY="643.0" onAction="#aboutButtonHandler" prefWidth="66.0" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="About" />
-                <JFXButton fx:id="helpButton" buttonType="RAISED" layoutX="21.0" layoutY="643.0" onAction="#helpButtonHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="HELP" />
             <JFXButton fx:id="BathroomSweep" buttonType="RAISED" layoutX="47.0" layoutY="548.0" onAction="#BathroomSweepHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="Find Restroom" />
             <JFXButton fx:id="ElevatorSweep" buttonType="RAISED" layoutX="52.0" layoutY="504.0" onAction="#ElevatorSweepHandler" style="-fx-background-color: #E6E6E8; -fx-border-color: #8C9196;" text="Find Elevator" />
             </children>

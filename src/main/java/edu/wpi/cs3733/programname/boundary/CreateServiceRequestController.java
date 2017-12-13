@@ -10,6 +10,7 @@ import edu.wpi.cs3733.programname.commondata.Constants;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -70,7 +71,7 @@ public class CreateServiceRequestController {
     public void initManager(ManageController manage, String requestType, Employee loggedIn) {
         manager = manage;
         this.loggedIn = loggedIn;
-        List<String> allLongNames = manager.queryNodeByLongName("");
+        List<String> allLongNames = manager.fuzzyQueryNodesByLongName("");
         autoCompletionBindingLocation = TextFields.bindAutoCompletion(txtSelectLocation, allLongNames);
         autoCompletionBindingTransportDestination = TextFields.bindAutoCompletion(txtTransportDestination,allLongNames);
         if (requestType == Constants.TRANSPORTATION_REQUEST) {
@@ -137,29 +138,35 @@ public class CreateServiceRequestController {
     }
 
     public void submitButtonHandler() {
-        List<String> longNames = manager.queryNodeByLongName(txtSelectLocation.getText());
         int severity = Integer.parseInt(comboSeverity.getSelectionModel().getSelectedItem().toString());
-        String nodeId = "";
-        if (longNames.size() > 0) {
+        String requestLocationId = manager.queryNodeByLongName(txtSelectLocation.getText()).getNodeID();
 
-            if (submissionType == Constants.INTERPRETER_REQUEST) {
-                String language = comboLanguages.getSelectionModel().getSelectedItem().toString();
-                String reservationTime = timePicker.getValue().toString();
-                manager.createInterpreterRequest(loggedIn.getUsername(), submissionType, nodeId, null,
-                        txtDescription.getText(), severity, language, reservationTime);
+        if (submissionType == Constants.INTERPRETER_REQUEST) {
+            String language = comboLanguages.getSelectionModel().getSelectedItem().toString();
+            String reservationTime = timePicker.getValue().toString();
+            manager.createInterpreterRequest(loggedIn.getUsername(),
+                    submissionType,
+                    requestLocationId,
+                    null,
+                    txtDescription.getText(),
+                    severity,
+                    language,
+                    reservationTime);
 
-            } else if (submissionType == Constants.MAINTENANCE_REQUEST) {
-                String maintenanceType = comboMaintenanceType.getSelectionModel().getSelectedItem().toString();
-                manager.createMaintenanceRequest(loggedIn.getUsername(), submissionType, nodeId, null,
-                        txtDescription.getText(), severity, maintenanceType);
+        } else if (submissionType == Constants.MAINTENANCE_REQUEST) {
+            String maintenanceType = comboMaintenanceType.getSelectionModel().getSelectedItem().toString();
+            manager.createMaintenanceRequest(loggedIn.getUsername(), submissionType, requestLocationId, null,
+                    txtDescription.getText(), severity, maintenanceType);
 
-            } else if (submissionType == Constants.TRANSPORTATION_REQUEST) {
-                String transportType = comboTransportType.getSelectionModel().getSelectedItem().toString();
-                String reservationTime = timePicker.getValue().toString();
-                manager.createTransportationRequest(loggedIn.getUsername(), submissionType, nodeId, null,
-                        txtDescription.getText(), severity, transportType, nodeId, reservationTime);
-            }
+        } else if (submissionType == Constants.TRANSPORTATION_REQUEST) {
+            String transportType = comboTransportType.getSelectionModel().getSelectedItem().toString();
+            String reservationTime = timePicker.getValue().toString();
+            String destinationId = manager.queryNodeByLongName(txtTransportDestination.getText()).getNodeID();
+            manager.createTransportationRequest(loggedIn.getUsername(), submissionType, requestLocationId, null,
+                    txtDescription.getText(), severity, transportType, destinationId, reservationTime);
         }
+        Stage stage = (Stage) btnSubmit.getScene().getWindow();
+        stage.close();
     }
 
 
