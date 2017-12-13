@@ -419,6 +419,7 @@ public class NewMainPageController {
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
         comboCharacter.setCellFactory(listView -> new NewMainPageController.ImageListCell());
         comboCharacter.setValue(walkingMan);
+        currentNodes = manageController.queryNodeByFloorAndBuilding(curBuilding.getName(),curFloor.getFloorNum());
     }
     //path display/animation
     private class ImageListCell extends ListCell<Image> {
@@ -1121,6 +1122,10 @@ public class NewMainPageController {
         );
         loader.<EmployeeManager>getController().initManager(this.manager);
         stage.show();
+    }
+    public void clearPathHandler(){
+        clearPath();
+        clearPathFindLoc();
     }
 
     // End of controller

@@ -174,7 +174,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="190.0" layoutY="104.0" text="Clear">
+            <JFXButton buttonType="RAISED" layoutX="190.0" layoutY="104.0" text="Clear" onMouseClicked="#clearPathHandler">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
