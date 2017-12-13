@@ -41,9 +41,7 @@ import org.controlsfx.control.textfield.TextFields;
 import java.io.IOException;
 import java.util.*;
 
-import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_KEY_LOCATION_NOT_SHOWN;
-import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_KEY_LOCATION_SHOWN;
-import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_SHOWN;
+import static edu.wpi.cs3733.programname.commondata.Constants.*;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 
 public class NewMainPageController extends UIController {
@@ -234,6 +232,7 @@ public class NewMainPageController extends UIController {
     private AutoCompletionBinding<String> autoCompletionBindingEnd;
     private List<String> longNameIDStart;
     private List<String> longNameIDEnd;
+    private NodeData prevShowNode = null;
 
     private boolean showStairs = false;
     private boolean showDestination = false;
@@ -365,30 +364,23 @@ public class NewMainPageController extends UIController {
         //    private void showNode(NodeData n) panningPane.getChildren().add(n.getCircle());}
         //if a nodegroup is toggled on, add it to the list of shown nodes
         if (showBathrooms) {
-//            System.out.println(manager.queryNodeByFloor(curFloor.getFloorNum()).size());
-//            System.out.println(manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curBuilding.toString()).size());
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("REST")) {
                     visibleNodes.add(nodeIt);
-                   // panningPane.getChildren().add(nodeIt.getCircle());
                 }
             }
         }
-         //visibleNodes.add(HelperFunction.getTypeNode(,"REST"));}
         if (showElevator){
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("ELEV")) {
                     visibleNodes.add(nodeIt);
-                    // panningPane.getChildren().add(nodeIt.getCircle());
                 }
             }
         }
         if (showExits){
             for (NodeData nodeIt : currentNodes) {
                 if (nodeIt.getNodeType().equals("EXIT")) {
-                    visibleNodes.add(nodeIt);
-                    // panningPane.getChildren().add(nodeIt.getCircle());
-                }
+                    visibleNodes.add(nodeIt); }
             }
         }
         if (showLabs){
@@ -426,7 +418,7 @@ public class NewMainPageController extends UIController {
         }
         if (showDestination) {     //TODO FIX THIS
             for (NodeData nodeIt : currentNodes) {
-                if (nodeIt.getNodeType().equals("DEPT")) {
+                if (!nodeIt.getNodeType().equals("HALL")) {
                     visibleNodes.add(nodeIt);
                     // panningPane.getChildren().add(nodeIt.getCircle());
                 }
@@ -434,17 +426,14 @@ public class NewMainPageController extends UIController {
         }
         if (showStairs){
             for (NodeData nodeIt : currentNodes) {
-                if (nodeIt.getNodeType().equals("STAI")) {
+                if (nodeIt.getNodeType().equals("STAR")) {
                     visibleNodes.add(nodeIt);
                     // panningPane.getChildren().add(nodeIt.getCircle());
                 }
             }
         }
-        System.out.println(visibleNodes.size());
         HelperFunction.setNodeListCircleVisibility(false , currentNodes);
         HelperFunction.setNodeListCircleVisibility(true , visibleNodes);
-              //  HelperFunction.setNodeListImageVisibility(false, currentNodes);
-             //   HelperFunction.setNodeListImageVisibility(true, visibleNodes);
     }
 
 
@@ -453,13 +442,7 @@ public class NewMainPageController extends UIController {
         manager = manageController;
         instantiateNodeList();
         currentScale = 0.4;
-        slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
-                currentScale = newVal.doubleValue() / 10;
-                System.out.println("scale" + currentScale);
-                setZoom();
-            }
-        });
+
 
         ////
         //MAP STUFF
@@ -500,18 +483,28 @@ public class NewMainPageController extends UIController {
         typeList.add("LABS");
         typeList.add("SERV");
         //sets the map, just in case we want it to start on another floor
+        slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
+                currentScale = newVal.doubleValue() / 10;
+                System.out.println("scale" + currentScale);
+                setZoom();
+            }
+        });
         setMap();
         setZoom();
-
+        showNodesOrEdges();
+        DestinationToggle();
         Image walkingMan = new Image("img/walkingBlue1.gif");
         Image runningBatman = new Image("img/batmanRun1.gif");
         Image runningCat = new Image("img/catRun1.gif");
+        Image wong = new Image("img/wong1.gif");
         currentChar = new ImageView("img/walkingBlue.gif");
 
         ObservableList characters = FXCollections.observableList(new ArrayList<>());
         characters.add(walkingMan);
         characters.add(runningBatman);
         characters.add(runningCat);
+        characters.add(wong);
 
         comboCharacter.getItems().addAll(characters);
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
@@ -562,6 +555,15 @@ public class NewMainPageController extends UIController {
     }
     @Override
     public void passNodeData(NodeData nodeData) throws IOException {
+        if(prevShowNode==null){
+            prevShowNode = nodeData;
+        }else if(!nodeData.equals(prevShowNode)){
+            shrinkNode(prevShowNode);
+            prevShowNode = nodeData;
+        }else{
+            System.out.println("Equals");
+        }
+        enlargeNode(nodeData);
         setNodeDataToInfoPane(nodeData);
         nodeInfoBox.setOpacity(OPACITY_SHOWN);
     }
@@ -571,7 +573,19 @@ public class NewMainPageController extends UIController {
 
     }
 
+    public void shrinkNode(NodeData nodeData){
+        panningPane.getChildren().remove(nodeData.getCircle());
+        nodeData.changeBackCircleAndChangeColor(currentScale);
+        setCircleNodeController(nodeData,this);
+        panningPane.getChildren().add(nodeData.getCircle());
+    }
 
+    public void enlargeNode(NodeData nodeData){
+        panningPane.getChildren().remove(nodeData.getCircle());
+        nodeData.enlargeCircleAndChangeColor(currentScale);
+        setCircleNodeController(nodeData,this);
+        panningPane.getChildren().add(nodeData.getCircle());
+    }
 
     //path display/animation
     private class ImageListCell extends ListCell<Image> {
@@ -930,7 +944,7 @@ public class NewMainPageController extends UIController {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
                 new Scene(
-                        (Pane) loader.load()
+                        loader.load()
                 )
         );
         stage.show();
@@ -1100,7 +1114,8 @@ public class NewMainPageController extends UIController {
 
         System.out.println("scale says: " + currentScale + " but slider says: " + slideZoom.getValue() / 10);
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
-        showNodesOrEdges();
+//        showNodesOrEdges();
+        setCircleNodeListSizeAndLocation(currentNodes,currentScale);
         if(currentPath != null){
             displayPath(currentPath);
             goToDirection(null);
@@ -1133,7 +1148,7 @@ public class NewMainPageController extends UIController {
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         updateZoomSlider();
-        showNodesOrEdges();
+//        showNodesOrEdges();
     }
 
     public double getScale() {
@@ -1171,13 +1186,8 @@ public class NewMainPageController extends UIController {
                 Image newImg = new Image(newUrl);
                 imgMap.setImage(newImg);
 
-//                setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
                 showNodesOrEdges();
             }
-//            if (lblCurrentBuilding != null) {
-//                lblCurrentBuilding.setText(curBuilding.getName());
-//                lblCurrentFloor.setText(curFloor.getFloorNum());
-//            }
             displayPath(currentPath);
         }
     }
@@ -1186,23 +1196,12 @@ public class NewMainPageController extends UIController {
         //clearMain();
         int x = (int) e.getX();
         int y = (int) e.getY();
-        if (!selectingLocation.equals("selectSRLocation")) {
-
-        } else {
-            selectingLocation = "";
-        }
-        System.out.println("current floor: " + curFloor);
-        List<NodeData> nodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curFloor.getBuilding());
         switch (selectingLocation) {
             case "":
-                System.out.println("Get in findNodeData");
-                NodeData mClickedNode = getClosestNode(nodes, x, y);
-                if (mClickedNode != null);
-//                    showNodeInfo(mClickedNode);
-                break;
-            case "selectLocation":
-
-                selectingLocation = "";
+                nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+                if(prevShowNode!=null) {
+                    shrinkNode(prevShowNode);
+                }
                 break;
         }
     }
