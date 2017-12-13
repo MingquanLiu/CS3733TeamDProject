@@ -154,11 +154,9 @@ public class NewMainPageController extends UIController {
     @FXML
     private TextField textNodeFloor;
     @FXML
-    private JFXButton nodeInfoAdd;
+    private JFXButton setFrom;
     @FXML
-    private JFXButton nodeInfoEdit;
-    @FXML
-    private JFXButton nodeInfoDelete;
+    private JFXButton setTo;
 
     @FXML
     private TextField startLocation;
@@ -252,6 +250,8 @@ public class NewMainPageController extends UIController {
     private boolean showExits = false;
     private boolean showElevator = false;
     private boolean showBathrooms = false;
+    private NodeData nodeData1 = null;
+    private NodeData nodeData2 = null;
     public void StairsToggle() {
         resetKeyLocationShow();
         this.showStairs = !this.showStairs;
@@ -1215,7 +1215,10 @@ public class NewMainPageController extends UIController {
             else
                 System.out.println("New building and floor: " + newBld + "[" + comboFloors.getValue() + "]");
 
-
+            if (prevShowNode!=null) {
+                panningPane.getChildren().remove(prevShowNode.getCircle());
+                prevShowNode = null;
+            }
             if (newBld != curBuilding) {
                 System.out.println("floors: " + newBld);
                 floors = newBld.getFloors();
@@ -1232,12 +1235,13 @@ public class NewMainPageController extends UIController {
                 Floor newFloor = (Floor) (comboFloors.getValue());
                 curFloor = newFloor;
                 String newUrl = newFloor.getImgUrl();
-
                 Image newImg = new Image(newUrl);
                 imgMap.setImage(newImg);
 
                 showNodesOrEdges();
             }
+
+            nodeInfoBox.setVisible(false);
             displayPath(currentPath);
         }
     }
@@ -1456,6 +1460,15 @@ public class NewMainPageController extends UIController {
 
     public void foodAPIHandler(ActionEvent event){
 
+    }
+
+    public void setLocationHandler(ActionEvent event){
+        if(event.getSource().equals(setFrom)){
+            startLocation.setText(textNodeFullName.getText());
+
+        }else{
+            endLocation.setText(textNodeFullName.getText());
+        }
     }
 
 
