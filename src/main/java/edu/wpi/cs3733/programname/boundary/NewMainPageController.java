@@ -241,7 +241,7 @@ public class NewMainPageController {
     public void initManager(ManageController manageController) {
         manager = manageController;
         instantiateNodeList();
-        currentScale = 0.35;
+        currentScale = 0.4;
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
                 currentScale = newVal.doubleValue() / 10;
@@ -846,14 +846,14 @@ public class NewMainPageController {
                 return;
             }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex - 1);
-            currentScale = Math.max(currentScale - .08, .3);
+            currentScale = Math.max(currentScale - .08, .4);
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
             if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
                 return;
             }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex + 1);
-            currentScale = Math.min(currentScale + .08, .6);
+            currentScale = Math.min(currentScale + .08, .8);
             imgMap.setFitWidth(maxWidth * currentScale);
         }
         updateZoomSlider();
