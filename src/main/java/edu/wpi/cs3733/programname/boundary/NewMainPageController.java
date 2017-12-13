@@ -1568,8 +1568,12 @@ public class NewMainPageController extends UIController {
     }
 
     public void BathroomSweepHandler() throws IOException {
-        System.out.println("Searching for nearest bathroom");
-        String startID = AppSettings.getInstance().getDefaultLocation();
+        String startID;
+        if (startLocation.getText() == "" || startLocation.getText() == null) {
+            startID = AppSettings.getInstance().getDefaultLocation();
+        } else {
+            startID = startLocation.getText();
+        }
         String goalID = "REST";
         try {
             currentPath = manager.sweepPathfinder(startID, goalID, this.handicap.isSelected());
@@ -1584,8 +1588,12 @@ public class NewMainPageController extends UIController {
     }
 
     public void ElevatorSweepHandler() throws IOException {
-        System.out.println("Searching for nearest elevator");
-        String startID = AppSettings.getInstance().getDefaultLocation();
+        String startID;
+        if (startLocation.getText() == "" || startLocation.getText() == null) {
+            startID = AppSettings.getInstance().getDefaultLocation();
+        } else {
+            startID = startLocation.getText();
+        }
         String goalID = "ELEV";
         try {
             currentPath = manager.sweepPathfinder(startID, goalID, this.handicap.isSelected());
