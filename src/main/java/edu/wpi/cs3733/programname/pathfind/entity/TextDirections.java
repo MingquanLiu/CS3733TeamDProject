@@ -32,7 +32,7 @@ public class TextDirections {
     private void produceText() {
         // Gotta start somewhere
         NodeData first = nodeList.get(0);
-        directionList.add(new TextDirection("Begin at " + first.getLongName(), first, START));
+        directionList.add(new TextDirection("Begin at " + first.getLongName() + " on floor " + first.getFloor(), first, START));
 
         NodeData lastNode;
         NodeData thisNode;

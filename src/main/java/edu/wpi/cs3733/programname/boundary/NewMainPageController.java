@@ -215,6 +215,29 @@ public class NewMainPageController extends UIController {
     private Label blueWaitingRoom;
     @FXML
     private Label blueInfoDesk;
+    //right hand side labels
+    @FXML
+    private Label blueAdminOptions;
+    @FXML
+    private Label blueEditMap;
+    @FXML
+    private Label blueManageEmployees;
+    @FXML
+    private Label blueServiceRequests;
+    @FXML
+    private Label blueRequestTransport;
+    @FXML
+    private Label blueRequestMaintenance;
+    @FXML
+    private Label blueRequestTranslator;
+    @FXML
+    private Label blueMyServiceRequests;
+    @FXML
+    private Label blueAPI;
+    @FXML
+    private Label blueHealth;
+    @FXML
+    private Label blueFood;
     @FXML
     private JFXButton btnSendEmailDirections;
     @FXML
@@ -1870,6 +1893,94 @@ public class NewMainPageController extends UIController {
         }
 
 
+    }
+
+    public void displayHoveringTextRIGHT(MouseEvent e){
+        Object input = e.getSource();
+
+        if(input == adminFeatureSubject){
+            blueAdminOptions.setVisible(true);
+        }
+        else if(input == employeeManager){
+            blueManageEmployees.setVisible(true);
+        }
+        else if(input == mapEdit){
+            blueEditMap.setVisible(true);
+        }
+        else if(input == serviceRequestSubject){
+            blueServiceRequests.setVisible(true);
+        }
+        else if(input == transportationServiceRequest){
+            blueRequestTransport.setVisible(true);
+        }
+        else if(input == maintenanceServiceRequest){
+            blueRequestMaintenance.setVisible(true);
+        }
+        else if(input == interpreterServiceRequest){
+            blueRequestTranslator.toFront();
+            blueRequestTranslator.setVisible(true);
+        }
+        else if(input == serviceRequestManager){
+            blueMyServiceRequests.setVisible(true);
+        }
+        else if(input == API){
+            blueAPI.setVisible(true);
+        }
+        else if(input == foodAPI){
+            blueFood.setVisible(true);
+        }
+        else if(input == healthAPI){
+            blueHealth.setVisible(true);
+        }
+
+    }
+
+    public void goodbyeHoveringTextRIGHT(MouseEvent e){
+        Object input = e.getSource();
+
+        if(input == adminFeatureSubject){
+            blueAdminOptions.setVisible(false);
+        }
+        else if(input == employeeManager){
+            blueManageEmployees.setVisible(false);
+        }
+        else if(input == mapEdit){
+            blueEditMap.setVisible(false);
+        }
+        else if(input == serviceRequestSubject){
+            blueServiceRequests.setVisible(false);
+        }
+        else if(input == transportationServiceRequest){
+            blueRequestTransport.setVisible(false);
+        }
+        else if(input == maintenanceServiceRequest){
+            blueRequestMaintenance.setVisible(false);
+        }
+        else if(input == interpreterServiceRequest){
+            blueRequestTranslator.setVisible(false);
+        }
+        else if(input == serviceRequestManager){
+            blueMyServiceRequests.setVisible(false);
+        }
+        else if(input == API){
+            blueAPI.setVisible(false);
+        }
+        else if(input == foodAPI){
+            blueFood.setVisible(false);
+        }
+        else if(input == healthAPI){
+            blueHealth.setVisible(false);
+        }
+
+
+    }
+
+    public void hideSRSubject (){
+        blueServiceRequests.setVisible(false);
+    }
+
+    public void hideAPI(){
+        blueServiceRequests.setVisible(false);
     }
     // End of controller
 }
