@@ -39,7 +39,7 @@
         </ScrollPane>
       <AnchorPane prefHeight="411.0" prefWidth="314.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="220.0">
          <children>
-            <TitledPane animated="false" layoutY="39.0" prefWidth="314.0" text="textDirection" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0">
+            <TitledPane animated="false" layoutY="39.0" prefWidth="314.0" text="Text Directions" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0">
               <content>
                 <AnchorPane minWidth="0.0" prefHeight="195.0" prefWidth="312.0">
                      <children>
@@ -172,7 +172,7 @@
             <Label fx:id="blueDestination" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View All Destinations " visible="false" AnchorPane.leftAnchor="-20.0" AnchorPane.topAnchor="74.0" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="225.0" prefWidth="314.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <AnchorPane prefHeight="225.0" prefWidth="314.0" style="-fx-background-color: rgba(255,255,255,0.85);" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <JFXTextField fx:id="startLocation" layoutX="78.0" layoutY="12.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="12.0" />
             <JFXTextField fx:id="endLocation" layoutX="78.0" layoutY="42.0" onKeyTyped="#fuzzyEnd" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="42.0" />
@@ -241,7 +241,7 @@
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" prefHeight="68.0" prefWidth="63.0" styleClass="icon-button-mapEdit" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="serviceRequestSubject" buttonType="RAISED" ellipsisString="" onMouseEntered="#displayHoveringTextRIGHT" onMouseExited="#goodbyeHoveringTextRIGHT" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="serviceRequestSubject" buttonType="RAISED" ellipsisString="" onAction="#hideSRSubject" onMouseEntered="#displayHoveringTextRIGHT" onMouseExited="#goodbyeHoveringTextRIGHT" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" minWidth="39.0" prefHeight="40.0" prefWidth="39.0" styleClass="icon-button-serviceRequest" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
@@ -266,7 +266,7 @@
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" minWidth="39.0" prefHeight="40.0" prefWidth="39.0" styleClass="icon-button-serviceManager" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="API" buttonType="RAISED" ellipsisString="" onMouseEntered="#displayHoveringTextRIGHT" onMouseExited="#goodbyeHoveringTextRIGHT" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
+            <JFXButton fx:id="API" buttonType="RAISED" ellipsisString="" onAction="#hideAPI" onMouseEntered="#displayHoveringTextRIGHT" onMouseExited="#goodbyeHoveringTextRIGHT" prefHeight="50.0" prefWidth="68.0" styleClass="color-button-adminFeature" stylesheets="@../css/general_button.css">
                <graphic>
                   <JFXButton ellipsisString="" maxHeight="68.0" maxWidth="63.0" minWidth="39.0" prefHeight="40.0" prefWidth="39.0" styleClass="icon-button-API" stylesheets="@../css/general_button.css" text=" " />
                </graphic>
@@ -290,6 +290,7 @@
             <Label fx:id="blueRequestMaintenance" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" Request Maintenance " visible="false" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="280.0" />
             <Label fx:id="blueRequestTransport" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" Request Transport " visible="false" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="280.0" />
             <Label fx:id="blueRequestTranslator" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" Request Translator" visible="false" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="280.0" />
+            <Label fx:id="blueAdminOptions" layoutX="10.0" layoutY="10.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" Open Admin Options" visible="false" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="26.0" />
          </children>
       </AnchorPane>
         <AnchorPane layoutX="316.0" prefHeight="100.0" prefWidth="788.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0">

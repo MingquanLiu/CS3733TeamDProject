@@ -217,6 +217,8 @@ public class NewMainPageController extends UIController {
     private Label blueInfoDesk;
     //right hand side labels
     @FXML
+    private Label blueAdminOptions;
+    @FXML
     private Label blueEditMap;
     @FXML
     private Label blueManageEmployees;
@@ -1889,7 +1891,7 @@ public class NewMainPageController extends UIController {
         Object input = e.getSource();
 
         if(input == adminFeatureSubject){
-            blueEditMap.setVisible(true);
+            blueAdminOptions.setVisible(true);
         }
         else if(input == employeeManager){
             blueManageEmployees.setVisible(true);
@@ -1929,7 +1931,7 @@ public class NewMainPageController extends UIController {
         Object input = e.getSource();
 
         if(input == adminFeatureSubject){
-            blueEditMap.setVisible(false);
+            blueAdminOptions.setVisible(false);
         }
         else if(input == employeeManager){
             blueManageEmployees.setVisible(false);
@@ -1963,6 +1965,14 @@ public class NewMainPageController extends UIController {
         }
 
 
+    }
+
+    public void hideSRSubject (){
+        blueServiceRequests.setVisible(false);
+    }
+
+    public void hideAPI(){
+        blueServiceRequests.setVisible(false);
     }
     // End of controller
 }
