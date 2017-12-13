@@ -11,7 +11,7 @@
     <children>
       <JFXTextField fx:id="floorName" focusColor="#7396ff" layoutX="184.0" layoutY="120.0" prefHeight="39.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" />
         <JFXTextField fx:id="buildingName" focusColor="#7396ff" layoutX="180.0" layoutY="180.0" prefHeight="35.0" prefWidth="200.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" />
-      <JFXComboBox fx:id="floorNum" focusColor="#7396ff" layoutX="505.0" layoutY="86.0" prefHeight="39.0" prefWidth="64.0" promptText="  L2" style="-fx-background-color: #fcfcfc;" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" />
+      <JFXComboBox fx:id="floorNum" focusColor="#7396ff" layoutX="505.0" layoutY="86.0" prefHeight="39.0" prefWidth="79.0" promptText="  L2" style="-fx-background-color: #fcfcfc;" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" />
         <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="482.0" layoutY="237.0" onAction="#onSubmit" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Submit" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
