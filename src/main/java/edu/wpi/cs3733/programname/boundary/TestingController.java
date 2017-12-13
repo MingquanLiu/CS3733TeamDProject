@@ -51,8 +51,7 @@ import java.util.ResourceBundle;
 import static edu.wpi.cs3733.programname.commondata.Constants.*;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.convertFloor;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
-import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.ASTAR;
-import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.BEAM;
+import static edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType.*;
 import static javafx.scene.paint.Color.DARKBLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -370,12 +369,12 @@ public class TestingController extends UIController implements Initializable {
         comboLocations.setItems(locations);
         comboLocations.setValue("None");
 
-        Floor basement2 = new Floor("L2", "45 Francis", "L2", "file:floorMaps/Floor_-2.png");
-        Floor basement1 = new Floor("L1", "45 Francis", "L1", "file:floorMaps/Floor_-1.png");
-        Floor ground = new Floor("G", "45 Francis", "G", "file:floorMaps/Floor_0.png");
-        Floor floor1 = new Floor("1", "45 Francis", "1", "file:floorMaps/Floor_1.png");
-        Floor floor2 = new Floor("2", "45 Francis", "2", "file:floorMaps/Floor_2.png");
-        Floor floor3 = new Floor("3", "45 Francis", "3", "file:floorMaps/Floor_3.png");
+        Floor basement2 = new Floor("Basement 2", "45 Francis", "L2", "file:floorMaps/Floor_-2.png");
+        Floor basement1 = new Floor("Basement 1", "45 Francis", "L1", "file:floorMaps/Floor_-1.png");
+        Floor ground = new Floor("Ground", "45 Francis", "G", "file:floorMaps/Floor_0.png");
+        Floor floor1 = new Floor("Floor 1", "45 Francis", "1", "file:floorMaps/Floor_1.png");
+        Floor floor2 = new Floor("Floor 2", "45 Francis", "2", "file:floorMaps/Floor_2.png");
+        Floor floor3 = new Floor("Floor 3", "45 Francis", "3", "file:floorMaps/Floor_3.png");
 
         ArrayList<Floor> basicFloors = new ArrayList<>();
         basicFloors.add(basement2);
@@ -667,6 +666,11 @@ public class TestingController extends UIController implements Initializable {
         pathTransition.setCycleCount(100);
         panningPane.getChildren().add(walkingMan);
         walkingMan.toFront();
+//        if(!(AppSettings.getInstance().getSearchType().equals(ASTAR) ||
+//                AppSettings.getInstance().getSearchType().equals(DIJKSTRA) ||
+//                AppSettings.getInstance().getSearchType().equals(BFS))){
+//            walkingMan.setVisible(false);
+//        }
         pathTransition.setAutoReverse(false);
         pathTransition.orientationProperty().addListener(new ChangeListener<PathTransition.OrientationType>() {
             @Override
@@ -697,9 +701,6 @@ public class TestingController extends UIController implements Initializable {
             for (int i = 1; i < path.size(); i++) {
                 Line l = new Line();
                 NodeData n = path.get(i);
-//                if(i==1 || i == path.size()-1){
-//                    n.
-//                }
 
                 if(i <= path.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
                     NodeData nextNode = path.get(i+1);
@@ -708,11 +709,6 @@ public class TestingController extends UIController implements Initializable {
                                 currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
                                 currentPathGoalFloor = nextNode.getFloor();
                                 currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
-//                        lblCrossFloor.setText("Proceed to Floor " + currentPathGoalFloor + System.lineSeparator()+ "From Floor " + currentPathStartFloor);
-//                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
-//                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
-//                        lblCrossFloor.setVisible(true);
-//                        lblCrossFloor.toFront();
                         crossFloor.setText("From floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
                         crossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
                         crossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
@@ -754,19 +750,19 @@ public class TestingController extends UIController implements Initializable {
 
     public void crossFloor(){
         System.out.println("called crossFloor");
-        System.out.println(currentFloor.getFloorName());
+        System.out.println(currentFloor.getFloorName() + currentFloor.getBuilding()+currentFloor.getFloorNum());
         System.out.println(currentPathStartFloor);
         System.out.println(currentPathGoalFloor);
-        if(currentFloor.getFloorName().equals(currentPathGoalFloor)){
+        if(currentFloor.getFloorNum().equals(currentPathGoalFloor)){
             for (Floor f:floors){
-                if(f.getFloorName().equals(currentPathStartFloor)){
+                if(f.getFloorNum().equals(currentPathStartFloor)){
                     setFloor(f);
                 }
             }
         }
-        else if(currentFloor.getFloorName().equals(currentPathStartFloor)){
+        else if(currentFloor.getFloorNum().equals(currentPathStartFloor)){
             for (Floor f:floors){
-                if(f.getFloorName().equals(currentPathGoalFloor)){
+                if(f.getFloorNum().equals(currentPathGoalFloor)){
                     setFloor(f);
                 }
             }

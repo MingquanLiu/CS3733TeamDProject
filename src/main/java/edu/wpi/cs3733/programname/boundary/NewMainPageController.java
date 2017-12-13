@@ -713,12 +713,7 @@ public class NewMainPageController extends UIController {
                         currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
                         currentPathGoalFloor = nextNode.getFloor();
                         currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
-//                        lblCrossFloor.setText("Proceed to Floor " + currentPathGoalFloor + System.lineSeparator()+ "From Floor " + currentPathStartFloor);
-//                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
-//                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
-//                        lblCrossFloor.setVisible(true);
-//                        lblCrossFloor.toFront();
-                        crossFloor.setText("From floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
+                        crossFloor.setText("From Floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
                         crossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
                         crossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
                         crossFloor.setVisible(true);
@@ -751,29 +746,33 @@ public class NewMainPageController extends UIController {
             pathDrawings.addAll(lines);
             draggablePath.getChildren().addAll(lines);
             panningPane.getChildren().add(draggablePath);
+            crossFloor.toFront();
 
             //emailDirections.setVisible(true);
         }
     }
     public void crossFloor(){
         System.out.println("called crossFloor");
-        System.out.println(curFloor.getFloorName());
+        System.out.println(curFloor.getFloorNum());
         System.out.println(currentPathStartFloor);
         System.out.println(currentPathGoalFloor);
 
-        if(curFloor.getFloorName().equals(currentPathGoalFloor)){
-            for (Floor f:floors){
-                if(f.getFloorName().equals(currentPathStartFloor)){
-                    curFloor = f;
+        if(curFloor.getFloorNum().equals(currentPathGoalFloor)){
+
+            for (Floor f: curBuilding.getFloors()){
+                if(f.getFloorNum().equals(currentPathStartFloor)){
+                    comboFloors.setValue(f);
                     setMap();
+                    return;
                 }
             }
         }
-        else if(curFloor.getFloorName().equals(currentPathStartFloor)){
-            for (Floor f:floors){
-                if(f.getFloorName().equals(currentPathGoalFloor)){
-                    curFloor = f;
+        else if(curFloor.getFloorNum().equals(currentPathStartFloor)){
+            for (Floor f:curBuilding.getFloors()){
+                if(f.getFloorNum().equals(currentPathGoalFloor)){
+                    comboFloors.setValue(f);
                     setMap();
+                    return;
                 }
             }
         }
