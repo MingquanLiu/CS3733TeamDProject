@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
@@ -18,7 +19,7 @@
                   <content>
                     <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="167.0" prefWidth="538.0" style="-fx-background-color: #b5bbcc;">
                            <children>
-                              <JFXTextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="486.0" style="-fx-border-color: transparent;" text="You can view the information of a location by simply hovering over it." />
+                              <JFXTextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="486.0" style="-fx-border-color: transparent;" text="You can view the information of a location by clicking it." />
                            </children>
                         </AnchorPane>
                   </content>
@@ -27,13 +28,16 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;">
                            <children>
-                              <JFXTextField prefHeight="164.0" prefWidth="524.0" text="A: Step 1: Go to the home page, select the &quot;From&quot; box and click on the place you are at. Step 2: Select &quot;To&quot; box and click on where you want to go. Step 3: Hit on the green &quot;go&quot; button, the path will be highlighted in blue.(Tip: in case you pick the wrong location, click the red &quot;clear&quot; button. )(Tip: You can click and drag the starting location, the ending location, and any other location on the path.)" />
+                              <JFXTextArea layoutX="14.0" layoutY="14.0" prefHeight="134.0" prefWidth="512.0" text="a: If you can tell where the location is on the map, click the wanted purple node on the map(You can zoom in to make the selection more accurate). You will see the selected node turns to green and a grey block that contains Node Information shows on the bottom right corner. Click “Set As From” for selecting this node as the starting location or click “Set As To” for selecting this node as the ending location.b: If you know the name of the location, click the text field next to “From:” (“To:” for selecting ending location) which in on the top left corner, type the name of the starting/ending location. While you are typing, you are provided with some options below the text field. You can select one of them and the text field will be filled. If you prefer a handicapped-accessible route, click the “Handicap” check box then hit the green “Search” button. If you do not, hit the green “Search” button. A light blue path will display on the map, a character will walks along the path(You can choose your character on the left side), you can change the character by selecting your favorite one on the bottom right corner. If your path crosses floor, you will see a blue button on the elevator or staircase node, you can switch between two floors by clicking the blue button." />
                            </children></AnchorPane>
                   </content>
                 </TitledPane>
                 <TitledPane animated="false" text="Q: How do I find specific types of locations (example: bathrooms)?">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;">
+                           <children>
+                              <JFXTextArea layoutX="14.0" layoutY="14.0" prefHeight="131.0" prefWidth="510.0" text="Click the blue button on the top left corner, then click the the wanted type of icon of locations.&#10;The nodes of the certain type of location will be highlighted in purple.&#10;" />
+                           </children></AnchorPane>
                   </content>
                 </TitledPane>
                   <TitledPane animated="false" text="Q: How do I change floors of the map?">
@@ -48,7 +52,10 @@
                   </TitledPane>
                   <TitledPane animated="false" style="-fx-background-color: #b5bbcc;" text="Q: How do I send directions to myself?">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b5bbcc;">
+                           <children>
+                              <JFXTextArea layoutX="7.0" layoutY="9.0" prefHeight="147.0" prefWidth="526.0" text="If you want to receive an email of your directions, enter your email address in the text field, click “Email Directions” button. You will receive an email with the text directions of your path in a minute." />
+                           </children></AnchorPane>
                     </content>
                   </TitledPane>
               </panes>
