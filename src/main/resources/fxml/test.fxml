@@ -24,7 +24,7 @@
             <content>
                 <AnchorPane fx:id="panningPane" focusTraversable="true">
                     <children>
-                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" layoutX="-14.0" layoutY="14.0" onMouseClicked="#onClickMap" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" onMouseClicked="#onClickMap" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <image>
                                 <Image url="@../img/Floor_2.png" />
                             </image>
