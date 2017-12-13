@@ -193,6 +193,12 @@ public class HelperFunction{
         return distToGo.intValue();
     }
 
+    public static void setNodeListCircleVisibility(boolean visible , List<NodeData> mList){
+        for (NodeData iterator : mList){
+            iterator.getCircle().setVisible(visible);
+        }
+    }
+
     public static int UICToDBC(int value, double scale) {
         return (int) ((double) value / scale);
     }
