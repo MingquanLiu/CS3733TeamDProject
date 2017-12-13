@@ -435,9 +435,11 @@ public class NewMainPageController extends UIController {
         longNameIDEnd = longNameIDStart;
         autoCompletionBindingStart = TextFields.bindAutoCompletion(startLocation,longNameIDStart);
         autoCompletionBindingEnd = TextFields.bindAutoCompletion(endLocation,longNameIDEnd);
-        currentNodes = manageController.queryNodeByFloorAndBuilding(curBuilding.getName(),curFloor.getFloorNum());
-        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
-
+//        System.out.println("Building:"+curBuilding.getName()+" Floor:"+curFloor.getFloorNum());
+//        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curBuilding.getName());
+//        System.out.println("CurrentNodesList size:"+currentNodes.size());
+//
+//        showNodeList(currentNodes);
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
@@ -451,15 +453,24 @@ public class NewMainPageController extends UIController {
         textNodeShortName.setText(nodeData.getShortName());
         textNodeTeamAssigned.setText(nodeData.getTeamAssigned());
     }
+
+    public void clearMain() {
+        for (NodeData nodeData : currentNodes) {
+            panningPane.getChildren().remove(nodeData.getCircle());
+        }
+    }
     @Override
     public void passNodeData(NodeData nodeData) throws IOException {
-
+        setNodeDataToInfoPane(nodeData);
+        nodeInfoBox.setOpacity(OPACITY_SHOWN);
     }
 
     @Override
     public void passEdgeData(EdgeData edgeData) {
 
     }
+
+
 
     //path display/animation
     private class ImageListCell extends ListCell<Image> {
@@ -481,14 +492,6 @@ public class NewMainPageController extends UIController {
                 setGraphic(view);
             }
         }
-    }
-    public void clearMain() {
-        clearPath();
-        //lblCrossFloor.setVisible(false);
-        crossFloor.setVisible(false);
-        closeNodeInfoHandler();
-        clearPathFindLoc();
-        //lastShowNodeData.setImageVisible(false);
     }
     private void clearPathFindLoc() {
         endLocation.setText("");
@@ -883,11 +886,12 @@ public class NewMainPageController extends UIController {
     }
 
     public void showNodesOrEdges() {
-//        clearMain();
+        clearMain();
         System.out.println("Starting show node path for " + curFloor + " of building: " + curBuilding.getName()
                 + "(" + curFloor.getFloorNum() + ")");
         currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), curBuilding.getName());
-//        showNodeList(currentNodes);
+        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
+        showNodeList(currentNodes);
     }
 
     public void instantiateNodeList() {
@@ -1199,6 +1203,16 @@ public class NewMainPageController extends UIController {
     public void clearPathHandler(){
         clearPath();
         clearPathFindLoc();
+    }
+
+    private void showNodeList(List<NodeData> nodeDataList) {
+        for (int i = 0; i < nodeDataList.size(); i++) {
+            showNode(nodeDataList.get(i));
+        }
+    }
+
+    private void showNode(NodeData n) {
+        panningPane.getChildren().add(n.getCircle());
     }
 
     // End of controller
