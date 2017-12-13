@@ -9,14 +9,14 @@
 
 <AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.NewMapController">
     <children>
-      <JFXTextField fx:id="floorName" layoutX="184.0" layoutY="120.0" prefHeight="39.0" prefWidth="191.0" unFocusColor="WHITE" />
-        <JFXTextField fx:id="buildingName" layoutX="180.0" layoutY="180.0" prefHeight="35.0" prefWidth="200.0" unFocusColor="WHITE" />
-      <JFXComboBox fx:id="floorNum" focusColor="WHITE" layoutX="505.0" layoutY="86.0" prefHeight="39.0" prefWidth="64.0" promptText="  L2" unFocusColor="WHITE" />
-        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="482.0" layoutY="237.0" onAction="#onSubmit" style="-fx-background-color: #d2d2d2;" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Submit">
+      <JFXTextField fx:id="floorName" focusColor="#7396ff" layoutX="184.0" layoutY="120.0" prefHeight="39.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" />
+        <JFXTextField fx:id="buildingName" focusColor="#7396ff" layoutX="180.0" layoutY="180.0" prefHeight="35.0" prefWidth="200.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" />
+      <JFXComboBox fx:id="floorNum" focusColor="#7396ff" layoutX="505.0" layoutY="86.0" prefHeight="39.0" prefWidth="64.0" promptText="  L2" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" />
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="482.0" layoutY="237.0" onAction="#onSubmit" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Submit" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font></JFXButton>
-        <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="52.0" layoutY="237.0" onAction="#onCancelButton" style="-fx-background-color: #d2d2d2;" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Cancel">
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="52.0" layoutY="237.0" onAction="#onCancelButton" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Cancel" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font></JFXButton>
@@ -25,16 +25,16 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label layoutX="52.0" layoutY="184.0" text="Building Name:" textFill="WHITE">
+        <Label layoutX="37.0" layoutY="184.0" text="Building Name:" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-      <JFXButton fx:id="uploadImage" buttonType="RAISED" layoutX="191.0" layoutY="72.0" onAction="#setPath" style="-fx-background-color: #d2d2d2;" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Upload">
+      <JFXButton fx:id="uploadImage" buttonType="RAISED" layoutX="191.0" layoutY="72.0" onAction="#setPath" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Upload" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="System Bold" size="15.0" />
          </font></JFXButton>
-      <Label fx:id="addingType" layoutX="243.0" layoutY="14.0" prefHeight="35.0" prefWidth="200.0" text="Add a Building" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="243.0" AnchorPane.rightAnchor="157.0">
+      <Label fx:id="addingType" layoutX="240.0" layoutY="7.0" prefHeight="35.0" prefWidth="200.0" text="Add a Building" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="160.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -48,23 +48,23 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label fx:id="errUpload" layoutX="149.0" layoutY="22.0" prefHeight="19.0" prefWidth="356.0" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="errUpload" layoutX="215.0" layoutY="42.0" prefHeight="19.0" prefWidth="356.0" textFill="RED" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="31.0">
          <font>
-            <Font size="13.0" />
+            <Font size="14.0" />
          </font></Label>
-      <Label fx:id="errFloorName" layoutX="52.0" layoutY="147.0" prefHeight="35.0" prefWidth="106.0" textFill="#e12121" wrapText="true">
+      <Label fx:id="errFloorName" layoutX="402.0" layoutY="133.0" prefHeight="35.0" prefWidth="191.0" textFill="#e12121" wrapText="true">
          <font>
-            <Font size="9.0" />
+            <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="errBuilding" layoutX="399.0" layoutY="186.0" prefHeight="35.0" prefWidth="106.0" textFill="#e12121" wrapText="true">
+      <Label fx:id="errBuilding" layoutX="402.0" layoutY="171.0" prefHeight="41.0" prefWidth="184.0" textAlignment="CENTER" textFill="#e12121" wrapText="true">
          <font>
-            <Font size="9.0" />
+            <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="errFloorNum" layoutX="384.0" layoutY="162.0" prefHeight="35.0" prefWidth="106.0" textFill="#e12121" wrapText="true">
+      <Label fx:id="errFloorNum" layoutX="399.0" layoutY="156.0" prefHeight="48.0" prefWidth="191.0" textFill="#e12121" wrapText="true">
          <font>
-            <Font size="9.0" />
+            <Font size="14.0" />
          </font>
       </Label>
     </children>

@@ -127,7 +127,7 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="addEdgeNodeInfoBox" buttonType="RAISED" layoutX="20.0" layoutY="371.0" onAction="#addEdgeToList" prefHeight="39.0" prefWidth="101.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Add Edge" textFill="#fcfcfc" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="252.0">
+            <JFXButton fx:id="addEdgeNodeInfoBox" buttonType="RAISED" layoutX="9.0" layoutY="373.0" onAction="#addEdgeToList" prefHeight="39.0" prefWidth="101.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Add Edge" textFill="#fcfcfc" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="252.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
