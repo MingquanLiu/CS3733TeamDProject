@@ -742,7 +742,7 @@ public class NewMainPageController extends UIController {
                     newBuilding = nextNode.getBuilding();
 
 
-                   if (!oldBuilding.equals(newBuilding) &&
+                    if (!oldBuilding.equals(newBuilding) &&
                             n.getNodeType().equals("EXIT") && nextNode.getNodeType().equals("EXIT")) {
                         crossFloor.setText("Transport from " + oldBuilding + System.lineSeparator() +
                                 " to " + newBuilding);
@@ -1312,12 +1312,25 @@ public class NewMainPageController extends UIController {
 
                 floorList.addAll(floors);
                 comboFloors.setItems(floorList);
-                comboFloors.setValue(floorList.get(0));
+
+
+                if (newBld.getName().equals("Main Hospital") &&
+                        !curBuilding.getName().matches("Main Hospital|BTM|(15|25|45) Francis|Tower|Shapiro"))
+                    comboFloors.setValue(floorList.get(4));
+                else
+                    for (Floor f : floors) {
+                        if (curFloor.getFloorNum().equals(f.getFloorNum()))
+                            comboFloors.setValue(f);
+                    }
+
+                if (comboFloors.getValue() == null)
+                    comboFloors.setValue(floorList.get(0));
+
                 curBuilding = newBld;
+
             }
             if (curFloor == null || curFloor != comboFloors.getValue()) {
                 System.out.println("Floors changing");
-                System.out.println("comboFloors: " + comboFloors);
                 Floor newFloor = (Floor) (comboFloors.getValue());
                 curFloor = newFloor;
                 String newUrl = newFloor.getImgUrl();
@@ -1537,19 +1550,20 @@ public class NewMainPageController extends UIController {
         stage.show();
         managers.add(stage);
     }
-    public void openManagerHandler(ActionEvent event){
+
+    public void openManagerHandler(ActionEvent event) {
 
     }
 
-    public void healthAPIHandler(ActionEvent event){
+    public void healthAPIHandler(ActionEvent event) {
     }
 
-    public void foodAPIHandler(ActionEvent event){
+    public void foodAPIHandler(ActionEvent event) {
 
     }
 
 
-    public void clearPathHandler(){
+    public void clearPathHandler() {
         clearPath();
     }
 
