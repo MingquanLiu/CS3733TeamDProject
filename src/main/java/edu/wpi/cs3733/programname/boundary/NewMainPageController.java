@@ -674,6 +674,7 @@ public class NewMainPageController extends UIController {
         }
         clearAnimations();
         clearHighlightedSteps();
+        crossFloor.setVisible(false);
     }
 
     public void clearAnimations() {
@@ -817,7 +818,10 @@ public class NewMainPageController extends UIController {
     }
 
     public void crossFloor() {
-        if (!crossFloor.getText().contains("Transport")) {
+        if (crossFloor.getText().contains("Transport")) {
+            crossBuilding();
+        }
+        else{
             System.out.println("called crossFloor");
             System.out.println(curFloor.getFloorNum());
             System.out.println(currentPathStartFloor);
@@ -841,8 +845,16 @@ public class NewMainPageController extends UIController {
                     }
                 }
             }
-        } else
-            crossBuilding();
+            else{
+                for (Floor f : curBuilding.getFloors()) {
+                    if (f.getFloorNum().equals(currentPathStartFloor)) {
+                        comboFloors.setValue(f);
+                        setMap();
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     public void crossBuilding() {
