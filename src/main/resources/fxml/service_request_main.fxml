@@ -13,15 +13,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="575.0" prefWidth="958.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
+<AnchorPane prefHeight="575.0" prefWidth="958.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
    <children>
-      <StackPane fx:id="requestMasonry" layoutX="117.0" layoutY="87.0" prefHeight="442.0" prefWidth="501.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="87.0" xmlns="http://javafx.com/javafx/2.2" xmlns:fx="http://javafx.com/fxml/1">
+      <StackPane fx:id="requestMasonry" layoutX="117.0" layoutY="94.0" prefHeight="462.0" prefWidth="501.0" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="117.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="94.0" xmlns="http://javafx.com/javafx/2.2" xmlns:fx="http://javafx.com/fxml/1">
          <ScrollPane fx:id="requestMasonryScroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER">
-            <JFXMasonryPane fx:id="requestMasonryPane" prefHeight="444.0" prefWidth="499.0">
+            <JFXMasonryPane fx:id="requestMasonryPane" prefHeight="453.0" prefWidth="499.0">
             </JFXMasonryPane>
          </ScrollPane>
       </StackPane>
-      <Label fx:id="lblTitle" alignment="TOP_CENTER" layoutX="195.0" layoutY="14.0" prefHeight="19.0" prefWidth="356.0" text="Service Request Manager" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="14.0">
+      <Label fx:id="lblTitle" alignment="TOP_CENTER" layoutX="195.0" layoutY="14.0" prefHeight="19.0" prefWidth="356.0" style="-fx-font-family: sans-serif;" text="Service Request Manager" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="14.0">
          <font>
             <Font size="19.0" />
          </font></Label>
@@ -63,6 +63,6 @@
           <TableColumn fx:id="email" prefWidth="153.0" text="Email" />
         </columns>
       </TableView>
-      <JFXButton fx:id="btnAssignSelected" layoutX="840.0" layoutY="489.0" onAction="#assignSelectedButtonHandler" style="-fx-background-color: lightblue;" text="Assign" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="58.0" />
+      <JFXButton fx:id="btnAssignSelected" layoutX="839.0" layoutY="529.0" onAction="#assignSelectedButtonHandler" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Assign" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="59.0" />
    </children>
 </AnchorPane>
