@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -35,9 +36,7 @@ import javafx.util.Duration;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 
@@ -214,19 +213,34 @@ public class NewMainPageController {
     private boolean showExits = false;
     private boolean showElevator = false;
     private boolean showBathrooms = false;
+    public void StairsToggle()          {this.showStairs = !this.showStairs;            updateNodeVisibility();}
+    public void SubjectToggle()         {this.showSubject = !this.showSubject;          updateNodeVisibility();}
+    public void DestinationToggle()     {this.showDestination = !this.showDestination;  updateNodeVisibility();}
+    public void WaitingRoomToggle()     {this.showWaitingRooms = !this.showWaitingRooms;updateNodeVisibility();}
+    public void RetailToggle()          {this.showRetail = !this.showRetail;            updateNodeVisibility();}
+    public void ServiceDeskToggle()     {this.showServiceDesk = !this.showServiceDesk;  updateNodeVisibility();}
+    public void LabToggle()             {this.showLabs = !this.showLabs;                updateNodeVisibility();}
+    public void ExitToggle()            {this.showExits = !this.showExits;              updateNodeVisibility();}
+    public void ElevatorToggle()        {this.showElevator = !this.showElevator;        updateNodeVisibility();}
+    public void BathroomToggle()        {this.showBathrooms = !this.showBathrooms;      updateNodeVisibility();}
 
 
-    public void StairsToggle(){ this.showStairs = !this.showStairs;}
-    public void SubjectToggle(){this.showSubject = !this.showSubject;}
-    public void DestinationToggle(){this.showDestination = !this.showDestination;}
-    public void WaitingRoomToggle(){this.showWaitingRooms = !this.showWaitingRooms;}
-    public void RetailToggle(){this.showRetail = !this.showRetail;}
-    public void ServiceDeskToggle(){this.showServiceDesk = !this.showServiceDesk;}
-    public void LabToggle(){this.showLabs = !this.showLabs;}
-    public void ExitToggle(){this.showExits = !this.showExits;}
-    public void ElevatorToggle(){this.showElevator = !this.showElevator;}
-    public void BathroomToggle(){this.showBathrooms = !this.showBathrooms;}
-
+    // This function displays all the nodes that are toggled on according to the ShowXXXX booleans
+    public void updateNodeVisibility(){
+        List<NodeData> visibleNodes = new LinkedList<NodeData>();
+        //if a nodegroup is toggled on, add it to the list of shown nodes
+        if (showBathrooms){} //visibleNodes.add(HelperFunction.getTypeNode(,"REST"));}
+        if (showElevator){}
+        if (showExits){}
+        if (showLabs){}
+        if (showServiceDesk){}
+        if (showRetail){}
+        if (showWaitingRooms){}
+        if (showDestination){}
+        if (showSubject){}
+        if (showStairs){}
+        setNodeListImageVisibility(true , visibleNodes);
+    }
     //animations stuff
     @FXML
     private JFXComboBox<Image> comboCharacter;
@@ -278,6 +292,8 @@ public class NewMainPageController {
                 " and 4: " + curBuilding.getFloors().get(4));
         curFloor = curBuilding.getFloors().get(4);
         comboFloors.setValue(curFloor);
+
+
 
 
         ObservableList typeList = FXCollections.observableList(new ArrayList<>());
@@ -680,10 +696,7 @@ public class NewMainPageController {
 
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
+    public void setUserName(String userName) {        this.userName = userName; }
 
     public void goButtonHandler() {
         System.out.println("drawing path");

@@ -37,14 +37,14 @@
                 </AnchorPane>
             </content>
         </ScrollPane>
-      <AnchorPane opacity="0.64" prefHeight="217.0" prefWidth="272.0" style="-fx-background-color: grey;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="32.0">
+      <AnchorPane fx:id="mapAdminSettingPane" opacity="0.64" prefHeight="217.0" prefWidth="272.0" style="-fx-background-color: grey;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="32.0">
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutY="3.0" text="Path Find Algorithm" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXRadioButton layoutY="30.0" prefHeight="21.0" prefWidth="85.0" text="AStar" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <JFXRadioButton fx:id="AStar" layoutY="30.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="85.0" text="AStar" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
                <toggleGroup>
                   <ToggleGroup fx:id="pathFind" />
                </toggleGroup></JFXRadioButton>
@@ -53,12 +53,12 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXRadioButton layoutX="148.0" layoutY="30.0" prefHeight="21.0" prefWidth="85.0" text="Beam" textFill="#fcfcfc" toggleGroup="$pathFind" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="30.0" />
-            <JFXRadioButton layoutY="58.0" prefHeight="21.0" prefWidth="112.0" text="Best First" textFill="#fcfcfc" toggleGroup="$pathFind" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0" />
-            <JFXRadioButton layoutX="148.0" layoutY="58.0" prefHeight="21.0" prefWidth="85.0" text="BFS" textFill="#fcfcfc" toggleGroup="$pathFind" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="58.0" />
-            <JFXRadioButton layoutY="86.0" prefHeight="21.0" prefWidth="85.0" text="DFS" textFill="#fcfcfc" toggleGroup="$pathFind" />
-            <JFXRadioButton layoutX="148.0" layoutY="86.0" prefHeight="21.0" prefWidth="111.0" text="Dijkstra's" textFill="#fcfcfc" toggleGroup="$pathFind" />
-            <JFXRadioButton layoutY="114.0" prefHeight="21.0" prefWidth="85.0" text="Scenic" textFill="#fcfcfc" toggleGroup="$pathFind" />
+            <JFXRadioButton fx:id="Beam" layoutX="148.0" layoutY="30.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="85.0" text="Beam" textFill="#fcfcfc" toggleGroup="$pathFind" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="30.0" />
+            <JFXRadioButton fx:id="BeamFirst" layoutY="58.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="112.0" text="Best First" textFill="#fcfcfc" toggleGroup="$pathFind" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="58.0" />
+            <JFXRadioButton fx:id="BFS" layoutX="148.0" layoutY="58.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="85.0" text="BFS" textFill="#fcfcfc" toggleGroup="$pathFind" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="58.0" />
+            <JFXRadioButton fx:id="DFS" layoutY="86.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="85.0" text="DFS" textFill="#fcfcfc" toggleGroup="$pathFind" />
+            <JFXRadioButton fx:id="Dijkstra" layoutX="148.0" layoutY="86.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="111.0" text="Dijkstra's" textFill="#fcfcfc" toggleGroup="$pathFind" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="86.0" />
+            <JFXRadioButton fx:id="Scenic" layoutY="114.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="85.0" text="Scenic" textFill="#fcfcfc" toggleGroup="$pathFind" />
             <JFXCheckBox fx:id="allNodesBox" layoutX="10.0" layoutY="171.0" onAction="#showNodesOrEdges" text="All Nodes" textFill="#fcfcfc" unCheckedColor="#b2b2b2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="171.0" />
             <JFXCheckBox fx:id="allEdgesBox" layoutX="145.0" layoutY="171.0" onAction="#showNodesOrEdges" text="All Edges" textFill="#fcfcfc" unCheckedColor="#b2b2b2" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="171.0" />
          </children>
@@ -115,28 +115,23 @@
                </font>
             </Label>
             <JFXTextField fx:id="textNodeTeamAssigned" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
-            <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="8.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="51.0" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="303.0" AnchorPane.topAnchor="325.0">
+            <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="64.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="51.0" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="325.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnDeleteNode" buttonType="RAISED" layoutX="54.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="72.0" text="Delete" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="236.0" AnchorPane.topAnchor="325.0">
+            <JFXButton fx:id="btnDeleteNode" buttonType="RAISED" layoutX="145.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="72.0" text="Delete" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="145.0" AnchorPane.topAnchor="325.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnEditNode" buttonType="RAISED" layoutX="126.0" layoutY="326.0" onAction="#nodeInfoHandler" text="Edit" textFill="#fcfcfc" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="326.0">
+            <JFXButton fx:id="btnEditNode" buttonType="RAISED" layoutX="257.0" layoutY="326.0" onAction="#nodeInfoHandler" text="Edit" textFill="#fcfcfc" AnchorPane.leftAnchor="257.0" AnchorPane.topAnchor="326.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="172.0" layoutY="326.0" prefHeight="31.0" prefWidth="187.0" text="Set As Default Location" textFill="#fcfcfc" AnchorPane.leftAnchor="172.0" AnchorPane.topAnchor="326.0">
+            <JFXButton fx:id="btnSetDefaultLocation" buttonType="RAISED" layoutX="174.0" layoutY="357.0" onAction="#setDefaultLocationHandler" prefHeight="31.0" prefWidth="187.0" text="Set As Default Location" textFill="#fcfcfc" AnchorPane.leftAnchor="174.0" AnchorPane.topAnchor="357.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="setEdge1" buttonType="RAISED" layoutX="4.0" layoutY="325.0" onAction="#addEdgeToList" text="Set As EdgeNode One" textFill="#fcfcfc" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="4.0">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="setEdge2" layoutX="178.0" layoutY="325.0" onAction="#addEdgeToList" text="Set As EdgeNode Two" textFill="#fcfcfc" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="8.0">
+            <JFXButton fx:id="addEdgeNodeInfoBox" layoutX="70.0" layoutY="357.0" onAction="#addEdgeToList" text="Add Edge" textFill="#fcfcfc" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="204.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -236,7 +231,7 @@
                   <Font name="Algerian" size="24.0" />
                </font>
             </Label>
-            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" prefHeight="33.0" prefWidth="272.0" ripplerFill="#f3ff88" text="Map Admin Setting" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0">
+            <JFXButton alignment="BOTTOM_CENTER" buttonType="RAISED" onMouseClicked="#mapAdminSettingHandler" prefHeight="33.0" prefWidth="272.0" ripplerFill="#f3ff88" text="Map Admin Setting" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
