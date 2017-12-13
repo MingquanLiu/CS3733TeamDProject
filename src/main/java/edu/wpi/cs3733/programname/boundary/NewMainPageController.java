@@ -89,6 +89,15 @@ public class NewMainPageController extends UIController {
     @FXML
     private JFXButton transportationServiceRequest;
     @FXML
+    private JFXButton serviceRequestManager;
+    @FXML
+    private JFXButton API;
+    @FXML
+    private JFXButton foodAPI;
+    @FXML
+    private JFXButton healthAPI;
+
+    @FXML
     private CheckBox handicap;
     @FXML
     private JFXButton keyLocationRetail;
@@ -191,7 +200,7 @@ public class NewMainPageController extends UIController {
     private double currentScale;
     private final double MAX_UI_WIDTH = 5000;
     private boolean serviceRequestSubjectClicked = false;
-
+    private boolean APIClicked = false;
 
     private Building curBuilding;
     private Floor curFloor;
@@ -1041,6 +1050,7 @@ public class NewMainPageController extends UIController {
         JFXNodesList nodesList = new JFXNodesList();
         JFXNodesList nodesList1 = new JFXNodesList();
         JFXNodesList keyLocationNodeList = new JFXNodesList();
+        JFXNodesList APINodeList = new JFXNodesList();
         nodesList.addAnimatedNode(adminFeatureSubject, new Callback<Boolean, Collection<KeyValue>>() {
             @Override
             public Collection<KeyValue> call(Boolean expanded) {
@@ -1065,6 +1075,8 @@ public class NewMainPageController extends UIController {
             serviceRequestSubjectClicked = !serviceRequestSubjectClicked;
 
         });
+
+
         nodesList1.addAnimatedNode(serviceRequestSubject
                 , new Callback<Boolean, Collection<KeyValue>>() {
                     @Override
@@ -1080,9 +1092,38 @@ public class NewMainPageController extends UIController {
         nodesList1.addAnimatedNode(maintenanceServiceRequest);
         nodesList1.addAnimatedNode(transportationServiceRequest);
         nodesList1.setSpacing(10);
+
+        API.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+//            int i =serviceRequestSubject.getStyleClass().size();
+            if (APIClicked) {
+                API.getStyleClass().remove("color-button-serviceRequest");
+                API.getStyleClass().add("color-button-adminFeature");
+            } else {
+                API.getStyleClass().remove("color-button-adminFeature");
+                API.getStyleClass().add("color-button-serviceRequest");
+            }
+            APIClicked = !APIClicked;
+        });
+        APINodeList.addAnimatedNode(API
+                , new Callback<Boolean, Collection<KeyValue>>() {
+                    @Override
+                    public Collection<KeyValue> call(Boolean expanded) {
+                        return new ArrayList<KeyValue>() {
+                            {
+                                add(new KeyValue(API.rotateProperty(), expanded ? 0 : 270, Interpolator.EASE_BOTH));
+                            }
+                        };
+                    }
+                });
+        APINodeList.addAnimatedNode(foodAPI);
+        APINodeList.addAnimatedNode(healthAPI);
+        APINodeList.setSpacing(10);
+        APINodeList.setRotate(90);
 //        nodesList1.getTransforms().add(new Rotate(serviceRequestSubject.getLayoutX(),serviceRequestSubject.getLayoutY(),90));
         nodesList1.setRotate(90);
         nodesList.addAnimatedNode(nodesList1);
+        nodesList.addAnimatedNode(serviceRequestManager);
+        nodesList.addAnimatedNode(APINodeList);
         nodesList.setSpacing(10);
         adminFeaturePane.getChildren().add(nodesList);
         keyLocationNodeList.addAnimatedNode(keyLocationSubject, new Callback<Boolean, Collection<KeyValue>>() {
@@ -1403,8 +1444,19 @@ public class NewMainPageController extends UIController {
         loader.<EmployeeManager>getController().initManager(this.manager);
         stage.show();
         managers.add(stage);
+    }
+    public void openManagerHandler(ActionEvent event){
 
     }
+    public void healthAPIHandler(ActionEvent event){
+
+    }
+
+    public void foodAPIHandler(ActionEvent event){
+
+    }
+
+
     public void clearPathHandler(){
         clearPath();
     }
