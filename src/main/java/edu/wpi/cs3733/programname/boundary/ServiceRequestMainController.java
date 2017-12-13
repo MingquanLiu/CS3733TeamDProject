@@ -3,6 +3,7 @@ package edu.wpi.cs3733.programname.boundary;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import edu.wpi.cs3733.programname.ManageController;
+import edu.wpi.cs3733.programname.commondata.AppSettings;
 import edu.wpi.cs3733.programname.commondata.Constants;
 import edu.wpi.cs3733.programname.commondata.Employee;
 import edu.wpi.cs3733.programname.commondata.NodeData;
@@ -13,12 +14,10 @@ import edu.wpi.cs3733.programname.commondata.servicerequestdata.TransportationRe
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
@@ -75,14 +74,19 @@ public class ServiceRequestMainController {
     @FXML
     private JFXButton btnTransportation;
 
+    @FXML
+    private JFXButton btnAssignSelected;
+
     ManageController manager;
 
     public void initManager(ManageController manage) throws IOException {
         this.manager = manage;
         updateRequestsUnassigned();
         updateEmployeeTable();
+        AppSettings.getInstance().setCurrentSelectedRequestId(null);
     }
 
+    @SuppressWarnings("Duplicates")
     private void updateRequestsUnassigned() throws IOException {
         requestMasonryPane.getChildren().clear();
         requestMasonryPane.setVisible(true);
@@ -127,6 +131,7 @@ public class ServiceRequestMainController {
 
     }
 
+    @SuppressWarnings("Duplicates")
     private void updateRequestsAssigned() throws IOException {
         requestMasonryPane.getChildren().clear();
         requestMasonryPane.setVisible(true);
@@ -143,6 +148,7 @@ public class ServiceRequestMainController {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     private void updateRequestsCompleted() throws IOException {
         requestMasonryPane.getChildren().clear();
         List<ServiceRequest> allCompleted = manager.getCompletedRequests();
@@ -163,14 +169,8 @@ public class ServiceRequestMainController {
         sortedEmployee = new SortedList<Employee>(this.employees);
         employeeTableView.setItems(this.sortedEmployee);
         sortedEmployee.comparatorProperty().bind(employeeTableView.comparatorProperty());
-        fullname.setCellValueFactory(
-                cellData -> cellData.getValue().
-                        fullNameProperty());
+        fullname.setCellValueFactory(cellData -> cellData.getValue().fullNameProperty());
         email.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
-    }
-
-    public String createEmployeeListString(Employee e) {
-        return e.getUsername() + " - " + e.getFirstName() + " " + e.getLastName();
     }
 
     private void updateRequestDetail(AnchorPane requestView, ServiceRequest request, int reqStatus) {
@@ -179,6 +179,9 @@ public class ServiceRequestMainController {
         Label typeLocationLabel = (Label) requestView.lookup("#lblTypeLocation");
         Label severityLabel = (Label) requestView.lookup("#lblSeverity");
         Label assignedToLabel = (Label) requestView.lookup("#lblAssignedTo");
+        Label requestIdLabel = (Label) requestView.lookup("#lblRequestId");
+        requestIdLabel.setText(request.getServiceID());
+        requestIdLabel.setVisible(false);
 
         NodeData locationNodeData = manager.getNodeData(request.getLocation1());
         if (request.getServiceType().equals(Constants.INTERPRETER_REQUEST)) {
@@ -213,7 +216,38 @@ public class ServiceRequestMainController {
         assignedToLabel.setWrapText(true);
     }
 
+    public void assignToEmployeeButtonHandler(ActionEvent ae) {
+        JFXButton aeSource = (JFXButton) ae.getSource();
+        AnchorPane requestAnchor = (AnchorPane) aeSource.getParent();
+        String requestId = ((Label) requestAnchor.lookup("#lblRequestId")).getText();
+        AppSettings.getInstance().setCurrentSelectedRequestId(requestId);
+        System.out.println("### " + AppSettings.getInstance().getCurrentSelectedRequestId());
+    }
 
+    public void assignSelectedButtonHandler() {
+        System.out.println("### Assigned Request #" + AppSettings.getInstance().getCurrentSelectedRequestId());
+        if (validateSubmission()) {
+            ServiceRequest selected = manager.queryRequestsById(AppSettings.getInstance().getCurrentSelectedRequestId());
+            Employee assignee = employeeTableView.getSelectionModel().getSelectedItem();
+            manager.assignServiceRequest(selected, assignee.getUsername());
+        }
+    }
 
+    private boolean validateSubmission() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error!");
+        alert.setHeaderText("Error assigning request!");
+        if (AppSettings.getInstance().getCurrentSelectedRequestId() == null) {
+            alert.setContentText("Please select a service request to assign!");
+            alert.showAndWait();
+            return false;
+        }
+        if (employeeTableView.getSelectionModel().getSelectedItem() == null) {
+            alert.setContentText("Please select an employee to receive the request!");
+            alert.showAndWait();
+            return false;
+        }
 
+        return true;
+    }
 }

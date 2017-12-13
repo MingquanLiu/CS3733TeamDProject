@@ -181,7 +181,7 @@ public class CreateServiceRequestController {
 
     public boolean checkSubmission() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("");
+        alert.setTitle("Error!");
         String capital = submissionType.substring(0,1).toUpperCase() + submissionType.substring(1);
         alert.setHeaderText("Error creating " + capital + " Request!");
 

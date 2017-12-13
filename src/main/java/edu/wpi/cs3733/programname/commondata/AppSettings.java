@@ -13,6 +13,7 @@ public class AppSettings {
     private boolean handicapPath;
     private int mapRatioIndex;
     private String defaultLocation;
+    private String currentSelectedRequestId;
 
     private final int INITIAL_MAP_SCALE = 3;
 
@@ -21,6 +22,7 @@ public class AppSettings {
         handicapPath = false;
         mapRatioIndex = INITIAL_MAP_SCALE;
         defaultLocation = "DEXIT00102";
+        currentSelectedRequestId = null;
     }
 
     public static AppSettings getInstance() {
@@ -49,5 +51,11 @@ public class AppSettings {
     }
     public void setDefaultLocation(String defaultLocation) {
         this.defaultLocation = defaultLocation;
+    }
+    public String getCurrentSelectedRequestId() {
+        return currentSelectedRequestId;
+    }
+    public void setCurrentSelectedRequestId(String currentSelectedRequestId) {
+        this.currentSelectedRequestId = currentSelectedRequestId;
     }
 }

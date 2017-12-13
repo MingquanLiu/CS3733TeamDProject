@@ -256,6 +256,9 @@ public class ManageController {
         return output;
     }
 
+    public ServiceRequest queryRequestsById(String id) {
+        return this.dbQueryController.queryServiceRequestsByID(id);
+    }
 
     public Employee queryEmployeeByUsername(String username) {
         return dbQueryController.queryEmployeeByUsername(username);
