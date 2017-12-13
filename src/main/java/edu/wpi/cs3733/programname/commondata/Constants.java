@@ -23,4 +23,7 @@ public class Constants {
 
     public final static double OPACITY_SHOWN = 0.64;
     public final static double OPACITY_NOT_SHOWN = 0;
+
+    public final static double OPACITY_KEY_LOCATION_SHOWN = 1.00;
+    public final static double OPACITY_KEY_LOCATION_NOT_SHOWN = 0.4;
 }
