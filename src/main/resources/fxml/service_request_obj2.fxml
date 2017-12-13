@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="152.0" prefWidth="175.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.ServiceRequestMainController">
+   <children>
+      <AnchorPane fx:id="serviceObj" layoutX="10.0" prefHeight="168.0" prefWidth="170.0" style="-fx-background-color: lightblue;" AnchorPane.leftAnchor="0.0">
+         <children>
+            <Label fx:id="lblRequestTitle" alignment="TOP_CENTER" layoutX="7.0" layoutY="2.0" prefHeight="24.0" prefWidth="245.0" style="-fx-background-color: #D3D3D3; -fx-font-family: Roboto; -fx-text-fill: #64b5f6; -fx-font-size: 15px;" styleClass="serviceTitleText" stylesheets="@../css/global_stylesheet.css" text="Maintenance Request" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" />
+            <Label fx:id="lblTypeLocation" alignment="TOP_CENTER" layoutX="23.0" layoutY="41.0" prefHeight="47.0" prefWidth="245.0" text="Request Type at Location" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="30.0" />
+            <Label fx:id="lblSeverity" alignment="TOP_LEFT" layoutX="4.0" layoutY="74.0" prefHeight="38.0" prefWidth="130.0" text="Severity: #" AnchorPane.leftAnchor="4.0" />
+            <Label fx:id="lblAssignedTo" alignment="TOP_LEFT" layoutX="2.0" layoutY="100.0" prefHeight="24.0" prefWidth="168.0" text="Assigned to: Employee" />
+            <JFXButton buttonType="RAISED" layoutX="92.0" layoutY="115.0" onAction="#assignToEmployeeButtonHandler" prefHeight="40.0" prefWidth="27.0" ripplerFill="BLACK" text=" ">
+               <graphic>
+                  <JFXButton ellipsisString="" prefHeight="30.0" prefWidth="30.0" styleClass="button-assignRequest" stylesheets="@../css/general_button.css" text=" " />
+               </graphic>
+            </JFXButton>
+            <Label fx:id="lblRequestId" layoutX="4.0" layoutY="146.0" prefHeight="17.0" prefWidth="0.0" text="Label" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -31,7 +31,7 @@ public class Constants {
 
     public final static double OPACITY_KEY_LOCATION_SHOWN = 1.00;
     public final static double OPACITY_KEY_LOCATION_NOT_SHOWN = 0.4;
-    public final static Paint NODE_COLOR = Color.rgb(231, 76, 60);
+    public final static Paint NODE_COLOR = Color.rgb(205, 168, 255);
     public final static Paint NODE_ENLARGED_COLOR = Color.rgb(88, 214, 141);
     public final static Paint NODE_STROKE_COLOR = Color.rgb(0, 0, 0);
 }

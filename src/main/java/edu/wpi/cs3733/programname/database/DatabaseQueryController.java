@@ -88,7 +88,11 @@ public class DatabaseQueryController {
 
     public List<NodeData> queryNodeByTypeFloor(String type, String floor) { return nodesQuery.getNodeByTypeAndFloor(type, floor);}
 
-    public List<String> queryNodeByLongName(String longName){
+    public List<String> fuzzyQueryNodesByLongName(String longName){
+        return nodesQuery.fuzzyQueryNodesByLongName(longName);
+    }
+
+    public NodeData queryNodeByLongName(String longName){
         return nodesQuery.queryNodeByLongName(longName);
     }
 
