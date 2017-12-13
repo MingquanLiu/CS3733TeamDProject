@@ -311,3 +311,9 @@
     -fx-text-alignment: center;
     -fx-pref-width: computed;
 }
+
+.nodeInfo-button{
+    -fx-background-color: #505456;
+  -fx-border-color: white;
+  -fx-border-radius: 3px;
+}
