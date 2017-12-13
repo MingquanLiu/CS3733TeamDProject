@@ -74,7 +74,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeId" focusColor="#7396ff" layoutX="126.0" layoutY="36.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="36.0" />
+            <JFXTextField fx:id="textNodeId" focusColor="#7396ff" layoutX="126.0" layoutY="36.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="36.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="26.0" layoutY="102.0" text="Node Type:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -85,19 +85,19 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeFullName" focusColor="#7396ff" layoutX="140.0" layoutY="123.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="123.0" />
+            <JFXTextField fx:id="textNodeFullName" focusColor="#7396ff" layoutX="140.0" layoutY="123.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="123.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="24.0" layoutY="172.0" text="Short Name:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="172.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeShortName" focusColor="#7396ff" layoutX="140.0" layoutY="155.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="155.0" />
+            <JFXTextField fx:id="textNodeShortName" focusColor="#7396ff" layoutX="140.0" layoutY="155.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="155.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="205.0" text="Location:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="205.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeLocation" focusColor="#7396ff" layoutX="140.0" layoutY="187.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="187.0" />
+            <JFXTextField fx:id="textNodeLocation" focusColor="#7396ff" layoutX="140.0" layoutY="187.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="187.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="236.0" text="Building:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -113,7 +113,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeTeamAssigned" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
+            <JFXTextField fx:id="textNodeTeamAssigned" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
             <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="64.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="51.0" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="325.0">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -135,9 +135,9 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="comboTypes" focusColor="WHITE" layoutX="140.0" layoutY="82.0" prefHeight="39.0" prefWidth="187.0" unFocusColor="WHITE" />
-            <Label fx:id="lblCurrentBuilding" layoutX="141.0" layoutY="233.0" prefHeight="27.0" prefWidth="197.0" />
-            <Label fx:id="lblCurrentFloor" layoutX="141.0" layoutY="265.0" prefHeight="27.0" prefWidth="197.0" />
+            <JFXComboBox fx:id="comboTypes" focusColor="WHITE" layoutX="140.0" layoutY="82.0" prefHeight="39.0" prefWidth="187.0" promptText="aaa" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" />
+            <Label fx:id="lblCurrentBuilding" layoutX="141.0" layoutY="233.0" prefHeight="27.0" prefWidth="197.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" />
+            <Label fx:id="lblCurrentFloor" layoutX="141.0" layoutY="265.0" prefHeight="27.0" prefWidth="197.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="89.0" prefWidth="138.0" AnchorPane.leftAnchor="272.0" AnchorPane.topAnchor="32.0">
@@ -200,7 +200,7 @@
                                 <Font name="Arial Black" size="58.0" />
                             </font>
                      <graphic>
-                        <JFXButton maxHeight="66.0" maxWidth="64.0" prefHeight="66.0" prefWidth="64.0" stylesheets="@../css/general_button.css">
+                        <JFXButton maxHeight="60.0" maxWidth="60.0" prefHeight="60.0" prefWidth="60.0" stylesheets="@../css/general_button.css">
                            <styleClass>
                               <String fx:value="button-zoom" />
                               <String fx:value="button-zoom-out" />
@@ -215,7 +215,7 @@
         </AnchorPane>
       <AnchorPane opacity="0.53" prefHeight="31.0" prefWidth="1382.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0">
          <children>
-            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="419.0" layoutY="2.0" prefHeight="31.0" prefWidth="516.0" text="Welcome to BW Hospital" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="419.0" AnchorPane.rightAnchor="450.0">
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="419.0" layoutY="2.0" prefHeight="31.0" prefWidth="516.0" text="Welcome to BW Hospital" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
                <font>
                   <Font name="Algerian" size="24.0" />
                </font>

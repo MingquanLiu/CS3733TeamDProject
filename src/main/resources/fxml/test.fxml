@@ -359,7 +359,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeId" editable="false" focusColor="#7396ff" layoutX="126.0" layoutY="36.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="36.0" />
+            <JFXTextField fx:id="textNodeId" editable="false" focusColor="#7396ff" layoutX="126.0" layoutY="36.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="36.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="26.0" layoutY="102.0" text="Node Type:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -370,19 +370,19 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeFullName" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="123.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="123.0" />
+            <JFXTextField fx:id="textNodeFullName" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="123.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="123.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="24.0" layoutY="172.0" text="Short Name:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="172.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeShortName" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="155.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="155.0" />
+            <JFXTextField fx:id="textNodeShortName" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="155.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="155.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="205.0" text="Location:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="205.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeLocation" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="187.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="187.0" />
+            <JFXTextField fx:id="textNodeLocation" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="187.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="187.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="236.0" text="Building:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -398,10 +398,10 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeTeamAssigned" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
-            <JFXTextField fx:id="textNodeBuilding" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="221.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
-            <JFXTextField fx:id="textNodeFloor" editable="false" focusColor="#7396ff" layoutX="136.0" layoutY="253.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
-            <JFXTextField fx:id="textNodeType" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="87.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeTeamAssigned" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
+            <JFXTextField fx:id="textNodeBuilding" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="221.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeFloor" editable="false" focusColor="#7396ff" layoutX="136.0" layoutY="253.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
+            <JFXTextField fx:id="textNodeType" editable="false" focusColor="#7396ff" layoutX="140.0" layoutY="87.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="20.0" />
          </children>
       </AnchorPane>
       <Label text="© Brigham &amp; Women’s Hospital 2017" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />

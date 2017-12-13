@@ -54,3 +54,6 @@
     -fx-background-insets: 0;
     -fx-background-radius: 1;
 }
+.nodeInfoPane-text{
+    -fx-text-fill:#fcfcfc;
+}
