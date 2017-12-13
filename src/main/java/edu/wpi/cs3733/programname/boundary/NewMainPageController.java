@@ -510,7 +510,7 @@ public class NewMainPageController extends UIController {
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
         comboCharacter.setCellFactory(listView -> new NewMainPageController.ImageListCell());
         comboCharacter.setValue(walkingMan);
-        longNameIDStart = manager.queryNodeByLongName("");
+        longNameIDStart = manager.fuzzyQueryNodesByLongName("");
         longNameIDEnd = longNameIDStart;
         autoCompletionBindingStart = TextFields.bindAutoCompletion(startLocation,longNameIDStart);
         autoCompletionBindingEnd = TextFields.bindAutoCompletion(endLocation,longNameIDEnd);
@@ -864,7 +864,7 @@ public class NewMainPageController extends UIController {
     public void transportRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/Transportation_Request_UI.fxml"
+                        "/fxml/service_request_create_popup.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -873,8 +873,7 @@ public class NewMainPageController extends UIController {
                         (Pane) loader.load()
                 )
         );
-        //TODO fix requests to use this controller
-        //loader.<Transportation_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        loader.<CreateServiceRequestController>getController().initManager(manager, Constants.TRANSPORTATION_REQUEST, employeeLoggedIn);
         stage.show();
         managers.add(stage);
 
@@ -883,7 +882,7 @@ public class NewMainPageController extends UIController {
     public void interpreterRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/Interpreter_Request_UI.fxml"
+                        "/fxml/service_request_create_popup.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -892,8 +891,7 @@ public class NewMainPageController extends UIController {
                         (Pane) loader.load()
                 )
         );
-        //TODO fix requests to use this controller
-        //loader.<Interpreter_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        loader.<CreateServiceRequestController>getController().initManager(manager, Constants.INTERPRETER_REQUEST, employeeLoggedIn);
         stage.show();
         managers.add(stage);
 
@@ -902,7 +900,7 @@ public class NewMainPageController extends UIController {
     public void maintenanceRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/Maintenance_Request_UI.fxml"
+                        "/fxml/service_request_create_popup.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -912,7 +910,7 @@ public class NewMainPageController extends UIController {
                 )
         );
         //TODO fix requests to use this controller
-        //loader.<Maintenance_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        loader.<CreateServiceRequestController>getController().initManager(manager, Constants.MAINTENANCE_REQUEST, employeeLoggedIn);
         stage.show();
         managers.add(stage);
 
