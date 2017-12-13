@@ -20,7 +20,7 @@
          <font>
             <Font size="18.0" />
          </font></JFXButton>
-        <Label fx:id="imageName" layoutX="61.0" layoutY="78.0" text="Upload Image:" textAlignment="CENTER" textFill="WHITE">
+        <Label fx:id="imageName" layoutX="64.0" layoutY="49.0" text="Upload Image:" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
@@ -30,11 +30,11 @@
                 <Font size="18.0" />
             </font>
         </Label>
-      <JFXButton fx:id="uploadImage" buttonType="RAISED" layoutX="191.0" layoutY="72.0" onAction="#setPath" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Upload" textFill="WHITE">
+      <JFXButton fx:id="uploadImage" buttonType="RAISED" layoutX="69.0" layoutY="89.0" onAction="#setPath" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Upload" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></JFXButton>
-      <Label fx:id="addingType" layoutX="240.0" layoutY="7.0" prefHeight="35.0" prefWidth="200.0" text="Add a Building" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="160.0">
+      <Label fx:id="addingType" layoutX="214.0" layoutY="14.0" prefHeight="35.0" prefWidth="173.0" text="Add a Building" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="214.0" AnchorPane.rightAnchor="213.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -48,7 +48,7 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label fx:id="errUpload" layoutX="215.0" layoutY="42.0" prefHeight="19.0" prefWidth="356.0" textFill="RED" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="31.0">
+      <Label fx:id="errUpload" layoutX="159.0" layoutY="88.0" prefHeight="35.0" prefWidth="251.0" textFill="RED" AnchorPane.leftAnchor="159.0" AnchorPane.rightAnchor="190.0">
          <font>
             <Font size="14.0" />
          </font></Label>

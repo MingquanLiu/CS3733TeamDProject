@@ -14,7 +14,7 @@
 
 <ScrollPane fx:id="mainWindow" maxWidth="1.7976931348623157E308" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.About_Popup">
    <content>
-      <AnchorPane fx:id="main" prefHeight="1688.0" prefWidth="796.0">
+      <AnchorPane fx:id="main" prefHeight="1724.0" prefWidth="796.0" style="-fx-background-color: lightgray;">
          <children>
             <Label fx:id="title" alignment="TOP_CENTER" prefHeight="44.0" prefWidth="682.0" text="About" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
@@ -99,7 +99,7 @@
                         <Insets bottom="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Benjamin Newmark&#10;Assistant Lead&#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                  <Label prefHeight="64.0" prefWidth="238.0" text="Benjamin Newmark&#10;Assistant Lead Software Engineer" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -203,7 +203,7 @@
                   <Label layoutX="23.0" layoutY="170.0" text="Christopher Myers&#10;Team Coach" textAlignment="CENTER" />
                </children>
             </Pane>
-            <Label layoutX="70.0" layoutY="1640.0" prefHeight="34.0" prefWidth="685.0" text="Special thanks to Brigham and Women's Faulkner Hospital and Andrew Shinn.&#10;The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." AnchorPane.leftAnchor="70.0">
+            <Label layoutX="70.0" layoutY="1676.0" prefHeight="34.0" prefWidth="685.0" text="Special thanks to Brigham and Women's Faulkner Hospital and Andrew Shinn.&#10;The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." AnchorPane.leftAnchor="70.0">
                <font>
                   <Font size="10.0" />
                </font>

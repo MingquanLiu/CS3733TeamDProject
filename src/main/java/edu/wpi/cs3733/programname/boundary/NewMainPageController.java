@@ -578,7 +578,7 @@ public class NewMainPageController extends UIController {
         characters.add(walkingMan);
         characters.add(runningBatman);
         characters.add(runningCat);
-        characters.add(wong);
+        //characters.add(wong);
 
         comboCharacter.getItems().addAll(characters);
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
@@ -709,6 +709,7 @@ public class NewMainPageController extends UIController {
             pathDrawings = new ArrayList<>();
 
         }
+        paneDirections.setExpanded(false);
         clearAnimations();
         clearHighlightedSteps();
         crossFloor.setVisible(false);
@@ -917,6 +918,8 @@ public class NewMainPageController extends UIController {
                 if (b.getName().equals(newBuilding)) {
                     comboBuilding.setValue(b);
                     setMap();
+                    System.out.println("1");
+                    crossFloor.toBack();
                     return;
                 }
             }
@@ -926,6 +929,7 @@ public class NewMainPageController extends UIController {
                 if (b.getName().equals(newBuilding)) {
                     comboBuilding.setValue(b);
                     setMap();
+                    System.out.println("2");
                     return;
                 }
             }
@@ -934,6 +938,7 @@ public class NewMainPageController extends UIController {
                 if (b.getName().equals(oldBuilding)) {
                     comboBuilding.setValue(b);
                     setMap();
+                    System.out.println("3");
                     return;
                 }
             }
@@ -1199,6 +1204,7 @@ public class NewMainPageController extends UIController {
                 setMap();
             }
         }
+        textDirections.setExpanded(true);
         displayPath(currentPath);
 
         // TODO: Dan, sort these by floor
@@ -1767,10 +1773,12 @@ public class NewMainPageController extends UIController {
                     NodeData nodeData = getClosestNode(currentNodes, m_nMouseX.intValue(), m_nMouseY.intValue());
                     if (closestNode.getLongName().equals(startLocation.getText())) {
                         try {
+                            String  start = currentPath.get(0).getLongName();
+                            String end = currentPath.get(currentPath.size()-1).getLongName();
                             currentPath.clear();
-                            currentPath.addAll(manager.startPathfind(nodeData.getLongName(), endLocation.getText(), handicap.isSelected()));
+
+                            currentPath.addAll(manager.startPathfind(nodeData.getLongName(), end, handicap.isSelected()));
                             displayPath(currentPath);
-                            startLocation.setText(nodeData.getLongName());
                         } catch (InvalidNodeException ine) {
                             currentPath = new ArrayList<>();
                         } catch (NoPathException np) {
@@ -1779,10 +1787,12 @@ public class NewMainPageController extends UIController {
                         }
                     } else if (closestNode.getLongName().equals(endLocation.getText())) {
                         try {
+                            String  start = currentPath.get(0).getLongName();
+                            String end = currentPath.get(currentPath.size()-1).getLongName();
                             currentPath.clear();
-                            currentPath.addAll(manager.startPathfind(startLocation.getText(), nodeData.getLongName(), handicap.isSelected()));
+
+                            currentPath.addAll(manager.startPathfind(start, nodeData.getLongName(), handicap.isSelected()));
                             displayPath(currentPath);
-                            endLocation.setText(nodeData.getLongName());
                         } catch (InvalidNodeException ine) {
                             currentPath = new ArrayList<>();
                         } catch (NoPathException np) {
@@ -1791,9 +1801,13 @@ public class NewMainPageController extends UIController {
                         }
                     } else {
                         try {
+                            String  start = currentPath.get(0).getLongName();
+                            String end = currentPath.get(currentPath.size()-1).getLongName();
+                            System.out.println(end);
                             currentPath.clear();
-                            currentPath = manager.startPathfind(startLocation.getText(), nodeData.getLongName(), handicap.isSelected());
-                            currentPath.addAll(manager.startPathfind(nodeData.getLongName(), endLocation.getText(), handicap.isSelected()));
+
+                            currentPath = manager.startPathfind(start, nodeData.getLongName(), handicap.isSelected());
+                            currentPath.addAll(manager.startPathfind(nodeData.getLongName(), end, handicap.isSelected()));
                             displayPath(currentPath);
                         } catch (InvalidNodeException ine) {
                             currentPath = new ArrayList<>();

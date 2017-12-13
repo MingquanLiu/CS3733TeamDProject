@@ -39,13 +39,13 @@
         </ScrollPane>
       <AnchorPane prefHeight="411.0" prefWidth="314.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="220.0">
          <children>
-            <TitledPane fx:id="paneDirections" animated="false" layoutY="39.0" prefWidth="314.0"  text="Text Directions" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
+            <TitledPane fx:id="paneDirections" animated="false" layoutY="39.0" prefWidth="314.0" text="Text Directions" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
               <content>
                 <AnchorPane minWidth="0.0" prefHeight="195.0" prefWidth="312.0">
                      <children>
                         <JFXListView fx:id="textDirections" layoutX="19.6" layoutY="19.6" onMouseClicked="#goToDirection" prefHeight="272.0" prefWidth="291.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="10.0" />
                         <JFXButton fx:id="btnSendEmailDirections" buttonType="RAISED" layoutX="180.0" layoutY="292.0" onAction="#sendEmailButtonHandler" style="-fx-border-color: black; -fx-border-radius: 3; -fx-background-color: #84CAE0;" text="Send Directions" AnchorPane.bottomAnchor="20.0" />
-                        <JFXTextField fx:id="txtEmailAddress" layoutX="20.0" layoutY="293.0" promptText="Enter Email..." AnchorPane.bottomAnchor="20.0" />
+                        <JFXTextField fx:id="txtEmailAddress" layoutX="14.0" layoutY="303.0" prefHeight="31.0" prefWidth="138.0" promptText="Enter Email..." AnchorPane.bottomAnchor="25.0" />
                      </children>
                   </AnchorPane>
               </content>

@@ -87,11 +87,11 @@
       <JFXTextField fx:id="txtSelectLocation" layoutX="394.0" layoutY="119.0" onKeyTyped="#fuzzyRequestLocation" prefHeight="27.0" prefWidth="151.0" promptText="Request Location" />
        <JFXTextField fx:id="txtTransportDestination" layoutX="394.0" layoutY="174.0" onKeyTyped="#fuzzyTransportDestination" promptText="Transport Destination" />
       <JFXTextArea fx:id="txtDescription" layoutX="94.0" layoutY="227.0" prefHeight="178.0" prefWidth="523.0" promptText="Request Description..." style="-fx-border-color: grey;" stylesheets="@../css/global_stylesheet.css" />
-      <HBox alignment="TOP_CENTER" layoutX="92.0" layoutY="62.0" prefHeight="27.0" prefWidth="528.0" spacing="100.0">
+      <HBox alignment="TOP_CENTER" layoutX="71.0" layoutY="60.0" prefHeight="31.0" prefWidth="570.0" spacing="100.0">
          <children>
             <JFXButton fx:id="btnNewInterpreter" buttonType="RAISED" onAction="#interpreterButtonHandler" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Interpreter" />
             <JFXButton fx:id="btnNewMaintenance" buttonType="RAISED" onAction="#maintenanceButtonHandler" prefWidth="130.0" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Maintenance" />
-            <JFXButton fx:id="btnNewTransportation" buttonType="RAISED" onAction="#transportationButtonHandler" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Transportation" />
+            <JFXButton fx:id="btnNewTransportation" buttonType="RAISED" onAction="#transportationButtonHandler" prefHeight="31.0" prefWidth="140.0" styleClass="color-button-typeOfServiceRequest" stylesheets="@../css/general_button.css" text="Transportation" />
          </children>
       </HBox>
    </children>

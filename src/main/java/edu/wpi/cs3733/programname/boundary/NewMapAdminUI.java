@@ -402,7 +402,19 @@ public class NewMapAdminUI extends UIController {
 
                 floorList.addAll(floors);
                 comboFloors.setItems(floorList);
-                comboFloors.setValue(floorList.get(0));
+
+                if (newBld.getName().equals("Main Hospital") &&
+                        !curBuilding.getName().matches("Main Hospital|BTM|(15|25|45) Francis|Tower|Shapiro"))
+                    comboFloors.setValue(floorList.get(4));
+                else
+                    for (Floor f : floors) {
+                        if (curFloor.getFloorNum().equals(f.getFloorNum()))
+                            comboFloors.setValue(f);
+                    }
+
+                if (comboFloors.getValue() == null)
+                    comboFloors.setValue(floorList.get(0));
+
                 curBuilding = newBld;
             }
             if (curFloor == null || curFloor != comboFloors.getValue()) {

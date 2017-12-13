@@ -391,10 +391,5 @@ public class ServiceRequestMainController {
 
     private void bufferUI() {
         requestMasonryPane.getChildren().clear();
-        try {
-            Thread.sleep(150);
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
-        }
     }
 }
