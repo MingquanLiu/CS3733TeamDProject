@@ -110,7 +110,11 @@ public class ManageController {
     }
 
 
-    public List<String> queryNodeByLongName(String longName){
+    public List<String> fuzzyQueryNodesByLongName(String longName){
+        return this.dbQueryController.fuzzyQueryNodesByLongName(longName);
+    }
+
+    public NodeData queryNodeByLongName(String longName){
         return this.dbQueryController.queryNodeByLongName(longName);
     }
 
