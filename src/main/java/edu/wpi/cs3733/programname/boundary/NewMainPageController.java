@@ -924,7 +924,7 @@ public class NewMainPageController extends UIController {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(
                 new Scene(
-                        (Pane) loader.load()
+                        loader.load()
                 )
         );
         stage.show();

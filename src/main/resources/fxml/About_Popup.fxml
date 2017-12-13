@@ -1,22 +1,225 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainWindow" prefHeight="359.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.About_Popup">
-   <children>
-       <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="35.0" prefHeight="324.0" prefWidth="542.0">
-         <content>
-            <TextArea fx:id="text" editable="false" prefHeight="352.0" prefWidth="540.0" text="Professor Wilson Wong&#10;WPI Computer Science Department&#10;CS3733: Software Engineering&#10;Christopher Myers - Team Coach&#10;&#10;Michael Abadjiev - Project Manager&#10;Shreeja Bhattacharjee - Documentation Analyst&#10;Haiau Duong - Database Engineer&#10;Yufei Gao - Documentation Analyst&#10;Mingquan Liu - Assistant Software Engineer&#10;Treksh Marwaha - Testing Engineer&#10;Benjamin Newmark - Assistant Software Engineer&#10;Kenneth Quartuccio - Testing Engineer&#10;David Swenarton - Lead Software Engineer&#10;Daniel Wivagg - Product Owner&#10;&#10;Special thanks to Brigham and Women's Faulkner Hospital and Andrew Shinn&#10;&#10;The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes.&#10;&#10;" wrapText="true" />
-         </content>
-      </ScrollPane>
-      <Label fx:id="title" layoutX="241.0" layoutY="4.0" text="About">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+<ScrollPane fx:id="mainWindow" maxWidth="1.7976931348623157E308" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.About_Popup">
+   <content>
+      <AnchorPane fx:id="main" prefHeight="1688.0" prefWidth="796.0">
+         <children>
+            <Label fx:id="title" alignment="TOP_CENTER" prefHeight="44.0" prefWidth="682.0" text="About" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <GridPane alignment="CENTER" layoutY="53.0" prefHeight="95.0" prefWidth="606.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="288.0" minWidth="50.0" prefWidth="253.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="366.0" minWidth="50.0" prefWidth="353.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="58.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <image>
+                        <Image url="@../img/WPI.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="73.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../img/BWH_logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="WPI Computer Science Department &#10;CS3733: Software Engineering" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+               </children>
+            </GridPane>
+            <Pane layoutX="125.0" layoutY="200.0" prefHeight="201.0" prefWidth="455.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="225.0">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/photos/Wong.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="217.0" layoutY="50.0" text="Dr. Wilson Wong&#10;&#10;Computer Science&#10;&#10;Assistant Teaching Professor">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="444.0" prefHeight="29.0" prefWidth="658.0" text="Our Team: Dragonfly Dragons" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="445.0">
+               <font>
+                  <Font name="Zapfino" size="22.0" />
+               </font>
+            </Label>
+            <GridPane layoutX="96.0" layoutY="248.0" prefHeight="664.0" prefWidth="564.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="550.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="220.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="220.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="220.0" minHeight="10.0" prefHeight="220.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Michael Abadjiev&#10;Product Owner" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Shreeja Bhattacharjee&#10;Project Manager" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Yufei Gao&#10;Documentation Analyst" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Mingquan Liu&#10;Co-Lead Software Engineer" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Treksh Marwaha&#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Benjamin Newmark&#10;Assistant Lead&#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Kenneth Quartuccio&#10;Test Engineer" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="David Swenarton&#10;Co-Lead Software Engineer" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Daniel Wivagg &#10;Software Engineer" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Shreeja.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Yufei.JPG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Mingquan.jpeg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Trek.JPG" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Ben.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Ken.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/David.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Dan.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                     <image>
+                        <Image url="@../img/photos/Michael.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </GridPane>
+            <Pane layoutX="439.0" layoutY="1218.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.rightAnchor="197.0">
+               <children>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/photos/Chris.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="23.0" layoutY="170.0" text="Christopher Myers&#10;Team Coach" textAlignment="CENTER" />
+               </children>
+            </Pane>
+            <Label layoutX="10.0" layoutY="1441.0" prefHeight="34.0" prefWidth="685.0" text="Special thanks to Brigham and Women's Faulkner Hospital and Andrew Shinn.&#10;The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="10.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Pane layoutX="202.0" layoutY="1218.0" prefHeight="201.0" prefWidth="160.0" AnchorPane.leftAnchor="202.0">
+               <children>
+                  <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/photos/Haiau.jpeg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="9.0" layoutY="170.0" text="Haiau Duong&#10;(Ex) Database Engineer" textAlignment="CENTER" />
+               </children>
+            </Pane>
+            <Label layoutX="123.0" layoutY="1456.0" text="Credit To: &#10;Team Emerald Elbow-Witches (10) - Coach Sai Vadlamudi&#10;Yianni Alexiou, Jonathan Berry, Clayton Dembski, Mitchell Farren, Joshua Galang, &#10;Krystal Grant, Karsten Roberts, Tung Truong, Nikolay Uvarov and Thomas Wiles&#10;for the health care API.&#10;&#10;And Team Granite Gargoyles (11) - Coach Binam Kayastha&#10;Quinn Averill, Melanie Dworak, Nicole Franco, Zachary Halzel, Sean Hunt, Ian MacGregor, &#10;Garrett Otteni, Alexander Pappas, Lucas Sacherer, Taylor Stephen, Dimitrios Tsiakmakis&#10;for the food request API." />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
