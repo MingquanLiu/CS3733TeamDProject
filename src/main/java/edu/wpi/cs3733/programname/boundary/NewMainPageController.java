@@ -981,7 +981,7 @@ public class NewMainPageController extends UIController {
             e.printStackTrace();
         }
         // Go back to the default view
-        clearMain();
+        clearPath();
         for (Stage stage : managers) {
             stage.close();
             stage.hide();
@@ -1567,6 +1567,8 @@ public class NewMainPageController extends UIController {
             adminFeaturePane.setVisible(false);
             employeeManager.setDisable(false);
             employeeManager.setOpacity(1.0);
+            mapEdit.setDisable(false);
+            mapEdit.setOpacity(1.0);
             return;
         }
         FXMLLoader loader = new FXMLLoader(
@@ -1592,6 +1594,8 @@ public class NewMainPageController extends UIController {
             if (employeeLoggedIn.getSysAdmin() == false) {
                 employeeManager.setDisable(true);
                 employeeManager.setOpacity(0.5);
+                mapEdit.setDisable(true);
+                mapEdit.setOpacity(0.5);
             }
         }
         //stage.show();
@@ -1599,7 +1603,7 @@ public class NewMainPageController extends UIController {
 
     public void BathroomSweepHandler() throws IOException {
         String startID;
-        if (startLocation.getText() == "" || startLocation.getText() == null) {
+        if (startLocation.getText().equals("") || startLocation.getText().equals( null)) {
             startID = AppSettings.getInstance().getDefaultLocation();
         } else {
             startID = startLocation.getText();
@@ -1619,7 +1623,7 @@ public class NewMainPageController extends UIController {
 
     public void ElevatorSweepHandler() throws IOException {
         String startID;
-        if (startLocation.getText() == "" || startLocation.getText() == null) {
+        if (startLocation.getText().equals("") || startLocation.getText().equals(null)) {
             startID = AppSettings.getInstance().getDefaultLocation();
         } else {
             startID = startLocation.getText();

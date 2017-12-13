@@ -31,6 +31,11 @@ public class ServiceRequestMainController {
     private final int ASSIGNED = 1;
     private final int COMPLETED = 2;
 
+    private final int ALL = 3;
+    private final int INTERPRETER = 4;
+    private final int MAINTENANCE = 5;
+    private final int TRANSPORT = 6;
+
     @FXML
     JFXMasonryPane requestMasonryPane;
     @FXML
@@ -81,6 +86,7 @@ public class ServiceRequestMainController {
 
     List<ServiceRequest> currentlyVisible;
     int currentView;
+    int currFilter;
 
     ManageController manager;
 
@@ -88,6 +94,8 @@ public class ServiceRequestMainController {
         this.manager = manage;
         unassignedButtonHandler();
         updateEmployeeTable();
+        currentView = UNASSIGNED;
+        currFilter = ALL;
         AppSettings.getInstance().setCurrentSelectedRequestId(null);
     }
 
@@ -111,18 +119,21 @@ public class ServiceRequestMainController {
 
     public void unassignedButtonHandler() throws IOException {
         bufferUI();
+        btnAssignSelected.setVisible(true);
         List<ServiceRequest> allUnassigned = manager.getUnassignedRequests();
         updateRequestsUnassigned(allUnassigned);
     }
 
     public void assignedButtonHandler() throws IOException {
         bufferUI();
+        btnAssignSelected.setVisible(false);
         List<ServiceRequest> allAssigned = manager.getAssignedRequests();
         updateRequestsAssigned(allAssigned);
     }
 
     public void completedButtonHandler() throws IOException {
         bufferUI();
+        btnAssignSelected.setVisible(false);
         List<ServiceRequest> allCompleted = manager.getCompletedRequests();
         updateRequestsCompleted(allCompleted);
     }
@@ -130,6 +141,7 @@ public class ServiceRequestMainController {
 
     public void allTypesButtonHandler() throws IOException {
         List<ServiceRequest> sorted;
+        currFilter = ALL;
         if (currentView == UNASSIGNED) {
             sorted = manager.getUnassignedRequests();
             updateRequestsUnassigned(sorted);
@@ -144,6 +156,7 @@ public class ServiceRequestMainController {
 
     public void interpreterButtonHandler() throws IOException{
         List<ServiceRequest> sorted;
+        currFilter = INTERPRETER;
         if (currentView == UNASSIGNED) {
             sorted = manager.getUnassignedRequests();
             List<ServiceRequest> filtered = new ArrayList<>();
@@ -176,6 +189,7 @@ public class ServiceRequestMainController {
 
     public void maintenanceButtonHandler() throws IOException {
         List<ServiceRequest> sorted;
+        currFilter = MAINTENANCE;
         if (currentView == UNASSIGNED) {
             sorted = manager.getUnassignedRequests();
             List<ServiceRequest> filtered = new ArrayList<>();
@@ -209,6 +223,7 @@ public class ServiceRequestMainController {
 
     public void transportationButtonHandler() throws IOException {
         List<ServiceRequest> sorted;
+        currFilter = TRANSPORT;
         if (currentView == UNASSIGNED) {
             sorted = manager.getUnassignedRequests();
             List<ServiceRequest> filtered = new ArrayList<>();
@@ -248,7 +263,7 @@ public class ServiceRequestMainController {
                     "/fxml/service_request_obj2.fxml"
             ));
             AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
-            requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
+            //requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
             updateRequestDetail(requestView, assigned, ASSIGNED);
             requestView.toFront();
             requestMasonryPane.getChildren().add(requestView);
@@ -267,7 +282,7 @@ public class ServiceRequestMainController {
                     "/fxml/service_request_obj2.fxml"
             ));
             AnchorPane completedRequestView = (AnchorPane) requestFXML.lookup("#serviceObj");
-            completedRequestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
+            //completedRequestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
             updateRequestDetail(completedRequestView, completed, COMPLETED);
             completedRequestView.toFront();
             requestMasonryPane.getChildren().add(completedRequestView);
@@ -338,12 +353,22 @@ public class ServiceRequestMainController {
         System.out.println("### " + AppSettings.getInstance().getCurrentSelectedRequestId());
     }
 
-    public void assignSelectedButtonHandler() {
+    public void assignSelectedButtonHandler() throws IOException {
         System.out.println("### Assigned Request #" + AppSettings.getInstance().getCurrentSelectedRequestId());
-        if (validateSubmission()) {
+        if (currentView == UNASSIGNED && validateSubmission()) {
             ServiceRequest selected = manager.queryRequestsById(AppSettings.getInstance().getCurrentSelectedRequestId());
             Employee assignee = employeeTableView.getSelectionModel().getSelectedItem();
             manager.assignServiceRequest(selected, assignee.getUsername());
+            List<ServiceRequest> unassignedReqs = manager.getUnassignedRequests();
+            if (currFilter == ALL) {
+                updateRequestsUnassigned(unassignedReqs);
+            } else if (currFilter == INTERPRETER) {
+                interpreterButtonHandler();
+            } else if (currFilter == MAINTENANCE) {
+                maintenanceButtonHandler();
+            } else if (currFilter == TRANSPORT) {
+                transportationButtonHandler();
+            }
         }
     }
 
