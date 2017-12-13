@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
@@ -40,9 +41,10 @@ import java.util.*;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_KEY_LOCATION_NOT_SHOWN;
 import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_KEY_LOCATION_SHOWN;
+import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_SHOWN;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 
-public class NewMainPageController {
+public class NewMainPageController extends UIController {
     //FXML objects
     //<editor-fold dsec="main panes">
     @FXML
@@ -135,17 +137,20 @@ public class NewMainPageController {
     @FXML
     private TextField textNodeTeamAssigned;
     @FXML
+    private AnchorPane nodeInfoBox;
+    @FXML
+    private TextField textNodeType;
+    @FXML
+    private TextField textNodeBuilding;
+    @FXML
+    private TextField textNodeFloor;
+    @FXML
     private JFXButton nodeInfoAdd;
     @FXML
     private JFXButton nodeInfoEdit;
     @FXML
     private JFXButton nodeInfoDelete;
-    @FXML
-    private Label lblCurrentBuilding;
-    @FXML
-    private Label lblCurrentFloor;
-    @FXML
-    private JFXComboBox comboTypes;
+
     @FXML
     private TextField startLocation;
     @FXML
@@ -180,6 +185,8 @@ public class NewMainPageController {
 
     private Stage stage;
 
+
+
     private ManageController manager;
     private double currentScale;
     private final double MAX_UI_WIDTH = 5000;
@@ -211,7 +218,10 @@ public class NewMainPageController {
     private boolean loggedIn;
     private String userName = null;
     private Employee employeeLoggedIn;
-
+    private AutoCompletionBinding<String> autoCompletionBindingStart;
+    private AutoCompletionBinding<String> autoCompletionBindingEnd;
+    private List<String> longNameIDStart;
+    private List<String> longNameIDEnd;
 
     private boolean showStairs = false;
     private boolean showDestination = false;
@@ -421,8 +431,36 @@ public class NewMainPageController {
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
         comboCharacter.setCellFactory(listView -> new NewMainPageController.ImageListCell());
         comboCharacter.setValue(walkingMan);
+        longNameIDStart = manager.queryNodeByLongName("");
+        longNameIDEnd = longNameIDStart;
+        autoCompletionBindingStart = TextFields.bindAutoCompletion(startLocation,longNameIDStart);
+        autoCompletionBindingEnd = TextFields.bindAutoCompletion(endLocation,longNameIDEnd);
         currentNodes = manageController.queryNodeByFloorAndBuilding(curBuilding.getName(),curFloor.getFloorNum());
+        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
+
     }
+
+    private void setNodeDataToInfoPane(NodeData nodeData) {
+        nodeInfoBox.setOpacity(OPACITY_SHOWN);
+        textNodeId.setText(nodeData.getNodeID());
+        textNodeType.setText(nodeData.getNodeType());
+        textNodeBuilding.setText(nodeData.getBuilding());
+        textNodeFloor.setText(nodeData.getFloor());
+        textNodeFullName.setText(nodeData.getLongName());
+        textNodeLocation.setText(nodeData.getLocation().toString());
+        textNodeShortName.setText(nodeData.getShortName());
+        textNodeTeamAssigned.setText(nodeData.getTeamAssigned());
+    }
+    @Override
+    public void passNodeData(NodeData nodeData) throws IOException {
+
+    }
+
+    @Override
+    public void passEdgeData(EdgeData edgeData) {
+
+    }
+
     //path display/animation
     private class ImageListCell extends ListCell<Image> {
         private final ImageView view;
@@ -786,11 +824,12 @@ public class NewMainPageController {
 
     public void fuzzyStart() {
         String input = startLocation.getText();
-        List<String> longNameIDS = manager.queryNodeByLongName(input);
+        autoCompletionBindingStart.setUserInput(input);
+    }
 
-        TextFields.bindAutoCompletion(startLocation, longNameIDS);
-        TextFields.bindAutoCompletion(endLocation, longNameIDS);
-
+    public void fuzzyEnd() {
+        String input = endLocation.getText();
+        autoCompletionBindingEnd.setUserInput(input);
     }
 
     public void setUserName(String userName) {        this.userName = userName; }
@@ -1008,10 +1047,10 @@ public class NewMainPageController {
 //                setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
                 showNodesOrEdges();
             }
-            if (lblCurrentBuilding != null) {
-                lblCurrentBuilding.setText(curBuilding.getName());
-                lblCurrentFloor.setText(curFloor.getFloorNum());
-            }
+//            if (lblCurrentBuilding != null) {
+//                lblCurrentBuilding.setText(curBuilding.getName());
+//                lblCurrentFloor.setText(curFloor.getFloorNum());
+//            }
             displayPath(currentPath);
         }
     }

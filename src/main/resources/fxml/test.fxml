@@ -167,7 +167,7 @@
       <AnchorPane prefHeight="184.0" prefWidth="314.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <JFXTextField fx:id="startLocation" layoutX="111.0" layoutY="14.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="9.0" />
-            <JFXTextField fx:id="endLocation" layoutX="111.0" layoutY="60.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="55.0" />
+            <JFXTextField fx:id="endLocation" layoutX="111.0" layoutY="60.0" onKeyTyped="#fuzzyEnd" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="55.0" />
             <Label layoutX="11.0" layoutY="14.0" prefHeight="31.0" prefWidth="100.0" text="Start Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0" />
             <Label layoutX="11.0" layoutY="60.0" prefHeight="31.0" prefWidth="100.0" text="End Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="60.0" />
             <JFXButton buttonType="RAISED" layoutX="46.0" layoutY="104.0" onAction="#goButtonHandler" ripplerFill="#cff888" text="Search">
