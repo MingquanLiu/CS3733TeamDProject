@@ -537,6 +537,7 @@ public class NewMainPageController extends UIController {
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
+        nodeInfoBox.setVisible(true);
         nodeInfoBox.setOpacity(OPACITY_SHOWN);
         textNodeId.setText(nodeData.getNodeID());
         textNodeType.setText(nodeData.getNodeType());
@@ -565,6 +566,7 @@ public class NewMainPageController extends UIController {
         }
         enlargeNode(nodeData);
         setNodeDataToInfoPane(nodeData);
+        nodeInfoBox.setVisible(true);
         nodeInfoBox.setOpacity(OPACITY_SHOWN);
     }
 
@@ -1003,6 +1005,12 @@ public class NewMainPageController extends UIController {
                 }
             }
         });
+        for (Floor f:curBuilding.getFloors()){
+            if(currentPath.get(1).getFloor().equals(f.getFloorNum())){
+                comboFloors.setValue(f);
+                setMap();
+            }
+        }
         displayPath(currentPath);
 
         // TODO: Dan, sort these by floor
@@ -1197,7 +1205,7 @@ public class NewMainPageController extends UIController {
         int y = (int) e.getY();
         switch (selectingLocation) {
             case "":
-                nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+                nodeInfoBox.setVisible(false);
                 if(prevShowNode!=null) {
                     shrinkNode(prevShowNode);
                 }
