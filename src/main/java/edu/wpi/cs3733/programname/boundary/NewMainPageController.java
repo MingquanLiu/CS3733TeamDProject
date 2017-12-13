@@ -17,7 +17,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -212,6 +211,7 @@ public class NewMainPageController {
     @FXML
     private JFXButton crossFloor;
     private ArrayList<Floor> floors;
+    private ImageView currentChar;
 
 
     public void initManager(ManageController manageController) {
@@ -273,8 +273,9 @@ public class NewMainPageController {
         setMap();
         setZoom();
 
-        Image walkingMan = new Image("img/walkingBlue.gif");
-        Image runningBatman = new Image("img/batmanRun.gif");
+        Image walkingMan = new Image("img/walkingBlue1.gif");
+        Image runningBatman = new Image("img/batmanRun1.gif");
+        currentChar = new ImageView("img/walkingBlue.gif");
 
         ObservableList characters = FXCollections.observableList(new ArrayList<>());
         characters.add(walkingMan);
@@ -364,20 +365,20 @@ public class NewMainPageController {
 
         String imgUrl = ((Image)(comboCharacter.getValue())).impl_getUrl();
         System.out.println(imgUrl);
-        ImageView walkingMan = new ImageView(imgUrl);
-        walkingMan.setPreserveRatio(true);
-        walkingMan.setFitWidth(200*currentScale);
+        ImageView character = currentChar;
+        character.setPreserveRatio(true);
+        character.setFitWidth(200*currentScale);
 
         PathTransition pathTransition = new PathTransition();
 
         int distance = distanceBetweenNodes(nodes.get(0), nodes.get(nodes.size()-1));
         pathTransition.setDuration(Duration.millis(distance*10));
-        pathTransition.setNode(walkingMan);
+        pathTransition.setNode(character);
         pathTransition.setPath(path);
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pathTransition.setCycleCount(100);
-        panningPane.getChildren().add(walkingMan);
-        walkingMan.toFront();
+        panningPane.getChildren().add(character);
+        character.toFront();
         pathTransition.setAutoReverse(false);
         pathTransition.orientationProperty().addListener(new ChangeListener<PathTransition.OrientationType>() {
             @Override
@@ -388,7 +389,7 @@ public class NewMainPageController {
 
         pathTransition.play();
 
-        drawnImages.add(walkingMan);
+        drawnImages.add(character);
         transitions.add(pathTransition);
     }
 
@@ -482,6 +483,10 @@ public class NewMainPageController {
 
     }
     public void selectCharacter(){
+        Image selectedChar = comboCharacter.getValue();
+        String newUrl = selectedChar.impl_getUrl();
+        newUrl = newUrl.substring(0,newUrl.indexOf("1.gif")) + ".gif";
+        currentChar = new ImageView(newUrl);
         displayPath(currentPath);
     }
     private void pauseTransitions() {
