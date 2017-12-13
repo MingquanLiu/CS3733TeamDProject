@@ -179,7 +179,12 @@
                </font>
             </JFXButton>
             <JFXCheckBox fx:id="handicap" layoutX="45.0" layoutY="148.0" text="Handicap" AnchorPane.bottomAnchor="12.0" />
-            <JFXComboBox fx:id="comboCharacter" layoutX="201.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#selectCharacter" prefHeight="40.0" prefWidth="20.0" AnchorPane.bottomAnchor="0.0" />
+            <JFXComboBox fx:id="comboCharacter" layoutX="201.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#selectCharacter" prefHeight="40.0" prefWidth="20.0" stylesheets="@../css/animated_dropdown.css" AnchorPane.bottomAnchor="0.0">
+               <styleClass>
+                  <String fx:value="combo-box-popup" />
+                  <String fx:value="combo-box" />
+                  <String fx:value="list-view" />
+               </styleClass></JFXComboBox>
             <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="82.0" onAction="#BathroomSweepHandler" ripplerFill="#cff888" text="Find Bathroom">
                <font>
                   <Font name="System Bold" size="17.0" />
@@ -285,7 +290,7 @@
         </AnchorPane>
       <AnchorPane opacity="0.53" prefHeight="31.0" prefWidth="1382.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0">
          <children>
-            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="299.0" layoutY="1.0" prefHeight="31.0" prefWidth="516.0" text="Welcome to BW Hospital" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="299.0" AnchorPane.rightAnchor="570.0">
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="299.0" layoutY="1.0" prefHeight="31.0" prefWidth="516.0" text="Welcome to BW Hospital" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="435.0" AnchorPane.rightAnchor="435.0">
                <font>
                   <Font name="Algerian" size="24.0" />
                </font>

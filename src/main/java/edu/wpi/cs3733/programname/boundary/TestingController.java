@@ -486,6 +486,7 @@ public class TestingController extends UIController implements Initializable {
 
         Image walkingMan = new Image("img/walkingBlue.gif");
         Image runningBatman = new Image("img/batmanRun.gif");
+        Image walkingShreeja = new Image ("img/walkingBlue.gif");
 
         ObservableList characters = FXCollections.observableList(new ArrayList<>());
         characters.add(walkingMan);
