@@ -9,17 +9,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainWindow" prefHeight="359.0" prefWidth="542.0" style="-fx-background-color: #d9ebf7;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.FAQ_Popup">
+<AnchorPane fx:id="mainWindow" onMouseEntered="#initFAQ" prefHeight="359.0" prefWidth="542.0" style="-fx-background-color: #d9ebf7;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.FAQ_Popup">
    <children>
        <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="35.0" prefHeight="324.0" prefWidth="542.0" style="-fx-background-color: #c5cbd6;">
          <content>
             <Accordion style="-fx-background-color: #d3edff;">
               <panes>
-                <TitledPane animated="false" text="Q: How do I get the information of a location?">
+                <TitledPane animated="false" prefWidth="540.0" text="Q: How do I get the information of a location?">
                   <content>
-                    <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="167.0" prefWidth="538.0" style="-fx-background-color: #d9ebf7;">
+                    <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="180.0" prefWidth="538.0" style="-fx-background-color: #d9ebf7;">
                            <children>
-                              <JFXTextField focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="486.0" style="-fx-border-color: #d9ebf7;" text="You can view the information of a location by clicking it." unFocusColor="#4d4d4d00" />
+                              <JFXTextField fx:id="a1" focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefWidth="486.0" style="-fx-border-color: #d9ebf7;" text="You can view the information of a location by clicking it." unFocusColor="#4d4d4d00" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -28,7 +28,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d9ebf7;">
                            <children>
-                              <JFXTextArea focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="134.0" prefWidth="512.0" text="        If you can tell where the location is on the map, click the wanted purple node on the map(You can zoom in to make the selection more accurate). You will see the selected node turns to green and a grey block that contains Node Information shows on the bottom right corner. Click “Set As From” for selecting this node as the starting location or click “Set As To” for selecting this node as the ending location.&#10;        If you know the name of the location, click the text field next to “From:” (“To:” for selecting ending location) which in on the top left corner, type the name of the starting/ending location. While you are typing, you are provided with some options below the text field. You can select one of them and the text field will be filled. &#10;        If you prefer a handicapped-accessible route, click the “Handicap” check box then hit the green “Search” button. If you do not, hit the green “Search” button. A light blue path will display on the map, a character will walks along the path(You can choose your character on the left side), you can change the character by selecting your favorite one on the bottom right corner. If your path crosses floor, you will see a blue button on the elevator or staircase node, you can switch between two floors by clicking the blue button." unFocusColor="#4d4d4d00" />
+                              <JFXTextArea fx:id="a2" focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="134.0" prefWidth="512.0" text="        If you can tell where the location is on the map, click the wanted purple node on the map(You can zoom in to make the selection more accurate). You will see the selected node turns to green and a grey block that contains Node Information shows on the bottom right corner. Click “Set As From” for selecting this node as the starting location or click “Set As To” for selecting this node as the ending location.&#10;        If you know the name of the location, click the text field next to “From:” (“To:” for selecting ending location) which in on the top left corner, type the name of the starting/ending location. While you are typing, you are provided with some options below the text field. You can select one of them and the text field will be filled. &#10;        If you prefer a handicapped-accessible route, click the “Handicap” check box then hit the green “Search” button. If you do not, hit the green “Search” button. A light blue path will display on the map, a character will walks along the path(You can choose your character on the left side), you can change the character by selecting your favorite one on the bottom right corner. If your path crosses floor, you will see a blue button on the elevator or staircase node, you can switch between two floors by clicking the blue button." unFocusColor="#4d4d4d00" />
                            </children></AnchorPane>
                   </content>
                 </TitledPane>
@@ -36,7 +36,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d9ebf7;">
                            <children>
-                              <JFXTextArea focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="131.0" prefWidth="510.0" style="-fx-background-color: #d9ebf7;" text="Click the blue button on the top left corner, then click the the wanted type of icon of locations.&#10;The nodes of the certain type of location will be highlighted in purple.&#10;" unFocusColor="#4d4d4d00" />
+                              <JFXTextArea fx:id="a3" focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="131.0" prefWidth="510.0" style="-fx-background-color: #d9ebf7;" text="Click the blue button on the top left corner, then click the the wanted type of icon of locations.&#10;The nodes of the certain type of location will be highlighted in purple.&#10;" unFocusColor="#4d4d4d00" />
                            </children></AnchorPane>
                   </content>
                 </TitledPane>
@@ -44,7 +44,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d9ebf7;">
                            <children>
-                              <JFXTextArea focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="133.0" prefWidth="512.0" promptText="You can select floor from the top white dropdown" style="-fx-background-color: #d9ebf7;" unFocusColor="#4d4d4d00" />
+                              <JFXTextArea fx:id="a4" focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="133.0" prefWidth="512.0" promptText="You can select floor from the top white dropdown" style="-fx-background-color: #d9ebf7;" unFocusColor="#4d4d4d00" />
                            </children></AnchorPane>
                     </content>
                   </TitledPane>
@@ -52,7 +52,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d9ebf7;">
                            <children>
-                              <JFXTextArea focusColor="#6b7cb000" layoutX="14.0" layoutY="14.0" prefHeight="135.0" prefWidth="513.0" promptText="You can select building from the top white dropdown" style="-fx-background-color: #d9ebf7;" unFocusColor="#4d4d4d00" />
+                              <JFXTextArea fx:id="a5" focusColor="#6b7cb000" layoutX="14.0" layoutY="14.0" prefHeight="135.0" prefWidth="513.0" promptText="You can select building from the top white dropdown" style="-fx-background-color: #d9ebf7;" unFocusColor="#4d4d4d00" />
                            </children></AnchorPane>
                     </content>
                   </TitledPane>
@@ -60,7 +60,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d9ebf7;">
                            <children>
-                              <JFXTextArea layoutX="7.0" layoutY="9.0" prefHeight="147.0" prefWidth="526.0" style="-fx-background-color: #d9ebf7;" text="If you want to receive an email of your directions, enter your email address in the text field, click “Email Directions” button. You will receive an email with the text directions of your path in a minute." />
+                              <JFXTextArea fx:id="a6" layoutX="7.0" layoutY="9.0" prefHeight="147.0" prefWidth="526.0" style="-fx-background-color: #d9ebf7;" text="If you want to receive an email of your directions, enter your email address in the text field, click “Email Directions” button. You will receive an email with the text directions of your path in a minute." unFocusColor="#4d4d4d00" />
                            </children></AnchorPane>
                     </content>
                   </TitledPane>

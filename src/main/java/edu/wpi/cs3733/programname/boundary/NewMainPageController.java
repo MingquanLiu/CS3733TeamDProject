@@ -246,6 +246,7 @@ public class NewMainPageController extends UIController {
 
 
 
+
     private ManageController manager;
     private double currentScale;
     private final double MAX_UI_WIDTH = 5000;
@@ -603,6 +604,7 @@ public class NewMainPageController extends UIController {
         pathSubset = new Group();
 
         managers = new ArrayList<>();
+
 
     }
 
@@ -1076,6 +1078,7 @@ public class NewMainPageController extends UIController {
     }
 
     public void helpButtonHandler() throws IOException {
+
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/FAQ_Popup.fxml"
