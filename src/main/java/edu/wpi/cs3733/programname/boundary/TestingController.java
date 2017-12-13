@@ -1530,7 +1530,7 @@ public class TestingController extends UIController implements Initializable {
     }
     public void fuzzyStart(){
         String input = txtStartLocation.getText();
-        List<String> longNameIDS = manager.queryNodeByLongName(input);
+        List<String> longNameIDS = manager.fuzzyQueryNodesByLongName(input);
 
         TextFields.bindAutoCompletion(txtStartLocation, longNameIDS);
         TextFields.bindAutoCompletion(txtEndLocation, longNameIDS);
