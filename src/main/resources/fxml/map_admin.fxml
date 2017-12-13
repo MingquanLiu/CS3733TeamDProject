@@ -37,7 +37,7 @@
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutY="3.0" text="Path Find Algorithm" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
             <JFXRadioButton fx:id="AStar" layoutY="30.0" onAction="#pfAlgorithmHandler" prefHeight="21.0" prefWidth="85.0" selected="true" text="AStar" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="30.0">
@@ -63,7 +63,7 @@
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutX="61.0" layoutY="25.0" text="Node Info" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
             <Label alignment="CENTER" ellipsisString="" layoutX="28.0" layoutY="55.0" text="Node ID:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="55.0">
@@ -147,13 +147,19 @@
          <children>
             <Label alignment="CENTER" ellipsisString="" layoutX="-18.0" layoutY="5.0" text="Add Edge" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" ellipsisString="" layoutY="21.0" text="Node One:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="21.0" />
-            <Label fx:id="edgeNode1" alignment="CENTER" ellipsisString="" layoutX="102.0" layoutY="42.0" prefWidth="123.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="102.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
-            <Label alignment="CENTER" ellipsisString="" layoutY="63.0" prefHeight="27.0" text="Node Two:" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="63.0" />
-            <Label fx:id="edgeNode2" alignment="CENTER" ellipsisString="" layoutX="5.0" layoutY="85.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="84.0" />
+            <Label alignment="CENTER" ellipsisString="" layoutX="88.0" layoutY="32.0" text="Node One:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.topAnchor="32.0">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></Label>
+            <Label fx:id="edgeNode1" alignment="CENTER" ellipsisString="" layoutX="54.0" layoutY="49.0" prefWidth="123.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="49.0" />
+            <Label alignment="CENTER" ellipsisString="" layoutX="86.0" layoutY="66.0" prefHeight="27.0" text="Node Two:" textFill="#fcfcfc" AnchorPane.topAnchor="66.0">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></Label>
+            <Label fx:id="edgeNode2" alignment="CENTER" ellipsisString="" layoutX="6.0" layoutY="85.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="85.0" />
             <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="114.0" onAction="#clearEdges" prefHeight="31.0" prefWidth="85.0" styleClass="nodeInfo-button" stylesheets="@../css/general_button.css" text="Cancel" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -190,7 +196,10 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" onAction="#returnToMain" opacity="0.664" ripplerFill="RED" style="-fx-background-color: grey;" text="&lt;-- BACK" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+      <JFXButton buttonType="RAISED" onAction="#returnToMain" opacity="0.92" ripplerFill="RED" style="-fx-background-color: grey;" text="← BACK" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+         <font>
+            <Font size="16.0" />
+         </font></JFXButton>
       <AnchorPane layoutX="326.0" layoutY="10.0" prefHeight="100.0" prefWidth="788.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0">
          <children>
             <JFXButton fx:id="btnZoomOut" buttonType="RAISED" layoutX="77.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="49.0" prefWidth="48.0" styleClass="zoombutton" stylesheets="@../css/general_button.css" textAlignment="CENTER" AnchorPane.leftAnchor="77.0">
