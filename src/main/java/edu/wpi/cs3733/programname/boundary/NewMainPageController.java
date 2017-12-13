@@ -852,10 +852,9 @@ public class NewMainPageController extends UIController {
 
     public void openAdminHandler() throws IOException {
         System.out.println("In open admin handler");
-        //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/serv_UI.fxml"
+                        "/fxml/service_request_main.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -864,10 +863,9 @@ public class NewMainPageController extends UIController {
                         (Pane) loader.load()
                 )
         );
-        loader.<ServiceRequestManager>getController().initManager(manager);
+        loader.<ServiceRequestMainController>getController().initManager(manager);
         stage.show();
         managers.add(stage);
-
     }
 
     public void transportRequestHandler() throws IOException {
