@@ -32,6 +32,12 @@
                         <Accordion layoutX="748.0" layoutY="348.0" />
                   <JFXButton fx:id="crossFloor" buttonType="RAISED" layoutX="588.0" layoutY="345.0" onAction="#crossFloor" style="-fx-background-color: rgb(179, 236, 255, 0.7);" visible="false" />
                   <HBox layoutX="612.0" layoutY="471.0" prefHeight="100.0" prefWidth="200.0" />
+                  <AnchorPane layoutX="405.0" layoutY="37.0" prefHeight="99.0" prefWidth="160.0" style="-fx-background-color: rgb(255, 255, 255, 0.7);" AnchorPane.leftAnchor="405.0" AnchorPane.topAnchor="37.0">
+                     <children>
+                        <JFXComboBox fx:id="comboBuilding" layoutX="6.0" onAction="#setMap" prefHeight="39.0" prefWidth="123.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
+                        <JFXComboBox fx:id="comboFloors" layoutX="6.0" layoutY="50.0" onAction="#setMap" prefHeight="39.0" prefWidth="120.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
+                     </children>
+                  </AnchorPane>
                     </children>
                 </AnchorPane>
             </content>
@@ -47,12 +53,6 @@
                   </AnchorPane>
               </content>
             </TitledPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="403.0" prefHeight="99.0" prefWidth="142.0" style="-fx-background-color: rgb(255, 255, 255, 0.7);" AnchorPane.leftAnchor="413.0" AnchorPane.topAnchor="37.0">
-         <children>
-            <JFXComboBox fx:id="comboBuilding" layoutX="6.0" onAction="#setMap" prefHeight="39.0" prefWidth="123.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
-            <JFXComboBox fx:id="comboFloors" layoutX="6.0" layoutY="50.0" onAction="#setMap" prefHeight="39.0" prefWidth="120.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="keyLocationPane" prefHeight="363.0" prefWidth="24.0" AnchorPane.leftAnchor="322.0" AnchorPane.topAnchor="35.0">

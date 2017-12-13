@@ -510,7 +510,7 @@ public class NewMainPageController extends UIController {
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
         comboCharacter.setCellFactory(listView -> new NewMainPageController.ImageListCell());
         comboCharacter.setValue(walkingMan);
-        longNameIDStart = manager.queryNodeByLongName("");
+        longNameIDStart = manager.fuzzyQueryNodesByLongName("");
         longNameIDEnd = longNameIDStart;
         autoCompletionBindingStart = TextFields.bindAutoCompletion(startLocation,longNameIDStart);
         autoCompletionBindingEnd = TextFields.bindAutoCompletion(endLocation,longNameIDEnd);
@@ -948,6 +948,8 @@ public class NewMainPageController extends UIController {
                         loader.load()
                 )
         );
+        stage.setHeight(600);
+        stage.setWidth(815);
         stage.show();
         managers.add(stage);
 
