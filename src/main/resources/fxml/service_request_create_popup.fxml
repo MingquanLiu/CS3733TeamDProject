@@ -10,6 +10,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="507.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.CreateServiceRequestController">
@@ -26,7 +27,32 @@
                </FXCollections>
            </items>
        </JFXComboBox>
-       <JFXComboBox fx:id="comboLanguages" layoutX="87.0" layoutY="91.0" prefHeight="27.0" prefWidth="165.0" promptText="               -Language-">
+
+       <JFXComboBox fx:id="comboMaintenanceType" layoutX="85.0" layoutY="91.0" prefHeight="27.0" prefWidth="156.0" promptText="        -Maintenance Type-">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="cleaning" />
+                   <String fx:value="elevator" />
+                   <String fx:value="electricity" />
+                   <String fx:value="network" />
+                   <String fx:value="other" />
+               </FXCollections>
+           </items>
+       </JFXComboBox>
+
+       <JFXComboBox fx:id="comboTransportType" layoutX="85.0" layoutY="91.0" prefHeight="27.0" prefWidth="156.0" promptText="        -Transport Type-">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="wheelchair" />
+                   <String fx:value="stretcher" />
+                   <String fx:value="walking cane" />
+                   <String fx:value="bed" />
+                   <String fx:value="other" />
+               </FXCollections>
+           </items>
+       </JFXComboBox>
+
+       <JFXComboBox fx:id="comboLanguages" layoutX="85.0" layoutY="91.0" prefHeight="27.0" prefWidth="156.0" promptText="               -Language-">
            <items>
                <FXCollections fx:factory="observableArrayList">
                    <String fx:value="Mandarin" />
@@ -53,12 +79,17 @@
                <Font size="18.0" />
            </font>
        </Label>
-       <JFXButton fx:id="btnCurrentTime" buttonType="RAISED" layoutX="394.0" layoutY="424.0" style="-fx-background-color: #d2d2d2;" text="Current Time" />
-      <Label fx:id="lblNewRequestTitle" layoutX="278.0" layoutY="22.0" text="Create a Service Request" />
-      <JFXButton fx:id="btnNewInterpreter" layoutX="87.0" layoutY="53.0" text="Interpreter" />
-      <JFXButton fx:id="btnNewMaintenance" layoutX="308.0" layoutY="53.0" text="Maintenance" />
-      <JFXButton fx:id="btnNewTransportation" layoutX="535.0" layoutY="53.0" text="Transportation" />
-      <JFXTextField fx:id="txtSelectLocation" layoutX="368.0" layoutY="98.0" promptText="Request Location.." />
-      <JFXTextArea fx:id="txtDescription" layoutX="87.0" layoutY="202.0" promptText="Request Description..." />
+       <JFXButton fx:id="btnCurrentTime" buttonType="RAISED" layoutX="394.0" layoutY="424.0" onAction="#currentTimeButtonHandler" style="-fx-background-color: #d2d2d2;" text="Current Time" />
+      <Label fx:id="lblNewRequestTitle" layoutX="278.0" layoutY="21.0" text="Create a Service Request" />
+      <JFXTextField fx:id="txtSelectLocation" layoutX="368.0" layoutY="98.0" onKeyTyped="#fuzzyRequestLocation" promptText="Request Location.." />
+       <JFXTextField fx:id="txtTransportDestination" layoutX="368.0" layoutY="147.0" onKeyTyped="#fuzzyTransportDestination" promptText="Transport Destination..." />
+      <JFXTextArea fx:id="txtDescription" layoutX="99.0" layoutY="201.0" promptText="Request Description..." />
+      <HBox alignment="TOP_CENTER" layoutX="92.0" layoutY="52.0" prefHeight="27.0" prefWidth="528.0" spacing="100.0">
+         <children>
+            <JFXButton fx:id="btnNewInterpreter" onAction="#interpreterButtonHandler" text="Interpreter" />
+            <JFXButton fx:id="btnNewMaintenance" onAction="#maintenanceButtonHandler" text="Maintenance" />
+            <JFXButton fx:id="btnNewTransportation" onAction="#transportationButtonHandler" text="Transportation" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
