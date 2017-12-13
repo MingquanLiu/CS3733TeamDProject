@@ -7,36 +7,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.NewMapController">
+<AnchorPane fx:id="mainServicePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.NewMapController">
     <children>
-      <JFXTextField fx:id="floorName" layoutX="174.0" layoutY="111.0" prefHeight="39.0" prefWidth="154.0" />
-        <JFXTextField fx:id="buildingName" layoutX="193.0" layoutY="164.0" prefHeight="35.0" prefWidth="200.0" />
-      <JFXComboBox fx:id="floorNum" layoutX="405.0" layoutY="120.0" prefHeight="39.0" prefWidth="64.0" promptText="  L2" />
-        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="195.0" layoutY="244.0" onAction="#onSubmit" style="-fx-background-color: #d2d2d2;" text="Submit" />
-        <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="322.0" layoutY="244.0" onAction="#onCancelButton" style="-fx-background-color: #d2d2d2;" text="Cancel" />
-        <Label fx:id="imageName" layoutX="224.0" layoutY="41.0" text="Upload Image..." textAlignment="CENTER">
+      <JFXTextField fx:id="floorName" layoutX="184.0" layoutY="120.0" prefHeight="39.0" prefWidth="191.0" unFocusColor="WHITE" />
+        <JFXTextField fx:id="buildingName" layoutX="180.0" layoutY="180.0" prefHeight="35.0" prefWidth="200.0" unFocusColor="WHITE" />
+      <JFXComboBox fx:id="floorNum" focusColor="WHITE" layoutX="473.0" layoutY="120.0" prefHeight="39.0" prefWidth="64.0" promptText="  L2" unFocusColor="WHITE" />
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="520.0" layoutY="244.0" onAction="#onSubmit" style="-fx-background-color: #d2d2d2;" stylesheets="@../css/general_button.css" text="Submit" />
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="47.0" layoutY="244.0" onAction="#onCancelButton" style="-fx-background-color: #d2d2d2;" text="Cancel" />
+        <Label fx:id="imageName" layoutX="122.0" layoutY="74.0" text="Upload Image..." textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font size="15.0" />
             </font>
         </Label>
-        <Label layoutX="56.0" layoutY="179.0" text="Building Name:">
+        <Label layoutX="52.0" layoutY="184.0" text="Building Name:" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
       <JFXButton fx:id="uploadImage" buttonType="RAISED" layoutX="235.0" layoutY="72.0" onAction="#setPath" style="-fx-background-color: #d2d2d2;" text="Upload" />
-      <Label fx:id="addingType" layoutX="14.0" layoutY="14.0" text="Add a Building">
+      <Label fx:id="addingType" layoutX="243.0" layoutY="14.0" prefHeight="35.0" prefWidth="200.0" text="Add a Building" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="243.0" AnchorPane.rightAnchor="157.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="69.0" layoutY="126.0" prefHeight="27.0" prefWidth="106.0" text="Map Name:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="52.0" layoutY="126.0" prefHeight="27.0" prefWidth="122.0" text="Map Name:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="342.0" layoutY="126.0" text="Floor #" />
-      <Label fx:id="errUpload" layoutX="164.0" layoutY="18.0" prefHeight="19.0" prefWidth="356.0" textAlignment="CENTER" textFill="#e14545">
+      <Label layoutX="418.0" layoutY="142.0" text="Floor #" textFill="WHITE" />
+      <Label fx:id="errUpload" layoutX="149.0" layoutY="22.0" prefHeight="19.0" prefWidth="356.0" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="13.0" />
          </font></Label>
