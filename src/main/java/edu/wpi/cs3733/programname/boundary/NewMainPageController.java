@@ -224,6 +224,9 @@ public class NewMainPageController extends UIController {
     private Circle pathDot = new Circle();
     private NodeData closestNode; // this is needed in a few methods
 
+    // This is the group of lines used in text directions segment highlighting
+    private Group pathSubset;
+
     private AutoCompletionBinding<String> autoCompletionBindingStart;
     private AutoCompletionBinding<String> autoCompletionBindingEnd;
     private List<String> longNameIDStart;
@@ -531,6 +534,8 @@ public class NewMainPageController extends UIController {
         // This is the circle that appears when user hovers over a line
         panningPane.getChildren().add(pathDot);
 
+        pathSubset = new Group();
+
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
@@ -603,6 +608,7 @@ public class NewMainPageController extends UIController {
 
         }
         clearAnimations();
+        clearHighlightedSteps();
     }
     public void clearAnimations(){
         if(!transitions.isEmpty()) {
@@ -1075,6 +1081,7 @@ public class NewMainPageController extends UIController {
         showNodesOrEdges();
         if(currentPath != null){
             displayPath(currentPath);
+            goToDirection(null);
         }
     }
 
@@ -1202,11 +1209,84 @@ public class NewMainPageController extends UIController {
     }
 
     @FXML
+    private void highlightSteps(List<NodeData> subList) {
+        System.out.println("drawing path");
+        NodeData prev = subList.get(0);
+        int x = (int) (prev.getXCoord() * currentScale);
+        int y = (int) (prev.getYCoord() * currentScale);
+        System.out.println(x + ", " + y);
+
+        ArrayList<NodeData> thisFloorPath = new ArrayList<>();
+        ArrayList<Line> lines = new ArrayList<>();
+        int startIndex = -1;
+        for (int i = 1; i < subList.size(); i++) {
+            Line l = new Line();
+            NodeData n = subList.get(i);
+
+            if(i <= subList.size()-2){     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
+                NodeData nextNode = subList.get(i+1);
+//                if(!n.getFloor().equals(nextNode.getFloor())){
+//                    currentPathStartFloor = n.getFloor();
+//                    currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
+//                    currentPathGoalFloor = nextNode.getFloor();
+//                    currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
+////                        lblCrossFloor.setText("Proceed to Floor " + currentPathGoalFloor + System.lineSeparator()+ "From Floor " + currentPathStartFloor);
+////                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+////                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+////                        lblCrossFloor.setVisible(true);
+////                        lblCrossFloor.toFront();
+//                    crossFloor.setText("From floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
+//                    crossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
+//                    crossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
+//                    crossFloor.setVisible(true);
+//                    crossFloor.toFront();
+//                }
+            }
+
+            if(n.getFloor().equals(curFloor.getFloorNum())) {
+                System.out.println(n.getLongName());
+                if (prev.getFloor().equals(curFloor.getFloorNum())) {
+                    l.setStroke(Color.LIGHTGREEN.darker().saturate());
+                    l.setStrokeWidth(10.0 * currentScale);
+                    l.setStartX(prev.getXCoord() * currentScale);
+                    l.setStartY(prev.getYCoord() * currentScale);
+                    l.setEndX(n.getXCoord() * currentScale);
+                    l.setEndY(n.getYCoord() * currentScale);
+                    lines.add(l);
+                }
+            }
+            prev = n;
+        }
+        for(NodeData n:subList){
+            if(n.getFloor().equals(curFloor.getFloorNum())){
+                thisFloorPath.add(n);
+            }
+        }
+        if(thisFloorPath.size() > 0){
+            pathAnimation(thisFloorPath);
+        }
+        pathSubset.getChildren().addAll(lines);
+        panningPane.getChildren().add(pathSubset);
+    }
+
+    @FXML
+    private void clearHighlightedSteps() {
+        System.out.println("success remove");
+        Iterator iter = pathSubset.getChildren().iterator();
+        while (iter.hasNext()) {
+            Object o = iter.next();
+            iter.remove();
+        }
+        if(panningPane.getChildren().contains(pathSubset))
+            panningPane.getChildren().remove(pathSubset);
+    }
+
+    @FXML
     private void goToDirection(MouseEvent event) {
         TextDirection direction = (TextDirection) textDirections.getSelectionModel().getSelectedItem();
         try {
-            direction.getNodes();
-            // TODO: Draw an actual path
+            clearHighlightedSteps();
+            highlightSteps(direction.getNodes());
         } catch (NullPointerException e) {
             System.out.println("User selected nothing");
         }
