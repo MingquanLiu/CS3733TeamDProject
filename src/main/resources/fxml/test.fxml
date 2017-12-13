@@ -24,7 +24,7 @@
             <content>
                 <AnchorPane fx:id="panningPane" focusTraversable="true">
                     <children>
-                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" layoutX="-14.0" layoutY="-14.0" onMouseClicked="#onClickMap" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="-14.0">
+                        <ImageView fx:id="imgMap" fitHeight="4000.0" fitWidth="5000.0" focusTraversable="true" layoutX="-14.0" layoutY="-14.0" onMouseClicked="#onClickMap" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <image>
                                 <Image url="@../img/Floor_2.png" />
                             </image>
@@ -33,7 +33,6 @@
                         <Accordion layoutX="748.0" layoutY="348.0" />
                   <JFXButton fx:id="crossFloor" buttonType="RAISED" layoutX="588.0" layoutY="345.0" onAction="#crossFloor" style="-fx-background-color: rgb(179, 236, 255, 0.7);" visible="false" />
                   <HBox layoutX="612.0" layoutY="471.0" prefHeight="100.0" prefWidth="200.0" />
-                  <JFXButton fx:id="crossFloor" layoutX="588.0" layoutY="345.0" />
                   <Label fx:id="blueBathroom" layoutX="387.0" layoutY="168.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Bathrooms " textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="168.0" />
                   <Label fx:id="blueInfoDesk" layoutX="387.0" layoutY="588.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text="  View Info Desks " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="588.0" />
                   <Label fx:id="blueElevator" layoutX="386.0" layoutY="232.0" prefHeight="31.0" styleClass="blue-button-hover-label" stylesheets="@../css/general_button.css" text=" View Elevators " visible="false" AnchorPane.leftAnchor="387.0" AnchorPane.topAnchor="228.0" />
