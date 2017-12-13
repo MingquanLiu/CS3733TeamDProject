@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import java.lang.Integer?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="507.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.CreateServiceRequestController">
+   <children>
+
+       <JFXComboBox fx:id="comboSeverity" layoutX="89.0" layoutY="147.0" prefHeight="27.0" prefWidth="156.0" promptText="              -Severity-">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <Integer fx:value="1" />
+                   <Integer fx:value="2" />
+                   <Integer fx:value="3" />
+                   <Integer fx:value="4" />
+                   <Integer fx:value="5" />
+               </FXCollections>
+           </items>
+       </JFXComboBox>
+
+       <JFXComboBox fx:id="comboMaintenanceType" layoutX="85.0" layoutY="91.0" prefHeight="27.0" prefWidth="156.0" promptText="   -Maintenance Type-">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="cleaning" />
+                   <String fx:value="elevator" />
+                   <String fx:value="electricity" />
+                   <String fx:value="network" />
+                   <String fx:value="other" />
+               </FXCollections>
+           </items>
+       </JFXComboBox>
+
+       <JFXComboBox fx:id="comboTransportType" layoutX="85.0" layoutY="91.0" prefHeight="27.0" prefWidth="156.0" promptText="        -Transport Type-">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="wheelchair" />
+                   <String fx:value="stretcher" />
+                   <String fx:value="walking cane" />
+                   <String fx:value="bed" />
+                   <String fx:value="other" />
+               </FXCollections>
+           </items>
+       </JFXComboBox>
+
+       <JFXComboBox fx:id="comboLanguages" layoutX="85.0" layoutY="91.0" prefHeight="27.0" prefWidth="156.0" promptText="               -Language-">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="Mandarin" />
+                   <String fx:value="Cantonese" />
+                   <String fx:value="Spanish" />
+                   <String fx:value="French" />
+                   <String fx:value="German" />
+                   <String fx:value="Korean" />
+                   <String fx:value="Japanese" />
+                   <String fx:value="Russian" />
+                   <String fx:value="Hindi" />
+                   <String fx:value="Arabic" />
+                   <String fx:value="Portuguese" />
+                   <String fx:value="Bengali" />
+                   <String fx:value="other" />
+               </FXCollections>
+           </items>
+       </JFXComboBox>
+
+       <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="602.0" layoutY="424.0" onAction="#submitButtonHandler" style="-fx-background-color: #d2d2d2;" text="Submit" />
+       <JFXTimePicker fx:id="timePicker" layoutX="159.0" layoutY="424.0" prefHeight="27.0" prefWidth="228.0" />
+       <Label fx:id="lblReserveTime" layoutX="17.0" layoutY="426.0" text="Reserve a Time:">
+           <font>
+               <Font size="18.0" />
+           </font>
+       </Label>
+       <JFXButton fx:id="btnCurrentTime" buttonType="RAISED" layoutX="394.0" layoutY="424.0" onAction="#currentTimeButtonHandler" style="-fx-background-color: #d2d2d2;" text="Current Time" />
+      <Label fx:id="lblNewRequestTitle" layoutX="278.0" layoutY="21.0" text="Create a Service Request" />
+      <JFXTextField fx:id="txtSelectLocation" layoutX="368.0" layoutY="98.0" onKeyTyped="#fuzzyRequestLocation" promptText="Request Location.." />
+       <JFXTextField fx:id="txtTransportDestination" layoutX="368.0" layoutY="147.0" onKeyTyped="#fuzzyTransportDestination" promptText="Transport Destination..." />
+      <JFXTextArea fx:id="txtDescription" layoutX="99.0" layoutY="201.0" promptText="Request Description..." />
+      <HBox alignment="TOP_CENTER" layoutX="92.0" layoutY="52.0" prefHeight="27.0" prefWidth="528.0" spacing="100.0">
+         <children>
+            <JFXButton fx:id="btnNewInterpreter" onAction="#interpreterButtonHandler" style="-fx-background-color: lightgreen;" text="Interpreter" />
+            <JFXButton fx:id="btnNewMaintenance" onAction="#maintenanceButtonHandler" style="-fx-background-color: lightgreen;" text="Maintenance" />
+            <JFXButton fx:id="btnNewTransportation" onAction="#transportationButtonHandler" style="-fx-background-color: lightgreen;" text="Transportation" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

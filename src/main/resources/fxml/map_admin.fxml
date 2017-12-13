@@ -14,9 +14,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.programname.boundary.NewMapAdminUI">
@@ -74,7 +71,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeId" focusColor="#7396ff" layoutX="126.0" layoutY="36.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="36.0" />
+            <JFXTextField fx:id="textNodeId" focusColor="#7396ff" layoutX="126.0" layoutY="36.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="36.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="26.0" layoutY="102.0" text="Node Type:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -85,19 +82,19 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeFullName" focusColor="#7396ff" layoutX="140.0" layoutY="123.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="123.0" />
+            <JFXTextField fx:id="textNodeFullName" focusColor="#7396ff" layoutX="140.0" layoutY="123.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="123.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="24.0" layoutY="172.0" text="Short Name:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="248.0" AnchorPane.topAnchor="172.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeShortName" focusColor="#7396ff" layoutX="140.0" layoutY="155.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="155.0" />
+            <JFXTextField fx:id="textNodeShortName" focusColor="#7396ff" layoutX="140.0" layoutY="155.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="155.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="205.0" text="Location:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="205.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeLocation" focusColor="#7396ff" layoutX="140.0" layoutY="187.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="187.0" />
+            <JFXTextField fx:id="textNodeLocation" focusColor="#7396ff" layoutX="140.0" layoutY="187.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="187.0" />
             <Label alignment="CENTER" ellipsisString="" layoutX="25.0" layoutY="236.0" text="Building:" textAlignment="CENTER" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -113,37 +110,37 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textNodeTeamAssigned" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
-            <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="64.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="51.0" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="247.0" AnchorPane.topAnchor="325.0">
+            <JFXTextField fx:id="textNodeTeamAssigned" focusColor="#7396ff" layoutX="140.0" layoutY="286.0" prefHeight="31.0" prefWidth="191.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" unFocusColor="#fcfcfc" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="286.0" />
+            <JFXButton fx:id="btnAddNode" buttonType="RAISED" layoutX="71.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="87.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Add" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="325.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnDeleteNode" buttonType="RAISED" layoutX="145.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="72.0" text="Delete" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="145.0" AnchorPane.topAnchor="325.0">
+            <JFXButton fx:id="btnDeleteNode" buttonType="RAISED" layoutX="164.0" layoutY="325.0" onAction="#nodeInfoHandler" prefHeight="33.0" prefWidth="101.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Delete" textFill="#fcfcfc" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="97.0" AnchorPane.topAnchor="325.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnEditNode" buttonType="RAISED" layoutX="257.0" layoutY="326.0" onAction="#nodeInfoHandler" text="Edit" textFill="#fcfcfc" AnchorPane.leftAnchor="257.0" AnchorPane.topAnchor="326.0">
+            <JFXButton fx:id="btnEditNode" buttonType="RAISED" layoutX="267.0" layoutY="326.0" onAction="#nodeInfoHandler" prefHeight="31.0" prefWidth="81.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Edit" textFill="#fcfcfc" AnchorPane.leftAnchor="267.0" AnchorPane.topAnchor="326.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="btnSetDefaultLocation" buttonType="RAISED" layoutX="174.0" layoutY="357.0" onAction="#setDefaultLocationHandler" prefHeight="31.0" prefWidth="187.0" text="Set As Default Location" textFill="#fcfcfc" AnchorPane.leftAnchor="174.0" AnchorPane.topAnchor="357.0">
+            <JFXButton fx:id="btnSetDefaultLocation" buttonType="RAISED" layoutX="164.0" layoutY="357.0" onAction="#setDefaultLocationHandler" prefHeight="31.0" prefWidth="187.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Set As Default Location" textFill="#fcfcfc" AnchorPane.leftAnchor="164.0" AnchorPane.topAnchor="357.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="addEdgeNodeInfoBox" layoutX="70.0" layoutY="357.0" onAction="#addEdgeToList" text="Add Edge" textFill="#fcfcfc" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="204.0">
+            <JFXButton fx:id="addEdgeNodeInfoBox" buttonType="RAISED" layoutX="70.0" layoutY="357.0" onAction="#addEdgeToList" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Add Edge" textFill="#fcfcfc" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="204.0">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="comboTypes" focusColor="WHITE" layoutX="140.0" layoutY="82.0" prefHeight="39.0" prefWidth="187.0" unFocusColor="WHITE" />
-            <Label fx:id="lblCurrentBuilding" layoutX="141.0" layoutY="233.0" prefHeight="27.0" prefWidth="197.0" />
-            <Label fx:id="lblCurrentFloor" layoutX="141.0" layoutY="265.0" prefHeight="27.0" prefWidth="197.0" />
+            <JFXComboBox fx:id="comboTypes" focusColor="WHITE" layoutX="140.0" layoutY="82.0" prefHeight="39.0" prefWidth="187.0" style="-fx-background-color: #fcfcfc;" stylesheets="@../css/global_stylesheet.css" unFocusColor="WHITE" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" />
+            <Label fx:id="lblCurrentBuilding" layoutX="141.0" layoutY="233.0" prefHeight="27.0" prefWidth="197.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" />
+            <Label fx:id="lblCurrentFloor" layoutX="141.0" layoutY="265.0" prefHeight="27.0" prefWidth="197.0" styleClass="nodeInfoPane-text" stylesheets="@../css/global_stylesheet.css" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="24.0" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="89.0" prefWidth="138.0" AnchorPane.leftAnchor="272.0" AnchorPane.topAnchor="32.0">
+      <AnchorPane prefHeight="105.0" prefWidth="145.0" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="32.0">
          <children>
-            <JFXComboBox fx:id="comboBuilding" layoutX="75.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
-            <JFXComboBox fx:id="comboFloors" layoutX="75.0" layoutY="39.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="35.0" />
+            <JFXComboBox fx:id="comboBuilding" layoutX="22.0" layoutY="11.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0" />
+            <JFXComboBox fx:id="comboFloors" layoutX="-2.0" layoutY="77.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="edgeAddPane" opacity="0.64" prefHeight="158.0" prefWidth="230.0" style="-fx-background-color: grey;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="33.0">
@@ -157,65 +154,21 @@
             <Label fx:id="edgeNode1" alignment="CENTER" ellipsisString="" layoutY="42.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
             <Label alignment="CENTER" ellipsisString="" layoutY="63.0" prefHeight="27.0" prefWidth="85.0" text="Node Twoe:" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="63.0" />
             <Label fx:id="edgeNode2" alignment="CENTER" ellipsisString="" layoutX="5.0" layoutY="85.0" text="None" textAlignment="CENTER" textFill="#fcfcfc" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="84.0" />
-            <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="114.0" onAction="#clearEdges" prefHeight="31.0" prefWidth="85.0" style="-fx-background-color: grey;" text="Cancel" textFill="#fcfcfc">
+            <JFXButton buttonType="RAISED" layoutX="11.0" layoutY="114.0" onAction="#clearEdges" prefHeight="31.0" prefWidth="85.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Cancel" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="131.0" layoutY="114.0" onAction="#addEdge" prefHeight="31.0" prefWidth="85.0" style="-fx-background-color: grey;" text="Submit" textFill="#fcfcfc">
+            <JFXButton buttonType="RAISED" layoutX="131.0" layoutY="114.0" onAction="#addEdge" prefHeight="31.0" prefWidth="85.0" styleClass="button-admin-nodeInfoBox" stylesheets="@../css/general_button.css" text="Submit" textFill="#fcfcfc">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </JFXButton>
          </children>
       </AnchorPane>
-        <AnchorPane prefHeight="100.0" prefWidth="100.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
-            <children>
-                <GridPane layoutY="-2.0" prefHeight="120.0" prefWidth="467.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.79998779296875" minWidth="10.0" prefWidth="222.60000610351562" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <JFXButton fx:id="btnZoomIn" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@../css/general_button.css" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="Arial Black" size="58.0" />
-                            </font>
-                     <graphic>
-                        <JFXButton maxHeight="64.0" maxWidth="52.0" prefHeight="64.0" prefWidth="52.0">
-                           <styleClass>
-                              <String fx:value="button-zoom" />
-                              <String fx:value="button-zoom-in" />
-                           </styleClass>
-                        </JFXButton>
-                     </graphic>
-                  </JFXButton>
-                        <JFXButton fx:id="btnZoomOut" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="120.0" prefWidth="120.0" scaleX="0.5" scaleY="0.5" style="-fx-background-color: rgba(255,255,255,0.8);" styleClass="zoombutton" stylesheets="@../css/general_button.css" text="Button" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                            <font>
-                                <Font name="Arial Black" size="58.0" />
-                            </font>
-                     <graphic>
-                        <JFXButton maxHeight="66.0" maxWidth="64.0" prefHeight="66.0" prefWidth="64.0" stylesheets="@../css/general_button.css">
-                           <styleClass>
-                              <String fx:value="button-zoom" />
-                              <String fx:value="button-zoom-out" />
-                           </styleClass>
-                        </JFXButton>
-                     </graphic>
-                  </JFXButton>
-                        <Slider fx:id="slideZoom" blockIncrement="0.5" max="9.0" min="4.0" style="-fx-color: blue; -fx-control-inner-background: #1a75ff;" value="4.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    </children>
-                </GridPane>
-            </children>
-        </AnchorPane>
       <AnchorPane opacity="0.53" prefHeight="31.0" prefWidth="1382.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0">
          <children>
-            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="419.0" layoutY="2.0" prefHeight="31.0" prefWidth="516.0" text="Welcome to BW Hospital" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="419.0" AnchorPane.rightAnchor="450.0">
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="581.0" layoutY="1.0" prefHeight="31.0" prefWidth="336.0" text="Welcome to BW Hospital" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0">
                <font>
                   <Font name="Algerian" size="24.0" />
                </font>
@@ -238,6 +191,37 @@
          </children>
       </AnchorPane>
       <JFXButton buttonType="RAISED" onAction="#returnToMain" opacity="0.664" ripplerFill="RED" style="-fx-background-color: grey;" text="&lt;-- BACK" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+      <AnchorPane layoutX="326.0" layoutY="10.0" prefHeight="100.0" prefWidth="788.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0">
+         <children>
+            <JFXButton fx:id="btnZoomOut" buttonType="RAISED" layoutX="77.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="49.0" prefWidth="48.0" styleClass="zoombutton" stylesheets="@../css/general_button.css" textAlignment="CENTER" AnchorPane.leftAnchor="77.0">
+               <font>
+                  <Font name="Arial Black" size="58.0" />
+               </font>
+               <graphic>
+                  <JFXButton stylesheets="@../css/general_button.css">
+                     <styleClass>
+                        <String fx:value="button-zoom" />
+                        <String fx:value="button-zoom-out" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnZoomIn" buttonType="RAISED" layoutX="464.0" layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#zoomHandler" prefHeight="76.0" prefWidth="51.0" styleClass="zoombutton" stylesheets="@../css/general_button.css" textAlignment="CENTER" AnchorPane.rightAnchor="80.0">
+               <font>
+                  <Font name="Arial Black" size="58.0" />
+               </font>
+               <graphic>
+                  <JFXButton alignment="CENTER" stylesheets="@../css/general_button.css" textAlignment="CENTER">
+                     <styleClass>
+                        <String fx:value="button-zoom-in" />
+                        <String fx:value="button-zoom" />
+                     </styleClass>
+                  </JFXButton>
+               </graphic>
+            </JFXButton>
+            <Slider fx:id="slideZoom" blockIncrement="0.5" layoutX="127.0" layoutY="37.0" max="9.0" min="4.0" prefHeight="18.0" prefWidth="295.0" style="-fx-color: steelblue; -fx-control-inner-background: steelblue;" value="4.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0" />
+         </children>
+      </AnchorPane>
 
     </children>
 </AnchorPane>

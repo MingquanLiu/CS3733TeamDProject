@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.*;
+import com.sun.javafx.stage.StageHelper;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
@@ -87,6 +88,15 @@ public class NewMainPageController extends UIController {
     private JFXButton interpreterServiceRequest;
     @FXML
     private JFXButton transportationServiceRequest;
+    @FXML
+    private JFXButton serviceRequestManager;
+    @FXML
+    private JFXButton API;
+    @FXML
+    private JFXButton foodAPI;
+    @FXML
+    private JFXButton healthAPI;
+
     @FXML
     private CheckBox handicap;
     @FXML
@@ -212,7 +222,7 @@ public class NewMainPageController extends UIController {
     private double currentScale;
     private final double MAX_UI_WIDTH = 5000;
     private boolean serviceRequestSubjectClicked = false;
-
+    private boolean APIClicked = false;
 
     private Building curBuilding;
     private Floor curFloor;
@@ -246,6 +256,8 @@ public class NewMainPageController extends UIController {
 
     // This is the group of lines used in text directions segment highlighting
     private Group pathSubset;
+
+    private List<Stage> managers;
 
     private AutoCompletionBinding<String> autoCompletionBindingStart;
     private AutoCompletionBinding<String> autoCompletionBindingEnd;
@@ -529,7 +541,7 @@ public class NewMainPageController extends UIController {
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
         comboCharacter.setCellFactory(listView -> new NewMainPageController.ImageListCell());
         comboCharacter.setValue(walkingMan);
-        longNameIDStart = manager.queryNodeByLongName("");
+        longNameIDStart = manager.fuzzyQueryNodesByLongName("");
         longNameIDEnd = longNameIDStart;
         autoCompletionBindingStart = TextFields.bindAutoCompletion(startLocation,longNameIDStart);
         autoCompletionBindingEnd = TextFields.bindAutoCompletion(endLocation,longNameIDEnd);
@@ -551,10 +563,13 @@ public class NewMainPageController extends UIController {
 
         pathSubset = new Group();
 
+        managers = new ArrayList<>();
+
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
-        nodeInfoBox.setOpacity(OPACITY_SHOWN);
+        nodeInfoBox.setVisible(true);
+//        nodeInfoBox.setOpacity(OPACITY_SHOWN);
         textNodeId.setText(nodeData.getNodeID());
         textNodeType.setText(nodeData.getNodeType());
         textNodeBuilding.setText(nodeData.getBuilding());
@@ -582,7 +597,8 @@ public class NewMainPageController extends UIController {
         }
         enlargeNode(nodeData);
         setNodeDataToInfoPane(nodeData);
-        nodeInfoBox.setOpacity(OPACITY_SHOWN);
+        nodeInfoBox.setVisible(true);
+//        nodeInfoBox.setOpacity(OPACITY_SHOWN);
     }
 
     @Override
@@ -730,12 +746,7 @@ public class NewMainPageController extends UIController {
                         currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
                         currentPathGoalFloor = nextNode.getFloor();
                         currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
-//                        lblCrossFloor.setText("Proceed to Floor " + currentPathGoalFloor + System.lineSeparator()+ "From Floor " + currentPathStartFloor);
-//                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
-//                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
-//                        lblCrossFloor.setVisible(true);
-//                        lblCrossFloor.toFront();
-                        crossFloor.setText("From floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
+                        crossFloor.setText("From Floor " + currentPathGoalFloor + System.lineSeparator()+ "To Floor " + currentPathStartFloor);
                         crossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
                         crossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
                         crossFloor.setVisible(true);
@@ -768,29 +779,33 @@ public class NewMainPageController extends UIController {
             pathDrawings.addAll(lines);
             draggablePath.getChildren().addAll(lines);
             panningPane.getChildren().add(draggablePath);
+            crossFloor.toFront();
 
             //emailDirections.setVisible(true);
         }
     }
     public void crossFloor(){
         System.out.println("called crossFloor");
-        System.out.println(curFloor.getFloorName());
+        System.out.println(curFloor.getFloorNum());
         System.out.println(currentPathStartFloor);
         System.out.println(currentPathGoalFloor);
 
-        if(curFloor.getFloorName().equals(currentPathGoalFloor)){
-            for (Floor f:floors){
-                if(f.getFloorName().equals(currentPathStartFloor)){
-                    curFloor = f;
+        if(curFloor.getFloorNum().equals(currentPathGoalFloor)){
+
+            for (Floor f: curBuilding.getFloors()){
+                if(f.getFloorNum().equals(currentPathStartFloor)){
+                    comboFloors.setValue(f);
                     setMap();
+                    return;
                 }
             }
         }
-        else if(curFloor.getFloorName().equals(currentPathStartFloor)){
-            for (Floor f:floors){
-                if(f.getFloorName().equals(currentPathGoalFloor)){
-                    curFloor = f;
+        else if(curFloor.getFloorNum().equals(currentPathStartFloor)){
+            for (Floor f:curBuilding.getFloors()){
+                if(f.getFloorNum().equals(currentPathGoalFloor)){
+                    comboFloors.setValue(f);
                     setMap();
+                    return;
                 }
             }
         }
@@ -829,6 +844,11 @@ public class NewMainPageController extends UIController {
         }
         // Go back to the default view
         clearMain();
+        for(Stage stage: managers) {
+            stage.close();
+            stage.hide();
+        }
+        managers = new ArrayList<>();
     }
 
     public void mapEditHandler() {
@@ -854,10 +874,9 @@ public class NewMainPageController extends UIController {
 
     public void openAdminHandler() throws IOException {
         System.out.println("In open admin handler");
-        //showScene("/edu/wpi/cs3733/programname/boundary/serv_UI.fxml");
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/serv_UI.fxml"
+                        "/fxml/service_request_main.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -866,14 +885,15 @@ public class NewMainPageController extends UIController {
                         (Pane) loader.load()
                 )
         );
-        loader.<ServiceRequestManager>getController().initManager(manager);
+        loader.<ServiceRequestMainController>getController().initManager(manager);
         stage.show();
+        managers.add(stage);
     }
 
     public void transportRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/Transportation_Request_UI.fxml"
+                        "/fxml/service_request_create_popup.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -882,15 +902,16 @@ public class NewMainPageController extends UIController {
                         (Pane) loader.load()
                 )
         );
-        //TODO fix requests to use this controller
-        //loader.<Transportation_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        loader.<CreateServiceRequestController>getController().initManager(manager, Constants.TRANSPORTATION_REQUEST, employeeLoggedIn);
         stage.show();
+        managers.add(stage);
+
     }
 
     public void interpreterRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/Interpreter_Request_UI.fxml"
+                        "/fxml/service_request_create_popup.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -899,15 +920,16 @@ public class NewMainPageController extends UIController {
                         (Pane) loader.load()
                 )
         );
-        //TODO fix requests to use this controller
-        //loader.<Interpreter_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        loader.<CreateServiceRequestController>getController().initManager(manager, Constants.INTERPRETER_REQUEST, employeeLoggedIn);
         stage.show();
+        managers.add(stage);
+
     }
 
     public void maintenanceRequestHandler() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
-                        "/fxml/Maintenance_Request_UI.fxml"
+                        "/fxml/service_request_create_popup.fxml"
                 )
         );
         Stage stage = new Stage(StageStyle.DECORATED);
@@ -917,8 +939,10 @@ public class NewMainPageController extends UIController {
                 )
         );
         //TODO fix requests to use this controller
-        //loader.<Maintenance_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
+        loader.<CreateServiceRequestController>getController().initManager(manager, Constants.MAINTENANCE_REQUEST, employeeLoggedIn);
         stage.show();
+        managers.add(stage);
+
     }
 
     public void helpButtonHandler() throws IOException {
@@ -934,6 +958,8 @@ public class NewMainPageController extends UIController {
                 )
         );
         stage.show();
+        managers.add(stage);
+
     }
 
     public void aboutButtonHandler() throws IOException {
@@ -949,7 +975,11 @@ public class NewMainPageController extends UIController {
                         loader.load()
                 )
         );
+        stage.setHeight(600);
+        stage.setWidth(815);
         stage.show();
+        managers.add(stage);
+
     }
 
     public void closeNodeInfoHandler() {
@@ -1004,6 +1034,12 @@ public class NewMainPageController extends UIController {
                 }
             }
         });
+        for (Floor f:curBuilding.getFloors()){
+            if(currentPath.get(1).getFloor().equals(f.getFloorNum())){
+                comboFloors.setValue(f);
+                setMap();
+            }
+        }
         displayPath(currentPath);
 
         // TODO: Dan, sort these by floor
@@ -1034,6 +1070,7 @@ public class NewMainPageController extends UIController {
         JFXNodesList nodesList = new JFXNodesList();
         JFXNodesList nodesList1 = new JFXNodesList();
         JFXNodesList keyLocationNodeList = new JFXNodesList();
+        JFXNodesList APINodeList = new JFXNodesList();
         nodesList.addAnimatedNode(adminFeatureSubject, new Callback<Boolean, Collection<KeyValue>>() {
             @Override
             public Collection<KeyValue> call(Boolean expanded) {
@@ -1058,6 +1095,8 @@ public class NewMainPageController extends UIController {
             serviceRequestSubjectClicked = !serviceRequestSubjectClicked;
 
         });
+
+
         nodesList1.addAnimatedNode(serviceRequestSubject
                 , new Callback<Boolean, Collection<KeyValue>>() {
                     @Override
@@ -1073,9 +1112,38 @@ public class NewMainPageController extends UIController {
         nodesList1.addAnimatedNode(maintenanceServiceRequest);
         nodesList1.addAnimatedNode(transportationServiceRequest);
         nodesList1.setSpacing(10);
+
+        API.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+//            int i =serviceRequestSubject.getStyleClass().size();
+            if (APIClicked) {
+                API.getStyleClass().remove("color-button-serviceRequest");
+                API.getStyleClass().add("color-button-adminFeature");
+            } else {
+                API.getStyleClass().remove("color-button-adminFeature");
+                API.getStyleClass().add("color-button-serviceRequest");
+            }
+            APIClicked = !APIClicked;
+        });
+        APINodeList.addAnimatedNode(API
+                , new Callback<Boolean, Collection<KeyValue>>() {
+                    @Override
+                    public Collection<KeyValue> call(Boolean expanded) {
+                        return new ArrayList<KeyValue>() {
+                            {
+                                add(new KeyValue(API.rotateProperty(), expanded ? 0 : 270, Interpolator.EASE_BOTH));
+                            }
+                        };
+                    }
+                });
+        APINodeList.addAnimatedNode(foodAPI);
+        APINodeList.addAnimatedNode(healthAPI);
+        APINodeList.setSpacing(10);
+        APINodeList.setRotate(90);
 //        nodesList1.getTransforms().add(new Rotate(serviceRequestSubject.getLayoutX(),serviceRequestSubject.getLayoutY(),90));
         nodesList1.setRotate(90);
         nodesList.addAnimatedNode(nodesList1);
+        nodesList.addAnimatedNode(serviceRequestManager);
+        nodesList.addAnimatedNode(APINodeList);
         nodesList.setSpacing(10);
         adminFeaturePane.getChildren().add(nodesList);
         keyLocationNodeList.addAnimatedNode(keyLocationSubject, new Callback<Boolean, Collection<KeyValue>>() {
@@ -1198,7 +1266,7 @@ public class NewMainPageController extends UIController {
         int y = (int) e.getY();
         switch (selectingLocation) {
             case "":
-                nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+                nodeInfoBox.setVisible(false);
                 if(prevShowNode!=null) {
                     shrinkNode(prevShowNode);
                 }
@@ -1268,7 +1336,7 @@ public class NewMainPageController extends UIController {
                 System.out.println(n.getLongName());
                 if (prev.getFloor().equals(curFloor.getFloorNum())) {
                     l.setStroke(Color.LIGHTGREEN.darker().saturate());
-                    l.setStrokeWidth(10.0 * currentScale);
+                    l.setStrokeWidth(13.0 * currentScale);
                     l.setStartX(prev.getXCoord() * currentScale);
                     l.setStartY(prev.getYCoord() * currentScale);
                     l.setEndX(n.getXCoord() * currentScale);
@@ -1392,9 +1460,23 @@ public class NewMainPageController extends UIController {
                         (Pane) loader.load()
                 )
         );
+
         loader.<EmployeeManager>getController().initManager(this.manager);
         stage.show();
+        managers.add(stage);
     }
+    public void openManagerHandler(ActionEvent event){
+
+    }
+    public void healthAPIHandler(ActionEvent event){
+
+    }
+
+    public void foodAPIHandler(ActionEvent event){
+
+    }
+
+
     public void clearPathHandler(){
         clearPath();
     }

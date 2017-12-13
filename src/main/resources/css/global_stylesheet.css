@@ -9,6 +9,12 @@
     -fx-opacity: 70%;
 }
 
+.serviceTitleText {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+}
+
 .table-view{
     -fx-border-color: transparent;
 }
@@ -53,4 +59,7 @@
     -fx-background-color: rgba(0, 99, 181, 0.69);
     -fx-background-insets: 0;
     -fx-background-radius: 1;
+}
+.nodeInfoPane-text{
+    -fx-text-fill:#fcfcfc;
 }

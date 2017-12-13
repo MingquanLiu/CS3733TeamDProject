@@ -276,7 +276,7 @@ public class NewMapAdminUI extends UIController{
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
-                nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+                nodeInfoBox.setVisible(false);
                 if(prevShowNode!=null) {
                     shrinkNode(prevShowNode);
                 }
@@ -289,6 +289,7 @@ public class NewMapAdminUI extends UIController{
                     textNodeLocation.setText(UICToDBC(x, currentScale) +
                             "," + UICToDBC(y, currentScale));
                     setButtonVisibilityForAdd(true);
+                    nodeInfoBox.setVisible(true);
                     nodeInfoBox.setOpacity(OPACITY_SHOWN);
                 }
                 break;
@@ -334,65 +335,12 @@ public class NewMapAdminUI extends UIController{
         return mNode;
     }
 
-    //Locate Bathroom/ Service desk/ VendingMachine JFXButton Handler
-    public void locateHandler(ActionEvent event) {
-        Object mEvent = event.getSource();
-        String nodeType = "";
-
-        String keyLocationString = event.getClass().toString();
-        switch (keyLocationString) {
-            case "Bathrooms":
-                nodeType = "REST";
-                break;
-            case "Service Desks":
-                nodeType = "INFO";
-                break;
-            case "Retail Services":
-                nodeType = "RETL";
-                break;
-            case "Waiting Rooms":
-                nodeType = "DEPT";
-                break;
-            case "Elevators":
-                nodeType = "ELEV";
-                break;
-            case "Exits":
-                nodeType = "EXIT";
-                break;
-            case "Staircases":
-                nodeType = "STAI";
-                break;
-            case "Labs":
-                nodeType = "LABS";
-                break;
-            case "Additional Services":
-                nodeType = "SERV";
-                break;
-            case "All Locations":
-                //THIS IS NOT A REAL NODE TYPE ITS JUST TO ALLOW IT WORK
-                nodeType = "ALL";
-                break;
-            case "None":
-                nodeType = "None";
-                break;
-        }
-    }
 
     //map zooming method
     private void setZoom() {
-
         System.out.println("scale says: " + currentScale + " but slider says: " + slideZoom.getValue() / 10);
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
-        if (!(currentPath == null) && !currentPath.isEmpty()) {
-            List<NodeData> mPath = currentPath;
-            clearPath();
-            displayPath(mPath);
-        }
-
-        if (allNodesBox != null)
-            setCircleNodeListSizeAndLocation(currentNodes,currentScale);
-//            showNodesOrEdges();
-
+        showNodesOrEdges();
     }
 
 
@@ -567,6 +515,7 @@ public class NewMapAdminUI extends UIController{
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
+        nodeInfoBox.setVisible(true);
         nodeInfoBox.setOpacity(OPACITY_SHOWN);
         textNodeId.setText(nodeData.getNodeID());
         lblCurrentBuilding.setText(nodeData.getBuilding());
@@ -595,6 +544,7 @@ public class NewMapAdminUI extends UIController{
         }
     }
 
+
     private void showNodeList(List<NodeData> nodeDataList) {
         for (int i = 0; i < nodeDataList.size(); i++) {
             showNode(nodeDataList.get(i));
@@ -606,6 +556,12 @@ public class NewMapAdminUI extends UIController{
     }
 
     private void displayEdges(List<EdgeData> edges) {
+        if (drawings.size() > 0) {
+            for (Shape shape : drawings) {
+                panningPane.getChildren().remove(shape);
+            }
+            drawings = new ArrayList<>();
+        }
         for (EdgeData edge : edges) {
             NodeData node1 = getNode(edge.getStartNode());
             NodeData node2 = getNode(edge.getEndNode());
@@ -644,91 +600,6 @@ public class NewMapAdminUI extends UIController{
         edgeAddPane.setOpacity(OPACITY_NOT_SHOWN);
     }
 
-
-
-//    @FXML
-//    private void goToDirection(MouseEvent event) {
-//        TextDirection direction = (TextDirection) textDirections.getSelectionModel().getSelectedItem();
-//        try {
-//            direction.getNodes();
-//            // TODO: Draw an actual path
-//        } catch (NullPointerException e) {
-//            System.out.println("User selected nothing");
-//        }
-//    }
-
-    private void displayPath(List<NodeData> path) {
-        if (path != null && !path.isEmpty()) {
-            currentPath = path;
-            clearPath();
-            System.out.println("drawing path");
-            NodeData prev = path.get(0);
-            int x = (int) (prev.getXCoord() * currentScale);
-            int y = (int) (prev.getYCoord() * currentScale);
-            System.out.println(x + ", " + y);
-
-            ArrayList<Line> lines = new ArrayList<>();
-            for (int i = 1; i < path.size(); i++) {
-                Line l = new Line();
-                NodeData n = path.get(i);
-
-                if (i <= path.size() - 2) {     //has to be minus 2, so that you dont go to path.get(path.size()) since that wouldn't work
-                    NodeData nextNode = path.get(i + 1);
-                    String printFloor = "";
-                    if ((n.getNodeType().equals("ELEV") && nextNode.getNodeType().equals("ELEV")) ||
-                            (n.getNodeType().equals("STAI") && nextNode.getNodeType().equals("STAI"))) {
-                        for (int j = 1; j < path.size() - i; j++) {
-                            nextNode = path.get(i + j);
-                            if (!nextNode.getNodeType().equals(n.getNodeType())) {
-                                printFloor = n.getFloor();
-                                currentPathStartFloor = printFloor;
-                                currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
-                                currentPathGoalFloor = nextNode.getFloor();
-                                currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
-                            } else if (nextNode.equals(n)) {
-                                printFloor = n.getFloor();
-                                currentPathStartFloor = printFloor;
-                                currentStartFloorLoc = new Coordinate(n.getXCoord(), n.getYCoord());
-                                currentPathGoalFloor = nextNode.getFloor();
-                                currentGoalFloorLoc = new Coordinate(nextNode.getXCoord(), n.getYCoord());
-                            }
-                        }
-                        /*lblCrossFloor.setText("Proceed to Floor " + printFloor + "!");
-                        lblCrossFloor.setLayoutX(DBCToUIC(n.getXCoord(), currentScale));
-                        lblCrossFloor.setLayoutY(DBCToUIC(n.getYCoord(), currentScale));
-                        lblCrossFloor.setVisible(true);
-                        lblCrossFloor.toFront();*/
-                    }
-                }
-
-                if (n.getFloor().equals(curFloor.getFloorNum()) && prev.getFloor().equals(curFloor.getFloorNum())) {
-                    l.setStroke(Color.BLUE);
-                    l.setStrokeWidth(10.0 * currentScale);
-                    l.setStartX(prev.getXCoord() * currentScale);
-                    l.setStartY(prev.getYCoord() * currentScale);
-                    l.setEndX(n.getXCoord() * currentScale);
-                    l.setEndY(n.getYCoord() * currentScale);
-                    lines.add(l);
-                }
-                prev = n;
-            }
-            pathDrawings.addAll(lines);
-            m_draggableNode.getChildren().addAll(lines);
-            panningPane.getChildren().add(m_draggableNode);
-            //panningPane.getChildren().addAll(lines);
-            //emailDirections.setVisible(true);
-        }
-    }
-
-    ///
-    // helper functions
-    ///
-
-//    private void clearPathFindLoc() {
-//        endLocation.setText("");
-//        startLocation.setText("");
-//    }
-
     public void clearMain() {
         if(prevShowNode!=null)
         panningPane.getChildren().remove(prevShowNode.getCircle());
@@ -747,10 +618,11 @@ public class NewMapAdminUI extends UIController{
     private void clearPath() {
         //currentPath = new ArrayList<>();
         if (pathDrawings.size() > 0) {
-            panningPane.getChildren().remove(m_draggableNode);
+//            panningPane.getChildren().remove(m_draggableNode);
             for (Shape shape : pathDrawings) {
                 System.out.println("success remove");
-                m_draggableNode.getChildren().remove(shape);
+                panningPane.getChildren().remove(shape);
+//                m_draggableNode.getChildren().remove(shape);
             }
             currentPathStartFloor = "";
             currentPathGoalFloor = "";
@@ -917,7 +789,7 @@ public class NewMapAdminUI extends UIController{
         //sets the map, just in case we want it to start on another floor
         setMap();
         setZoom();
-        nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+        nodeInfoBox.setVisible(false);
         edgeAddPane.setOpacity(OPACITY_NOT_SHOWN);
 //        showNodesOrEdges();
 //        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), "Hospital");
@@ -1027,5 +899,8 @@ public class NewMapAdminUI extends UIController{
 
     public ScrollPane getPaneScroll() {
         return paneScroll;
+    }
+    public AnchorPane getAnchorPane() {
+        return panningPane;
     }
 }

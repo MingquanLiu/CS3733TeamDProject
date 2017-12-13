@@ -2,6 +2,8 @@ package edu.wpi.cs3733.programname.observer;
 
 import edu.wpi.cs3733.programname.boundary.NewMapAdminUI;
 import edu.wpi.cs3733.programname.commondata.NodeData;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
@@ -47,4 +49,14 @@ public class NewMapAdminNodeDataObserver extends Observer {
     public void enableScroll() {
         mainController.enablePaneScroll();
     }
+
+    public ScrollPane getScrollPane(){
+        return mainController.getPaneScroll();
+    }
+
+    public AnchorPane getAnchorPane(){
+        return mainController.getAnchorPane();
+    }
+
+
 }
