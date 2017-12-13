@@ -6,3 +6,5 @@ TestDB
 build
 .gradle
 csv
+HealthAPI
+hospitalAPIDB
