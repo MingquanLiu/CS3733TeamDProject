@@ -157,6 +157,14 @@ public class HelperFunction{
 
     }
 
+    public static void setCircleNodeController(NodeData nodeData, NewMainPageController newMainPageController){
+
+        NewMainPageNodeDataObserver newMainPageNodeDataObserver1 = new NewMainPageNodeDataObserver(newMainPageController
+                ,nodeData);
+        nodeData.setCircleMainPageOnClick(newMainPageNodeDataObserver1);
+
+    }
+
     public static List<NodeData> setCircleNodeListController(List<NodeData> mList, MapEditController mapEditController){
         for(NodeData nodeData: mList){
            // NewMapAdminNodeDataObserver mainDataObserver = new NewMapAdminNodeDataObserver(mapEditController
