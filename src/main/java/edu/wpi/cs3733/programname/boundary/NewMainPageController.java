@@ -246,6 +246,7 @@ public class NewMainPageController extends UIController {
 
 
 
+
     private ManageController manager;
     private double currentScale;
     private final double MAX_UI_WIDTH = 5000;
@@ -302,6 +303,9 @@ public class NewMainPageController extends UIController {
     private boolean showExits = false;
     private boolean showElevator = false;
     private boolean showBathrooms = false;
+    @FXML
+    private TitledPane paneDirections;
+
     public void StairsToggle() {
         resetKeyLocationShow();
         this.showStairs = !this.showStairs;
@@ -511,7 +515,7 @@ public class NewMainPageController extends UIController {
         manager = manageController;
         instantiateNodeList();
         currentScale = 0.4;
-
+        paneDirections.setExpanded(false);
 
         ////
         //MAP STUFF
@@ -604,6 +608,7 @@ public class NewMainPageController extends UIController {
 
         managers = new ArrayList<>();
 
+
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
@@ -623,6 +628,7 @@ public class NewMainPageController extends UIController {
         for (NodeData nodeData : currentNodes) {
             panningPane.getChildren().remove(nodeData.getCircle());
         }
+        paneDirections.setExpanded(false);
     }
 
     @Override
@@ -689,6 +695,8 @@ public class NewMainPageController extends UIController {
 
     private void clearPath() {
         //currentPath = new ArrayList<>();
+        startLocation.setText("");
+        endLocation.setText("");
         if (pathDrawings.size() > 0) {
             for (Shape shape : pathDrawings) {
                 System.out.println("success remove");
@@ -1092,6 +1100,7 @@ public class NewMainPageController extends UIController {
     }
 
     public void helpButtonHandler() throws IOException {
+
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(
                         "/fxml/FAQ_Popup.fxml"
@@ -1165,6 +1174,7 @@ public class NewMainPageController extends UIController {
             currentPath = new ArrayList<>();
         }
         TextDirections text = new TextDirections(currentPath);
+        paneDirections.setExpanded(true);
         ObservableList directionsList = FXCollections.observableList(new ArrayList<>());
         directionsList.addAll(text.getTextDirections());
         textDirections.setItems(directionsList);

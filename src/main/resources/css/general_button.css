@@ -300,7 +300,6 @@
 
 .left-side-shit {
     -fx-background-color: rgba(255,255,255,0.8);
-    -fx-border-color: transparent #3c3c1e transparent  transparent;
 }
 
 .blue-button-hover-label {
@@ -310,4 +309,10 @@
     -fx-background-radius: 3px;
     -fx-text-alignment: center;
     -fx-pref-width: computed;
+}
+
+.nodeInfo-button{
+    -fx-background-color: #505456;
+  -fx-border-color: white;
+  -fx-border-radius: 3px;
 }
