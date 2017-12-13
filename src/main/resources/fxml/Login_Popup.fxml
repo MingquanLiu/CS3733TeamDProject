@@ -51,7 +51,7 @@
                         </Label>
                         <JFXTextField fx:id="txtUser" maxWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="1" />
                         <JFXPasswordField fx:id="txtPass" maxWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#buttonHandler" styleClass="find-nearest-buttons" stylesheets="@../css/general_button.css" text="Submit" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#buttonHandler" styleClass="search-location-button" stylesheets="@../css/general_button.css" text="Submit" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <JFXButton fx:id="btnCancel" buttonType="RAISED" onAction="#closeButtonAction" styleClass="clear-location-button" stylesheets="@../css/general_button.css" text="Cancel" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                      </children>
                   </GridPane>

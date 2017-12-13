@@ -9,4 +9,5 @@
 
 .combo-box-popup > .list-view {
     -fx-pref-width: 65;
+    -fx-pref-height: 175;
 }

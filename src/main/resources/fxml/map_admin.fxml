@@ -196,7 +196,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" onAction="#returnToMain" opacity="0.664" ripplerFill="RED" style="-fx-background-color: grey;" text="←  BACK" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+      <JFXButton buttonType="RAISED" onAction="#returnToMain" opacity="0.92" ripplerFill="RED" style="-fx-background-color: grey;" text="← BACK" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font></JFXButton>

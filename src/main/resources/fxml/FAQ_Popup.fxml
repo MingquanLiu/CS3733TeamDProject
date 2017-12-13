@@ -44,7 +44,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d9ebf7;">
                            <children>
-                              <JFXTextArea fx:id="a4" focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="133.0" prefWidth="512.0" style="-fx-background-color: #d9ebf7;" text="You can change the building and floor from the two dropdowns at the top." unFocusColor="#4d4d4d00" />
+                              <JFXTextArea fx:id="a4" focusColor="#405aa800" layoutX="14.0" layoutY="14.0" prefHeight="133.0" prefWidth="512.0" style="-fx-background-color: #d9ebf7;" text="You can select floor from the top white dropdown" unFocusColor="#4d4d4d00" />
                            </children></AnchorPane>
                     </content>
                   </TitledPane>
