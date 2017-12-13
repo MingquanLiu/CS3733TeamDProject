@@ -952,16 +952,16 @@ public class NewMainPageController {
         updateZoomSlider();
         int ratioIndex = AppSettings.getInstance().getMapRatioIndex();
         if (e.getSource() == btnZoomOut) {
-            if (AppSettings.getInstance().getMapRatioIndex() == 0) {
-                return;
-            }
+//            if (AppSettings.getInstance().getMapRatioIndex() == 0) {
+//                return;
+//            }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex - 1);
             currentScale = Math.max(currentScale - .08, .4);
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
-            if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
-                return;
-            }
+//            if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
+//                return;
+//            }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex + 1);
             currentScale = Math.min(currentScale + .08, .9);
             imgMap.setFitWidth(maxWidth * currentScale);
