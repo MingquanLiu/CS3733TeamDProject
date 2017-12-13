@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.programname.boundary;
 
 import com.jfoenix.controls.*;
+import com.sun.javafx.stage.StageHelper;
 import edu.wpi.cs3733.programname.ManageController;
 import edu.wpi.cs3733.programname.commondata.*;
 import edu.wpi.cs3733.programname.pathfind.entity.InvalidNodeException;
@@ -224,6 +225,8 @@ public class NewMainPageController extends UIController {
 
     // This is the group of lines used in text directions segment highlighting
     private Group pathSubset;
+
+    private List<Stage> managers;
 
     private AutoCompletionBinding<String> autoCompletionBindingStart;
     private AutoCompletionBinding<String> autoCompletionBindingEnd;
@@ -529,6 +532,8 @@ public class NewMainPageController extends UIController {
 
         pathSubset = new Group();
 
+        managers = new ArrayList<>();
+
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
@@ -807,6 +812,11 @@ public class NewMainPageController extends UIController {
         }
         // Go back to the default view
         clearMain();
+        for(Stage stage: managers) {
+            stage.close();
+            stage.hide();
+        }
+        managers = new ArrayList<>();
     }
 
     public void mapEditHandler() {
@@ -846,6 +856,8 @@ public class NewMainPageController extends UIController {
         );
         loader.<ServiceRequestManager>getController().initManager(manager);
         stage.show();
+        managers.add(stage);
+
     }
 
     public void transportRequestHandler() throws IOException {
@@ -863,6 +875,8 @@ public class NewMainPageController extends UIController {
         //TODO fix requests to use this controller
         //loader.<Transportation_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
         stage.show();
+        managers.add(stage);
+
     }
 
     public void interpreterRequestHandler() throws IOException {
@@ -880,6 +894,8 @@ public class NewMainPageController extends UIController {
         //TODO fix requests to use this controller
         //loader.<Interpreter_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
         stage.show();
+        managers.add(stage);
+
     }
 
     public void maintenanceRequestHandler() throws IOException {
@@ -897,6 +913,8 @@ public class NewMainPageController extends UIController {
         //TODO fix requests to use this controller
         //loader.<Maintenance_Request>getController().initController(manager, this, employeeLoggedIn.getUsername());
         stage.show();
+        managers.add(stage);
+
     }
 
     public void helpButtonHandler() throws IOException {
@@ -912,6 +930,8 @@ public class NewMainPageController extends UIController {
                 )
         );
         stage.show();
+        managers.add(stage);
+
     }
 
     public void aboutButtonHandler() throws IOException {
@@ -928,6 +948,8 @@ public class NewMainPageController extends UIController {
                 )
         );
         stage.show();
+        managers.add(stage);
+
     }
 
     public void closeNodeInfoHandler() {
@@ -1246,7 +1268,7 @@ public class NewMainPageController extends UIController {
                 System.out.println(n.getLongName());
                 if (prev.getFloor().equals(curFloor.getFloorNum())) {
                     l.setStroke(Color.LIGHTGREEN.darker().saturate());
-                    l.setStrokeWidth(10.0 * currentScale);
+                    l.setStrokeWidth(13.0 * currentScale);
                     l.setStartX(prev.getXCoord() * currentScale);
                     l.setStartY(prev.getYCoord() * currentScale);
                     l.setEndX(n.getXCoord() * currentScale);
@@ -1370,8 +1392,11 @@ public class NewMainPageController extends UIController {
                         (Pane) loader.load()
                 )
         );
+
         loader.<EmployeeManager>getController().initManager(this.manager);
         stage.show();
+        managers.add(stage);
+
     }
     public void clearPathHandler(){
         clearPath();

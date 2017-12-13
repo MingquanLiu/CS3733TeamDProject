@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class About_Popup {
     @FXML
@@ -15,4 +16,5 @@ public class About_Popup {
 
     @FXML
     private Label title;
+
 }

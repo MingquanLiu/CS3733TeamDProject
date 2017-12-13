@@ -33,6 +33,7 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.logging.Level;
@@ -73,6 +74,7 @@ public class Main extends Application {
                         (Pane) loader.load()
                 )
         );
+        stage.setTitle("BWH Kiosk");
         stage.setOnCloseRequest(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Exit Kiosk");
@@ -169,15 +171,15 @@ public class Main extends Application {
                         }
                     } else {
                         if(AppSettings.getInstance().isSaveScreen()) {
-//                            FutureTask<Void> task = new FutureTask<>(() -> controller.reinitialize(), null);
-//                            Platform.runLater(task);
-//                            try {
-//                                task.get();
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            } catch (ExecutionException e) {
-//                                e.printStackTrace();
-//                            }
+                            FutureTask<Void> task = new FutureTask<>(() -> controller.reinitialize(), null);
+                            Platform.runLater(task);
+                            try {
+                                task.get();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }
                             frame.dispose();
                             AppSettings.getInstance().setSaveScreen(false);
                         }
