@@ -276,7 +276,7 @@ public class NewMapAdminUI extends UIController{
         switch (selectingLocation) {
             case "":
                 System.out.println("Get in findNodeData");
-                nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+                nodeInfoBox.setVisible(false);
                 if(prevShowNode!=null) {
                     shrinkNode(prevShowNode);
                 }
@@ -289,6 +289,7 @@ public class NewMapAdminUI extends UIController{
                     textNodeLocation.setText(UICToDBC(x, currentScale) +
                             "," + UICToDBC(y, currentScale));
                     setButtonVisibilityForAdd(true);
+                    nodeInfoBox.setVisible(true);
                     nodeInfoBox.setOpacity(OPACITY_SHOWN);
                 }
                 break;
@@ -514,6 +515,7 @@ public class NewMapAdminUI extends UIController{
     }
 
     private void setNodeDataToInfoPane(NodeData nodeData) {
+        nodeInfoBox.setVisible(true);
         nodeInfoBox.setOpacity(OPACITY_SHOWN);
         textNodeId.setText(nodeData.getNodeID());
         lblCurrentBuilding.setText(nodeData.getBuilding());
@@ -787,7 +789,7 @@ public class NewMapAdminUI extends UIController{
         //sets the map, just in case we want it to start on another floor
         setMap();
         setZoom();
-        nodeInfoBox.setOpacity(OPACITY_NOT_SHOWN);
+        nodeInfoBox.setVisible(false);
         edgeAddPane.setOpacity(OPACITY_NOT_SHOWN);
 //        showNodesOrEdges();
 //        currentNodes = manager.queryNodeByFloorAndBuilding(curFloor.getFloorNum(), "Hospital");
