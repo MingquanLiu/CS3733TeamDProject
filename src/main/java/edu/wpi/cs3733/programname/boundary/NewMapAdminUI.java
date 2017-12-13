@@ -334,65 +334,12 @@ public class NewMapAdminUI extends UIController{
         return mNode;
     }
 
-    //Locate Bathroom/ Service desk/ VendingMachine JFXButton Handler
-    public void locateHandler(ActionEvent event) {
-        Object mEvent = event.getSource();
-        String nodeType = "";
-
-        String keyLocationString = event.getClass().toString();
-        switch (keyLocationString) {
-            case "Bathrooms":
-                nodeType = "REST";
-                break;
-            case "Service Desks":
-                nodeType = "INFO";
-                break;
-            case "Retail Services":
-                nodeType = "RETL";
-                break;
-            case "Waiting Rooms":
-                nodeType = "DEPT";
-                break;
-            case "Elevators":
-                nodeType = "ELEV";
-                break;
-            case "Exits":
-                nodeType = "EXIT";
-                break;
-            case "Staircases":
-                nodeType = "STAI";
-                break;
-            case "Labs":
-                nodeType = "LABS";
-                break;
-            case "Additional Services":
-                nodeType = "SERV";
-                break;
-            case "All Locations":
-                //THIS IS NOT A REAL NODE TYPE ITS JUST TO ALLOW IT WORK
-                nodeType = "ALL";
-                break;
-            case "None":
-                nodeType = "None";
-                break;
-        }
-    }
 
     //map zooming method
     private void setZoom() {
-
         System.out.println("scale says: " + currentScale + " but slider says: " + slideZoom.getValue() / 10);
         imgMap.setFitWidth(MAX_UI_WIDTH * currentScale);
-
-//        if (allNodesBox != null)
-//            setCircleNodeListSizeAndLocation(currentNodes,currentScale);
-//        if(allEdgesBox!=null){
-//            if(currentEdges!=null&&!currentEdges.isEmpty()){
-//                displayEdges(currentEdges);
-//            }
-//        }
-            showNodesOrEdges();
-
+        showNodesOrEdges();
     }
 
 
@@ -950,5 +897,8 @@ public class NewMapAdminUI extends UIController{
 
     public ScrollPane getPaneScroll() {
         return paneScroll;
+    }
+    public AnchorPane getAnchorPane() {
+        return panningPane;
     }
 }

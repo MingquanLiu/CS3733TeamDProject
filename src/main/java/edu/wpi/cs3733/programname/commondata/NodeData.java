@@ -5,9 +5,11 @@ import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
 import edu.wpi.cs3733.programname.observer.NewMainPageNodeDataObserver;
 import edu.wpi.cs3733.programname.observer.NewMapAdminNodeDataObserver;
 import javafx.event.EventHandler;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -483,15 +485,18 @@ public class NodeData {
         circle.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-//                if(clicked){
-                    newMapAdminNodeDataObserver.disableScroll();
-                    System.out.println("Circle dragged");
-                    System.out.println("Scene X:"+event.getSceneX()+"Scene Y:"+event.getSceneY() +"Mouse X:"+event.getX()+"Mouse Y:"+event.getY());
-                     System.out.println("image translate x:" + ((Circle)(event.getSource())).getCenterX());
-                    circle.setCenterX(event.getSceneX());
-                    circle.setCenterY(event.getSceneY());
-                    System.out.println("Node X: "+getXCoord()+"Node Y: "+getNodeID());
-//                }
+                ScrollPane scrollPane = newMapAdminNodeDataObserver.getScrollPane();
+                AnchorPane anchorPane = newMapAdminNodeDataObserver.getAnchorPane();
+                newMapAdminNodeDataObserver.disableScroll();
+                System.out.println("Circle dragged");
+                System.out.println("Scene X:" + event.getSceneX() + "Scene Y:" + event.getSceneY() + "Mouse X:" + event.getX() + "Mouse Y:" + event.getY());
+//                System.out.println("image translate x:" + ((Circle) (event.getSource())).getCenterX());
+                System.out.println("Get hVal :" + scrollPane.getHvalue()+" Get vVal:"+scrollPane.getVvalue());
+                System.out.println("Height :" + scrollPane.viewportBoundsProperty().get().getHeight()+" Width:"+scrollPane.viewportBoundsProperty().get().getWidth());
+                System.out.println("HeightA :" + anchorPane.getHeight()+" WidthA:"+anchorPane.getWidth());
+                circle.setCenterX(event.getSceneX()+scrollPane.getHvalue()*(anchorPane.getWidth()-scrollPane.viewportBoundsProperty().get().getWidth()));
+                circle.setCenterY(event.getSceneY()+scrollPane.getVvalue()*(anchorPane.getHeight()-scrollPane.viewportBoundsProperty().get().getHeight()));
+                System.out.println("Node X: " + getXCoord() + "Node Y: " + getYCoord());
 //                    newMapAdminNodeDataObserver.update();
             }
         });
@@ -506,8 +511,11 @@ public class NodeData {
                     try {
                         //circle.setCenterX(event.getSceneX());
                         //circle.setCenterY(event.getSceneY());
-                        int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), newMapAdminNodeDataObserver.getMainController().getScale());
-                        int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), newMapAdminNodeDataObserver.getMainController().getScale());
+                        System.out.println("Circle X: "+circle.getCenterX()+" Circle Y:"+circle.getCenterY());
+//                        int dbX = HelperFunction.UICToDBC((int) event.getSceneX(), newMapAdminNodeDataObserver.getMainController().getScale());
+//                        int dbY = HelperFunction.UICToDBC((int) event.getSceneY(), newMapAdminNodeDataObserver.getMainController().getScale());
+                        int dbX = HelperFunction.UICToDBC((int) circle.getCenterX(), newMapAdminNodeDataObserver.getMainController().getScale());
+                        int dbY = HelperFunction.UICToDBC((int) circle.getCenterY(), newMapAdminNodeDataObserver.getMainController().getScale());
                         Coordinate newLoc = new Coordinate(dbX, dbY);
                         newMapAdminNodeDataObserver.getNodeData().setLocation(newLoc);
                         newMapAdminNodeDataObserver.enableScroll();
