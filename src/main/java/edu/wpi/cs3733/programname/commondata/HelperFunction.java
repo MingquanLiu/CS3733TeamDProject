@@ -3,6 +3,7 @@ package edu.wpi.cs3733.programname.commondata;
 import edu.wpi.cs3733.programname.boundary.*;
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
 import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
+import edu.wpi.cs3733.programname.observer.NewMainPageNodeDataObserver;
 import edu.wpi.cs3733.programname.observer.NewMapAdminNodeDataObserver;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
@@ -123,7 +124,14 @@ public class HelperFunction{
         }
         return mList;
     }
-
+    public static List<NodeData> setCircleNodeListController(List<NodeData> mList, NewMainPageController newMainPageController){
+        for(NodeData nodeData: mList){
+            NewMainPageNodeDataObserver newMainPageNodeDataObserver = new NewMainPageNodeDataObserver(newMainPageController
+                    ,nodeData);
+            nodeData.setCircleMainPageOnClick(newMainPageNodeDataObserver);
+        }
+        return mList;
+    }
 
 
 

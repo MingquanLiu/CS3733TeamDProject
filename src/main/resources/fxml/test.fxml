@@ -167,21 +167,31 @@
       <AnchorPane prefHeight="184.0" prefWidth="314.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="35.0">
          <children>
             <JFXTextField fx:id="startLocation" layoutX="111.0" layoutY="14.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="9.0" />
-            <JFXTextField fx:id="endLocation" layoutX="111.0" layoutY="60.0" onKeyTyped="#fuzzyStart" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="55.0" />
+            <JFXTextField fx:id="endLocation" layoutX="111.0" layoutY="60.0" onKeyTyped="#fuzzyEnd" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="55.0" />
             <Label layoutX="11.0" layoutY="14.0" prefHeight="31.0" prefWidth="100.0" text="Start Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="14.0" />
             <Label layoutX="11.0" layoutY="60.0" prefHeight="31.0" prefWidth="100.0" text="End Location:" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="60.0" />
-            <JFXButton buttonType="RAISED" layoutX="46.0" layoutY="104.0" onAction="#goButtonHandler" ripplerFill="#cff888" text="Search">
+            <JFXButton buttonType="RAISED" layoutX="47.0" layoutY="111.0" onAction="#goButtonHandler" ripplerFill="#cff888" text="Search">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="190.0" layoutY="104.0" onMouseClicked="#clearPathHandler" text="Clear">
+            <JFXButton buttonType="RAISED" layoutX="193.0" layoutY="111.0" onMouseClicked="#clearPathHandler" text="Clear">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
             </JFXButton>
-            <JFXCheckBox fx:id="handicap" layoutX="54.0" layoutY="142.0" text="Handicap" />
+            <JFXCheckBox fx:id="handicap" layoutX="45.0" layoutY="148.0" text="Handicap" />
             <JFXComboBox fx:id="comboCharacter" layoutX="201.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#selectCharacter" prefHeight="40.0" prefWidth="20.0" />
+            <JFXButton buttonType="RAISED" layoutX="17.0" layoutY="82.0" onAction="#BathroomSweepHandler" ripplerFill="#cff888" text="Find Bathroom">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="162.0" layoutY="82.0" onAction="#ElevatorSweepHandler" ripplerFill="#cff888" text="Find Elevator">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="adminFeaturePane" prefHeight="294.0" prefWidth="314.0" visible="false" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">

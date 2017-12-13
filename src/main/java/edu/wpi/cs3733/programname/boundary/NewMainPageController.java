@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
@@ -41,9 +42,10 @@ import java.util.*;
 
 import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_KEY_LOCATION_NOT_SHOWN;
 import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_KEY_LOCATION_SHOWN;
+import static edu.wpi.cs3733.programname.commondata.Constants.OPACITY_SHOWN;
 import static edu.wpi.cs3733.programname.commondata.HelperFunction.*;
 
-public class NewMainPageController {
+public class NewMainPageController extends UIController {
     //FXML objects
     //<editor-fold dsec="main panes">
     @FXML
@@ -136,17 +138,20 @@ public class NewMainPageController {
     @FXML
     private TextField textNodeTeamAssigned;
     @FXML
+    private AnchorPane nodeInfoBox;
+    @FXML
+    private TextField textNodeType;
+    @FXML
+    private TextField textNodeBuilding;
+    @FXML
+    private TextField textNodeFloor;
+    @FXML
     private JFXButton nodeInfoAdd;
     @FXML
     private JFXButton nodeInfoEdit;
     @FXML
     private JFXButton nodeInfoDelete;
-    @FXML
-    private Label lblCurrentBuilding;
-    @FXML
-    private Label lblCurrentFloor;
-    @FXML
-    private JFXComboBox comboTypes;
+
     @FXML
     private TextField startLocation;
     @FXML
@@ -180,6 +185,8 @@ public class NewMainPageController {
     private ImageView currentChar;
 
     private Stage stage;
+
+
 
     private ManageController manager;
     private double currentScale;
@@ -217,6 +224,10 @@ public class NewMainPageController {
     private Circle pathDot = new Circle();
     private NodeData closestNode; // this is needed in a few methods
 
+    private AutoCompletionBinding<String> autoCompletionBindingStart;
+    private AutoCompletionBinding<String> autoCompletionBindingEnd;
+    private List<String> longNameIDStart;
+    private List<String> longNameIDEnd;
 
     private boolean showStairs = false;
     private boolean showDestination = false;
@@ -426,6 +437,10 @@ public class NewMainPageController {
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
         comboCharacter.setCellFactory(listView -> new NewMainPageController.ImageListCell());
         comboCharacter.setValue(walkingMan);
+        longNameIDStart = manager.queryNodeByLongName("");
+        longNameIDEnd = longNameIDStart;
+        autoCompletionBindingStart = TextFields.bindAutoCompletion(startLocation,longNameIDStart);
+        autoCompletionBindingEnd = TextFields.bindAutoCompletion(endLocation,longNameIDEnd);
         currentNodes = manageController.queryNodeByFloorAndBuilding(curBuilding.getName(),curFloor.getFloorNum());
 
         // Initialize all mouse event callbacks for path dragging
@@ -438,7 +453,32 @@ public class NewMainPageController {
 
         // This is the circle that appears when user hovers over a line
         panningPane.getChildren().add(pathDot);
+
+        setCircleNodeListSizeAndLocation(setCircleNodeListController(initNodeListCircle(currentNodes), this), currentScale);
+
     }
+
+    private void setNodeDataToInfoPane(NodeData nodeData) {
+        nodeInfoBox.setOpacity(OPACITY_SHOWN);
+        textNodeId.setText(nodeData.getNodeID());
+        textNodeType.setText(nodeData.getNodeType());
+        textNodeBuilding.setText(nodeData.getBuilding());
+        textNodeFloor.setText(nodeData.getFloor());
+        textNodeFullName.setText(nodeData.getLongName());
+        textNodeLocation.setText(nodeData.getLocation().toString());
+        textNodeShortName.setText(nodeData.getShortName());
+        textNodeTeamAssigned.setText(nodeData.getTeamAssigned());
+    }
+    @Override
+    public void passNodeData(NodeData nodeData) throws IOException {
+
+    }
+
+    @Override
+    public void passEdgeData(EdgeData edgeData) {
+
+    }
+
     //path display/animation
     private class ImageListCell extends ListCell<Image> {
         private final ImageView view;
@@ -803,11 +843,12 @@ public class NewMainPageController {
 
     public void fuzzyStart() {
         String input = startLocation.getText();
-        List<String> longNameIDS = manager.queryNodeByLongName(input);
+        autoCompletionBindingStart.setUserInput(input);
+    }
 
-        TextFields.bindAutoCompletion(startLocation, longNameIDS);
-        TextFields.bindAutoCompletion(endLocation, longNameIDS);
-
+    public void fuzzyEnd() {
+        String input = endLocation.getText();
+        autoCompletionBindingEnd.setUserInput(input);
     }
 
     public void setUserName(String userName) {        this.userName = userName; }
@@ -969,16 +1010,16 @@ public class NewMainPageController {
         updateZoomSlider();
         int ratioIndex = AppSettings.getInstance().getMapRatioIndex();
         if (e.getSource() == btnZoomOut) {
-            if (AppSettings.getInstance().getMapRatioIndex() == 0) {
-                return;
-            }
+//            if (AppSettings.getInstance().getMapRatioIndex() == 0) {
+//                return;
+//            }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex - 1);
             currentScale = Math.max(currentScale - .08, .4);
             imgMap.setFitWidth(maxWidth * currentScale);
         } else {
-            if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
-                return;
-            }
+//            if (AppSettings.getInstance().getMapRatioIndex() == (slideZoom.getValue() - 1)) {
+//                return;
+//            }
             AppSettings.getInstance().setMapRatioIndex(ratioIndex + 1);
             currentScale = Math.min(currentScale + .08, .9);
             imgMap.setFitWidth(maxWidth * currentScale);
@@ -1025,10 +1066,10 @@ public class NewMainPageController {
 //                setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
                 showNodesOrEdges();
             }
-            if (lblCurrentBuilding != null) {
-                lblCurrentBuilding.setText(curBuilding.getName());
-                lblCurrentFloor.setText(curFloor.getFloorNum());
-            }
+//            if (lblCurrentBuilding != null) {
+//                lblCurrentBuilding.setText(curBuilding.getName());
+//                lblCurrentFloor.setText(curFloor.getFloorNum());
+//            }
             displayPath(currentPath);
         }
     }
@@ -1125,6 +1166,38 @@ public class NewMainPageController {
             adminFeaturePane.setVisible(true);
         }
         //stage.show();
+    }
+
+    public void BathroomSweepHandler() throws IOException{
+        System.out.println("Searching for nearest bathroom");
+        String startID = AppSettings.getInstance().getDefaultLocation();
+        String goalID = "REST";
+        try {
+            currentPath = manager.sweepPathfinder(startID,goalID, this.handicap.isSelected());
+        } catch (InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        } catch (NoPathException np) {
+            String id = np.startID;
+            currentPath = new ArrayList<>();
+        }
+        displayPath(currentPath);
+
+    }
+
+    public void ElevatorSweepHandler() throws IOException{
+        System.out.println("Searching for nearest elevator");
+        String startID = AppSettings.getInstance().getDefaultLocation();
+        String goalID = "ELEV";
+        try {
+            currentPath = manager.sweepPathfinder(startID,goalID, this.handicap.isSelected());
+        } catch (InvalidNodeException ine) {
+            currentPath = new ArrayList<>();
+        } catch (NoPathException np) {
+            String id = np.startID;
+            currentPath = new ArrayList<>();
+        }
+        displayPath(currentPath);
+
     }
 
     public void employeeButtonHandler(ActionEvent event) throws IOException {
