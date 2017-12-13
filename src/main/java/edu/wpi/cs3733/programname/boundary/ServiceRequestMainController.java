@@ -263,7 +263,7 @@ public class ServiceRequestMainController {
                     "/fxml/service_request_obj2.fxml"
             ));
             AnchorPane requestView = (AnchorPane) requestFXML.lookup("#serviceObj");
-            requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
+            //requestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
             updateRequestDetail(requestView, assigned, ASSIGNED);
             requestView.toFront();
             requestMasonryPane.getChildren().add(requestView);
@@ -282,7 +282,7 @@ public class ServiceRequestMainController {
                     "/fxml/service_request_obj2.fxml"
             ));
             AnchorPane completedRequestView = (AnchorPane) requestFXML.lookup("#serviceObj");
-            completedRequestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
+            //completedRequestView.setStyle("-fx-border-color: black; -fx-background-color: lightblue");
             updateRequestDetail(completedRequestView, completed, COMPLETED);
             completedRequestView.toFront();
             requestMasonryPane.getChildren().add(completedRequestView);
