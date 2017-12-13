@@ -138,7 +138,7 @@ public class Main extends Application {
 
                 while(true) {
                     // The world will never know why we need this line, but we do, so don't delete it
-                    System.currentTimeMillis();
+                    long a = System.currentTimeMillis();
                     // (I'm assuming it allows the internal timers to synchronize)
                     if((System.currentTimeMillis() - AppSettings.getInstance().getDelayTime()) > 0L) {
                         if(!AppSettings.getInstance().isSaveScreen()) {
@@ -163,7 +163,7 @@ public class Main extends Application {
                             gs.setFullScreenWindow(frame);
                             frame.validate();
                             frame.setVisible(true);
-                            frame.setAlwaysOnTop(true);
+//                            frame.setAlwaysOnTop(true);
                             frame.toFront();
                             AppSettings.getInstance().setSaveScreen(true);
                         }
