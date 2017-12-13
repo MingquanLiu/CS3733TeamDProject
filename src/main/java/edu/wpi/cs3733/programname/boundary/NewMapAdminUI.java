@@ -861,7 +861,7 @@ public class NewMapAdminUI extends UIController{
 
         manager = manageController;
 
-        currentScale = 0.3;
+        currentScale = 0.4;
 
         slideZoom.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov, Number oldVal, Number newVal) {
