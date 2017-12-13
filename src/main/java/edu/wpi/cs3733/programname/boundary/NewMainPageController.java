@@ -215,6 +215,12 @@ public class NewMainPageController extends UIController {
     private Label blueWaitingRoom;
     @FXML
     private Label blueInfoDesk;
+    @FXML
+    private JFXButton btnSendEmailDirections;
+    @FXML
+    private JFXTextField txtEmailAddress;
+
+
 
 
     private ManageController manager;
@@ -1567,7 +1573,34 @@ public class NewMainPageController extends UIController {
             currentPath = new ArrayList<>();
         }
         displayPath(currentPath);
+    }
 
+    public void sendEmailButtonHandler() {
+        String email = txtEmailAddress.getText();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error!");
+        alert.setHeaderText("Error sending email!");
+        if (email == null || email == "") {
+            alert.setContentText("Please enter your email address!");
+            alert.showAndWait();
+        }
+        else if (!validEmail(email)) {
+            alert.setContentText("Please enter a valid email address!");
+            alert.showAndWait();
+        }
+        else {
+            this.manager.sendTextDirectionsEmail(currentPath, email);
+            txtEmailAddress.clear();
+        }
+    }
+
+    private boolean validEmail(String email){
+        boolean check = true;
+        if(!(email.contains("@") &&
+                (email.contains(".com")||email.contains(".edu")||email.contains(".org")))) {
+            check = false;
+        }
+        return check;
     }
 
     public void employeeButtonHandler(ActionEvent event) throws IOException {

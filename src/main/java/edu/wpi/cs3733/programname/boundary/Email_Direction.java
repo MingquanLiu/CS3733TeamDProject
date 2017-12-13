@@ -51,7 +51,6 @@ public class Email_Direction {
                 (email.contains(".com")||email.contains(".edu")||email.contains(".org")))) {
             check = false;
         }
-
         return check;
     }
 }
