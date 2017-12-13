@@ -2,6 +2,7 @@ package edu.wpi.cs3733.programname.commondata;
 
 import edu.wpi.cs3733.programname.observer.MainUINodeDataObserver;
 import edu.wpi.cs3733.programname.observer.MapAdminNodeDataObserver;
+import edu.wpi.cs3733.programname.observer.NewMainPageNodeDataObserver;
 import edu.wpi.cs3733.programname.observer.NewMapAdminNodeDataObserver;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -528,6 +529,19 @@ public class NodeData {
             public void handle(MouseEvent event) {
                 try {
                         newMapAdminNodeDataObserver.update();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    public void setCircleMainPageOnClick(NewMainPageNodeDataObserver newMainPageNodeDataObserver) {
+        newMainPageNodeDataObserver.setNodeData(this);
+        circle.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    newMainPageNodeDataObserver.update();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

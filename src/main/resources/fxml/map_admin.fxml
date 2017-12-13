@@ -140,20 +140,10 @@
             <Label fx:id="lblCurrentFloor" layoutX="141.0" layoutY="265.0" prefHeight="27.0" prefWidth="197.0" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="89.0" prefWidth="220.0" AnchorPane.leftAnchor="272.0" AnchorPane.topAnchor="32.0">
+      <AnchorPane prefHeight="89.0" prefWidth="138.0" AnchorPane.leftAnchor="272.0" AnchorPane.topAnchor="32.0">
          <children>
-            <JFXComboBox fx:id="comboBuilding" layoutX="75.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="0.0" />
-            <JFXComboBox fx:id="comboFloors" layoutX="75.0" layoutY="39.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="35.0" />
-            <Label layoutX="12.0" layoutY="12.0" prefHeight="25.0" prefWidth="65.0" text="Building:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="12.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="26.0" layoutY="44.0" prefHeight="25.0" prefWidth="50.0" text="Floor:">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
+            <JFXComboBox fx:id="comboBuilding" layoutX="75.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
+            <JFXComboBox fx:id="comboFloors" layoutX="75.0" layoutY="39.0" onAction="#setMap" prefHeight="39.0" prefWidth="145.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="35.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="edgeAddPane" opacity="0.64" prefHeight="158.0" prefWidth="230.0" style="-fx-background-color: grey;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="33.0">
