@@ -578,7 +578,7 @@ public class NewMainPageController extends UIController {
         characters.add(walkingMan);
         characters.add(runningBatman);
         characters.add(runningCat);
-        //characters.add(wong);
+        characters.add(wong);
 
         comboCharacter.getItems().addAll(characters);
         comboCharacter.setButtonCell(new NewMainPageController.ImageListCell());
