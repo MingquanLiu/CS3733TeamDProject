@@ -1,24 +1,16 @@
 package edu.wpi.cs3733.programname;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import edu.wpi.cs3733.programname.boundary.NewMainPageController;
-import edu.wpi.cs3733.programname.boundary.NewMapAdminUI;
-import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.commondata.AppSettings;
 import edu.wpi.cs3733.programname.database.CsvReader;
 import edu.wpi.cs3733.programname.database.DBConnection;
 import edu.wpi.cs3733.programname.database.RunScript;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,10 +22,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.logging.Level;
@@ -88,12 +77,8 @@ public class Main extends Application {
                 event.consume();
             }
         });
-        if (toUse.equals("home_screen"))
-            loader.<TestingController>getController().initManager(manageController);
-        else {
-            loader.<NewMainPageController>getController().initManager(manageController);
-            loader.<NewMainPageController>getController().passStage(stage);
-        }
+        loader.<NewMainPageController>getController().initManager(manageController);
+        loader.<NewMainPageController>getController().passStage(stage);
         initThread(loader.<NewMainPageController>getController());
         stage.show();
         return stage;

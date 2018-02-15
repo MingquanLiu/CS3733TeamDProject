@@ -425,8 +425,6 @@ public class NewMapAdminUI extends UIController {
 
                 Image newImg = new Image(newUrl);
                 imgMap.setImage(newImg);
-
-                setNodeListImageVisibility(false, setNodeListController(setNodeListSizeAndLocation(initNodeListImage(currentNodes), currentScale), this));
                 showNodesOrEdges();
 
             }

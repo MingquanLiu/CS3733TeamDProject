@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.programname.database;
 
 import edu.wpi.cs3733.programname.boundary.observers.AbsObserver;
-import edu.wpi.cs3733.programname.boundary.observers.MapObserver;
 
 import java.util.ArrayList;
 

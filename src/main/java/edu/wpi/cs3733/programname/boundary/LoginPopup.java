@@ -21,7 +21,6 @@ public class LoginPopup {
 
     private ManageController manager;
     boolean succesfulLogin;
-    private TestingController testingController;
     private NewMainPageController newMainPageController;
     
 
@@ -54,11 +53,6 @@ public class LoginPopup {
     }
     public boolean getLoggedIn(){
         return succesfulLogin;
-    }
-    public void initManager(ManageController manageController,TestingController testingController){
-        System.out.println("init For Login");
-        manager = manageController;
-        this.testingController = testingController;
     }
 
     public void initManager(ManageController manageController,NewMainPageController newMainPageController){

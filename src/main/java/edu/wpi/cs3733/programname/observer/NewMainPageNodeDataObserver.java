@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.programname.observer;
 
 import edu.wpi.cs3733.programname.boundary.NewMainPageController;
-import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.commondata.NodeData;
 
 import java.io.IOException;

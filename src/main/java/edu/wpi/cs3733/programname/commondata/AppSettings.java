@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.programname.commondata;
 
-import edu.wpi.cs3733.programname.boundary.Floor;
-import edu.wpi.cs3733.programname.boundary.TestingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController;
 import edu.wpi.cs3733.programname.pathfind.PathfindingController.searchType;
 
