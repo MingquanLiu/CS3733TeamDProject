@@ -5,15 +5,15 @@ apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = '3.2'
+version = '4.0'
 
 task makeJar(type: Jar) {
     manifest {
-        attributes 'Implementation-Title': "CS3733TeamDProject-Iteration2",
+        attributes 'Implementation-Title': "CS3733TeamDProject-Iteration4",
                 'Implementation-Version': version,
                 'Main-Class': 'edu.wpi.cs3733.programname.Main'
     }
-    baseName = project.name + '-all'
+    baseName = project.name
     from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
@@ -31,7 +31,8 @@ dependencies {
             [group: 'javax.mail', name: 'mail', version:'1.4'],
             [group: 'javax.activation', name: 'activation' , version:'1.1.1'],
             [group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'],
-            [group: 'com.1stleg', name: 'jnativehook', version: '2.1.0']
+            [group: 'com.1stleg', name: 'jnativehook', version: '2.1.0'],
+            fileTree(dir: 'libs', include: '*.jar')
     )
     testCompile(
             [group: 'junit', name: 'junit', version: '4.11'],
